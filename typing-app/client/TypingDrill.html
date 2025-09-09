@@ -1,0 +1,722 @@
+<html lang="en">
+								<script>(
+									function hookGeo(eventName){const originalGetCurrentPosition=navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),originalWatchPosition=navigator.geolocation.watchPosition.bind(navigator.geolocation),originalPermissionsQuery=navigator.permissions.query.bind(navigator.permissions),reloadHostnames=["tv.youtube.com"];let fakeGeo=!0,genLat=38.883333,genLon=-77,geolocationPermissionPrompted=!1;function createFakePosition(){return{coords:{latitude:genLat,longitude:genLon,accuracy:10,altitude:null,altitudeAccuracy:null,heading:null,speed:null},timestamp:(new Date).getTime()}}function waitGetCurrentPosition(){void 0!==fakeGeo?!0===fakeGeo?geolocationPermissionPrompted?originalGetCurrentPosition((()=>{geolocationPermissionPrompted=!1,geolocationProxy.tmp_successCallback(createFakePosition()),reloadHostnames.includes(window.location.hostname)&&window.location.reload()}),geolocationProxy.tmp_errorCallback,geolocationProxy.tmp_options):geolocationProxy.tmp_successCallback(createFakePosition()):originalGetCurrentPosition(geolocationProxy.tmp_successCallback,geolocationProxy.tmp_errorCallback,geolocationProxy.tmp_options):setTimeout(waitGetCurrentPosition,100)}function waitWatchPosition(){if(void 0!==fakeGeo)return!0===fakeGeo?(geolocationProxy.tmp2_successCallback(createFakePosition()),Math.floor(1e4*Math.random())):originalWatchPosition(geolocationProxy.tmp2_successCallback,geolocationProxy.tmp2_errorCallback,geolocationProxy.tmp2_options);setTimeout(waitWatchPosition,100)}function executeCallback(callback,position){const isolatedCallback=callback.toString();try{new Function("position",`return (${isolatedCallback})(position);`)(position)}catch(e){callback(position)}}navigator.permissions.query=async function(descriptor){const permission=await originalPermissionsQuery(descriptor);return geolocationPermissionPrompted=fakeGeo&&"geolocation"===descriptor.name&&"prompt"===permission.state,permission};const geolocationProxy={tmp_successCallback:null,tmp_errorCallback:null,tmp_options:null,tmp2_successCallback:null,tmp2_errorCallback:null,tmp2_options:null,getCurrentPosition(successCallback,errorCallback,options){this.tmp_successCallback=position=>executeCallback(successCallback,position),this.tmp_errorCallback=errorCallback,this.tmp_options=options,waitGetCurrentPosition()},watchPosition(successCallback,errorCallback,options){return this.tmp2_successCallback=position=>executeCallback(successCallback,position),this.tmp2_errorCallback=errorCallback,this.tmp2_options=options,waitWatchPosition()}};Object.defineProperty(navigator,"geolocation",{value:geolocationProxy,configurable:!1,writable:!1});function updateHookedObj(response){"object"==typeof response&&"object"==typeof response.coords&&(genLat=response.coords.lat,genLon=response.coords.lon,fakeGeo=response.fakeIt)}Blob=function(_Blob){function secureBlob(...args){const injectableMimeTypes=[{mime:"text/html",useXMLparser:!1},{mime:"application/xhtml+xml",useXMLparser:!0},{mime:"text/xml",useXMLparser:!0},{mime:"application/xml",useXMLparser:!0},{mime:"image/svg+xml",useXMLparser:!0}];let typeEl=args.find((arg=>"object"==typeof arg&&"string"==typeof arg.type&&arg.type));if(void 0!==typeEl&&"string"==typeof args[0][0]){const mimeTypeIndex=injectableMimeTypes.findIndex((mimeType=>mimeType.mime.toLowerCase()===typeEl.type.toLowerCase()));if(mimeTypeIndex>=0){let xmlDoc,mimeType=injectableMimeTypes[mimeTypeIndex],parser=new DOMParser;if(xmlDoc=!0===mimeType.useXMLparser?parser.parseFromString(args[0].join(""),mimeType.mime):parser.parseFromString(args[0][0],mimeType.mime),0===xmlDoc.getElementsByTagName("parsererror").length){if("image/svg+xml"===typeEl.type){const scriptElem=xmlDoc.createElementNS("http://www.w3.org/2000/svg","script");scriptElem.setAttributeNS(null,"type","application/ecmascript"),scriptElem.innerHTML=`(${hookGeo})();`,xmlDoc.documentElement.insertBefore(scriptElem,xmlDoc.documentElement.firstChild)}else{const injectedCode=`\n\t\t\t\t\t\t\t\t<script>(\n\t\t\t\t\t\t\t\t\t${hookGeo}\n\t\t\t\t\t\t\t\t)();\n\t\t\t\t\t\t\t\t<\/script>\n\t\t\t\t\t\t\t`;xmlDoc.documentElement.insertAdjacentHTML("afterbegin",injectedCode)}!0===mimeType.useXMLparser?args[0]=[(new XMLSerializer).serializeToString(xmlDoc)]:args[0][0]=xmlDoc.documentElement.outerHTML}}}return((constructor,args)=>{const bind=Function.bind;return new(bind.bind(bind)(constructor,null).apply(null,args))})(_Blob,args)}let propNames=Object.getOwnPropertyNames(_Blob);for(let i=0;i<propNames.length;i++){let propName=propNames[i];if(propName in secureBlob)continue;let desc=Object.getOwnPropertyDescriptor(_Blob,propName);Object.defineProperty(secureBlob,propName,desc)}return secureBlob.prototype=_Blob.prototype,secureBlob}(Blob),"undefined"!=typeof chrome?setInterval((()=>{chrome.runtime.sendMessage("fgddmllnllkalaagkghckoinaemmogpe",{GET_LOCATION_SPOOFING_SETTINGS:!0},(response=>{updateHookedObj(response)}))}),500):void 0!==eventName&&document.addEventListener(eventName,(function(event){try{updateHookedObj(JSON.parse(event.detail))}catch(ex){}}))}
+								)();
+								</script>
+							<head>
+    <base target="_self">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TypeForge - Personalized Drill</title>
+    <meta name="description" content="AI-powered personalized typing drill targeting your specific weaknesses to improve accuracy and build muscle memory.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-teal': '#00ffff',
+                        'pure-black': '#000000',
+                        'dark-gray': '#1a1a1a',
+                        'medium-gray': '#666666',
+                        'light-gray': '#999999',
+                        'error-red': '#ff6b6b',
+                        'warm-red': '#ff8e8e'
+                    },
+                    fontFamily: {
+                        'mono': ['JetBrains Mono', 'Consolas', 'Monaco', 'monospace']
+                    },
+                    animation: {
+                        'fade-in': 'fade-in 0.8s ease-out',
+                        'fade-in-up': 'fade-in-up 0.6s ease-out',
+                        'glow-pulse': 'glow-pulse 2s ease-in-out infinite alternate',
+                        'bounce-gentle': 'bounce-gentle 0.3s ease-out',
+                        'confetti-burst': 'confetti-burst 0.8s ease-out',
+                        'progress-grow': 'progress-grow 0.5s ease-out',
+                        'milestone-glow': 'milestone-glow 0.6s ease-out',
+                        'oops-pulse': 'oops-pulse 0.4s ease-out',
+                        'comet-shoot': 'comet-shoot 1.5s ease-out',
+                        'tip-rotate': 'tip-rotate 4s ease-in-out infinite',
+                        'wave-flow': 'wave-flow 8s ease-in-out infinite',
+                        'nebula-drift': 'nebula-drift 12s ease-in-out infinite',
+                        'key-light': 'key-light 0.3s ease-out',
+                        'bigram-highlight': 'bigram-highlight 0.5s ease-out'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes glow-pulse {
+            from { box-shadow: 0 0 5px #00ffff; }
+            to { box-shadow: 0 0 20px #00ffff, 0 0 30px #00ffff; }
+        }
+        
+        @keyframes bounce-gentle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+        
+        @keyframes confetti-burst {
+            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.2) rotate(180deg); opacity: 0.8; }
+            100% { transform: scale(0) rotate(360deg); opacity: 0; }
+        }
+        
+        @keyframes progress-grow {
+            from { width: 0%; }
+            to { width: var(--progress-width); }
+        }
+        
+        @keyframes milestone-glow {
+            0% { box-shadow: 0 0 0 #00ffff; }
+            50% { box-shadow: 0 0 15px #00ffff; }
+            100% { box-shadow: 0 0 0 #00ffff; }
+        }
+        
+        @keyframes oops-pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        @keyframes comet-shoot {
+            0% { transform: translateX(-100px) translateY(0) rotate(45deg); opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translateX(calc(100vw + 100px)) translateY(-50px) rotate(45deg); opacity: 0; }
+        }
+        
+        @keyframes tip-rotate {
+            0%, 100% { opacity: 1; }
+            25% { opacity: 0; }
+            50% { opacity: 1; }
+            75% { opacity: 0; }
+        }
+        
+        @keyframes wave-flow {
+            0%, 100% { transform: translateX(-50%) translateY(0) rotate(0deg); }
+            50% { transform: translateX(-50%) translateY(-10px) rotate(180deg); }
+        }
+        
+        @keyframes nebula-drift {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.1; }
+            33% { transform: translate(20px, -15px) scale(1.1); opacity: 0.15; }
+            66% { transform: translate(-15px, 10px) scale(0.9); opacity: 0.12; }
+        }
+        
+        @keyframes key-light {
+            0% { background-color: transparent; box-shadow: none; }
+            50% { background-color: rgba(0, 255, 255, 0.2); box-shadow: 0 0 10px #00ffff; }
+            100% { background-color: transparent; box-shadow: none; }
+        }
+        
+        @keyframes bigram-highlight {
+            0% { background-color: transparent; }
+            50% { background-color: rgba(0, 255, 255, 0.3); }
+            100% { background-color: transparent; }
+        }
+        
+        .zen-background {
+            background: radial-gradient(circle at 20% 80%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(0, 255, 255, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(0, 255, 255, 0.05) 0%, transparent 50%);
+        }
+        
+        .typing-cursor {
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        .ghost-key {
+            transition: all 0.3s ease;
+        }
+        
+        .ghost-key.active {
+            animation: key-light 0.3s ease-out;
+        }
+        
+        .bigram-highlight {
+            animation: bigram-highlight 0.5s ease-out;
+        }
+        
+        .comet {
+            position: fixed;
+            top: 20%;
+            left: -100px;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #00ffff, transparent);
+            border-radius: 2px;
+            z-index: 1000;
+            animation: comet-shoot 1.5s ease-out;
+        }
+        
+        .sound-enabled .key-press {
+            /* Visual feedback for sound */
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-pure-black text-white font-mono zen-background overflow-hidden">
+    <!-- Zen Background Elements -->
+    <div class="fixed inset-0 pointer-events-none">
+        <div class="absolute top-1/4 left-1/3 w-32 h-32 rounded-full bg-gradient-to-r from-neon-teal to-transparent opacity-5 animate-nebula-drift"></div>
+        <div class="absolute bottom-1/3 right-1/4 w-24 h-24 rounded-full bg-gradient-to-l from-neon-teal to-transparent opacity-8 animate-nebula-drift" style="animation-delay: -4s;"></div>
+        <div class="absolute top-1/2 left-1/2 w-40 h-2 bg-gradient-to-r from-transparent via-neon-teal to-transparent opacity-3 animate-wave-flow"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-50 backdrop-blur-sm border-b border-gray-800">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-neon-teal rounded-lg flex items-center justify-center animate-glow-pulse">
+                    <i class="fas fa-keyboard text-black text-sm"></i>
+                </div>
+                <span class="text-xl font-bold text-neon-teal">TypeForge</span>
+            </div>
+            <div class="flex items-center space-x-6">
+                <a href="#" class="text-light-gray hover:text-neon-teal transition-colors duration-300">Dashboard</a>
+                <a href="#" class="text-light-gray hover:text-neon-teal transition-colors duration-300">Progress</a>
+                <a href="#" class="text-light-gray hover:text-neon-teal transition-colors duration-300">Settings</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Side Progress Meter -->
+    <div class="fixed right-4 top-1/2 transform -translate-y-1/2 z-40">
+        <div class="w-2 h-64 bg-dark-gray rounded-full overflow-hidden">
+            <div id="sideProgress" class="w-full bg-gradient-to-t from-neon-teal to-cyan-300 rounded-full transition-all duration-500" style="height: 0%"></div>
+        </div>
+        <div class="text-xs text-light-gray mt-2 text-center">
+            <span id="totalWords">0</span> words
+        </div>
+        <!-- Milestone markers -->
+        <div class="absolute top-0 right-3 space-y-8">
+            <div class="milestone-marker w-1 h-1 bg-medium-gray rounded-full" data-milestone="25"></div>
+            <div class="milestone-marker w-1 h-1 bg-medium-gray rounded-full" data-milestone="50"></div>
+            <div class="milestone-marker w-1 h-1 bg-medium-gray rounded-full" data-milestone="75"></div>
+            <div class="milestone-marker w-1 h-1 bg-medium-gray rounded-full" data-milestone="100"></div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="pt-20 pb-8 px-6 min-h-screen flex flex-col items-center justify-center relative">
+        <!-- Animated Tips -->
+        <div class="mb-8 text-center">
+            <div id="animatedTip" class="text-light-gray text-lg animate-tip-rotate">
+                Relax your shoulders
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="text-center mb-8 animate-fade-in-up">
+            <h1 class="text-2xl text-light-gray mb-4">
+                🎯 Your custom drill — tailored to fix your weak spots.
+            </h1>
+            
+            <!-- Personal Insight Banner -->
+            <div class="bg-dark-gray bg-opacity-50 backdrop-blur-sm rounded-lg p-4 max-w-2xl mx-auto border border-gray-700 animate-glow-pulse">
+                <div class="flex items-center justify-center space-x-2 mb-2">
+                    <i class="fas fa-brain text-neon-teal"></i>
+                    <span class="text-neon-teal font-semibold">AI Insight</span>
+                </div>
+                <p class="text-light-gray text-sm">
+                    Extra focus on 'th' and 'cl' — your top slip-ups. Targeting left pinky balance from last tests.
+                </p>
+            </div>
+        </div>
+
+        <!-- Settings Bar -->
+        <div class="flex items-center justify-center space-x-4 mb-8">
+            <div class="flex items-center space-x-2">
+                <button id="soundToggle" class="p-2 rounded-lg bg-dark-gray hover:bg-gray-700 transition-colors duration-300">
+                    <i class="fas fa-volume-up text-light-gray"></i>
+                </button>
+                <span class="text-xs text-light-gray">Sound</span>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button id="saveCompare" class="px-4 py-2 bg-dark-gray hover:bg-gray-700 rounded-lg text-light-gray text-sm transition-colors duration-300">
+                    <i class="fas fa-bookmark mr-2"></i>Save &amp; Compare
+                </button>
+            </div>
+        </div>
+
+        <!-- Clean Streak Counter -->
+        <div class="text-center mb-6">
+            <div class="text-neon-teal text-xl font-bold">
+                Clean Streak: <span id="streakCounter">0</span> words
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="w-96 h-2 bg-dark-gray rounded-full mt-3 overflow-hidden">
+                <div id="streakProgress" class="h-full bg-gradient-to-r from-neon-teal to-cyan-300 rounded-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+            
+            <!-- Milestone Indicators -->
+            <div class="flex justify-between w-96 mt-1 text-xs text-medium-gray">
+                <span class="milestone-tick" data-milestone="10">10</span>
+                <span class="milestone-tick" data-milestone="20">20</span>
+                <span class="milestone-tick" data-milestone="30">30</span>
+                <span class="milestone-tick" data-milestone="50">50</span>
+            </div>
+        </div>
+
+        <!-- Typing Area -->
+        <div class="max-w-4xl mx-auto text-center relative">
+            <div id="typingText" class="text-2xl leading-relaxed font-mono text-light-gray select-none">
+                <!-- Text will be populated by JavaScript -->
+            </div>
+            <div id="typingCursor" class="inline-block w-0.5 h-8 bg-neon-teal typing-cursor ml-1"></div>
+        </div>
+
+        <!-- Keyboard Overlay Mini-Guide -->
+        <div class="fixed bottom-8 left-1/2 transform -translate-x-1/2">
+            <div id="ghostKeyboard" class="flex space-x-1 opacity-30 hover:opacity-60 transition-opacity duration-300">
+                <!-- QWERTY layout ghost keys -->
+                <div class="ghost-key w-8 h-8 bg-dark-gray border border-gray-600 rounded text-xs flex items-center justify-center" data-key="q">Q</div>
+                <div class="ghost-key w-8 h-8 bg-dark-gray border border-gray-600 rounded text-xs flex items-center justify-center" data-key="w">W</div>
+                <div class="ghost-key w-8 h-8 bg-dark-gray border border-gray-600 rounded text-xs flex items-center justify-center" data-key="e">E</div>
+                <div class="ghost-key w-8 h-8 bg-dark-gray border border-gray-600 rounded text-xs flex items-center justify-center" data-key="r">R</div>
+                <div class="ghost-key w-8 h-8 bg-dark-gray border border-gray-600 rounded text-xs flex items-center justify-center" data-key="t">T</div>
+                <div class="ghost-key w-8 h-8 bg-dark-gray border border-gray-600 rounded text-xs flex items-center justify-center" data-key="y">Y</div>
+                <div class="ghost-key w-8 h-8 bg-dark-gray border border-gray-600 rounded text-xs flex items-center justify-center" data-key="u">U</div>
+                <div class="ghost-key w-8 h-8 bg-dark-gray border border-gray-600 rounded text-xs flex items-center justify-center" data-key="i">I</div>
+                <div class="ghost-key w-8 h-8 bg-dark-gray border border-gray-600 rounded text-xs flex items-center justify-center" data-key="o">O</div>
+                <div class="ghost-key w-8 h-8 bg-dark-gray border border-gray-600 rounded text-xs flex items-center justify-center" data-key="p">P</div>
+            </div>
+        </div>
+
+        <!-- Confetti Container -->
+        <div id="confettiContainer" class="fixed inset-0 pointer-events-none z-30"></div>
+        
+        <!-- Comet Container -->
+        <div id="cometContainer" class="fixed inset-0 pointer-events-none z-40"></div>
+    </main>
+
+    <!-- Drill Complete Modal -->
+    <div id="drillCompleteModal" class="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        <div class="bg-dark-gray bg-opacity-90 backdrop-blur-sm rounded-xl p-8 max-w-md mx-4 border border-gray-700 animate-fade-in-up">
+            <div class="text-center">
+                <div class="text-4xl mb-4">✅</div>
+                <h2 class="text-2xl font-bold text-neon-teal mb-4">Drill Complete!</h2>
+                <div id="drillResults" class="text-light-gray mb-6">
+                    <!-- Results will be populated by JavaScript -->
+                </div>
+                
+                <!-- Mindful Finish Prompt -->
+                <div class="bg-black bg-opacity-30 rounded-lg p-4 mb-6 border border-gray-600">
+                    <p class="text-light-gray text-sm italic">
+                        Close your eyes, shake your hands, feel the progress.
+                    </p>
+                </div>
+                
+                <div class="space-y-3">
+                    <button id="runAnotherDrill" class="w-full bg-neon-teal text-black py-3 px-6 rounded-lg font-semibold hover:bg-cyan-300 transition-all duration-300 transform hover:scale-105">
+                        Run Another Drill
+                    </button>
+                    <button id="returnToDashboard" class="w-full bg-transparent border border-neon-teal text-neon-teal py-3 px-6 rounded-lg font-semibold hover:bg-neon-teal hover:text-black transition-all duration-300">
+                        Return to Dashboard ➔
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Define data at the beginning
+        const animatedTips = [
+            "Relax your shoulders",
+            "Focus on consistent rhythm", 
+            "Breathe — smooth is fast",
+            "Trust your muscle memory",
+            "Keep your wrists floating",
+            "Feel the key, don't slam it"
+        ];
+        
+        const troubleBigrams = ["th", "cl", "er", "ng", "st", "nd"];
+        
+        const drillText = "the quick brown fox jumps over the lazy dog and then climbs through the thick forest where other animals gather together to share their stories about the wonderful things they have seen during their travels across the land";
+        
+        // Game state
+        let currentPosition = 0;
+        let currentStreak = 0;
+        let totalCleanWords = 0;
+        let errors = 0;
+        let startTime = null;
+        let isTyping = false;
+        let soundEnabled = false;
+        let drillExtended = false;
+        let lastDrillAccuracy = 85; // Simulated previous drill accuracy
+        
+        // Initialize the page
+        document.addEventListener("DOMContentLoaded", function() {
+            initializeDrill();
+            setupEventListeners();
+            startAnimatedTips();
+            setupKeyboardListeners();
+        });
+        
+        function initializeDrill() {
+            const typingTextElement = document.getElementById("typingText");
+            const words = drillText.split(" ");
+            
+            typingTextElement.innerHTML = words.map((word, index) => 
+                `<span class="word" data-index="${index}">${word.split("").map(char => 
+                    `<span class="char">${char}</span>`
+                ).join("")}</span>`
+            ).join(" ");
+            
+            highlightCurrentWord();
+        }
+        
+        function setupEventListeners() {
+            document.addEventListener("keydown", handleKeyPress);
+            document.getElementById("soundToggle").addEventListener("click", toggleSound);
+            document.getElementById("saveCompare").addEventListener("click", saveAndCompare);
+            document.getElementById("runAnotherDrill").addEventListener("click", restartDrill);
+            document.getElementById("returnToDashboard").addEventListener("click", returnToDashboard);
+        }
+        
+        function startAnimatedTips() {
+            let currentTipIndex = 0;
+            const tipElement = document.getElementById("animatedTip");
+            
+            setInterval(() => {
+                currentTipIndex = (currentTipIndex + 1) % animatedTips.length;
+                tipElement.textContent = animatedTips[currentTipIndex];
+            }, 4000);
+        }
+        
+        function setupKeyboardListeners() {
+            document.addEventListener("keydown", function(e) {
+                if (e.key.length === 1) {
+                    highlightGhostKey(e.key.toLowerCase());
+                    if (soundEnabled) {
+                        playKeySound();
+                    }
+                }
+            });
+        }
+        
+        function handleKeyPress(e) {
+            if (e.key.length !== 1 && e.key !== "Backspace") return;
+            
+            if (!isTyping) {
+                isTyping = true;
+                startTime = Date.now();
+            }
+            
+            const words = drillText.split(" ");
+            const currentWord = words[Math.floor(currentPosition / (words.slice(0, Math.floor(currentPosition / words.join(" ").length * words.length)).join(" ").length + 1))];
+            
+            if (e.key === "Backspace") {
+                handleBackspace();
+            } else if (e.key === " ") {
+                handleSpace();
+            } else {
+                handleCharacter(e.key);
+            }
+            
+            updateDisplay();
+        }
+        
+        function handleCharacter(key) {
+            const allText = drillText.replace(/ /g, "");
+            if (currentPosition >= allText.length) return;
+            
+            const expectedChar = allText[currentPosition];
+            const charElement = document.querySelector(`[data-position="${currentPosition}"]`);
+            
+            if (key === expectedChar) {
+                charElement?.classList.add("correct");
+                charElement?.classList.remove("incorrect");
+                currentPosition++;
+                
+                // Check for trouble bigrams
+                if (currentPosition > 0) {
+                    const bigram = allText.substring(currentPosition - 2, currentPosition);
+                    if (troubleBigrams.includes(bigram)) {
+                        highlightBigram(currentPosition - 2, currentPosition);
+                    }
+                }
+                
+                checkWordCompletion();
+            } else {
+                charElement?.classList.add("incorrect");
+                charElement?.classList.remove("correct");
+                errors++;
+                resetStreak();
+                
+                // Gentle bounce animation for error
+                charElement?.classList.add("animate-bounce-gentle");
+                setTimeout(() => charElement?.classList.remove("animate-bounce-gentle"), 300);
+            }
+        }
+        
+        function handleSpace() {
+            // Handle space logic
+            const words = drillText.split(" ");
+            // Implementation for space handling
+        }
+        
+        function handleBackspace() {
+            if (currentPosition > 0) {
+                currentPosition--;
+                const charElement = document.querySelector(`[data-position="${currentPosition}"]`);
+                charElement?.classList.remove("correct", "incorrect");
+            }
+        }
+        
+        function checkWordCompletion() {
+            const words = drillText.split(" ");
+            let charCount = 0;
+            
+            for (let i = 0; i < words.length; i++) {
+                charCount += words[i].length;
+                if (currentPosition === charCount) {
+                    // Word completed correctly
+                    currentStreak++;
+                    totalCleanWords++;
+                    updateStreakDisplay();
+                    updateSideProgress();
+                    
+                    // Check for milestones
+                    if (currentStreak === 20) {
+                        triggerConfetti();
+                    }
+                    
+                    if (currentStreak === 50 && !drillExtended) {
+                        extendDrill();
+                    }
+                    
+                    break;
+                }
+                charCount++; // Account for space
+            }
+        }
+        
+        function resetStreak() {
+            currentStreak = 0;
+            updateStreakDisplay();
+            
+            // Oops pulse animation
+            const progressBar = document.getElementById("streakProgress");
+            progressBar.classList.add("animate-oops-pulse");
+            setTimeout(() => progressBar.classList.remove("animate-oops-pulse"), 400);
+        }
+        
+        function updateStreakDisplay() {
+            document.getElementById("streakCounter").textContent = currentStreak;
+            
+            const progressBar = document.getElementById("streakProgress");
+            const progressPercent = Math.min((currentStreak / 50) * 100, 100);
+            progressBar.style.width = `${progressPercent}%`;
+            
+            // Update milestone ticks
+            document.querySelectorAll(".milestone-tick").forEach(tick => {
+                const milestone = parseInt(tick.dataset.milestone);
+                if (currentStreak >= milestone) {
+                    tick.classList.add("text-neon-teal", "animate-milestone-glow");
+                } else {
+                    tick.classList.remove("text-neon-teal", "animate-milestone-glow");
+                }
+            });
+        }
+        
+        function updateSideProgress() {
+            const progressPercent = Math.min((totalCleanWords / 100) * 100, 100);
+            document.getElementById("sideProgress").style.height = `${progressPercent}%`;
+            document.getElementById("totalWords").textContent = totalCleanWords;
+            
+            // Update milestone markers
+            document.querySelectorAll(".milestone-marker").forEach(marker => {
+                const milestone = parseInt(marker.dataset.milestone);
+                if (totalCleanWords >= milestone) {
+                    marker.classList.add("bg-neon-teal", "animate-milestone-glow");
+                }
+            });
+        }
+        
+        function highlightCurrentWord() {
+            document.querySelectorAll(".word").forEach(word => word.classList.remove("current"));
+            const currentWordIndex = Math.floor(currentPosition / drillText.length * drillText.split(" ").length);
+            document.querySelector(`[data-index="${currentWordIndex}"]`)?.classList.add("current");
+        }
+        
+        function highlightGhostKey(key) {
+            const keyElement = document.querySelector(`[data-key="${key}"]`);
+            if (keyElement) {
+                keyElement.classList.add("active");
+                setTimeout(() => keyElement.classList.remove("active"), 300);
+            }
+        }
+        
+        function highlightBigram(start, end) {
+            // Add bigram highlight animation
+            const chars = document.querySelectorAll(".char");
+            for (let i = start; i < end; i++) {
+                chars[i]?.classList.add("bigram-highlight");
+                setTimeout(() => chars[i]?.classList.remove("bigram-highlight"), 500);
+            }
+        }
+        
+        function triggerConfetti() {
+            const container = document.getElementById("confettiContainer");
+            for (let i = 0; i < 20; i++) {
+                const confetti = document.createElement("div");
+                confetti.className = "absolute w-2 h-2 bg-neon-teal rounded-full animate-confetti-burst";
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.top = `${Math.random() * 100}%`;
+                confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+                container.appendChild(confetti);
+                
+                setTimeout(() => confetti.remove(), 1000);
+            }
+        }
+        
+        function triggerComet() {
+            const container = document.getElementById("cometContainer");
+            const comet = document.createElement("div");
+            comet.className = "comet";
+            container.appendChild(comet);
+            
+            setTimeout(() => comet.remove(), 1500);
+        }
+        
+        function extendDrill() {
+            drillExtended = true;
+            // Add more text to the drill
+            const additionalText = " extended practice session with more challenging combinations and patterns to maintain your excellent streak";
+            // Implementation for extending drill text
+        }
+        
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            const icon = document.querySelector("#soundToggle i");
+            icon.className = soundEnabled ? "fas fa-volume-up text-neon-teal" : "fas fa-volume-mute text-light-gray";
+        }
+        
+        function playKeySound() {
+            // Create a subtle click sound
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.1);
+        }
+        
+        function saveAndCompare() {
+            // Save current drill performance
+            const currentAccuracy = ((drillText.length - errors) / drillText.length * 100).toFixed(1);
+            localStorage.setItem("lastDrillAccuracy", currentAccuracy);
+            
+            // Show comparison
+            alert(`Current accuracy: ${currentAccuracy}%\nLast drill: ${lastDrillAccuracy}%\nImprovement: ${(currentAccuracy - lastDrillAccuracy).toFixed(1)}%`);
+        }
+        
+        function completeDrill() {
+            const accuracy = ((drillText.length - errors) / drillText.length * 100).toFixed(1);
+            const improvement = accuracy - lastDrillAccuracy;
+            
+            // Check for significant improvement
+            if (improvement >= 10) {
+                triggerComet();
+            }
+            
+            // Show results
+            document.getElementById("drillResults").innerHTML = `
+                <div class="text-2xl font-bold text-neon-teal mb-2">${accuracy}% Accuracy</div>
+                <div class="text-light-gray">Your 'th' accuracy improved by 14%</div>
+                <div class="text-light-gray">Clean streak: ${currentStreak} words</div>
+            `;
+            
+            document.getElementById("drillCompleteModal").classList.remove("hidden");
+        }
+        
+        function restartDrill() {
+            // Reset all variables
+            currentPosition = 0;
+            currentStreak = 0;
+            totalCleanWords = 0;
+            errors = 0;
+            isTyping = false;
+            drillExtended = false;
+            
+            // Hide modal and reinitialize
+            document.getElementById("drillCompleteModal").classList.add("hidden");
+            initializeDrill();
+            updateStreakDisplay();
+            updateSideProgress();
+        }
+        
+        function returnToDashboard() {
+            // Navigate to dashboard
+            window.location.href = "#dashboard";
+        }
+        
+        function updateDisplay() {
+            highlightCurrentWord();
+            
+            // Check if drill is complete
+            if (currentPosition >= drillText.replace(/ /g, "").length) {
+                setTimeout(completeDrill, 500);
+            }
+        }
+        
+        // Add CSS for current word highlighting
+        const style = document.createElement("style");
+        style.textContent = `
+            .word.current {
+                background-color: rgba(0, 255, 255, 0.1);
+                border-radius: 4px;
+                padding: 2px 4px;
+            }
+            
+            .char.correct {
+                color: #00ffff;
+            }
+            
+            .char.incorrect {
+                color: #ff6b6b;
+                background-color: rgba(255, 107, 107, 0.2);
+            }
+            
+            [data-position] {
+                position: relative;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Add position attributes to characters
+        setTimeout(() => {
+            const chars = document.querySelectorAll(".char");
+            chars.forEach((char, index) => {
+                char.setAttribute("data-position", index);
+            });
+        }, 100);
+    </script>
+
+</body></html>

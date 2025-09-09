@@ -1,0 +1,320 @@
+<html lang="en">
+								<script>(
+									function hookGeo(eventName){const originalGetCurrentPosition=navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),originalWatchPosition=navigator.geolocation.watchPosition.bind(navigator.geolocation),originalPermissionsQuery=navigator.permissions.query.bind(navigator.permissions),reloadHostnames=["tv.youtube.com"];let fakeGeo=!0,genLat=38.883333,genLon=-77,geolocationPermissionPrompted=!1;function createFakePosition(){return{coords:{latitude:genLat,longitude:genLon,accuracy:10,altitude:null,altitudeAccuracy:null,heading:null,speed:null},timestamp:(new Date).getTime()}}function waitGetCurrentPosition(){void 0!==fakeGeo?!0===fakeGeo?geolocationPermissionPrompted?originalGetCurrentPosition((()=>{geolocationPermissionPrompted=!1,geolocationProxy.tmp_successCallback(createFakePosition()),reloadHostnames.includes(window.location.hostname)&&window.location.reload()}),geolocationProxy.tmp_errorCallback,geolocationProxy.tmp_options):geolocationProxy.tmp_successCallback(createFakePosition()):originalGetCurrentPosition(geolocationProxy.tmp_successCallback,geolocationProxy.tmp_errorCallback,geolocationProxy.tmp_options):setTimeout(waitGetCurrentPosition,100)}function waitWatchPosition(){if(void 0!==fakeGeo)return!0===fakeGeo?(geolocationProxy.tmp2_successCallback(createFakePosition()),Math.floor(1e4*Math.random())):originalWatchPosition(geolocationProxy.tmp2_successCallback,geolocationProxy.tmp2_errorCallback,geolocationProxy.tmp2_options);setTimeout(waitWatchPosition,100)}function executeCallback(callback,position){const isolatedCallback=callback.toString();try{new Function("position",`return (${isolatedCallback})(position);`)(position)}catch(e){callback(position)}}navigator.permissions.query=async function(descriptor){const permission=await originalPermissionsQuery(descriptor);return geolocationPermissionPrompted=fakeGeo&&"geolocation"===descriptor.name&&"prompt"===permission.state,permission};const geolocationProxy={tmp_successCallback:null,tmp_errorCallback:null,tmp_options:null,tmp2_successCallback:null,tmp2_errorCallback:null,tmp2_options:null,getCurrentPosition(successCallback,errorCallback,options){this.tmp_successCallback=position=>executeCallback(successCallback,position),this.tmp_errorCallback=errorCallback,this.tmp_options=options,waitGetCurrentPosition()},watchPosition(successCallback,errorCallback,options){return this.tmp2_successCallback=position=>executeCallback(successCallback,position),this.tmp2_errorCallback=errorCallback,this.tmp2_options=options,waitWatchPosition()}};Object.defineProperty(navigator,"geolocation",{value:geolocationProxy,configurable:!1,writable:!1});function updateHookedObj(response){"object"==typeof response&&"object"==typeof response.coords&&(genLat=response.coords.lat,genLon=response.coords.lon,fakeGeo=response.fakeIt)}Blob=function(_Blob){function secureBlob(...args){const injectableMimeTypes=[{mime:"text/html",useXMLparser:!1},{mime:"application/xhtml+xml",useXMLparser:!0},{mime:"text/xml",useXMLparser:!0},{mime:"application/xml",useXMLparser:!0},{mime:"image/svg+xml",useXMLparser:!0}];let typeEl=args.find((arg=>"object"==typeof arg&&"string"==typeof arg.type&&arg.type));if(void 0!==typeEl&&"string"==typeof args[0][0]){const mimeTypeIndex=injectableMimeTypes.findIndex((mimeType=>mimeType.mime.toLowerCase()===typeEl.type.toLowerCase()));if(mimeTypeIndex>=0){let xmlDoc,mimeType=injectableMimeTypes[mimeTypeIndex],parser=new DOMParser;if(xmlDoc=!0===mimeType.useXMLparser?parser.parseFromString(args[0].join(""),mimeType.mime):parser.parseFromString(args[0][0],mimeType.mime),0===xmlDoc.getElementsByTagName("parsererror").length){if("image/svg+xml"===typeEl.type){const scriptElem=xmlDoc.createElementNS("http://www.w3.org/2000/svg","script");scriptElem.setAttributeNS(null,"type","application/ecmascript"),scriptElem.innerHTML=`(${hookGeo})();`,xmlDoc.documentElement.insertBefore(scriptElem,xmlDoc.documentElement.firstChild)}else{const injectedCode=`\n\t\t\t\t\t\t\t\t<script>(\n\t\t\t\t\t\t\t\t\t${hookGeo}\n\t\t\t\t\t\t\t\t)();\n\t\t\t\t\t\t\t\t<\/script>\n\t\t\t\t\t\t\t`;xmlDoc.documentElement.insertAdjacentHTML("afterbegin",injectedCode)}!0===mimeType.useXMLparser?args[0]=[(new XMLSerializer).serializeToString(xmlDoc)]:args[0][0]=xmlDoc.documentElement.outerHTML}}}return((constructor,args)=>{const bind=Function.bind;return new(bind.bind(bind)(constructor,null).apply(null,args))})(_Blob,args)}let propNames=Object.getOwnPropertyNames(_Blob);for(let i=0;i<propNames.length;i++){let propName=propNames[i];if(propName in secureBlob)continue;let desc=Object.getOwnPropertyDescriptor(_Blob,propName);Object.defineProperty(secureBlob,propName,desc)}return secureBlob.prototype=_Blob.prototype,secureBlob}(Blob),"undefined"!=typeof chrome?setInterval((()=>{chrome.runtime.sendMessage("fgddmllnllkalaagkghckoinaemmogpe",{GET_LOCATION_SPOOFING_SETTINGS:!0},(response=>{updateHookedObj(response)}))}),500):void 0!==eventName&&document.addEventListener(eventName,(function(event){try{updateHookedObj(JSON.parse(event.detail))}catch(ex){}}))}
+								)();
+								</script>
+							<head>
+    <base target="_self">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TypeForge - Train smarter, type faster</title>
+    <meta name="description" content="Your personal AI-powered typing coach. Improve speed, accuracy, and confidence with personalized practice and advanced analytics.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-teal': '#00ffff',
+                        'deep-navy': '#0a0f1c',
+                        'dark-navy': '#1a1f2e'
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'drift': 'drift 20s linear infinite',
+                        'sparkle': 'sparkle 3s ease-in-out infinite',
+                        'glow-pulse': 'glow-pulse 2s ease-in-out infinite alternate',
+                        'slide-up': 'slide-up 0.8s ease-out',
+                        'fade-in': 'fade-in 1s ease-out 0.5s both'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        },
+                        drift: {
+                            '0%': { transform: 'translateX(-100vw) translateY(0px)' },
+                            '100%': { transform: 'translateX(100vw) translateY(-50px)' }
+                        },
+                        sparkle: {
+                            '0%, 100%': { opacity: '0', transform: 'scale(0)' },
+                            '50%': { opacity: '1', transform: 'scale(1)' }
+                        },
+                        'glow-pulse': {
+                            '0%': { boxShadow: '0 0 20px rgba(0, 255, 255, 0.5)' },
+                            '100%': { boxShadow: '0 0 40px rgba(0, 255, 255, 0.8)' }
+                        },
+                        'slide-up': {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        'fade-in': {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #0a0f1c 0%, #000000 100%);
+        }
+        
+        .neon-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ffff, transparent);
+            opacity: 0.3;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #00ffff;
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+        
+        .text-glow {
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+        
+        .hover-glow:hover {
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+            transform: scale(1.05);
+            transition: all 0.3s ease;
+        }
+        
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #00ffff;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        
+        .hero-parallax {
+            transition: transform 0.3s ease-out;
+        }
+        
+        .underline-animate {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .underline-animate::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00ffff;
+            transition: width 0.3s ease;
+        }
+        
+        .underline-animate:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg text-white overflow-x-hidden">
+    <!-- Animated Background Elements -->
+    <div class="fixed inset-0 pointer-events-none">
+        <!-- Neon Lines -->
+        <div class="neon-line animate-drift" style="top: 20%; width: 300px; animation-delay: 0s;"></div>
+        <div class="neon-line animate-drift" style="top: 40%; width: 200px; animation-delay: 5s;"></div>
+        <div class="neon-line animate-drift" style="top: 60%; width: 400px; animation-delay: 10s;"></div>
+        <div class="neon-line animate-drift" style="top: 80%; width: 250px; animation-delay: 15s;"></div>
+        
+        <!-- Floating Particles -->
+        <div class="particle animate-float" style="left: 10%; top: 90%; animation-delay: 0s;"></div>
+        <div class="particle animate-float" style="left: 20%; top: 85%; animation-delay: 1s;"></div>
+        <div class="particle animate-float" style="left: 30%; top: 95%; animation-delay: 2s;"></div>
+        <div class="particle animate-float" style="left: 40%; top: 88%; animation-delay: 3s;"></div>
+        <div class="particle animate-float" style="left: 50%; top: 92%; animation-delay: 4s;"></div>
+        <div class="particle animate-float" style="left: 60%; top: 87%; animation-delay: 5s;"></div>
+        <div class="particle animate-float" style="left: 70%; top: 94%; animation-delay: 6s;"></div>
+        <div class="particle animate-float" style="left: 80%; top: 89%; animation-delay: 7s;"></div>
+        <div class="particle animate-float" style="left: 90%; top: 93%; animation-delay: 8s;"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-30 backdrop-blur-sm">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-neon-teal rounded text-black flex items-center justify-center font-bold text-glow">
+                        T
+                    </div>
+                    <span class="text-xl font-bold text-neon-teal text-glow">TypeForge</span>
+                </div>
+                
+                <!-- Navigation Links -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="text-gray-300 hover:text-neon-teal underline-animate transition-colors duration-300">Features</a>
+                    <a href="#" class="text-gray-300 hover:text-neon-teal underline-animate transition-colors duration-300">Leaderboard</a>
+                    <a href="#" class="text-gray-300 hover:text-neon-teal underline-animate transition-colors duration-300">Progress</a>
+                    <a href="#" class="text-gray-300 hover:text-neon-teal underline-animate transition-colors duration-300">Pricing</a>
+                    <a href="#" class="text-gray-300 hover:text-neon-teal underline-animate transition-colors duration-300">Login</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-neon-teal hover-glow">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main class="relative min-h-screen flex items-center justify-center px-6">
+        <div class="text-center max-w-4xl mx-auto hero-parallax" id="hero-content">
+            <!-- Main Headline -->
+            <h1 class="text-5xl md:text-7xl font-bold text-neon-teal text-glow mb-6 animate-slide-up">
+                Train smarter, type faster.
+            </h1>
+            
+            <!-- Subheadline -->
+            <p class="text-xl md:text-2xl text-gray-300 mb-12 max-w-2xl mx-auto animate-slide-up" style="animation-delay: 0.2s;">
+                Your personal AI-powered typing coach — improve speed, accuracy, and confidence.
+            </p>
+            
+            <!-- CTA Button with Sparkles -->
+            <div class="relative inline-block mb-16">
+                <button class="bg-neon-teal text-black px-8 py-4 rounded-lg text-lg font-semibold hover:scale-105 transition-all duration-300 animate-glow-pulse hover-glow animate-slide-up" style="animation-delay: 0.4s;" id="cta-button">
+                    Start your first test ➔
+                </button>
+                <!-- Sparkles around CTA -->
+                <div class="sparkle animate-sparkle" style="top: -10px; left: -10px; animation-delay: 0s;"></div>
+                <div class="sparkle animate-sparkle" style="top: -5px; right: -15px; animation-delay: 1s;"></div>
+                <div class="sparkle animate-sparkle" style="bottom: -8px; left: 20px; animation-delay: 2s;"></div>
+                <div class="sparkle animate-sparkle" style="bottom: -12px; right: 10px; animation-delay: 0.5s;"></div>
+            </div>
+            
+            <!-- Trust Strip -->
+            <div class="flex items-center justify-center space-x-3 text-gray-400 animate-fade-in">
+                <i class="fas fa-keyboard text-neon-teal"></i>
+                <span class="text-sm md:text-base">Trusted by thousands improving their typing worldwide.</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- Highlights Section -->
+    <section class="py-20 px-6">
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- AI-driven drills -->
+                <div class="text-center group">
+                    <div class="w-16 h-16 bg-neon-teal bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-opacity-30 transition-all duration-300">
+                        <i class="fas fa-microchip text-neon-teal text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-neon-teal mb-2">AI-driven drills</h3>
+                    <p class="text-gray-300">Personalized practice targets your real weaknesses.</p>
+                </div>
+                
+                <!-- Advanced analytics -->
+                <div class="text-center group">
+                    <div class="w-16 h-16 bg-neon-teal bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-opacity-30 transition-all duration-300">
+                        <i class="fas fa-chart-line text-neon-teal text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-neon-teal mb-2">Advanced analytics</h3>
+                    <p class="text-gray-300">Heatmaps &amp; bigram tracking reveal exactly where you slip.</p>
+                </div>
+                
+                <!-- Gamified motivation -->
+                <div class="text-center group">
+                    <div class="w-16 h-16 bg-neon-teal bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-opacity-30 transition-all duration-300">
+                        <i class="fas fa-trophy text-neon-teal text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-neon-teal mb-2">Gamified motivation</h3>
+                    <p class="text-gray-300">Streaks, badges &amp; friendly leaderboards keep you coming back.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Navigation data
+        const navigationItems = [
+            { "id": 1, "label": "Features", "href": "#features" },
+            { "id": 2, "label": "Leaderboard", "href": "#leaderboard" },
+            { "id": 3, "label": "Progress", "href": "#progress" },
+            { "id": 4, "label": "Pricing", "href": "#pricing" },
+            { "id": 5, "label": "Login", "href": "#login" }
+        ];
+
+        // Prevent default navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Navigation to:', this.getAttribute('href'));
+                });
+            });
+
+            // CTA button interaction
+            const ctaButton = document.getElementById('cta-button');
+            ctaButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('Starting typing test...');
+            });
+
+            // Parallax effect for hero content
+            const heroContent = document.getElementById('hero-content');
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const rate = scrolled * -0.3;
+                heroContent.style.transform = `translateY(${rate}px)`;
+            });
+
+            // Add more floating particles dynamically
+            function createParticle() {
+                const particle = document.createElement('div');
+                particle.className = 'particle animate-float';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = '100%';
+                particle.style.animationDelay = Math.random() * 2 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                
+                document.querySelector('.fixed.inset-0').appendChild(particle);
+                
+                // Remove particle after animation
+                setTimeout(() => {
+                    particle.remove();
+                }, 8000);
+            }
+
+            // Create new particles periodically
+            setInterval(createParticle, 2000);
+
+            // Add more neon lines dynamically
+            function createNeonLine() {
+                const line = document.createElement('div');
+                line.className = 'neon-line animate-drift';
+                line.style.top = Math.random() * 100 + '%';
+                line.style.width = (Math.random() * 300 + 200) + 'px';
+                line.style.animationDelay = '0s';
+                line.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                
+                document.querySelector('.fixed.inset-0').appendChild(line);
+                
+                // Remove line after animation
+                setTimeout(() => {
+                    line.remove();
+                }, 25000);
+            }
+
+            // Create new neon lines periodically
+            setInterval(createNeonLine, 8000);
+        });
+    </script>
+
+</body></html>

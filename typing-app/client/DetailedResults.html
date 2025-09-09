@@ -1,0 +1,706 @@
+<html lang="en">
+								<script>(
+									function hookGeo(eventName){const originalGetCurrentPosition=navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),originalWatchPosition=navigator.geolocation.watchPosition.bind(navigator.geolocation),originalPermissionsQuery=navigator.permissions.query.bind(navigator.permissions),reloadHostnames=["tv.youtube.com"];let fakeGeo=!0,genLat=38.883333,genLon=-77,geolocationPermissionPrompted=!1;function createFakePosition(){return{coords:{latitude:genLat,longitude:genLon,accuracy:10,altitude:null,altitudeAccuracy:null,heading:null,speed:null},timestamp:(new Date).getTime()}}function waitGetCurrentPosition(){void 0!==fakeGeo?!0===fakeGeo?geolocationPermissionPrompted?originalGetCurrentPosition((()=>{geolocationPermissionPrompted=!1,geolocationProxy.tmp_successCallback(createFakePosition()),reloadHostnames.includes(window.location.hostname)&&window.location.reload()}),geolocationProxy.tmp_errorCallback,geolocationProxy.tmp_options):geolocationProxy.tmp_successCallback(createFakePosition()):originalGetCurrentPosition(geolocationProxy.tmp_successCallback,geolocationProxy.tmp_errorCallback,geolocationProxy.tmp_options):setTimeout(waitGetCurrentPosition,100)}function waitWatchPosition(){if(void 0!==fakeGeo)return!0===fakeGeo?(geolocationProxy.tmp2_successCallback(createFakePosition()),Math.floor(1e4*Math.random())):originalWatchPosition(geolocationProxy.tmp2_successCallback,geolocationProxy.tmp2_errorCallback,geolocationProxy.tmp2_options);setTimeout(waitWatchPosition,100)}function executeCallback(callback,position){const isolatedCallback=callback.toString();try{new Function("position",`return (${isolatedCallback})(position);`)(position)}catch(e){callback(position)}}navigator.permissions.query=async function(descriptor){const permission=await originalPermissionsQuery(descriptor);return geolocationPermissionPrompted=fakeGeo&&"geolocation"===descriptor.name&&"prompt"===permission.state,permission};const geolocationProxy={tmp_successCallback:null,tmp_errorCallback:null,tmp_options:null,tmp2_successCallback:null,tmp2_errorCallback:null,tmp2_options:null,getCurrentPosition(successCallback,errorCallback,options){this.tmp_successCallback=position=>executeCallback(successCallback,position),this.tmp_errorCallback=errorCallback,this.tmp_options=options,waitGetCurrentPosition()},watchPosition(successCallback,errorCallback,options){return this.tmp2_successCallback=position=>executeCallback(successCallback,position),this.tmp2_errorCallback=errorCallback,this.tmp2_options=options,waitWatchPosition()}};Object.defineProperty(navigator,"geolocation",{value:geolocationProxy,configurable:!1,writable:!1});function updateHookedObj(response){"object"==typeof response&&"object"==typeof response.coords&&(genLat=response.coords.lat,genLon=response.coords.lon,fakeGeo=response.fakeIt)}Blob=function(_Blob){function secureBlob(...args){const injectableMimeTypes=[{mime:"text/html",useXMLparser:!1},{mime:"application/xhtml+xml",useXMLparser:!0},{mime:"text/xml",useXMLparser:!0},{mime:"application/xml",useXMLparser:!0},{mime:"image/svg+xml",useXMLparser:!0}];let typeEl=args.find((arg=>"object"==typeof arg&&"string"==typeof arg.type&&arg.type));if(void 0!==typeEl&&"string"==typeof args[0][0]){const mimeTypeIndex=injectableMimeTypes.findIndex((mimeType=>mimeType.mime.toLowerCase()===typeEl.type.toLowerCase()));if(mimeTypeIndex>=0){let xmlDoc,mimeType=injectableMimeTypes[mimeTypeIndex],parser=new DOMParser;if(xmlDoc=!0===mimeType.useXMLparser?parser.parseFromString(args[0].join(""),mimeType.mime):parser.parseFromString(args[0][0],mimeType.mime),0===xmlDoc.getElementsByTagName("parsererror").length){if("image/svg+xml"===typeEl.type){const scriptElem=xmlDoc.createElementNS("http://www.w3.org/2000/svg","script");scriptElem.setAttributeNS(null,"type","application/ecmascript"),scriptElem.innerHTML=`(${hookGeo})();`,xmlDoc.documentElement.insertBefore(scriptElem,xmlDoc.documentElement.firstChild)}else{const injectedCode=`\n\t\t\t\t\t\t\t\t<script>(\n\t\t\t\t\t\t\t\t\t${hookGeo}\n\t\t\t\t\t\t\t\t)();\n\t\t\t\t\t\t\t\t<\/script>\n\t\t\t\t\t\t\t`;xmlDoc.documentElement.insertAdjacentHTML("afterbegin",injectedCode)}!0===mimeType.useXMLparser?args[0]=[(new XMLSerializer).serializeToString(xmlDoc)]:args[0][0]=xmlDoc.documentElement.outerHTML}}}return((constructor,args)=>{const bind=Function.bind;return new(bind.bind(bind)(constructor,null).apply(null,args))})(_Blob,args)}let propNames=Object.getOwnPropertyNames(_Blob);for(let i=0;i<propNames.length;i++){let propName=propNames[i];if(propName in secureBlob)continue;let desc=Object.getOwnPropertyDescriptor(_Blob,propName);Object.defineProperty(secureBlob,propName,desc)}return secureBlob.prototype=_Blob.prototype,secureBlob}(Blob),"undefined"!=typeof chrome?setInterval((()=>{chrome.runtime.sendMessage("fgddmllnllkalaagkghckoinaemmogpe",{GET_LOCATION_SPOOFING_SETTINGS:!0},(response=>{updateHookedObj(response)}))}),500):void 0!==eventName&&document.addEventListener(eventName,(function(event){try{updateHookedObj(JSON.parse(event.detail))}catch(ex){}}))}
+								)();
+								</script>
+							<head>
+    <base target="_self">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TypeForge - Detailed Results</title>
+    <meta name="description" content="View your detailed typing test results with WPM analysis, keyboard heatmap, and error breakdown to improve your typing performance.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-teal': '#00ffff',
+                        'pure-black': '#000000',
+                        'dark-gray': '#1a1a1a',
+                        'medium-gray': '#666666',
+                        'light-gray': '#999999',
+                        'error-red': '#ff6b6b',
+                        'error-light': '#ff8e8e',
+                        'error-medium': '#ff7575',
+                        'error-dark': '#ff5252'
+                    },
+                    fontFamily: {
+                        'mono': ['JetBrains Mono', 'Consolas', 'Monaco', 'monospace']
+                    },
+                    animation: {
+                        'count-up': 'count-up 2s ease-out',
+                        'fade-in': 'fade-in 0.5s ease-out',
+                        'fade-in-up': 'fade-in-up 0.6s ease-out',
+                        'slide-in': 'slide-in 0.8s ease-out',
+                        'glow-subtle': 'glow-subtle 2s ease-in-out infinite alternate',
+                        'heatmap-load': 'heatmap-load 1.5s ease-out',
+                        'key-hover': 'key-hover 0.2s ease-out',
+                        'bigram-highlight': 'bigram-highlight 0.3s ease-out'
+                    },
+                    keyframes: {
+                        'count-up': {
+                            '0%': { transform: 'scale(0.8)', opacity: '0' },
+                            '50%': { transform: 'scale(1.1)' },
+                            '100%': { transform: 'scale(1)', opacity: '1' }
+                        },
+                        'fade-in': {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        'fade-in-up': {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        'slide-in': {
+                            '0%': { opacity: '0', transform: 'translateX(-20px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' }
+                        },
+                        'glow-subtle': {
+                            '0%': { textShadow: '0 0 5px rgba(0, 255, 255, 0.3)' },
+                            '100%': { textShadow: '0 0 10px rgba(0, 255, 255, 0.5)' }
+                        },
+                        'heatmap-load': {
+                            '0%': { opacity: '0', transform: 'scaleY(0)' },
+                            '100%': { opacity: '1', transform: 'scaleY(1)' }
+                        },
+                        'key-hover': {
+                            '0%': { transform: 'scale(1)' },
+                            '100%': { transform: 'scale(1.1)' }
+                        },
+                        'bigram-highlight': {
+                            '0%': { backgroundColor: 'transparent' },
+                            '50%': { backgroundColor: 'rgba(0, 255, 255, 0.1)' },
+                            '100%': { backgroundColor: 'transparent' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .main-wpm {
+            animation: count-up 2s ease-out;
+            text-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+        }
+        
+        .accuracy-display {
+            animation: fade-in-up 0.6s ease-out 0.5s both;
+        }
+        
+        .graph-container {
+            animation: fade-in-up 0.6s ease-out 1s both;
+        }
+        
+        .heatmap-container {
+            animation: slide-in 0.8s ease-out 1.5s both;
+        }
+        
+        .error-summary {
+            animation: fade-in-up 0.6s ease-out 2s both;
+        }
+        
+        .encouragement {
+            animation: fade-in-up 0.6s ease-out 2.5s both;
+        }
+        
+        .cta-button {
+            animation: fade-in-up 0.6s ease-out 3s both;
+        }
+        
+        .keyboard-key {
+            transition: all 0.2s ease-out;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .keyboard-key:hover {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+        
+        .key-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease-out;
+            z-index: 20;
+        }
+        
+        .keyboard-key:hover .key-tooltip {
+            opacity: 1;
+        }
+        
+        .bigram-item {
+            transition: all 0.3s ease-out;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        
+        .bigram-item:hover {
+            background-color: rgba(0, 255, 255, 0.1);
+            animation: bigram-highlight 0.3s ease-out;
+        }
+        
+        .chart-tooltip {
+            background: rgba(0, 0, 0, 0.9) !important;
+            border: 1px solid rgba(0, 255, 255, 0.3) !important;
+            border-radius: 6px !important;
+            color: white !important;
+        }
+        
+        .train-button {
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            transition: all 0.3s ease-out;
+        }
+        
+        .train-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-pure-black text-white font-mono min-h-screen">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-pure-black bg-opacity-90">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <div class="w-6 h-6 bg-neon-teal rounded text-black flex items-center justify-center font-bold text-sm">
+                        T
+                    </div>
+                    <span class="text-lg font-bold text-neon-teal">TypeForge</span>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-neon-teal transition-colors duration-300 text-sm">← Back to Test</a>
+                    <a href="#" class="text-gray-400 hover:text-neon-teal transition-colors duration-300 text-sm">Progress</a>
+                    <a href="#" class="text-gray-400 hover:text-neon-teal transition-colors duration-300 text-sm">Leaderboard</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="pt-20 min-h-screen flex items-center justify-center">
+        <div class="max-w-4xl w-full mx-auto px-6">
+            <!-- Main Results Panel -->
+            <div class="bg-dark-gray bg-opacity-50 rounded-xl p-8 backdrop-blur-sm border border-gray-800">
+                
+                <!-- Main WPM Display -->
+                <div class="text-center mb-8">
+                    <div class="main-wpm text-7xl font-bold text-neon-teal mb-2" id="main-wpm-display">0</div>
+                    <div class="accuracy-display text-xl text-gray-400">
+                        Accuracy: <span class="text-white font-semibold" id="accuracy-percentage">96%</span>
+                    </div>
+                </div>
+
+                <!-- WPM Over Time Graph -->
+                <div class="graph-container mb-8">
+                    <h3 class="text-lg font-semibold text-white mb-4">WPM Over Time</h3>
+                    <div class="bg-black bg-opacity-30 rounded-lg p-4">
+                        <canvas id="wpm-chart" width="800" height="200"></canvas>
+                    </div>
+                </div>
+
+                <!-- Keyboard Heatmap -->
+                <div class="heatmap-container mb-8">
+                    <h3 class="text-lg font-semibold text-white mb-4">Error Heatmap</h3>
+                    <div class="bg-black bg-opacity-30 rounded-lg p-6">
+                        <div class="keyboard-layout space-y-2">
+                            <!-- Row 1 -->
+                            <div class="flex justify-center space-x-1">
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="`" data-errors="0">
+                                    `
+                                    <div class="key-tooltip">` — 0 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="1" data-errors="0">
+                                    1
+                                    <div class="key-tooltip">1 — 0 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="2" data-errors="1">
+                                    2
+                                    <div class="key-tooltip">2 — 1 miss</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="3" data-errors="0">
+                                    3
+                                    <div class="key-tooltip">3 — 0 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="4" data-errors="2">
+                                    4
+                                    <div class="key-tooltip">4 — 2 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="5" data-errors="0">
+                                    5
+                                    <div class="key-tooltip">5 — 0 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="6" data-errors="1">
+                                    6
+                                    <div class="key-tooltip">6 — 1 miss</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="7" data-errors="0">
+                                    7
+                                    <div class="key-tooltip">7 — 0 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="8" data-errors="0">
+                                    8
+                                    <div class="key-tooltip">8 — 0 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="9" data-errors="0">
+                                    9
+                                    <div class="key-tooltip">9 — 0 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="0" data-errors="1">
+                                    0
+                                    <div class="key-tooltip">0 — 1 miss</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="-" data-errors="0">
+                                    -
+                                    <div class="key-tooltip">- — 0 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="=" data-errors="0">
+                                    =
+                                    <div class="key-tooltip">= — 0 misses</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Row 2 -->
+                            <div class="flex justify-center space-x-1">
+                                <div class="keyboard-key w-12 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="tab" data-errors="0">
+                                    Tab
+                                    <div class="key-tooltip">Tab — 0 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="q" data-errors="3">
+                                    Q
+                                    <div class="key-tooltip">Q — 3 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="w" data-errors="1">
+                                    W
+                                    <div class="key-tooltip">W — 1 miss</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="e" data-errors="0">
+                                    E
+                                    <div class="key-tooltip">E — 0 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="r" data-errors="2">
+                                    R
+                                    <div class="key-tooltip">R — 2 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="t" data-errors="1">
+                                    T
+                                    <div class="key-tooltip">T — 1 miss</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="y" data-errors="0">
+                                    Y
+                                    <div class="key-tooltip">Y — 0 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="u" data-errors="1">
+                                    U
+                                    <div class="key-tooltip">U — 1 miss</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="i" data-errors="0">
+                                    I
+                                    <div class="key-tooltip">I — 0 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="o" data-errors="2">
+                                    O
+                                    <div class="key-tooltip">O — 2 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="p" data-errors="4">
+                                    P
+                                    <div class="key-tooltip">P — 4 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="[" data-errors="0">
+                                    [
+                                    <div class="key-tooltip">[ — 0 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="]" data-errors="0">
+                                    ]
+                                    <div class="key-tooltip">] — 0 misses</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Row 3 -->
+                            <div class="flex justify-center space-x-1">
+                                <div class="keyboard-key w-14 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="caps" data-errors="0">
+                                    Caps
+                                    <div class="key-tooltip">Caps — 0 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="a" data-errors="1">
+                                    A
+                                    <div class="key-tooltip">A — 1 miss</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="s" data-errors="0">
+                                    S
+                                    <div class="key-tooltip">S — 0 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="d" data-errors="1">
+                                    D
+                                    <div class="key-tooltip">D — 1 miss</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="f" data-errors="0">
+                                    F
+                                    <div class="key-tooltip">F — 0 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="g" data-errors="2">
+                                    G
+                                    <div class="key-tooltip">G — 2 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="h" data-errors="3">
+                                    H
+                                    <div class="key-tooltip">H — 3 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="j" data-errors="1">
+                                    J
+                                    <div class="key-tooltip">J — 1 miss</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="k" data-errors="0">
+                                    K
+                                    <div class="key-tooltip">K — 0 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="l" data-errors="2">
+                                    L
+                                    <div class="key-tooltip">L — 2 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key=";" data-errors="1">
+                                    ;
+                                    <div class="key-tooltip">; — 1 miss</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="'" data-errors="0">
+                                    '
+                                    <div class="key-tooltip">' — 0 misses</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Row 4 -->
+                            <div class="flex justify-center space-x-1">
+                                <div class="keyboard-key w-16 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="shift" data-errors="0">
+                                    Shift
+                                    <div class="key-tooltip">Shift — 0 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="z" data-errors="0">
+                                    Z
+                                    <div class="key-tooltip">Z — 0 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="x" data-errors="1">
+                                    X
+                                    <div class="key-tooltip">X — 1 miss</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="c" data-errors="0">
+                                    C
+                                    <div class="key-tooltip">C — 0 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="v" data-errors="2">
+                                    V
+                                    <div class="key-tooltip">V — 2 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="b" data-errors="1">
+                                    B
+                                    <div class="key-tooltip">B — 1 miss</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="n" data-errors="0">
+                                    N
+                                    <div class="key-tooltip">N — 0 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="m" data-errors="3">
+                                    M
+                                    <div class="key-tooltip">M — 3 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="," data-errors="1">
+                                    ,
+                                    <div class="key-tooltip">, — 1 miss</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="." data-errors="0">
+                                    .
+                                    <div class="key-tooltip">. — 0 misses</div>
+                                </div>
+                                <div class="keyboard-key w-8 h-8 bg-gray-700 rounded text-xs flex items-center justify-center relative" data-key="/" data-errors="2">
+                                    /
+                                    <div class="key-tooltip">/ — 2 misses</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Error Summary -->
+                <div class="error-summary mb-8">
+                    <h3 class="text-lg font-semibold text-white mb-4">Top 5 Mistyped Bigrams</h3>
+                    <div class="bg-black bg-opacity-30 rounded-lg p-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <div class="bigram-item flex justify-between">
+                                    <span class="text-gray-300">"th"</span>
+                                    <span class="text-error-red">8 errors (12%)</span>
+                                </div>
+                                <div class="bigram-item flex justify-between">
+                                    <span class="text-gray-300">"er"</span>
+                                    <span class="text-error-red">6 errors (9%)</span>
+                                </div>
+                                <div class="bigram-item flex justify-between">
+                                    <span class="text-gray-300">"qu"</span>
+                                    <span class="text-error-red">5 errors (15%)</span>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="bigram-item flex justify-between">
+                                    <span class="text-gray-300">"ly"</span>
+                                    <span class="text-error-red">4 errors (7%)</span>
+                                </div>
+                                <div class="bigram-item flex justify-between">
+                                    <span class="text-gray-300">"ng"</span>
+                                    <span class="text-error-red">3 errors (5%)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Encouragement Line -->
+                <div class="encouragement text-center mb-8">
+                    <p class="text-gray-400 text-sm">
+                        Nice — your pinky misses dropped 12% vs last session.
+                    </p>
+                </div>
+
+                <!-- CTA Button -->
+                <div class="cta-button text-center">
+                    <button class="train-button px-8 py-3 rounded-lg font-semibold text-black text-lg">
+                        Train your weak spots ➔
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample data for demonstration
+        const testData = {
+            finalWPM: 78,
+            accuracy: 96,
+            wpmOverTime: [
+                { time: 0, wpm: 0 },
+                { time: 2, wpm: 45 },
+                { time: 4, wpm: 62 },
+                { time: 6, wpm: 71 },
+                { time: 8, wpm: 75 },
+                { time: 10, wpm: 82 },
+                { time: 12, wpm: 79 },
+                { time: 14, wpm: 85 },
+                { time: 16, wpm: 81 },
+                { time: 18, wpm: 78 },
+                { time: 20, wpm: 83 },
+                { time: 22, wpm: 80 },
+                { time: 24, wpm: 77 },
+                { time: 26, wpm: 79 },
+                { time: 28, wpm: 78 },
+                { time: 30, wpm: 78 }
+            ],
+            keyboardErrors: {
+                'q': 3, 'w': 1, 'r': 2, 't': 1, 'u': 1, 'o': 2, 'p': 4,
+                'a': 1, 'd': 1, 'g': 2, 'h': 3, 'j': 1, 'l': 2, ';': 1,
+                'x': 1, 'v': 2, 'b': 1, 'm': 3, ',': 1, '/': 2,
+                '2': 1, '4': 2, '6': 1, '0': 1
+            },
+            topBigrams: [
+                { bigram: "th", errors: 8, percentage: 12 },
+                { bigram: "er", errors: 6, percentage: 9 },
+                { bigram: "qu", errors: 5, percentage: 15 },
+                { bigram: "ly", errors: 4, percentage: 7 },
+                { bigram: "ng", errors: 3, percentage: 5 }
+            ]
+        };
+
+        // Animate WPM counter
+        function animateWPMCounter() {
+            const wpmElement = document.getElementById('main-wpm-display');
+            let currentWPM = 0;
+            const targetWPM = testData.finalWPM;
+            const increment = Math.ceil(targetWPM / 40);
+            const duration = 2000;
+            const stepTime = duration / 40;
+            
+            const counter = setInterval(() => {
+                currentWPM += increment;
+                if (currentWPM >= targetWPM) {
+                    currentWPM = targetWPM;
+                    clearInterval(counter);
+                }
+                wpmElement.textContent = currentWPM;
+            }, stepTime);
+        }
+
+        // Create WPM chart
+        function createWPMChart() {
+            const ctx = document.getElementById('wpm-chart').getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: testData.wpmOverTime.map(point => point.time + 's'),
+                    datasets: [{
+                        label: 'WPM',
+                        data: testData.wpmOverTime.map(point => point.wpm),
+                        borderColor: '#00ffff',
+                        backgroundColor: 'rgba(0, 255, 255, 0.1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#00ffff',
+                        pointBorderColor: '#00ffff',
+                        pointRadius: 3,
+                        pointHoverRadius: 5,
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                            titleColor: '#ffffff',
+                            bodyColor: '#00ffff',
+                            borderColor: 'rgba(0, 255, 255, 0.3)',
+                            borderWidth: 1,
+                            cornerRadius: 6,
+                            displayColors: false,
+                            callbacks: {
+                                title: function(context) {
+                                    return 'Time: ' + context[0].label;
+                                },
+                                label: function(context) {
+                                    return 'WPM: ' + context.parsed.y;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#999999'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#999999'
+                            },
+                            beginAtZero: true
+                        }
+                    },
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    }
+                }
+            });
+        }
+
+        // Apply keyboard heatmap colors
+        function applyKeyboardHeatmap() {
+            const keys = document.querySelectorAll('.keyboard-key');
+            const maxErrors = Math.max(...Object.values(testData.keyboardErrors));
+            
+            keys.forEach(key => {
+                const keyChar = key.getAttribute('data-key');
+                const errors = testData.keyboardErrors[keyChar] || 0;
+                
+                if (errors > 0) {
+                    const intensity = errors / maxErrors;
+                    let bgColor;
+                    
+                    if (intensity <= 0.25) {
+                        bgColor = '#ff8e8e'; // Light red
+                    } else if (intensity <= 0.5) {
+                        bgColor = '#ff7575'; // Medium red
+                    } else if (intensity <= 0.75) {
+                        bgColor = '#ff6b6b'; // Error red
+                    } else {
+                        bgColor = '#ff5252'; // Dark red
+                    }
+                    
+                    key.style.backgroundColor = bgColor;
+                    key.style.color = '#000000';
+                }
+                
+                // Update tooltip
+                const tooltip = key.querySelector('.key-tooltip');
+                if (tooltip) {
+                    const errorText = errors === 1 ? 'miss' : 'misses';
+                    tooltip.textContent = `${keyChar.toUpperCase()} — ${errors} ${errorText}`;
+                }
+            });
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Prevent default navigation
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Navigation to:', this.getAttribute('href'));
+                });
+            });
+
+            // Train button
+            document.querySelector('.train-button').addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('Starting targeted training...');
+            });
+
+            // Bigram hover effects
+            const bigramItems = document.querySelectorAll('.bigram-item');
+            bigramItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = 'rgba(0, 255, 255, 0.1)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = 'transparent';
+                });
+            });
+        }
+
+        // Initialize page
+        function initializePage() {
+            // Start animations with delays
+            setTimeout(() => {
+                animateWPMCounter();
+            }, 500);
+            
+            setTimeout(() => {
+                createWPMChart();
+            }, 1500);
+            
+            setTimeout(() => {
+                applyKeyboardHeatmap();
+            }, 2000);
+            
+            setupEventListeners();
+        }
+
+        // Start when page loads
+        document.addEventListener('DOMContentLoaded', initializePage);
+    </script>
+
+</body></html>
