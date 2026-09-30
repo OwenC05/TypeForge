@@ -1,6 +1,16 @@
 # TypeForge implementation plan
 
-Status: implementation started; 30 September 2026. Milestone 1 is implemented: shared typing engine, guest assessment/practice, real results, original sentence banks and local history. Node checks, TypeScript checking, production build and Chromium acceptance checks pass. See README.md for commands and verification boundaries. Milestones 2–7 remain open; basic retest/progress UI is present, while targeted coaching, ML, accounts and cloud sync are not yet implemented.
+Status: local-first recruiter-facing slice implemented, locally verified and independently reviewed, 30 September 2026: code review APPROVE; architecture CLEAR; no unresolved findings in this scope. The engineering portions of milestones 2–4 are verified alongside milestone 1: genuine benchmark/model, browser inference, explainable baseline practice and fresh-retest evidence. This is not public-release approval or completion of the broader platform. Accounts/cloud sync, consented TypeForge transfer evaluation and public deployment remain open. See [README.md](README.md), [ML documentation](ml/README.md) and the [verification record](docs/verification.md) for commands and boundaries.
+
+### Current local evidence (not final release approval)
+
+Initial independent code/architecture reviews returned REQUEST CHANGES / WATCH. The identified issues have regression-tested repairs; those initial findings remain recorded. Independent re-review returned code-review APPROVE and architecture CLEAR, with no unresolved local-slice findings.
+
+The bundled genuine experiment acquired 2,000 Aalto participants; eligible coverage is 1,386 participants / 5,812 trials / 117,653 transitions. Model `aalto-ridge-83f562c419d5` and report `benchmark-92947653a001` show primary held-out participant-macro timing MAE 61.30 ms versus the selected smoothed-pair baseline's 67.55 ms (151 participants / 9,595 transitions; paired 95% difference interval −7.76 to −4.89 ms). This is prediction evidence only; no TypeForge transfer or training-efficacy claim follows. Full exclusions, splits and secondary results live in the generated benchmark and ML Lab. Current scoped Chromium acceptance and independent local-slice reviews pass; external release gates remain open.
+
+Verification recorded: 49 client tests, TypeScript checking/build and 21 offline Python tests pass; all 682 features and fitted-estimator/exported-browser predictions pass parity at relative tolerance 1e-6. Chromium 155 checks cover the current assessment/practice/retest journey, storage upgrade and failure recovery, missing/malformed-model and missing/mismatched-report states, extreme stored-prediction rejection and real Lab metrics. Regression checks cover fresh bounded Restart calibration, undeclared QWERTY with zero calibration reads and deleted-origin retest Restart becoming a new assessment without a stale origin. Desktop/narrow layout checks (1440px/390px) and a static `/TypeForge/` smoke check pass. Label/focus, timer, reduced-motion and CSS 200% zoom checks do not certify universal accessibility. Firefox/Safari, screen readers, physical-device QA and the consented 15–20-person pilot remain subsequent gates.
+
+Local history database v2 adds a compound index without rewriting v1 records. Old database-v1 binaries cannot reopen it; export before downgrade. Result schema/metric versions remain 1, with strictly validated optional extensions.
 
 ## 1. Outcome and boundaries
 
@@ -13,7 +23,7 @@ First-release defaults:
 - English, lowercase text and spaces, using a physical keyboard. Ask users to declare QWERTY before enabling model recommendations; browser events cannot reliably identify their layout. Other layouts can use ordinary practice without model claims.
 - One 60-second duration for assessments and drills. Start timing on the first character, not on page load or focus.
 - Meaningful short sentences; separate versioned practice and assessment banks. Assessment text must never be selected to exaggerate a user's improvement.
-- Guest practice works immediately. Email sign-in enables private cloud history and cross-device progress.
+- Guest practice works immediately. Email sign-in and private cross-device history are later milestones, not simulated in the local release.
 - Predictions concern correct, unedited copying with long pauses excluded. Show errors separately: missing timing evidence is not evidence that a key is easy. Drill effectiveness remains a hypothesis to test.
 
 Leave leaderboards, friends, payments, badges, generative AI, reinforcement learning, mobile typing models and automatic retraining outside this release. None is needed to demonstrate the chosen ML capability.
@@ -23,12 +33,12 @@ Leave leaderboards, friends, payments, badges, generative AI, reinforcement lear
 | Part | Decision |
 | --- | --- |
 | Frontend | Vite, vanilla TypeScript, semantic HTML and shared CSS. Reuse the existing visual design; no React migration or routing library. |
-| Pages | Home, practice, results, progress and account. Use ordinary page URLs and a result ID query parameter. Test and drill share one practice screen; both results prototypes become one screen. |
+| Pages | Home, practice, results, progress and ML Lab; account is a later milestone. Use ordinary page URLs and a result ID query parameter. Test and drill share one practice screen; both results prototypes become one screen. |
 | Local persistence | IndexedDB for completed results and pending uploads, using a small direct helper. No general storage abstraction. |
-| Authentication/database | Supabase JavaScript SDK, email OTP and Postgres with row-level security. |
+| Authentication/database (planned, not provisioned) | Supabase JavaScript SDK, email OTP and Postgres with row-level security. |
 | Training | Offline Python with NumPy and scikit-learn; standard-library parsing, ZIP handling and command-line arguments. |
 | Inference | A versioned JSON coefficient artifact, bundled with the site and evaluated in TypeScript. No inference server. |
-| Deployment | Static Vite build on GitHub Pages, with the repository base path configured. Supabase hosts auth and data. |
+| Deployment (planned, not launched) | Static Vite build on GitHub Pages, with the repository base path configured. Supabase hosts auth and data. |
 
 Keep frontend work under `typing-app/client`, offline experiments under `ml`, and SQL migrations under `supabase`. Add files when their behaviour is implemented; do not scaffold unused layers. Pin the chosen dependencies and record the Python environment when implementation begins.
 
@@ -139,6 +149,8 @@ Bundle one versioned artifact with each frontend release and an explicit experim
 - Provide labelled controls, visible focus, non-colour error cues, reduced-motion support and readable contrast. Announce start/completion accessibly without reading every timer tick. Charts include equivalent text summaries; simple SVG/HTML is sufficient.
 
 ## 6. Milestones and acceptance checks
+
+Milestone 1 and the local engineering portions of milestones 2–4 have passing checks and independent review, as summarized above. Milestone 7 has portfolio documentation and actual screenshots, not public-launch approval. Milestones 5–6 and public-release service/device gates remain unfinished. The table retains the broader roadmap and its completion gates.
 
 | Order | Deliverable | Completion gate |
 | --- | --- | --- |
