@@ -1,0 +1,31 @@
+{
+  "id": "00000000-0000-4000-8000-000000000001",
+  "owner": "guest",
+  "schemaVersion": 1,
+  "metricVersion": 1,
+  "completedAt": "2026-09-30T12:00:00.000Z",
+  "mode": "assessment",
+  "settings": { "durationMs": 60000, "language": "en", "qwerty": true, "corpusVersion": "1" },
+  "qualityFlags": [],
+  "eligibleForProgress": true,
+  "metrics": { "elapsedMs": 60000, "correctCharacters": 3, "attemptedCharacters": 3, "correctAttempts": 3, "accuracy": 100, "deletedCharacters": 0, "wpm": 0.6 },
+  "sentences": [{
+    "promptId": "legacy-cat",
+    "promptText": "cat",
+    "response": "cat",
+    "submitted": true,
+    "eligible": true,
+    "diagnosticsAvailable": true,
+    "qualityFlags": [],
+    "keys": {
+      "c": { "attempts": 1, "correct": 1, "firstAttempts": 1, "firstErrors": 0 },
+      "a": { "attempts": 1, "correct": 1, "firstAttempts": 1, "firstErrors": 0 },
+      "t": { "attempts": 1, "correct": 1, "firstAttempts": 1, "firstErrors": 0 }
+    },
+    "pairs": {
+      "ca": { "count": 1, "logSum": 4.605170185988092 },
+      "at": { "count": 1, "logSum": 4.605170185988092 }
+    }
+  }],
+  "chartSamples": [{ "elapsedMs": 60000, "wpm": 0.6, "accuracy": 100 }]
+}

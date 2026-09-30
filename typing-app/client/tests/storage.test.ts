@@ -78,3 +78,46 @@ test('rejects an otherwise bounded record larger than the 1 MiB persistence limi
   value.sentences = Array.from({ length: 120 }, () => ({ ...value.sentences[0]!, pairs }));
   assert.throws(() => validateResult(value), /record exceeds 1 MiB/);
 });
+
+test('strict v1 extensions retain independent lineage and matched simultaneous predictions',()=>{
+ const r=result();r.sourceAssessmentId='00000000-0000-4000-8000-000000000001';
+ r.sentences[0].prediction={featureVersion:1,baseline:{kind:'user',version:'v1'},candidate:{modelVersion:'m1',status:'experimental'},pairs:{th:{count:1,observedLogSum:Math.log(.5),baselinePredictedLogSum:4,candidatePredictedLogSum:5}}};
+ assert.doesNotThrow(()=>validateResult(r));
+ const bad=structuredClone(r);bad.sentences[0].prediction!.pairs.th.count=2;assert.throws(()=>validateResult(bad));
+ const mixed=structuredClone(r);delete mixed.sentences[0].prediction!.pairs.th.candidatePredictedLogSum;assert.throws(()=>validateResult(mixed));
+ r.mode='practice';r.practiceFocus={pair:'th',evidenceCount:8,source:'baseline',baselineVersion:'v1',score:1};assert.doesNotThrow(()=>validateResult(r));
+ r.sourceAssessmentId=r.id;assert.throws(()=>validateResult(r));
+});
+
+test('rejects unknown extension keys, wrong identities and selectively retained predictions',()=>{
+ const valid=result();valid.sourceAssessmentId='00000000-0000-4000-8000-000000000001';
+ valid.sentences[0].prediction={featureVersion:1,baseline:{kind:'user',version:'v1'},pairs:{th:{count:1,observedLogSum:Math.log(.5),baselinePredictedLogSum:4}}};
+ const changes=[
+  (r:any)=>r.sourceAssessmentId='not-a-uuid',
+  (r:any)=>r.sentences[0].prediction.extra=1,
+  (r:any)=>r.sentences[0].prediction.baseline.version='',
+  (r:any)=>r.sentences[0].prediction.baseline.kind='invented',
+  (r:any)=>r.sentences[0].prediction.pairs.th.observedLogSum=0,
+  (r:any)=>r.sentences[0].prediction.pairs.th.baselinePredictedLogSum=NaN,
+  (r:any)=>r.sentences[0].prediction.pairs.th.candidatePredictedLogSum=5,
+  (r:any)=>r.sentences[0].pairs.he={count:1,logSum:4},
+  (r:any)=>r.sentences[0].eligible=false,
+  (r:any)=>r.settings.qwerty=false,
+  (r:any)=>r.practiceFocus={pair:'th',evidenceCount:8,source:'baseline',baselineVersion:'v1',score:1},
+ ];
+ for(const change of changes){const r=structuredClone(valid);change(r);assert.throws(()=>validateResult(r));}
+ assert.doesNotThrow(()=>validateResult(valid));
+});
+
+test('UUID self-reference cannot bypass lineage validation with uppercase spelling',()=>{
+ const r=result();r.sourceAssessmentId=r.id.toUpperCase();assert.throws(()=>validateResult(r));
+});
+
+test('prediction means must exponentiate to finite positive milliseconds without clamping',()=>{
+ for(const logMean of [1000,-1000,Math.log(Number.MAX_VALUE)+1]){
+  const r=result();r.sentences[0].prediction={featureVersion:1,baseline:{kind:'user',version:'v1'},pairs:{th:{count:1,observedLogSum:Math.log(.5),baselinePredictedLogSum:logMean}}};
+  assert.throws(()=>validateResult(r));
+ }
+ const r=result();r.sentences[0].prediction={featureVersion:1,baseline:{kind:'user',version:'v1'},candidate:{modelVersion:'m1',status:'experimental'},pairs:{th:{count:1,observedLogSum:Math.log(.5),baselinePredictedLogSum:Math.log(.25),candidatePredictedLogSum:Math.log(.125)}}};
+ assert.doesNotThrow(()=>validateResult(r));r.sentences[0].prediction.pairs.th.candidatePredictedLogSum=-1000;assert.throws(()=>validateResult(r));
+});

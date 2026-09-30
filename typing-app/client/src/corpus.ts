@@ -142,6 +142,12 @@ export function selectPrompts(
   const excluded = new Set(excludeIds);
   const prompts = (mode === 'assessment' ? assessmentPrompts : practicePrompts)
     .filter((prompt) => !excluded.has(prompt.id));
+  return shufflePrompts(prompts, random);
+}
+
+/** Shared without-replacement shuffle for general practice and targeted banks. */
+export function shufflePrompts(bank: readonly Prompt[], random: () => number = Math.random): Prompt[] {
+  const prompts = bank.map(prompt => ({ ...prompt }));
   for (let i = prompts.length - 1; i > 0; i--) {
     const j = Math.floor(random() * (i + 1));
     [prompts[i], prompts[j]] = [prompts[j]!, prompts[i]!];

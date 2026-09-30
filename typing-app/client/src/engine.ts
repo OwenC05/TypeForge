@@ -1,3 +1,5 @@
+import type { PracticeFocus } from './profile.ts';
+import { pairPositions } from './model.ts';
 export const DURATION_MS = 60_000;
 export const MAX_PROMPT_LENGTH = 300;
 export const MAX_RESPONSE_LENGTH = 600;
@@ -23,7 +25,20 @@ export interface Metrics {
   wpm: number;
 }
 export interface ChartSample { elapsedMs: number; wpm: number; accuracy: number | null }
+export interface FrozenSentencePredictions {
+  featureVersion: 1;
+  baseline: { kind: 'population' | 'user' | 'smoothed-pair'; version: string };
+  candidate?: { modelVersion: string; status: 'experimental' };
+  occurrences: readonly { position: number; baselineLogMs: number; candidateLogMs?: number }[];
+}
+export interface SentencePrediction {
+  featureVersion: 1;
+  baseline: FrozenSentencePredictions['baseline'];
+  candidate?: FrozenSentencePredictions['candidate'];
+  pairs: Record<string, { count: number; observedLogSum: number; baselinePredictedLogSum: number; candidatePredictedLogSum?: number }>;
+}
 export interface SentenceSummary {
+  prediction?: SentencePrediction;
   promptId: string;
   promptText: string;
   response: string;
@@ -35,6 +50,8 @@ export interface SentenceSummary {
   pairs: Record<string, PairCounts>;
 }
 export interface SessionResult {
+  practiceFocus?: PracticeFocus;
+  sourceAssessmentId?: string;
   id: string;
   owner: string;
   schemaVersion: 1;
@@ -49,6 +66,8 @@ export interface SessionResult {
   chartSamples: ChartSample[];
 }
 export interface EngineOptions {
+  practiceFocus?: PracticeFocus;
+  sourceAssessmentId?: string;
   id: string;
   prompts: readonly Prompt[];
   owner?: string;
@@ -103,6 +122,9 @@ export class TypingEngine {
   private pairs: Record<string, PairCounts> = {};
   private previousPress: { char: string; time: number; index: number } | null = null;
   private chart: ChartSample[] = [];
+  private sentenceEdited = false;
+  private frozen: FrozenSentencePredictions | null = null;
+  private predictedPairs: SentencePrediction['pairs'] = {};
   private assembled: SessionResult | null = null;
 
   constructor(options: EngineOptions) {
@@ -111,13 +133,31 @@ export class TypingEngine {
       !/^[a-z ]+$/.test(prompt.text))) {
       throw new RangeError('Provide an ID and nonempty lowercase English prompts within the length limit.');
     }
-    this.options = { ...options };
+    this.options = structuredClone(options);
     this.prompts = options.prompts.map(prompt => ({ ...prompt }));
   }
 
   get state(): RunState { return this.runState; }
   get value(): string { return this.response; }
   get prompt(): Prompt { return { ...this.currentPrompt() }; }
+
+  get submittedSummaries(): readonly SentenceSummary[] { return structuredClone(this.submitted); }
+
+  setSentencePredictions(sentenceIndex: number, predictions: FrozenSentencePredictions): void {
+    const expected = pairPositions(this.currentPrompt().text);
+    const version = (value: unknown) => typeof value === 'string' && value.length > 0 && value.length <= 80;
+    if (sentenceIndex !== this.submitted.length || this.sentenceEdited || this.frozen ||
+      !['idle', 'running'].includes(this.runState) || predictions.featureVersion !== 1 ||
+      !['population', 'user', 'smoothed-pair'].includes(predictions.baseline.kind) || !version(predictions.baseline.version) ||
+      (predictions.candidate && (!version(predictions.candidate.modelVersion) || predictions.candidate.status !== 'experimental')) ||
+      predictions.occurrences.length !== expected.length ||
+      new Set(predictions.occurrences.map(o => o.position)).size !== expected.length ||
+      predictions.occurrences.some(o => !expected.includes(o.position) || !Number.isFinite(o.baselineLogMs) ||
+        (predictions.candidate ? !Number.isFinite(o.candidateLogMs) : o.candidateLogMs !== undefined))) {
+      throw new RangeError('Predictions must be exhaustive, finite and frozen once before editing the current sentence.');
+    }
+    this.frozen = structuredClone(predictions);
+  }
 
   private currentPrompt(): Prompt {
     return this.prompts[this.submitted.length % this.prompts.length]!;
@@ -187,6 +227,7 @@ export class TypingEngine {
 
   edit(edit: Edit, now: number): boolean {
     if (!this.advance(now)) return false;
+    this.sentenceEdited = true;
     const { start, end, text } = edit;
     if (!Number.isInteger(start) || !Number.isInteger(end) || start < 0 ||
       end < start || end > this.response.length) {
@@ -246,6 +287,17 @@ export class TypingEngine {
             const pair = this.pairs[previous.char + text] ??= { count: 0, logSum: 0 };
             pair.count++;
             pair.logSum += Math.log(interval);
+            const prediction = this.frozen?.occurrences.find(o => o.position === start);
+            if (prediction) {
+              const aggregate = this.predictedPairs[previous.char + text] ??= {
+                count: 0, observedLogSum: 0, baselinePredictedLogSum: 0,
+                ...(this.frozen?.candidate ? { candidatePredictedLogSum: 0 } : {}),
+              };
+              aggregate.count++;
+              aggregate.observedLogSum += Math.log(interval);
+              aggregate.baselinePredictedLogSum += prediction.baselineLogMs;
+              if (aggregate.candidatePredictedLogSum !== undefined) aggregate.candidatePredictedLogSum += prediction.candidateLogMs!;
+            }
           }
         }
         this.previousPress = { char: text, time: edit.pressTime, index: start };
@@ -264,6 +316,11 @@ export class TypingEngine {
     if (submitted && this.response !== this.currentPrompt().text) qualityFlags.add('incorrect');
     const eligible = submitted && qualityFlags.size === 0;
     return {
+      ...(eligible && this.frozen && Object.keys(this.predictedPairs).length ? { prediction: {
+        featureVersion: 1 as const, baseline: structuredClone(this.frozen.baseline),
+        ...(this.frozen.candidate ? { candidate: structuredClone(this.frozen.candidate) } : {}),
+        pairs: structuredClone(this.predictedPairs),
+      } } : {}),
       promptId: this.currentPrompt().id,
       promptText: this.currentPrompt().text,
       response: this.response,
@@ -284,6 +341,9 @@ export class TypingEngine {
     this.retained += matches(this.response, this.currentPrompt().text);
     this.submitted.push(summary);
     this.response = '';
+    this.sentenceEdited = false;
+    this.frozen = null;
+    this.predictedPairs = {};
     this.sentenceFlags.clear();
     this.sentenceDiagnostics = true;
     this.sentenceAttempted = 0;
@@ -312,6 +372,9 @@ export class TypingEngine {
     this.startedAt = null;
     this.elapsed = 0;
     this.response = '';
+    this.sentenceEdited = false;
+    this.frozen = null;
+    this.predictedPairs = {};
     this.submitted = [];
     this.retained = this.attempted = this.correct = this.deleted = 0;
     this.diagnostics = this.sentenceDiagnostics = true;
@@ -331,6 +394,8 @@ export class TypingEngine {
     if (!this.assembled) {
       if (!Number.isFinite(Date.parse(completedAt))) throw new RangeError('Completion time must be an ISO date.');
       this.assembled = {
+        ...(this.options.practiceFocus && this.options.mode === 'practice' ? { practiceFocus: structuredClone(this.options.practiceFocus) } : {}),
+        ...(this.options.sourceAssessmentId ? { sourceAssessmentId: this.options.sourceAssessmentId } : {}),
         id: this.options.id,
         owner: this.options.owner ?? 'guest',
         schemaVersion: 1,

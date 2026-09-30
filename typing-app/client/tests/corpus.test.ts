@@ -52,3 +52,11 @@ test('fresh retests exclude prior passages and report an exhausted bank honestly
   assert.equal(nextCycle.length, 79);
   assert.ok(nextCycle.every((prompt) => prompt.id !== lastPromptId));
 });
+
+test('shared shuffle defensively copies custom practice banks', async () => {
+  const { shufflePrompts } = await import('../src/corpus.ts');
+  const bank = [{id:'a',text:'aa'},{id:'b',text:'bb'}];
+  const shuffled = shufflePrompts(bank, () => 0);
+  assert.deepEqual(shuffled.map(p=>p.id), ['b','a']);
+  shuffled[0].text='changed';assert.equal(bank[1].text,'bb');
+});

@@ -9,6 +9,7 @@ import {
 
 const DATABASE = 'typeforge';
 const STORE = 'results';
+const ORDER_INDEX = 'completedAt-id';
 const MAX_RESULT_BYTES = 1024 * 1024;
 const MAX_CHARACTERS = MAX_SENTENCES * MAX_PROMPT_LENGTH;
 const RUN_FLAGS = ['interrupted', 'invalid-input'];
@@ -63,11 +64,25 @@ function resultId(value: unknown): void {
 
 /** Reject unsupported or corrupt records before they reach a view or profile. */
 export function validateResult(value: unknown): asserts value is SessionResult {
+  const root = record(value, 'record');
   const result = record(value, 'record', [
     'id', 'owner', 'schemaVersion', 'metricVersion', 'completedAt', 'mode',
     'settings', 'qualityFlags', 'eligibleForProgress', 'metrics', 'sentences', 'chartSamples',
+    ...['practiceFocus', 'sourceAssessmentId'].filter(key => Object.hasOwn(root, key)),
   ]);
   resultId(result.id);
+  if (Object.hasOwn(result, 'sourceAssessmentId')) {
+    resultId(result.sourceAssessmentId);
+    check((result.sourceAssessmentId as string).toLowerCase() !== (result.id as string).toLowerCase(), 'sourceAssessmentId self-reference');
+  }
+  if (Object.hasOwn(result, 'practiceFocus')) {
+    const focus = record(result.practiceFocus, 'practiceFocus', ['pair', 'evidenceCount', 'source', 'baselineVersion', 'score']);
+    check(result.mode === 'practice' && typeof focus.pair === 'string' && /^[a-z]{2}$/.test(focus.pair), 'practiceFocus');
+    check(count(focus.evidenceCount, 'practiceFocus.evidenceCount', MAX_SENTENCES * MAX_PROMPT_LENGTH) >= 8, 'practiceFocus.evidenceCount');
+    check(focus.source === 'baseline', 'practiceFocus.source');
+    string(focus.baselineVersion, 'practiceFocus.baselineVersion', 80);
+    check(number(focus.score, 'practiceFocus.score', Number.MAX_VALUE) > 0, 'practiceFocus.score');
+  }
   check(result.owner === 'guest', 'owner');
   check(result.schemaVersion === 1 && result.metricVersion === 1, 'version');
   const completedAt = string(result.completedAt, 'completedAt', 24);
@@ -98,8 +113,10 @@ export function validateResult(value: unknown): asserts value is SessionResult {
   check(Array.isArray(result.sentences) && result.sentences.length <= MAX_SENTENCES, 'sentences');
   for (const [index, value] of result.sentences.entries()) {
     const path = `sentences[${index}]`;
+    const rawSentence = record(value, path);
     const sentence = record(value, path, [
       'promptId', 'promptText', 'response', 'submitted', 'eligible', 'diagnosticsAvailable', 'qualityFlags', 'keys', 'pairs',
+      ...(Object.hasOwn(rawSentence, 'prediction') ? ['prediction'] : []),
     ]);
     string(sentence.promptId, `${path}.promptId`, 128);
     check(/^[a-z ]+$/.test(string(sentence.promptText, `${path}.promptText`, MAX_PROMPT_LENGTH)), `${path}.promptText`);
@@ -131,6 +148,33 @@ export function validateResult(value: unknown): asserts value is SessionResult {
       // Sub-millisecond intervals have negative logs; do not discard them.
       number(stats.logSum, `${path}.pairs.${pair}.logSum`, observations * Math.log(5000) + 1e-9, -Number.MAX_SAFE_INTEGER);
     }
+    if (Object.hasOwn(sentence, 'prediction')) {
+      const raw = record(sentence.prediction, `${path}.prediction`);
+      const hasCandidate = Object.hasOwn(raw, 'candidate');
+      const prediction = record(raw, `${path}.prediction`, ['featureVersion', 'baseline', 'pairs', ...(hasCandidate ? ['candidate'] : [])]);
+      check(sentence.eligible && settings.qwerty && prediction.featureVersion === 1, `${path}.prediction eligibility`);
+      const baseline = record(prediction.baseline, 'prediction.baseline', ['kind', 'version']);
+      check(['population', 'user', 'smoothed-pair'].includes(baseline.kind as string), 'prediction.baseline.kind');
+      string(baseline.version, 'prediction.baseline.version', 80);
+      if (hasCandidate) {
+        const candidate = record(prediction.candidate, 'prediction.candidate', ['modelVersion', 'status']);
+        string(candidate.modelVersion, 'prediction.candidate.modelVersion', 80);
+        check(candidate.status === 'experimental', 'prediction.candidate.status');
+      }
+      const predicted = record(prediction.pairs, 'prediction.pairs');
+      check(Object.keys(predicted).length > 0 && Object.keys(predicted).length === Object.keys(pairs).length, 'prediction.pairs completeness');
+      for (const [pair, value] of Object.entries(predicted)) {
+        check(Object.hasOwn(pairs, pair), 'prediction.pair');
+        const observed = pairs[pair] as {count: number; logSum: number};
+        const stats = record(value, 'prediction.pair', ['count', 'observedLogSum', 'baselinePredictedLogSum', ...(hasCandidate ? ['candidatePredictedLogSum'] : [])]);
+        check(stats.count === observed.count && stats.observedLogSum === observed.logSum, 'prediction.matched observations');
+        for (const field of ['baselinePredictedLogSum', ...(hasCandidate ? ['candidatePredictedLogSum'] : [])]) {
+          const sum = number(stats[field], `prediction.${field}`, Number.MAX_VALUE, -Number.MAX_VALUE);
+          const milliseconds = Math.exp(sum / observed.count);
+          check(Number.isFinite(milliseconds) && milliseconds > 0, `prediction.${field} representability`);
+        }
+      }
+    }
   }
 
   check(Array.isArray(result.chartSamples) && result.chartSamples.length > 0
@@ -157,10 +201,13 @@ function openDatabase(): Promise<IDBDatabase> {
       reject(new Error('Local storage is unavailable in this browser.'));
       return;
     }
-    const request = indexedDB.open(DATABASE, 1);
+    const request = indexedDB.open(DATABASE, 2);
     let blocked = false;
     request.onupgradeneeded = () => {
-      if (!request.result.objectStoreNames.contains(STORE)) request.result.createObjectStore(STORE, { keyPath: 'id' });
+      const store = request.result.objectStoreNames.contains(STORE)
+        ? request.transaction!.objectStore(STORE)
+        : request.result.createObjectStore(STORE, { keyPath: 'id' });
+      if (!store.indexNames.contains(ORDER_INDEX)) store.createIndex(ORDER_INDEX, ['completedAt', 'id']);
     };
     request.onerror = () => reject(request.error ?? new Error('Could not open local results.'));
     request.onblocked = () => {
@@ -211,11 +258,64 @@ export async function getResult(id: string): Promise<SessionResult | undefined> 
   return result;
 }
 
+let storageDiagnostics: string[] = [];
+/** Latest list operation warnings; corrupt records remain stored for recovery. */
+export function getStorageDiagnostics(): readonly string[] { return [...storageDiagnostics]; }
+
 export async function listResults(): Promise<SessionResult[]> {
-  // ponytail: read all local sessions; add cursor pagination if history becomes slow.
-  const results: unknown[] = await request('readonly', (store) => store.getAll());
-  for (const result of results) validateResult(result);
-  return (results as SessionResult[]).sort((a, b) => Date.parse(b.completedAt) - Date.parse(a.completedAt) || a.id.localeCompare(b.id));
+  const values: unknown[] = await request('readonly', (store) => store.getAll());
+  storageDiagnostics = [];
+  const results: SessionResult[] = [];
+  for (const value of values) {
+    try { validateResult(value); results.push(value); }
+    catch (error) { storageDiagnostics.push(error instanceof Error ? error.message : 'Unsupported local result.'); }
+  }
+  return results.sort((a, b) => b.completedAt.localeCompare(a.completedAt) || b.id.localeCompare(a.id));
+}
+
+export async function listResultsPage(before: {completedAt: string; id: string} | null = null, limit = 100): Promise<SessionResult[]> {
+  if (!Number.isInteger(limit) || limit < 1 || limit > 100) throw new RangeError('History page limit must be between 1 and 100.');
+  const database = await openDatabase();
+  storageDiagnostics = [];
+  return new Promise((resolve, reject) => {
+    const results: SessionResult[] = [];
+    let invalidCount = 0;
+    let firstInvalidReason = '';
+    const transaction = database.transaction(STORE, 'readonly');
+    const range = before ? IDBKeyRange.upperBound([before.completedAt, before.id], true) : null;
+    const store = transaction.objectStore(STORE);
+    const index = store.index(ORDER_INDEX);
+    // Records lacking indexable dates/IDs cannot appear in an index cursor.
+    // Count them explicitly so corruption is not hidden by the index itself.
+    if (!before) {
+      const allCount = store.count();
+      const indexedCount = index.count();
+      indexedCount.onsuccess = () => {
+        const omitted = allCount.result - indexedCount.result;
+        if (omitted > 0) storageDiagnostics.push(`${omitted} local record(s) have unindexable history fields and remain stored for recovery.`);
+      };
+    }
+    const cursor = index.openCursor(range, 'prev');
+    cursor.onsuccess = () => {
+      const entry = cursor.result;
+      if (!entry) return;
+      try { const value: unknown = entry.value; validateResult(value); results.push(value); }
+      catch (error) {
+        invalidCount++;
+        firstInvalidReason ||= error instanceof Error ? error.message : 'Unsupported local result.';
+      }
+      if (results.length < limit) entry.continue();
+    };
+    transaction.oncomplete = () => {
+      database.close();
+      if (invalidCount) storageDiagnostics.push(`${invalidCount} unsupported/corrupt local record(s) were skipped and remain stored. ${firstInvalidReason}`);
+      resolve(results);
+    };
+    transaction.onabort = () => {
+      database.close();
+      reject(transaction.error ?? cursor.error ?? new Error('Could not read local history page.'));
+    };
+  });
 }
 
 export async function deleteResult(id: string): Promise<void> {

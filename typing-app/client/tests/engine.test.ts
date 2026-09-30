@@ -160,3 +160,59 @@ test('delayed callbacks do not backfill chart samples, and regular samples fit p
   for (let now = 1100; now < 60100; now += 1000) regular.tick(now);
   assert.equal(complete(regular).chartSamples.length, 60);
 });
+
+test('freezes exhaustive simultaneous predictions and retains only matched intervals', () => {
+  const engine = make('aaaa');
+  const frozen = { featureVersion: 1 as const, baseline: {kind:'user' as const,version:'v1'}, candidate:{modelVersion:'m1',status:'experimental' as const}, occurrences:[1,2,3].map(position=>({position,baselineLogMs:position,candidateLogMs:position+1})) };
+  engine.setSentencePredictions(0, frozen);
+  frozen.occurrences[0].baselineLogMs = 999;
+  assert.throws(()=>engine.setSentencePredictions(0,frozen));
+  [100,200,6000,6100].forEach(time=>insert(engine,'a',time));
+  engine.submit(6200);
+  const summary = engine.submittedSummaries[0];
+  assert.deepEqual(summary.prediction?.pairs.aa,{count:2,observedLogSum:2*Math.log(100),baselinePredictedLogSum:4,candidatePredictedLogSum:6});
+  summary.pairs.aa.count=99;
+  assert.equal(engine.submittedSummaries[0].pairs.aa.count,2);
+  validateResult(complete(engine));
+});
+
+test('prediction seam rejects incomplete, duplicate, wrong-index and post-edit input',()=>{
+  const engine=make('cat');
+  const frozen={featureVersion:1 as const,baseline:{kind:'user' as const,version:'v1'},occurrences:[{position:1,baselineLogMs:4},{position:2,baselineLogMs:4}]};
+  assert.throws(()=>engine.setSentencePredictions(1,frozen));
+  assert.throws(()=>engine.setSentencePredictions(0,{...frozen,occurrences:frozen.occurrences.slice(1)}));
+  assert.throws(()=>engine.setSentencePredictions(0,{...frozen,occurrences:[frozen.occurrences[0],frozen.occurrences[0]]}));
+  engine.edit({start:0,end:0,text:''},0);
+  assert.throws(()=>engine.setSentencePredictions(0,frozen));
+});
+
+test('ineligible and unfinished sentences discard both predictions, next sentence can freeze afresh',()=>{
+ for(const invalidation of ['edit','interrupt','unfinished','repeat','nonpositive'] as const){
+  const engine=make('cat');
+  const frozen={featureVersion:1 as const,baseline:{kind:'user' as const,version:'v1'},candidate:{modelVersion:'m1',status:'experimental' as const},occurrences:[1,2].map(position=>({position,baselineLogMs:4,candidateLogMs:5}))};
+  engine.setSentencePredictions(0,frozen);insert(engine,'c',100);
+  if(invalidation==='interrupt')engine.interrupt(150);
+  engine.edit({start:1,end:1,text:'a',pressTime:invalidation==='nonpositive'?100:200,repeat:invalidation==='repeat'},200);
+  insert(engine,'t',300);
+  if(invalidation==='edit'){engine.edit({start:2,end:3,text:''},350);insert(engine,'t',400);}
+  if(invalidation!=='unfinished'){engine.submit(500);engine.setSentencePredictions(1,frozen);}
+  const result=complete(engine);assert.equal(result.sentences[0].prediction,undefined,invalidation);assert.deepEqual(result.sentences[0].pairs,{},invalidation);
+ }
+});
+test('practice and retest lineage is independent of optional practice focus and survives result assembly',()=>{
+ const sourceAssessmentId='00000000-0000-4000-8000-000000000002';
+ for(const mode of ['practice','assessment'] as const){
+  const engine=new TypingEngine({id,prompts:[{id:'s',text:'cat'}],qwerty:true,mode,sourceAssessmentId});
+  insert(engine,'c',100);const r=complete(engine);assert.equal(r.sourceAssessmentId,sourceAssessmentId);assert.equal(r.practiceFocus,undefined);
+ }
+});
+
+test('focus options and submitted prediction identities are defensive snapshots',()=>{
+ const practiceFocus={pair:'ca',evidenceCount:8,source:'baseline' as const,baselineVersion:'v1',score:1};
+ const engine=new TypingEngine({id,prompts:[{id:'s',text:'cat'}],qwerty:true,mode:'practice',practiceFocus});
+ const frozen={featureVersion:1 as const,baseline:{kind:'user' as const,version:'v1'},candidate:{modelVersion:'m1',status:'experimental' as const},occurrences:[1,2].map(position=>({position,baselineLogMs:4,candidateLogMs:5}))};
+ engine.setSentencePredictions(0,frozen);practiceFocus.score=999;frozen.baseline.version='mutated';
+ insert(engine,'c',100);insert(engine,'a',200);insert(engine,'t',300);engine.submit(400);
+ const exposed=engine.submittedSummaries[0];exposed.prediction!.baseline.version='changed';exposed.prediction!.pairs.ca.candidatePredictedLogSum=999;
+ const r=complete(engine);assert.equal(r.practiceFocus?.score,1);assert.equal(r.sentences[0].prediction?.baseline.version,'v1');assert.equal(r.sentences[0].prediction?.pairs.ca.candidatePredictedLogSum,5);
+});
