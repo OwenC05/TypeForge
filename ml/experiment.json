@@ -1,0 +1,40 @@
+{
+  "alphaCandidates": [
+    0.1,
+    1,
+    10,
+    100
+  ],
+  "baseline": {
+    "k": 1,
+    "kind": "smoothed-pair",
+    "version": "aalto-smoothed-pair-k1-v1"
+  },
+  "bootstrap": {
+    "interval": 0.95,
+    "replicates": 2000,
+    "seed": 42,
+    "unit": "participant"
+  },
+  "configSha256": "83f562c419d5469f6da2888bc1608312947a4e20d67038e79759dee07aa90324",
+  "historySentences": 10,
+  "manifestSha256": "3a756f95c07305c99179bbf1679639e9ec111d5c8e5aa2235df403bac404c30e",
+  "participantSplit": "sha256(seed:split:id) ranked acquired participants: exact 70/15/15 before eligibility",
+  "primary": "test/nonreserved/warm participant-macro MAE full ridge minus selected baseline",
+  "reservedPrompts": "sha256(lowercase whitespace-normalized prompt) modulo 5 == 0",
+  "rowsSha256": "eceba5f18baa5701eee86299dd87443bd851205e775a29d969da617779a28c6c",
+  "secondary": [
+    "nonreserved-cold",
+    "reserved-warm",
+    "reserved-cold"
+  ],
+  "seed": 42,
+  "selectedAlpha": 100,
+  "selectionPopulation": "nonreserved validation participants; participant-macro millisecond MAE",
+  "smoothingCandidates": [
+    1,
+    5,
+    20
+  ],
+  "status": "frozen-before-test-unlock"
+}

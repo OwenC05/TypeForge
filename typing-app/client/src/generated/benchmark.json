@@ -1,0 +1,483 @@
+{
+  "audit": {
+    "acquiredParticipants": 2000,
+    "acquisitionSplits": {
+      "test": 300,
+      "train": 1400,
+      "validation": 300
+    },
+    "eligibleObservations": 117653,
+    "eligibleParticipants": 1386,
+    "eligibleTrials": 5812,
+    "errorStrata": {
+      "2-percent-or-more": {
+        "eligible_trial": 456,
+        "not_exact_final_copy": 3065,
+        "not_first_pass_reconstructable": 68,
+        "unreconstructable_edit_or_control": 1106
+      },
+      "below-2-percent": {
+        "eligible_trial": 5356,
+        "not_exact_final_copy": 4839,
+        "not_first_pass_reconstructable": 457,
+        "unreconstructable_edit_or_control": 13168
+      }
+    },
+    "exclusionUnits": {
+      "all_other_reasons": "trials",
+      "invalid_numeric_participant": "participants",
+      "invalid_utf8_participant": "participants",
+      "malformed_tsv_participant": "participants",
+      "unsupported_layout_or_keyboard": "participants"
+    },
+    "exclusions": {
+      "eligible_trial": 5812,
+      "invalid_utf8_participant": 18,
+      "malformed_tsv_participant": 2,
+      "not_exact_final_copy": 7904,
+      "not_first_pass_reconstructable": 525,
+      "unreconstructable_edit_or_control": 14274,
+      "unsupported_layout_or_keyboard": 79
+    },
+    "layouts": {
+      "azerty": 12,
+      "dvorak": 2,
+      "qwerty": 1957,
+      "qwertz": 29
+    },
+    "rowsSha256": "eceba5f18baa5701eee86299dd87443bd851205e775a29d969da617779a28c6c",
+    "speedStrata": {
+      "0-20": {
+        "eligible_trial": 58,
+        "not_exact_final_copy": 352,
+        "not_first_pass_reconstructable": 5,
+        "unreconstructable_edit_or_control": 380
+      },
+      "100-120": {
+        "eligible_trial": 130,
+        "not_exact_final_copy": 85,
+        "not_first_pass_reconstructable": 33,
+        "unreconstructable_edit_or_control": 172
+      },
+      "120-140": {
+        "eligible_trial": 30,
+        "not_exact_final_copy": 17,
+        "not_first_pass_reconstructable": 6,
+        "unreconstructable_edit_or_control": 22
+      },
+      "20-40": {
+        "eligible_trial": 1258,
+        "not_exact_final_copy": 2860,
+        "not_first_pass_reconstructable": 75,
+        "unreconstructable_edit_or_control": 4567
+      },
+      "40-60": {
+        "eligible_trial": 1966,
+        "not_exact_final_copy": 2663,
+        "not_first_pass_reconstructable": 125,
+        "unreconstructable_edit_or_control": 5011
+      },
+      "60-80": {
+        "eligible_trial": 1673,
+        "not_exact_final_copy": 1490,
+        "not_first_pass_reconstructable": 178,
+        "unreconstructable_edit_or_control": 3214
+      },
+      "80-100": {
+        "eligible_trial": 697,
+        "not_exact_final_copy": 437,
+        "not_first_pass_reconstructable": 103,
+        "unreconstructable_edit_or_control": 908
+      }
+    },
+    "splits": {
+      "test": {
+        "observations": 13555,
+        "participants": 198
+      },
+      "train": {
+        "observations": 65777,
+        "participants": 936
+      },
+      "validation": {
+        "observations": 13585,
+        "participants": 193
+      }
+    }
+  },
+  "environment": {
+    "numpy": "2.5.3",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
+    "scikitLearn": "1.9.1",
+    "scipy": "1.18.1"
+  },
+  "evaluation": {
+    "configSha256": "83f562c419d5469f6da2888bc1608312947a4e20d67038e79759dee07aa90324",
+    "primaryStrata": {
+      "historyCoverage": {
+        "1-49": {
+          "baselineMaeMs": 68.11529068579574,
+          "observations": 5067,
+          "participants": 151,
+          "ridgeMaeMs": 61.65389564949465
+        },
+        "200+": {
+          "baselineMaeMs": 41.80786798636778,
+          "observations": 97,
+          "participants": 2,
+          "ridgeMaeMs": 35.43229218956217
+        },
+        "50-199": {
+          "baselineMaeMs": 59.6015897205517,
+          "observations": 4431,
+          "participants": 80,
+          "ridgeMaeMs": 53.58399065585108
+        }
+      },
+      "speedBand": {
+        "0-20": {
+          "baselineMaeMs": 222.09889329443882,
+          "observations": 73,
+          "participants": 2,
+          "ridgeMaeMs": 220.84008160813534
+        },
+        "100-120": {
+          "baselineMaeMs": 35.691199644172315,
+          "observations": 211,
+          "participants": 2,
+          "ridgeMaeMs": 35.061421956012566
+        },
+        "120-140": {
+          "baselineMaeMs": 28.365958454672224,
+          "observations": 108,
+          "participants": 1,
+          "ridgeMaeMs": 29.00918934276383
+        },
+        "20-40": {
+          "baselineMaeMs": 110.20921954724885,
+          "observations": 1853,
+          "participants": 36,
+          "ridgeMaeMs": 101.0392115254706
+        },
+        "40-60": {
+          "baselineMaeMs": 61.23901784011606,
+          "observations": 3365,
+          "participants": 60,
+          "ridgeMaeMs": 54.53094816397528
+        },
+        "60-80": {
+          "baselineMaeMs": 43.342136545107834,
+          "observations": 2586,
+          "participants": 36,
+          "ridgeMaeMs": 38.60085907406155
+        },
+        "80-100": {
+          "baselineMaeMs": 32.4537452877699,
+          "observations": 1399,
+          "participants": 14,
+          "ridgeMaeMs": 29.733506152776894
+        }
+      }
+    },
+    "promotion": "Experimental only; no TypeForge transfer or training-efficacy evidence",
+    "ranking": {
+      "excludedParticipants": 151,
+      "meanSpearman": null,
+      "minPairObservations": 8,
+      "minPairs": 5,
+      "participants": 0,
+      "status": "unavailable"
+    },
+    "slices": {
+      "nonreserved-cold": {
+        "actualTrainPromptOverlapFraction": 0.8888888888888888,
+        "differenceCi95Ms": [
+          -6.64623621830124,
+          -3.9488591556074444
+        ],
+        "differenceMs": -5.310507989283838,
+        "intervalNote": "Descriptive small-cohort uncertainty; no power guarantee",
+        "metrics": {
+          "population": {
+            "maeLog": 0.43355416079136755,
+            "maeMs": 81.30551247755827
+          },
+          "ridge": {
+            "maeLog": 0.39749331176593294,
+            "maeMs": 75.99500448827443
+          },
+          "ridge-no-history": {
+            "maeLog": 0.3971606357618312,
+            "maeMs": 76.01941058689874
+          },
+          "selected-baseline": {
+            "maeLog": 0.43355416079136755,
+            "maeMs": 81.30551247755827
+          },
+          "smoothed-pair": {
+            "maeLog": 0.43355416079136755,
+            "maeMs": 81.30551247755827
+          },
+          "user": {
+            "maeLog": 0.43355416079136755,
+            "maeMs": 81.30551247755827
+          }
+        },
+        "observationKeysSha256": "f39f83048cd637c9109d1d3cda37484e1a6ce64ab728e8107e73cb01ea6ffc8f",
+        "observations": 3960,
+        "participants": 198,
+        "residualCoverage": 0.7310606060606061,
+        "status": "available"
+      },
+      "primary": {
+        "actualTrainPromptOverlapFraction": 0.8672225117248566,
+        "differenceCi95Ms": [
+          -7.761161709837881,
+          -4.893577383868145
+        ],
+        "differenceMs": -6.255018238813686,
+        "intervalNote": "Descriptive small-cohort uncertainty; no power guarantee",
+        "metrics": {
+          "population": {
+            "maeLog": 0.4234575780440781,
+            "maeMs": 76.56966925783841
+          },
+          "ridge": {
+            "maeLog": 0.3191675383454649,
+            "maeMs": 61.29788552338815
+          },
+          "ridge-no-history": {
+            "maeLog": 0.3891828468485477,
+            "maeMs": 71.58734149681203
+          },
+          "selected-baseline": {
+            "maeLog": 0.35514109307456254,
+            "maeMs": 67.55290376220184
+          },
+          "smoothed-pair": {
+            "maeLog": 0.35514109307456254,
+            "maeMs": 67.55290376220184
+          },
+          "user": {
+            "maeLog": 0.36635185281632804,
+            "maeMs": 68.78292389738877
+          }
+        },
+        "observationKeysSha256": "6c3f1f4ed2b370cce041cbce10bf5940381d8a5012a59b1eb8efe2bbbff38b54",
+        "observations": 9595,
+        "participants": 151,
+        "residualCoverage": 0.8319958311620635,
+        "status": "available"
+      },
+      "reserved-cold": {
+        "actualTrainPromptOverlapFraction": 0.0,
+        "differenceCi95Ms": [
+          -6.907906519996277,
+          -1.6426874787557106
+        ],
+        "differenceMs": -4.276274772803207,
+        "intervalNote": "Descriptive small-cohort uncertainty; no power guarantee",
+        "metrics": {
+          "population": {
+            "maeLog": 0.43933089743330844,
+            "maeMs": 74.4693879792722
+          },
+          "ridge": {
+            "maeLog": 0.4081380319393278,
+            "maeMs": 70.19311320646898
+          },
+          "ridge-no-history": {
+            "maeLog": 0.40158085932478943,
+            "maeMs": 69.31517912368044
+          },
+          "selected-baseline": {
+            "maeLog": 0.43933089743330844,
+            "maeMs": 74.4693879792722
+          },
+          "smoothed-pair": {
+            "maeLog": 0.43933089743330844,
+            "maeMs": 74.4693879792722
+          },
+          "user": {
+            "maeLog": 0.43933089743330844,
+            "maeMs": 74.4693879792722
+          }
+        },
+        "observationKeysSha256": "880b2401dbe2ef9bf98e096943df88098c8a593d8c7217b600ed1d0c85f077bd",
+        "observations": 827,
+        "participants": 42,
+        "residualCoverage": 0.7110036275695284,
+        "status": "available"
+      },
+      "reserved-warm": {
+        "actualTrainPromptOverlapFraction": 0.0,
+        "differenceCi95Ms": [
+          -8.04730109545077,
+          -4.057785178948575
+        ],
+        "differenceMs": -6.04677558738561,
+        "intervalNote": "Descriptive small-cohort uncertainty; no power guarantee",
+        "metrics": {
+          "population": {
+            "maeLog": 0.4322606496799047,
+            "maeMs": 75.48566895345701
+          },
+          "ridge": {
+            "maeLog": 0.3081452804155028,
+            "maeMs": 58.30918262074383
+          },
+          "ridge-no-history": {
+            "maeLog": 0.3959219475604978,
+            "maeMs": 70.23928953825029
+          },
+          "selected-baseline": {
+            "maeLog": 0.3447723179919034,
+            "maeMs": 64.35595820812945
+          },
+          "smoothed-pair": {
+            "maeLog": 0.3447723179919034,
+            "maeMs": 64.35595820812945
+          },
+          "user": {
+            "maeLog": 0.36196666107599396,
+            "maeMs": 66.65587265474669
+          }
+        },
+        "observationKeysSha256": "ec302e5b7f92d713506407a551d4c880cab46ea73a849e3773d88a42af93aa0e",
+        "observations": 2293,
+        "participants": 80,
+        "residualCoverage": 0.8211949411251636,
+        "status": "available"
+      }
+    }
+  },
+  "hashes": {
+    "artifactSha256": "d0031abe000896fb8e2a110367bc0c045151213fafb348b431713cba3fef9e21",
+    "configSha256": "83f562c419d5469f6da2888bc1608312947a4e20d67038e79759dee07aa90324",
+    "manifestSha256": "3a756f95c07305c99179bbf1679639e9ec111d5c8e5aa2235df403bac404c30e",
+    "rowsSha256": "eceba5f18baa5701eee86299dd87443bd851205e775a29d969da617779a28c6c"
+  },
+  "limitations": [
+    "Public source lacks focus, composition and key-repeat flags; reconstructable exact copying is not identical browser instrumentation.",
+    "Correct-copy filtering introduces selection bias; errors are audited separately.",
+    "English physical QWERTY cohort; no cross-layout/mobile claim.",
+    "Seen-text means nonreserved prompt partition; actual training overlap is separately reported.",
+    "No independent TypeForge transfer validation; historical baseline remains the coach.",
+    "Timing prediction accuracy does not establish typing-training efficacy.",
+    "Residual bounds describe individual transitions, not pair-average confidence or expected practice improvement."
+  ],
+  "modelVersion": "aalto-ridge-83f562c419d5",
+  "reportVersion": "benchmark-92947653a001",
+  "reproduction": [
+    "python -m ml.pipeline acquire --participants 2000 --seed 42 --max-bytes 268435456",
+    "python -m ml.pipeline audit",
+    "python -m ml.pipeline train",
+    "python -m ml.pipeline evaluate --split test",
+    "python -m ml.pipeline export"
+  ],
+  "selectedAlpha": 100,
+  "selectedBaseline": {
+    "k": 1,
+    "kind": "smoothed-pair",
+    "version": "aalto-smoothed-pair-k1-v1"
+  },
+  "source": {
+    "license": "Non-commercial use with attribution; see source terms",
+    "name": "Aalto 136 million keystrokes",
+    "termsUrl": "https://userinterfaces.aalto.fi/136Mkeystrokes/",
+    "url": "https://userinterfaces.aalto.fi/136Mkeystrokes/data/Keystrokes.zip"
+  },
+  "splitDesign": {
+    "bootstrap": {
+      "interval": 0.95,
+      "replicates": 2000,
+      "seed": 42,
+      "unit": "participant"
+    },
+    "participantSplit": "sha256(seed:split:id) ranked acquired participants: exact 70/15/15 before eligibility",
+    "primary": "test/nonreserved/warm participant-macro MAE full ridge minus selected baseline",
+    "reservedPrompts": "sha256(lowercase whitespace-normalized prompt) modulo 5 == 0",
+    "secondary": [
+      "nonreserved-cold",
+      "reserved-warm",
+      "reserved-cold"
+    ]
+  },
+  "stageTimingsSeconds": {
+    "acquire": 8.961,
+    "audit": 103.833,
+    "evaluate": 23.434,
+    "export": 0.232,
+    "train": 32.829
+  },
+  "status": "experimental",
+  "validationBaselines": [
+    {
+      "k": 0,
+      "kind": "population",
+      "maeMs": 84.591277153995
+    },
+    {
+      "k": 0,
+      "kind": "user",
+      "maeMs": 77.73774257717646
+    },
+    {
+      "k": 1,
+      "kind": "smoothed-pair",
+      "maeMs": 77.02601590297299
+    },
+    {
+      "k": 5,
+      "kind": "smoothed-pair",
+      "maeMs": 77.22584629850917
+    },
+    {
+      "k": 20,
+      "kind": "smoothed-pair",
+      "maeMs": 77.54795930485709
+    }
+  ],
+  "validationModels": [
+    {
+      "alpha": 0.1,
+      "maeMs": 79.90460287050209,
+      "name": "ridge-no-history"
+    },
+    {
+      "alpha": 1,
+      "maeMs": 79.90458925239514,
+      "name": "ridge-no-history"
+    },
+    {
+      "alpha": 10,
+      "maeMs": 79.90445318843517,
+      "name": "ridge-no-history"
+    },
+    {
+      "alpha": 100,
+      "maeMs": 79.90309514560967,
+      "name": "ridge-no-history"
+    },
+    {
+      "alpha": 0.1,
+      "maeMs": 71.86124706065587,
+      "name": "ridge"
+    },
+    {
+      "alpha": 1,
+      "maeMs": 71.86122234166292,
+      "name": "ridge"
+    },
+    {
+      "alpha": 10,
+      "maeMs": 71.8609786130412,
+      "name": "ridge"
+    },
+    {
+      "alpha": 100,
+      "maeMs": 71.8587012059717,
+      "name": "ridge"
+    }
+  ]
+}
