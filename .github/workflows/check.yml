@@ -1,0 +1,19 @@
+name: Check TypeForge
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  client:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: typing-app/client
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: typing-app/client/package-lock.json
+      - run: npm ci
+      - run: npm run check
