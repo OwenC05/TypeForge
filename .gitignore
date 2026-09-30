@@ -7,3 +7,12 @@ dist/
 .DS_Store
 .playwright-mcp/
 
+
+# Local ML source, derived participant records and environment
+.venv/
+ml/data/
+__pycache__/
+*.py[cod]
+
+.omx-state-locks/
+.omx-state-locks.identity.json
