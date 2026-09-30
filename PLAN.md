@@ -1,6 +1,6 @@
 # TypeForge implementation plan
 
-Status: local-first recruiter-facing slice implemented, locally verified and independently reviewed, 30 September 2026: code review APPROVE; architecture CLEAR; no unresolved findings in this scope. The engineering portions of milestones 2–4 are verified alongside milestone 1: genuine benchmark/model, browser inference, explainable baseline practice and fresh-retest evidence. This is not public-release approval or completion of the broader platform. Accounts/cloud sync, consented TypeForge transfer evaluation and public deployment remain open. See [README.md](README.md), [ML documentation](ml/README.md) and the [verification record](docs/verification.md) for commands and boundaries.
+Status: local-first recruiter-facing slice implemented, locally verified and independently reviewed, 30 September 2026: code review APPROVE; architecture CLEAR; no unresolved findings in this scope. The engineering portions of milestones 2–4 are verified alongside milestone 1: genuine benchmark/model, browser inference, explainable baseline practice and fresh-retest evidence. This is not public-release approval or completion of the broader platform. The static engineering demo is live on Vercel; accounts/cloud sync, consented TypeForge transfer evaluation and full public-release certification remain open. See [README.md](README.md), [ML documentation](ml/README.md) and the [verification record](docs/verification.md) for commands and boundaries.
 
 ### Current local evidence (not final release approval)
 
@@ -38,7 +38,7 @@ Leave leaderboards, friends, payments, badges, generative AI, reinforcement lear
 | Authentication/database (planned, not provisioned) | Supabase JavaScript SDK, email OTP and Postgres with row-level security. |
 | Training | Offline Python with NumPy and scikit-learn; standard-library parsing, ZIP handling and command-line arguments. |
 | Inference | A versioned JSON coefficient artifact, bundled with the site and evaluated in TypeScript. No inference server. |
-| Deployment (planned, not launched) | Static Vite build on GitHub Pages, with the repository base path configured. Supabase hosts auth and data. |
+| Deployment | Static engineering demo live on Vercel, linked to GitHub `main`; root `typing-app/client`, Node 24, `npm ci`, `npm run build`, output `dist`, no SPA catch-all. Supabase auth/data remain planned. |
 
 Keep frontend work under `typing-app/client`, offline experiments under `ml`, and SQL migrations under `supabase`. Add files when their behaviour is implemented; do not scaffold unused layers. Pin the chosen dependencies and record the Python environment when implementation begins.
 
@@ -150,7 +150,7 @@ Bundle one versioned artifact with each frontend release and an explicit experim
 
 ## 6. Milestones and acceptance checks
 
-Milestone 1 and the local engineering portions of milestones 2–4 have passing checks and independent review, as summarized above. Milestone 7 has portfolio documentation and actual screenshots, not public-launch approval. Milestones 5–6 and public-release service/device gates remain unfinished. The table retains the broader roadmap and its completion gates.
+Milestone 1 and the local engineering portions of milestones 2–4 have passing checks and independent review, as summarized above. Milestone 7 has verified portfolio documentation, actual screenshots and public static-demo deployment; its full platform/public-release gates are not complete. Milestones 5–6 and public-release service/device gates remain unfinished. The table retains the broader roadmap and its completion gates.
 
 | Order | Deliverable | Completion gate |
 | --- | --- | --- |
@@ -179,7 +179,7 @@ Use first visits for integration checks and identifying task mismatch. Freeze pr
 
 A subsequent efficacy study should compare equal-duration adaptive and general practice, with fresh counterbalanced passages, accuracy alongside speed, and a delayed follow-up. Determine its sample size from pilot variability before making superiority claims. That efficacy study is not a prerequisite for honestly releasing an experimental predictive coach.
 
-Public release defaults: GitHub Pages plus Supabase, with email OTP delivered through Resend SMTP using a verified sending domain. Supabase's built-in mail service is not sufficient for arbitrary public sign-ups. Working production email, tested RLS/deletion and a published TypeForge evaluation are launch prerequisites; a positive model result is not. Configure auth redirect URLs for the deployed base path and verify OTP expiry, resend behaviour and sign-out. Service configuration and any domain purchase belong to later implementation work.
+The public static demo now uses Vercel rather than the originally proposed GitHub Pages host. The planned full-platform backend remains Supabase, with email OTP delivered through Resend SMTP using a verified sending domain. Supabase's built-in mail service is not sufficient for arbitrary public sign-ups. Working production email, tested RLS/deletion and a published TypeForge evaluation are full-platform launch prerequisites; a positive model result is not. Configure auth redirect URLs for the deployed base path and verify OTP expiry, resend behaviour and sign-out. Service configuration and any domain purchase belong to later implementation work.
 
 Ship a README with setup/demo instructions, an architecture diagram, actual screenshots and a model report with baseline comparisons and limitations. CI runs type checking, the small checks and the static build; full dataset training remains manual. A failed release can roll back the static bundle and its paired model artifact together. Use existing auth/database logs and visible sync failures before introducing monitoring services.
 

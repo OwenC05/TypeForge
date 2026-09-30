@@ -2,6 +2,8 @@
 
 A local-first typing platform and inspectable applied-ML portfolio project. Take a 60-second assessment, follow an evidence-supported practice focus, and retest on fresh passages. The ML Lab separates experimental prediction evidence from unproven coaching benefit. The broader competitor-quality platform remains a roadmap, not a claim of feature parity.
 
+**[Try the live demo](https://typeforge-alpha.vercel.app)** — public static engineering demo; your typing history stays in this browser.
+
 ## Product preview
 
 <a href="docs/screenshots/home-desktop.png"><img src="docs/screenshots/home-desktop.png" alt="TypeForge home with assessment and practice entry points" width="640"></a>
@@ -26,6 +28,12 @@ npm run preview  # serve the production build locally
 ```
 
 The build goes to `typing-app/client/dist`. Its relative links/assets support deployment beneath `/TypeForge/`. Serve it over HTTP; opening the source HTML directly as a file does not compile TypeScript. The former prototype URLs redirect to the working pages, including `DetailedResults.html?id=...`.
+
+## Public demo deployment
+
+Vercel serves the static demo from GitHub repository `OwenC05/TypeForge`, production branch `main`. Deployment settings: Node.js **24**, root directory `typing-app/client`, install command `npm ci`, build command `npm run build`, output directory `dist`. Keep the ordinary multi-page `.html` routes; no SPA catch-all rewrite is configured. The local setup/build commands above reproduce the static output.
+
+See the [deployment evidence](docs/verification.md#public-static-demo-deployment) for the deployed revision, CI result and HTTPS checks. Hosting the demo does not complete the accounts, transfer-study or full-release gates.
 
 ## What works
 
@@ -84,6 +92,6 @@ See the [verification record](docs/verification.md) for reproducible checks, dat
 
 Local implementation covers native typing, visible evidence/fallbacks, baseline practice and saved lineage; the genuine model/report are bundled and Python/browser fixture parity is checked. Current scoped browser acceptance and independent re-review pass: code review **APPROVE**, architecture **CLEAR**, with no unresolved findings in the repaired local slice. Initial findings remain recorded. This is not public-release approval. See [PLAN.md](PLAN.md) for the staged roadmap and [DESIGN.md](DESIGN.md) for the interface contract.
 
-Accounts/cloud sync, an independently consented TypeForge transfer pilot, Firefox/Safari/physical-device QA and public launch remain unfinished. No external accounts or services have been provisioned. Public deployment and a hiring outcome are not implied by a successful local build. Follow the [product research](docs/research/typing-products.md) when considering interaction changes.
+The static public demo is live on Vercel. Accounts/private cloud sync, an independently consented TypeForge transfer pilot, Firefox/Safari/physical-device QA and full public-release certification remain unfinished. No account or cloud-history backend has been provisioned. Public hosting does not establish typing gains, platform completeness or a hiring outcome. Follow the [product research](docs/research/typing-products.md) when considering interaction changes.
 
 Schema-v1 optional prediction/focus/lineage extensions preserve old records in the new app. IndexedDB upgrades non-destructively to database version 2 to add the compound completedAt/id history index, without rewriting existing records. An old app opening database version 1 cannot open this upgraded database, and its validator may also reject extended records. Export before downgrading; schemaVersion and metricVersion remain 1. Corrupt records are skipped visibly, not used as evidence or silently cleared.
