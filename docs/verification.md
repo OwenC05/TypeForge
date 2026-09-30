@@ -24,7 +24,19 @@ Windows uses `.venv/Scripts/python.exe`. Run the production build/preview comman
 
 Parity fixtures are explicitly synthetic tests, never benchmark observations. Coverage includes corrected/native edits, deadline boundaries, malformed artifacts, legacy/extended records, missing or incompatible retest origins, exhausted fresh passages and immutable prediction/history snapshots. See [client tests](../typing-app/client/tests), [Python tests](../ml/tests/test_pipeline.py) and the [CI workflow](../.github/workflows/check.yml).
 
-## Current browser evidence
+## Public static demo deployment
+
+The [public HTTPS demo](https://typeforge-alpha.vercel.app) is live on Vercel. Initial publication deployed GitHub `OwenC05/TypeForge` branch `main` at [commit `935894392ce227dacefe729283c6e2fb5137aa6d`](https://github.com/OwenC05/TypeForge/commit/935894392ce227dacefe729283c6e2fb5137aa6d). [Check TypeForge run 36740164209](https://github.com/OwenC05/TypeForge/actions/runs/36740164209) succeeded for that revision.
+
+Initial Vercel production deployment `dpl_5g6dcVhZ23b5ZoitZwmMvF1YdZfK` reached **READY** for that exact SHA. This records the initial publication, not a claim that later documentation commits leave the current production SHA unchanged. The project is linked to GitHub production branch `main`; settings are Node 24, root `typing-app/client`, install `npm ci`, build `npm run build`, output `dist`, with no SPA catch-all rewrite.
+
+Anonymous HTTPS requests returned **200** for home, `practice.html`, `results.html`, `progress.html` and `lab.html`. At publication, the served JavaScript was the reviewed `app-BNbtYIKA.js`; model/report artifacts were unchanged.
+
+Independent production-browser smoke on 30 September 2026 passed **39/39 assertions** at **1440×1000** and **390×1000**: all five supported routes loaded without horizontal overflow; the labelled native input and model/baseline became ready; typing `the` and Restart worked; results/progress showed honest empty states; and Lab displayed 61.3 ms versus 67.6 ms, 151 participants and experimental limitations. There were zero console/page errors, failed requests or HTTP errors on supported routes/assets. Fresh anonymous contexts were closed after testing. Extensionless URLs return 404 as expected for this multi-page deployment; application navigation uses `.html` routes.
+
+This was a smoke test, not a completed assessment, persistence/export/deletion test or physical-device/cross-browser certification. The fuller browser evidence below remains local-preview evidence. Raw smoke output and screenshots are local, ignored evidence under `.omx/deploy/`, not a published test suite. Static publication completes the demo-hosting portion only, not accounts/private sync, a transfer pilot, full accessibility/device certification or the broader public release.
+
+## Current local browser evidence
 
 Scoped automation used **Chromium 155.0.8059.12**, a production preview and isolated browser contexts. The review-repair follow-up verified production bundle `app-BNbtYIKA.js`. Synthetic history and storage/artifact fault injection stayed in those contexts, separate from real benchmark data and user history.
 
@@ -38,7 +50,7 @@ Scoped automation used **Chromium 155.0.8059.12**, a production preview and isol
 - A loaded session works offline; the typing journey makes no prediction API or guest-keystroke upload request. Offline reload is not supported.
 - Core layout checks at **1440×900** and **390×900** find no page-level horizontal overflow. Additional result/progress/Lab checks pass at **390×844**. The leader visually inspected populated results/progress at 1440px/390px and actual home/practice/Lab desktop/narrow captures; no page-level overflow was found.
 - Scoped label/focus, timer semantics, reduced-motion and CSS `zoom:2` checks pass. Nine static solid-palette colour pairs reach at least 4.5:1 contrast; this is not a complete rendered-state accessibility audit.
-- Static subpath smoke checks for `/TypeForge/index.html`, `practice.html`, `progress.html` and `lab.html` load expected headings/assets with no page errors or HTTP responses ≥400. This is local hosting evidence, not a deployed public site.
+- Static subpath smoke checks for `/TypeForge/index.html`, `practice.html`, `progress.html` and `lab.html` load expected headings/assets with no page errors or HTTP responses ≥400. This is local subpath evidence, separate from the public Vercel deployment above.
 
 Current review-repair groups contain **10 restart, 7 storage, 12 focus, 16 journey, 30 core and 18 artifact/storage passing assertions**, plus the real-clock Enter regression. The earlier final-Lab group recorded 12 passes. Groups overlap; their sum is **not** a count of independent scenarios. Browser QA found and preserved the initial monotonic-clock Enter failure and, later, a stale deleted-origin Restart failure; repairs pass fresh regressions. Initial review findings and failed raw runs remain recorded rather than relabelled as passes.
 
@@ -74,7 +86,7 @@ Raw/participant-level data stays ignored. The Aalto source requires **non-commer
 - Firefox, Safari, physical-keyboard/mobile-IME testing, screen-reader interaction and human usability remain untested. CSS zoom is a layout proxy, not browser-chrome zoom certification. No complete accessibility/contrast audit or universal timing-precision claim follows.
 - Core responsive result/progress automation used empty states; separate populated result/progress visual inspection now passes, but a populated five-assessment trend has not received equivalent visual certification. Artifact/report browser coverage uses exact isolated response mutations, not separately built artifact-free apps. Incompatible/exhausted origins and fine-grained late commits have domain checks, not equivalent complete browser coverage; legacy-origin browser coverage remains a gap.
 - Storage checks cover the tested upgrade/pagination boundary, not arbitrarily large databases or eviction durability.
-- Accounts/private cloud sync, the independently consented 15–20-person transfer pilot and public launch remain subsequent milestones. No production services or account isolation are certified by this local slice.
+- Accounts/private cloud sync, the independently consented 15–20-person transfer pilot and full public-release certification remain subsequent milestones. Static demo hosting is live; it does not certify an account backend or account isolation.
 - IndexedDB upgrades to database version 2 without rewriting old records. Old database-v1 apps cannot reopen that database and may reject extended records. **Export before downgrading.** Result schemaVersion and metricVersion remain 1.
 
-See the [roadmap](../PLAN.md) for the broader release gates. Local checks and independent reviews pass; accounts, cloud sync, the consented pilot and public release remain unfinished. Initial and final review reports remain local evidence, not a published browser-test suite or an approval of those subsequent milestones.
+See the [roadmap](../PLAN.md) for the broader release gates. Local checks and independent reviews pass, and the static demo is public; accounts, cloud sync, the consented pilot and full public-release gates remain unfinished. Initial and final review reports remain local evidence, not a published browser-test suite or an approval of those subsequent milestones.
