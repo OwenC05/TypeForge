@@ -216,3 +216,57 @@ test('focus options and submitted prediction identities are defensive snapshots'
  const exposed=engine.submittedSummaries[0];exposed.prediction!.baseline.version='changed';exposed.prediction!.pairs.ca.candidatePredictedLogSum=999;
  const r=complete(engine);assert.equal(r.practiceFocus?.score,1);assert.equal(r.sentences[0].prediction?.baseline.version,'v1');assert.equal(r.sentences[0].prediction?.pairs.ca.candidatePredictedLogSum,5);
 });
+
+test('flow commits error-tolerant final spaces without counting the delimiter', () => {
+  const engine = new TypingEngine({ id, prompts: [{ id: 'flow', text: 'ab cd' }], qwerty: true, inputMode: 'flow-v1' });
+  for (const [i, text] of [...'ab cd '].entries()) insert(engine, text, 100 + i * 20);
+  assert.equal(engine.submittedSummaries[0].response, 'ab cd');
+  assert.equal(engine.value, '');
+  assert.equal(engine.snapshot(300).metrics.attemptedCharacters, 5);
+  assert.equal(engine.submittedSummaries[0].eligible, true);
+  for (const [i, text] of [...'ax c '].entries()) insert(engine, text, 400 + i * 20);
+  assert.equal(engine.submittedSummaries.length, 2);
+  assert.equal(engine.submittedSummaries[1].eligible, false);
+  assert.equal(engine.submit(600), false);
+});
+
+test('flow interior edits and composition cannot commit; a later end separator can', () => {
+  const engine = new TypingEngine({ id, prompts: [{ id: 'flow', text: 'ab cd' }], inputMode: 'flow-v1' });
+  insert(engine, 'ab cd ef', 100);
+  engine.edit({ start: 2, end: 2, text: ' ' }, 110);
+  assert.equal(engine.submittedSummaries.length, 0);
+  engine.edit({ start: engine.value.length, end: engine.value.length, text: ' ', composing: true }, 120);
+  assert.equal(engine.submittedSummaries.length, 0);
+  insert(engine, 'x', 130);
+  insert(engine, ' ', 140);
+  assert.equal(engine.submittedSummaries.length, 1);
+  assert.equal(engine.submittedSummaries[0].diagnosticsAvailable, false);
+});
+
+test('all durations use deadline-first flow scoring and preserve final partials', () => {
+  for (const durationMs of [15000, 30000, 60000, 120000] as const) {
+    const engine = new TypingEngine({ id, prompts: [{ id: 'flow', text: 'ab' }], inputMode: 'flow-v1', durationMs });
+    insert(engine, 'a', 100); insert(engine, 'b', 110);
+    assert.equal(insert(engine, ' ', 100 + durationMs), false);
+    const result = engine.result(completedAt)!;
+    validateResult(result);
+    assert.equal(result.metrics.wpm, 2 * 12000 / durationMs);
+    assert.equal(result.sentences[0].submitted, false);
+    assert.equal(result.chartSamples.at(-1)!.elapsedMs, durationMs);
+  }
+});
+
+test('response safety stop preserves accepted text and freezes diagnostics until restart', () => {
+  const engine = make('a');
+  insert(engine, 'x'.repeat(MAX_RESPONSE_LENGTH), 100);
+  assert.equal(insert(engine, 'x', 200), false);
+  assert.equal(engine.state, 'stopped');
+  const stopped = engine.stoppedSnapshot()!;
+  assert.equal(stopped.stopReason, 'response-limit');
+  assert.equal(stopped.value.length, MAX_RESPONSE_LENGTH);
+  engine.tick(999999);
+  assert.deepEqual(engine.stoppedSnapshot(), stopped);
+  assert.equal(engine.result(completedAt), null);
+  engine.restart('fresh');
+  assert.equal(engine.stoppedSnapshot(), null);
+});

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import type { SessionResult } from '../src/engine.ts';
-import { validateResult } from '../src/storage.ts';
+import { validateResult, ResultValidationError, saveResult } from '../src/storage.ts';
 
 function result(): SessionResult {
   return {
@@ -120,4 +120,46 @@ test('prediction means must exponentiate to finite positive milliseconds without
  }
  const r=result();r.sentences[0].prediction={featureVersion:1,baseline:{kind:'user',version:'v1'},candidate:{modelVersion:'m1',status:'experimental'},pairs:{th:{count:1,observedLogSum:Math.log(.5),baselinePredictedLogSum:Math.log(.25),candidatePredictedLogSum:Math.log(.125)}}};
  assert.doesNotThrow(()=>validateResult(r));r.sentences[0].prediction.pairs.th.candidatePredictedLogSum=-1000;assert.throws(()=>validateResult(r));
+});
+
+test('flow duration arithmetic is strict while legacy remains 60 seconds only', () => {
+  for (const durationMs of [15000, 30000, 60000, 120000] as const) {
+    const value = result();
+    value.settings = { ...value.settings, inputMode: 'flow-v1', durationMs };
+    value.metrics.elapsedMs = durationMs;
+    value.metrics.wpm = 3 * 12000 / durationMs;
+    value.chartSamples = [{ elapsedMs: durationMs, wpm: value.metrics.wpm, accuracy: 100 }];
+    assert.doesNotThrow(() => validateResult(value));
+    delete value.settings.inputMode;
+    if (durationMs !== 60000) assert.throws(() => validateResult(value));
+  }
+  const value: any = result();
+  value.settings.inputMode = 'future';
+  assert.throws(() => validateResult(value));
+});
+
+test('manual drills round trip independently of evidence-backed recommendations', () => {
+  const value = result();
+  value.mode = 'practice';
+  value.manualDrill = { pair: 'th', source: 'manual' };
+  assert.doesNotThrow(() => validateResult(JSON.parse(JSON.stringify(value))));
+  for (const mutate of [
+    (v: any) => { v.mode = 'assessment'; },
+    (v: any) => { v.manualDrill.source = 'baseline'; },
+    (v: any) => { v.manualDrill.pair = 't '; },
+    (v: any) => { v.manualDrill.evidenceCount = 8; },
+    (v: any) => { v.practiceFocus = { pair: 'th', evidenceCount: 8, source: 'baseline', baselineVersion: '1', score: 1 }; },
+  ]) {
+    const invalid = structuredClone(value); mutate(invalid);
+    assert.throws(() => validateResult(invalid));
+  }
+});
+
+
+test('validation failures are permanent named errors before IndexedDB is opened', async () => {
+  const invalid = result();
+  invalid.owner = 'not-guest';
+  assert.throws(() => validateResult(invalid), ResultValidationError);
+  await assert.rejects(saveResult(invalid), { name: 'ResultValidationError', message: 'Invalid saved result: owner.' });
+  assert.doesNotThrow(() => validateResult(result()));
 });

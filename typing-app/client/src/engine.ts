@@ -1,12 +1,16 @@
 import type { PracticeFocus } from './profile.ts';
 import { pairPositions } from './model.ts';
+export const SUPPORTED_DURATIONS = [15000, 30000, 60000, 120000] as const;
+export type DurationMs = typeof SUPPORTED_DURATIONS[number];
 export const DURATION_MS = 60_000;
 export const MAX_PROMPT_LENGTH = 300;
 export const MAX_RESPONSE_LENGTH = 600;
-export const MAX_SENTENCES = 120;
-export const MAX_ATTEMPTS = 4096;
+export const MAX_SENTENCES = 256;
+export const MAX_ATTEMPTS = 16384;
+export const MAX_RESULT_BYTES = 1024 * 1024;
+const serializedBytes = (value: unknown): number => new TextEncoder().encode(JSON.stringify(value)).length;
 
-export type RunState = 'idle' | 'running' | 'completed' | 'aborted';
+export type RunState = 'idle' | 'running' | 'completed' | 'aborted' | 'stopped';
 export type RunFlag = 'interrupted' | 'invalid-input';
 export type SentenceFlag = RunFlag | 'incorrect' | 'edited' | 'repeat' |
   'missing-timing' | 'malformed-timing' | 'unsupported-layout' | 'unfinished';
@@ -49,7 +53,14 @@ export interface SentenceSummary {
   keys: Record<string, KeyCounts>;
   pairs: Record<string, PairCounts>;
 }
+export interface ManualDrill { pair: string; source: 'manual' }
+export interface StoppedSnapshot {
+  id: string; settings: SessionResult['settings']; elapsedMs: number;
+  stopReason: 'response-limit' | 'attempt-limit' | 'sentence-limit' | 'result-limit';
+  metrics: Metrics; sentences: SentenceSummary[]; value: string;
+}
 export interface SessionResult {
+  manualDrill?: ManualDrill;
   practiceFocus?: PracticeFocus;
   sourceAssessmentId?: string;
   id: string;
@@ -58,7 +69,7 @@ export interface SessionResult {
   metricVersion: 1;
   completedAt: string;
   mode: 'assessment' | 'practice';
-  settings: { durationMs: 60000; language: 'en'; qwerty: boolean; corpusVersion: string };
+  settings: { inputMode?: 'flow-v1'; durationMs: DurationMs; language: 'en'; qwerty: boolean; corpusVersion: string };
   qualityFlags: RunFlag[];
   eligibleForProgress: boolean;
   metrics: Metrics;
@@ -66,6 +77,9 @@ export interface SessionResult {
   chartSamples: ChartSample[];
 }
 export interface EngineOptions {
+  inputMode?: 'flow-v1';
+  durationMs?: DurationMs;
+  manualDrill?: ManualDrill;
   practiceFocus?: PracticeFocus;
   sourceAssessmentId?: string;
   id: string;
@@ -108,6 +122,7 @@ export class TypingEngine {
   private elapsed = 0;
   private response = '';
   private submitted: SentenceSummary[] = [];
+  private submittedBytes = 0;
   private retained = 0;
   private attempted = 0;
   private correct = 0;
@@ -126,6 +141,7 @@ export class TypingEngine {
   private frozen: FrozenSentencePredictions | null = null;
   private predictedPairs: SentencePrediction['pairs'] = {};
   private assembled: SessionResult | null = null;
+  private stopped: StoppedSnapshot | null = null;
 
   constructor(options: EngineOptions) {
     if (!options.id || options.prompts.length === 0 || options.prompts.some(prompt =>
@@ -133,8 +149,31 @@ export class TypingEngine {
       !/^[a-z ]+$/.test(prompt.text))) {
       throw new RangeError('Provide an ID and nonempty lowercase English prompts within the length limit.');
     }
+    if ((options.durationMs !== undefined && !SUPPORTED_DURATIONS.includes(options.durationMs)) ||
+      (options.inputMode !== undefined && options.inputMode !== 'flow-v1') ||
+      (!options.inputMode && options.durationMs !== undefined && options.durationMs !== DURATION_MS)) {
+      throw new RangeError('Provide a supported duration and interaction mode.');
+    }
+    if (options.manualDrill && (options.mode !== 'practice' || options.practiceFocus ||
+      options.manualDrill.source !== 'manual' || !/^[a-z]{2}$/.test(options.manualDrill.pair) ||
+      Object.keys(options.manualDrill).length !== 2)) throw new RangeError('Provide practice-only manual pair metadata.');
     this.options = structuredClone(options);
     this.prompts = options.prompts.map(prompt => ({ ...prompt }));
+  }
+
+  get nextPrompt(): Prompt { return { ...this.prompts[(this.submitted.length + 1) % this.prompts.length]! }; }
+  private get durationMs(): DurationMs { return this.options.durationMs ?? DURATION_MS; }
+  private settings(): SessionResult['settings'] {
+    return { durationMs: this.durationMs, language: 'en', qwerty: this.options.qwerty ?? false,
+      corpusVersion: this.options.corpusVersion ?? 'original-v1',
+      ...(this.options.inputMode ? { inputMode: this.options.inputMode } : {}) };
+  }
+  stoppedSnapshot(): StoppedSnapshot | null { return structuredClone(this.stopped); }
+  private stop(stopReason: StoppedSnapshot['stopReason']): void {
+    this.runState = 'stopped';
+    this.stopped = { id: this.options.id, settings: this.settings(), elapsedMs: this.elapsed, stopReason,
+      metrics: this.metrics(), value: this.response,
+      sentences: [...structuredClone(this.submitted), ...(this.response || this.sentenceAttempted > 0 ? [this.sentenceSummary(false)] : [])] };
   }
 
   get state(): RunState { return this.runState; }
@@ -190,10 +229,11 @@ export class TypingEngine {
     }
     this.lastNow = now;
     if (this.runState === 'running') {
-      this.elapsed = Math.min(now - this.startedAt!, DURATION_MS);
-      if (this.elapsed >= DURATION_MS) {
-        this.runState = 'completed';
+      this.elapsed = Math.min(now - this.startedAt!, this.durationMs);
+      if (this.elapsed >= this.durationMs) {
         this.sample(true);
+        if (!this.fitsResult(this.activeSummary())) this.stop('result-limit');
+        else this.runState = 'completed';
       } else {
         this.sample();
       }
@@ -209,7 +249,7 @@ export class TypingEngine {
       value: this.response,
       sentenceIndex: this.submitted.length,
       elapsedMs: this.elapsed,
-      remainingMs: DURATION_MS - this.elapsed,
+      remainingMs: this.durationMs - this.elapsed,
       metrics: this.metrics(),
       qualityFlags: [...this.flags],
     };
@@ -233,9 +273,18 @@ export class TypingEngine {
       end < start || end > this.response.length) {
       throw new RangeError('Edit range must address the current response.');
     }
+    const boundary = this.options.inputMode === 'flow-v1' && !edit.composing &&
+      start === this.response.length && end === start && text === ' ' &&
+      this.response.length > 0 && !this.response.endsWith(' ') &&
+      this.response.split(' ').filter(Boolean).length >= this.currentPrompt().text.split(' ').filter(Boolean).length;
+    if (boundary) {
+      if (edit.tracked === false) this.invalidInput();
+      if (edit.repeat) this.sentenceFlags.add('repeat');
+      return this.commit();
+    }
     const next = this.response.slice(0, start) + text + this.response.slice(end);
     if (next.length > MAX_RESPONSE_LENGTH || this.attempted + text.length > MAX_ATTEMPTS) {
-      this.invalidInput();
+      this.stop(next.length > MAX_RESPONSE_LENGTH ? 'response-limit' : 'attempt-limit');
       return false;
     }
     if (start === end && text.length === 0) {
@@ -334,10 +383,16 @@ export class TypingEngine {
   }
 
   submit(now: number): boolean {
-    if (!this.advance(now) || this.runState !== 'running' || !this.response) return false;
+    if (!this.advance(now) || this.options.inputMode === 'flow-v1' || this.runState !== 'running' || !this.response) return false;
+    return this.commit();
+  }
+
+  private commit(): boolean {
     // Reserve the final bounded summary for the active response until the timer expires.
-    if (this.submitted.length >= MAX_SENTENCES - 1) return false;
+    if (this.submitted.length >= MAX_SENTENCES - 1) { this.stop('sentence-limit'); return false; }
     const summary = this.sentenceSummary(true);
+    if (!this.fitsResult(summary)) { this.stop('result-limit'); return false; }
+    this.submittedBytes += serializedBytes(summary);
     this.retained += matches(this.response, this.currentPrompt().text);
     this.submitted.push(summary);
     this.response = '';
@@ -376,6 +431,7 @@ export class TypingEngine {
     this.frozen = null;
     this.predictedPairs = {};
     this.submitted = [];
+    this.submittedBytes = 0;
     this.retained = this.attempted = this.correct = this.deleted = 0;
     this.diagnostics = this.sentenceDiagnostics = true;
     this.flags.clear();
@@ -387,33 +443,50 @@ export class TypingEngine {
     this.previousPress = null;
     this.chart = [];
     this.assembled = null;
+    this.stopped = null;
+  }
+
+  private activeSummary(): SentenceSummary | undefined {
+    return this.response || this.sentenceAttempted > 0 ? this.sentenceSummary(false) : undefined;
+  }
+
+  private resultData(completedAt: string, sentences: SentenceSummary[]): SessionResult {
+    return {
+      ...(this.options.manualDrill ? { manualDrill: this.options.manualDrill } : {}),
+      ...(this.options.practiceFocus && this.options.mode === 'practice' ? { practiceFocus: this.options.practiceFocus } : {}),
+      ...(this.options.sourceAssessmentId ? { sourceAssessmentId: this.options.sourceAssessmentId } : {}),
+      id: this.options.id,
+      owner: this.options.owner ?? 'guest',
+      schemaVersion: 1,
+      metricVersion: 1,
+      completedAt,
+      mode: this.options.mode ?? 'assessment',
+      settings: this.settings(),
+      qualityFlags: [...this.flags],
+      eligibleForProgress: this.flags.size === 0,
+      metrics: this.metrics(),
+      sentences,
+      chartSamples: this.chart,
+    };
+  }
+
+  private fitsResult(active?: SentenceSummary): boolean {
+    // Count immutable summaries once; only the bounded active summary/metadata are serialized
+    // at passage commits and expiry, never the entire history on every keystroke.
+    // Reserve the longest Date.toISOString() form, including signed six-digit years.
+    const metadataBytes = serializedBytes(this.resultData('+275760-09-13T00:00:00.000Z', []));
+    const count = this.submitted.length + Number(active !== undefined);
+    return metadataBytes + this.submittedBytes + (active ? serializedBytes(active) : 0) +
+      Math.max(0, count - 1) <= MAX_RESULT_BYTES;
   }
 
   result(completedAt: string): SessionResult | null {
     if (this.runState !== 'completed') return null;
     if (!this.assembled) {
       if (!Number.isFinite(Date.parse(completedAt))) throw new RangeError('Completion time must be an ISO date.');
-      this.assembled = {
-        ...(this.options.practiceFocus && this.options.mode === 'practice' ? { practiceFocus: structuredClone(this.options.practiceFocus) } : {}),
-        ...(this.options.sourceAssessmentId ? { sourceAssessmentId: this.options.sourceAssessmentId } : {}),
-        id: this.options.id,
-        owner: this.options.owner ?? 'guest',
-        schemaVersion: 1,
-        metricVersion: 1,
-        completedAt: new Date(completedAt).toISOString(),
-        mode: this.options.mode ?? 'assessment',
-        settings: {
-          durationMs: DURATION_MS,
-          language: 'en',
-          qwerty: this.options.qwerty ?? false,
-          corpusVersion: this.options.corpusVersion ?? 'original-v1',
-        },
-        qualityFlags: [...this.flags],
-        eligibleForProgress: this.flags.size === 0,
-        metrics: this.metrics(),
-        sentences: [...this.submitted, ...(this.response || this.sentenceAttempted > 0 ? [this.sentenceSummary(false)] : [])],
-        chartSamples: this.chart,
-      };
+      const active = this.activeSummary();
+      this.assembled = this.resultData(new Date(completedAt).toISOString(),
+        [...this.submitted, ...(active ? [active] : [])]);
     }
     return structuredClone(this.assembled);
   }

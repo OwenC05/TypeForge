@@ -15,12 +15,14 @@ export interface PracticeFocus {
   score: number;
 }
 
-function compatible(result: SessionResult, settings: SessionResult['settings']): boolean {
-  return result.metricVersion === 1 && result.schemaVersion === 1 &&
-    result.settings.durationMs === settings.durationMs &&
-    result.settings.language === settings.language &&
-    result.settings.qwerty === settings.qwerty &&
-    result.settings.corpusVersion === settings.corpusVersion;
+export function compatibleSettings(left: SessionResult['settings'], right: SessionResult['settings']): boolean {
+  return (left.inputMode ?? 'legacy-enter-v1') === (right.inputMode ?? 'legacy-enter-v1') &&
+    left.durationMs === right.durationMs && left.language === right.language &&
+    left.qwerty === right.qwerty && left.corpusVersion === right.corpusVersion;
+}
+
+export function compatible(result: SessionResult, settings: SessionResult['settings']): boolean {
+  return result.metricVersion === 1 && result.schemaVersion === 1 && compatibleSettings(result.settings, settings);
 }
 
 export function selectHistory(results: readonly SessionResult[], settings: SessionResult['settings']): SentenceSummary[] {
@@ -72,7 +74,19 @@ export function selectPracticeFocus(
   return choices.sort((a, b) => b.score - a.score || a.pair.localeCompare(b.pair))[0] ?? null;
 }
 
-export function selectDrillPrompts(focus: PracticeFocus | null, practiceBank: readonly Prompt[]): Prompt[] {
+export function supportedManualPairs(practiceBank: readonly Prompt[]): string[] {
+  const passages = new Map<string, Set<string>>();
+  for (const prompt of practiceBank) {
+    for (const position of pairPositions(prompt.text)) {
+      const pair = prompt.text.slice(position - 1, position + 1);
+      if (!passages.has(pair)) passages.set(pair, new Set());
+      passages.get(pair)!.add(prompt.id);
+    }
+  }
+  return [...passages].filter(([, ids]) => ids.size >= 3).map(([pair]) => pair).sort();
+}
+
+export function selectDrillPrompts(focus: { pair: string } | null, practiceBank: readonly Prompt[]): Prompt[] {
   if (!focus) return shufflePrompts(practiceBank);
   const target = shufflePrompts(practiceBank.filter(p =>
     pairPositions(p.text).some(i => p.text.slice(i - 1, i + 1) === focus.pair)));

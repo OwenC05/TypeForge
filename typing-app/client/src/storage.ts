@@ -1,16 +1,18 @@
 import {
   DURATION_MS,
+  SUPPORTED_DURATIONS,
+  type DurationMs,
   MAX_ATTEMPTS,
   MAX_PROMPT_LENGTH,
   MAX_RESPONSE_LENGTH,
   MAX_SENTENCES,
+  MAX_RESULT_BYTES,
   type SessionResult,
 } from './engine.ts';
 
 const DATABASE = 'typeforge';
 const STORE = 'results';
 const ORDER_INDEX = 'completedAt-id';
-const MAX_RESULT_BYTES = 1024 * 1024;
 const MAX_CHARACTERS = MAX_SENTENCES * MAX_PROMPT_LENGTH;
 const RUN_FLAGS = ['interrupted', 'invalid-input'];
 const SENTENCE_FLAGS = [
@@ -18,8 +20,15 @@ const SENTENCE_FLAGS = [
   'interrupted', 'invalid-input', 'unsupported-layout', 'unfinished',
 ];
 
+export class ResultValidationError extends Error {
+  constructor(field: string) {
+    super(`Invalid saved result: ${field}.`);
+    this.name = 'ResultValidationError';
+  }
+}
+
 function check(condition: unknown, field: string): asserts condition {
-  if (!condition) throw new Error(`Invalid saved result: ${field}.`);
+  if (!condition) throw new ResultValidationError(field);
 }
 
 function record(value: unknown, field: string, fields?: string[]): Record<string, unknown> {
@@ -68,7 +77,7 @@ export function validateResult(value: unknown): asserts value is SessionResult {
   const result = record(value, 'record', [
     'id', 'owner', 'schemaVersion', 'metricVersion', 'completedAt', 'mode',
     'settings', 'qualityFlags', 'eligibleForProgress', 'metrics', 'sentences', 'chartSamples',
-    ...['practiceFocus', 'sourceAssessmentId'].filter(key => Object.hasOwn(root, key)),
+    ...['practiceFocus', 'manualDrill', 'sourceAssessmentId'].filter(key => Object.hasOwn(root, key)),
   ]);
   resultId(result.id);
   if (Object.hasOwn(result, 'sourceAssessmentId')) {
@@ -83,6 +92,11 @@ export function validateResult(value: unknown): asserts value is SessionResult {
     string(focus.baselineVersion, 'practiceFocus.baselineVersion', 80);
     check(number(focus.score, 'practiceFocus.score', Number.MAX_VALUE) > 0, 'practiceFocus.score');
   }
+  if (Object.hasOwn(result, 'manualDrill')) {
+    const manual = record(result.manualDrill, 'manualDrill', ['pair', 'source']);
+    check(result.mode === 'practice' && !Object.hasOwn(result, 'practiceFocus') &&
+      typeof manual.pair === 'string' && /^[a-z]{2}$/.test(manual.pair) && manual.source === 'manual', 'manualDrill');
+  }
   check(result.owner === 'guest', 'owner');
   check(result.schemaVersion === 1 && result.metricVersion === 1, 'version');
   const completedAt = string(result.completedAt, 'completedAt', 24);
@@ -92,23 +106,27 @@ export function validateResult(value: unknown): asserts value is SessionResult {
   flags(result.qualityFlags, 'qualityFlags', RUN_FLAGS);
   check(result.eligibleForProgress === ((result.qualityFlags as unknown[]).length === 0), 'eligibleForProgress');
 
-  const settings = record(result.settings, 'settings', ['durationMs', 'language', 'qwerty', 'corpusVersion']);
-  check(settings.durationMs === DURATION_MS && settings.language === 'en', 'settings');
+  const rawSettings = record(result.settings, 'settings');
+  const hasInputMode = Object.hasOwn(rawSettings, 'inputMode');
+  const settings = record(rawSettings, 'settings', ['durationMs', 'language', 'qwerty', 'corpusVersion', ...(hasInputMode ? ['inputMode'] : [])]);
+  check((hasInputMode ? settings.inputMode === 'flow-v1' && SUPPORTED_DURATIONS.includes(settings.durationMs as DurationMs)
+    : settings.durationMs === DURATION_MS) && settings.language === 'en', 'settings');
+  const durationMs = settings.durationMs as DurationMs;
   check(typeof settings.qwerty === 'boolean', 'settings.qwerty');
   string(settings.corpusVersion, 'settings.corpusVersion', 80);
 
   const metrics = record(result.metrics, 'metrics', [
     'elapsedMs', 'correctCharacters', 'attemptedCharacters', 'correctAttempts', 'accuracy', 'deletedCharacters', 'wpm',
   ]);
-  check(metrics.elapsedMs === DURATION_MS, 'metrics.elapsedMs');
+  check(metrics.elapsedMs === durationMs, 'metrics.elapsedMs');
   count(metrics.correctCharacters, 'metrics.correctCharacters', MAX_CHARACTERS);
   const attempted = count(metrics.attemptedCharacters, 'metrics.attemptedCharacters');
   const correct = count(metrics.correctAttempts, 'metrics.correctAttempts', attempted);
   accuracy(metrics.accuracy, 'metrics.accuracy');
   check(metrics.accuracy === null || (attempted > 0 && metrics.accuracy === correct / attempted * 100), 'metrics.accuracy');
   count(metrics.deletedCharacters, 'metrics.deletedCharacters');
-  number(metrics.wpm, 'metrics.wpm', MAX_CHARACTERS / 5);
-  check(metrics.wpm === (metrics.correctCharacters as number) / 5, 'metrics.wpm');
+  number(metrics.wpm, 'metrics.wpm', MAX_CHARACTERS * 12000 / durationMs);
+  check(metrics.wpm === (metrics.correctCharacters as number) * 12000 / durationMs, 'metrics.wpm');
 
   check(Array.isArray(result.sentences) && result.sentences.length <= MAX_SENTENCES, 'sentences');
   for (const [index, value] of result.sentences.entries()) {
@@ -178,18 +196,18 @@ export function validateResult(value: unknown): asserts value is SessionResult {
   }
 
   check(Array.isArray(result.chartSamples) && result.chartSamples.length > 0
-    && result.chartSamples.length <= DURATION_MS / 1000, 'chartSamples');
+    && result.chartSamples.length <= durationMs / 1000, 'chartSamples');
   let previousTime = 0;
   for (const [index, value] of result.chartSamples.entries()) {
     const path = `chartSamples[${index}]`;
     const sample = record(value, path, ['elapsedMs', 'wpm', 'accuracy']);
-    const elapsed = number(sample.elapsedMs, `${path}.elapsedMs`, DURATION_MS, 1000);
+    const elapsed = number(sample.elapsedMs, `${path}.elapsedMs`, durationMs, 1000);
     check(elapsed > previousTime, `${path}.elapsedMs`);
     previousTime = elapsed;
     number(sample.wpm, `${path}.wpm`, MAX_CHARACTERS / 5 / (elapsed / 60000));
     accuracy(sample.accuracy, `${path}.accuracy`);
   }
-  check(previousTime === DURATION_MS, 'chartSamples final time');
+  check(previousTime === durationMs, 'chartSamples final time');
 
   // Every property above is a bounded JSON value; extra fields are rejected.
   check(new TextEncoder().encode(JSON.stringify(value)).length <= MAX_RESULT_BYTES, 'record exceeds 1 MiB');

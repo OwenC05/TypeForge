@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { buildHistory, appendHistory, selectPracticeFocus, selectDrillPrompts, resolveRetest } from '../src/profile.ts';
+import { buildHistory, appendHistory, selectPracticeFocus, selectDrillPrompts, resolveRetest, compatibleSettings, compatible, supportedManualPairs } from '../src/profile.ts';
+import { practicePrompts } from '../src/corpus.ts';
+import { predictSentence } from '../src/model.ts';
 import type { SentenceSummary } from '../src/engine.ts';
 const sentence: SentenceSummary={promptId:'s',promptText:'aa',response:'aa',submitted:true,eligible:true,diagnosticsAvailable:true,qualityFlags:[],keys:{},pairs:{aa:{count:8,logSum:48},bb:{count:8,logSum:32}}};
 test('history copies eligible summaries and rolls to ten',()=>{
@@ -51,4 +53,108 @@ test('completion ties use stable IDs and within-run order, deletion changes only
  const second=structuredClone(first);second.id='00000000-0000-4000-8000-000000000002';second.sentences=[{...structuredClone(sentence),promptId:'second-1'},{...structuredClone(sentence),promptId:'second-2'}];
  const snapshot=selectHistory([second,first],first.settings);assert.deepEqual(snapshot.map(s=>s.promptId),['first','second-1','second-2']);
  assert.deepEqual(selectHistory([first],first.settings).map(s=>s.promptId),['first']);assert.equal(snapshot.length,3);
+});
+
+test('settings compatibility isolates every duration and flow from unchanged legacy records',()=>{
+ const legacy=result();const before=structuredClone(legacy);
+ assert.equal(compatibleSettings(legacy.settings,{...legacy.settings}),true);
+ for(const durationMs of [15000,30000,60000,120000] as const){
+  const settings={...legacy.settings,inputMode:'flow-v1' as const,durationMs};
+  assert.equal(compatibleSettings(legacy.settings,settings),false);
+  assert.equal(compatibleSettings(settings,legacy.settings),false);
+  for(const other of [15000,30000,60000,120000] as const){
+   assert.equal(compatibleSettings(settings,{...settings,durationMs:other}),durationMs===other);
+  }
+  for(const changed of [{qwerty:false},{corpusVersion:'other'},{language:'fr'}]){
+   assert.equal(compatibleSettings(settings,{...settings,...changed} as SessionResult['settings']),false);
+  }
+ }
+ assert.deepEqual(legacy,before);assert.equal(Object.hasOwn(legacy.settings,'inputMode'),false);
+});
+
+test('history and retest share mode, duration, layout, corpus and version compatibility',()=>{
+ const origin=result();origin.settings.inputMode='flow-v1';origin.sentences=[structuredClone(sentence)];
+ const bank=[{id:'s',text:'aa'},{id:'fresh',text:'bb'}];
+ assert.equal(compatible(origin,origin.settings),true);
+ const incompatibleRuns=[
+  {...origin,settings:{...origin.settings,inputMode:undefined}},
+  {...origin,settings:{...origin.settings,durationMs:30000 as const}},
+  {...origin,settings:{...origin.settings,qwerty:false}},
+  {...origin,settings:{...origin.settings,corpusVersion:'other'}},
+  {...origin,schemaVersion:2} as unknown as SessionResult,
+  {...origin,metricVersion:2} as unknown as SessionResult,
+  {...origin,mode:'practice' as const},
+ ];
+ for(const run of incompatibleRuns){
+  assert.equal(selectHistory([run],origin.settings).length,0);
+  const fallback=resolveRetest(run,origin.settings,bank);
+  assert.equal(fallback.kind,'new-assessment');
+  if(fallback.kind==='new-assessment')assert.ok(fallback.reason);
+ }
+ assert.equal(selectHistory([origin],origin.settings).length,1);
+ assert.equal(resolveRetest(origin,origin.settings,bank).kind,'retest');
+ assert.equal(selectHistory([origin],{...origin.settings,qwerty:false}).length,0);
+});
+
+test('flow history retains only eligible submitted sentences after later interruption',()=>{
+ const origin=result();origin.settings.inputMode='flow-v1';origin.settings.durationMs=30000;
+ origin.eligibleForProgress=false;origin.qualityFlags=['interrupted'];
+ origin.sentences=[structuredClone(sentence),{...structuredClone(sentence),promptId:'bad',eligible:false},
+  {...structuredClone(sentence),promptId:'partial',submitted:false,eligible:false}];
+ assert.deepEqual(selectHistory([origin],origin.settings).map(s=>s.promptId),['s']);
+ assert.equal(resolveRetest(origin,origin.settings,[{id:'fresh',text:'bb'}]).kind,'new-assessment');
+});
+
+test('legacy origin falls back for flow retest, while flow excludes every active partial ID',()=>{
+ const origin=result();const settings={...origin.settings,inputMode:'flow-v1' as const};
+ const bank=[{id:'legacy-cat',text:'cat'},{id:'partial',text:'aa'},{id:'fresh',text:'bb'}];
+ assert.equal(resolveRetest(origin,settings,bank).kind,'new-assessment');
+ origin.settings=settings;
+ origin.sentences.push({...structuredClone(sentence),promptId:'partial',submitted:false,eligible:false});
+ assert.deepEqual(resolveRetest(origin,settings,bank),{kind:'retest',sourceAssessmentId:origin.id,excludedPromptIds:['legacy-cat','partial']});
+ assert.equal(resolveRetest(origin,settings,bank.slice(0,2)).kind,'new-assessment');
+});
+
+test('manual catalogue requires three distinct passages, not occurrences or cross-word pairs',()=>{
+ const bank=[{id:'a',text:'aa aa bb'},{id:'a',text:'aa bb'},{id:'b',text:'aa bb'},{id:'c',text:'aa bb'},{id:'d',text:'cc cc cc'}];
+ assert.deepEqual(supportedManualPairs(bank),['aa','bb']);
+ assert.deepEqual(supportedManualPairs(bank.slice(0,3)),[]);
+ const counts=new Map<string,Set<string>>();
+ for(const prompt of practicePrompts){
+  for(const word of prompt.text.split(' '))for(let i=1;i<word.length;i++){
+   const pair=word.slice(i-1,i+1);if(!counts.has(pair))counts.set(pair,new Set());counts.get(pair)!.add(prompt.id);
+  }
+ }
+ const expected=[...counts].filter(([,ids])=>ids.size>=3).map(([pair])=>pair).sort();
+ assert.ok(expected.length>0);assert.deepEqual(supportedManualPairs(practicePrompts),expected);
+});
+
+test('manual and recommended drills share finite cadence and adjacent-repeat avoidance',()=>{
+ const bank=[{id:'a',text:'aa'},{id:'b',text:'aa aa'},{id:'c',text:'aa bb'},{id:'d',text:'bb'}];
+ const recommended={pair:'aa',evidenceCount:8,source:'baseline' as const,baselineVersion:'v1',score:1};
+ for(const focus of [{pair:'aa'},recommended]){
+  const prompts=selectDrillPrompts(focus,bank);assert.equal(prompts.length,120);
+  for(let i=0;i<prompts.length;i++){
+   assert.equal(prompts[i].text.includes('aa'),i%3!==2);
+   if(i>0)assert.notEqual(prompts[i].id,prompts[i-1].id);
+  }
+  const onlyTargets=selectDrillPrompts(focus,bank.slice(0,3));assert.equal(onlyTargets.length,120);
+  for(let i=1;i<onlyTargets.length;i++)assert.notEqual(onlyTargets[i].id,onlyTargets[i-1].id);
+ }
+ assert.equal(selectDrillPrompts({pair:'cc'},bank).length,bank.length);
+ assert.equal(selectDrillPrompts(null,bank).length,bank.length);
+});
+
+test('warm no-artifact history supports baseline-only predictions, never a recommendation',()=>{
+ const history=buildHistory([sentence]);
+ const bank=[{id:'a',text:'aa'},{id:'b',text:'aa aa'},{id:'c',text:'aa bb'}];
+ assert.equal(selectPracticeFocus(history,bank,null),null);
+ const prediction=predictSentence('aa bb',history,null);
+ assert.equal(prediction.status,'baseline-only');assert.equal(prediction.predictions?.candidate,undefined);
+ assert.ok(prediction.predictions?.occurrences.length);
+ for(const occurrence of prediction.predictions!.occurrences){
+  assert.equal(occurrence.baselineLogMs,history.logSum/history.count);
+  assert.equal(occurrence.candidateLogMs,undefined);
+ }
+ assert.equal(predictSentence('aa',buildHistory([]),null).status,'unavailable');
 });
