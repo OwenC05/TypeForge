@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
+import { stripTypeScriptTypes } from 'node:module';
+import { runInNewContext } from 'node:vm';
 import { DURATION_MS, TypingEngine } from '../src/engine.ts';
 import { validateResult } from '../src/storage.ts';
 
@@ -136,4 +138,72 @@ test('completed results defensively copy nested evidence, settings and charts on
   const reread = engine.result(completedAt);
   assert.deepEqual(reread, expected);
   validateResult(reread);
+});
+
+
+test('legacy TypingDrill redirects only to practice chooser and preserves query intent for destination validation',()=>{
+ const html=readFileSync(new URL('../TypingDrill.html',import.meta.url),'utf8');
+ const script=html.match(/<script>([\s\S]*?)<\/script>/)![1];
+ for(const query of ['?duration=30&qwerty=1&from=origin&practice=manual&pair=th','?duration=999&qwerty=true&practice=manual&pair=bad&redirect=https://evil.example','?retest=origin&duration=120&qwerty=0']){
+  let target='';runInNewContext(script,{URLSearchParams,location:{search:query,hash:'#unsafe',replace:(value:string)=>{target=value;}}});
+  const result=new URL(target,'https://typeforge.example/');assert.equal(result.pathname,'/practice.html');assert.equal(result.searchParams.get('mode'),'practice');
+  assert.equal(result.searchParams.has('redirect'),false);assert.equal(result.hash,'');
+  if(query.includes('duration=30')){assert.equal(result.searchParams.get('duration'),'30');assert.equal(result.searchParams.get('from'),'origin');assert.equal(result.searchParams.get('pair'),'th');assert.equal(result.searchParams.get('qwerty'),'1');}
+  if(query.includes('duration=999')){assert.equal(result.searchParams.get('duration'),'999');assert.equal(result.searchParams.get('practice'),'manual');assert.equal(result.searchParams.get('pair'),'bad');assert.equal(result.searchParams.get('qwerty'),'true');}
+  if(query.includes('duration=120')){assert.equal(result.searchParams.get('retest'),'origin');assert.equal(result.searchParams.get('duration'),'120');assert.equal(result.searchParams.get('qwerty'),'0');}
+ }
+});
+
+
+test('legacy invalid settings reach destination parsers and their visible fallback messages', () => {
+  const html = readFileSync(new URL('../TypingDrill.html', import.meta.url), 'utf8');
+  const script = html.match(/<script>([\s\S]*?)<\/script>/)![1]!;
+  const source = readFileSync(new URL('../src/app.ts', import.meta.url), 'utf8');
+  const parsers = source.slice(source.indexOf('function parseDuration('), source.indexOf('function recommendationReason('));
+  const focusLine = source.split('\n').find(line => line.includes("$('#focus-state').textContent ="))!;
+  const warningCode = source.slice(source.indexOf('  function warning('), source.indexOf('  function paint('));
+  const warningStart = source.indexOf('  const configurationWarning =');
+  const warningEnd = source.indexOf('\n}', warningStart);
+  for (const query of [
+    '?duration=999&qwerty=true&practice=manual&pair=bad',
+    '?duration=&qwerty=&practice=manual',
+    '?practice=unknown&from=invalid%20id&retest=invalid%2Fid',
+    '?practice=manual&pair=%3Cscript%3E%26duration%3D15',
+  ]) {
+    let target = '';
+    runInNewContext(script, {URLSearchParams, location: {search: query, replace: (value: string) => {target = value;}}});
+    const params = new URL(target, 'https://typeforge.example/').searchParams;
+    const input = new URLSearchParams(query);
+    assert.equal(params.get('duration'), input.get('duration'));
+    assert.equal(params.get('qwerty'), input.get('qwerty'));
+    assert.equal(params.get('practice'), input.get('practice'));
+    assert.equal(params.get('pair'), input.get('pair'));
+    assert.equal(params.has('from'), false);
+    assert.equal(params.has('retest'), false);
+    const nodes: Record<string, {hidden: boolean; textContent: string}> = {
+      '#focus-state': {hidden: false, textContent: ''},
+      '#exercise-warning': {hidden: true, textContent: ''},
+    };
+    const code = `${parsers}
+      const parsedDuration = parseDuration(params.get('duration'));
+      const parsedQwerty = parseQwerty(params.get('qwerty'));
+      const practiceChoice = parsePracticeChoice(params.get('practice'), params.get('pair'), ['at', 'th'], null, 'No history');
+      ${focusLine}
+      ${warningCode}
+      ${source.slice(warningStart, warningEnd)}
+      ({parsedDuration, parsedQwerty, practiceChoice});`;
+    const result = runInNewContext(stripTypeScriptTypes(code), {
+      SUPPORTED_DURATIONS: [15000, 30000, 60000, 120000], params,
+      $: (selector: string) => nodes[selector], lineageMessage: '', mode: 'practice', focus: null,
+    });
+    assert.equal(result.practiceChoice.kind, 'general');
+    assert.match(nodes['#focus-state']!.textContent, /Unsupported (manual pair|practice choice).*Using General practice/);
+    if (input.has('duration')) {
+      assert.equal(result.parsedDuration.durationMs, 60000);
+      assert.equal(result.parsedQwerty.qwerty, false);
+      assert.equal(nodes['#exercise-warning']!.hidden, false);
+      assert.match(nodes['#exercise-warning']!.textContent, /Unsupported duration.*60 seconds/);
+      assert.match(nodes['#exercise-warning']!.textContent, /Unsupported keyboard declaration.*undeclared keyboard/);
+    }
+  }
 });
