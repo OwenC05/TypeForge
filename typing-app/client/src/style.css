@@ -13,7 +13,7 @@
 * { box-sizing: border-box; }
 body { margin: 0; min-width: 320px; }
 a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 4px; }
-button, input { font: inherit; }
+button, input, select { font: inherit; }
 button, .button { cursor: pointer; }
 button:disabled { cursor: default; opacity: .6; }
 :focus-visible { outline: 3px solid var(--teal); outline-offset: 5px; }
@@ -124,13 +124,23 @@ summary { cursor: pointer; padding-block: 8px; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }
 /* DESIGN.md: one native editing surface, quiet evidence, accessible narrow layouts. */
-.typing-surface { margin-block: 28px; padding: 24px; border: 1px solid #3b5067; border-radius: 9px; background: #0a131f; }
+/* The full-size native control and its feedback mirror share exact glyph geometry. */
+.typing-surface { margin-block: 20px; padding: 16px; height: 245px; overflow: auto; overflow-anchor: none; border: 1px solid #3b5067; border-radius: 9px; background: #0a131f; }
 .typing-surface:focus-within { border-color: var(--teal); box-shadow: 0 0 0 1px var(--teal); }
-.typing-surface .prompt { margin: 0 0 24px; min-height: 0; }
-.typing-surface .typing-input { border: 0; border-top: 1px solid var(--line); border-radius: 0; padding: 18px 0 4px; font-size: 21px; }
-.typing-input::selection { color: #09231f; background: var(--teal); }
-.typing-input:focus-visible { outline-offset: 3px; }
-.prompt .cursor { border: 0; text-decoration: underline; text-underline-offset: 8px; }
+.active-passage { position: relative; }
+.typing-surface .prompt, .typing-surface .typing-input, .passage-context {
+  font: 24px/1.8 var(--mono); letter-spacing: 0; white-space: pre-wrap; word-break: break-all; overflow-wrap: anywhere; tab-size: 1;
+}
+.typing-surface .prompt { margin: 0; min-height: 44px; padding: 0; }
+.typing-surface .typing-input { position: absolute; inset: 0; width: 100%; height: 100%; min-height: 44px; margin: 0; border: 0; border-radius: 0; padding: 0; resize: none; overflow: hidden; color: transparent; background: transparent; caret-color: transparent; }
+.typing-surface .typing-input:focus { outline: none; }
+.typing-input::selection { color: transparent; background: transparent; }
+.prompt .selected { color: #09231f; background: var(--teal); }
+.prompt .cursor { border: 0; position: relative; }
+.typing-surface:focus-within .prompt .cursor::before { content: ''; position: absolute; left: -1px; top: 0; height: 1.15em; border-left: 2px solid var(--teal); }
+.passage-context { color: #677b91; margin: 0 0 12px; pointer-events: none; }
+#next-prompt { margin: 12px 0 0; }
+.passage-context:empty { display: none; }
 .coach { border-left: 3px solid var(--teal); margin-block: 24px; }
 .coach .eyebrow { margin-bottom: 12px; }
 .evidence { margin-block: 24px; }
@@ -152,3 +162,9 @@ summary { cursor: pointer; padding-block: 8px; }
 .benchmark-summary .list li:first-child { color: var(--teal); font-size: 18px; }
 .lab-bullets { padding-left: 22px; color: var(--muted); font-size: 14px; line-height: 1.8; }
 .lab-bullets li + li { margin-top: 8px; }
+
+#duration, .practice-options select { color: inherit; background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 5px 8px; }
+#duration:disabled, .practice-options select:disabled { opacity: .6; }
+
+.practice-options { margin-bottom: 18px; }
+.practice-options label { font-size: 12px; color: var(--muted); }
