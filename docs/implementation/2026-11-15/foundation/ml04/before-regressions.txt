@@ -1,0 +1,115 @@
+✔ history copies eligible summaries and rolls to ten (1.454ms)
+✔ baseline-only focus requires evidence and bank support, with two target then general cadence (0.9696ms)
+✔ missing origin is explicitly a new assessment (0.2186ms)
+✔ history excludes practice and incompatible runs but keeps earlier eligible evidence in interrupted assessment (1.6721ms)
+✔ retest resolves exact origin, excludes partial prompts, fails on deleted/incompatible/exhausted origin (1.3779ms)
+✔ selected smoothed baseline score, evidence threshold and alphabetical tie are exact (11.2645ms)
+✔ completion ties use stable IDs and within-run order, deletion changes only new snapshots (1.2755ms)
+✔ settings compatibility isolates every duration and flow from unchanged legacy records (0.767ms)
+✔ history and retest share mode, duration, layout, corpus and version compatibility (1.0672ms)
+✔ flow history retains only eligible submitted sentences after later interruption (0.6122ms)
+✔ legacy origin falls back for flow retest, while flow excludes every active partial ID (0.4521ms)
+✔ manual catalogue requires three distinct passages, not occurrences or cross-word pairs (3.4714ms)
+✔ manual and recommended drills share finite cadence and adjacent-repeat avoidance (0.6046ms)
+✔ warm no-artifact history supports baseline-only predictions, never a recommendation (1.0492ms)
+✖ actual engine ten-sentence constant-200-ms history abstains in original and permuted orders (9.8939ms)
+✖ seeded uniform histories abstain across sentence, pair-entry and summation orders (2.8152ms)
+✔ maximum supported ten-sentence accumulation abstains at both log bounds (2.4285ms)
+✖ numerical boundary is inclusive before occurrence weighting and admits larger differences (1.0047ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 15
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 264.8278
+
+✖ failing tests:
+
+test at typing-app\client\tests\profile.test.ts:176:1
+✖ actual engine ten-sentence constant-200-ms history abstains in original and permuted orders (9.8939ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+
+  + {
+  +   baselineVersion: 'aalto-smoothed-pair-k1-v1',
+  +   evidenceCount: 17,
+  +   pair: 'he',
+  +   score: 1.1937117960769683e-12,
+  +   source: 'baseline'
+  + }
+  - null
+
+      at TestContext.<anonymous> (file:///C:/Users/Owenc/orca/workspaces/TypeForge/typeforge-foundation-ml04/typing-app/client/tests/profile.test.ts:187:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { pair: 'he', evidenceCount: 17, source: 'baseline', baselineVersion: 'aalto-smoothed-pair-k1-v1', score: 1.1937117960769683e-12 },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at typing-app\client\tests\profile.test.ts:191:1
+✖ seeded uniform histories abstain across sentence, pair-entry and summation orders (2.8152ms)
+  AssertionError [ERR_ASSERTION]: seed=1, sample=0, interval=5e-324
+  + actual - expected
+
+  + {
+  +   baselineVersion: 'aalto-smoothed-pair-k1-v1',
+  +   evidenceCount: 16,
+  +   pair: 'he',
+  +   score: 4.4565240386873484e-10,
+  +   source: 'baseline'
+  + }
+  - null
+
+      at TestContext.<anonymous> (file:///C:/Users/Owenc/orca/workspaces/TypeForge/typeforge-foundation-ml04/typing-app/client/tests/profile.test.ts:201:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { pair: 'he', evidenceCount: 16, source: 'baseline', baselineVersion: 'aalto-smoothed-pair-k1-v1', score: 4.4565240386873484e-10 },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at typing-app\client\tests\profile.test.ts:219:1
+✖ numerical boundary is inclusive before occurrence weighting and admits larger differences (1.0047ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+
+  + {
+  +   baselineVersion: 'boundary',
+  +   evidenceCount: 8,
+  +   pair: 'aa',
+  +   score: 8.202131500379407e-10,
+  +   source: 'baseline'
+  + }
+  - null
+
+      at TestContext.<anonymous> (file:///C:/Users/Owenc/orca/workspaces/TypeForge/typeforge-foundation-ml04/typing-app/client/tests/profile.test.ts:230:30)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { pair: 'aa', evidenceCount: 8, source: 'baseline', baselineVersion: 'boundary', score: 8.202131500379407e-10 },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

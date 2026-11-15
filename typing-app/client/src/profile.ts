@@ -1,4 +1,4 @@
-import type { Prompt, SentenceSummary, SessionResult } from './engine.ts';
+import { MAX_PROMPT_LENGTH, type Prompt, type SentenceSummary, type SessionResult } from './engine.ts';
 import { baselineLogMs, pairPositions, type ModelArtifact } from './model.ts';
 import { shufflePrompts } from './corpus.ts';
 
@@ -49,6 +49,15 @@ export function buildHistory(sentences: readonly SentenceSummary[]): HistorySnap
   return history;
 }
 
+// Binary64 forward-error bound, not a minimum meaningful timing difference.
+// At most 299 log additions/sentence, 10 sentence-pair additions, 2990 total
+// additions and 8 mean/smoothing/subtraction operations; counts are exact.
+// Two means contribute at most 2*gamma(n)*maxAbsLog; see foundation/ml04/numerics.md.
+const roundingSteps = MAX_PROMPT_LENGTH + 10 * (MAX_PROMPT_LENGTH - 1) + 10 + 8;
+const roundingProduct = roundingSteps * (Number.EPSILON / 2);
+const meanDifferenceError = 2 * roundingProduct / (1 - roundingProduct);
+const maxIntervalLogMagnitude = Math.max(Math.abs(Math.log(Number.MIN_VALUE)), Math.log(5000));
+
 export function selectPracticeFocus(
   history: HistorySnapshot, practiceBank: readonly Prompt[], artifact: ModelArtifact | null,
 ): PracticeFocus | null {
@@ -65,7 +74,11 @@ export function selectPracticeFocus(
     }
     if (ids.size < 3) continue;
     // Frozen baselines have no word-context features; their context-average is this same value.
-    const score = Math.max(0, baselineLogMs(history, pair, artifact) - user) * occurrences;
+    const baseline = baselineLogMs(history, pair, artifact);
+    const difference = baseline - user;
+    const tolerance = meanDifferenceError * Math.max(maxIntervalLogMagnitude, Math.abs(baseline), Math.abs(user));
+    if (difference <= tolerance) continue;
+    const score = difference * occurrences;
     if (Number.isFinite(score) && score > 0) choices.push({
       pair, evidenceCount: stats.count, source: 'baseline',
       baselineVersion: artifact?.baseline.version ?? 'observed-history-v1', score,
