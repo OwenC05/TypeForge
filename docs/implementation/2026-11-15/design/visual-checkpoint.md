@@ -1,5 +1,7 @@
 # Visual-direction checkpoint
 
+Superseded by Owen's subsequent correction: both prototypes are average; remove the landing/setup step and render a default practice preset immediately. The A/B question is closed without selecting either visual treatment. New authorized direction and explicitly requested skills: `.omx/plans/typeforge-direct-practice-redesign-20261115.md`. Historical prototype evidence remains below.
+
 Both actual-Claude prototypes are available for Owen's planned choice. Root has read the comparison and inspected the returning-Home captures. These are working prototypes, not a completed or integrated UI release.
 
 | Choice | Working local preview | Source commit | Claude's distinction |
