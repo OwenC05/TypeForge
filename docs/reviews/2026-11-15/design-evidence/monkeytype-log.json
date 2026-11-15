@@ -1,0 +1,191 @@
+[
+  {
+    "t": "2026-11-15T15:10:37.253Z",
+    "step": "mt loaded",
+    "ms": 3581,
+    "active": "div",
+    "url": "https://monkeytype.com/"
+  },
+  {
+    "t": "2026-11-15T15:10:37.636Z",
+    "step": "screenshot",
+    "file": "mt01-first-visit-1440-consent-dialog.png",
+    "url": "https://monkeytype.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:10:37.656Z",
+    "step": "cmp reject all clicked"
+  },
+  {
+    "t": "2026-11-15T15:10:39.191Z",
+    "step": "cmp still visible?",
+    "v": false
+  },
+  {
+    "t": "2026-11-15T15:10:39.258Z",
+    "step": "consent click",
+    "label": "reject non-essential"
+  },
+  {
+    "t": "2026-11-15T15:10:41.879Z",
+    "step": "screenshot",
+    "file": "mt02-after-consent-dismissed-1440.png",
+    "url": "https://monkeytype.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:10:41.893Z",
+    "step": "after consent",
+    "active": "body",
+    "version": "v26.43.0"
+  },
+  {
+    "t": "2026-11-15T15:10:42.351Z",
+    "step": "typed x immediately",
+    "active": "textarea#wordsInput",
+    "typed": "year",
+    "activeWordHtmlLen": 0
+  },
+  {
+    "t": "2026-11-15T15:10:42.484Z",
+    "step": "screenshot",
+    "file": "mt03-first-keypress-after-load-1440.png",
+    "url": "https://monkeytype.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:10:43.354Z",
+    "step": "after tab+enter",
+    "active": "textarea#wordsInput"
+  },
+  {
+    "t": "2026-11-15T15:10:43.376Z",
+    "step": "15 button count",
+    "n": 0
+  },
+  {
+    "t": "2026-11-15T15:10:43.527Z",
+    "step": "15 clicked",
+    "ok": true,
+    "n": 1
+  },
+  {
+    "t": "2026-11-15T15:10:44.347Z",
+    "step": "after choosing 15",
+    "active": "textarea#wordsInput"
+  },
+  {
+    "t": "2026-11-15T15:10:44.485Z",
+    "step": "screenshot",
+    "file": "mt04-15s-idle-1440.png",
+    "url": "https://monkeytype.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:10:50.699Z",
+    "step": "screenshot",
+    "file": "mt05-running-1440.png",
+    "url": "https://monkeytype.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:11:02.591Z",
+    "step": "mt 15s test typed",
+    "words": 28,
+    "ms": 18106
+  },
+  {
+    "t": "2026-11-15T15:11:02.680Z",
+    "step": "screenshot",
+    "file": "mt06-result-1440.png",
+    "url": "https://monkeytype.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:11:02.854Z",
+    "step": "screenshot",
+    "file": "mt07-result-1440-full.png",
+    "url": "https://monkeytype.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": true
+  },
+  {
+    "t": "2026-11-15T15:11:02.859Z",
+    "step": "result text",
+    "text": "wpm\n86\nacc\n76%\nscale\nraw\nburst\nerrors\ntest type\ntime 15\nenglish\nraw\n118\ncharacters\n108/26/9/7\nconsistency\n86%\ntime\n15s\n00:00:15 session\nSign in to save your result"
+  },
+  {
+    "t": "2026-11-15T15:11:05.826Z",
+    "step": "mt returning",
+    "active": "textarea#wordsInput",
+    "selectedTime": null
+  },
+  {
+    "t": "2026-11-15T15:11:05.957Z",
+    "step": "screenshot",
+    "file": "mt08-returning-visit-1440.png",
+    "url": "https://monkeytype.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:11:15.338Z",
+    "step": "screenshot",
+    "file": "mt09-mobile-390.png",
+    "url": "https://monkeytype.com/",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:11:46.374Z",
+    "step": "screenshot",
+    "file": "mt10-mobile-390-after-tap.png",
+    "url": "https://monkeytype.com/",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:11:46.379Z",
+    "step": "mt mobile geometry",
+    "wordsTop": 238,
+    "wordsBottom": 2090,
+    "scrollW": 390
+  }
+]

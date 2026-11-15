@@ -1,0 +1,5 @@
+﻿{
+    "name":  "codex.exe",
+    "pid":  20756,
+    "modelFlags":  "-m gpt-6-astra model_reasoning_effort=high"
+}

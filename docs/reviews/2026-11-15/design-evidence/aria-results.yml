@@ -1,0 +1,90 @@
+- link "Skip to content":
+  - /url: "#main"
+- banner:
+  - link "TypeForge home":
+    - /url: ./index.html
+    - text: TypeForge
+  - navigation "Main navigation":
+    - link "Assessment":
+      - /url: ./practice.html
+    - link "Practice":
+      - /url: ./practice.html?mode=practice
+    - link "Your progress":
+      - /url: ./progress.html
+    - link "ML Lab":
+      - /url: ./lab.html
+    - text: LOCAL / GUEST
+- main:
+  - paragraph: 15 seconds, well spent
+  - heading "A clearer picture of your typing." [level=1]
+  - paragraph: Nov 15, 2026, 2:59 PM · 15 seconds · Space flow · Saved in this browser
+  - text: ASSESSMENT
+  - term: Words per minute
+  - definition: "96.8"
+  - term: Attempt accuracy
+  - definition: 100%
+  - term: Correct characters
+  - definition: "121"
+  - term: Characters deleted
+  - definition: "0"
+  - paragraph: Your next session
+  - heading "Build your rhythm with general practice." [level=2]
+  - paragraph: No pair currently has enough evidence and a positive supported focus score. General practice is useful without inventing a weakness.
+  - link "Start general practice":
+    - /url: ./practice.html?mode=practice&practice=general&from=ba8070c7-fd4c-44a4-b6f3-b7e2425fffb9&duration=15&qwerty=1
+  - paragraph
+  - heading "Predictions, checked against this run" [level=2]
+  - paragraph: Frozen before each sentence; only matching eligible observations are compared. Experimental predictions do not select your practice focus.
+  - list:
+    - listitem: smoothed-pair aalto-smoothed-pair-k1-v1 · experimental aalto-ridge-83f562c419d5 59 matched observations · observed 121.5 ms · baseline 134.1 ms · candidate 145.7 ms
+    - listitem: Sentences without saved comparisons 1
+  - paragraph:
+    - text: These are geometric mean intervals, not per-keystroke MAE or proof of learning.
+    - link "Inspect the held-out benchmark →":
+      - /url: ./lab.html
+  - heading "Your pace" [level=2]
+  - paragraph: Cumulative speed through this 15 second session.
+  - img "Speed chart; text summary follows"
+  - text: 0 seconds 15 seconds
+  - paragraph: Finished at 96.8 WPM. 15 recorded time points; gaps are not estimated.
+  - heading "What went into this result" [level=2]
+  - list:
+    - listitem: Inserted characters 121
+    - listitem: Correct attempts 121
+    - listitem: Submitted sentences 2
+    - listitem: Timing-eligible sentences 2
+  - paragraph: Accuracy includes mistakes you corrected. Deleted characters are reported separately.
+  - heading "First attempts by key" [level=2]
+  - paragraph: Errors at the first entry to each position. Corrections do not add opportunities.
+  - list:
+    - listitem: No first-attempt key errors recorded
+  - heading "Observed pair timing" [level=2]
+  - paragraph: Typical intervals from fully correct, unedited sentences. These are observations, not predictions.
+  - list:
+    - listitem:
+      - code: oo
+      - text: 135.6 ms · 1 observation
+    - listitem:
+      - code: rv
+      - text: 135.4 ms · 1 observation
+    - listitem:
+      - code: se
+      - text: 134 ms · 1 observation
+    - listitem:
+      - code: te
+      - text: 131 ms · 2 observations
+    - listitem:
+      - code: rn
+      - text: 130.1 ms · 1 observation
+    - listitem:
+      - code: ef
+      - text: 129.1 ms · 1 observation
+  - link "Retest with fresh passages":
+    - /url: ./practice.html?retest=ba8070c7-fd4c-44a4-b6f3-b7e2425fffb9&duration=15&qwerty=1
+  - link "Keep practising":
+    - /url: ./practice.html?mode=practice&practice=general&duration=15&qwerty=1&from=ba8070c7-fd4c-44a4-b6f3-b7e2425fffb9
+  - button "Export result"
+  - button "Delete result"
+  - status
+  - group: How your scores are calculated
+- contentinfo: TypeForge · A little practice, a better rhythm. Results stay in this browser.

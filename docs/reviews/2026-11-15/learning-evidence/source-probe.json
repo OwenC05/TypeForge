@@ -1,0 +1,301 @@
+﻿{
+  "provenance": {
+    "kind": "synthetic source execution, not user coverage or learning evidence",
+    "seed": 20261115,
+    "node": "v24.21.0",
+    "baseline": {
+      "k": 1,
+      "kind": "smoothed-pair",
+      "version": "aalto-smoothed-pair-k1-v1"
+    }
+  },
+  "corpus": {
+    "practice": 80,
+    "assessment": 40,
+    "allLowercaseSpacesOnly": true,
+    "supportedPairs": 184,
+    "leastSupported": [
+      {
+        "pair": "ag",
+        "passages": 3,
+        "occurrences": 3
+      },
+      {
+        "pair": "am",
+        "passages": 3,
+        "occurrences": 3
+      },
+      {
+        "pair": "aw",
+        "passages": 3,
+        "occurrences": 3
+      },
+      {
+        "pair": "ba",
+        "passages": 3,
+        "occurrences": 3
+      },
+      {
+        "pair": "cu",
+        "passages": 3,
+        "occurrences": 3
+      },
+      {
+        "pair": "ds",
+        "passages": 3,
+        "occurrences": 3
+      },
+      {
+        "pair": "ei",
+        "passages": 3,
+        "occurrences": 3
+      },
+      {
+        "pair": "em",
+        "passages": 3,
+        "occurrences": 4
+      }
+    ],
+    "mostSupported": [
+      {
+        "pair": "er",
+        "passages": 32,
+        "occurrences": 39
+      },
+      {
+        "pair": "re",
+        "passages": 33,
+        "occurrences": 39
+      },
+      {
+        "pair": "in",
+        "passages": 36,
+        "occurrences": 43
+      },
+      {
+        "pair": "th",
+        "passages": 71,
+        "occurrences": 108
+      },
+      {
+        "pair": "he",
+        "passages": 74,
+        "occurrences": 112
+      }
+    ]
+  },
+  "optimisticOpportunity": [
+    {
+      "cleanCompletedSentences": 1,
+      "windows": 1000,
+      "windowsWithAnyCountAndBankEligiblePair": 0,
+      "meanQualifyingPairs": 0
+    },
+    {
+      "cleanCompletedSentences": 3,
+      "windows": 1000,
+      "windowsWithAnyCountAndBankEligiblePair": 8,
+      "meanQualifyingPairs": 0.008
+    },
+    {
+      "cleanCompletedSentences": 5,
+      "windows": 1000,
+      "windowsWithAnyCountAndBankEligiblePair": 633,
+      "meanQualifyingPairs": 1.045
+    },
+    {
+      "cleanCompletedSentences": 10,
+      "windows": 1000,
+      "windowsWithAnyCountAndBankEligiblePair": 1000,
+      "meanQualifyingPairs": 2.965
+    }
+  ],
+  "cadenceExposure": [
+    {
+      "pair": "th",
+      "targetContainingPassages": 71,
+      "ordinaryTargetPassageFraction": 0.8875,
+      "focusedTargetPassageFraction": 0.6666666666666666,
+      "ordinaryExpectedOccurrencesPerPassage": 1.35,
+      "focusedExpectedOccurrencesPerPassage": 1.0140845070422535,
+      "ordinaryOccurrencesPer100Characters": 3.151444412022177,
+      "focusedOccurrencesPer100Characters": 2.372699311624274
+    },
+    {
+      "pair": "he",
+      "targetContainingPassages": 74,
+      "ordinaryTargetPassageFraction": 0.925,
+      "focusedTargetPassageFraction": 0.6666666666666666,
+      "ordinaryExpectedOccurrencesPerPassage": 1.4,
+      "focusedExpectedOccurrencesPerPassage": 1.009009009009009,
+      "ordinaryOccurrencesPer100Characters": 3.2681645754304056,
+      "focusedOccurrencesPer100Characters": 2.4078254326561326
+    },
+    {
+      "pair": "ag",
+      "targetContainingPassages": 3,
+      "ordinaryTargetPassageFraction": 0.0375,
+      "focusedTargetPassageFraction": 0.6666666666666666,
+      "ordinaryExpectedOccurrencesPerPassage": 0.0375,
+      "focusedExpectedOccurrencesPerPassage": 0.6666666666666666,
+      "ordinaryOccurrencesPer100Characters": 0.08754012255617158,
+      "focusedOccurrencesPer100Characters": 1.5764151909100215
+    }
+  ],
+  "history": {
+    "practiceSentencesSelected": 0,
+    "assessmentSentencesSelected": 1
+  },
+  "focus": {
+    "bundled": {
+      "pair": "th",
+      "evidenceCount": 10,
+      "source": "baseline",
+      "baselineVersion": "aalto-smoothed-pair-k1-v1",
+      "score": 34.027225227488216
+    },
+    "noArtifact": null
+  },
+  "engine": {
+    "clean": {
+      "metrics": {
+        "elapsedMs": 60000,
+        "correctCharacters": 3,
+        "attemptedCharacters": 3,
+        "correctAttempts": 3,
+        "accuracy": 100,
+        "deletedCharacters": 0,
+        "wpm": 0.6
+      },
+      "sentence": {
+        "promptId": "probe",
+        "promptText": "cat",
+        "response": "cat",
+        "submitted": true,
+        "eligible": true,
+        "diagnosticsAvailable": true,
+        "qualityFlags": [],
+        "keys": {
+          "c": {
+            "attempts": 1,
+            "correct": 1,
+            "firstAttempts": 1,
+            "firstErrors": 0
+          },
+          "a": {
+            "attempts": 1,
+            "correct": 1,
+            "firstAttempts": 1,
+            "firstErrors": 0
+          },
+          "t": {
+            "attempts": 1,
+            "correct": 1,
+            "firstAttempts": 1,
+            "firstErrors": 0
+          }
+        },
+        "pairs": {
+          "ca": {
+            "count": 1,
+            "logSum": 4.605170185988092
+          },
+          "at": {
+            "count": 1,
+            "logSum": 4.605170185988092
+          }
+        }
+      }
+    },
+    "corrected": {
+      "metrics": {
+        "elapsedMs": 60000,
+        "correctCharacters": 3,
+        "attemptedCharacters": 4,
+        "correctAttempts": 3,
+        "accuracy": 75,
+        "deletedCharacters": 1,
+        "wpm": 0.6
+      },
+      "sentence": {
+        "promptId": "probe",
+        "promptText": "cat",
+        "response": "cat",
+        "submitted": true,
+        "eligible": false,
+        "diagnosticsAvailable": true,
+        "qualityFlags": [
+          "incorrect",
+          "edited"
+        ],
+        "keys": {
+          "c": {
+            "attempts": 1,
+            "correct": 1,
+            "firstAttempts": 1,
+            "firstErrors": 0
+          },
+          "a": {
+            "attempts": 2,
+            "correct": 1,
+            "firstAttempts": 1,
+            "firstErrors": 1
+          },
+          "t": {
+            "attempts": 1,
+            "correct": 1,
+            "firstAttempts": 1,
+            "firstErrors": 0
+          }
+        },
+        "pairs": {}
+      }
+    },
+    "longGap": {
+      "metrics": {
+        "elapsedMs": 60000,
+        "correctCharacters": 3,
+        "attemptedCharacters": 3,
+        "correctAttempts": 3,
+        "accuracy": 100,
+        "deletedCharacters": 0,
+        "wpm": 0.6
+      },
+      "sentence": {
+        "promptId": "probe",
+        "promptText": "cat",
+        "response": "cat",
+        "submitted": true,
+        "eligible": true,
+        "diagnosticsAvailable": true,
+        "qualityFlags": [],
+        "keys": {
+          "c": {
+            "attempts": 1,
+            "correct": 1,
+            "firstAttempts": 1,
+            "firstErrors": 0
+          },
+          "a": {
+            "attempts": 1,
+            "correct": 1,
+            "firstAttempts": 1,
+            "firstErrors": 0
+          },
+          "t": {
+            "attempts": 1,
+            "correct": 1,
+            "firstAttempts": 1,
+            "firstErrors": 0
+          }
+        },
+        "pairs": {
+          "at": {
+            "count": 1,
+            "logSum": 4.605170185988092
+          }
+        }
+      }
+    }
+  }
+}
