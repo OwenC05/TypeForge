@@ -1,0 +1,32 @@
+{
+  "browser": "157.0.8103.52",
+  "defaultViewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "undoValue": "ab",
+  "types": [
+    "insertText",
+    "insertText",
+    "insertText",
+    "historyUndo"
+  ],
+  "warning": "This run includes an interruption or unsupported edit. It will be saved with a label and excluded from headline progress.",
+  "result": {
+    "qualityFlags": [
+      "invalid-input"
+    ],
+    "accuracy": null,
+    "eligibleForProgress": false,
+    "metrics": {
+      "elapsedMs": 15000,
+      "correctCharacters": 0,
+      "attemptedCharacters": 3,
+      "correctAttempts": 0,
+      "accuracy": null,
+      "deletedCharacters": 1,
+      "wpm": 0
+    }
+  },
+  "screenshot": "native-undo-result.png"
+}
