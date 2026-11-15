@@ -14,3 +14,7 @@ Earlier independent reviews and A/B prototypes have settled tasks. They do not p
 Root sent continuation/status messages to the existing T1 (`msg_2990de326083`) and E1 (`msg_9e122c379770`) dispatches and informed their leads. Message receipt proves delivery into Orca, not that execution resumed. There was no terminal steering, process cancellation, retry, duplicate writer, or change to child source files. Workers retain their ownership and completion obligations. User-installed skills and Portfolio remain untouched.
 
 Wait for worker reports through Orca; do not poll the mailbox. Integrate only committed, reviewed results and verify the combined application before claiming it is ready.
+
+## Subsequent foundation completion
+
+Worker report `msg_1d1f0daa62d3` settled the foundation task successfully at `77ba1a0`. Root reviewed and integrated its twelve commits through `c8a479f`, then freshly passed 110 tests, typecheck and production build. The normalized-empty E1 blocker is resolved. Exact scope and evidence are in `foundation/root-integration.md`. The earlier table remains a dated snapshot of the pending handoffs; it is no longer the current foundation status. Direct-practice UI implementation and its integration remain pending.
