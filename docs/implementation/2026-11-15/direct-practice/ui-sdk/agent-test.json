@@ -1,0 +1,130 @@
+{
+  "assertions": 67,
+  "failed": 0,
+  "browser": "157.0.8103.52",
+  "serverPid": 45372,
+  "nativeEventsBeforeFirstKey": 0,
+  "propertyProbe": {
+    "property": {
+      "value": "60",
+      "callbacks": 0
+    },
+    "apiAccepted": false,
+    "value": "15"
+  },
+  "initialSnapshot": [
+    {
+      "ref": "c1",
+      "component": "collapsible",
+      "actions": [
+        "setOpen",
+        "press"
+      ],
+      "label": "Proof options",
+      "open": true,
+      "buttons": [
+        "Proof options",
+        "ab",
+        "Close proof panel"
+      ]
+    },
+    {
+      "ref": "c2",
+      "component": "segmented-control",
+      "actions": [
+        "setValue"
+      ],
+      "label": "Block length",
+      "value": "30",
+      "items": [
+        {
+          "value": "15",
+          "label": "15 seconds"
+        },
+        {
+          "value": "30",
+          "label": "30 seconds"
+        },
+        {
+          "value": "60",
+          "label": "60 seconds"
+        },
+        {
+          "value": "120",
+          "label": "120 seconds"
+        }
+      ]
+    },
+    {
+      "ref": "c3",
+      "component": "segmented-control",
+      "actions": [
+        "setValue"
+      ],
+      "label": "Exercise category",
+      "value": "general",
+      "items": [
+        {
+          "value": "general",
+          "label": "General"
+        },
+        {
+          "value": "recommended",
+          "label": "Recommended"
+        },
+        {
+          "value": "manual",
+          "label": "Manual pair"
+        }
+      ]
+    },
+    {
+      "ref": "c4",
+      "component": "select",
+      "actions": [
+        "setOpen",
+        "setValue",
+        "clear",
+        "setQuery"
+      ],
+      "label": "Letter pair",
+      "open": false,
+      "value": "ab",
+      "query": ""
+    },
+    {
+      "ref": "c5",
+      "component": "switch",
+      "actions": [
+        "setChecked"
+      ],
+      "label": "Physical QWERTY",
+      "checked": false,
+      "value": "on"
+    },
+    {
+      "ref": "c6",
+      "component": "button",
+      "actions": [
+        "press"
+      ],
+      "label": "Close proof panel"
+    }
+  ],
+  "recommendationResult": {
+    "ok": false,
+    "error": {
+      "step": 0,
+      "message": "\"Recommended\" in Exercise category (c3) is disabled now."
+    },
+    "steps": [],
+    "appeared": [],
+    "values": {
+      "c2 Block length": "15",
+      "c3 Exercise category": "manual",
+      "c4 Letter pair": "ac",
+      "c5 Physical QWERTY": true
+    }
+  },
+  "errors": []
+}
