@@ -1,0 +1,8 @@
+{
+  "synthetic": true,
+  "intervalMs": 200,
+  "submitted": 10,
+  "eligible": 10,
+  "observations": 284,
+  "focus": null
+}

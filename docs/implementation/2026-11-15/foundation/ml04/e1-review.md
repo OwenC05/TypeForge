@@ -1,0 +1,49 @@
+# Independent E1 technical review
+
+**Bounded verdict: BLOCKER — one MEDIUM boundary-validation gap.** The real LF/CRLF restart-extraction repair and preservation of existing behavioral assertions are supported by the recorded evidence; normalized-empty extracted bodies are not explicitly rejected before evaluation. This report recommends a fix upward and changes no implementation.
+
+Task `task_535c838fd121`, Dispatch `ctx_d1df74dcb851`, worker `term_ae3b7f39-db0b-4eea-bf9d-0984a11f17a2`, coordinator `term_90062000-9957-4002-8f66-49467c40954b`, Run `run_af59e2a95b3a`. Reviewed E1 `01fa86d..50ca3b67cdbe3ed0a59ec708523713e38fa26a0c` and integrated evidence/lead review at `91600f8ca6fe260f352ea0ba437a8dfab4647ff7`. References below use those commit snapshots, rather than this ML child's unchanged app.test.ts.
+
+Requested reviewer model/effort remains `gpt-6.1-sol` / `high`. Fresh read-only ancestor-process inspection observed `codex.exe` PID 1520 with model argument `gpt-6.1-sol` and `model_reasoning_effort=high`; this establishes client configuration only, not backend identity or independently verified applied inference effort. No numeric telemetry inference or global configuration change. The reviewer authored neither E1 implementation nor its evidence. This is the assigned solo independent E1 review, with no additional review lanes; no whole-foundation merge certification or self-approval of this worker's ML implementation is made.
+
+## Review decomposition and ownership
+
+| Small task | Owner / allowed writes | Acceptance / evidence |
+| --- | --- | --- |
+| Inspect scoped E1 diff | This worker; report only | Compare all changed test lines to 01fa86d; inspect normalization, guards and unchanged assertion bodies |
+| Reconcile E1 and combined evidence | Same worker; report only | Read committed runner, invocation counts, encoding receipts and lead-review.md; no repeated suite/build/browser runs |
+| Resolve concrete guard contradiction | Same worker; report only | In-memory probe of the exact committed helper for normalized-empty inputs; no source mutation |
+| Report recommendation | Only this file | Concrete finding, references, recommended regression/fix, scope/gaps and exact report commit to coordinator |
+
+The execution handoff was read first for this follow-up; its original scope/resource constraints remain. Previously read approved Stage 1A, V0/V6 and planning receipt remain the requirements. Installed orchestration skill/live guide were already loaded for this worker; the expressly requested orchestration check delivered the continuation for these exact Task/Dispatch IDs. No helpers, terminal steering, polling, branch switching, or runtime-state writes.
+
+## Finding requiring correction
+
+**MEDIUM — empty normalized handler escapes explicit validation.** At `50ca3b6:typing-app/client/tests/app.test.ts:20`, `end > begin` only proves at least one raw character lies between the markers. Line 21 then trims that slice and removes its trailing semicolon, so a body containing only whitespace or only `;` is returned as an empty string. Lines 41–43 test adjacent markers (zero raw characters), but not an empty result after normalization. The stated pre-evaluation nonempty-body contract is therefore incomplete: a later parser/VM failure substitutes for the intended boundary diagnostic. This is a test-harness contract gap, not an observed product-runtime defect or silent passing restart test.
+
+One narrow in-memory Node probe loaded the helper directly with `git show 50ca3b6:typing-app/client/tests/app.test.ts`, stripped only its TypeScript annotations with the existing Node utility, and evaluated that function with real `node:assert/strict`. It passed each payload as `"$('#restart').onclick = " + body + "\n  prepare();\n  const initialEngine"`, without invoking the TypeScript parser on the returned handler. Observed results:
+
+```json
+{"name":"adjacent-empty","error":"Restart boundaries must be ordered with a nonempty body"}
+{"name":"whitespace-only","returned":""}
+{"name":"semicolon-only","returned":""}
+```
+
+The whitespace body was `" \t "`; the semicolon body was `";"`. This probe exited 0 and is diagnostic evidence of the contradiction, not a passing regression for the missing contract. No files were written by it.
+
+**Recommended fix to E1 owner/lead:** keep the existing existence/order checks, extract and remove the optional trailing semicolon, trim the resulting handler, and assert its length is positive before returning it. Add LF and CRLF negative fixtures for whitespace-only and semicolon-only bodies; verify rejection by the helper before parser/VM use. Preserve existing restart assertions, rerun the affected extraction/restart checks and refresh relevant evidence/lead-review wording. This reviewer did not implement the fix. `91600f8:docs/implementation/2026-11-15/foundation/lead-review.md:5` should qualify its empty-boundary claim until this gap is closed.
+
+## Checks supported by current evidence
+
+- **LF/CRLF normalization passes inspection.** `app.test.ts:10` normalizes actual source once, so all existing source slices receive LF. `:12` also normalizes direct fixture arguments. Literal backslash escape sequences in app code are unaffected. Two new multiline handler fixtures at `:24–33` execute the awaited ready/restarted sequence, rather than merely checking a slice string. Lone CR is outside the specified LF/CRLF contract.
+- **Absent/reversed/raw-empty markers are explicit.** `:15–20` checks both marker indices before slicing, then rejects reversed or adjacent boundaries. Fixtures `:35–43` exercise absent start/end, reversed order and adjacent-empty markers with expected assertion messages. Searching for the first end marker globally intentionally rejects a preceding end marker; this is conservative for the current unique exact markers. The remaining formatting sensitivity is an acknowledged source-sliced-test limitation.
+- **Original assertions remain unchanged.** The entire scoped diff replaces only the repeated extraction setup in the three original tests (`:69–97`, `:110–135`, `:378–405`) and adds source normalization/helper/tests. Their async calibration/focus/stopped/disposed behavior, deleted/incompatible/unreadable/abandoned origin scenarios, and assessment-from/practice-from/retest settings assertions are retained. `git diff --quiet 50ca3b6 91600f8 -- typing-app/client/tests/app.test.ts` exited 0, confirming the integrated snapshot uses that same E1 test file.
+- **Assertion-execution evidence is meaningful.** In `50ca3b6:.../e1/count-assertions.mjs:4–11`, wrappers record caller locations then delegate to the original assertion implementations, without swallowing exceptions. The selected test-name regex in `e1/verify-encodings.mjs:15` targets the three original tests. Independently summing both committed E1 invocation maps gave 22 calibration/focus calls, 24 retest calls and 27 lineage calls = **73 original assertion calls**, plus **9 helper guard calls** = **82 per encoding**. The combined LF/CRLF restart logs at 91600f8 contain the same maps and three passing tests each. These are executed method calls, not branch-coverage guarantees; selected tests await their async work. The evidence wrapper itself counts invocation rather than independently classifying asynchronous success, so success depends on the accompanying passing runner results.
+- **Encoding evidence is coherent.** E1's report/encoding receipts record baseline 94/97 with the original three pre-assertion syntax failures, repaired 102/102 (97 originals + 5 additions), and LF/CRLF check/typecheck/build exits 0. The integration receipts record 106/106 for each encoding (the additional four tests belong to ML, which is not reviewed here). Both stages report original/restored SHA256 `9a06967c04e9dcb00288f71ae5e4baac31a1e3fe080ca95a665f619571ef0f3e`, LF SHA256 `352467fad24fd27c3be8aba86adce742ba2c50d41db505e102848b96897cfaf9`, and exact restoration. The runners check subprocess exit codes and restore original bytes in `finally` (`e1/verify-encodings.mjs:16–42`). The earlier failed Windows --import drive-path attempt is retained and distinguished from the later successful file-URL runs.
+- **Scope is bounded.** `git diff --name-status 01fa86d 50ca3b6` contains only app.test.ts and the E1 evidence directory. No application/dependency/model/storage/schema/rendering changes are present. The lead's combined 106-test and 90,681-assertion results are reported evidence from its snapshot, not newly rerun evidence from this child and not an independent review of ML. No contradiction requiring broad test/build/browser repetition was found.
+
+## Gaps, cleanup and stop condition
+
+The remaining blocker is the normalized-empty negative contract above; the observed ordinary-source repair otherwise has adequate recorded LF/CRLF and original-assertion evidence. Marker-based source extraction remains coupled to app formatting and isolated VM contexts; it does not prove browser/DOM/native-event behavior. The lead records separate browser evidence, but its harness/results and design are outside this review's assigned scope. No visual judgment is made. Existing historical Python missing-sklearn, accelerated browser/device/IME/AT/zoom, scientific-benefit and deployment-provenance limits remain unchanged.
+
+No full tests, typecheck, build or browser was repeated. Only read-only Git/evidence inspection, a small in-memory contradiction probe, count-map summation and sanitized process inspection ran. No source/test/other-workspace mutation, background helper, port use or resource cleanup was needed. This report is the only owned change; lead/E1 owner must resolve and independently verify the finding before treating the requested boundary validation as complete. Stop after report-only commit and one worker_done under the new Task/Dispatch IDs.

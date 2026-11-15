@@ -7,7 +7,49 @@ import { resolveRetest, selectHistory, compatible } from '../src/profile.ts';
 import type { SessionResult, SentenceSummary } from '../src/engine.ts';
 
 // Exercise the actual app functions without bootstrapping CSS, DOM routes or IndexedDB.
-const source = readFileSync(new URL('../src/app.ts', import.meta.url), 'utf8');
+const source = readFileSync(new URL('../src/app.ts', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
+function restartHandler(text: string = source) {
+ const normalized = text.replace(/\r\n/g, '\n');
+ const startMarker = "$('#restart').onclick = ";
+ const endMarker = '\n  prepare();\n  const initialEngine';
+ const start = normalized.indexOf(startMarker);
+ const end = normalized.indexOf(endMarker);
+ assert.ok(start >= 0, 'Missing restart start boundary');
+ assert.ok(end >= 0, 'Missing restart end boundary');
+ const begin = start + startMarker.length;
+ assert.ok(end > begin, 'Restart boundaries must be ordered with a nonempty body');
+ const handler = normalized.slice(begin, end).trim().replace(/;$/, '').trim();
+ assert.ok(handler.length > 0, 'Restart handler must be nonempty after normalization');
+ return handler;
+}
+
+for (const [encoding, newline] of [['LF', '\n'], ['CRLF', '\r\n']]) {
+ for (const [kind, body] of [['whitespace-only', ' \t '], ['semicolon-only', ' \t ; \t ']]) {
+  test(`restart extraction rejects normalized-empty ${kind} ${encoding} body before evaluation`, () => {
+   const text = ["$('#restart').onclick = " + body, ' \t ', '  prepare();', '  const initialEngine = engine;'].join(newline);
+   assert.throws(() => restartHandler(text), /Restart handler must be nonempty after normalization/);
+  });
+ }
+ test(`restart extraction preserves and executes a multiline ${encoding} handler`, async () => {
+  const text = ["$('#restart').onclick = async () => {", '  await ready();', '  restarted();', '};', '  prepare();', '  const initialEngine = engine;'].join(newline);
+  const calls: string[] = [];
+  const restart = runInNewContext(stripTypeScriptTypes(`(${restartHandler(text)})`), {
+   ready: async () => {calls.push('ready');}, restarted: () => {calls.push('restart');},
+  });
+  await restart();
+  assert.deepEqual(calls, ['ready', 'restart']);
+ });
+}
+test('restart extraction rejects a missing start boundary before evaluation', () => {
+ assert.throws(() => restartHandler('body\n  prepare();\n  const initialEngine'), /Missing restart start boundary/);
+});
+test('restart extraction rejects a missing end boundary before evaluation', () => {
+ assert.throws(() => restartHandler("$('#restart').onclick = async () => {};"), /Missing restart end boundary/);
+});
+test('restart extraction rejects reversed or empty boundaries before evaluation', () => {
+ assert.throws(() => restartHandler("\n  prepare();\n  const initialEngine\n$('#restart').onclick = async () => {};"), /boundaries must be ordered/);
+ assert.throws(() => restartHandler("$('#restart').onclick = \n  prepare();\n  const initialEngine"), /boundaries must be ordered/);
+});
 const settings = (qwerty: boolean) => ({durationMs:60000 as const,language:'en' as const,qwerty,corpusVersion:'original-v1'});
 function calibration(load: (cursor: unknown)=>Promise<SessionResult[]>) {
  const code=source.slice(source.indexOf('async function calibration('),source.indexOf('function storageNotice('));
@@ -33,9 +75,7 @@ test('unsupported calibration never reads history; supported sparse pages retain
 });
 
 test('Restart waits for fresh calibration and focus before enabling replacement input',async()=>{
- const begin=source.indexOf("$('#restart').onclick = ")+"$('#restart').onclick = ".length;
- const end=source.indexOf('\n  prepare();\n  const initialEngine',begin);
- const handler=source.slice(begin,end).trim().replace(/;$/,'');
+ const handler=restartHandler();
  let release!:(value:unknown)=>void;const pending=new Promise(resolve=>{release=resolve;});
  const old=[{promptId:'deleted'}],fresh=[{promptId:'retained'}];const log:string[]=[];
  const restart={disabled:false},completionPanel={hidden:false},input={disabled:false,readOnly:true,value:'old',focus:()=>log.push('focus')},qwerty={checked:true,disabled:false};
@@ -76,9 +116,7 @@ test('comparison rendering never exposes overflow, underflow or grouped nonfinit
 });
 
 test('restarted retest re-resolves exact origin; deleted, incompatible or unreadable origin becomes ordinary assessment',async()=>{
- const begin=source.indexOf("$('#restart').onclick = ")+"$('#restart').onclick = ".length;
- const end=source.indexOf('\n  prepare();\n  const initialEngine',begin);
- const handler=source.slice(begin,end).trim().replace(/;$/,'');
+ const handler=restartHandler();
  const oldOrigin=fixture();oldOrigin.settings=settings(true);
  for(const scenario of ['deleted','incompatible','unreadable','abandoned'] as const){
   const restart={disabled:false},intro={textContent:'English · lowercase · fresh assessment passages'};
@@ -346,9 +384,7 @@ test('optional corrupt or deleted origins retain current results, export/delete 
 
 
 test('assessment from URLs never acquire retest lineage on restart; explicit practice/retest origins retain their contracts',async()=>{
- const begin=source.indexOf("$('#restart').onclick = ")+"$('#restart').onclick = ".length;
- const end=source.indexOf('\n  prepare();\n  const initialEngine',begin);
- const handler=source.slice(begin,end).trim().replace(/;$/,'');
+ const handler=restartHandler();
  const makeStart=source.indexOf('  const makeEngine = '),makeEnd=source.indexOf('  let engine = ',makeStart);
  const origin=fixture();origin.settings={...settings(true),durationMs:15000,inputMode:'flow-v1'};
  for(const scenario of ['assessment-from','practice-from','retest'] as const){

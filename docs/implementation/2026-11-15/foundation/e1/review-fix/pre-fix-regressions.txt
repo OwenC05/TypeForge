@@ -1,0 +1,86 @@
+✖ restart extraction rejects normalized-empty whitespace-only LF body before evaluation (5.8046ms)
+✖ restart extraction rejects normalized-empty semicolon-only LF body before evaluation (0.4759ms)
+✖ restart extraction rejects normalized-empty whitespace-only CRLF body before evaluation (0.3797ms)
+✖ restart extraction rejects normalized-empty semicolon-only CRLF body before evaluation (0.2342ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 0
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 429.421
+
+✖ failing tests:
+
+test at tests\app.test.ts:26:3
+✖ restart extraction rejects normalized-empty whitespace-only LF body before evaluation (5.8046ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///C:/Users/Owenc/orca/workspaces/TypeForge/typeforge-foundation-e1/typing-app/client/tests/app.test.ts:28:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.start (node:internal/test_runner/test:1262:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: /Restart handler must be nonempty after normalization/,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at tests\app.test.ts:26:3
+✖ restart extraction rejects normalized-empty semicolon-only LF body before evaluation (0.4759ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///C:/Users/Owenc/orca/workspaces/TypeForge/typeforge-foundation-e1/typing-app/client/tests/app.test.ts:28:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: /Restart handler must be nonempty after normalization/,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at tests\app.test.ts:26:3
+✖ restart extraction rejects normalized-empty whitespace-only CRLF body before evaluation (0.3797ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///C:/Users/Owenc/orca/workspaces/TypeForge/typeforge-foundation-e1/typing-app/client/tests/app.test.ts:28:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at node:internal/test_runner/test:1305:31
+      at node:internal/process/task_queues:151:7
+      at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+      at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: /Restart handler must be nonempty after normalization/,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at tests\app.test.ts:26:3
+✖ restart extraction rejects normalized-empty semicolon-only CRLF body before evaluation (0.2342ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///C:/Users/Owenc/orca/workspaces/TypeForge/typeforge-foundation-e1/typing-app/client/tests/app.test.ts:28:11)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: /Restart handler must be nonempty after normalization/,
+    operator: 'throws',
+    diff: 'simple'
+  }

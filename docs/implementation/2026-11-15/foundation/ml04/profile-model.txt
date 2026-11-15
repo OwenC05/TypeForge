@@ -1,0 +1,162 @@
+TAP version 13
+# Subtest: features respect maximal words, lowercase pairs and cold-history fallback
+ok 1 - features respect maximal words, lowercase pairs and cold-history fallback
+  ---
+  duration_ms: 3.9618
+  type: 'test'
+  ...
+# Subtest: missing artifact never invents population, uses explicitly labelled observed-user fallback
+ok 2 - missing artifact never invents population, uses explicitly labelled observed-user fallback
+  ---
+  duration_ms: 0.6718
+  type: 'test'
+  ...
+# Subtest: strict artifact validation rejects shape/version/task and nonfinite arrays, keeps a defensive copy
+ok 3 - strict artifact validation rejects shape/version/task and nonfinite arrays, keeps a defensive copy
+  ---
+  duration_ms: 3.0173
+  type: 'test'
+  ...
+# Subtest: candidate overflow drops candidate for entire sentence without replacing with baseline
+ok 4 - candidate overflow drops candidate for entire sentence without replacing with baseline
+  ---
+  duration_ms: 1.4477
+  type: 'test'
+  ...
+# Subtest: all candidate and baseline occurrences are prepared before a history mutation
+ok 5 - all candidate and baseline occurrences are prepared before a history mutation
+  ---
+  duration_ms: 0.8533
+  type: 'test'
+  ...
+# Subtest: actual exported model agrees with original Python estimator, features and baseline on golden fixtures
+ok 6 - actual exported model agrees with original Python estimator, features and baseline on golden fixtures
+  ---
+  duration_ms: 4.1425
+  type: 'test'
+  ...
+# Subtest: shared eligible Python event stream yields identical engine observations, history and matched predictions
+ok 7 - shared eligible Python event stream yields identical engine observations, history and matched predictions
+  ---
+  duration_ms: 7.3365
+  type: 'test'
+  ...
+# ML04_ASSERTIONS {"file":"C:\\\\Users\\\\Owenc\\\\orca\\\\workspaces\\\\TypeForge\\\\typeforge-foundation-ml04\\\\typing-app\\\\client\\\\tests\\\\model.test.ts","attempted":6219,"passed":6219,"failed":0}
+# Subtest: history copies eligible summaries and rolls to ten
+ok 8 - history copies eligible summaries and rolls to ten
+  ---
+  duration_ms: 1.6879
+  type: 'test'
+  ...
+# Subtest: baseline-only focus requires evidence and bank support, with two target then general cadence
+ok 9 - baseline-only focus requires evidence and bank support, with two target then general cadence
+  ---
+  duration_ms: 1.0802
+  type: 'test'
+  ...
+# Subtest: missing origin is explicitly a new assessment
+ok 10 - missing origin is explicitly a new assessment
+  ---
+  duration_ms: 0.2388
+  type: 'test'
+  ...
+# Subtest: history excludes practice and incompatible runs but keeps earlier eligible evidence in interrupted assessment
+ok 11 - history excludes practice and incompatible runs but keeps earlier eligible evidence in interrupted assessment
+  ---
+  duration_ms: 1.4131
+  type: 'test'
+  ...
+# Subtest: retest resolves exact origin, excludes partial prompts, fails on deleted/incompatible/exhausted origin
+ok 12 - retest resolves exact origin, excludes partial prompts, fails on deleted/incompatible/exhausted origin
+  ---
+  duration_ms: 1.7753
+  type: 'test'
+  ...
+# Subtest: selected smoothed baseline score, evidence threshold and alphabetical tie are exact
+ok 13 - selected smoothed baseline score, evidence threshold and alphabetical tie are exact
+  ---
+  duration_ms: 17.411
+  type: 'test'
+  ...
+# Subtest: completion ties use stable IDs and within-run order, deletion changes only new snapshots
+ok 14 - completion ties use stable IDs and within-run order, deletion changes only new snapshots
+  ---
+  duration_ms: 1.3828
+  type: 'test'
+  ...
+# Subtest: settings compatibility isolates every duration and flow from unchanged legacy records
+ok 15 - settings compatibility isolates every duration and flow from unchanged legacy records
+  ---
+  duration_ms: 1.0212
+  type: 'test'
+  ...
+# Subtest: history and retest share mode, duration, layout, corpus and version compatibility
+ok 16 - history and retest share mode, duration, layout, corpus and version compatibility
+  ---
+  duration_ms: 1.0617
+  type: 'test'
+  ...
+# Subtest: flow history retains only eligible submitted sentences after later interruption
+ok 17 - flow history retains only eligible submitted sentences after later interruption
+  ---
+  duration_ms: 1.0204
+  type: 'test'
+  ...
+# Subtest: legacy origin falls back for flow retest, while flow excludes every active partial ID
+ok 18 - legacy origin falls back for flow retest, while flow excludes every active partial ID
+  ---
+  duration_ms: 0.7579
+  type: 'test'
+  ...
+# Subtest: manual catalogue requires three distinct passages, not occurrences or cross-word pairs
+ok 19 - manual catalogue requires three distinct passages, not occurrences or cross-word pairs
+  ---
+  duration_ms: 5.2643
+  type: 'test'
+  ...
+# Subtest: manual and recommended drills share finite cadence and adjacent-repeat avoidance
+ok 20 - manual and recommended drills share finite cadence and adjacent-repeat avoidance
+  ---
+  duration_ms: 0.8321
+  type: 'test'
+  ...
+# Subtest: warm no-artifact history supports baseline-only predictions, never a recommendation
+ok 21 - warm no-artifact history supports baseline-only predictions, never a recommendation
+  ---
+  duration_ms: 0.8188
+  type: 'test'
+  ...
+# Subtest: actual engine ten-sentence constant-200-ms history abstains in original and permuted orders
+ok 22 - actual engine ten-sentence constant-200-ms history abstains in original and permuted orders
+  ---
+  duration_ms: 12.1073
+  type: 'test'
+  ...
+# Subtest: seeded uniform histories abstain across sentence, pair-entry and summation orders
+ok 23 - seeded uniform histories abstain across sentence, pair-entry and summation orders
+  ---
+  duration_ms: 3572.4692
+  type: 'test'
+  ...
+# Subtest: maximum supported ten-sentence accumulation abstains at both log bounds
+ok 24 - maximum supported ten-sentence accumulation abstains at both log bounds
+  ---
+  duration_ms: 1.9064
+  type: 'test'
+  ...
+# Subtest: numerical boundary is inclusive before occurrence weighting and admits larger differences
+ok 25 - numerical boundary is inclusive before occurrence weighting and admits larger differences
+  ---
+  duration_ms: 2.3727
+  type: 'test'
+  ...
+# ML04_ASSERTIONS {"file":"C:\\\\Users\\\\Owenc\\\\orca\\\\workspaces\\\\TypeForge\\\\typeforge-foundation-ml04\\\\typing-app\\\\client\\\\tests\\\\profile.test.ts","attempted":4327,"passed":4327,"failed":0}
+1..25
+# tests 25
+# suites 0
+# pass 25
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3907.06

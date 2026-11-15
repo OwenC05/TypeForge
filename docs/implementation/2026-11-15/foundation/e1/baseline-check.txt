@@ -1,0 +1,195 @@
+
+> typeforge@0.1.0 check
+> npm run test && npm run build
+
+
+> typeforge@0.1.0 test
+> node --experimental-strip-types --test tests/*.test.ts
+
+(node:45384) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ unsupported calibration never reads history; supported sparse pages retain newest ten chronologically (67.371ms)
+✖ Restart waits for fresh calibration and focus before enabling replacement input (14.3521ms)
+✔ comparison rendering never exposes overflow, underflow or grouped nonfinite milliseconds (6.1126ms)
+✖ restarted retest re-resolves exact origin; deleted, incompatible or unreadable origin becomes ordinary assessment (5.7505ms)
+✔ flow input installs next predictions only after accepted value and eligible assessment history (5.8563ms)
+✔ late native input restores retained text without another engine edit or prediction (11.1591ms)
+✔ stopped input permits Tab, selection and copying while terminal edit guards retain accepted text (5.5467ms)
+✔ flagged safety-stop warning remains truthful after repeated paint and keyboard interaction (15.5651ms)
+✔ Enter is a no-op and clears stale edit metadata without calling submit (3.1482ms)
+✔ correction hint exposes the first expected character without changing the response mirror (7.4375ms)
+✔ duration query accepts only supported seconds, defaults safely and inherits origin (4.9195ms)
+✔ calibration uses actual duration and mode while retaining earlier eligible sentences in flagged runs (7.3783ms)
+✔ save retries are single-flight and late save success/failure cannot navigate or mutate disposed pages (7.2906ms)
+✔ save failure distinguishes permanent validation rejection from retryable browser storage errors (5.9746ms)
+✔ permanently rejected completion keeps export enabled and never navigates (9.5484ms)
+✔ practice query supports general, evidence-backed recommendation and catalogue-only manual pairs (2.8537ms)
+✔ direct recommended/manual practice selects shared drills and persists only the matching identity (10.0268ms)
+✔ keyboard query is explicit, inherits only when absent and fails safely with feedback (2.2796ms)
+✔ optional corrupt or deleted origins retain current results, export/delete and settings-preserving fallback links (26.141ms)
+✖ assessment from URLs never acquire retest lineage on restart; explicit practice/retest origins retain their contracts (8.6566ms)
+✔ versioned banks contain unique original sentence text and stable IDs (3.61ms)
+✔ selection shuffles deterministically without replacement or bank mutation (7.1304ms)
+✔ fresh retests exclude prior passages and report an exhausted bank honestly (1.0956ms)
+✔ shared shuffle defensively copies custom practice banks (0.6597ms)
+✔ corrected errors retain attempts; incomplete final text contributes positional WPM (19.3013ms)
+✔ native middle insertion and selection replacement do not invent shifted attempts (2.5016ms)
+✔ all wrong input has zero accuracy; deadline rejects edits and late Enter (0.8487ms)
+✔ only correct submitted first passes retain within-word timing; later interruptions stay local (1.9494ms)
+✔ repeat, missing timestamps, corrections and undeclared layouts exclude timing (2.0283ms)
+✔ long gaps are excluded without shortening duration or bridging word boundaries (0.8221ms)
+✔ untracked/composed bulk input is visible but invalid; limits reject oversized edits (1.9065ms)
+✔ abort/restart discard prior state; result snapshots are immutable copies (2.1921ms)
+✔ delayed callbacks do not backfill chart samples, and regular samples fit persistence bounds (2.4053ms)
+✔ freezes exhaustive simultaneous predictions and retains only matched intervals (4.1152ms)
+✔ prediction seam rejects incomplete, duplicate, wrong-index and post-edit input (0.7558ms)
+✔ ineligible and unfinished sentences discard both predictions, next sentence can freeze afresh (2.8539ms)
+✔ practice and retest lineage is independent of optional practice focus and survives result assembly (1.5316ms)
+✔ focus options and submitted prediction identities are defensive snapshots (2.1823ms)
+✔ flow commits error-tolerant final spaces without counting the delimiter (1.8666ms)
+✔ flow interior edits and composition cannot commit; a later end separator can (1.1969ms)
+✔ all durations use deadline-first flow scoring and preserve final partials (1.8926ms)
+✔ response safety stop preserves accepted text and freezes diagnostics until restart (0.9091ms)
+✔ 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: 200 short commits (265.0874ms)
+ℹ {"fixture":"200 short commits","bytes":545079,"commits":200,"summaries":200,"attempts":3000}
+✔ 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: shuffled assessment (128.4863ms)
+ℹ {"fixture":"shuffled assessment","bytes":420531,"commits":66,"summaries":67,"attempts":3000}
+✔ 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: shuffled practice (127.9493ms)
+ℹ {"fixture":"shuffled practice","bytes":428759,"commits":70,"summaries":71,"attempts":3000}
+✔ 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: targeted drill (125.2994ms)
+ℹ {"fixture":"targeted drill","bytes":429035,"commits":70,"summaries":71,"attempts":3000}
+✔ 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: shortest assessment (112.2286ms)
+ℹ {"fixture":"shortest assessment","bytes":372518,"commits":81,"summaries":82,"attempts":3000}
+✔ 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: shortest practice (95.2439ms)
+ℹ {"fixture":"shortest practice","bytes":392303,"commits":83,"summaries":84,"attempts":3000}
+✔ 120s corrected 6000-attempt envelope retains 3000 characters without truncation (75.272ms)
+ℹ {"bytes":95621,"commits":66,"summaries":67,"attempts":6000}
+✔ a valid retest with one fresh prompt cycles only that remaining prompt within the envelope (110.652ms)
+ℹ {"bytes":401835,"commits":61,"summaries":62,"attempts":3000}
+✔ overfull word count created by interior edit advances on a subsequent appended separator (0.8596ms)
+✔ earlier eligible passages still calibrate when the later assessment passage is interrupted (1.3901ms)
+✔ capacity constants preserve the explicit bounded contract (0.1514ms)
+✔ response limit freezes accepted partial data, never a completed result (1.9729ms)
+✔ attempt limit freezes accepted partial data, never a completed result (8.0898ms)
+✔ sentence limit freezes accepted partial data, never a completed result (25.7786ms)
+✔ shipped prediction diagnostics stop before a 9000-character result exceeds 1 MiB (309.0484ms)
+ℹ {"accepted":7488,"commits":165,"diagnosticBytes":1043434}
+✔ an oversized final partial stops at the deadline, keeps escaped bytes and restarts cleanly (207.5734ms)
+ℹ {"finalPartialDiagnosticBytes":1052226}
+(node:25292) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ legacy v1 JSON loads, validates and exports unchanged without optional extensions (12.5776ms)
+✔ a submitted correction keeps attempt accuracy but cannot regain timing eligibility (3.5418ms)
+✔ a partial final word adds positional WPM without adding timing observations (1.6998ms)
+✔ interruption invalidates only the affected sentence while preserving earlier eligible evidence (2.398ms)
+✔ a pre-deadline press committed at the exact deadline cannot change the frozen result (1.1792ms)
+✔ completed results defensively copy nested evidence, settings and charts on every read (1.1972ms)
+✔ legacy TypingDrill redirects only to practice chooser and preserves query intent for destination validation (6.5324ms)
+✔ legacy invalid settings reach destination parsers and their visible fallback messages (26.4923ms)
+✔ features respect maximal words, lowercase pairs and cold-history fallback (4.3827ms)
+✔ missing artifact never invents population, uses explicitly labelled observed-user fallback (1.197ms)
+✔ strict artifact validation rejects shape/version/task and nonfinite arrays, keeps a defensive copy (5.6971ms)
+✔ candidate overflow drops candidate for entire sentence without replacing with baseline (2.6008ms)
+✔ all candidate and baseline occurrences are prepared before a history mutation (2.0406ms)
+✔ actual exported model agrees with original Python estimator, features and baseline on golden fixtures (7.4106ms)
+✔ shared eligible Python event stream yields identical engine observations, history and matched predictions (9.7761ms)
+✔ history copies eligible summaries and rolls to ten (4.3904ms)
+✔ baseline-only focus requires evidence and bank support, with two target then general cadence (2.4617ms)
+✔ missing origin is explicitly a new assessment (0.6225ms)
+✔ history excludes practice and incompatible runs but keeps earlier eligible evidence in interrupted assessment (2.378ms)
+✔ retest resolves exact origin, excludes partial prompts, fails on deleted/incompatible/exhausted origin (4.2666ms)
+✔ selected smoothed baseline score, evidence threshold and alphabetical tie are exact (31.5084ms)
+✔ completion ties use stable IDs and within-run order, deletion changes only new snapshots (1.5368ms)
+✔ settings compatibility isolates every duration and flow from unchanged legacy records (1.3706ms)
+✔ history and retest share mode, duration, layout, corpus and version compatibility (1.4498ms)
+✔ flow history retains only eligible submitted sentences after later interruption (1.1611ms)
+✔ legacy origin falls back for flow retest, while flow excludes every active partial ID (0.7997ms)
+✔ manual catalogue requires three distinct passages, not occurrences or cross-word pairs (7.2548ms)
+✔ manual and recommended drills share finite cadence and adjacent-repeat avoidance (1.2614ms)
+✔ warm no-artifact history supports baseline-only predictions, never a recommendation (0.7416ms)
+✔ accepts bounded guest results including sub-millisecond timing and unknown accuracy (7.4883ms)
+✔ rejects corrupt shapes, unsupported versions, impossible counts and unsafe chart data (3.9492ms)
+✔ rejects an otherwise bounded record larger than the 1 MiB persistence limit (66.6493ms)
+✔ strict v1 extensions retain independent lineage and matched simultaneous predictions (2.0686ms)
+✔ rejects unknown extension keys, wrong identities and selectively retained predictions (2.9225ms)
+✔ UUID self-reference cannot bypass lineage validation with uppercase spelling (0.4336ms)
+✔ prediction means must exponentiate to finite positive milliseconds without clamping (1.2477ms)
+✔ flow duration arithmetic is strict while legacy remains 60 seconds only (0.9284ms)
+✔ manual drills round trip independently of evidence-backed recommendations (1.3743ms)
+✔ validation failures are permanent named errors before IndexedDB is opened (2.2382ms)
+ℹ tests 97
+ℹ suites 0
+ℹ pass 94
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2072.8875
+
+✖ failing tests:
+
+test at tests\app.test.ts:35:1
+✖ Restart waits for fresh calibration and focus before enabling replacement input (14.3521ms)
+  :67
+      input.focus();
+    };
+     ^
+    prepare();
+
+  SyntaxError [ERR_INVALID_TYPESCRIPT_SYNTAX]: Expected ',', got ';'
+      at parseTypeScript (node:internal/modules/typescript:72:36)
+      at processTypeScriptCode (node:internal/modules/typescript:146:42)
+      at stripTypeScriptTypes (node:internal/modules/typescript:123:10)
+      at TestContext.<anonymous> (file:///C:/Users/Owenc/orca/workspaces/TypeForge/typeforge-foundation-e1/typing-app/client/tests/app.test.ts:50:28)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    code: 'ERR_INVALID_TYPESCRIPT_SYNTAX'
+  }
+
+test at tests\app.test.ts:78:1
+✖ restarted retest re-resolves exact origin; deleted, incompatible or unreadable origin becomes ordinary assessment (5.7505ms)
+  :67
+      input.focus();
+    };
+     ^
+    prepare();
+
+  SyntaxError [ERR_INVALID_TYPESCRIPT_SYNTAX]: Expected ',', got ';'
+      at parseTypeScript (node:internal/modules/typescript:72:36)
+      at processTypeScriptCode (node:internal/modules/typescript:146:42)
+      at stripTypeScriptTypes (node:internal/modules/typescript:123:10)
+      at TestContext.<anonymous> (file:///C:/Users/Owenc/orca/workspaces/TypeForge/typeforge-foundation-e1/typing-app/client/tests/app.test.ts:95:29)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    code: 'ERR_INVALID_TYPESCRIPT_SYNTAX'
+  }
+
+test at tests\app.test.ts:348:1
+✖ assessment from URLs never acquire retest lineage on restart; explicit practice/retest origins retain their contracts (8.6566ms)
+  :67
+      input.focus();
+    };
+     ^
+    prepare();
+
+  SyntaxError [ERR_INVALID_TYPESCRIPT_SYNTAX]: Expected ',', got ';'
+      at parseTypeScript (node:internal/modules/typescript:72:36)
+      at processTypeScriptCode (node:internal/modules/typescript:146:42)
+      at stripTypeScriptTypes (node:internal/modules/typescript:123:10)
+      at TestContext.<anonymous> (file:///C:/Users/Owenc/orca/workspaces/TypeForge/typeforge-foundation-e1/typing-app/client/tests/app.test.ts:367:33)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    code: 'ERR_INVALID_TYPESCRIPT_SYNTAX'
+  }

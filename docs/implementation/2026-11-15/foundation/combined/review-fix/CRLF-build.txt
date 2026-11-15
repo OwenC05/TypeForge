@@ -1,0 +1,31 @@
+
+> typeforge@0.1.0 build
+> npm run typecheck && vite build
+
+
+> typeforge@0.1.0 typecheck
+> tsc --noEmit
+
+vite v8.3.1 building client environment for production...
+transforming...
+✓ 24 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/assets/favicon-2cBZDU6Q.svg    0.28 kB │ gzip:  0.20 kB
+dist/LandingPage.html               0.40 kB │ gzip:  0.28 kB
+dist/LeaderBoard.html               0.40 kB │ gzip:  0.28 kB
+dist/SignIn.html                    0.40 kB │ gzip:  0.28 kB
+dist/DetailedResults.html           0.41 kB │ gzip:  0.28 kB
+dist/ResultsPage.html               0.41 kB │ gzip:  0.28 kB
+dist/ProgressDashboard.html         0.41 kB │ gzip:  0.28 kB
+dist/TypingTest.html                0.41 kB │ gzip:  0.28 kB
+dist/practice.html                  0.69 kB │ gzip:  0.43 kB
+dist/results.html                   0.70 kB │ gzip:  0.43 kB
+dist/progress.html                  0.71 kB │ gzip:  0.44 kB
+dist/TypingDrill.html               0.83 kB │ gzip:  0.44 kB
+dist/lab.html                       0.85 kB │ gzip:  0.50 kB
+dist/index.html                     0.87 kB │ gzip:  0.51 kB
+dist/assets/app-CiIXzPbM.css       10.56 kB │ gzip:  3.14 kB
+dist/assets/app-MoCpUVl4.js       103.52 kB │ gzip: 36.24 kB
+
+✓ built in 90ms
