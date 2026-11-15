@@ -1,164 +1,142 @@
 # TypeForge review breakdown: acceptance and verification specification
 
-**Status: Planner draft, 15 November 2026.** Companion to `prd-typeforge-review-breakdown.md`. These are future verification requirements, not claims that changes exist or have passed. Source baseline: `de69444a6201da96281ca9ad88088904477775a2`.
+**Status: Planner revision 2, 15 November 2026; awaiting sequential Architect then Critic re-review.** Companion: `prd-typeforge-review-breakdown.md`. All requirements below describe future verification, not implemented fixes. Source baseline remains `de69444a6201da96281ca9ad88088904477775a2`; review/artifact commits do not establish application changes. Planning only: no implementation or deployment handoff.
 
-## Evidence receipt required for final planning
+Client-relative source/test paths below resolve under `typing-app/client` (application modules under `src`); review paths are workspace-relative.
 
-| Evidence | Available now | Required treatment |
-|---|---|---|
-| Claude design review, current screenshots and Monkeytype matrix | Yes: `docs/reviews/2026-11-15/design-review.md` and `design-evidence/` | Preserve limitations; obtain Claude's focused challenge of proposed solutions |
-| Claude Keybr comparison and UX benefit challenge | Pending: `.omx/plans/typeforge-claude-benefit-review.md` | Integrate actual live/source evidence into a three-way matrix; no inferred Keybr behavior or non-Claude design verdicts |
-| Independent learning review and source probes | Yes: `learning-review.md`, `learning-evidence/source-probe.json`, 43 passing targeted source tests | Synthetic exposure/count gates are not human recommendation coverage or skill gains |
-| Independent ML review | Pending | Reconcile actual model/policy path, evaluation, artifact/fallback behavior and policy contract before final Stage 2/3 recommendations |
-| Independent engineering review and fresh checks | Pending | Incorporate actual defects and test/performance/privacy gaps; do not treat historical checks as current passes |
-| Sequential Architect → Critic review | Not yet | Full task, context, both planning artifacts and completed preceding review required; revise/re-review on nonapproval |
-| Configured Ralplan quality gates | Coordinator intake reported none | Recheck catalog at the required workflow step; do not invent a configured gate |
+## Evidence and honest baseline
 
-## Verification matrix
+| Evidence | Receipt and limitation |
+|---|---|
+| Actual Claude design | `docs/reviews/2026-11-15/design-review.md` and `design-evidence/`; completed current UI/Monkeytype evidence |
+| Actual Claude Keybr/benefit review | `.omx/plans/typeforge-claude-benefit-review.md` plus `.omx/plans/typeforge-claude-clarifications.md`; addendum supersedes wrap/cue/status ambiguity and earlier wrong draft-hash prefixes |
+| Independent learning | `docs/reviews/2026-11-15/learning-review.md`, `learning-evidence/source-probe.json`; 43 targeted tests reported passing, synthetic coverage is not human effectiveness |
+| Independent engineering | `docs/reviews/2026-11-15/engineering-review.md`; check 94 pass/3 fail of 97, failures in LF-only source extraction against CRLF; separate typecheck/build pass; Chromium 39/39, zero errors |
+| Independent ML | `docs/reviews/2026-11-15/ml-review.md`; 21/21 targeted TypeScript tests; Python 19 pass/2 missing-sklearn errors in available Python 3.11 versus documented pinned 3.14. No refit, dependency installation or full reproduction claim |
+| Performance | Engineering same-harness 1x/4x/1x handler p95 4.9/71.3/5.0 ms, 80 native edits at 20 ms intervals; no dropped characters. rAF proxy is not physical input latency or complete causal profiling |
+| Planning review | `.omx/plans/typeforge-architect-review-1.md`: ITERATE. Revision 2 addresses blockers; Architect re-review then Critic remain required. No initial specialist audit remains pending |
 
-### V1 — Ready entry, preferences and keyboard focus (AC1 / P1)
+Keep receipts tied to source/build/browser, command, fixture and clock mode. Accelerated browser-clock checks do not prove real timing, physical IME, actual screen-reader speech, Firefox/Safari or real browser zoom. No configured lint task exists; do not claim one passed.
 
-Fixtures: first visit; return after 15-second declared-QWERTY General; Manual valid/stale pair; Recommended newly unavailable; explicit URL override; valid retest origin; invalid URL; absent/corrupt/blocked preference storage; reset.
+## V0 - Repair trustworthy checks and establish the paired baseline
 
-Pass requirements:
+**Resources:** `tests/app.test.ts` extraction sites around lines 37, 80, 350; current app handlers; existing package scripts and browser harness.
 
-- Ordinary return restores validated duration/declaration/practice choice; explicit URL and lineage inherit with the plan's precedence. Invalid values visibly fall back safely.
-- No declaration is inferred from a prior undeclared result or device guess. Clearing preference state does not delete results; clearing results does not silently create a declaration.
-- Intentional ready-practice/repeat offers immediate native input focus; blank-surface click focuses it. If focus is already on a control, it stays there.
-- Printable keys in the ready input are accepted once; keys on selects/buttons/links/contenteditable or with Ctrl/Alt/Meta/composition are not intercepted. Tab remains navigation; no keyboard trap.
-- No clock starts until the first accepted insertion; preference read/write failure does not prevent typing/saving.
+- Before behavioral changes, reproduce the three extraction failures. Test source-boundary extraction with LF and CRLF, require start/end markers to be found in order, then execute the same existing restart assertions. Do not disable assertions or swallow missing boundaries. A source-slice repair is not an application fix.
+- From `typing-app/client`, run `npm run check` and a separate `npm run build` if the chained check stops at tests. Browser verification follows `tests/browser/README.md`: start the production preview with `npm run preview -- --port 5183 --strictPort`, then invoke the available Playwright MCP `browser_run_code_unsafe` with `filename` set to the absolute path of `typing-app/client/tests/browser/typing-flow.js`. Require `failed: 0` and an empty `errors` array; own and clean up only the preview started for this check. There is no browser npm script or automatic browser CI signal currently. If the runner is unavailable, report that gap. Record exact outputs; do not relabel the current 94/97 baseline as green.
+- Profile the same real-clock 1x/4x/1x native-input harness before/after relevant rendering changes. Include handler distributions, long tasks, textarea value/selection, mirror work and dropped/duplicate characters. Use traces to attribute cost before optimizing. Preserve input correctness; any regression beyond repeat-run variability must be explained and resolved or explicitly excluded from the release claim. Do not invent a universal 16 ms guarantee from one machine.
 
-Test at pure preference/parser level where possible; use the browser for actual focus/event routing. Existing anchors: `tests/app.test.ts` duration/keyboard/practice parser and restart cases.
+## V1 - Entry, preferences and safe focus (AC1)
 
-### V2 — Typing visibility, correction and interruption (AC2 / P2)
+**Resources:** `app.ts` routes/preferences/focus; `tests/app.test.ts`; browser typing flow.
 
-Capture ready, running, first error, corrected error, middle edit, selection, page focus loss, input blur and repeated passages at 1440×900, 390×844 and 320 px. Exercise real browser 200% zoom separately from CSS/viewport approximation.
+Fixtures: first visit; return; manual pair valid/stale; Recommended unavailable; URL override; valid/invalid/deleted retest origin; blocked/corrupt/partially invalid preferences; reset; slow history; an already-focused control.
 
-Pass requirements:
+- Validate each preference field independently. One malformed field does not discard unrelated valid preferences. Explicit URL and compatible lineage take documented precedence; no value guesses a keyboard layout. Practice may default to 30 seconds; assessment keeps its existing 60-second default and exact compatible settings.
+- QWERTY declaration gates eligible timing interpretation, not General/manual typing. Optional declaration refusal still yields a useful practice session. Preference failure never blocks input or save; resetting preferences does not delete results.
+- Intentional ready entry or a completed practice repeat may focus the native input only while focus is neutral/body/stage. A delayed callback must not steal focus from a select, button, link, contenteditable, another input or modal. Click on an eligible blank stage focuses it.
+- **No global printable-key capture/replay.** A printable key already delivered to the native input is accepted once; elsewhere it is untouched. Tab navigates normally. Ctrl/Alt/Meta shortcuts, composing events and control activation are not hijacked.
+- Continue Typing is a real button activated with Enter. If a document-level Enter recovery shortcut exists, it is restricted to body/neutral stage, no modifiers/composition, and cannot consume a focused control's activation. Timer starts only at the first accepted insertion.
+- Verify real AT focus behavior before claiming accessible autofocus. If it fails, use explicit user-action recovery or opt-in autofocus; no invisible focus trap is acceptable.
 
-- Active-line location meets the finalized Claude geometry target; focused input stays visible. No ordinary fitting corpus word wraps mid-word; textarea and mirror use equivalent wrapping.
-- Backspace, Ctrl+Backspace, Shift+Arrow, click caret placement, insertion in the middle and selection replacement retain accepted text, caret and selection agreement across wraps. Completed passages remain noneditable.
-- Wrong/extra input and its expected character remain understandable using Claude's selected representation. If a stable target/extra layer cannot preserve geometry, use the smaller correction-cue alternative rather than weakening editing tests.
-- Enter no-op and focus-loss explanations are visible beside the active line. No hidden flag is introduced without visible explanation. Assessment interruption labels/clock and existing scoring remain unchanged.
-- Reduced motion and keyboard-visible focus work. Check live-region semantics and record actual screen-reader behavior before claiming speech is fixed; automated accessibility trees alone cannot prove announcement behavior.
-- Modified rendering does not serialize full results/history or recompute the profile per keystroke. Capture before/after timing traces on the same device/browser and inspect regressions; no unsupported universal latency target.
+## V2 - Coherent UI prototype and native editing geometry (AC2)
 
-Existing anchors: `tests/engine.test.ts`, `tests/app.test.ts` edit/safety-stop cases, `tests/flow-capacity.test.ts`, and `tests/browser/typing-flow.js`.
+**Owner:** actual Claude for design and visual verdict; engineering for input/geometry invariants. **Resources:** `DESIGN.md`, `app.ts`, `style.css`, native mirror/input rendering, browser fixtures.
 
-### V3 — Result continuation and lineage (AC3 / P3)
+Before broad UI implementation, compare two bounded coherent prototypes: refined current structure and the practice-stage direction from Claude. Each covers ready focused/unfocused, running, first mismatch, corrected mismatch, focus loss, completion, save failure, returning home, Progress empty/populated and insufficient-evidence fallback. Record the selected layout, information hierarchy, colour/type/spacing roles and rationale. This is a design checkpoint, not permission to rewrite the framework or an efficacy claim.
 
-Matrix: General/Manual/Recommended practice × no origin/valid origin/deleted origin/incompatible origin/exhausted bank, plus flagged result, legacy record and save failure.
+Geometry matrix: 1440x900, 390x844, 320 px, plus actual browser 200% zoom; same seeded assessment and practice fixtures across widths. Include typed prefix ending inside a word, line-edge insertion, extra character, middle edit, Shift+Arrow selection, pointer caret placement, selection replacement, Backspace, Ctrl+Backspace and passage commit.
 
-Pass requirements:
+- Assessment passage IDs/order/text/settings are identical at every width. No width-based filtering, shortening, reweighting or reordering. Any future content change needs a separately versioned practice policy/exposure contract; this layout release cannot change benchmark content.
+- The textarea contains only the response; the mirror also contains the untyped suffix. Therefore identical CSS alone is insufficient. Capture actual caret/selection and corresponding rendered character geometry for partial-word and extra-character cases. Demonstrate aligned lines, click placement and scrolling across the matrix before changing wrap strategy. Tape remains a prototype until it passes; retain existing wrapping if alternatives cannot preserve native correctness and record that limitation.
+- Completed passage text stays noneditable. No custom caret, printable-key replay or fabricated timing may substitute for native input behavior.
+- Use a non-flow marker at the **first positional mismatch**. A pointer near the caret is conditional on the mismatch occupying a different visual line or being outside the stage. Do not move the mismatch marker merely to follow the caret, infer arbitrary inserted-character alignment, or reinterpret positional scoring.
+- Visual cues are aria-hidden where a stable accessible description provides equivalent information. Committed previous errors may retain static underlines; active cue clears. Avoid additional synchronous layout reads on every keystroke solely for a pointer.
+- Apply Claude's legibility/placement direction: passage at least 22 px desktop/18 px mobile; required large context contrast at least 3:1; active line within the reviewed upper 40-45% viewport region in ordinary ready/running states. Record unavoidable zoom/keyboard exceptions rather than force clipping. Colour is not the sole error/focus signal. Nonessential transitions at most 150 ms, disabled for reduced motion.
+- Measure stage bounding rectangle and active-line position before/after feedback, commit and completion. A zero CLS score alone is insufficient. Feedback must not repeatedly shift the typing stage.
+- Reserve a stable feedback slot: integrity/Undo notice outranks transient hint; newest equal-priority notice wins; each new notice is announced once. Repeated paint does not reannounce it. Recovery button and low-weight identity caption remain accessible. Why is active only ready/results or visibly unavailable during running; never an apparently active focusable link that silently does nothing.
 
-- Practice's primary next action repeats the mode/settings; Manual retains the chosen supported pair, Recommended revalidates current evidence and explains a General fallback. A deleted record cannot silently remain a source of the next suggestion.
-- A never-linked practice result does not mention deleted/unavailable assessment evidence. Real deleted/unreadable/incompatible lineage remains honestly unavailable.
-- Existing fresh-retest prompt exclusions include the origin's partial passage. No repeat fix changes score schema or rewrites historical predictions.
-- Documented result shortcut works only in its intended context. Export/delete/details remain keyboard reachable. Failed save retains current result and export; permanent validation errors do not offer an impossible retry.
+Automated screenshot/geometry/semantics results are separate from actual-Claude visual approval, human usability and real screen-reader announcements. A future usability session asks participants to begin, recover focus, correct a mismatch, repeat and find progress; record completion, confusion, accidental edits and preference without claiming representative adoption from a small sample. Human efficacy is not a Stage 1 gate. Missing human/AT coverage must remain visible in the release claim.
 
-Existing anchors: `tests/app.test.ts` optional-origin/retest/save cases, `tests/profile.test.ts` retest lineage, `tests/storage.test.ts` legacy/strict extensions.
+## V3 - Result continuation, lineage and observed practice (AC3/AC4)
 
-### V4 — Reflection and practice activity (AC4 / P4)
+**Resources:** `app.ts` ready/results/Progress, `engine.ts` result types, `storage.ts`; existing lineage tests.
 
-Create known isolated history containing completed practice, interrupted practice, eligible and incompatible assessments, a legacy result and corrupt data. Use a fixed clock/local timezone for date-boundary tests, then explicitly test a timezone change.
+- Practice Again produces a new run ID with compatible settings and retained Manual choice; Recommended revalidates evidence at the next preparation and explains General fallback. It never rewrites the previous result or frozen prediction.
+- Assessment primary continuation is Practice Next; an assessment retest remains a separate lineage-aware action. Do not turn Again into same-content benchmark rehearsal. Verify fresh/practice/assessment identities and exclusion rules independently.
+- A never-linked practice result does not imply a deleted assessment. Missing, corrupt, deleted or incompatible actual origins remain unavailable; no fabricated lineage.
+- Save failure remains visible while navigation/repeat is usable, without duplicating saves or implying persistence. Export/Delete keyboard activation is not stolen by global handlers.
+- Current history already includes practice. Preserve its rows while adding readable observed activity; existing assessment trends stay assessment-only. Separate duration, context, corpus/instrument versions and practice/assessment labels where comparisons require them.
+- Today/week counts use explicit local-calendar boundaries, including midnight/DST fixtures. Call elapsed recorded session time session time; do not call it active typing. Flagged sessions can be shown separately with their status. Empty history, thin evidence and unavailable summaries still provide a General/manual next step.
+- No-effect/insufficient evidence never displays a false Suggested recommendation. Observed counts are not mastery, streak obligation, trainability or recovered-WPM claims.
 
-Pass requirements:
+## V4 - Bounded optional data and stale-result safety (Stage 1C)
 
-- Practice is still present in the saved-session table and is now summarized separately. Session count and recorded session-time totals match eligible included records exactly; flagged runs are omitted or separately labelled according to the finalized display contract.
-- Assessment trend still uses compatible eligible assessments only. Different duration/layout/corpus/mode buckets do not become one WPM trend.
-- Totals recompute after deletion; no stale derived activity survives source deletion. Preference reset and history deletion are distinct operations.
-- No one-observation timing is ranked as a weakness. Missing support is stated; version/provenance detail remains accessible without occupying the primary takeaway.
-- Claude checks the primary metrics/next-action desktop viewport, narrow layout and comprehension of “observed”, “suggested” and “improved”. Human comprehension is a separate evidence item; script assertions cannot certify it.
+**Resources:** `storage.ts` indexed pagination; `app.ts:52-68,151-183,665-698`; current calibration and progress reads.
 
-### V4b — Whole daily journey and adoption hypothesis (primary UI/UX track)
+Use small, large, mostly-invalid, mostly-incompatible, oversized-row, blocked/rejected and deliberately delayed fixtures. Count **examined** rows, not just valid returns.
 
-Use Claude's final three-way TypeForge/Monkeytype/Keybr comparison to select the relevant journey criteria. Preserve competitor version/date and untested paths. Run the same TypeForge before/after route: first visit → ready practice → error/correction → result → repeat → return → activity summary.
+- Initial optional slices stop at 25 examined rows or 4 MiB serialized payload; automatic lookup stops at 500 examined rows or 16 MiB. Yield between slices and after 8 ms synchronous aggregation. Return last-examined compound cursor, completion and exclusion/budget status. Single-record IndexedDB materialization is an explicit limitation, not a claimed hard heap bound.
+- General/manual shell and input become usable while optional summaries/profile/calibration remain unresolved. Manual catalogue does not depend on lifetime reads. An incomplete profile abstains; partial summaries cannot appear as exact totals. Explicit continuation resumes bounded work.
+- Render 25 initial rows, at most 100 row elements concurrently. Next/Previous replace the visible page; tie timestamps and invalid records do not skip or duplicate valid results. First page does not wait for totals.
+- Generation token plus data revision prevent delayed results after navigation, restart, settings change, deletion/reset or run start from attaching stale suggestions, counts or predictions. Exercise each race by resolving requests in reverse order. Cancel where supported; correctness cannot depend on cancellation succeeding.
+- Freeze accepted evidence when a run starts. Cross-tab deletion affects next preparation; it does not mutate the active instrument. Never attach a late prediction to already-observed typing.
+- Preserve **exact newest-ten compatible assessment calibration**; optional-profile scan caps do not silently truncate it. Assessment shell may load early, but exact preparation remains separately paged/yielding/cancellable. Retest cannot begin with unresolved origin/compatibility. Cancel returns to General. Any altered assessment calibration needs its own explicit instrument decision.
+- Copy says ordinary export contains valid readable records only. Corrupt rows remain retained; no false raw-recovery promise or silent deletion. Full export remains user-requested and separate from page/typing readiness. A later size-evidenced bounded export task chooses format/UX with Claude; multipart export is not required for this increment.
 
-- Record actions and time to ready/first accepted typing and repeat, focus recovery, visible feedback, retained settings and result comprehension. Script timings describe automation; human usability observations are reported separately.
-- Capture consistent ready/running/results/return screenshots at desktop and narrow widths; actual Claude checks visual hierarchy, typography/spacing, interaction clarity and coherent identity. Avoid claiming parity outside exercised flows.
-- Where a small voluntary usability round is feasible, use unprompted tasks and questions before coaching the participant. Record completion, errors, misunderstood feedback, reasons to return or stop and remaining friction. A small sample informs improvements; it cannot certify population retention or typing efficacy.
-- UI/UX acceptance is a first-class Stage 1 completion gate, independent of ML novelty. Participant recruitment is not a gate to local defect fixes; missing human evidence limits adoption claims rather than being relabelled as passed.
+## V5 - Undo/Redo accounting and versioning (separate Stage 1D)
 
-### V5 — Practice-profile isolation and responsiveness (AC5 / P5)
+**Resources:** `app.ts:127-148` input reconstruction, `engine.ts:260-298` invalid/edit accounting, strict storage validation, calibration/profile/trend/retest comparators and tests. This is independent of layout release: an honest Undo integrity notice can ship while the repair is still unimplemented.
 
-Before implementation, freeze a `practice-profile-v1` contract with the ML reviewer: admitted result/settings buckets, freshness/window constants, error/timing denominators, unsupported-input exclusions, policy snapshot, recomputation and deletion rules. No Stage 2 execution-ready claim until these are explicit.
+The proposed contract is a bounded accepted-edit journal and uniquely matched same-passage history replay. Validate real browser history grouping, not merely synthetic historyUndo events.
 
-Required synthetic tests:
+| Fixture | Required accounting/eligibility |
+|---|---|
+| Type abc, Undo to ab, Redo to abc | Visible text and selection match native history. Original insertion attempts/first-position error counts do not decrease or increment on replay; no new synthetic key timings. Retained-text WPM follows visible response. |
+| Genuine new insertion after Undo | Counts as a new observed attempt under ordinary rules; prior attempts stay counted. Redo history invalidates consistently with native behavior. |
+| Word deletion/selection replacement, coalesced Undo/Redo | Replay accepted only when journal uniquely explains the transition. Deletion accounting counts actual removals, including replay; fixture expectations are explicit. No arbitrary diff promoted to clean physical timing. |
+| Supported replay in a sentence | Mark touched sentence edited; exclude its pair/prediction matches while retaining supported run-level accuracy. Frozen earlier predictions stay unchanged. |
+| Unmatched/ambiguous transition, exhausted journal, cross-commit history | Conservative unsupported handling and visible integrity notice; no invented alignment/timestamps or clean eligibility. Retained active-passage text is restored where cross-commit native history would breach the passage boundary. |
 
-1. Two completed practice blocks with contrasting supported evidence alter the next derived profile and, where the chosen policy warrants it, the next suggestion. They do not change an already running block.
-2. A corrected-error example contributes valid expected-key opportunities/errors but contributes no clean timing from its edited sentence. A long-gap example omits the invalid pair without pretending the entire sentence was ineligible if existing rules retain it.
-3. Sparse, stale, unsupported and conflicting evidence yields a useful explained General fallback. No fabricated counts or “mastered” label.
-4. Duration/layout/language/corpus/input-mode differences remain isolated. Frozen assessment `selectHistory`, legacy interpretation, model parity and original prediction payloads are unchanged.
-5. Reading, deleting and clearing source results rebuilds the next profile; corrupt records are skipped with diagnostics, not repaired by guessing. Cross-tab deletion leaves the active block's snapshot intact and affects its next restart/block.
-6. Profile calculation occurs between blocks/page entry from validated records; failures do not block basic practice. Any additional stored metadata must pass a reviewed strict version/validation contract; no unknown-field bypass.
+Journal bounds must respect existing response/attempt caps and a separately explicit replay cap before implementation; overflow takes the unsupported path. Show exact expected counters for insertion, replacement and deletion fixtures before coding.
 
-Use `tests/profile.test.ts`, `tests/app.test.ts`, `tests/storage.test.ts`, `tests/model.test.ts`; add only behavior-level tests needed by the finalized new contract. Historical result fixtures must compare unchanged serialized content before and after derived-profile operations.
+Proposed version contract: new runs use `metricVersion: 2`; old v1 results remain immutable/readable/exportable. Existing schema shape/input mode remains unless explicitly required otherwise. Validators admit only the intended version enum; calibration, trend, retest and profile accept the target generation and never pool v1/v2. Test old/new fixtures, incompatible retest, empty new cohort, mixed history and older-app downgrade/export limitations. Architect may select a separate instrumentation-version field only by revising the contract before coding, not by an executor silently changing this proposal. A version bump alone is not evidence that replay semantics are correct.
 
-### V6 — Honest target exposure and coaching policy (AC6 / P6)
+## V6 - Numerical abstention and executable coaching contract (Stage 1A, 2A/2B)
 
-Retain the original read-only `learning-evidence/source-probe.mjs` as baseline evidence. Add implementation tests against the actual revised sampler rather than updating the baseline report to hide the defect.
+**Resources:** `profile.ts`, `model.ts`, `corpus.ts`, strict config/result validation and targeted tests.
 
-Required cases:
+Immediate numerical regression: constant 200 ms histories, many summation orders, random permutations and the actual engine ten-sentence fixture must abstain instead of choosing roundoff-sized targets (review observed approximately 1e-12). Also preserve clearly supported nonuniform fixtures. Numerical tolerance is not the practical minimum-effect or learning-efficacy threshold.
 
-- All supported manual pairs; common `th`/`he`, sparse `ag`, unsupported pair, empty/corrupt bank and a target present in every passage.
-- Expected target occurrences/100 characters and context diversity compared with General using the same bank. Complete cycles, many deterministic seeds and finite sampler output must agree with the declared policy contract.
-- Prefix/partial-run exposure at 15/30/60/120-second equivalents, including stopping before the “general” slot. Report realized dose from what was actually presented/typed; do not claim full-cycle guarantees for every short prefix.
-- Target enrichment is enforced when promised; otherwise fallback/relabel explicitly. Do not prohibit a target from general passages merely to preserve 2:1 cadence. Adjacent-repeat avoidance and finite capacities continue to hold.
-- Changing Ridge coefficients or predictive baseline does not silently alter a separate coaching policy. Missing model artifact must preserve whichever explicitly specified non-model policy/fallback is supported, with no fake “ML” label.
-- Recommendation explanations name the signal, evidence quantity and experimental status. Error/timing policy thresholds are fixed before outcome inspection and exercised around each boundary.
+Before adaptive implementation, Stage 2A outputs `.omx/specs/typeforge-practice-policy-v1.md` (future resource), a config schema, examples and boundary fixtures for **one** simple policy. It must contain concrete support/opportunity, effect, uncertainty/stability, freshness, context/version, window/budget, exposure/diversity and retirement rules, with units and fallback reasons. No TBD thresholds handed to an executor. Record sensitivity evidence and conservative product rationale; do not label these scientific optima. ML/learning/Architect review the contract and actual Claude reviews explanations. If support cannot be justified, a concrete General/manual-only policy is a valid bounded outcome and Stage 1 still ships independently.
 
-Target exposure and policy determinism prove behavior, not learning efficacy.
+Contract verification requirements:
 
-### V7 — Reliability, privacy and performance (P8)
+- Boundary fixtures immediately below/at/above every threshold; equal/near-equal candidates, permuted data, all-accurate/all-error, stale/partial/insufficient evidence, duration/layout/language/corpus/version mismatch and shared-browser context reset.
+- Independently validate coach config identity/schema/baseline parameters/thresholds/context support. Test valid coach + missing/malformed Ridge, invalid coach + valid Ridge, both valid and both invalid. Candidate failure must not silently alter policy identity or disable valid independent coaching evidence; General/manual always usable.
+- Fix strict provenance persistence deliberately (reviewed result extension or sidecar); legacy records are not rewritten. Stored support/source IDs/config/version must trace to accepted sources. Deletion/reset invalidates the next derived snapshot.
+- Timing uses eligible clean evidence; separate error-opportunity counts cannot treat excluded/unfinished/edited samples as clean timing. Quantify eligibility yield and exclusion reasons instead of assuming public-data coverage equals local usefulness.
+- Validate actual sampled exposures/diversity across seeded sessions and the realistically completed prefix, not only whole-bank averages. Honor the selected fallback when dose/support fails. Keep dose checks separate from claims of transfer.
+- No prediction of recoverable WPM, trainability or learned mastery from residual MAE. Personal timing/observed difficulty and intervention effectiveness are different claims.
 
-Incorporate the pending engineering report first. The minimum regression envelope includes storage unavailable/quota, version upgrade/blocked tabs, corruption, delete/reload, result-size/attempt/response caps, incomplete runs, missing model/report, input interruption and loaded-session offline completion. No new offline-reload claim.
+## V7 - Privacy, reliability, compatibility and reproduction
 
-For new preferences/profile work, verify no keystroke/result/profile upload by inspecting requests in isolated journeys and the changed source. No remote fonts/inference/new trackers are introduced. Check no sensitive raw text is added to diagnostics by default.
+- Local response/prompt text, timestamps and aggregates are sensitive exported session data, not anonymous data; raw keydown/keyup streams are not currently persisted. Inspect network behavior in the tested journeys before claiming no uploads. No telemetry/account/cloud dependency is introduced by this plan.
+- Preserve input caps, safety stops, immutable saved results and prediction snapshots; test corrupt storage, save failure, unavailable model/config, deleted origins and repeated restarts. No destructive cleanup defaults.
+- Keep assessment content/settings/lineage and historical versions unchanged outside the explicit separately reviewed Undo instrument generation. Layout changes cannot become content changes.
+- Re-run focused model/profile TypeScript tests when those boundaries change. Full Python reproduction uses the documented pinned environment through its owner when relevant; current missing-sklearn errors stay visible, not fixed by silently changing dependencies/pins. Preserve Aalto attribution/noncommercial source boundaries; do not invent derivative-model licensing conclusions.
+- A later authorized build receipt should link source SHA and instrument/corpus/policy/model/report identities. Current live JS/CSS byte parity is two observed assets, not a full deployment SHA/all-asset/browser certification. No deployment is part of this plan.
 
-Use fresh production build checks and the committed browser harness. A large-history fixture tests page/profile work outside the keystroke path; compare same-environment baseline, record dataset size and timing distribution, and report failures instead of imposing an invented benchmark claim. Untested OS IME, screen reader, Firefox/Safari and physical-device behavior remain explicit limitations or later release gates according to the actual scope.
+## V8 - Later improvement evidence without delaying useful practice
 
-### V8 — Later policy/learning evaluation and content (P7/P9)
+Stage 3 is optional research/monitoring, not a gate for Stage 1 UI quality. Persisted aggregate log sums cannot reconstruct MAE: if local matched-loss monitoring is later authorized, accumulate loss and hit counts while matches are observed, with model/policy/instrument context and exclusion counts; do not backfill fabricated errors from means. Current ranking support was 0/151 rows meeting the five-pair condition; do not call that recommendation quality. Public Enter-task versus local timed-Space transfer and nominal uncertainty calibration remain limitations.
 
-Keep five separate claims: usability, coverage, proximal task performance, delayed retention and held-out transfer. The learning report proposes a bounded sequence and primary sources; the pending ML audit may refine it.
+Before any efficacy claim, distinguish usability/adoption, eligible-signal coverage, target relevance, delayed retention and general-text transfer. Define worthwhile effects, comparison, uncertainty and consent before collecting data. No enrollment/account/telemetry is required for ordinary local use or near-term release. A clearly explained General/manual product can remain the final adaptation decision.
 
-- Use all consenting starts for coverage denominators, including cold-start/fallback users.
-- Compare a common-feedback/time General control with simple error/timing policies before adding a learned selector. Predeclare decision metrics, accuracy guardrails and a participant-level retained outcome before an efficacy study.
-- Protected experimental outcomes/texts never enter practice adaptation or policy tuning. Same-text speed gains and public-data interval MAE cannot substitute for held-out transfer.
-- Explicit opt-in, data minimization and study scope precede participant export. Illustrative sample sizes are not a power calculation or enrollment authority.
-- New content versions do not silently change old scores/cohorts. No generic productivity/coding/multilingual claim follows from lowercase copying.
+## Handoff, evidence packet and stop condition
 
-These later evaluations do not block ordinary defect repair or clearly labelled experimental local practice.
+After planning approval and separate execution authorization, use small behavior-focused Git commits with regression-first tests where missing. Preserve shared-file ownership and others' changes; avoid new dependencies without explicit need/authorization. Separate harness/numerical, prototype/UI, bounded data, Undo/version and policy changes. Run targeted tests first, then relevant type/build/browser checks; inspect actual command definitions rather than inventing scripts.
 
-## Commands and execution evidence
+Each increment supplies source/commit identity, changed resources, regression evidence, failures, visual-state captures where relevant, actual-Claude verdict and explicit human/AT/device gaps. Independently review the integrated journey before completion. Stop broadening when that increment's contract passes; escalate a concrete failure or unsupported policy, not a hypothetical requirement for a new study.
 
-Run only after changes are actually authorized; this document does not run them or claim success:
-
-```powershell
-# Client root: typing-app/client
-npm run check
-# This invokes Node tests, TypeScript checking and Vite production build.
-# No lint script is configured; report that fact rather than a nonexistent lint pass.
-
-# Repository root, using the existing compatible Python environment if available:
-python -m unittest discover -s ml/tests -v
-# Run when shared model/inference contracts change or ML reviewer requires it.
-
-# Existing diagnostic source baseline, repository root:
-node docs/reviews/2026-11-15/learning-evidence/source-probe.mjs
-
-git diff --check
-```
-
-For browser regression follow `typing-app/client/tests/browser/README.md`: build, use an exclusively owned strict preview port (documented default 5183), run `tests/browser/typing-flow.js` through the existing Playwright runner, require `failed: 0` and empty `errors`. If another review owns the port/server, use an isolated adapter with the port change recorded; never kill or steer another lane's helper. Keep helpers hidden on Windows and close only owned processes.
-
-Evidence receipts record commit, changed scope, OS/Node/browser, production vs dev, viewport, URL/port, fixture/seed, real versus accelerated clock, actual failure output and screenshot manifest. Automated key cadence WPM is not human performance. A test pass does not establish a product benefit outside its stated claim.
-
-## Git and regression evidence
-
-For each later behavior-changing slice, record the failing regression or existing protecting test, the minimal fix, the passing rerun and its meaningful commit. Inspect/stage only owned reviewed files; keep unrelated work and unfinished sibling evidence out of the commit. A clean source diff and appropriate tests are required before review, but neither replaces the actual UX check. Use separate commits/increments for UI flow, persistent-profile contracts and policy changes so regressions can be isolated or reverted. Track planning/review dispositions and reproducible evidence without adding private participant data or credentials. No new dependency or production deployment follows from this test specification.
-
-## Completion and handoff
-
-Planning completion requires a coherent problem/fix/benefit mapping, explicit pending audit dispositions, Claude design challenge and sequential Architect/Critic approval with required workflow receipts. The coordinator owns those lifecycle/state operations; this Planner writes only the two planning artifacts.
-
-Future Stage 1 completion requires its acceptance tests and fresh independent visual/technical review. Stage 2 additionally requires the fixed policy/profile contract, deletion/isolation tests and dose evidence. No stage may claim faster typing without the corresponding human retention/transfer evidence. No implementation handoff is authorized by this draft.
+This specification is complete as revision-2 planning input. Architect then Critic must re-review the exact revised bytes; planning approval is not implementation authorization, and no application checks above are claimed freshly run by this drafting step.
