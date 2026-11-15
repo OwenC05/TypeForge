@@ -1,6 +1,6 @@
 # TypeForge review breakdown: acceptance and verification specification
 
-**Status: Planner revision 2, 15 November 2026; awaiting sequential Architect then Critic re-review.** Companion: `prd-typeforge-review-breakdown.md`. All requirements below describe future verification, not implemented fixes. Source baseline remains `de69444a6201da96281ca9ad88088904477775a2`; review/artifact commits do not establish application changes. Planning only: no implementation or deployment handoff.
+**Status: Planner revision 3, 15 November 2026; awaiting sequential Architect then Critic re-review.** Companion: `prd-typeforge-review-breakdown.md`. All requirements below describe future verification, not implemented fixes. Source baseline remains `de69444a6201da96281ca9ad88088904477775a2`; review/artifact commits do not establish application changes. Planning only: no implementation or deployment handoff.
 
 Client-relative source/test paths below resolve under `typing-app/client` (application modules under `src`); review paths are workspace-relative.
 
@@ -14,7 +14,7 @@ Client-relative source/test paths below resolve under `typing-app/client` (appli
 | Independent engineering | `docs/reviews/2026-11-15/engineering-review.md`; check 94 pass/3 fail of 97, failures in LF-only source extraction against CRLF; separate typecheck/build pass; Chromium 39/39, zero errors |
 | Independent ML | `docs/reviews/2026-11-15/ml-review.md`; 21/21 targeted TypeScript tests; Python 19 pass/2 missing-sklearn errors in available Python 3.11 versus documented pinned 3.14. No refit, dependency installation or full reproduction claim |
 | Performance | Engineering same-harness 1x/4x/1x handler p95 4.9/71.3/5.0 ms, 80 native edits at 20 ms intervals; no dropped characters. rAF proxy is not physical input latency or complete causal profiling |
-| Planning review | `.omx/plans/typeforge-architect-review-1.md`: ITERATE. Revision 2 addresses blockers; Architect re-review then Critic remain required. No initial specialist audit remains pending |
+| Planning review | `.omx/plans/typeforge-architect-review-1.md`: ITERATE. Revision 3 addresses the remaining iteration-2 deletion-bound blocker (`.omx/plans/typeforge-architect-review-2.md`); Architect re-review then Critic remain required. No initial specialist audit remains pending |
 
 Keep receipts tied to source/build/browser, command, fixture and clock mode. Accelerated browser-clock checks do not prove real timing, physical IME, actual screen-reader speech, Firefox/Safari or real browser zoom. No configured lint task exists; do not claim one passed.
 
@@ -76,7 +76,7 @@ Automated screenshot/geometry/semantics results are separate from actual-Claude 
 
 Use small, large, mostly-invalid, mostly-incompatible, oversized-row, blocked/rejected and deliberately delayed fixtures. Count **examined** rows, not just valid returns.
 
-- Initial optional slices stop at 25 examined rows or 4 MiB serialized payload; automatic lookup stops at 500 examined rows or 16 MiB. Yield between slices and after 8 ms synchronous aggregation. Return last-examined compound cursor, completion and exclusion/budget status. Single-record IndexedDB materialization is an explicit limitation, not a claimed hard heap bound.
+- Initial optional slices stop at 25 examined rows or 4 MiB serialized payload; automatic lookup stops at 500 examined rows or 16 MiB. Yield between slices and cooperatively between bounded operations once synchronous aggregation reaches 8 ms. A single validation/serialization cannot be preempted: record its duration and any overshoot, then yield before the next operation; do not assert a hard 8 ms ceiling. Return last-examined compound cursor, completion and exclusion/budget status. Single-record IndexedDB materialization is an explicit limitation, not a claimed hard heap bound.
 - General/manual shell and input become usable while optional summaries/profile/calibration remain unresolved. Manual catalogue does not depend on lifetime reads. An incomplete profile abstains; partial summaries cannot appear as exact totals. Explicit continuation resumes bounded work.
 - Render 25 initial rows, at most 100 row elements concurrently. Next/Previous replace the visible page; tie timestamps and invalid records do not skip or duplicate valid results. First page does not wait for totals.
 - Generation token plus data revision prevent delayed results after navigation, restart, settings change, deletion/reset or run start from attaching stale suggestions, counts or predictions. Exercise each race by resolving requests in reverse order. Cancel where supported; correctness cannot depend on cancellation succeeding.
@@ -99,6 +99,13 @@ The proposed contract is a bounded accepted-edit journal and uniquely matched sa
 | Unmatched/ambiguous transition, exhausted journal, cross-commit history | Conservative unsupported handling and visible integrity notice; no invented alignment/timestamps or clean eligibility. Retained active-passage text is restored where cross-commit native history would breach the passage boundary. |
 
 Journal bounds must respect existing response/attempt caps and a separately explicit replay cap before implementation; overflow takes the unsupported path. Show exact expected counters for insertion, replacement and deletion fixtures before coding.
+
+Deletion-bound fixtures preserve the current `MAX_ATTEMPTS = 16,384` strict storage bound and exercise **all** accepted removal paths, not only replay counts:
+
+- With accumulated deletions 16,382, an admissible one-character removal is accepted at 16,383 (below); a two-character removal is accepted at 16,384 (at); a three-character removal is rejected atomically (over), leaving 16,382 and the prior text/selection/counters/journal unchanged. Repeat for supported Undo, Redo removal, ordinary deletion after replay restoration and selection replacement, with valid reachable prior histories.
+- Repeatedly remove and restore a 600-character response: 27 accepted removals total 16,200; the 28th attempted removal would yield 16,800 and is rejected, retaining the restored response and 16,200 deletions. Original insertion attempts remain 600. Also test substantial pre-existing deletions and cross-passage cumulative totals; a fresh journal/passage cannot reset the guard.
+- At exactly 16,384, zero-removal edits can still be admitted under other existing caps; any positive removal is rejected. Test cancelable beforeinput and restoration after a noncancelable native event, including pre-edit selection direction/range. No accepted counter, journal entry, timing or frozen prediction changes on rejection; a truthful deletion-limit notice appears. Timer continues, and completion/restart remains usable. Subsequent unmatched native history uses the conservative existing fallback, not invented reconciliation.
+- Finish the retained session normally after each boundary case; assert exact retained text, attempts/errors and deletions, strict v2 result validation, storage round trip and ordinary valid-record export without clamping or loss. Replay rejection alone must not erase valid accuracy. Preserve v1 fixtures and rejection of counts over 16,384; never widen v1 validation or defer the guard until save.
 
 Proposed version contract: new runs use `metricVersion: 2`; old v1 results remain immutable/readable/exportable. Existing schema shape/input mode remains unless explicitly required otherwise. Validators admit only the intended version enum; calibration, trend, retest and profile accept the target generation and never pool v1/v2. Test old/new fixtures, incompatible retest, empty new cohort, mixed history and older-app downgrade/export limitations. Architect may select a separate instrumentation-version field only by revising the contract before coding, not by an executor silently changing this proposal. A version bump alone is not evidence that replay semantics are correct.
 
@@ -139,4 +146,4 @@ After planning approval and separate execution authorization, use small behavior
 
 Each increment supplies source/commit identity, changed resources, regression evidence, failures, visual-state captures where relevant, actual-Claude verdict and explicit human/AT/device gaps. Independently review the integrated journey before completion. Stop broadening when that increment's contract passes; escalate a concrete failure or unsupported policy, not a hypothetical requirement for a new study.
 
-This specification is complete as revision-2 planning input. Architect then Critic must re-review the exact revised bytes; planning approval is not implementation authorization, and no application checks above are claimed freshly run by this drafting step.
+This specification is complete as revision-3 planning input. Architect then Critic must re-review the exact revised bytes; planning approval is not implementation authorization, and no application checks above are claimed freshly run by this drafting step.

@@ -1,6 +1,6 @@
 # TypeForge review: what to improve and why
 
-Status: all independent evidence and Claude's comparative challenge integrated; final revised Architect/Critic plan review pending. Planning only. Application source remains unchanged from `de69444`.
+Status: review and consensus planning complete, 15 November 2026. All independent evidence and actual Claude's comparative challenge are integrated. Sequential Architect and Critic approved revision 3; no additional quality gates are configured. [Final receipt](typeforge-planning-receipt.json) binds the exact reviewed bytes. Planning only; application source remains unchanged from `de69444`.
 
 ## Recommendation
 
@@ -67,7 +67,7 @@ The planned bridge is a **separate practice profile and policy**, not feeding pr
 3. **Connect practice to suggestions.** First settle and version the smallest policy/profile contract; then implement derived updates, bounded reads, deletion/context reset, meaningful abstention and dose checks. General stays useful and available.
 4. **Evaluate stronger claims separately.** Usability, coverage, policy quality, retention and held-out transfer each need different evidence. No automatic model promotion, account system, cloud collection or trial recruitment.
 
-The detailed roadmap and verification requirements are in [the PRD](prd-typeforge-review-breakdown.md) and [test specification](test-spec-typeforge-review-breakdown.md); [the ranked register](typeforge-reconciled-findings.md) retains evidence, confidence, impacts and corrections.
+The detailed roadmap and verification requirements are in [the PRD](prd-typeforge-review-breakdown.md) and [test specification](test-spec-typeforge-review-breakdown.md); [the ranked register](typeforge-reconciled-findings.md) retains evidence, confidence, impacts and corrections. Their authored draft headers are preserved to keep the approved bytes unchanged; the final receipt records their subsequent approval. Carry forward Critic's nonblocking caution: optional predictions cannot attach after any edit, even if the engine still reports idle.
 
 ## Verification limits
 

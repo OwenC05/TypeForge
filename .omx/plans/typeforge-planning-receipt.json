@@ -1,0 +1,178 @@
+{
+  "schema": "typeforge-planning-receipt-v1",
+  "completed_at_utc": "2026-11-15T16:37:17.799625+00:00",
+  "status": "complete",
+  "scope": "review_and_planning_only",
+  "review_cycle": 3,
+  "reviewed_application_base": "de69444a6201da96281ca9ad88088904477775a2",
+  "branch": "feature/daily-practice",
+  "session_id": "01a1dfa5-07ff-7a71-9b56-67b6e9a32a2f",
+  "orca_run": "run_e925b45d846d",
+  "artifact_sha256": {
+    ".omx/plans/prd-typeforge-review-breakdown.md": "b1f8647e5c2096876837702f867e6028e4fa767ef4dc6d32c45634881094f589",
+    ".omx/plans/test-spec-typeforge-review-breakdown.md": "f25cc8615cbe4c38bb78a29d08e87fcf11a7d9a053de39435bae2c19ba0ef35f",
+    ".omx/plans/typeforge-architect-review-1.md": "f7f6f2cb37ae0fca6d7c87239fe5743baa0f49d81efe72b834ac5285ed683a5a",
+    ".omx/plans/typeforge-architect-review-2.md": "315f008969b14d70edf05055f8105465aa42f3344ee2c113db14eebbc13bca84",
+    ".omx/plans/typeforge-architect-review-3.md": "ff8e9985e2c200f1b65b09b349bf10ba3e8abc3d0b1e9dc3192fe0e3d51bc44f",
+    ".omx/plans/typeforge-critic-review-3.md": "8475eacbc0d621fd078e8351523b252bedf3dd198dd2314f0c6074103a6ed556",
+    ".omx/plans/typeforge-claude-benefit-review.md": "9930e822f934ace081878d61d101c1e369c4933779ad3a8a3fbdaaff756cdf33",
+    ".omx/plans/typeforge-claude-clarifications.md": "c47774399cf83a6d5c269667470fc674caadbcb4a11b1675c162dc9453cf780e",
+    ".omx/plans/typeforge-review-synthesis.md": "acf5e9fb45b4db1cf8bca6ab57d7c73b00c7fa4adab227eaa09aa5c76147708f",
+    ".omx/plans/typeforge-reconciled-findings.md": "2262f07a299b2d6b7d4c812d2381b7e591af5656642c0d1b39ae9f9bd41145e1",
+    "docs/reviews/2026-11-15/design-review.md": "5103f6731ca163879a0a4cdd1acbb8bddf66d3f86918613c2dcc5af8acbda90f",
+    "docs/reviews/2026-11-15/learning-review.md": "185587f8afb930e6236810ef5f0cd57eece20e253aae4c384d15ffb637cb99e0",
+    "docs/reviews/2026-11-15/engineering-review.md": "88e151532327d1e5c39414720a0b1df4865de4e6cbaddcac810f2a1364168872",
+    "docs/reviews/2026-11-15/ml-review.md": "b24d7845936af2c32f7388db80fc99254c84cd7990e49ea97ce3ed848afacba8"
+  },
+  "sequential_lifecycle": [
+    {
+      "role": "planner",
+      "native_task": "/root/review_breakdown_planner",
+      "revision": 1
+    },
+    {
+      "role": "architect",
+      "native_task": "/root/review_breakdown_architect",
+      "revision": 1,
+      "verdict": "ITERATE"
+    },
+    {
+      "role": "planner",
+      "native_task": "/root/review_breakdown_planner",
+      "revision": 2
+    },
+    {
+      "role": "architect",
+      "native_task": "/root/review_breakdown_architect",
+      "revision": 2,
+      "verdict": "ITERATE"
+    },
+    {
+      "role": "planner",
+      "native_task": "/root/review_breakdown_planner",
+      "revision": 3
+    },
+    {
+      "role": "architect",
+      "native_task": "/root/review_breakdown_architect",
+      "revision": 3,
+      "verdict": "APPROVE",
+      "artifact": ".omx/plans/typeforge-architect-review-3.md"
+    },
+    {
+      "role": "critic",
+      "native_task": "/root/review_breakdown_critic",
+      "revision": 3,
+      "verdict": "APPROVE",
+      "installed_verdict_mapping": "OKAY -> APPROVE",
+      "artifact": ".omx/plans/typeforge-critic-review-3.md"
+    }
+  ],
+  "quality_gate_check": {
+    "command": "omx quality-gates list --stage ralplan --json",
+    "performed_after_critic": true,
+    "result": {
+      "gates": [],
+      "stage": "ralplan"
+    }
+  },
+  "ralplan_consensus_gate": {
+    "complete": true,
+    "qualityGateResults": [],
+    "authority": "local_workflow_lifecycle_only"
+  },
+  "host_issued_security_authority": false,
+  "ralplan_execution_handoff": {
+    "authorized": false,
+    "reason": "User requested critique, decomposition and benefit review before implementation."
+  },
+  "authored_header_note": "The approved PRD/test-spec retain their authored awaiting-review headers to preserve reviewed bytes. This subsequent receipt records the current completed approval state.",
+  "nonblocking_cautions": [
+    "Preserve engine.setPredictions prohibition after any edit, even when idle; idle alone is insufficient for late preparation.",
+    "Undo implementation remains independently gated on concrete journal limits and real-browser replay fixtures.",
+    "Adaptive implementation requires the reviewed Stage 2A policy contract; General/manual-only remains valid."
+  ],
+  "provider_receipts": [
+    {
+      "lane": "design",
+      "task": "task_dbaf9e2fd873",
+      "dispatch": "ctx_bb8c275d975f",
+      "provider": "Claude",
+      "requested_model": "claude-opus-5-5",
+      "requested_effort": "high",
+      "observed": "Actual Claude session reports claude-opus-5-5; applied effort unknown.",
+      "report": "docs/reviews/2026-11-15/design-review.md"
+    },
+    {
+      "lane": "learning",
+      "task": "task_c7aeab3f8e24",
+      "dispatch": "ctx_2aa03af8364f",
+      "provider": "Codex",
+      "requested_model": "gpt-6-astra",
+      "requested_effort": "high",
+      "observed": "Client runtime argv confirms model/effort configuration; backend serving identity unverified.",
+      "report": "docs/reviews/2026-11-15/learning-review.md"
+    },
+    {
+      "lane": "engineering",
+      "task": "task_6846ba7fdd5f",
+      "dispatch": "ctx_923821c9ba3d",
+      "provider": "Codex",
+      "requested_model": "gpt-6.1-sol",
+      "requested_effort": "high",
+      "observed": "Launch configuration recorded; actual backend and applied effort unverified.",
+      "report": "docs/reviews/2026-11-15/engineering-review.md"
+    },
+    {
+      "lane": "ml",
+      "task": "task_aac2e7d1f9a3",
+      "dispatch": "ctx_60faec942889",
+      "retry_of": "ctx_d8e9a9368782",
+      "provider": "Codex",
+      "requested_model": "gpt-6-astra",
+      "requested_effort": "high",
+      "observed": "Client runtime argv confirms model/effort configuration; backend serving identity unverified. Original exited dispatch was stopped before retry.",
+      "report": "docs/reviews/2026-11-15/ml-review.md"
+    },
+    {
+      "lane": "keybr_and_benefit_challenge",
+      "task": "task_8d7b76da89c6",
+      "dispatch": "ctx_fcc39dda4f9e",
+      "provider": "Claude",
+      "observed": "Actual claude-opus-5-5 session; inherited applied effort unknown.",
+      "report": ".omx/plans/typeforge-claude-benefit-review.md"
+    },
+    {
+      "lane": "design_clarifications",
+      "task": "task_c589e4e45ce3",
+      "dispatch": "ctx_08dd038a6f84",
+      "provider": "Claude",
+      "observed": "Actual claude-opus-5-5 session; inherited applied effort unknown.",
+      "report": ".omx/plans/typeforge-claude-clarifications.md"
+    }
+  ],
+  "verification": {
+    "application_source_unchanged": true,
+    "source_comparison": "git diff --quiet de69444 -- typing-app ml .github: exit 0",
+    "node_full_check": "94 pass / 3 CRLF-sensitive harness failures / 97 total",
+    "typecheck_build": "Separate runs passed",
+    "committed_browser_regression": "39/39 passed; accelerated clock for that suite",
+    "learning_subset": "43 passed; overlaps other subsets",
+    "ml_client_subset": "21/21 passed; overlaps full suite",
+    "python": "19 pass / 2 missing-sklearn errors / 21 total; not pinned environment",
+    "independent_factual_audit": "Native verifier cross-checked report/log claims; ranking wording corrected, review index refreshed, root artifacts Git-tracked.",
+    "no_claim": [
+      "Human adoption/learning gain",
+      "Real AT/OS IME/physical-device certification",
+      "Firefox/Safari certification",
+      "Actual browser zoom certification",
+      "Full deployed commit/all-route parity"
+    ],
+    "final_artifact_validation": {
+      "relative_links_resolved": 20,
+      "hashes_verified": 14,
+      "reviewed_prd_test_index_matches": true
+    }
+  },
+  "git_policy": "Meaningful reports, bounded reproducible evidence and plans committed locally; runtime state, browser profiles, dependencies and credentials excluded. No push or deployment."
+}

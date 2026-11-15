@@ -1,6 +1,6 @@
 # TypeForge reconciled findings register
 
-Status: integrated evidence register, 15 November 2026. All four independent reviews and actual Claude's Keybr/benefit challenge plus clarification are received. The revised roadmap still needs final sequential Architect/Critic approval; this register is not implementation authorization.
+Status: integrated evidence register, 15 November 2026. All four independent reviews and actual Claude's Keybr/benefit challenge plus clarification are received. Revision 3 of the roadmap has sequential Architect and Critic approval; configured quality-gate list is empty. See [the final planning receipt](typeforge-planning-receipt.json). This register is not implementation authorization.
 
 Application source is unchanged from `de69444a6201da96281ca9ad88088904477775a2`. Later Git commits contain review/planning evidence. Priority reflects Owen's daily-practice and UI/UX objective. A high-ranked product problem is not necessarily a security defect. Confidence describes the finding, not an unmeasured adoption or learning benefit.
 
@@ -64,6 +64,6 @@ Fresh checks: learning subset 43 pass; ML subset 21 pass (overlap, do not sum as
 - Existing strengths include native selection/editing, local saving/export/deletion, bounded engine/caps, honest experimental labels and recoverable transient save failures. Improvements must retain these.
 - No study recruitment, data upload, broad model rewrite, production deployment or application changes have occurred. UI/flow redesign remains an option after Claude's comparative critique; no framework/backend rewrite is implied by changing the experience.
 
-## Remaining planning gate
+## Completed planning gate and future boundaries
 
-Bind the revised plan/test spec and all dispositions to final Architect and subsequent Critic review. The policy-definition milestone must output concrete parameters and provenance before Stage 2 implementation; its scientific choices are not silently guessed. Human usability/AT evidence and study capacity remain explicitly future work, not missing review reports. This register does not claim consensus completion.
+The final receipt binds revision 3's plan/test specification and sequential approvals. Both reviews approved the staged plan; no configured quality gates remain. The policy-definition milestone must output concrete parameters and provenance before Stage 2 implementation; its scientific choices are not silently guessed. Human usability/AT evidence and study capacity remain explicitly future work, not missing review reports. No implementation handoff was issued.

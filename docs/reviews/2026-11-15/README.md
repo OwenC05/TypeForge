@@ -1,6 +1,6 @@
 # TypeForge critique round — 15 November 2026
 
-Status: all four independent reviews received, plus actual Claude's live Keybr comparison, benefit challenge and clarifications. Final planning consensus is recorded in the linked planning receipt when complete. This review does not authorize implementation.
+Status: all four independent reviews received, plus actual Claude's live Keybr comparison, benefit challenge and clarifications. Sequential Architect and Critic approved the revision-3 roadmap; the configured quality-gate list is empty. [Final planning receipt](../../../.omx/plans/typeforge-planning-receipt.json). This review does not authorize implementation.
 
 ## Objective and scope
 
@@ -45,6 +45,7 @@ The test subsets overlap and must not be added together. Real screen reader/IME,
 - [Ranked findings and reconciliation](../../../.omx/plans/typeforge-reconciled-findings.md).
 - [Prioritized roadmap and acceptance criteria](../../../.omx/plans/prd-typeforge-review-breakdown.md).
 - [Verification specification](../../../.omx/plans/test-spec-typeforge-review-breakdown.md).
+- [Architect approval](../../../.omx/plans/typeforge-architect-review-3.md) and [subsequent Critic approval](../../../.omx/plans/typeforge-critic-review-3.md). Reviewed plan headers retain their authored pre-approval status to preserve exact bytes; the receipt records the later verdicts.
 
 All changes in this round are review/planning evidence. Application source remains at the reviewed base; commits are local on `feature/daily-practice`.
 
