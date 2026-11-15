@@ -1,0 +1,140 @@
+(node:29736) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ restart extraction rejects normalized-empty whitespace-only LF body before evaluation (3.1641ms)
+✔ restart extraction rejects normalized-empty semicolon-only LF body before evaluation (0.4094ms)
+✔ restart extraction preserves and executes a multiline LF handler (3.2732ms)
+✔ restart extraction rejects normalized-empty whitespace-only CRLF body before evaluation (0.3776ms)
+✔ restart extraction rejects normalized-empty semicolon-only CRLF body before evaluation (0.2789ms)
+✔ restart extraction preserves and executes a multiline CRLF handler (1.5536ms)
+✔ restart extraction rejects a missing start boundary before evaluation (0.4024ms)
+✔ restart extraction rejects a missing end boundary before evaluation (0.3071ms)
+✔ restart extraction rejects reversed or empty boundaries before evaluation (0.4013ms)
+✔ unsupported calibration never reads history; supported sparse pages retain newest ten chronologically (38.6282ms)
+✔ Restart waits for fresh calibration and focus before enabling replacement input (9.626ms)
+✔ comparison rendering never exposes overflow, underflow or grouped nonfinite milliseconds (3.6896ms)
+✔ restarted retest re-resolves exact origin; deleted, incompatible or unreadable origin becomes ordinary assessment (16.1186ms)
+✔ flow input installs next predictions only after accepted value and eligible assessment history (4.8715ms)
+✔ late native input restores retained text without another engine edit or prediction (3.926ms)
+✔ stopped input permits Tab, selection and copying while terminal edit guards retain accepted text (1.9255ms)
+✔ flagged safety-stop warning remains truthful after repeated paint and keyboard interaction (3.6786ms)
+✔ Enter is a no-op and clears stale edit metadata without calling submit (2.4641ms)
+✔ correction hint exposes the first expected character without changing the response mirror (1.6086ms)
+✔ duration query accepts only supported seconds, defaults safely and inherits origin (1.9443ms)
+✔ calibration uses actual duration and mode while retaining earlier eligible sentences in flagged runs (2.6907ms)
+✔ save retries are single-flight and late save success/failure cannot navigate or mutate disposed pages (3.2359ms)
+✔ save failure distinguishes permanent validation rejection from retryable browser storage errors (2.0109ms)
+✔ permanently rejected completion keeps export enabled and never navigates (2.8783ms)
+✔ practice query supports general, evidence-backed recommendation and catalogue-only manual pairs (1.5876ms)
+✔ direct recommended/manual practice selects shared drills and persists only the matching identity (4.8717ms)
+✔ keyboard query is explicit, inherits only when absent and fails safely with feedback (1.0463ms)
+✔ optional corrupt or deleted origins retain current results, export/delete and settings-preserving fallback links (10.7296ms)
+✔ assessment from URLs never acquire retest lineage on restart; explicit practice/retest origins retain their contracts (11.7205ms)
+ML04_ASSERTIONS {"file":"C:\\Users\\Owenc\\orca\\workspaces\\TypeForge\\typeforge-foundation\\typing-app\\client\\tests\\app.test.ts","attempted":306,"passed":298,"failed":8}
+✔ versioned banks contain unique original sentence text and stable IDs (1.5798ms)
+✔ selection shuffles deterministically without replacement or bank mutation (3.9518ms)
+✔ fresh retests exclude prior passages and report an exhausted bank honestly (0.6491ms)
+✔ shared shuffle defensively copies custom practice banks (0.4256ms)
+ML04_ASSERTIONS {"file":"C:\\Users\\Owenc\\orca\\workspaces\\TypeForge\\typeforge-foundation\\typing-app\\client\\tests\\corpus.test.ts","attempted":384,"passed":384,"failed":0}
+✔ corrected errors retain attempts; incomplete final text contributes positional WPM (7.6818ms)
+✔ native middle insertion and selection replacement do not invent shifted attempts (1.6991ms)
+✔ all wrong input has zero accuracy; deadline rejects edits and late Enter (0.5805ms)
+✔ only correct submitted first passes retain within-word timing; later interruptions stay local (1.341ms)
+✔ repeat, missing timestamps, corrections and undeclared layouts exclude timing (1.4613ms)
+✔ long gaps are excluded without shortening duration or bridging word boundaries (0.7386ms)
+✔ untracked/composed bulk input is visible but invalid; limits reject oversized edits (0.9184ms)
+✔ abort/restart discard prior state; result snapshots are immutable copies (1.4099ms)
+✔ delayed callbacks do not backfill chart samples, and regular samples fit persistence bounds (0.9104ms)
+✔ freezes exhaustive simultaneous predictions and retains only matched intervals (1.6023ms)
+✔ prediction seam rejects incomplete, duplicate, wrong-index and post-edit input (0.4617ms)
+✔ ineligible and unfinished sentences discard both predictions, next sentence can freeze afresh (1.7763ms)
+✔ practice and retest lineage is independent of optional practice focus and survives result assembly (0.649ms)
+✔ focus options and submitted prediction identities are defensive snapshots (0.7712ms)
+✔ flow commits error-tolerant final spaces without counting the delimiter (0.6942ms)
+✔ flow interior edits and composition cannot commit; a later end separator can (0.465ms)
+✔ all durations use deadline-first flow scoring and preserve final partials (0.8808ms)
+✔ response safety stop preserves accepted text and freezes diagnostics until restart (0.6316ms)
+ML04_ASSERTIONS {"file":"C:\\Users\\Owenc\\orca\\workspaces\\TypeForge\\typeforge-foundation\\typing-app\\client\\tests\\engine.test.ts","attempted":119,"passed":119,"failed":0}
+✔ 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: 200 short commits (150.5646ms)
+ℹ {"fixture":"200 short commits","bytes":545079,"commits":200,"summaries":200,"attempts":3000}
+✔ 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: shuffled assessment (93.3291ms)
+ℹ {"fixture":"shuffled assessment","bytes":420531,"commits":66,"summaries":67,"attempts":3000}
+✔ 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: shuffled practice (88.9647ms)
+ℹ {"fixture":"shuffled practice","bytes":428759,"commits":70,"summaries":71,"attempts":3000}
+✔ 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: targeted drill (88.4665ms)
+ℹ {"fixture":"targeted drill","bytes":429398,"commits":70,"summaries":71,"attempts":3000}
+✔ 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: shortest assessment (75.994ms)
+ℹ {"fixture":"shortest assessment","bytes":372518,"commits":81,"summaries":82,"attempts":3000}
+✔ 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: shortest practice (63.0351ms)
+ℹ {"fixture":"shortest practice","bytes":392303,"commits":83,"summaries":84,"attempts":3000}
+✔ 120s corrected 6000-attempt envelope retains 3000 characters without truncation (51.1275ms)
+ℹ {"bytes":95621,"commits":66,"summaries":67,"attempts":6000}
+✔ a valid retest with one fresh prompt cycles only that remaining prompt within the envelope (70.1828ms)
+ℹ {"bytes":401835,"commits":61,"summaries":62,"attempts":3000}
+✔ overfull word count created by interior edit advances on a subsequent appended separator (0.5036ms)
+✔ earlier eligible passages still calibrate when the later assessment passage is interrupted (0.865ms)
+✔ capacity constants preserve the explicit bounded contract (0.1213ms)
+✔ response limit freezes accepted partial data, never a completed result (1.2414ms)
+✔ attempt limit freezes accepted partial data, never a completed result (5.7953ms)
+✔ sentence limit freezes accepted partial data, never a completed result (12.781ms)
+✔ shipped prediction diagnostics stop before a 9000-character result exceeds 1 MiB (181.8884ms)
+ℹ {"accepted":7488,"commits":165,"diagnosticBytes":1043434}
+✔ an oversized final partial stops at the deadline, keeps escaped bytes and restarts cleanly (96.0315ms)
+ℹ {"finalPartialDiagnosticBytes":1052226}
+ML04_ASSERTIONS {"file":"C:\\Users\\Owenc\\orca\\workspaces\\TypeForge\\typeforge-foundation\\typing-app\\client\\tests\\flow-capacity.test.ts","attempted":79156,"passed":79156,"failed":0}
+(node:42100) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ legacy v1 JSON loads, validates and exports unchanged without optional extensions (6.8346ms)
+✔ a submitted correction keeps attempt accuracy but cannot regain timing eligibility (1.815ms)
+✔ a partial final word adds positional WPM without adding timing observations (1.1096ms)
+✔ interruption invalidates only the affected sentence while preserving earlier eligible evidence (0.8742ms)
+✔ a pre-deadline press committed at the exact deadline cannot change the frozen result (0.5624ms)
+✔ completed results defensively copy nested evidence, settings and charts on every read (0.7472ms)
+✔ legacy TypingDrill redirects only to practice chooser and preserves query intent for destination validation (9.2292ms)
+✔ legacy invalid settings reach destination parsers and their visible fallback messages (14.8651ms)
+ML04_ASSERTIONS {"file":"C:\\Users\\Owenc\\orca\\workspaces\\TypeForge\\typeforge-foundation\\typing-app\\client\\tests\\legacy.test.ts","attempted":133,"passed":133,"failed":0}
+✔ features respect maximal words, lowercase pairs and cold-history fallback (2.2851ms)
+✔ missing artifact never invents population, uses explicitly labelled observed-user fallback (0.7506ms)
+✔ strict artifact validation rejects shape/version/task and nonfinite arrays, keeps a defensive copy (2.5848ms)
+✔ candidate overflow drops candidate for entire sentence without replacing with baseline (1.2729ms)
+✔ all candidate and baseline occurrences are prepared before a history mutation (1.3555ms)
+✔ actual exported model agrees with original Python estimator, features and baseline on golden fixtures (6.0948ms)
+✔ shared eligible Python event stream yields identical engine observations, history and matched predictions (5.7455ms)
+ML04_ASSERTIONS {"file":"C:\\Users\\Owenc\\orca\\workspaces\\TypeForge\\typeforge-foundation\\typing-app\\client\\tests\\model.test.ts","attempted":6219,"passed":6219,"failed":0}
+✔ history copies eligible summaries and rolls to ten (2.4508ms)
+✔ baseline-only focus requires evidence and bank support, with two target then general cadence (1.9737ms)
+✔ missing origin is explicitly a new assessment (0.4521ms)
+✔ history excludes practice and incompatible runs but keeps earlier eligible evidence in interrupted assessment (2.225ms)
+✔ retest resolves exact origin, excludes partial prompts, fails on deleted/incompatible/exhausted origin (1.4997ms)
+✔ selected smoothed baseline score, evidence threshold and alphabetical tie are exact (15.0111ms)
+✔ completion ties use stable IDs and within-run order, deletion changes only new snapshots (1.8196ms)
+✔ settings compatibility isolates every duration and flow from unchanged legacy records (1.2045ms)
+✔ history and retest share mode, duration, layout, corpus and version compatibility (1.1684ms)
+✔ flow history retains only eligible submitted sentences after later interruption (0.7854ms)
+✔ legacy origin falls back for flow retest, while flow excludes every active partial ID (0.5418ms)
+✔ manual catalogue requires three distinct passages, not occurrences or cross-word pairs (4.9654ms)
+✔ manual and recommended drills share finite cadence and adjacent-repeat avoidance (0.6774ms)
+✔ warm no-artifact history supports baseline-only predictions, never a recommendation (0.4448ms)
+✔ actual engine ten-sentence constant-200-ms history abstains in original and permuted orders (11.0826ms)
+✔ seeded uniform histories abstain across sentence, pair-entry and summation orders (1964.7701ms)
+✔ maximum supported ten-sentence accumulation abstains at both log bounds (0.9188ms)
+✔ numerical boundary is inclusive before occurrence weighting and admits larger differences (1.0872ms)
+ML04_ASSERTIONS {"file":"C:\\Users\\Owenc\\orca\\workspaces\\TypeForge\\typeforge-foundation\\typing-app\\client\\tests\\profile.test.ts","attempted":4327,"passed":4327,"failed":0}
+✔ accepts bounded guest results including sub-millisecond timing and unknown accuracy (4.569ms)
+✔ rejects corrupt shapes, unsupported versions, impossible counts and unsafe chart data (2.6203ms)
+✔ rejects an otherwise bounded record larger than the 1 MiB persistence limit (34.9188ms)
+✔ strict v1 extensions retain independent lineage and matched simultaneous predictions (1.0533ms)
+✔ rejects unknown extension keys, wrong identities and selectively retained predictions (1.4417ms)
+✔ UUID self-reference cannot bypass lineage validation with uppercase spelling (0.2768ms)
+✔ prediction means must exponentiate to finite positive milliseconds without clamping (0.7092ms)
+✔ flow duration arithmetic is strict while legacy remains 60 seconds only (0.4049ms)
+✔ manual drills round trip independently of evidence-backed recommendations (0.6303ms)
+✔ validation failures are permanent named errors before IndexedDB is opened (0.9629ms)
+ML04_ASSERTIONS {"file":"C:\\Users\\Owenc\\orca\\workspaces\\TypeForge\\typeforge-foundation\\typing-app\\client\\tests\\storage.test.ts","attempted":64,"passed":64,"failed":0}
+ℹ tests 110
+ℹ suites 0
+ℹ pass 110
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2291.0859
