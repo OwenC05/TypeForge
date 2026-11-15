@@ -33,6 +33,8 @@ The initial encoding verification failed at LF restart instrumentation, exit 1, 
 
 A read attempted the nonexistent `typing-app/package.json`; the actual package is `typing-app/client/package.json`, which was read next. An optional one-line Node tally command lost quoting through Windows PowerShell and exited 1 before running; the tally was recomputed with PowerShell JSON parsing (82 total, 73 original calls per encoding). Neither command was application validation, and neither result is presented as green.
 
+The first staged whitespace check failed on npm typecheck logs' trailing blank lines; the initial source-only diff check had passed. Log capture now trims trailing whitespace, and PowerShell-captured baseline/repaired logs were converted from UTF-16 to UTF-8 without changing command output content. A final staged whitespace check passed after this evidence cleanup; the failed staged check is not counted as green.
+
 ## Requested versus observed model/effort
 
 Requested: Codex `gpt-6.1-sol`, `medium`. `client-process.json` records only the matching worker process: PID 12460, parent PID 26916, Codex executable, this terminal/worktree configuration, and argv `-m gpt-6.1-sol -c model_reasoning_effort=medium`. This confirms client launch configuration, not backend serving identity or applied inference effort. No effort was inferred from numeric telemetry and no global model/config changes were made.

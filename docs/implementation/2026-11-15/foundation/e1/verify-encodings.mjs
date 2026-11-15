@@ -16,7 +16,7 @@ const restartNames = '^(Restart waits for fresh calibration|restarted retest re-
 function run(encoding, name, args) {
   const result = spawnSync(process.execPath, args, {cwd: fileURLToPath(client), encoding: 'utf8', windowsHide: true, shell: false});
   const output = (result.stdout ?? '') + (result.stderr ?? '');
-  writeFileSync(new URL(`${encoding}-${name}.txt`, import.meta.url), output);
+  writeFileSync(new URL(`${encoding}-${name}.txt`, import.meta.url), output.trimEnd() + '\n');
   summary.runs.push({encoding, name, command: ['node', ...args], exit: result.status, signal: result.signal, error: result.error?.message});
   assert.equal(result.status, 0, `${encoding} ${name} failed; see log`);
 }
