@@ -1,0 +1,28 @@
+{
+  "checkedAtUtc": "2026-11-15T15:56:47.322390+00:00",
+  "url": "https://typeforge-alpha.vercel.app/",
+  "scope": "HTTP static bytes only; no browser execution; not proof of Git SHA or end-to-end parity",
+  "httpStatus": 200,
+  "scripts": [
+    "./assets/app-DRnCp6G3.js"
+  ],
+  "bundles": [
+    {
+      "url": "https://typeforge-alpha.vercel.app/assets/app-DRnCp6G3.js",
+      "sha256": "eb6feaaf4eb1b66fd23b4864bdf1cd64ed0eb6b3e39848c535cdb20488e94942",
+      "bytes": 103372,
+      "modelVersions": [
+        "aalto-ridge-83f562c419d5"
+      ],
+      "reportVersions": [
+        "benchmark-92947653a001"
+      ],
+      "hasFlowV1": true,
+      "hasHistoryBaseline": true
+    }
+  ],
+  "lfNormalizedArtifactHashes": {
+    "typing-app/client/src/generated/model.json": "7ffce48105ac2dc9c9915d01f9277a7f4b7cfeca6d0377ce8d44a8d70536a836",
+    "typing-app/client/src/generated/benchmark.json": "3774d21303ec1c56b4467a333d4a759e64b521417dc2d4e44e04f3793e7bcef3"
+  }
+}

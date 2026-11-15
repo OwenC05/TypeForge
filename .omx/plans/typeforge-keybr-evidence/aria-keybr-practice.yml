@@ -1,0 +1,247 @@
+- main:
+  - text: "Metrics: Speed: 0.0wpm ( 0.0wpm ) Accuracy: 0% ( 0% ) Score: 0 ( 0 ) All keys: E N I A R L T"
+  - img
+  - text: O
+  - img
+  - text: S
+  - img
+  - text: U
+  - img
+  - text: D
+  - img
+  - text: "Y"
+  - img
+  - text: C
+  - img
+  - text: G
+  - img
+  - text: H
+  - img
+  - text: P
+  - img
+  - text: M
+  - img
+  - text: K
+  - img
+  - text: B
+  - img
+  - text: W
+  - img
+  - text: F
+  - img
+  - text: Z
+  - img
+  - text: V
+  - img
+  - text: X
+  - img
+  - text: Q
+  - img
+  - text: J
+  - img
+  - text: "Current key: E Not calibrated, need more samples. Accuracy: No accuracy streaks. Daily goal: 0%/30 minutes"
+  - textbox: "?"
+  - text: earn earlier area nearer line learn linen nearer area arena alien real lie rear rare era lane are linen rear inner rear arena
+  - img:
+    - img:
+      - img: "` ~"
+      - img: 1 !
+      - img: 2 @
+      - img: "3 #"
+      - img: 4 $
+      - img: 5 %
+      - img: 6 ^
+      - img: 7 &
+      - img: 8 *
+      - img: 9 (
+      - img: 0 )
+      - img: "- _"
+      - img: = +
+      - img: Backspace
+      - img: Tab
+      - img: Q
+      - img: W
+      - img: E
+      - img: R
+      - img: T
+      - img: "Y"
+      - img: U
+      - img: I
+      - img: O
+      - img: P
+      - img: "[ {"
+      - img: "] }"
+      - img: \ |
+      - img: Caps Lock
+      - img: A
+      - img: S
+      - img: D
+      - img: F
+      - img: G
+      - img: H
+      - img: J
+      - img: K
+      - img: L
+      - img: "; :"
+      - img: "' \""
+      - img: Enter
+      - img: Shift
+      - img: Z
+      - img: X
+      - img: C
+      - img: V
+      - img: B
+      - img: "N"
+      - img: M
+      - img: ", <"
+      - img: . >
+      - img: / ?
+      - img: Shift
+      - img: Ctrl
+      - img: Alt
+      - img
+      - img: Alt
+      - img: Ctrl
+    - img
+  - button "Show a guided tour with help slides.":
+    - img
+  - button "Reset the current lesson (Ctrl + Left Arrow).":
+    - img
+  - button "Skip the current lesson (Ctrl + Right Arrow).":
+    - img
+  - button "Switch the current interface layout.":
+    - img
+  - button "Settings":
+    - img
+    - text: Settings
+- navigation:
+  - link "Sign-In":
+    - /url: /account
+    - img
+    - text: Sign-In
+  - button:
+    - img
+  - button:
+    - img
+  - button "Enter full-screen mode.":
+    - img
+  - link "Practice":
+    - /url: /
+    - img
+    - text: Practice
+  - link "Profile":
+    - /url: /profile
+    - img
+    - text: Profile
+  - link "Help":
+    - /url: /help
+    - img
+    - text: Help
+  - link "High Scores":
+    - /url: /high-scores
+    - img
+    - text: High Scores
+  - link "Multiplayer":
+    - /url: /multiplayer
+    - img
+    - text: Multiplayer
+  - link "Typing Test":
+    - /url: /typing-test
+    - img
+    - text: Typing Test
+  - link "Layouts":
+    - /url: /layouts
+    - img
+    - text: Layouts
+  - link "info@keybr.com":
+    - /url: mailto:info@keybr.com
+  - link "Discord":
+    - /url: https://discord.gg/gY4RA4enVH
+  - link "Github":
+    - /url: https://github.com/aradzie/keybr.com
+  - link "Terms of Service":
+    - /url: /terms-of-service
+  - link "Privacy Policy":
+    - /url: /privacy-policy
+  - link "English":
+    - /url: /
+  - link "af":
+    - /url: /af
+  - link "ar":
+    - /url: /ar
+  - link "bg":
+    - /url: /bg
+  - link "ca":
+    - /url: /ca
+  - link "cs":
+    - /url: /cs
+  - link "da":
+    - /url: /da
+  - link "de":
+    - /url: /de
+  - link "el":
+    - /url: /el
+  - link "eo":
+    - /url: /eo
+  - link "es":
+    - /url: /es
+  - link "et":
+    - /url: /et
+  - link "fa":
+    - /url: /fa
+  - link "fi":
+    - /url: /fi
+  - link "fr":
+    - /url: /fr
+  - link "ga":
+    - /url: /ga
+  - link "he":
+    - /url: /he
+  - link "hr":
+    - /url: /hr
+  - link "hu":
+    - /url: /hu
+  - link "id":
+    - /url: /id
+  - link "it":
+    - /url: /it
+  - link "ja":
+    - /url: /ja
+  - link "ko":
+    - /url: /ko
+  - link "ne":
+    - /url: /ne
+  - link "nl":
+    - /url: /nl
+  - link "pl":
+    - /url: /pl
+  - link "pt-br":
+    - /url: /pt-br
+  - link "pt-pt":
+    - /url: /pt-pt
+  - link "ro":
+    - /url: /ro
+  - link "ru":
+    - /url: /ru
+  - link "sk":
+    - /url: /sk
+  - link "sv":
+    - /url: /sv
+  - link "th":
+    - /url: /th
+  - link "tr":
+    - /url: /tr
+  - link "uk":
+    - /url: /uk
+  - link "vi":
+    - /url: /vi
+  - link "zh-hans":
+    - /url: /zh-hans
+  - link "zh-hant":
+    - /url: /zh-hant
+  - link "zh-tw":
+    - /url: /zh-tw
+  - link "Translate":
+    - /url: https://github.com/aradzie/keybr.com/blob/master/docs/translations.md
+  - link "Remove Ads":
+    - /url: /account

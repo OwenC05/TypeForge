@@ -1,0 +1,12 @@
+import { launch, shot, note, saveLog, active, OUT } from './klib.mjs';
+import fs from 'node:fs';
+const c = await launch(process.argv[2], { width: 1440, height: 900 });
+const p = c.pages()[0] ?? await c.newPage();
+const t0 = Date.now();
+const resp = await p.goto('https://www.keybr.com/', { waitUntil: 'domcontentloaded', timeout: 60000 });
+await p.waitForTimeout(5000);
+note('loaded', { ms: Date.now() - t0, status: resp?.status(), active: await active(p), title: await p.title() });
+await shot(p, 'k-recon-load.png');
+fs.writeFileSync(OUT + '/recon-aria.yml', await p.locator('body').ariaSnapshot());
+note('buttons', { b: await p.evaluate(() => [...document.querySelectorAll('button,a,[role=button]')].slice(0, 80).map(e => (e.innerText || e.getAttribute('title') || e.getAttribute('aria-label') || '').trim().slice(0, 40)).filter(Boolean)) });
+await c.close(); saveLog('recon-log.json');

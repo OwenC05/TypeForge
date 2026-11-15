@@ -1,0 +1,635 @@
+[
+  {
+    "t": "2026-11-15T15:55:17.763Z",
+    "step": "keybr first visit",
+    "ms": 5041,
+    "status": 200,
+    "active": "textarea",
+    "date": "Sun, 15 Nov 2026 15:55:11 GMT",
+    "server": "cloudflare"
+  },
+  {
+    "t": "2026-11-15T15:55:18.005Z",
+    "step": "screenshot",
+    "file": "k01-first-visit-tour-1440.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:55:18.592Z",
+    "step": "tour slide 2",
+    "text": "Our teaching method is based on these principles:\n\nNo boring repetitive exercises. Unlike most other typing tutors, this application does not force you to repeat the same lessons like ‘jjf jjk jjf jjk’ over and over again. This is very annoying and contributes very little to your overall learning.\n\nThis application uses a sophisticated computer algorithm to generate typing lessons that match your skill level. These lessons consist of random words generated using a subset of the full alphabet of letters. The size of the subset and individual letter frequency is controlled by the algorithm, which provides you with the best learning experience.\n\nPrevious\nNext"
+  },
+  {
+    "t": "2026-11-15T15:55:18.873Z",
+    "step": "screenshot",
+    "file": "k02-tour-slide-02.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:55:19.670Z",
+    "step": "tour slide 3",
+    "text": "Initially it starts generating words from a small subset of the most frequent letters in the alphabet.\n\nWhen you are typing these words, the application measures the time-to-type metric for every letter in that subset. This time is used to measure your learning progress. The more familiar you become with a letter, the less time it takes for you to type it.\n\nOnce you familiarize yourself with the entire current subset of letters, the algorithm expands it by adding more and more letters to the subset.\n\nPrevious\nNext"
+  },
+  {
+    "t": "2026-11-15T15:55:19.892Z",
+    "step": "screenshot",
+    "file": "k02-tour-slide-03.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:55:20.418Z",
+    "step": "tour slide 4",
+    "text": "When the algorithm includes a new letter to the current subset, the frequency of this letter is artificially increased so that it will be included in every generated word of a lesson.\n\nThe algorithm can also artificially rearrange letter frequencies, placing an emphasis on the letters with the worst time-to-type metric.\n\nThis means you will always be typing the letters that you are least familiar with.\n\nPrevious\nNext"
+  },
+  {
+    "t": "2026-11-15T15:55:20.488Z",
+    "step": "screenshot",
+    "file": "k02-tour-slide-04.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:55:21.012Z",
+    "step": "tour slide 5",
+    "text": "This is the text board. It displays the text to type out. The text changes for each new lesson. The text is generated automatically from the current subset of letters. Most of the words are not real, but are generated using the phonetic rules of your language so they sound natural and should be easy to pronounce. Besides being funny, this gives us the flexibility to use more words than actually exist.\n\nPrevious\nNext"
+  },
+  {
+    "t": "2026-11-15T15:55:21.137Z",
+    "step": "screenshot",
+    "file": "k02-tour-slide-05.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:55:21.660Z",
+    "step": "tour slide 6",
+    "text": "This is the virtual keyboard. It helps you memorize key positions. Use it to find the keys and try not to look at your physical keyboard. There are small bumps on the F and J keys of your keyboard. Use these to correctly position your index fingers without having to look at the keys. Once your index fingers are in the right position you will be able to locate the remainder of the keys.\n\nPrevious\nNext"
+  },
+  {
+    "t": "2026-11-15T15:55:21.761Z",
+    "step": "screenshot",
+    "file": "k02-tour-slide-06.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:55:22.287Z",
+    "step": "tour slide 7",
+    "text": "This is the typing speed indicator and the difference from the average value. Your goal is to increase this metric, meaning higher values are better.\n\nTyping speed is measured in either Words per Minute (WPM) or Characters per Minute (CPM). The definition of a word is standardized to be five characters, so 10WPM is equal to 50CPM.\n\nYou can switch between the WPM and the CPM display modes on the Settings page.\n\nPrevious\nNext"
+  },
+  {
+    "t": "2026-11-15T15:55:22.387Z",
+    "step": "screenshot",
+    "file": "k02-tour-slide-07.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:55:22.907Z",
+    "step": "tour slide 8",
+    "text": "This is the accuracy indicator and the difference from the average value. Your goal is to increase this metric, meaning higher values are better.\n\nAccuracy is computed as the percentage of characters typed without errors. Many typos in the same position count as one error.\n\nPrevious\nNext"
+  },
+  {
+    "t": "2026-11-15T15:55:23.019Z",
+    "step": "screenshot",
+    "file": "k02-tour-slide-08.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:55:23.533Z",
+    "step": "tour slide 9",
+    "text": "This is the typing score indicator in abstract points and the difference from the average value.\n\nThe score is calculated from your typing speed, error count, and the current size of the letter set. The formula is designed to reward for typing speed, and punish for error count. You cannot obtain a high score by typing fast while also making many errors.\n\nUsers who score the highest points are recorded in the high score table.\n\nPrevious\nNext"
+  },
+  {
+    "t": "2026-11-15T15:55:23.662Z",
+    "step": "screenshot",
+    "file": "k02-tour-slide-09.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:55:24.204Z",
+    "step": "tour slide 10",
+    "text": "This indicator shows the current subset of letters used to generate the lessons, and your confidence level for every letter in the subset:\n\n? A non-calibrated key with an unknown confidence level. You still have not pressed this key yet.\n? A calibrated key with the lowest confidence level. The more times you press this key, the more accurate this metric becomes.\n? A calibrated key with the highest confidence level. The more times you press this key, the more accurate this metric becomes.\n? A key with increased frequency. It takes you the most time to find this key so the algorithm chose it to be included in every generated word.\n? A key which was manually included in the lessons.\n?\n A key wh"
+  },
+  {
+    "t": "2026-11-15T15:55:24.305Z",
+    "step": "screenshot",
+    "file": "k02-tour-slide-10.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:55:24.858Z",
+    "step": "tour slide 11",
+    "text": "This indicator can also be used to predict the remaining number of lessons that are needed to fully unlock a letter, like in the example chart below. Visit it regularly to get more insight on how your learning is going, to see if you are making a progress.\n\nPrevious\nNext"
+  },
+  {
+    "t": "2026-11-15T15:55:24.951Z",
+    "step": "screenshot",
+    "file": "k02-tour-slide-11.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:55:25.501Z",
+    "step": "tour slide 12",
+    "text": "This indicator shows details about the letter with increased frequency, which is currently included in every generated word:\n\nBest typing speed\nYour best typing speed for this individual letter.\nConfidence level\nA number in range from zero to one which is computed using your typing speed, and indicates your familiarity with this letter. A letter is considered fully learned when it’s confidence level reaches one.\nLearning rate\nHow your typing speed is changing with each lesson.\nPrevious\nClose"
+  },
+  {
+    "t": "2026-11-15T15:55:25.601Z",
+    "step": "screenshot",
+    "file": "k02-tour-slide-12.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:55:26.553Z",
+    "step": "screenshot",
+    "file": "k03-practice-idle-after-tour-1440.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:55:26.561Z",
+    "step": "after tour closed",
+    "active": "textarea",
+    "metrics": "Metrics: | Speed: 0.0wpm (0.0wpm) | Accuracy: 0% (0%) | Score: 0 (0) | All keys: | E | N | I | A | R | L | T"
+  },
+  {
+    "t": "2026-11-15T15:55:26.621Z",
+    "step": "lesson 1 text",
+    "words": [
+      "earn",
+      "earlier",
+      "area",
+      "nearer",
+      "line",
+      "learn",
+      "linen",
+      "nearer",
+      "area",
+      "arena",
+      "alien",
+      "real",
+      "lie",
+      "rear",
+      "rare",
+      "era",
+      "lane",
+      "are",
+      "linen",
+      "rear",
+      "inner",
+      "rear",
+      "arena"
+    ]
+  },
+  {
+    "t": "2026-11-15T15:55:27.248Z",
+    "step": "screenshot",
+    "file": "k04-error-feedback-1440.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:55:27.321Z",
+    "step": "screenshot",
+    "file": "k04b-error-feedback-zoom.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:55:27.702Z",
+    "step": "screenshot",
+    "file": "k05-after-backspace-zoom.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:55:27.710Z",
+    "step": "after error + backspace",
+    "metrics": "Metrics: | Speed: 0.0wpm (0.0wpm) | Accuracy: 0% (0%) | Score: 0 (0) | All keys: | E | N | I | A | R | L | T"
+  },
+  {
+    "t": "2026-11-15T15:55:36.154Z",
+    "step": "screenshot",
+    "file": "k06-lesson-running-1440.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:55:45.800Z",
+    "step": "lesson 1 complete",
+    "chars": 125,
+    "ms": 18044,
+    "newLesson": [
+      "tie",
+      "internet",
+      "trail",
+      "eat",
+      "net",
+      "nineteen"
+    ],
+    "metrics": "Metrics: | Speed: 85.9wpm (↑+85.9wpm) | Accuracy: 99.2% (↑+99.2%) | Score: 3,758 (↑+3,758) | All keys: | E | N | I | A | R | L | T"
+  },
+  {
+    "t": "2026-11-15T15:55:45.929Z",
+    "step": "screenshot",
+    "file": "k07-after-lesson-1-1440.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:56:03.393Z",
+    "step": "lesson 2 complete",
+    "chars": 119,
+    "ms": 17442,
+    "newLesson": [
+      "tool",
+      "onto",
+      "alone",
+      "tore",
+      "total",
+      "rotten"
+    ],
+    "metrics": "Metrics: | Speed: 90.6wpm (↑+4.7wpm) | Accuracy: 100% (↑+0.8%) | Score: 8,621 (↑+4,863) | All keys: | E | N | I | A | R | L | T"
+  },
+  {
+    "t": "2026-11-15T15:56:20.118Z",
+    "step": "lesson 3 complete",
+    "chars": 121,
+    "ms": 16716,
+    "newLesson": [
+      "street",
+      "taste",
+      "nonsense",
+      "stories",
+      "torso",
+      "start"
+    ],
+    "metrics": "Metrics: | Speed: 96.3wpm (↑+8.0wpm) | Accuracy: 100% (↑+0.4%) | Score: 10,484 (↑+4,294) | All keys: | E | N | I | A | R | L | T"
+  },
+  {
+    "t": "2026-11-15T15:56:35.994Z",
+    "step": "lesson 4 complete",
+    "chars": 118,
+    "ms": 15810,
+    "newLesson": [
+      "rule",
+      "our",
+      "utter",
+      "usual",
+      "trousers",
+      "unseen"
+    ],
+    "metrics": "Metrics: | Speed: 100.1wpm (↑+9.2wpm) | Accuracy: 100% (↑+0.27%) | Score: 11,811 (↑+4,190) | All keys: | E | N | I | A | R | L | T"
+  },
+  {
+    "t": "2026-11-15T15:56:36.192Z",
+    "step": "screenshot",
+    "file": "k08-after-lesson-4-1440.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:56:36.308Z",
+    "step": "screenshot",
+    "file": "k08b-after-lesson-4-metrics-zoom.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:56:39.951Z",
+    "step": "screenshot",
+    "file": "k09-profile-after-4-lessons-1440.png",
+    "url": "https://www.keybr.com/profile",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:56:40.419Z",
+    "step": "screenshot",
+    "file": "k09b-profile-full.png",
+    "url": "https://www.keybr.com/profile",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": true
+  },
+  {
+    "t": "2026-11-15T15:57:13.706Z",
+    "step": "settings click fail",
+    "e": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('SETTINGS').first()\u001b[22m\n\u001b[2m    - locator resolved to <a href=\"#\" lang=\"en\" role=\"tab\" tabindex=\"-1\" aria-selected=\"fa"
+  },
+  {
+    "t": "2026-11-15T15:57:15.922Z",
+    "step": "screenshot",
+    "file": "k10-settings-1440.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:57:16.122Z",
+    "step": "screenshot",
+    "file": "k10b-settings-full.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": true
+  },
+  {
+    "t": "2026-11-15T15:57:16.177Z",
+    "step": "settings page",
+    "url": "https://www.keybr.com/",
+    "text": "Metrics:\nSpeed: 100.1wpm (↑+9.2wpm)\nAccuracy: 100% (↑+0.27%)\nScore: 11,811 (↑+4,190)\nAll keys:\nE\nN\nI\nA\nR\nL\nT\nO\nS\nU\nD\nY\nC\nG\nH\nP\nM\nK\nB\nW\nF\nZ\nV\nX\nQ\nJ\nCurrent key:\nU\nNot calibrated, need more samples.\nAccuracy:\n3 lessons with 100% accuracy. 4 lessons with 97% accuracy.\nDaily goal:\n3%/30 minutes\nsuitreunionsituationsusualturnsoutlinesituationslieutenantunitsourresulttunetunneltruesuitesensualruin\n`\n~\n1\n!\n2\n@\n3\n#\n4\n$\n5\n%\n6\n^\n7\n&\n8\n*\n9\n(\n0\n)\n-\n_\n=\n+\nBackspace\nTab\nQ\nW\nE\nR\nT\nY\nU\nI\nO\nP\n[\n{\n]\n}\n\\\n|\nCaps Lock\nA\nS\nD\nF\nG\nH\nJ\nK\nL\n;\n:\n'\n\"\nEnter\nShift\nZ\nX\nC\nV\nB\nN\nM\n,\n<\n.\n>\n/\n?\nShift\nCtrl\nAlt\nAlt\nCtrl"
+  },
+  {
+    "t": "2026-11-15T15:57:19.726Z",
+    "step": "click outside",
+    "active": "body"
+  },
+  {
+    "t": "2026-11-15T15:57:19.852Z",
+    "step": "screenshot",
+    "file": "k11-focus-lost-1440.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:57:20.274Z",
+    "step": "press key after focus loss",
+    "active": "body"
+  },
+  {
+    "t": "2026-11-15T15:57:20.298Z",
+    "step": "local storage keys (lengths only)",
+    "keys": {
+      "panoramaId_expiry": 13,
+      "settings": 2,
+      "id5id_cached_consent_data": 16,
+      "id5id_v2_1872111808059622": 1275,
+      "fs.itf.isolated.2": 1,
+      "_pubcid_exp": 29,
+      "aps:0ab198dd-b265-462a-ae36-74e163ad6159:idVendors/enabled": 261,
+      "loglevel": 4,
+      "id5id_privacy": 43,
+      "id5id_extensions": 198,
+      "_cc_id": 32,
+      "_pubcid": 36,
+      "id5id_privacy_exp": 29,
+      "id5id_cached_consent_data_exp": 29,
+      "_cc_id_update_ts": 13,
+      "apstagCxMEnabled": 1
+    }
+  },
+  {
+    "t": "2026-11-15T15:57:29.667Z",
+    "step": "returning visit",
+    "active": "textarea",
+    "tourVisible": false,
+    "metrics": "Metrics: | Speed: 100.1wpm (↑+9.2wpm) | Accuracy: 100% (↑+0.27%) | Score: 11,811 (↑+4,190) | All keys: | E | N | I | A | R | L | T"
+  },
+  {
+    "t": "2026-11-15T15:57:29.812Z",
+    "step": "screenshot",
+    "file": "k12-returning-visit-1440.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:57:40.622Z",
+    "step": "screenshot",
+    "file": "k13-mobile-first-visit-390.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:57:41.064Z",
+    "step": "screenshot",
+    "file": "k13b-mobile-first-visit-390-full.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "fullPage": true
+  },
+  {
+    "t": "2026-11-15T15:57:42.348Z",
+    "step": "screenshot",
+    "file": "k14-mobile-after-tour-390.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:57:42.694Z",
+    "step": "screenshot",
+    "file": "k14b-mobile-after-tour-390-full.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "fullPage": true
+  },
+  {
+    "t": "2026-11-15T15:57:42.698Z",
+    "step": "mobile geometry",
+    "textTop": 224,
+    "textBottom": 282,
+    "scrollW": 728,
+    "clientW": 390
+  },
+  {
+    "t": "2026-11-15T15:57:45.307Z",
+    "step": "screenshot",
+    "file": "k15-mobile-typing-390.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:57:46.249Z",
+    "step": "errors",
+    "errors": []
+  },
+  {
+    "t": "2026-11-15T15:58:52.052Z",
+    "step": "settings candidates",
+    "btns": [
+      {
+        "tag": "BUTTON",
+        "text": "",
+        "title": "Change lesson settings, configure language, keyboard layout, etc.",
+        "href": null
+      }
+    ]
+  },
+  {
+    "t": "2026-11-15T15:58:54.658Z",
+    "step": "after settings click",
+    "url": "https://www.keybr.com/",
+    "text": "▼ HIDE EXPLANATIONS\nLessons\nGuided lessons\nCommon words\nBooks\nCustom text\nSource code\nNumbers\n\nGenerate typing lessons with random words using the phonetic rules of your language. The key set is expanded dynamically based on your performance. This mode is for the beginners.\n\nLesson options\nTarget typing speed:\n35.0wpm\n\nThe target speed is used to measure the confidence level and the color of a letter. The closer to the target speed, the greener. In the guided mode a letter is only unlocked when you pass a target speed threshold. When you unlock all letters, you can increase the target speed to go back to the learning mode and unlock the letters again, this time with a higher speed threshold. We recommend to increase the target speed in modest steps only when you have all letters above the target speed.\n\nUnlock a next key only when:\nThe previous keys are also above the target speed\n\nWhen you focus on a new key, it is very likely that the speed of previous keys will decrease. If this option is disabled, you unlock a new key by raising only the focused key above the target speed. If this option is enabled, you will have to raise the focused key and all the previous keys above the target speed. This will make unlocking new keys harder. However, this will also make forgetting old keys harder.\n\nSort letters in the order of keyboard keys\n\nSort letters in such a way that the letters from the home row come first, then the letters from the top row, and finally all the remaining letters. Home row is the row with the CapsLock key. Top row is the row with the Tab key. It is easier and faster to type when your fingers do not need to move away from the home row. This feature works best with optimized layouts, like Dvorak or Colemak. In the Qwerty layout, the only vowel on the home row is A, so it severely limits the choice of words, and the algorithm will use more pseudo-words than usual.\n\nPrefer natural words\n\nUse the dictionary words as much as possible, and if not many such words are available, then use computer-generated pseudo-words. Natural words might be easier to type. Pseudo-words offer a much greater variety of letter combinations. If this option is enabled, you will see more pseudo-words in the beginning, when the letter list is short. However, as you unlock few more letters, there is a good chance that only the dictionary words will be used.\n\nRepeat each word:\n1\n\nRepeat each word a number of times. Type a word for the first time to develop your muscle memory."
+  },
+  {
+    "t": "2026-11-15T15:58:54.862Z",
+    "step": "screenshot",
+    "file": "k10-settings-1440.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:58:55.326Z",
+    "step": "screenshot",
+    "file": "k10b-settings-full.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": true
+  },
+  {
+    "t": "2026-11-15T15:58:58.646Z",
+    "step": "tab order from typing focus",
+    "order": [
+      "textarea",
+      "textarea",
+      "textarea",
+      "textarea",
+      "textarea",
+      "textarea",
+      "textarea",
+      "textarea"
+    ]
+  },
+  {
+    "t": "2026-11-15T15:58:58.743Z",
+    "step": "screenshot",
+    "file": "k16-after-tabs-focus-visibility.png",
+    "url": "https://www.keybr.com/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  }
+]
