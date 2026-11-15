@@ -2,7 +2,7 @@
 
 Uses the existing Playwright MCP runner; adds no application dependency. From
 `typing-app/client`, run `npm run build` and then
-`npm run preview -- --port 5183 --strictPort`. Invoke
+`npm run preview -- --port 5301 --strictPort`. Invoke
 `browser_run_code_unsafe` with `filename` set to the absolute path of
 `tests/browser/typing-flow.js`. The returned JSON reports browser version,
 individual assertions, page errors and failure counts. Require `failed: 0`

@@ -194,7 +194,7 @@ body[data-run=stopped] .rail, body[data-run=stopped] .today { visibility: hidden
 .result-details[data-open] { flex-basis: 100%; }
 .result-details[data-open] .text-button::after { content: ' ▾'; }
 .save-row { flex: 0 1 auto; order: 2; display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px 12px; margin-top: 24px; }
-.save-state { min-height: 20px; }
+.save-state { min-height: 20px; text-transform: none; letter-spacing: .02em; font-size: 14px; }
 .result-details[data-open] + .save-row, .result-details[data-open] ~ .save-row { order: 0; }
 
 /* ---------- Secondary pages: a lighter pass on the same paper ---------- */
