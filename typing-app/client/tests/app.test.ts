@@ -18,10 +18,18 @@ function restartHandler(text: string = source) {
  assert.ok(end >= 0, 'Missing restart end boundary');
  const begin = start + startMarker.length;
  assert.ok(end > begin, 'Restart boundaries must be ordered with a nonempty body');
- return normalized.slice(begin, end).trim().replace(/;$/, '');
+ const handler = normalized.slice(begin, end).trim().replace(/;$/, '').trim();
+ assert.ok(handler.length > 0, 'Restart handler must be nonempty after normalization');
+ return handler;
 }
 
 for (const [encoding, newline] of [['LF', '\n'], ['CRLF', '\r\n']]) {
+ for (const [kind, body] of [['whitespace-only', ' \t '], ['semicolon-only', ' \t ; \t ']]) {
+  test(`restart extraction rejects normalized-empty ${kind} ${encoding} body before evaluation`, () => {
+   const text = ["$('#restart').onclick = " + body, ' \t ', '  prepare();', '  const initialEngine = engine;'].join(newline);
+   assert.throws(() => restartHandler(text), /Restart handler must be nonempty after normalization/);
+  });
+ }
  test(`restart extraction preserves and executes a multiline ${encoding} handler`, async () => {
   const text = ["$('#restart').onclick = async () => {", '  await ready();', '  restarted();', '};', '  prepare();', '  const initialEngine = engine;'].join(newline);
   const calls: string[] = [];
