@@ -12,3 +12,11 @@ Task specs: `typeforge-foundation-dispatch.md`, `typeforge-design-dispatch.md`. 
 Root next actions on worker reports: inspect exact commits and evidence; resolve questions within the approved scope; integrate verified foundation fixes; present actual prototype artifacts for the planned visual-direction choice; dispatch the selected UI increment and separately bounded policy-definition work as dependencies allow. No broad adaptive implementation before its contract, no Undo/version coupling into the UI release, no push/deployment. Child branches are retained for inspection; only owned helper cleanup is permitted.
 
 The historical planning receipt remains unchanged. The live Ralplan state is terminal complete with a new user-sourced execution handoff bound to review cycle 3 and this Orca run; that record is local workflow bookkeeping, not host security authority.
+
+## Direct-practice redesign follow-up
+
+Owen rejected A/B and removed the landing/setup requirement, explicitly invoking ui-sdk, ui-taste and awwwards-inspiration. New brief committed as `b898dc6`: `.omx/plans/typeforge-direct-practice-redesign-20261115.md`. The old visual-choice gate is superseded; no preference selection is outstanding.
+
+Supported Orca send to the settled actual-Claude lead created follow-up Task `task_6815dfce6ce4`, Dispatch `ctx_f3ee7deba6f6`, following `ctx_4eb9b70f7ce6`; receipt state ready. Same Claude lead workspace/terminal, inherited model configuration; applied effort is not newly verified. Lead must research, create/inspect the image target, implement and validate the new immediate-practice direction, with bounded parallel child work and actual Claude design ownership. Root offers its available image-generation tool for the Claude-authored prompt if needed.
+
+Root verified exact process arguments and creation times before stopping only its obsolete A/B preview PIDs50812/54792 on ports5291/5292. Both Stop-Process calls succeeded; final listener lookup returned no records (PowerShell exit1 for no matches). Prototype source/evidence branches remain intact. Newly installed user-owned skill/.claude/skills-lock changes are preserved and excluded from these orchestration commits.
