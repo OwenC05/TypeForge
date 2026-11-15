@@ -241,11 +241,11 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
         </div><p id="next-prompt" class="passage-context" aria-hidden="true"></p>
       </div>
     </div>
-    <div class="slot" id="slot" role="status" aria-live="polite"><p id="exercise-warning" class="slot-text"></p></div>
-    <div class="foot-row">
-      <p class="foot-hints"><kbd>space</kbd> next<span class="wide-only"> passage</span> · <kbd>backspace</kbd> fix<span class="wide-only"> · <kbd>tab</kbd> <kbd>enter</kbd> restart</span></p>
+    <div class="slot-row">
+      <div class="slot" id="slot" role="status" aria-live="polite"><p id="exercise-warning" class="slot-text"></p></div>
       <button class="key" id="restart" type="button">restart</button>
     </div>
+    <p class="foot-hints"><kbd>space</kbd> next<span class="wide-only"> passage</span> · <kbd>backspace</kbd> fix<span class="wide-only"> · <kbd>tab</kbd> <kbd>enter</kbd> restart</span></p>
     <p id="exercise-state" class="sr-only" role="status">Ready when you are.</p>
     <div id="completion" class="completion" hidden></div>
   </section>

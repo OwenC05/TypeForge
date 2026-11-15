@@ -156,12 +156,18 @@ ui-select:not(:defined) ui-select-content { display: none; }
 .stage:has(.typing-input:disabled) .stage-cover { display: none !important; }
 
 /* Reserved feedback slot: fixed height, so hints, notices and Undo never move the stage. */
-.slot { height: var(--slot-height); margin-top: 16px; overflow: hidden; }
+/* The rule is the slot's top boundary; restart sits on it at the column's right edge (target T-4). */
+.slot-row { position: relative; margin-top: 20px; }
+.slot-row::before { content: ''; position: absolute; left: 0; right: 124px; top: 0; border-top: 1px solid var(--rule); }
+#restart { position: absolute; right: 0; top: 0; transform: translateY(-50%); }
+#restart:active { transform: translateY(calc(-50% + 1px)); }
+.slot { height: var(--slot-height); padding-top: 14px; box-sizing: content-box; overflow: hidden auto; scrollbar-width: thin; }
+/* Only the first line steps around restart; long notices scroll inside the fixed slot instead of growing it. */
+.slot::before { content: ''; float: right; width: 120px; height: 12px; }
 .slot-text { margin: 0; font-size: 14px; line-height: 1.5; color: var(--muted); }
 .slot-text.is-notice { color: var(--ink); border-left: 3px solid var(--vermilion-deep); padding-left: 10px; }
 .stage[data-state=idle] .slot-text:empty::before { content: 'start typing — the clock starts with your first letter'; font: 14px var(--mono); color: var(--muted); }
-.foot-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; border-top: 1px solid var(--rule); padding-top: 12px; }
-.foot-hints { margin: 0; font: 13px var(--mono); color: var(--muted); }
+.foot-hints { margin: 4px 0 0; font: 13px var(--mono); color: var(--muted); }
 .foot-hints kbd { margin-inline: 2px; }
 
 /* Run state: everything but the passage recedes and keeps its space (no reflow). */
@@ -172,8 +178,11 @@ body[data-run=running] .rail, body[data-run=running] .today, body[data-run=runni
 body[data-run=stopped] .rail, body[data-run=stopped] .today { visibility: hidden; }
 
 /* ---------- Result in place ---------- */
-.stage[data-state=completed] .run-line, .stage[data-state=completed] .surface-wrap, .stage[data-state=completed] .foot-row,
-.stage[data-state=completed] .slot:has(.slot-text:empty) { display: none; }
+.stage[data-state=completed] .run-line, .stage[data-state=completed] .surface-wrap, .stage[data-state=completed] .foot-hints,
+.stage[data-state=completed] #restart, .stage[data-state=completed] .slot-row:has(.slot-text:empty) { display: none; }
+.stage[data-state=completed] .slot-row::before { display: none; }
+.stage[data-state=completed] .slot { padding: 0 0 12px; height: auto; }
+.stage[data-state=completed] .slot::before { display: none; }
 .completion { display: flex; flex-wrap: wrap; align-items: center; gap: 0 24px; }
 .completion > * { flex: 0 0 100%; }
 .stage[data-state=stopped] .completion { margin-top: 16px; }
@@ -257,6 +266,7 @@ summary { cursor: pointer; padding-block: 8px; }
 /* ---------- Narrow layouts ---------- */
 @media (max-width: 760px) {
   :root { --gutter: 16px; --passage: 20px; --surface-lines: 6; --countdown: 48px; --figure: 64px; --key-height: 40px; --slot-height: 66px; }
+  .slot::before { width: 112px; }
   .site-nav { display: none; }
   .nav-menu { display: block; }
   .main-stage { padding-top: 20px; }
