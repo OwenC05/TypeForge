@@ -1,7 +1,12 @@
 import './style.css';
+import '@ui-sdk/web/segmented-control';
+import '@ui-sdk/web/switch';
+import '@ui-sdk/web/collapsible';
+import type { UiChangeEvent, UiCollapsibleElement, UiSegmentedControlElement, UiSelectElement, UiSwitchElement } from '@ui-sdk/web';
 import { CORPUS_VERSION, selectPrompts, practicePrompts, assessmentPrompts } from './corpus.ts';
 import { TypingEngine, type SessionResult, type SentenceSummary, SUPPORTED_DURATIONS, type DurationMs } from './engine.ts';
 import { ResultValidationError, saveResult, getResult, listResults, deleteResult, listResultsPage, getStorageDiagnostics } from './storage.ts';
+import { loadPreferences, savePreferences, withRemembered } from './preferences.ts';
 
 import { parseModelArtifact, predictSentence, type ModelArtifact } from './model.ts';
 import { selectHistory, buildHistory, appendHistory, selectPracticeFocus, selectDrillPrompts, resolveRetest, compatible, compatibleSettings, supportedManualPairs } from './profile.ts';
@@ -67,10 +72,16 @@ async function calibration(actualSettings: SessionResult['settings']) {
   }
   return {sentences, diagnostics};
 }
+function storageNoticeText(messages: readonly string[]) {
+  return `Some saved evidence could not be read (${messages.length} notice${messages.length === 1 ? '' : 's'}). Invalid records are skipped, not deleted. ${messages.includes('Browser history is unavailable. This run can still be exported if saving fails.') ? 'Browser history is unavailable. You can still type and export this run if saving fails.' : 'Valid history is retained; export it before clearing browser data.'}`;
+}
+// The practice stage routes this notice into its reserved slot so it never pushes the stage down.
+let stageNotice: ((message: string) => void) | null = null;
 function storageNotice(messages: readonly string[]) {
   if (!messages.length) return;
+  if (stageNotice) { stageNotice(storageNoticeText(messages)); return; }
   const notice = document.createElement('p'); notice.className = 'notice';
-  notice.textContent = `Some saved evidence could not be read (${messages.length} notice${messages.length === 1 ? '' : 's'}). Invalid records are skipped, not deleted. ${messages.includes('Browser history is unavailable. This run can still be exported if saving fails.') ? 'Browser history is unavailable. You can still type and export this run if saving fails.' : 'Valid history is retained; export it before clearing browser data.'}`;
+  notice.textContent = storageNoticeText(messages);
   $('#main').prepend(notice);
 }
 
@@ -82,43 +93,36 @@ const accuracy = (value: number | null) => value === null ? '—' : `${format(va
 const date = (value: string) => new Date(value).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' });
 const $ = <T extends HTMLElement = HTMLElement>(selector: string) => document.querySelector<T>(selector)!;
 
-function shell(content: string) {
-  app.innerHTML = `<header class="site-header">
-    <a class="brand" href="./index.html" aria-label="TypeForge home"><span class="brand-mark" aria-hidden="true">t_</span>TypeForge</a>
-    <nav aria-label="Main navigation">
-      <a href="./practice.html" ${page === 'practice' && params.get('mode') !== 'practice' ? 'aria-current="page"' : ''}>Assessment</a>
-      <a href="./practice.html?mode=practice" ${page === 'practice' && params.get('mode') === 'practice' ? 'aria-current="page"' : ''}>Practice</a>
-      <a href="./progress.html" ${page === 'progress' ? 'aria-current="page"' : ''}>Your progress</a>
-      <a href="./lab.html" ${page === 'lab' ? 'aria-current="page"' : ''}>ML Lab</a>
-      <span class="local-pill"><span class="dot"></span>LOCAL / GUEST</span>
-    </nav>
-  </header><main id="main">${content}</main>
-  <footer class="site-footer"><span>TypeForge · A little practice, a better rhythm.</span><span>Results stay in this browser.</span></footer>`;
+function shell(content: string, layout: {stage?: boolean} = {}) {
+  const here = page === 'home' || (page === 'practice' && params.get('mode') === 'practice') ? 'practice' : page === 'practice' ? 'assessment' : page;
+  const links = [['practice', './index.html'], ['assessment', './practice.html'], ['progress', './progress.html'], ['lab', './lab.html']]
+    .map(([name, href]) => `<a href="${href}" ${here === name ? 'aria-current="page"' : ''}>${name}</a>`).join('');
+  app.innerHTML = `<header class="topbar">
+    <a class="brand" href="./index.html"><span class="brand-mark" aria-hidden="true">t_</span><span class="brand-name">typeforge</span></a>
+    <nav class="site-nav" aria-label="Main navigation">${links}</nav>
+    <ui-collapsible class="nav-menu" id="nav-menu">
+      <ui-collapsible-trigger><button type="button" class="key key-small">menu</button></ui-collapsible-trigger>
+      <ui-collapsible-panel class="nav-menu-panel" keep-mounted hidden><nav aria-label="Main navigation">${links}</nav></ui-collapsible-panel>
+    </ui-collapsible>
+  </header><main id="main" class="${layout.stage ? 'main-stage' : 'main-page'}">${content}</main>
+  <footer class="site-footer"><p>Results stay in this browser.</p></footer>`;
 }
 
 function showError(message: string) {
-  shell(`<section class="panel empty"><p class="eyebrow">Something needs attention</p><h1>We could not load this page.</h1><p id="error" class="lead"></p><a class="button" href="./index.html">Back to home</a></section>`);
+  shell(`<section class="page-intro"><p class="micro">Something needs attention</p><h1>We could not load this page.</h1><p id="error" class="lead"></p><a class="key key-primary" href="./index.html">Back to practice</a></section>`);
   $('#error').textContent = message;
 }
 
-function home() {
-  shell(`<section class="hero">
-    <div><p class="eyebrow">A moment for your muscle memory</p><h1>Find your focus.<br><span>Forge your rhythm.</span></h1>
-      <p class="lead">A quiet space to practise typing. Measure your rhythm, find an evidence-backed practice focus, and explore the machine learning behind it.</p>
-      <div class="actions"><a class="button" href="./practice.html">Take an assessment <span aria-hidden="true">&nbsp;↗</span></a><a class="button secondary" href="./practice.html?mode=practice">Just practise</a></div>
-      <p class="small">15 / 30 / 60 / 120 seconds · English · Physical keyboard</p>
-    </div>
-    <div class="hero-preview" aria-hidden="true"><div class="preview-top"><span>A LITTLE MORE FLOW</span><span>01:00</span></div>
-      <p class="preview-text"><strong>make room for</strong><b> </b>a little practice every day</p>
-      <span class="keycap">space</span><span class="small"> &nbsp; keep your rhythm moving</span>
-    </div>
-  </section>
-  <section class="features" aria-label="How it works">
-    <div><span class="feature-number">01 / SET A BASELINE</span><h2>Start where you are.</h2><p>Copy short, everyday sentences. The clock starts with your first character.</p></div>
-    <div><span class="feature-number">02 / NOTICE THE DETAILS</span><h2>Make every attempt count.</h2><p>Get an explainable practice focus from your observed timing. No supported focus yet? Start with general practice.</p></div>
-    <div><span class="feature-number">03 / KEEP SHOWING UP</span><h2>Find your own pace.</h2><p>Retest with fresh passages. Your history stays on this device; the experimental model is open to inspection.</p></div>
-  </section>`);
+// `/` is practice itself: no hero, welcome or setup step on first or later visits.
+async function home() {
+  const requested = new URLSearchParams(location.search);
+  requested.set('mode', 'practice');
+  await practice(requested, {home: true});
 }
+
+// Focus the user moves while the stage is being prepared must never be taken back.
+let preparationFocusMoved = false;
+document.addEventListener('focusin', () => { preparationFocusMoved = true; });
 
 type PendingEdit = { value: string; start: number; end: number; type: string; data: string | null };
 type PhysicalKey = { key: string; time: number; repeat: boolean; start: number; end: number };
@@ -148,8 +152,12 @@ function reconstructEdit(before: PendingEdit, value: string) {
   return { start: from, end: old.length - tail, text: value.slice(from, value.length - tail), tracked: false };
 }
 
-async function practice() {
-  const mode = params.get('mode') === 'practice' ? 'practice' : 'assessment';
+type StageOptions = { home?: boolean };
+
+async function practice(requested: URLSearchParams = new URLSearchParams(location.search), options: StageOptions = {}) {
+  const mode = requested.get('mode') === 'practice' ? 'practice' : 'assessment';
+  // Remembered values only fill settings the URL leaves absent; layout never feeds prompt choice.
+  const params = withRemembered(requested, mode, loadPreferences());
   let excluded: string[] = [];
   let sourceAssessmentId: string | undefined;
   let origin: SessionResult | null = null;
@@ -168,8 +176,9 @@ async function practice() {
     if (resolved.kind === 'retest') { excluded = resolved.excludedPromptIds; sourceAssessmentId = resolved.sourceAssessmentId; }
     else lineageMessage = `New assessment: ${resolved.reason}`;
   } else if (mode === 'practice' && origin?.mode === 'assessment' && origin.eligibleForProgress && compatible(origin, settings(declaredQwerty, durationMs))) sourceAssessmentId = origin.id;
-  const loaded = await calibration(settings(declaredQwerty, durationMs));
-  let history = loaded.sentences;
+  // Optional saved evidence loads after the stage is ready; General practice never waits for it.
+  let history: SentenceSummary[] = [];
+  let evidencePending = declaredQwerty;
   const manualPairs = supportedManualPairs(practicePrompts);
   let recommendedFocus = mode === 'practice' ? selectPracticeFocus(buildHistory(history), practicePrompts, artifact) : null;
   let practiceChoice = parsePracticeChoice(params.get('practice'), params.get('pair'), manualPairs, recommendedFocus, recommendationReason(history, declaredQwerty, recommendedFocus));
@@ -180,26 +189,67 @@ async function practice() {
     return selectDrillPrompts(drillIdentity, practicePrompts);
   };
   let prompts = choosePrompts();
-  shell(`<div class="page-heading"><div><p class="eyebrow">${mode === 'practice' ? 'Build a little momentum' : 'Find your starting point'}</p><h1>${mode === 'practice' ? 'Just you and the keys.' : `Your ${durationMs / 1000} second assessment.`}</h1><p id="exercise-intro" class="small">English · lowercase · ${sourceAssessmentId && mode === 'assessment' ? 'fresh assessment passages' : 'short sentences'}</p></div><span id="duration-tag" class="tag">${durationMs / 1000} SECOND ${mode === 'practice' ? 'PRACTICE' : 'ASSESSMENT'}</span></div>
-  <p class="small"><label for="duration">Duration</label> <select id="duration">${SUPPORTED_DURATIONS.map(value => `<option value="${value / 1000}" ${value === durationMs ? 'selected' : ''}>${value / 1000} seconds</option>`).join('')}</select> · <label><input type="checkbox" id="qwerty" ${declaredQwerty ? 'checked' : ''}> I use a physical QWERTY keyboard</label> · Enables observed pair timing.</p>
-  ${mode === 'practice' ? `<div id="practice-options" class="practice-options"><label for="practice-kind">Practice</label> <select id="practice-kind"><option value="general" ${practiceChoice.kind === 'general' ? 'selected' : ''}>General</option><option value="recommended" ${practiceChoice.kind === 'recommended' ? 'selected' : ''} ${recommendedFocus ? '' : 'disabled'}>Recommended</option><option value="manual" ${practiceChoice.kind === 'manual' ? 'selected' : ''}>Manual pair</option></select> <label for="manual-pair">Pair</label> <select id="manual-pair" ${practiceChoice.kind === 'manual' ? '' : 'hidden'}>${manualPairs.map(pair => `<option value="${pair}" ${practiceChoice.pair === pair ? 'selected' : ''}>${pair}</option>`).join('')}</select><p id="recommendation-reason" class="small">${recommendationReason(history, declaredQwerty, recommendedFocus)}</p></div>` : ''}
-  <section class="panel" aria-label="Typing exercise">
-    <div class="practice-toolbar"><div class="timer"><output id="remaining">${durationMs / 1000}</output><small> seconds left</small></div><div class="live-metrics"><div><output id="live-wpm">0</output><span>WPM</span></div><div><output id="live-accuracy">—</output><span>ACCURACY</span></div></div></div>
-    <progress id="time-progress" value="0" max="${durationMs / 1000}" aria-label="Elapsed time"></progress>
-    <label class="field-label" for="typing-input">Type the moving passage</label>
-    <p id="target-description" class="sr-only"></p>
-    <div class="typing-surface" id="typing-viewport">
-      <p id="previous-prompt" class="passage-context" aria-hidden="true"></p>
-      <div class="active-passage"><div class="prompt" id="prompt" aria-hidden="true"></div>
-        <textarea class="typing-input" id="typing-input" rows="1" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="target-description typing-help"></textarea>
-      </div><p id="next-prompt" class="passage-context" aria-hidden="true"></p>
+  const initialPair = practiceChoice.pair ?? (manualPairs.includes('th') ? 'th' : manualPairs[0]!);
+  shell(`<h1 class="sr-only">${mode === 'practice' ? 'Practice' : 'Assessment'}</h1>
+  <div class="column">
+  <section class="rail" id="rail" aria-label="${mode === 'practice' ? 'Practice' : 'Assessment'} settings">
+    <div class="rail-group">
+      <ui-segmented-control id="duration" class="keys" aria-label="Duration in seconds" default-value="${durationMs / 1000}">
+        ${SUPPORTED_DURATIONS.map(value => `<ui-segmented-control-item value="${value / 1000}">${value / 1000}</ui-segmented-control-item>`).join('')}
+      </ui-segmented-control><span class="unit" aria-hidden="true">s</span>
     </div>
-    <div class="practice-bottom"><p id="typing-help" class="small">Space advances words; Backspace corrects the current passage. Enter does not advance. Completed passages cannot be edited.</p><button class="button secondary" id="restart" type="button">Restart</button></div>
-    <p id="prediction-state" class="small"></p><p id="focus-state" class="small"></p><p id="exercise-state" class="status" role="status">Ready when you are.</p><p id="exercise-warning" class="notice" hidden></p>
+    ${mode === 'practice' ? `<span class="rail-rule" aria-hidden="true"></span>
+    <div class="rail-group">
+      <ui-segmented-control id="practice-kind" class="keys" aria-label="Practice" default-value="${practiceChoice.kind}">
+        <ui-segmented-control-item value="general">general</ui-segmented-control-item>
+        <ui-segmented-control-item value="manual">pair</ui-segmented-control-item>
+        <ui-segmented-control-item value="recommended" id="suggested-item" ${recommendedFocus ? '' : 'disabled'}>suggested</ui-segmented-control-item>
+      </ui-segmented-control>
+      <ui-select id="manual-pair" class="pair-select" default-value="${initialPair}" ${practiceChoice.kind === 'manual' ? '' : 'hidden'}>
+        <ui-select-label class="sr-only">Pair</ui-select-label>
+        <ui-select-trigger><button type="button" class="key"><ui-select-value>${initialPair}</ui-select-value><span class="caret-glyph" aria-hidden="true">▾</span></button></ui-select-trigger>
+        <ui-select-content class="pair-list"></ui-select-content>
+      </ui-select>
+    </div>` : ''}
+    <span class="rail-rule" aria-hidden="true"></span>
+    <ui-switch id="qwerty" class="key key-toggle" aria-label="Physical QWERTY keyboard" ${declaredQwerty ? 'default-checked' : ''}><span aria-hidden="true">qwerty</span><ui-switch-thumb></ui-switch-thumb></ui-switch>
   </section>
-  <p class="small">The timer keeps running if you leave the field. Interrupted assessments stay in history, outside your headline progress.</p>
-  <div id="completion" hidden></div>`);
-  storageNotice(loaded.diagnostics);
+  <p id="settings-status" class="sr-only"></p>
+  <p id="today-summary" class="micro today" hidden></p>
+  <section class="stage" id="stage" aria-label="Typing exercise" data-state="idle" data-focus="out" data-mode="${mode}">
+    <div class="run-line">
+      <span class="countdown" id="remaining" role="timer" aria-label="Seconds left">${durationMs / 1000}</span>
+      <p class="micro block-label" id="block-identity"></p>
+      <ui-collapsible class="why" id="why">
+        <ui-collapsible-trigger><button type="button" class="text-button">why?</button></ui-collapsible-trigger>
+        <ui-collapsible-panel class="why-panel" keep-mounted hidden>
+          <p id="focus-state"></p><p id="recommendation-reason">${mode === 'practice' ? recommendationReason(history, declaredQwerty, recommendedFocus) : ''}</p>
+          <p id="exercise-intro">English · lowercase · ${sourceAssessmentId && mode === 'assessment' ? 'fresh assessment passages' : 'short sentences'}</p><p id="prediction-state"></p>
+          <p>The timer keeps running if you leave the text. Interrupted runs stay in history, outside headline progress.</p>
+        </ui-collapsible-panel>
+      </ui-collapsible>
+    </div>
+    <label class="sr-only" for="typing-input">Type the passage</label>
+    <p id="target-description" class="sr-only"></p>
+    <p id="typing-help" class="sr-only">Space advances words; Backspace corrects the current passage. Enter does not advance. Completed passages cannot be edited.</p>
+    <div class="surface-wrap">
+      <div class="stage-cover"><button class="key key-primary" id="continue-typing" type="button">start typing ↵</button></div>
+      <div class="typing-surface" id="typing-viewport">
+        <p id="previous-prompt" class="passage-context" aria-hidden="true"></p>
+        <div class="active-passage"><div class="prompt" id="prompt" aria-hidden="true"></div>
+          <textarea class="typing-input" id="typing-input" rows="1" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="target-description typing-help"></textarea>
+        </div><p id="next-prompt" class="passage-context" aria-hidden="true"></p>
+      </div>
+    </div>
+    <div class="slot" id="slot" role="status" aria-live="polite"><p id="exercise-warning" class="slot-text"></p></div>
+    <div class="foot-row">
+      <p class="foot-hints"><kbd>space</kbd> next<span class="wide-only"> passage</span> · <kbd>backspace</kbd> fix<span class="wide-only"> · <kbd>tab</kbd> <kbd>enter</kbd> restart</span></p>
+      <button class="key" id="restart" type="button">restart</button>
+    </div>
+    <p id="exercise-state" class="sr-only" role="status">Ready when you are.</p>
+    <div id="completion" class="completion" hidden></div>
+  </section>
+  </div>`, {stage: true});
   const makeEngine = (qwerty: boolean) => new TypingEngine({ id: crypto.randomUUID(), prompts, mode, durationMs, inputMode: 'flow-v1', corpusVersion: CORPUS_VERSION, qwerty, ...(focus ? {practiceFocus: focus} : {}), ...(mode === 'practice' && practiceChoice.kind === 'manual' ? {manualDrill: {pair: practiceChoice.pair!, source: 'manual' as const}} : {}), ...(sourceAssessmentId ? {sourceAssessmentId} : {}) });
   let engine = makeEngine(declaredQwerty);
   function prepare(now = performance.now()) {
@@ -208,12 +258,26 @@ async function practice() {
     if (preparation?.predictions) engine.setSentencePredictions(snapshot.sentenceIndex, preparation.predictions);
     $('#prediction-state').textContent = !qwerty.checked ? 'Timing predictions require a declared physical QWERTY keyboard.' : preparation?.status === 'candidate-and-baseline' ? 'Experimental model + historical baseline · predictions frozen before each sentence.' : `${preparation?.status === 'baseline-only' ? 'Historical baseline only' : 'Predictions unavailable'}: ${preparation?.reason ?? 'No supported observations yet.'}`;
     $('#focus-state').textContent = [lineageMessage, practiceChoice.reason, mode === 'practice' && practiceChoice.kind === 'manual' ? `Manual pair: ${practiceChoice.pair} · chosen by you, not a diagnosed weakness. Two focused sentences, then one general sentence.` : (focus ? `Focus: ${focus.pair} · ${focus.evidenceCount} observations · baseline ${focus.baselineVersion}. Two focused sentences, then one general sentence.` : mode === 'practice' ? 'General practice · no supported targeted focus selected.' : 'Keep typing; a space after the last word brings the next passage.')].filter(Boolean).join(' ');
+    // Observed facts only: the current choice, never an invented target.
+    const identity = mode === 'assessment' ? (sourceAssessmentId ? 'Fresh retest' : 'Assessment') : practiceChoice.kind === 'manual' ? `Pair practice · ${practiceChoice.pair}` : focus ? `Suggested practice · ${focus.pair}` : 'General practice';
+    const label = `${identity} · ${durationMs / 1000} s`;
+    if ($('#block-identity').textContent !== label) $('#block-identity').textContent = label;
+    if ($('#remaining').textContent !== String(Math.ceil(snapshot.remainingMs / 1000))) $('#remaining').textContent = String(Math.ceil(snapshot.remainingMs / 1000));
+    stage.dataset.promptIds = prompts.map(prompt => prompt.id).join(' ');
+    if (suggestedItem) {
+      const reason = evidencePending ? 'Checking saved assessment evidence…' : recommendationReason(history, qwerty.checked, recommendedFocus);
+      if (evidencePending) $('#recommendation-reason').textContent = 'Checking saved assessment evidence for a suggestion; general practice until one is supported.';
+      suggestedItem.title = recommendedFocus ? `Suggested: ${recommendedFocus.pair}` : `Not enough evidence for a focus yet — using general. ${reason}`;
+    }
   }
   const input = $<HTMLTextAreaElement>('#typing-input');
-  const qwerty = $<HTMLInputElement>('#qwerty');
-  const duration = $<HTMLSelectElement>('#duration');
-  const practiceKind = mode === 'practice' ? $<HTMLSelectElement>('#practice-kind') : null;
-  const manualPair = mode === 'practice' ? $<HTMLSelectElement>('#manual-pair') : null;
+  const qwerty = $<UiSwitchElement>('#qwerty');
+  const duration = $<UiSegmentedControlElement>('#duration');
+  const practiceKind = mode === 'practice' ? $<UiSegmentedControlElement>('#practice-kind') : null;
+  const manualPair = mode === 'practice' ? $<UiSelectElement>('#manual-pair') : null;
+  const suggestedItem = mode === 'practice' ? $('#suggested-item') : null;
+  const stage = $('#stage');
+  const why = $<UiCollapsibleElement>('#why');
   let before: PendingEdit | null = null;
   let key: PhysicalKey | null = null;
   let composing = false;
@@ -225,21 +289,50 @@ async function practice() {
   let lastState = 'idle';
   let lastPromptKey = '';
   let previousPromptText = '';
+  let previousResponse = '';
+  let committedKey = '';
+  let undoUsed = false;
+  let repeatRequested = false;
 
-  function warning(message: string) {
-    $('#exercise-warning').hidden = false;
-    $('#exercise-warning').textContent = message;
+  // Reserved feedback slot. Levels: 1 transient hint, 2 integrity/Undo notice, 3 safety stop.
+  // Its height is fixed, so showing, replacing or clearing a message never moves the stage.
+  function warning(message: string, level = 1) {
+    const text = $('#exercise-warning');
+    if (level < slotLevel && text.textContent) return;
+    slotLevel = level;
+    hintMark = '';
+    text.hidden = false;
+    text.className = `slot-text ${level === 1 ? 'is-hint' : 'is-notice'}`;
+    // Unchanged text is never rewritten, so the polite region announces each message once.
+    if (text.textContent !== message) text.textContent = message;
+  }
+  let slotLevel = 0;
+  let hintMark = '';
+  function clearSlot() {
+    slotLevel = 0;
+    hintMark = '';
+    $('#exercise-warning').textContent = '';
+  }
+  stageNotice = message => { if (engine.state === 'idle' || engine.state === 'completed') warning(message, 1); };
+  function setRunState(state: string) {
+    stage.dataset.state = state;
+    document.body.dataset.run = state;
+    const running = state === 'running';
+    // Why? is visibly unavailable while typing: not focusable, never an inert-looking active link.
+    why.toggleAttribute('disabled', running);
+    why.inert = running;
+    if (running && why.open) why.api.close();
+    $('#continue-typing').textContent = running ? 'continue typing ↵' : 'start typing ↵';
+  }
+  // Focus moves to the native input only from neutral focus or the control that asked for it.
+  function mayFocusInput() {
+    const active = document.activeElement;
+    return !active || active === document.body || active === stage || active === input || ['restart', 'again', 'continue-typing'].includes(active.id);
   }
   function paint(now = performance.now()) {
     const snapshot = engine.tick(now);
-    qwerty.disabled = restarting || snapshot.state !== 'idle';
-    duration.disabled = qwerty.disabled;
-    if (practiceKind) practiceKind.disabled = qwerty.disabled;
-    if (manualPair) manualPair.disabled = qwerty.disabled;
-    $('#remaining').textContent = String(Math.ceil(snapshot.remainingMs / 1000));
-    $('#live-wpm').textContent = format(snapshot.metrics.wpm);
-    $('#live-accuracy').textContent = accuracy(snapshot.metrics.accuracy);
-    $<HTMLProgressElement>('#time-progress').value = snapshot.elapsedMs / 1000;
+    const remaining = String(Math.ceil(snapshot.remainingMs / 1000));
+    if ($('#remaining').textContent !== remaining) $('#remaining').textContent = remaining;
     const start = input.selectionStart ?? snapshot.value.length;
     const end = input.selectionEnd ?? start;
     const caret = input.selectionDirection === 'backward' ? start : end;
@@ -249,32 +342,72 @@ async function practice() {
       prompt.replaceChildren();
       $('#target-description').textContent = `Passage to copy: ${snapshot.prompt.text}`;
       $('#typing-help').textContent = typingHelp(snapshot.prompt.text, snapshot.value);
-      $('#previous-prompt').textContent = previousPromptText;
+      if (committedKey !== `${previousPromptText}\u0000${previousResponse}`) {
+        renderCommitted($('#previous-prompt'), previousPromptText, previousResponse);
+        committedKey = `${previousPromptText}\u0000${previousResponse}`;
+      }
       $('#next-prompt').textContent = engine.nextPrompt.text;
       // Mirror the actual response, not target offsets: extra letters and native
       // selections must wrap at exactly the same positions as the textarea.
       const displayed = snapshot.value + snapshot.prompt.text.slice(snapshot.value.length);
+      let mismatch: HTMLElement | null = null;
+      let expected = '';
       for (let index = 0; index <= displayed.length; index++) {
         const span = document.createElement('span');
-        span.textContent = displayed[index] ?? '\u200b';
-        span.className = [index < snapshot.value.length ? (snapshot.value[index] === snapshot.prompt.text[index] ? 'correct' : 'wrong') : '',
+        span.textContent = displayed[index] ?? '​';
+        const wrong = index < snapshot.value.length && snapshot.value[index] !== snapshot.prompt.text[index];
+        span.className = [index < snapshot.value.length ? (wrong ? 'wrong' : 'correct') : '',
           index >= start && index < end ? 'selected' : '', index === caret ? 'cursor' : ''].filter(Boolean).join(' ');
+        if (wrong && !mismatch) {
+          // Lowest positional mismatch only; no edit-distance alignment is inferred.
+          mismatch = span;
+          expected = index >= snapshot.prompt.text.length ? 'extra' : snapshot.prompt.text[index] === ' ' ? '␣' : snapshot.prompt.text[index]!;
+          span.classList.add('first-mismatch');
+          span.dataset.expected = expected;
+        }
         prompt.append(span);
       }
       lastPromptKey = promptKey;
+      // A transient hint clears at the next accepted insertion or passage commit, not on caret moves.
+      const mark = `${snapshot.sentenceIndex}:${snapshot.value.length}`;
+      if (slotLevel === 1) {
+        if (!hintMark) hintMark = mark;
+        else {
+          const [markSentence, markLength] = hintMark.split(':').map(Number);
+          if (snapshot.sentenceIndex !== markSentence || snapshot.value.length > markLength!) clearSlot();
+        }
+      }
       const marker = prompt.querySelector<HTMLElement>('.cursor');
       const viewport = $('#typing-viewport');
       if (marker) {
-        const top = marker.getBoundingClientRect().top - viewport.getBoundingClientRect().top + viewport.scrollTop;
-        viewport.scrollTop = Math.max(0, top - viewport.clientHeight / 3);
+        // One read batch inside the existing forced layout: caret, viewport and mismatch
+        // rectangles are read before any write, so the cue adds no extra layout pass.
+        const markerRect = marker.getBoundingClientRect();
+        const viewRect = viewport.getBoundingClientRect();
+        const mismatchRect = mismatch?.getBoundingClientRect();
+        const scrolled = viewport.scrollTop;
+        const viewHeight = viewport.clientHeight;
+        const top = markerRect.top - viewRect.top + scrolled;
+        const nextScroll = Math.max(0, top - viewHeight / 2);
+        viewport.scrollTop = nextScroll;
+        if (mismatch && mismatchRect && mismatch !== marker) {
+          const mismatchTop = mismatchRect.top - viewRect.top + scrolled;
+          const sameLine = Math.abs(mismatchRect.top - markerRect.top) < markerRect.height / 2;
+          const visible = mismatchTop >= nextScroll && mismatchTop + mismatchRect.height <= nextScroll + viewHeight;
+          if (!sameLine || !visible) {
+            marker.dataset.pointer = `↶ earlier error · expected ${expected}`;
+            marker.classList.add(markerRect.left - viewRect.left > viewRect.width / 2 ? 'pointer-left' : 'pointer-right');
+          }
+        }
       }
       input.scrollTop = 0;
     }
     if (snapshot.state !== lastState) {
       $('#exercise-state').textContent = snapshot.state === 'running' ? 'Timer running. Keep typing; Space advances the passage.' : snapshot.state === 'completed' ? 'Time is up. Your result is ready.' : 'Ready when you are.';
       lastState = snapshot.state;
+      setRunState(snapshot.state);
     }
-    if (snapshot.state !== 'stopped' && snapshot.qualityFlags.length) warning('This run includes an interruption or unsupported edit. It will be saved with a label and excluded from headline progress.');
+    if (snapshot.state !== 'stopped' && snapshot.qualityFlags.length) warning(integrityCopy(snapshot.qualityFlags, undoUsed), 2);
     if (snapshot.state === 'completed' && !finished) void finish();
     if (snapshot.state === 'stopped' && !finished) {
       finished = true;
@@ -284,13 +417,30 @@ async function practice() {
       input.readOnly = true;
       const diagnostic = engine.stoppedSnapshot();
       $('#exercise-state').textContent = 'Session safety limit reached. Export the partial diagnostic or restart.';
-      warning(`Stopped safely: ${diagnostic?.stopReason}. This partial run is not a completed result and will not be saved to progress.`);
+      warning(`Stopped safely: ${diagnostic?.stopReason}. This partial run is not a completed result and will not be saved to progress.`, 3);
       const completion = $('#completion');
       completion.hidden = false;
-      completion.innerHTML = '<button id="export-stopped" class="button secondary">Export partial diagnostic</button>';
+      completion.innerHTML = '<button id="export-stopped" class="key">export partial diagnostic</button>';
       $('#export-stopped').onclick = () => download(diagnostic, `typeforge-stopped-${diagnostic?.id}.json`);
     }
     return snapshot;
+  }
+
+  function afterResultRendered() {
+    const again = document.getElementById('again');
+    if (again) again.onclick = () => { repeatRequested = true; void $('#restart').onclick?.(new PointerEvent('click')); };
+    // The primary action takes focus only from neutral focus (the disabled input hands focus to body).
+    if (mayFocusInput()) document.querySelector<HTMLElement>('#again, #practice-next')?.focus();
+  }
+  // Today's bounded activity line: optional, never blocks the result or the next block.
+  function refreshToday(saved?: SessionResult) {
+    void todayActivity().then(activity => {
+      if (disposed) return;
+      if (saved && !activity.complete) countActivity(activity, saved);
+      const line = $('#today-summary');
+      line.textContent = `${todayText(activity)} · ${Intl.DateTimeFormat().resolvedOptions().timeZone || 'local time'}`;
+      line.hidden = false;
+    }, () => { /* Unreadable history hides the line; typing is unaffected. */ });
   }
 
   async function finish() {
@@ -303,11 +453,12 @@ async function practice() {
     $<HTMLButtonElement>('#restart').disabled = true;
     const result = engine.result(new Date().toISOString());
     if (!result) return;
-    // Keep the completed result on screen even if IndexedDB is unavailable.
+    // The result replaces the passage in place and stays readable even if IndexedDB is unavailable.
     const completion = $('#completion');
     completion.hidden = false;
-    completion.innerHTML = `<div class="page-heading" style="margin-top:32px"><div><p class="eyebrow">${result.settings.durationMs / 1000} seconds complete</p><h2>Your result</h2></div></div>${metricCards(result)}<p id="save-state" class="status" role="status">Saving to this browser…</p><div class="actions"><button id="export-current" class="button secondary">Export result</button><button id="retry-save" class="button secondary" hidden>Retry saving</button><a class="button secondary" href="./practice.html?duration=${result.settings.durationMs / 1000}&qwerty=${result.settings.qwerty ? '1' : '0'}">New assessment</a></div>`;
+    completion.innerHTML = resultPanel(result, history);
     $('#export-current').onclick = () => download(result, `typeforge-${result.id}.json`);
+    afterResultRendered();
     const generation = restartGeneration;
     let saving = false;
     let permanentlyRejected = false;
@@ -318,7 +469,10 @@ async function practice() {
       try {
         await saveResult(result);
         if (disposed || generation !== restartGeneration) return;
-        location.assign(`./results.html?id=${encodeURIComponent(result.id)}`);
+        $('#save-state').textContent = 'Saved in this browser.';
+        $('#retry-save').hidden = true;
+        $('#full-result').hidden = false;
+        refreshToday(result);
       } catch (error) {
         if (disposed || generation !== restartGeneration) return;
         permanentlyRejected = error instanceof ResultValidationError;
@@ -359,6 +513,7 @@ async function practice() {
     const snapshot = paint();
     if (snapshot.state === 'completed' || snapshot.state === 'aborted' || snapshot.state === 'stopped') { event.preventDefault(); return; }
     if (event.inputType === 'insertLineBreak' || event.inputType === 'insertParagraph') { event.preventDefault(); before = null; key = null; return; }
+    if (event.inputType === 'historyUndo' || event.inputType === 'historyRedo') undoUsed = true;
     before = { value: snapshot.value, start: input.selectionStart ?? 0, end: input.selectionEnd ?? 0, type: event.inputType, data: event.data };
   });
   const acceptInput = (event: Event) => {
@@ -380,6 +535,7 @@ async function practice() {
     if (accepted.sentenceIndex !== snapshot.sentenceIndex) {
       const submitted = engine.submittedSummaries.at(-1);
       previousPromptText = submitted?.promptText ?? snapshot.prompt.text;
+      previousResponse = submitted?.response ?? snapshot.value;
       if (mode === 'assessment' && submitted?.eligible) history = appendHistory(history, submitted);
       prepare(now);
     }
@@ -406,9 +562,82 @@ async function practice() {
   document.addEventListener('visibilitychange', () => { if (document.hidden) interrupt(); });
   window.addEventListener('pagehide', () => { disposed = true; restartGeneration++; clearInterval(timer); if (!finished) engine.abort(performance.now()); });
   window.addEventListener('pageshow', (event) => { if (event.persisted) location.reload(); });
+  input.addEventListener('focus', () => { stage.dataset.focus = 'in'; });
+  input.addEventListener('blur', () => { stage.dataset.focus = 'out'; });
+  // Focus recovery is contextual: a real button, a click on blank stage space, and Enter only
+  // from neutral focus. There is no global printable-key capture.
+  $('#continue-typing').onclick = () => { if (!finished && !restarting && !input.disabled) input.focus(); };
+  stage.addEventListener('click', (event) => {
+    if ((event.target as HTMLElement).closest('button, a, input, textarea, ui-collapsible, .completion')) return;
+    if (!finished && !restarting && !disposed && !input.disabled) input.focus();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' || event.isComposing || event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) return;
+    const active = document.activeElement;
+    if (active && active !== document.body && active !== stage) return;
+    if (disposed || restarting || finished || input.disabled) return;
+    event.preventDefault();
+    input.focus();
+  });
+
+  // Settings rail: SDK controls with one app-owned state. Values are validated here and a change
+  // during a running block is refused (not disabled), so focus and layout never move.
+  let settingsPending = false;
+  const sourceName = (source: unknown) => source === 'agent' ? 'Agent' : source === 'keyboard' ? 'Keyboard' : source === 'programmatic' ? 'Programmatic' : 'Pointer';
+  const settingsStatus = (message: string) => { $('#settings-status').textContent = message; };
+  function guard(setting: string, valid: (value: unknown) => boolean) {
+    return (event: Event) => {
+      const {value, source} = (event as UiChangeEvent<unknown>).detail;
+      const refused = disposed ? 'the page is closing.' : engine.state === 'running' && !restarting ? 'a block is running. Finish it or restart first.' : !valid(value) ? 'that value is not available.' : '';
+      if (refused) {
+        event.preventDefault();
+        settingsStatus(`${sourceName(source)} change to ${setting} refused: ${refused}`);
+        return;
+      }
+      settingsStatus(`${sourceName(source)} set ${setting} to ${String(value)}.`);
+      queueMicrotask(changeSettings);
+    };
+  }
+  // The pair list is the rarest control: its module loads on demand, never on first paint.
+  let pairModule: Promise<void> | null = null;
+  const pairReady = () => Boolean(customElements.get('ui-select'));
+  const pairValue = () => manualPair ? (pairReady() ? String(manualPair.value ?? '') : manualPair.getAttribute('default-value') ?? '') : '';
+  function loadPairs() {
+    if (!manualPair) return Promise.resolve();
+    return pairModule ??= (async () => {
+      $('.pair-list').innerHTML = manualPairs.map(pair => `<ui-select-item value="${pair}">${pair}</ui-select-item>`).join('');
+      await import('@ui-sdk/web/select');
+      manualPair.addEventListener('valuechange', guard('pair', value => typeof value === 'string' && manualPairs.includes(value) && practiceKind?.value === 'manual'));
+    })();
+  }
+  function showPair(visible: boolean, pair?: string) {
+    if (!manualPair) return;
+    manualPair.hidden = !visible;
+    if (pair) {
+      if (pairReady()) manualPair.value = pair; // Owner-to-view sync: emits no change event.
+      else { manualPair.setAttribute('default-value', pair); manualPair.querySelector('ui-select-value')!.textContent = pair; }
+    }
+    if (visible) void loadPairs();
+  }
+  if (manualPair) {
+    // A click that lands before the module upgrades the Select still opens the list.
+    manualPair.addEventListener('click', () => {
+      if (pairReady()) return;
+      void loadPairs().then(() => { if (!disposed) manualPair.open = true; });
+    });
+    if (!manualPair.hidden) void loadPairs();
+  }
+  duration.addEventListener('valuechange', guard('duration', value => SUPPORTED_DURATIONS.some(supported => String(supported / 1000) === value)));
+  qwerty.addEventListener('checkedchange', guard('qwerty', value => typeof value === 'boolean'));
+  practiceKind?.addEventListener('valuechange', guard('practice', value => value === 'general' || value === 'manual' || (value === 'recommended' && Boolean(recommendedFocus))));
+  // A disabled Suggested item cannot take focus or be checked; a press on it explains why instead.
+  suggestedItem?.addEventListener('pointerdown', () => {
+    if (!recommendedFocus) warning(`Suggested needs more evidence — using general. ${evidencePending ? 'Checking saved assessment evidence…' : recommendationReason(history, qwerty.checked, recommendedFocus)}`);
+  });
   const changeSettings = () => {
-    if (engine.state !== 'idle' || restarting || disposed) return;
-    durationMs = parseDuration(duration.value).durationMs;
+    if (disposed || engine.state === 'running') return;
+    if (restarting) { settingsPending = true; return; }
+    durationMs = parseDuration(String(duration.value)).durationMs;
     if (sourceAssessmentId && origin && !compatibleSettings(origin.settings, settings(qwerty.checked, durationMs))) {
       sourceAssessmentId = undefined; excluded = []; lineageMessage = 'New assessment: duration or keyboard declaration differs from the origin.';
     }
@@ -417,30 +646,27 @@ async function practice() {
     url.searchParams.set('qwerty', qwerty.checked ? '1' : '0');
     params.set('qwerty', qwerty.checked ? '1' : '0');
     params.set('duration', String(durationMs / 1000));
+    const kind = (practiceKind?.value ?? 'general') as PracticeKind;
     if (practiceKind && manualPair) {
-      params.set('practice', practiceKind.value);
-      url.searchParams.set('practice', practiceKind.value);
-      if (practiceKind.value === 'manual') {params.set('pair', manualPair.value);url.searchParams.set('pair', manualPair.value);}
-      else {params.delete('pair');url.searchParams.delete('pair');}
+      params.set('practice', kind);
+      url.searchParams.set('practice', kind);
+      if (kind === 'manual') { const pair = pairValue(); params.set('pair', pair); url.searchParams.set('pair', pair); }
+      else { params.delete('pair'); url.searchParams.delete('pair'); }
     }
-    window.history.replaceState(null, '', url);
-    $<HTMLButtonElement>('#restart').click();
+    // A deliberate choice is remembered locally; `/` keeps its clean URL.
+    savePreferences(mode, {durationSeconds: durationMs / 1000, qwerty: qwerty.checked, ...(practiceKind ? {kind} : {}), ...(kind === 'manual' && manualPair ? {pair: pairValue()} : {})});
+    if (!options.home) window.history.replaceState(null, '', url);
+    repeatRequested = engine.state === 'completed';
+    void $('#restart').onclick?.call(stage, new PointerEvent('click'));
   };
-  qwerty.onchange = changeSettings;
-  duration.onchange = changeSettings;
-  if (practiceKind) practiceKind.onchange = changeSettings;
-  if (manualPair) manualPair.onchange = changeSettings;
   $('#restart').onclick = async () => {
-    if (restarting || disposed || paint().state === 'completed') return;
+    if (restarting || disposed || (paint().state === 'completed' && !repeatRequested)) return;
+    repeatRequested = false;
     restarting = true;
     const generation = ++restartGeneration;
     clearInterval(timer);
     engine.abort(performance.now());
     input.disabled = true;
-    qwerty.disabled = true;
-    duration.disabled = true;
-    if (practiceKind) practiceKind.disabled = true;
-    if (manualPair) manualPair.disabled = true;
     $<HTMLButtonElement>('#restart').disabled = true;
     before = null; key = null; composing = false;
     $('#exercise-state').textContent = 'Refreshing saved evidence…';
@@ -464,29 +690,30 @@ async function practice() {
       }
     }
     history = loaded.sentences;
+    evidencePending = false;
     recommendedFocus = mode === 'practice' ? selectPracticeFocus(buildHistory(history), practicePrompts, artifact) : null;
     practiceChoice = parsePracticeChoice(params.get('practice'), params.get('pair'), manualPairs, recommendedFocus, recommendationReason(history, qwerty.checked, recommendedFocus));
     focus = mode === 'practice' && practiceChoice.kind === 'recommended' ? recommendedFocus : null;
     if (practiceKind && manualPair) {
-      practiceKind.value = practiceChoice.kind;
-      practiceKind.querySelector<HTMLOptionElement>('option[value="recommended"]')!.disabled = !recommendedFocus;
-      manualPair.hidden = practiceChoice.kind !== 'manual';
-      if (practiceChoice.pair) manualPair.value = practiceChoice.pair;
+      practiceKind.value = practiceChoice.kind; // Owner-to-view sync: emits no change event.
+      suggestedItem!.toggleAttribute('disabled', !recommendedFocus);
+      showPair(practiceChoice.kind === 'manual', practiceChoice.pair);
       $('#recommendation-reason').textContent = recommendationReason(history, qwerty.checked, recommendedFocus);
     }
     prompts = choosePrompts();
     engine = makeEngine(qwerty.checked);
     input.value = '';
     previousPromptText = '';
-    $<HTMLProgressElement>('#time-progress').max = durationMs / 1000;
-    $('#duration-tag').textContent = `${durationMs / 1000} SECOND ${mode === 'practice' ? 'PRACTICE' : 'ASSESSMENT'}`;
-    if (mode === 'assessment') $('#main h1').textContent = `Your ${durationMs / 1000} second assessment.`;
+    previousResponse = '';
+    undoUsed = false;
     input.readOnly = false;
     finished = false;
     $('#completion').hidden = true;
+    $('#completion').innerHTML = '';
     lastPromptKey = '';
     lastState = '';
-    $('#exercise-warning').hidden = true;
+    slotLevel = 0; hintMark = '';
+    $('#exercise-warning').textContent = '';
     storageNotice(loaded.diagnostics);
     prepare();
     restarting = false;
@@ -495,14 +722,166 @@ async function practice() {
     $<HTMLButtonElement>('#restart').disabled = false;
     const activeEngine = engine;
     timer = setInterval(() => { if (!disposed && !restarting && engine === activeEngine) paint(); }, 100);
-    input.focus();
+    if (mayFocusInput()) input.focus();
+    if (settingsPending) { settingsPending = false; queueMicrotask(changeSettings); }
   };
   prepare();
   const initialEngine = engine;
   timer = setInterval(() => { if (!disposed && !restarting && engine === initialEngine) paint(); }, 100);
   paint();
+  // Intentional entry: autofocus only if nobody moved focus while the stage was being prepared.
+  if (!preparationFocusMoved && mayFocusInput()) input.focus();
+  refreshToday();
+  // Saved evidence arrives after first paint. It may refine predictions and Suggested availability,
+  // but it never replaces prompts the person has already seen typed into.
+  if (evidencePending) {
+    const calibrationGeneration = restartGeneration;
+    void calibration(settings(declaredQwerty, durationMs)).then(loaded => {
+      if (disposed || restarting || calibrationGeneration !== restartGeneration || engine !== initialEngine) return;
+      evidencePending = false;
+      storageNotice(loaded.diagnostics);
+      const untouched = engine.state === 'idle' && !engine.snapshot(performance.now()).value && engine.submittedSummaries.length === 0;
+      history = untouched ? loaded.sentences : loaded.sentences.reduce((merged, sentence) => appendHistory(merged, sentence), [] as SentenceSummary[]).concat(history).slice(-10);
+      recommendedFocus = mode === 'practice' ? selectPracticeFocus(buildHistory(history), practicePrompts, artifact) : null;
+      suggestedItem?.toggleAttribute('disabled', !recommendedFocus);
+      if (mode === 'practice') $('#recommendation-reason').textContent = recommendationReason(history, qwerty.checked, recommendedFocus);
+      if (untouched && params.get('practice') === 'recommended' && recommendedFocus) {
+        void $('#restart').onclick?.call(stage, new PointerEvent('click'));
+        return;
+      }
+      if (untouched) {
+        practiceChoice = parsePracticeChoice(params.get('practice'), params.get('pair'), manualPairs, recommendedFocus, recommendationReason(history, qwerty.checked, recommendedFocus));
+        prepare();
+      }
+    });
+  }
   const configurationWarning = [parsedDuration.reason, parsedQwerty.reason].filter(Boolean).join(' ');
   if (configurationWarning) warning(configurationWarning);
+}
+
+// Committed passages keep static positional error marks; they are rendered once per commit.
+function renderCommitted(target: HTMLElement, promptText: string, response: string) {
+  target.replaceChildren();
+  let run = '';
+  let runWrong = false;
+  const flush = () => {
+    if (!run) return;
+    if (runWrong) { const mark = document.createElement('span'); mark.className = 'missed'; mark.textContent = run; target.append(mark); }
+    else target.append(run);
+    run = '';
+  };
+  for (let index = 0; index < promptText.length; index++) {
+    const wrong = response[index] !== promptText[index];
+    if (wrong !== runWrong) { flush(); runWrong = wrong; }
+    run += promptText[index];
+  }
+  flush();
+}
+
+function integrityCopy(flags: readonly string[], undoUsed: boolean) {
+  // Newest flag wins (engine flags keep insertion order). Copy states today's behaviour exactly.
+  const newest = flags.at(-1);
+  if (newest === 'invalid-input' && undoUsed) return 'Undo isn’t scored: this run will be saved without accuracy and excluded from progress. Restart to keep scoring.';
+  if (newest === 'invalid-input') return 'Unsupported edit: this run will be saved without accuracy and excluded from progress. Restart to keep scoring.';
+  return 'Focus left the typing field: this run is flagged and excluded from headline progress. The timer kept running.';
+}
+
+function observedTakeaway(result: SessionResult) {
+  if (result.metrics.accuracy === null) return 'Accuracy is unavailable for this run: Undo or an unsupported edit was used.';
+  const keys = new Map<string, {count: number; errors: number}>();
+  for (const sentence of result.sentences) {
+    for (const [key, counts] of Object.entries(sentence.diagnosticsAvailable ? sentence.keys : {})) {
+      const sum = keys.get(key) ?? {count: 0, errors: 0};
+      sum.count += counts.firstAttempts; sum.errors += counts.firstErrors; keys.set(key, sum);
+    }
+  }
+  const worst = [...keys].filter(([, value]) => value.errors > 0).sort((a, b) => b[1].errors - a[1].errors || a[0].localeCompare(b[0]))[0];
+  if (!worst) return keys.size ? 'No first-attempt key errors recorded.' : 'Key diagnostics are unavailable for this run.';
+  const label = worst[0] === ' ' ? 'space' : `“${worst[0]}”`;
+  return `Most first-attempt misses: ${label} (${worst[1].errors} of ${worst[1].count}). An observation, not a diagnosis.`;
+}
+
+function resultIdentity(result: SessionResult) {
+  if (result.mode === 'assessment') return result.sourceAssessmentId ? 'Fresh retest' : 'Assessment';
+  return result.manualDrill ? `Pair practice · ${result.manualDrill.pair}` : result.practiceFocus ? `Suggested practice · ${result.practiceFocus.pair}` : 'General practice';
+}
+
+// The result replaces the passage in place: two equal figures, one observed takeaway, one primary action.
+function resultPanel(result: SessionResult, history: readonly SentenceSummary[]) {
+  const seconds = result.settings.durationMs / 1000;
+  const query = `duration=${seconds}&qwerty=${result.settings.qwerty ? '1' : '0'}`;
+  let actions: string;
+  if (result.mode === 'practice') {
+    actions = `<button class="key key-primary" id="again" type="button">again ↵</button><span class="action-note">same settings, new sentences</span>`;
+  } else {
+    // Assessments never loop on "again": Practice next is primary, a compatible fresh retest secondary.
+    const focus = result.settings.qwerty ? selectPracticeFocus(buildHistory(history), practicePrompts, artifact) : null;
+    const retest = resolveRetest(result, result.settings, assessmentPrompts);
+    actions = `<a class="key key-primary" id="practice-next" href="./practice.html?mode=practice&practice=${focus ? 'recommended' : 'general'}&from=${encodeURIComponent(result.id)}&${query}">practice next${focus ? ` · ${focus.pair}` : ''} ↵</a>`
+      + (retest.kind === 'retest' ? `<a class="key" id="retest-next" href="./practice.html?retest=${encodeURIComponent(result.id)}&${query}">fresh retest</a>` : `<a class="key" id="retest-next" href="./practice.html?${query}">new assessment</a>`);
+  }
+  const flagged = result.eligibleForProgress ? '' : `<p class="result-flag">${result.metrics.accuracy === null ? 'Excluded from progress: Undo or an unsupported edit was used, so accuracy is unavailable.' : 'Flagged: this run was interrupted or used unsupported input. It is saved with a label and excluded from headline progress.'}</p>`;
+  return `<h2 class="micro result-label">${resultIdentity(result)} · ${seconds} s · complete</h2>
+    <dl class="result-figures"><div><dt>wpm</dt><dd>${format(result.metrics.wpm)}</dd></div><div><dt>accuracy</dt><dd>${accuracy(result.metrics.accuracy)}</dd></div></dl>
+    <p class="result-observation">${observedTakeaway(result)}</p>${flagged}
+    <div class="result-actions">${actions}</div>
+    <div class="save-row"><p id="save-state" class="micro save-state" role="status">Saving to this browser…</p><button id="retry-save" class="key key-small" type="button" hidden>retry saving</button><button id="export-current" class="key key-small" type="button">export</button></div>
+    <ui-collapsible class="result-details"><ui-collapsible-trigger><button type="button" class="text-button">details</button></ui-collapsible-trigger><ui-collapsible-panel keep-mounted hidden>${metricCards(result)}<p class="micro">Accuracy includes mistakes you corrected. Deleted characters are reported separately. ${result.sentences.filter(sentence => sentence.submitted).length} passages submitted.</p><a id="full-result" class="text-link" href="./results.html?id=${encodeURIComponent(result.id)}" hidden>full result, timing and export options →</a></ui-collapsible-panel></ui-collapsible>`;
+}
+
+type Activity = { practice: number; practiceMs: number; flagged: number; flaggedMs: number; assessments: number; complete: boolean };
+// Bounded: today's line reads at most five newest-first pages and says when it stopped early.
+async function todayActivity(): Promise<Activity> {
+  const midnight = new Date(); midnight.setHours(0, 0, 0, 0);
+  const activity: Activity = {practice: 0, practiceMs: 0, flagged: 0, flaggedMs: 0, assessments: 0, complete: true};
+  let cursor: {completedAt: string; id: string} | null = null;
+  for (let page = 0; page < 5; page++) {
+    const batch = await listResultsPage(cursor, 100);
+    for (const result of batch) {
+      if (new Date(result.completedAt) < midnight) return activity;
+      countActivity(activity, result);
+    }
+    if (batch.length < 100) return activity;
+    const last = batch.at(-1)!; cursor = {completedAt: last.completedAt, id: last.id};
+  }
+  activity.complete = false;
+  return activity;
+}
+function countActivity(activity: Activity, result: SessionResult) {
+  if (result.mode === 'assessment') { activity.assessments++; return; }
+  if (result.eligibleForProgress) { activity.practice++; activity.practiceMs += result.metrics.elapsedMs; }
+  else { activity.flagged++; activity.flaggedMs += result.metrics.elapsedMs; }
+}
+function sessionTime(ms: number) {
+  const seconds = Math.round(ms / 1000);
+  return seconds >= 60 ? `${Math.floor(seconds / 60)} min${seconds % 60 ? ` ${seconds % 60} s` : ''}` : `${seconds} s`;
+}
+function todayText(activity: Activity) {
+  const parts = [activity.practice ? `${activity.practice} practice block${activity.practice === 1 ? '' : 's'} · ${sessionTime(activity.practiceMs)} recorded` : 'no practice blocks yet'];
+  if (activity.flagged) parts.push(`${activity.flagged} flagged (${sessionTime(activity.flaggedMs)}, excluded)`);
+  if (activity.assessments) parts.push(`${activity.assessments} assessment${activity.assessments === 1 ? '' : 's'}`);
+  return `Today: ${parts.join(' · ')}${activity.complete ? '' : ' · partial (500 newest checked)'}`;
+}
+// Observed practice activity by local calendar day. Flagged blocks are a separately labelled
+// subtotal; assessments are counted, never pooled with practice.
+function renderActivity(history: readonly SessionResult[]) {
+  const zone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'this device’s time zone';
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const weekStart = new Date(today); weekStart.setDate(weekStart.getDate() - 6);
+  const day: Activity = {practice: 0, practiceMs: 0, flagged: 0, flaggedMs: 0, assessments: 0, complete: true};
+  const week: Activity = {...day};
+  const days = new Set<string>();
+  for (const result of history) {
+    const completed = new Date(result.completedAt);
+    if (completed >= weekStart) { countActivity(week, result); if (result.mode === 'practice') days.add(completed.toDateString()); }
+    if (completed >= today) countActivity(day, result);
+  }
+  $('#activity-scope').textContent = `Local calendar days in ${zone}. Recorded session time is the elapsed time of saved blocks, not active typing time. Flagged blocks are counted separately and never as assessment evidence.`;
+  const cell = (label: string, value: string, note = '') => `<div><dt>${label}</dt><dd>${value}${note ? ` <small>${note}</small>` : ''}</dd></div>`;
+  $('#activity-grid').innerHTML = cell('today', `${day.practice} block${day.practice === 1 ? '' : 's'}`, sessionTime(day.practiceMs))
+    + cell('last 7 days', `${week.practice} block${week.practice === 1 ? '' : 's'}`, `${sessionTime(week.practiceMs)} · ${days.size} day${days.size === 1 ? '' : 's'}`)
+    + cell('flagged, 7 days', `${week.flagged}`, `${sessionTime(week.flaggedMs)} excluded`)
+    + cell('assessments, 7 days', `${week.assessments}`, 'trend below');
 }
 
 function metricCards(result: SessionResult) {
@@ -523,7 +902,7 @@ function drawChart(values: { x: number; y: number }[], container: HTMLElement, m
   const maximumY = Math.max(20, ...values.map((sample) => sample.y));
   const coordinates = values.map((sample) => `${10 + sample.x / maximumX * 480},${150 - sample.y / maximumY * 130}`).join(' ');
   const points = values.map((sample) => `<circle cx="${10 + sample.x / maximumX * 480}" cy="${150 - sample.y / maximumY * 130}" r="2" fill="currentColor"/>`).join('');
-  container.innerHTML = `<svg class="chart" viewBox="0 0 500 170" role="img" aria-label="Speed chart; text summary follows"><path d="M10 20H490 M10 85H490 M10 150H490" stroke="#263345" fill="none"/><polyline points="${coordinates}" fill="none" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke"/>${points}</svg>`;
+  container.innerHTML = `<svg class="chart" viewBox="0 0 500 170" role="img" aria-label="Speed chart; text summary follows"><path d="M10 20H490 M10 85H490 M10 150H490" stroke="#D5D0C4" fill="none"/><polyline points="${coordinates}" fill="none" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke"/>${points}</svg>`;
 }
 
 async function results() {
@@ -664,11 +1043,13 @@ function renderResultDetails(result: SessionResult) {
 
 async function progress() {
   const history = await listResults();
-  shell(`<div class="page-heading"><div><p class="eyebrow">Small steps, saved</p><h1>Your practice, over time.</h1><p class="small">History is saved in this browser. Export it to keep a separate copy.</p></div><a class="button" href="./practice.html">New assessment ↗</a></div>
+  shell(`<div class="page-heading"><div><p class="eyebrow">Small steps, saved</p><h1>Your practice, over time.</h1><p class="small">History is saved in this browser. Export it to keep a separate copy.</p></div><div class="actions"><a class="button" href="./index.html">Practise</a><a class="button secondary" href="./practice.html">New assessment</a></div></div>
+    <section class="panel activity" aria-labelledby="activity-title"><h2 id="activity-title">Practice activity</h2><p id="activity-scope" class="small"></p><dl class="activity-grid" id="activity-grid"></dl></section>
     <div id="history-content"></div><p id="history-status" class="status" role="status"></p>`);
+  renderActivity(history);
   if (!history.length) {
     storageNotice(getStorageDiagnostics());
-    $('#history-content').innerHTML = `<section class="panel empty"><h2>Everyone starts with one session.</h2><p class="lead">Your completed assessments and practice sessions will appear here.</p><a class="button" href="./practice.html">Take your first assessment</a></section>`;
+    $('#history-content').innerHTML = `<section class="panel empty"><h2>Everyone starts with one session.</h2><p class="lead">Your completed practice blocks and assessments will appear here.</p><a class="button" href="./index.html">Start practising</a></section>`;
     return;
   }
   storageNotice(getStorageDiagnostics());
@@ -803,7 +1184,7 @@ try {
   else if (page === 'results') await results();
   else if (page === 'progress') await progress();
   else if (page === 'lab') lab();
-  else home();
+  else await home();
 } catch (error) {
   showError(error instanceof Error ? error.message : 'Browser storage is unavailable. Try again in a browser with local storage enabled.');
 }

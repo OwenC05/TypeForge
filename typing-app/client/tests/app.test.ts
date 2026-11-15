@@ -58,7 +58,7 @@ function calibration(load: (cursor: unknown)=>Promise<SessionResult[]>) {
 function practiceContext() {
  const code=source.slice(source.indexOf('function parsePracticeChoice('),source.indexOf('async function calibration('));
  const parsePracticeChoice=runInNewContext(`${stripTypeScriptTypes(code)}; parsePracticeChoice`,{});
- return {practiceKind:null,manualPair:null,manualPairs:['at','th'],recommendedFocus:null,practiceChoice:{kind:'general'},parsePracticeChoice,recommendationReason:()=>'',originId:undefined};
+ return {practiceKind:null,manualPair:null,manualPairs:['at','th'],recommendedFocus:null,practiceChoice:{kind:'general'},parsePracticeChoice,recommendationReason:()=>'',originId:undefined,mayFocusInput:()=>true,settingsPending:false};
 }
 function fixture():SessionResult{return JSON.parse(readFileSync(new URL('./fixtures/legacy-v1.json',import.meta.url),'utf8'));}
 
@@ -206,7 +206,7 @@ test('flagged safety-stop warning remains truthful after repeated paint and keyb
   qwerty:{},duration:{},practiceKind:null,manualPair:null,restarting:false,disposed:false,
   input:{selectionStart:8,selectionEnd:8,selectionDirection:'none',value,readOnly:false},
   lastPromptKey:'0:accepted:8:8:8',lastState:'running',finished:false,before:{},key:{},timer:1,
-  clearInterval:()=>{},format:String,accuracy:String,$:node,warning:(message:string)=>{node('#exercise-warning').textContent=message;},download:()=>{}};
+  clearInterval:()=>{},format:String,accuracy:String,setRunState:()=>{},$:node,warning:(message:string)=>{node('#exercise-warning').textContent=message;},download:()=>{}};
  const paint=runInNewContext(`${stripTypeScriptTypes(code)}; paint`,context);context.paint=paint;
  paint();const stoppedWarning=node('#exercise-warning').textContent;
  assert.match(stoppedWarning,/Stopped safely: result-limit.*will not be saved/);assert.equal(context.input.readOnly,true);
@@ -286,11 +286,11 @@ test('save failure distinguishes permanent validation rejection from retryable b
   const retry={disabled:false,hidden:true},status={textContent:''};let saves=0,navigations=0;
   const context:any={restartGeneration:0,disposed:false,result:{id:'test'},encodeURIComponent,ResultValidationError,
    saveResult:async()=>{saves++;if(saves===1)throw permanent?new ResultValidationError('invalid result'):Error('storage unavailable');},
-   location:{assign:()=>navigations++},$:(selector:string)=>selector==='#retry-save'?retry:status};
+   refreshToday:()=>{},location:{assign:()=>navigations++},$:(selector:string)=>selector==='#retry-save'?retry:status};
   const save=runInNewContext(`${stripTypeScriptTypes(source.slice(begin,end))}; attemptSave`,context);
   await save();assert.equal(navigations,0);
   if(permanent){assert.equal(retry.hidden,true);assert.match(status.textContent,/cannot be saved|validation/i);await save();assert.equal(saves,1);}
-  else {assert.equal(retry.hidden,false);assert.equal(retry.disabled,false);assert.match(status.textContent,/retry/i);await save();assert.equal(saves,2);assert.equal(navigations,1);}
+  else {assert.equal(retry.hidden,false);assert.equal(retry.disabled,false);assert.match(status.textContent,/retry/i);await save();assert.equal(saves,2);assert.equal(navigations,0);assert.match(status.textContent,/^Saved in this browser/);}
  }
 });
 
@@ -301,7 +301,7 @@ test('permanently rejected completion keeps export enabled and never navigates',
  const nodes=new Map<string,any>();const node=(selector:string)=>{if(!nodes.has(selector))nodes.set(selector,{disabled:false,hidden:true,textContent:''});return nodes.get(selector);};
  let saves=0,navigations=0,exported:unknown;
  const context:any={finished:false,clearInterval:()=>{},timer:1,before:{},key:{},input:{value:'',disabled:false},
-  performance:{now:()=>60},engine:{snapshot:()=>({value:'accepted'}),result:()=>result},$:node,metricCards:()=>'',
+  performance:{now:()=>60},engine:{snapshot:()=>({value:'accepted'}),result:()=>result},$:node,metricCards:()=>'',resultPanel:()=>'',afterResultRendered:()=>{},history:[],
   restartGeneration:0,disposed:false,ResultValidationError,saveResult:async()=>{saves++;throw new ResultValidationError('invalid');},
   download:(data:unknown)=>{exported=data;},location:{assign:()=>navigations++}};
  const finish=runInNewContext(`${stripTypeScriptTypes(code)}; finish`,context);
