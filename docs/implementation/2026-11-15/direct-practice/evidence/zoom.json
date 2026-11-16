@@ -1,0 +1,143 @@
+{
+  "generatedAt": "2026-11-16T12:35:32.781Z",
+  "base": "http://127.0.0.1:5301",
+  "method": "Chrome profile preference partition.default_zoom_level (browser zoom), headless system Chrome 1440x900 window, viewport emulation off",
+  "requestedZoomLevel": 3.8017840169239308,
+  "states": {
+    "ready": {
+      "viewport": {
+        "w": 704,
+        "h": 398
+      },
+      "scrollY": 0,
+      "stage": {
+        "x": 16,
+        "y": 132,
+        "w": 672,
+        "h": 412.5
+      },
+      "surface": {
+        "x": 16,
+        "y": 227.5,
+        "w": 672,
+        "h": 192
+      },
+      "slot": {
+        "x": 16,
+        "y": 439.5,
+        "w": 672,
+        "h": 80
+      },
+      "restart": {
+        "x": 614.52,
+        "y": 419.5,
+        "w": 73.48,
+        "h": 40
+      },
+      "rail": {
+        "x": 16,
+        "y": 76,
+        "w": 672,
+        "h": 40
+      },
+      "prompt": {
+        "x": 16,
+        "y": 267.09,
+        "w": 665.26,
+        "h": 32
+      },
+      "caret": {
+        "x": 16,
+        "y": 271.09,
+        "w": 11,
+        "h": 23.5
+      },
+      "activeLineTop": 271.09375,
+      "activeLineTopPct": 68.11,
+      "surfaceScrollTop": 0,
+      "passageFontPx": 20,
+      "slotText": "",
+      "slotOverflow": false,
+      "docOverflowX": false,
+      "focused": "textarea#typing-input",
+      "railFits": true,
+      "restartVisible": false,
+      "screenshot": "screenshots/zoom200-01-ready.png"
+    },
+    "error": {
+      "viewport": {
+        "w": 704,
+        "h": 398
+      },
+      "scrollY": 0,
+      "stage": {
+        "x": 16,
+        "y": 132,
+        "w": 672,
+        "h": 412.5
+      },
+      "surface": {
+        "x": 16,
+        "y": 227.5,
+        "w": 672,
+        "h": 192
+      },
+      "slot": {
+        "x": 16,
+        "y": 439.5,
+        "w": 672,
+        "h": 80
+      },
+      "restart": {
+        "x": 614.52,
+        "y": 419.5,
+        "w": 73.48,
+        "h": 40
+      },
+      "rail": {
+        "x": 16,
+        "y": 76,
+        "w": 672,
+        "h": 40
+      },
+      "prompt": {
+        "x": 16,
+        "y": 267.09,
+        "w": 665.26,
+        "h": 32
+      },
+      "caret": {
+        "x": 115,
+        "y": 271.09,
+        "w": 11,
+        "h": 23.5
+      },
+      "activeLineTop": 271.09375,
+      "activeLineTopPct": 68.11,
+      "surfaceScrollTop": 0,
+      "passageFontPx": 20,
+      "slotText": "",
+      "slotOverflow": false,
+      "docOverflowX": false,
+      "focused": "textarea#typing-input",
+      "railFits": true,
+      "restartVisible": false,
+      "expectedTag": {
+        "expected": "␣",
+        "glyphTop": 271.09375,
+        "inView": true
+      },
+      "screenshot": "screenshots/zoom200-02-first-mismatch.png"
+    }
+  },
+  "measured": {
+    "devicePixelRatio": 2,
+    "innerWidth": 704,
+    "innerHeight": 398,
+    "outerWidth": 1440,
+    "outerHeight": 900
+  },
+  "zoomApplied": true,
+  "pageErrors": [],
+  "verdict": "true browser zoom applied and measured"
+}
