@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-16T12:51:45.310Z",
+  "generatedAt": "2026-11-16T12:54:45.008Z",
   "branch": "OwenC05/tf-direct-practice",
   "clientCommit": "8ede09ded9f7a3500ccec598c1adcc3ca8b2aaa7",
   "sourceCommit": "1ad38ca3e1a3b84f06198cc6f26ad637a0e9a177",
@@ -49,8 +49,17 @@
       "note": "no served-build record in this receipt; see report.md for the build it ran on"
     },
     "geometry.json": {
-      "recordedBuild": null,
-      "note": "no served-build record in this receipt; see report.md for the build it ran on"
+      "recordedBuild": [
+        [
+          "app-BQOyU45s.css",
+          "app-Dvv-e4Tc.js",
+          "define-element-B_WeKIXB.js",
+          "env-B-odJnus.js"
+        ]
+      ],
+      "matchesThisDist": [
+        true
+      ]
     },
     "late-history.json": {
       "recordedBuild": [
@@ -79,8 +88,17 @@
       ]
     },
     "states.json": {
-      "recordedBuild": null,
-      "note": "no served-build record in this receipt; see report.md for the build it ran on"
+      "recordedBuild": [
+        [
+          "app-BQOyU45s.css",
+          "app-Dvv-e4Tc.js",
+          "define-element-B_WeKIXB.js",
+          "env-B-odJnus.js"
+        ]
+      ],
+      "matchesThisDist": [
+        true
+      ]
     },
     "timing.json": {
       "recordedBuild": [
@@ -139,8 +157,17 @@
       ]
     },
     "zoom.json": {
-      "recordedBuild": null,
-      "note": "no served-build record in this receipt; see report.md for the build it ran on"
+      "recordedBuild": [
+        [
+          "app-BQOyU45s.css",
+          "app-Dvv-e4Tc.js",
+          "define-element-B_WeKIXB.js",
+          "env-B-odJnus.js"
+        ]
+      ],
+      "matchesThisDist": [
+        true
+      ]
     }
   }
 }
