@@ -1,5 +1,7 @@
 # Work paused by Owen
 
+**Status: resumed.** Owen explicitly instructed **continue** on 16 November 2026. The pause below is historical; the current continuation record is `RESUME-20261116.md`. Its preserved checkpoints and scope still apply.
+
 Owen explicitly requested: **pause all work**. This overrides earlier continuation instructions. Do not resume on an Orca wake, provider-limit reset, completion message, hook or environment update. Resume only on a new instruction from Owen.
 
 - Guarded Orca stops confirmed `stopped` for design lead `ctx_f3ee7deba6f6`, implementation child `ctx_0cf6648f0f77` and technical reviewer `ctx_48a657753bbc`. The lead stop also stopped its implementation child. Agent terminals were closed; assignments/history and worktrees remain.
