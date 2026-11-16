@@ -582,7 +582,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     // Only while this block's result is still on screen (Again, a setting or disposal replace it).
     $('#retry-save').onclick = () => void attemptSave().then(() => {
       if (disposed || generation !== restartGeneration) return;
-      if (document.getElementById('retry-save')?.hidden) afterResultRendered();
+      if (($('#retry-save') as HTMLElement | null)?.hidden) afterResultRendered();
     });
     $('#export-current').onclick = () => { record.exported = true; download(result, `typeforge-${result.id}.json`); };
     await attemptSave();
