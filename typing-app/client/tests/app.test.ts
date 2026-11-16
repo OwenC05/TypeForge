@@ -58,7 +58,7 @@ function calibration(load: (cursor: unknown)=>Promise<SessionResult[]>) {
 function practiceContext() {
  const code=source.slice(source.indexOf('function parsePracticeChoice('),source.indexOf('async function calibration('));
  const parsePracticeChoice=runInNewContext(`${stripTypeScriptTypes(code)}; parsePracticeChoice`,{});
- return {practiceKind:null,manualPair:null,manualPairs:['at','th'],recommendedFocus:null,practiceChoice:{kind:'general'},parsePracticeChoice,recommendationReason:()=>'',originId:undefined,mayFocusInput:()=>true,settingsPending:false};
+ return {practiceKind:null,manualPair:null,manualPairs:['at','th'],recommendedFocus:null,practiceChoice:{kind:'general'},parsePracticeChoice,recommendationReason:()=>'',originId:undefined,mayFocusInput:()=>true,settingsPending:false,carryUnsaved:()=>{}};
 }
 function fixture():SessionResult{return JSON.parse(readFileSync(new URL('./fixtures/legacy-v1.json',import.meta.url),'utf8'));}
 

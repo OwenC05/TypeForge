@@ -167,6 +167,11 @@ body[data-run=completed] .today { display: block; }
 /* Only the first line steps around restart; long notices scroll inside the fixed slot instead of growing it. */
 .slot::before { content: ''; float: right; width: 120px; height: 12px; }
 .slot-text { margin: 0; font-size: 14px; line-height: 1.5; color: var(--muted); }
+/* Unsaved results (ET-1): one persistent line, first in the slot; the slot keeps its fixed height. */
+.carried { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin: 0 0 6px; padding-left: 10px; border-left: 3px solid var(--vermilion-deep); font-size: 14px; line-height: 1.5; color: var(--ink); }
+.carried .key-small { min-height: 28px; padding: 0 8px; font-size: 13px; }
+.carried[inert] .key-small { color: var(--graphite); box-shadow: none; }
+.carried:not([hidden]) ~ .slot-text:empty::before { content: none; }
 .slot-text.is-notice { color: var(--ink); border-left: 3px solid var(--vermilion-deep); padding-left: 10px; }
 .stage[data-state=idle] .slot-text:empty::before { content: 'start typing — the clock starts with your first letter'; font: 14px var(--mono); color: var(--muted); }
 .foot-hints { margin: 4px 0 0; font: 13px var(--mono); color: var(--muted); }
@@ -181,7 +186,7 @@ body[data-run=stopped] .rail, body[data-run=stopped] .today { visibility: hidden
 
 /* ---------- Result in place ---------- */
 .stage[data-state=completed] .run-line, .stage[data-state=completed] .surface-wrap, .stage[data-state=completed] .foot-hints,
-.stage[data-state=completed] #restart, .stage[data-state=completed] .slot-row:has(.slot-text:empty) { display: none; }
+.stage[data-state=completed] #restart, .stage[data-state=completed] .slot-row:has(.slot-text:empty):not(:has(.carried:not([hidden]))) { display: none; }
 .stage[data-state=completed] .slot-row::before { display: none; }
 .stage[data-state=completed] .slot { padding: 0 0 12px; height: auto; }
 .stage[data-state=completed] .slot::before { display: none; }

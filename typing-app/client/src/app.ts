@@ -7,6 +7,7 @@ import { CORPUS_VERSION, selectPrompts, practicePrompts, assessmentPrompts } fro
 import { TypingEngine, type SessionResult, type SentenceSummary, SUPPORTED_DURATIONS, type DurationMs } from './engine.ts';
 import { ResultValidationError, saveResult, getResult, listResults, deleteResult, listResultsPage, getStorageDiagnostics } from './storage.ts';
 import { loadPreferences, savePreferences, withRemembered } from './preferences.ts';
+import { UnsavedResults, unsavedLine, type SaveRecord } from './unsaved.ts';
 
 import { parseModelArtifact, predictSentence, type ModelArtifact } from './model.ts';
 import { selectHistory, buildHistory, appendHistory, selectPracticeFocus, selectDrillPrompts, resolveRetest, compatible, compatibleSettings, supportedManualPairs } from './profile.ts';
@@ -242,7 +243,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
       </div>
     </div>
     <div class="slot-row">
-      <div class="slot" id="slot" role="status" aria-live="polite"><p id="exercise-warning" class="slot-text"></p></div>
+      <div class="slot" id="slot" role="status" aria-live="polite"><div class="carried" id="carried" hidden></div><p id="exercise-warning" class="slot-text"></p></div>
       <button class="key" id="restart" type="button">restart</button>
     </div>
     <p class="foot-hints"><kbd>space</kbd> next<span class="wide-only"> passage</span> · <kbd>backspace</kbd> fix<span class="wide-only"> · <kbd>tab</kbd> <kbd>enter</kbd> restart</span></p>
@@ -252,10 +253,18 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
   </div>`, {stage: true});
   const makeEngine = (qwerty: boolean) => new TypingEngine({ id: crypto.randomUUID(), prompts, mode, durationMs, inputMode: 'flow-v1', corpusVersion: CORPUS_VERSION, qwerty, ...(focus ? {practiceFocus: focus} : {}), ...(mode === 'practice' && practiceChoice.kind === 'manual' ? {manualDrill: {pair: practiceChoice.pair!, source: 'manual' as const}} : {}), ...(sourceAssessmentId ? {sourceAssessmentId} : {}) });
   let engine = makeEngine(declaredQwerty);
+  // Predictions freeze once per sentence. Late evidence re-runs prepare() for labels and
+  // Suggested availability; it refines predictions from the next sentence, never re-freezes.
+  const prepared = new WeakMap<TypingEngine, {sentenceIndex: number; preparation: ReturnType<typeof predictSentence> | null}>();
   function prepare(now = performance.now()) {
     const snapshot = engine.snapshot(now);
-    const preparation = qwerty.checked ? predictSentence(snapshot.prompt.text, buildHistory(history), artifact) : null;
-    if (preparation?.predictions) engine.setSentencePredictions(snapshot.sentenceIndex, preparation.predictions);
+    const earlier = prepared.get(engine);
+    const preparation = earlier?.sentenceIndex === snapshot.sentenceIndex ? earlier.preparation
+      : qwerty.checked ? predictSentence(snapshot.prompt.text, buildHistory(history), artifact) : null;
+    if (earlier?.sentenceIndex !== snapshot.sentenceIndex) {
+      if (preparation?.predictions) engine.setSentencePredictions(snapshot.sentenceIndex, preparation.predictions);
+      prepared.set(engine, {sentenceIndex: snapshot.sentenceIndex, preparation});
+    }
     $('#prediction-state').textContent = !qwerty.checked ? 'Timing predictions require a declared physical QWERTY keyboard.' : preparation?.status === 'candidate-and-baseline' ? 'Experimental model + historical baseline · predictions frozen before each sentence.' : `${preparation?.status === 'baseline-only' ? 'Historical baseline only' : 'Predictions unavailable'}: ${preparation?.reason ?? 'No supported observations yet.'}`;
     $('#focus-state').textContent = [lineageMessage, practiceChoice.reason, mode === 'practice' && practiceChoice.kind === 'manual' ? `Manual pair: ${practiceChoice.pair} · chosen by you, not a diagnosed weakness. Two focused sentences, then one general sentence.` : (focus ? `Focus: ${focus.pair} · ${focus.evidenceCount} observations · baseline ${focus.baselineVersion}. Two focused sentences, then one general sentence.` : mode === 'practice' ? 'General practice · no supported targeted focus selected.' : 'Keep typing; a space after the last word brings the next passage.')].filter(Boolean).join(' ');
     // Observed facts only: the current choice, never an invented target.
@@ -294,6 +303,77 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
   let undoUsed = false;
   let repeatRequested = false;
 
+  // ET-1: completed results whose save is not confirmed stay recoverable on this page (src/unsaved.ts).
+  // Same-page continuation adopts the current record; leaving the page holds once while any remain.
+  let currentSave: SaveRecord | null = null;
+  let leavingTo: string | null = null;
+  let leaveConfirmed = false;
+  const unsaved = new UnsavedResults({
+    save: saveResult, exists: async id => Boolean(await getResult(id)),
+    isPermanent: error => error instanceof ResultValidationError, onChange: () => renderUnsaved(),
+  });
+  function carryUnsaved() { const record = currentSave; currentSave = null; unsaved.adopt(record); }
+  // One line in the reserved slot, above any other message (highest priority), fixed slot height.
+  function renderUnsaved() {
+    if (disposed) return;
+    const line = $('#carried');
+    const atRisk = unsaved.atRisk(currentSave);
+    if (leavingTo && !atRisk.length) leavingTo = null; // everything saved while held: nothing to lose
+    const list = leavingTo ? atRisk : unsaved.listed;
+    const text = unsavedLine(list, unsaved.retrying, Boolean(leavingTo));
+    const canRetry = !leavingTo && !unsaved.retrying && list.some(entry => entry.state === 'failed');
+    const renderKey = `${leavingTo ?? ''}|${text}|${canRetry}`;
+    line.inert = engine.state === 'running'; // static during a run: never focusable, never steals focus
+    if (line.dataset.key === renderKey) return;
+    line.dataset.key = renderKey;
+    const hadFocus = line.contains(document.activeElement);
+    line.hidden = !text;
+    if (!text) {
+      line.replaceChildren();
+      if (hadFocus) returnFocus();
+      return;
+    }
+    line.innerHTML = `<span class="carried-text"></span>${leavingTo ? '' : `<button type="button" class="key key-small" data-act="retry"${canRetry ? '' : ' disabled'}>retry save</button>`}`
+      + `<button type="button" class="key key-small" data-act="export">export</button>`
+      + `<button type="button" class="key key-small" data-act="${leavingTo ? 'leave' : 'discard'}">${leavingTo ? 'leave without saving' : 'discard'}</button>`;
+    line.querySelector('.carried-text')!.textContent = text;
+    if (hadFocus) line.querySelector<HTMLButtonElement>(leavingTo ? '[data-act="export"]' : '[data-act="retry"]:not(:disabled), [data-act="export"]')?.focus();
+  }
+  $('#carried').addEventListener('click', event => {
+    const act = (event.target as Element | null)?.closest<HTMLButtonElement>('button[data-act]')?.dataset.act;
+    if (!act || disposed) return;
+    if (act === 'retry') void unsaved.retry();
+    else if (act === 'export') {
+      // One file, the existing per-result export format for each entry, oldest first.
+      const list = leavingTo ? unsaved.atRisk(currentSave) : [...unsaved.listed];
+      download(list.map(entry => entry.result), `typeforge-unsaved-${list.length}-results.json`);
+      for (const entry of list) entry.exported = true;
+      $('#carried').dataset.key = '';
+      renderUnsaved();
+    } else if (act === 'discard') unsaved.discard();
+    else if (act === 'leave' && leavingTo) { const destination = leavingTo; leavingTo = null; leaveConfirmed = true; location.assign(destination); }
+  });
+  // Leaving the page loses the in-memory list, so while any result is unsaved the first in-app
+  // navigation is held: the slot line explains, Export takes focus, and leaving is a second choice.
+  document.addEventListener('click', event => {
+    if (disposed || leaveConfirmed || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = (event.target as Element | null)?.closest?.('a[href]') as HTMLAnchorElement | null;
+    if (!link || (link.target && link.target !== '_self') || link.hasAttribute('download')) return;
+    const destination = new URL(link.href, location.href);
+    if (destination.origin !== location.origin || (destination.pathname === location.pathname && destination.search === location.search && destination.hash)) return;
+    if (!unsaved.atRisk(currentSave).length) return;
+    event.preventDefault();
+    if (currentSave) currentSave.onSettled ??= () => renderUnsaved();
+    leavingTo = destination.href;
+    renderUnsaved();
+    $<HTMLButtonElement>('#carried [data-act="export"]').focus();
+  }, true);
+  function returnFocus() {
+    if (document.activeElement && document.activeElement !== document.body) return;
+    if (engine.state === 'completed') document.querySelector<HTMLElement>('#again, #practice-next')?.focus();
+    else if (!input.disabled) input.focus();
+  }
+
   // Reserved feedback slot. Levels: 1 transient hint, 2 integrity/Undo notice, 3 safety stop.
   // Its height is fixed, so showing, replacing or clearing a message never moves the stage.
   function warning(message: string, level = 1) {
@@ -323,6 +403,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     why.inert = running;
     if (running && why.open) why.api.close();
     $('#continue-typing').textContent = running ? 'continue typing ↵' : 'start typing ↵';
+    $('#carried').inert = running;
   }
   // Focus moves to the native input only from neutral focus or the control that asked for it.
   function mayFocusInput() {
@@ -456,25 +537,34 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     const completion = $('#completion');
     completion.hidden = false;
     completion.innerHTML = resultPanel(result, history);
-    $('#export-current').onclick = () => download(result, `typeforge-${result.id}.json`);
     afterResultRendered();
     const generation = restartGeneration;
+    // The immutable payload's own outcome record: stale-generation guards protect this block's UI,
+    // but every outcome still reaches its record (and the unsaved list once the person moved on).
+    const record: SaveRecord = {result, state: 'pending', saving: false, exported: false, reason: '', onSettled: null};
+    currentSave = record;
     let saving = false;
     let permanentlyRejected = false;
     const attemptSave = async () => {
       if (saving || permanentlyRejected || disposed || generation !== restartGeneration) return;
       saving = true;
+      record.state = 'pending';
       $<HTMLButtonElement>('#retry-save').disabled = true;
       try {
         await saveResult(result);
+        record.state = 'saved';
+        record.onSettled?.();
         if (disposed || generation !== restartGeneration) return;
         $('#save-state').textContent = 'Saved in this browser.';
         $('#retry-save').hidden = true;
         $('#full-result').hidden = false;
         refreshToday(result);
       } catch (error) {
+        record.state = 'failed';
+        record.onSettled?.();
         if (disposed || generation !== restartGeneration) return;
         permanentlyRejected = error instanceof ResultValidationError;
+        if (permanentlyRejected) { record.state = 'rejected'; record.reason = 'It failed validation and cannot be saved here; export it instead.'; }
         $('#save-state').textContent = permanentlyRejected
           ? 'This result cannot be saved because it failed validation. Export it before leaving; retrying cannot repair this result.'
           : 'This result could not be saved. Export it before leaving, or retry when browser storage is available.';
@@ -482,7 +572,9 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
         $<HTMLButtonElement>('#retry-save').disabled = permanentlyRejected;
       } finally { saving = false; }
     };
-    $('#retry-save').onclick = () => void attemptSave();
+    // A retry that succeeds hides its own (focused) button: hand focus to the primary action, not to body.
+    $('#retry-save').onclick = () => void attemptSave().then(() => { if ($('#retry-save').hidden) afterResultRendered(); });
+    $('#export-current').onclick = () => { record.exported = true; download(result, `typeforge-${result.id}.json`); };
     await attemptSave();
   }
 
@@ -661,6 +753,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
   $('#restart').onclick = async () => {
     if (restarting || disposed || (paint().state === 'completed' && !repeatRequested)) return;
     repeatRequested = false;
+    carryUnsaved(); // Again or a result-state setting: continue now, keep any unsaved result listed
     restarting = true;
     const generation = ++restartGeneration;
     clearInterval(timer);
@@ -752,6 +845,12 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
         practiceChoice = parsePracticeChoice(params.get('practice'), params.get('pair'), manualPairs, recommendedFocus, recommendationReason(history, qwerty.checked, recommendedFocus));
         prepare();
       }
+    }).catch(() => {
+      // Optional evidence only: General practice is unaffected; a quiet note in Why?, never a banner.
+      if (disposed || calibrationGeneration !== restartGeneration) return;
+      evidencePending = false;
+      suggestedItem?.toggleAttribute('disabled', !recommendedFocus);
+      if (mode === 'practice') $('#recommendation-reason').textContent = 'Saved evidence could not be read; general practice is unaffected.';
     });
   }
   const configurationWarning = [parsedDuration.reason, parsedQwerty.reason].filter(Boolean).join(' ');
