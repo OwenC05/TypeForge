@@ -560,6 +560,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
         record.onSettled?.();
         if (disposed || generation !== restartGeneration) return;
         $('#save-state').textContent = 'Saved in this browser.';
+        $('#save-state').className = 'micro save-state'; // quiet again after a successful retry
         $('#retry-save').hidden = true;
         $('#full-result').hidden = false;
         refreshToday(result);
@@ -571,6 +572,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
         record.onSettled?.();
         if (disposed || generation !== restartGeneration) return;
         permanentlyRejected = permanent;
+        $('#save-state').className = 'micro save-state is-failed'; // presentation only: the notice treatment
         $('#save-state').textContent = permanentlyRejected
           ? 'This result cannot be saved because it failed validation. Export it before leaving; retrying cannot repair this result.'
           : 'This result could not be saved. Export it before leaving, or retry when browser storage is available.';
