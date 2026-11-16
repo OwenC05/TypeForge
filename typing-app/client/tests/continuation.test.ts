@@ -85,6 +85,20 @@ test('ET-1: a pending save that fails after Again appears then; one that succeed
   }
 });
 
+test('ET-1 (LR-2): a validation refusal that arrives after Again lists as rejected at once, without retry', async () => {
+  const host = continuationHost();
+  const { finishing } = host.complete('invalid-late');
+  await host.again();
+  host.saves[0]!.reject(new host.context.ResultValidationError('invalid result'));
+  await finishing;
+  const [entry] = host.context.unsaved.listed;
+  assert.equal(entry.state, 'rejected');
+  assert.match(entry.reason, /validation/);
+  await host.context.unsaved.retry();
+  assert.equal(host.saves.length, 1, 'a refused entry is never retried');
+  assert.equal(host.node('#save-state').textContent, '', 'the stale block UI is not written');
+});
+
 test('ET-1: a result-state setting change carries the unsaved result like Again', async () => {
   const host = continuationHost();
   const { finishing } = host.complete('settings-path');

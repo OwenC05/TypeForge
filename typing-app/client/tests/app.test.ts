@@ -265,7 +265,7 @@ test('save retries are single-flight and late save success/failure cannot naviga
  for(const outcome of ['success','failure','generation'] as const){
   let resolve!:()=>void;let reject!:(error:Error)=>void;let saves=0,navigations=0,domWrites=0;
   const pending=new Promise<void>((yes,no)=>{resolve=yes;reject=no;});
-  const context:any={restartGeneration:0,disposed:false,result:{id:'test'},encodeURIComponent,
+  const context:any={restartGeneration:0,disposed:false,result:{id:'test'},encodeURIComponent,ResultValidationError:class extends Error {},
    saveResult:()=>{saves++;return pending;},location:{assign:()=>navigations++},
    $:()=>{domWrites++;return {disabled:false,hidden:true,textContent:''};},
   };

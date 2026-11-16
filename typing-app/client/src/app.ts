@@ -323,7 +323,9 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     const text = unsavedLine(list, unsaved.retrying, Boolean(leavingTo));
     const canRetry = !leavingTo && !unsaved.retrying && list.some(entry => entry.state === 'failed');
     const renderKey = `${leavingTo ?? ''}|${text}|${canRetry}`;
-    line.inert = engine.state === 'running'; // static during a run: never focusable, never steals focus
+    // Static during a run (never focusable, never steals focus) unless the person asked to leave.
+    line.inert = engine.state === 'running' && !leavingTo;
+    line.toggleAttribute('data-leaving', Boolean(leavingTo));
     if (line.dataset.key === renderKey) return;
     line.dataset.key = renderKey;
     const hadFocus = line.contains(document.activeElement);
@@ -368,6 +370,8 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     renderUnsaved();
     $<HTMLButtonElement>('#carried [data-act="export"]').focus();
   }, true);
+  // Returning to the passage cancels a held departure; the line becomes static again during a run.
+  input.addEventListener('focus', () => { if (leavingTo) { leavingTo = null; renderUnsaved(); } });
   function returnFocus() {
     if (document.activeElement && document.activeElement !== document.body) return;
     if (engine.state === 'completed') document.querySelector<HTMLElement>('#again, #practice-next')?.focus();
@@ -403,7 +407,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     why.inert = running;
     if (running && why.open) why.api.close();
     $('#continue-typing').textContent = running ? 'continue typing ↵' : 'start typing ↵';
-    $('#carried').inert = running;
+    $('#carried').inert = running && !leavingTo;
   }
   // Focus moves to the native input only from neutral focus or the control that asked for it.
   function mayFocusInput() {
@@ -560,11 +564,13 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
         $('#full-result').hidden = false;
         refreshToday(result);
       } catch (error) {
-        record.state = 'failed';
+        // Classify on the record before the stale-generation guard, so a carried entry is right at once.
+        const permanent = error instanceof ResultValidationError;
+        record.state = permanent ? 'rejected' : 'failed';
+        if (permanent) record.reason = 'It failed validation and cannot be saved here; export it instead.';
         record.onSettled?.();
         if (disposed || generation !== restartGeneration) return;
-        permanentlyRejected = error instanceof ResultValidationError;
-        if (permanentlyRejected) { record.state = 'rejected'; record.reason = 'It failed validation and cannot be saved here; export it instead.'; }
+        permanentlyRejected = permanent;
         $('#save-state').textContent = permanentlyRejected
           ? 'This result cannot be saved because it failed validation. Export it before leaving; retrying cannot repair this result.'
           : 'This result could not be saved. Export it before leaving, or retry when browser storage is available.';

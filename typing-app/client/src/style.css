@@ -168,12 +168,19 @@ body[data-run=completed] .today { display: block; }
 .slot::before { content: ''; float: right; width: 120px; height: 12px; }
 .slot-text { margin: 0; font-size: 14px; line-height: 1.5; color: var(--muted); }
 /* Unsaved results (ET-1): one persistent line, first in the slot; the slot keeps its fixed height. */
-.carried { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin: 0 0 6px; padding-left: 10px; border-left: 3px solid var(--vermilion-deep); font-size: 14px; line-height: 1.5; color: var(--ink); }
-.carried .key-small { min-height: 28px; padding: 0 8px; font-size: 13px; }
-.carried[inert] .key-small { color: var(--graphite); box-shadow: none; }
-.carried:not([hidden]) ~ .slot-text:empty::before { content: none; }
+/* A plain block (not flex: a flex box would form a BFC and be squeezed beside the slot's restart float). */
+.carried { margin: 0 0 2px; padding-left: 10px; border-left: 3px solid var(--vermilion-deep); font-size: 14px; line-height: 1.5; color: var(--ink); }
+.carried .carried-text { margin-right: 8px; }
+.carried .key-small { min-height: 28px; padding: 0 8px; margin: 2px 8px 2px 0; font-size: 13px; vertical-align: middle; }
+/* A held departure owns the slot: the person chose to leave; the transient message yields. */
+.carried[data-leaving]:not([hidden]) ~ .slot-text { display: none; }
+/* While held the slot may grow downward to show the whole choice; nothing above it moves. */
+.slot:has(.carried[data-leaving]:not([hidden])) { height: auto; min-height: var(--slot-height); }
+/* During a run the line is static: its actions cannot be used, so only the count shows (a held departure un-inerts it). */
+.carried[inert] .key-small { display: none; }
 .slot-text.is-notice { color: var(--ink); border-left: 3px solid var(--vermilion-deep); padding-left: 10px; }
 .stage[data-state=idle] .slot-text:empty::before { content: 'start typing — the clock starts with your first letter'; font: 14px var(--mono); color: var(--muted); }
+.stage .carried:not([hidden]) ~ .slot-text:empty::before { content: none; } /* the unsaved line replaces the idle hint */
 .foot-hints { margin: 4px 0 0; font: 13px var(--mono); color: var(--muted); }
 .foot-hints kbd { margin-inline: 2px; }
 
