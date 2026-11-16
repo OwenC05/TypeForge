@@ -1,0 +1,100 @@
+# Independent ET-1 / ET-2 fix technical review
+
+16 November 2026. **ET-1 remains open: four MEDIUM defects on this frozen source. ET-2's technical defect is repaired; final closure still needs the named browser evidence.** This is a read-only delta review, not product, design, visual, performance or merge acceptance.
+
+## Frozen scope and method
+
+Startup HEAD and `git rev-parse 71201b7` both resolved to **`71201b77486c0f168f1bf06609481b79f82d0df2`**; `git status --short` was empty. Compared against **`21013142e3b920628e4e434470716f3446052580`**. The reviewed ancestry includes `13947ba`, visual implementation `39444a5`, ET-1/ET-2 fix `d67ab6332b61fcece0edf06e53b3291e45177b5c`, and test-only SDK clarification `71201b7`. All source line references below refer to that frozen input, not this report commit or future T4 fixes.
+
+Reviewed the nine changed paths: `app.ts`, `unsaved.ts`, `style.css`, `app.test.ts`, `continuation.test.ts`, `unsaved.test.ts`, `tests/browser/ui-sdk-agent.mjs`, and evidence scripts `lib.mjs`/`states.mjs`. Read root's `early-technical-review.md` (original report commit `e2417c3`) and final `et1-recovery-contract.md` from the supplied coordinator worktree, read-only. The coordinator's message that LR-1/LR-2 were already accepted was treated as a lead; the probes independently confirm both here.
+
+Worked solo in `tf-direct-fix-review`, with no helper agents, source/test changes, branch changes, browser runs, captures, performance measurements or process steering. The explicit no-helper instruction overrides the review skill's default child lanes; those additional lanes were unavailable by task scope, and this report issues no merge-ready approval. Used the review, Ponytail and ui-sdk guidance for the bounded pass. The only committed writes are this report and its evidence folder.
+
+## Findings
+
+### F1 — MEDIUM: running departure hold makes its own recovery actions inert (LR-1)
+
+**Source:** `typing-app/client/src/app.ts:326`, `:406`, `:365–369`.
+
+**Trigger:** Continue with an older failed result, start typing, then deliberately activate a same-origin in-app link. The capture handler prevents navigation, sets `leavingTo`, renders Export and Leave without saving, and calls Export's `focus()`. `renderUnsaved` nevertheless assigns `line.inert = engine.state === 'running'`, so both actions remain in an inert subtree. `setRunState` applies the same unconditional running rule. The attempt to focus Export cannot work under native inert semantics.
+
+**Evidence/consequence:** The actual render/anchor handlers in [probe.mjs](fix-technical-evidence/probe.mjs) hold the navigation and leave `inert: true`; the inert-aware focus fake refuses the focus. This is a source-handler reproduction with a modeled DOM rule, not a browser capture. The result payload remains retained; the defect is that the contract's deliberate departure/export decision is unusable while the run continues. It is not proof of permanent data loss.
+
+**Smallest fix:** Make running recovery inert only when no departure decision is active, consistently in render and run-state updates. Provide the agreed way to return to typing/cancel the hold; do not leave a decision active invisibly. Recheck with a real pointer and keyboard while the engine runs.
+
+### F2 — MEDIUM: a late permanent rejection is retained as retryable (LR-2)
+
+**Source:** `typing-app/client/src/app.ts:562–567`.
+
+**Trigger:** Finish, choose Again or a result setting while the first save is pending, then reject that save with `ResultValidationError`. The catch first sets `failed` and notifies its adopted record, then returns at the stale-generation guard before permanent classification. The retained record is never marked `rejected` and has no validation reason.
+
+**Evidence/consequence:** The actual finish/restart probe prints `actual: failed, expected: rejected`. Recovery offers a futile retry instead of export-only treatment. A retry can eventually classify it properly, but that does not satisfy preservation of permanent-validation semantics. Even without continuation, notification precedes permanent classification, so an active departure notice can be rendered from the intermediate state without a subsequent notification.
+
+**Smallest fix:** Classify and fully update the payload's record, including its reason, before notifying and before the UI-only generation/disposal return. Keep stale UI guards intact. Assert both the final record and the state seen by onChange, before and after continuation/held departure.
+
+### F3 — MEDIUM: retry's newly chained continuation bypasses lifecycle guards
+
+**Source:** `typing-app/client/src/app.ts:576`; underlying guarded save at `:549`, `:557`, `:565`; target callback at `:510–514`.
+
+**Trigger:** Fail the initial save, start a delayed retry, then choose Again or a result setting before it settles. Restart empties `#completion` at `:803–804`. When retry settles, `attemptSave` correctly returns at the generation guard, but its outer `.then()` still evaluates `$('#retry-save').hidden`. `$` is `document.querySelector(...)!` (`:95`); the non-null assertion has no runtime effect. The removed button yields a TypeError and unhandled rejection from the void chain.
+
+**Evidence/consequence:** Actual-handler probes for Again and the result-setting restart path both capture `Cannot read properties of null (reading 'hidden')`. A pagehide/disposal variant proves the outer continuation still queries the document once after disposal; the ordinary fixture does **not** move focus in that case because its old retry remains visible. A separate fixture supplies the DOM state of a saved replacement result (hidden retry, primary action present), and the old retry calls actual `afterResultRendered`, including its contextual focus branch, against that replacement. That last branch is a conditional source/host demonstration, not a claim of browser-observed focus theft. The older result remains in the recovery collection; the reproduced failure is lifecycle isolation and an unhandled rejection.
+
+**Smallest fix:** Guard the outer continuation with disposed/generation and result/button identity before lookup or focus, and restrict focus handoff to the retry that actually completed this result. A null-only guard prevents the exception but still permits touching replacement results. Preserve the existing inner guards.
+
+### F4 — MEDIUM: early permanent refusal leaves the remaining Retry UI disabled
+
+**Source:** `typing-app/client/src/unsaved.ts:55`, `:68–79`; consumer `typing-app/client/src/app.ts:324–327`.
+
+**Trigger:** At least two failed entries are retained. Start the shared retry; the first write permanently rejects and no stored copy is found. All queued entries were marked `saving = true`. The per-entry finally clears only the first entry and calls `changed()`, so the last notification reports `retrying: true` because later queued entries remain marked saving. The break skips those entries, and the outer finally clears their flags without another notification.
+
+**Evidence/consequence:** The helper probe records last notification `{retrying:true,states:["rejected","failed"]}` while the final getter is `false`. The app renders `saving…` with Retry disabled from that notification and has no timer-driven recovery render to correct it. The later valid failed entry cannot be retried through that button until some other action causes a render. Export/Discard remain available outside a run; no payload was lost. The existing helper test calls `retry()` directly again, bypassing the stale disabled DOM, so it passes.
+
+**Smallest fix:** Notify after the outer finally has reset all queue flags (or otherwise make the final notification reflect the settled queue). Add a consumer-notification regression for permanent rejection with a later failed entry, not just a direct second method call.
+
+## Confirmed repairs and dismissed/qualified leads
+
+- **Core ET-1 retention repaired:** `carryUnsaved` transfers the exact `SaveRecord` before generation increment and result DOM removal. Finish captures one detached engine result, and that same object is saved/exported; it is not reconstructed from the replacement engine. The engine returns a structured clone, not a recursively frozen object; the app does not mutate it. Records are ordered, ID-deduplicated, uncapped and document-scoped. Saved records are removed on notification; failed/pending results survive Again/settings. Overlapping initial saves update their own records independently, including out-of-order outcomes. No new response mirror, persistence bucket, router, or beforeunload prompt was introduced.
+- **Single flight:** Current completion has closure-local `saving`; carried retry marks the queued entries before its first await and excludes already-saving entries on another call. A pending initial save is not in `listed`, so carried retry cannot concurrently write it. The two mechanisms cover their respective states without broadening engine/storage ownership. F4 concerns notification after aborting the queue, not duplicate writes.
+- **Exists check qualification:** The implementation does **not** check for a stored copy before attempting a retry write. It calls `save` first, and checks `exists` only after an error. `saveResult` uses validated IndexedDB `store.add` (`storage.ts:267–269`), so an existing ID rejects rather than overwrites or creates a duplicate; `getResult` validates the stored copy. A successful lookup reconciles the record to saved. This is an extra attempted write on a pre-existing ID, not proven duplicate persistence or data loss. The existing test's `saves === 1` demonstrates the post-error lookup, despite its stronger “not written twice” name/comment. If lookup is also unavailable, recovery remains failed, retaining the payload. Do not claim preflight deduplication.
+- **Export/Discard:** Ordinary Export uses only failed/rejected listed entries; held-departure Export deliberately includes all at-risk entries, including pending/current. Payloads remain retained after export; each exported record is marked individually. Discard removes exactly the listed entries and leaves pending entries tracked. Save settlement prunes its matching entry; `atRisk(currentSave)` counts a carried current object once. Empty at-risk state cancels the notice, allowing the next ordinary link activation through. Both assessment continuation links and other same-origin anchors share the capture guard, with an explicitly labeled Leave action; ordinary second clicks remain held. New-tab/download/modifier/hash-only links bypass the guard deliberately. These are source/helper guarantees; native event/focus usability is still subject to F1 and browser evidence.
+- **Lifecycle:** Original save and restart callbacks retain generation/disposal guards, timers are cleared and engine identity limits timer callbacks; pagehide invalidates the document and BFCache pageshow reloads. Collection notifications reach record state before the UI guard, preserving ordinary delayed save outcomes. F2 and F3 are the specific newly uncovered exceptions. In-memory recovery intentionally does not survive reload, close or document destruction.
+
+## ET-2 and native/SDK boundaries
+
+`app.ts:258–267` keys preparation by actual engine identity and current sentence index. The first preparation is recorded even if predictions are absent; late history can refresh labels without installing predictions after any no-op or accepted edit. Engine sentence indices advance monotonically; next-sentence preparation uses the new history, while a replacement engine gets a new map entry. The real engine's freeze/edit guards remain unchanged.
+
+The two new ET-2 tests run the actual prepare/calibration source with real TypingEngine, model artifact, predictSentence and history builder. Their scenarios cover idle, a no-op edit, accepted insertion, passage advancement and optional calibration rejection; the informational refresh executes without a second install. Our added probe reuses **one prepare closure/WeakMap** across a genuinely new real engine, observes `[0]` installs on each engine despite repeated prepare, and executes the old calibration callback after generation/identity replacement with no extra install. Optional rejection is caught; the successful callback checks disposed, restarting, generation and engine identity before acting. No reproduced ET-2 defect remains in this technical delta. Browser late-history and native no-op/input behavior still need final evidence, and a later source commit requires a new delta check.
+
+The native editor handlers are unchanged by this delta: input reconstruction, one engine edit, selection reconciliation, deadline checks and next-sentence preparation remain on native event paths. The visual implementation changes structural slot/Today placement and CSS visibility/overflow/typography; it does not add a synthetic input path. Existing contextual focus recovery remains, with F1/F3 as the new recovery-specific defects. No visual, wrapping, zoom or accessibility acceptance follows from this source observation.
+
+Installed the locked packages with `npm ci --no-audit --no-fund`. Both `@ui-sdk/web` and deduplicated `@ui-sdk/core` are **0.1.0-beta.3**. Read matching installed web `docs/llms.txt`, `docs/state-and-events.md:59–71`, `docs/agents.md:74,400–404,1417–1432`, web `dist/events.d.ts:110–125`/`dist/agent.d.ts`, and core `dist/page/agent/agent.d.ts` and `dist/foundation/kernel/details.d.ts`. No compiled SDK JavaScript or alternate SDK was inspected.
+
+The installed Result documentation explicitly defines `ok` as absence of a bridge error and permits callback cancellation without failing the step; steps' changes and current values establish application state. Web change events are non-bubbling and canceled with `preventDefault`; types preserve `source` and expose change values. The revised bridge-open assertion is consistent: it verifies unchanged native text/run/duration, no duration change and unchanged returned duration when `ok` is true, and requires the exact agent-sourced refusal. The false-ok branch does not alone prove successful dispatch, but the separate required refusal status prevents the previous visibility-only escape from satisfying the branch. No source-contract defect was established here.
+
+This is still a test-only settings bridge; the timed textarea is not registered as an SDK text input. The harness uses `page.keyboard.press` for its native character, checks three editor events and saved attemptedCharacters, and retains settings/text separation assertions. A bridge acknowledgment cannot fabricate successful human typing. Automation-generated native events prove engine/event plumbing, not a human participant or learning benefit. `node --check` proves syntax only; this review did not execute that browser harness.
+
+## Fresh validation and coverage limits
+
+| Command / source | Fresh result |
+| --- | --- |
+| Startup `git rev-parse HEAD`, `git rev-parse 71201b7`, `git status --short` | Both full hashes above; clean tree |
+| Client `npm ci --no-audit --no-fund` | Exit 0; 21 locked packages installed |
+| Client `npm run check` | Exit 0; **129 tests, 129 pass, 0 fail, 0 skipped**; TypeScript and Vite build passed; [full output](fix-technical-evidence/npm-check.txt) |
+| Client `npm ls @ui-sdk/core @ui-sdk/web` | Exit 0; matching beta.3 and deduplicated core |
+| Client `node --check tests/browser/ui-sdk-agent.mjs` | Exit 0; syntax only |
+| Root `node --disable-warning=ExperimentalWarning --experimental-strip-types docs/implementation/2026-11-15/direct-practice/review/fix-technical-evidence/probe.mjs` | Exit 0; asserts the four defects and real-engine replacement behavior; [output](fix-technical-evidence/probe.txt) |
+| `git diff --quiet 2101314 71201b7 --` engine/storage/profile/input/model source paths | Exit 0; protected core unchanged |
+| Final `git diff --exit-code HEAD -- typing-app/client`; `git diff --check` | Exit 0; no tracked application/test changes; whitespace clean |
+
+Node was `v24.21.0`. The exact 129 count is from this run's test summary, not T4's historical receipt: 114 baseline tests plus eight `unsaved.test.ts` and seven `continuation.test.ts` tests. There is no configured lint command. The full check runs the entire existing test glob and build once; no additional browser or cost workload was started. Root and T4 were notified when npm/check workload finished.
+
+Coverage is useful but bounded. Continuation tests run actual extracted source with a small host fake, including pending/failure before/after Again and both settlement orders. Their setting-change fixture directly invokes the restart path instead of the real SDK/changeSettings event chain. Its `$` creates absent nodes on demand, which masks F3's removed-button lookup. The multiple-result helper tests cover record outcomes, not DOM notifications or inert controls. The permanent-rejection test asserts getters then invokes retry directly, missing F4. Existing tests do not execute anchor interception or both assessment links in a browser, explicit Leave activation, held-state focus, discard/export through actual DOM controls or disposal between retry and its chained continuation. Our probes supplement these with actual extracted handlers/helper and explicit host models; they are not browser execution. The replacement-focus case deliberately supplies saved-replacement DOM state because the fixture is not an HTML parser.
+
+Probe authoring required correcting a relative import, a cross-realm array assertion and the host's modeled DOM state. Only evidence files changed; no application assertion, expected-failure marker or production fix was added. An initial check-output redirection failed before npm ran because the report directory had not yet been created; the successful complete run is the retained log.
+
+## Closure and handoff
+
+**ET-1: not closed on `71201b77486c0f168f1bf06609481b79f82d0df2`.** T4 should address F1–F4 with the bounded fixes above, and supply fresh tests plus real pointer/keyboard evidence for failed/pending continuation, multi-entry/permanent outcomes, both assessment links, general in-app departure, explicit Leave, Export/Discard, empty-list navigation and settlement while held. An acknowledged later fix does not clear this frozen report.
+
+**ET-2: source/real-engine repair supported on this hash; final closure needs browser late-history/no-op/accepted-input/next-sentence/restart evidence.** The SDK test change matches the installed cancellation contract, but a current harness receipt remains required. Actual Claude retains design/interaction decisions and browser ownership. Unfinished state captures, 1440/390/320 geometry, real 200% zoom, uncontended performance, OS IME/AT and other-engine/device checks remain outside this review. No later source, production deployment or Portfolio/original checkout is accepted or modified by this pass.
