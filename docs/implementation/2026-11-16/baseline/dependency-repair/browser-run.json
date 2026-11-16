@@ -1,0 +1,4 @@
+{
+    "exit":  0,
+    "command":  "node browser-check.cjs (wait for async SDK update before visibility assertion)"
+}
