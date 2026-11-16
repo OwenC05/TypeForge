@@ -1,0 +1,355 @@
+{
+  "generatedAt": "2026-11-16T12:42:08.178Z",
+  "base": "b898dc6",
+  "current": "1ad38ca",
+  "method": "vite build output; gzip via zlib level 9; initial load = HTML + referenced scripts, modulepreloads and stylesheets",
+  "chunks": {
+    "app.css": {
+      "base": {
+        "file": "app-CiIXzPbM.css",
+        "raw": 10562,
+        "gzip": 3135
+      },
+      "current": {
+        "file": "app-BQOyU45s.css",
+        "raw": 19961,
+        "gzip": 5152
+      },
+      "delta": {
+        "raw": 9399,
+        "gzip": 2017
+      }
+    },
+    "app.js": {
+      "base": {
+        "file": "app-DRnCp6G3.js",
+        "raw": 103372,
+        "gzip": 35882
+      },
+      "current": {
+        "file": "app-Dvv-e4Tc.js",
+        "raw": 141769,
+        "gzip": 48350
+      },
+      "delta": {
+        "raw": 38397,
+        "gzip": 12468
+      }
+    },
+    "define-element.js": {
+      "base": null,
+      "current": {
+        "file": "define-element-B_WeKIXB.js",
+        "raw": 49271,
+        "gzip": 17692
+      },
+      "delta": {
+        "raw": 49271,
+        "gzip": 17692
+      }
+    },
+    "env.js": {
+      "base": null,
+      "current": {
+        "file": "env-B-odJnus.js",
+        "raw": 2426,
+        "gzip": 1214
+      },
+      "delta": {
+        "raw": 2426,
+        "gzip": 1214
+      }
+    },
+    "select.js": {
+      "base": null,
+      "current": {
+        "file": "select-D9fpQqgK.js",
+        "raw": 87733,
+        "gzip": 31148
+      },
+      "delta": {
+        "raw": 87733,
+        "gzip": 31148
+      }
+    },
+    "sheet-presentation.js": {
+      "base": null,
+      "current": {
+        "file": "sheet-presentation-BQEATMwe.js",
+        "raw": 37665,
+        "gzip": 13399
+      },
+      "delta": {
+        "raw": 37665,
+        "gzip": 13399
+      }
+    },
+    "sides.js": {
+      "base": null,
+      "current": {
+        "file": "sides-CecCr77z.js",
+        "raw": 99,
+        "gzip": 100
+      },
+      "delta": {
+        "raw": 99,
+        "gzip": 100
+      }
+    }
+  },
+  "pages": {
+    "DetailedResults.html": {
+      "base": {
+        "assets": [],
+        "raw": 412,
+        "gzip": 285
+      },
+      "current": {
+        "assets": [],
+        "raw": 412,
+        "gzip": 285
+      },
+      "delta": {
+        "raw": 0,
+        "gzip": 0
+      }
+    },
+    "index.html": {
+      "base": {
+        "assets": [
+          "app.js",
+          "app.css"
+        ],
+        "raw": 114804,
+        "gzip": 39532
+      },
+      "current": {
+        "assets": [
+          "env.js",
+          "define-element.js",
+          "app.js",
+          "app.css"
+        ],
+        "raw": 214432,
+        "gzip": 72942
+      },
+      "delta": {
+        "raw": 99628,
+        "gzip": 33410
+      }
+    },
+    "lab.html": {
+      "base": {
+        "assets": [
+          "app.js",
+          "app.css"
+        ],
+        "raw": 114788,
+        "gzip": 39517
+      },
+      "current": {
+        "assets": [
+          "env.js",
+          "define-element.js",
+          "app.js",
+          "app.css"
+        ],
+        "raw": 214421,
+        "gzip": 72929
+      },
+      "delta": {
+        "raw": 99633,
+        "gzip": 33412
+      }
+    },
+    "LandingPage.html": {
+      "base": {
+        "assets": [],
+        "raw": 406,
+        "gzip": 282
+      },
+      "current": {
+        "assets": [],
+        "raw": 406,
+        "gzip": 282
+      },
+      "delta": {
+        "raw": 0,
+        "gzip": 0
+      }
+    },
+    "LeaderBoard.html": {
+      "base": {
+        "assets": [],
+        "raw": 406,
+        "gzip": 282
+      },
+      "current": {
+        "assets": [],
+        "raw": 406,
+        "gzip": 282
+      },
+      "delta": {
+        "raw": 0,
+        "gzip": 0
+      }
+    },
+    "practice.html": {
+      "base": {
+        "assets": [
+          "app.js",
+          "app.css"
+        ],
+        "raw": 114633,
+        "gzip": 39451
+      },
+      "current": {
+        "assets": [
+          "env.js",
+          "define-element.js",
+          "app.js",
+          "app.css"
+        ],
+        "raw": 214278,
+        "gzip": 72869
+      },
+      "delta": {
+        "raw": 99645,
+        "gzip": 33418
+      }
+    },
+    "progress.html": {
+      "base": {
+        "assets": [
+          "app.js",
+          "app.css"
+        ],
+        "raw": 114644,
+        "gzip": 39458
+      },
+      "current": {
+        "assets": [
+          "env.js",
+          "define-element.js",
+          "app.js",
+          "app.css"
+        ],
+        "raw": 214289,
+        "gzip": 72877
+      },
+      "delta": {
+        "raw": 99645,
+        "gzip": 33419
+      }
+    },
+    "ProgressDashboard.html": {
+      "base": {
+        "assets": [],
+        "raw": 415,
+        "gzip": 286
+      },
+      "current": {
+        "assets": [],
+        "raw": 415,
+        "gzip": 286
+      },
+      "delta": {
+        "raw": 0,
+        "gzip": 0
+      }
+    },
+    "results.html": {
+      "base": {
+        "assets": [
+          "app.js",
+          "app.css"
+        ],
+        "raw": 114637,
+        "gzip": 39453
+      },
+      "current": {
+        "assets": [
+          "env.js",
+          "define-element.js",
+          "app.js",
+          "app.css"
+        ],
+        "raw": 214282,
+        "gzip": 72871
+      },
+      "delta": {
+        "raw": 99645,
+        "gzip": 33418
+      }
+    },
+    "ResultsPage.html": {
+      "base": {
+        "assets": [],
+        "raw": 412,
+        "gzip": 285
+      },
+      "current": {
+        "assets": [],
+        "raw": 412,
+        "gzip": 285
+      },
+      "delta": {
+        "raw": 0,
+        "gzip": 0
+      }
+    },
+    "SignIn.html": {
+      "base": {
+        "assets": [],
+        "raw": 406,
+        "gzip": 282
+      },
+      "current": {
+        "assets": [],
+        "raw": 406,
+        "gzip": 282
+      },
+      "delta": {
+        "raw": 0,
+        "gzip": 0
+      }
+    },
+    "TypingDrill.html": {
+      "base": {
+        "assets": [],
+        "raw": 831,
+        "gzip": 447
+      },
+      "current": {
+        "assets": [],
+        "raw": 831,
+        "gzip": 447
+      },
+      "delta": {
+        "raw": 0,
+        "gzip": 0
+      }
+    },
+    "TypingTest.html": {
+      "base": {
+        "assets": [],
+        "raw": 415,
+        "gzip": 286
+      },
+      "current": {
+        "assets": [],
+        "raw": 415,
+        "gzip": 286
+      },
+      "delta": {
+        "raw": 0,
+        "gzip": 0
+      }
+    }
+  },
+  "lazyOnly": [
+    "select.js",
+    "sheet-presentation.js",
+    "sides.js"
+  ]
+}
