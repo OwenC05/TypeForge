@@ -1,0 +1,53 @@
+/* Baseline delta: everything the baseline flow adds on top of the production style.css.
+   No new colours, fonts or radii; tokens come from production :root. */
+
+/* Locked Suggested: still a focusable radio item (aria-disabled, change cancelled), dashed as before. */
+ui-segmented-control-item[data-locked] { color: var(--graphite); background: transparent; border-style: dashed; box-shadow: none; position: relative; }
+ui-segmented-control-item[data-locked]:hover { background: transparent; }
+ui-segmented-control-item[data-locked]:active { transform: none; }
+
+/* Ten-segment tally drawn inside the key's bottom edge: zero layout cost, decoration only. */
+.tally { position: absolute; left: 9px; right: 9px; bottom: 4px; height: 2px; display: flex; gap: 2px; pointer-events: none; }
+.tally i { flex: 1; background: var(--rule); }
+.tally i[data-on] { background: var(--ink); }
+.tally i[data-pending] { background: var(--graphite); }
+
+/* Semantic progress (ui-progress) for the readable "n of 10", used in why?, results and progress. */
+.baseline-progress { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 14px; }
+.baseline-progress ui-progress-label { font: 500 13px/1.5 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.baseline-progress ui-progress-value { font: 500 13px/1.5 var(--mono); letter-spacing: .06em; color: var(--ink); order: 3; }
+.baseline-progress ui-progress-track { position: relative; display: block; width: 198px; height: 6px; background: var(--rule);
+  -webkit-mask: repeating-linear-gradient(90deg, #000 0 18px, transparent 18px 20px); mask: repeating-linear-gradient(90deg, #000 0 18px, transparent 18px 20px); }
+.baseline-progress ui-progress-indicator { display: block; height: 100%; background: var(--ink); }
+.baseline-progress[data-pending] ui-progress-track::after { content: ''; position: absolute; top: 0; bottom: 0; left: calc(var(--counted) * 20px); width: 18px; background: var(--graphite); }
+
+/* Baseline block inside the in-place result and the why? panel. */
+.baseline-block { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--rule); max-width: 62ch; }
+.baseline-block p { margin: 8px 0 0; font-size: 17px; color: var(--ink); }
+.baseline-block p.note { font-size: 15px; color: var(--muted); }
+.baseline-block .lead-line { font-family: var(--display); font-weight: 700; font-size: 21px; letter-spacing: -.01em; }
+.why-panel .baseline-block { margin: 0 0 12px; padding: 0 0 12px; border-top: 0; border-bottom: 1px solid var(--rule); }
+.why-panel .baseline-block p { font-size: 15px; color: var(--ink); }
+.why-panel .baseline-block p.note { font-size: 14px; color: var(--muted); }
+.why-panel .key-small, .slot-text .key-small, .baseline-block .key-small { margin-top: 10px; }
+.slot-text .key-small { margin: 0 0 0 6px; min-height: 28px; padding: 0 8px; font-size: 13px; vertical-align: middle; }
+.figures-fixture { font: 500 11px var(--mono); letter-spacing: .1em; color: var(--muted); text-transform: uppercase; }
+
+/* Progress page baseline section and the inline reset confirmation. */
+.baseline-section .baseline-progress { margin: 12px 0 8px; }
+.reset-confirm { margin-top: 16px; padding-left: 10px; border-left: 3px solid var(--ink); }
+.reset-confirm p { margin: 0 0 10px; font-size: 15px; color: var(--ink); }
+
+/* Prototype-only chrome: fixture label (replaces the footer line, so it is in every capture). */
+.fixture-label { position: absolute; right: 8px; top: 58px; z-index: 30; font: 500 9px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); background: var(--paper); padding: 1px 5px; border: 1px dashed var(--edge); border-radius: 4px; pointer-events: none; }
+
+@media (max-width: 760px) {
+  .baseline-block .lead-line { font-size: 19px; }
+  .baseline-block p { font-size: 16px; }
+  .baseline-progress ui-progress-track { width: 158px; -webkit-mask: repeating-linear-gradient(90deg, #000 0 14px, transparent 14px 16px); mask: repeating-linear-gradient(90deg, #000 0 14px, transparent 14px 16px); }
+  .baseline-progress[data-pending] ui-progress-track::after { left: calc(var(--counted) * 16px); width: 14px; }
+}
+@media (forced-colors: active) {
+  .tally i[data-on], .baseline-progress ui-progress-indicator { background: CanvasText; forced-color-adjust: none; }
+  .tally i, .baseline-progress ui-progress-track { background: GrayText; forced-color-adjust: none; }
+}

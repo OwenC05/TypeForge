@@ -1,0 +1,499 @@
+{
+  "base": "http://127.0.0.1:5312",
+  "chrome": "system Chrome headless via playwright-core 1.65.1",
+  "ranAt": "2026-11-16T14:34:10.020Z",
+  "note": "fast=1 accelerates the prototype clock 10x; all data simulated",
+  "passed": 45,
+  "total": 45,
+  "checks": [
+    {
+      "id": "K1 first visit ready, first key starts",
+      "width": 1440,
+      "pass": true,
+      "observed": {
+        "focus": "typing-input",
+        "stage": "running",
+        "value": "t",
+        "errors": []
+      }
+    },
+    {
+      "id": "K2 locked suggested reachable by arrow, change cancelled, slot explains",
+      "width": 1440,
+      "pass": true,
+      "observed": {
+        "focus": "recommended",
+        "kindValue": "manual",
+        "suggestedChecked": false,
+        "ariaDisabled": "true",
+        "slot": "Suggested needs 10 baseline tests · 4 done.take test 5 →"
+      }
+    },
+    {
+      "id": "K2b Space on locked key keeps value",
+      "width": 1440,
+      "pass": true,
+      "observed": {
+        "slot": "Suggested needs 10 baseline tests · 4 done.take test 5 →"
+      }
+    },
+    {
+      "id": "K2c slot action present",
+      "width": 1440,
+      "pass": true,
+      "observed": {
+        "text": "take test 5 →"
+      }
+    },
+    {
+      "id": "K2d pointer press on locked suggested explains, General kept",
+      "width": 1440,
+      "pass": true,
+      "observed": {
+        "kindValue": "general",
+        "checked": false,
+        "slot": "Suggested needs 10 baseline tests · 0 done.take test 1 →"
+      }
+    },
+    {
+      "id": "K3 why? opens with Enter and explains progress",
+      "width": 1440,
+      "pass": true,
+      "observed": {
+        "excerpt": "baseline4 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments with the qwert"
+      }
+    },
+    {
+      "id": "K4 test 5 completes in place, counted after save, next test focused",
+      "width": 1440,
+      "pass": true,
+      "observed": {
+        "before": "Baseline test 5 of 10 · 30 s",
+        "focus": "primary",
+        "label": "Baseline test 5 of 10 · 30 s · complete",
+        "progress": [
+          "4",
+          "5"
+        ],
+        "clock": "accelerated 10x"
+      }
+    },
+    {
+      "id": "K4b Enter continues to test 6, focus in textarea",
+      "width": 1440,
+      "pass": true,
+      "observed": {
+        "focus": "typing-input",
+        "label": "Baseline test 6 of 10 · 30 s",
+        "stage": "idle"
+      }
+    },
+    {
+      "id": "K4c first key starts test 6",
+      "width": 1440,
+      "pass": true,
+      "observed": {
+        "stage": "running",
+        "errors": []
+      }
+    },
+    {
+      "id": "K5 interrupted test not counted, count unchanged",
+      "width": 1440,
+      "pass": true,
+      "observed": {
+        "text": "baseline4 of 10 testsNot counted: focus left the text during the run. Still 4 of 10; nothing is take",
+        "primary": "try test 5 again ↵"
+      }
+    },
+    {
+      "id": "K6 save failure pending then retry counts",
+      "width": 1440,
+      "pass": true,
+      "observed": {
+        "tabOrder": [
+          "primary",
+          "secondary",
+          "retry-save",
+          "export-current",
+          "ui-sdk-collapsible-11-trigger"
+        ],
+        "before": [
+          "4",
+          "4"
+        ],
+        "after": [
+          "4",
+          "5"
+        ]
+      }
+    },
+    {
+      "id": "K7 test 10 -> try suggested -> ready Suggested practice",
+      "width": 1440,
+      "pass": true,
+      "observed": {
+        "primary": "try suggested · th ↵",
+        "focus": "typing-input",
+        "label": "Suggested practice · th · 30 s",
+        "checked": true
+      }
+    },
+    {
+      "id": "K8 complete-insufficient keeps General primary",
+      "width": 1440,
+      "pass": true,
+      "observed": {
+        "primary": "practise general ↵",
+        "text": "baseline10 of 10 testsBaseline complete.Your baseline: 39 wpm and 95.8% accuracy, the median of your 10 tests. simulated"
+      }
+    },
+    {
+      "id": "K9 letter on result is not intercepted",
+      "width": 1440,
+      "pass": true,
+      "observed": {
+        "stage": "completed"
+      }
+    },
+    {
+      "id": "K10 reset confirm safe-first, start over -> 0 of 10",
+      "width": 1440,
+      "pass": true,
+      "observed": {
+        "safe": "keep",
+        "focus": "baseline-heading",
+        "status": "New baseline started: 0 of 10. Earlier results are still in your history.",
+        "progress": [
+          "0"
+        ]
+      }
+    },
+    {
+      "id": "K1 first visit ready, first key starts",
+      "width": 390,
+      "pass": true,
+      "observed": {
+        "focus": "typing-input",
+        "stage": "running",
+        "value": "t",
+        "errors": []
+      }
+    },
+    {
+      "id": "K2 locked suggested reachable by arrow, change cancelled, slot explains",
+      "width": 390,
+      "pass": true,
+      "observed": {
+        "focus": "recommended",
+        "kindValue": "manual",
+        "suggestedChecked": false,
+        "ariaDisabled": "true",
+        "slot": "Suggested needs 10 baseline tests · 4 done.take test 5 →"
+      }
+    },
+    {
+      "id": "K2b Space on locked key keeps value",
+      "width": 390,
+      "pass": true,
+      "observed": {
+        "slot": "Suggested needs 10 baseline tests · 4 done.take test 5 →"
+      }
+    },
+    {
+      "id": "K2c slot action present",
+      "width": 390,
+      "pass": true,
+      "observed": {
+        "text": "take test 5 →"
+      }
+    },
+    {
+      "id": "K2d pointer press on locked suggested explains, General kept",
+      "width": 390,
+      "pass": true,
+      "observed": {
+        "kindValue": "general",
+        "checked": false,
+        "slot": "Suggested needs 10 baseline tests · 0 done.take test 1 →"
+      }
+    },
+    {
+      "id": "K3 why? opens with Enter and explains progress",
+      "width": 390,
+      "pass": true,
+      "observed": {
+        "excerpt": "baseline4 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments with the qwert"
+      }
+    },
+    {
+      "id": "K4 test 5 completes in place, counted after save, next test focused",
+      "width": 390,
+      "pass": true,
+      "observed": {
+        "before": "Baseline test 5 of 10 · 30 s",
+        "focus": "primary",
+        "label": "Baseline test 5 of 10 · 30 s · complete",
+        "progress": [
+          "4",
+          "5"
+        ],
+        "clock": "accelerated 10x"
+      }
+    },
+    {
+      "id": "K4b Enter continues to test 6, focus in textarea",
+      "width": 390,
+      "pass": true,
+      "observed": {
+        "focus": "typing-input",
+        "label": "Baseline test 6 of 10 · 30 s",
+        "stage": "idle"
+      }
+    },
+    {
+      "id": "K4c first key starts test 6",
+      "width": 390,
+      "pass": true,
+      "observed": {
+        "stage": "running",
+        "errors": []
+      }
+    },
+    {
+      "id": "K5 interrupted test not counted, count unchanged",
+      "width": 390,
+      "pass": true,
+      "observed": {
+        "text": "baseline4 of 10 testsNot counted: focus left the text during the run. Still 4 of 10; nothing is take",
+        "primary": "try test 5 again ↵"
+      }
+    },
+    {
+      "id": "K6 save failure pending then retry counts",
+      "width": 390,
+      "pass": true,
+      "observed": {
+        "tabOrder": [
+          "primary",
+          "secondary",
+          "retry-save",
+          "export-current",
+          "ui-sdk-collapsible-11-trigger"
+        ],
+        "before": [
+          "4",
+          "4"
+        ],
+        "after": [
+          "4",
+          "5"
+        ]
+      }
+    },
+    {
+      "id": "K7 test 10 -> try suggested -> ready Suggested practice",
+      "width": 390,
+      "pass": true,
+      "observed": {
+        "primary": "try suggested · th ↵",
+        "focus": "typing-input",
+        "label": "Suggested practice · th · 30 s",
+        "checked": true
+      }
+    },
+    {
+      "id": "K8 complete-insufficient keeps General primary",
+      "width": 390,
+      "pass": true,
+      "observed": {
+        "primary": "practise general ↵",
+        "text": "baseline10 of 10 testsBaseline complete.Your baseline: 39 wpm and 95.8% accuracy, the median of your 10 tests. simulated"
+      }
+    },
+    {
+      "id": "K9 letter on result is not intercepted",
+      "width": 390,
+      "pass": true,
+      "observed": {
+        "stage": "completed"
+      }
+    },
+    {
+      "id": "K10 reset confirm safe-first, start over -> 0 of 10",
+      "width": 390,
+      "pass": true,
+      "observed": {
+        "safe": "keep",
+        "focus": "baseline-heading",
+        "status": "New baseline started: 0 of 10. Earlier results are still in your history.",
+        "progress": [
+          "0"
+        ]
+      }
+    },
+    {
+      "id": "K1 first visit ready, first key starts",
+      "width": 320,
+      "pass": true,
+      "observed": {
+        "focus": "typing-input",
+        "stage": "running",
+        "value": "t",
+        "errors": []
+      }
+    },
+    {
+      "id": "K2 locked suggested reachable by arrow, change cancelled, slot explains",
+      "width": 320,
+      "pass": true,
+      "observed": {
+        "focus": "recommended",
+        "kindValue": "manual",
+        "suggestedChecked": false,
+        "ariaDisabled": "true",
+        "slot": "Suggested needs 10 baseline tests · 4 done.take test 5 →"
+      }
+    },
+    {
+      "id": "K2b Space on locked key keeps value",
+      "width": 320,
+      "pass": true,
+      "observed": {
+        "slot": "Suggested needs 10 baseline tests · 4 done.take test 5 →"
+      }
+    },
+    {
+      "id": "K2c slot action present",
+      "width": 320,
+      "pass": true,
+      "observed": {
+        "text": "take test 5 →"
+      }
+    },
+    {
+      "id": "K2d pointer press on locked suggested explains, General kept",
+      "width": 320,
+      "pass": true,
+      "observed": {
+        "kindValue": "general",
+        "checked": false,
+        "slot": "Suggested needs 10 baseline tests · 0 done.take test 1 →"
+      }
+    },
+    {
+      "id": "K3 why? opens with Enter and explains progress",
+      "width": 320,
+      "pass": true,
+      "observed": {
+        "excerpt": "baseline4 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments with the qwert"
+      }
+    },
+    {
+      "id": "K4 test 5 completes in place, counted after save, next test focused",
+      "width": 320,
+      "pass": true,
+      "observed": {
+        "before": "Baseline test 5 of 10 · 30 s",
+        "focus": "primary",
+        "label": "Baseline test 5 of 10 · 30 s · complete",
+        "progress": [
+          "4",
+          "5"
+        ],
+        "clock": "accelerated 10x"
+      }
+    },
+    {
+      "id": "K4b Enter continues to test 6, focus in textarea",
+      "width": 320,
+      "pass": true,
+      "observed": {
+        "focus": "typing-input",
+        "label": "Baseline test 6 of 10 · 30 s",
+        "stage": "idle"
+      }
+    },
+    {
+      "id": "K4c first key starts test 6",
+      "width": 320,
+      "pass": true,
+      "observed": {
+        "stage": "running",
+        "errors": []
+      }
+    },
+    {
+      "id": "K5 interrupted test not counted, count unchanged",
+      "width": 320,
+      "pass": true,
+      "observed": {
+        "text": "baseline4 of 10 testsNot counted: focus left the text during the run. Still 4 of 10; nothing is take",
+        "primary": "try test 5 again ↵"
+      }
+    },
+    {
+      "id": "K6 save failure pending then retry counts",
+      "width": 320,
+      "pass": true,
+      "observed": {
+        "tabOrder": [
+          "primary",
+          "secondary",
+          "retry-save",
+          "export-current",
+          "ui-sdk-collapsible-11-trigger"
+        ],
+        "before": [
+          "4",
+          "4"
+        ],
+        "after": [
+          "4",
+          "5"
+        ]
+      }
+    },
+    {
+      "id": "K7 test 10 -> try suggested -> ready Suggested practice",
+      "width": 320,
+      "pass": true,
+      "observed": {
+        "primary": "try suggested · th ↵",
+        "focus": "typing-input",
+        "label": "Suggested practice · th · 30 s",
+        "checked": true
+      }
+    },
+    {
+      "id": "K8 complete-insufficient keeps General primary",
+      "width": 320,
+      "pass": true,
+      "observed": {
+        "primary": "practise general ↵",
+        "text": "baseline10 of 10 testsBaseline complete.Your baseline: 39 wpm and 95.8% accuracy, the median of your 10 tests. simulated"
+      }
+    },
+    {
+      "id": "K9 letter on result is not intercepted",
+      "width": 320,
+      "pass": true,
+      "observed": {
+        "stage": "completed"
+      }
+    },
+    {
+      "id": "K10 reset confirm safe-first, start over -> 0 of 10",
+      "width": 320,
+      "pass": true,
+      "observed": {
+        "safe": "keep",
+        "focus": "baseline-heading",
+        "status": "New baseline started: 0 of 10. Earlier results are still in your history.",
+        "progress": [
+          "0"
+        ]
+      }
+    }
+  ]
+}
