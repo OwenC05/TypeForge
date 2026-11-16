@@ -338,5 +338,8 @@ summary { cursor: pointer; padding-block: 8px; }
   .stage[data-focus=in] .prompt .cursor::before { border-left-color: Highlight; }
   .prompt .first-mismatch::after { background: CanvasText; color: Canvas; }
   .prompt .cursor[data-pointer]::after { background: Canvas; color: CanvasText; border-color: CanvasText; }
+  /* Context lines are not typed text: GrayText like the untyped remainder (F-2b), colour only. */
+  .passage-context { color: GrayText; }
+  .passage-context .missed { text-decoration-color: CanvasText; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }
