@@ -1,0 +1,482 @@
+{
+  "generatedAt": "2026-11-16T12:45:54.292Z",
+  "base": "http://127.0.0.1:5301",
+  "build": {
+    "servedFrom": "http://127.0.0.1:5301",
+    "assets": [
+      "app-BQOyU45s.css",
+      "app-Dvv-e4Tc.js",
+      "define-element-B_WeKIXB.js",
+      "env-B-odJnus.js"
+    ]
+  },
+  "scenarios": {
+    "/?qwerty=1&duration=30 · idle": {
+      "before": {
+        "value": "",
+        "state": "idle",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence."
+      },
+      "after": {
+        "value": "we c",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 857.2000000476837,
+        "releasedAt": 411.2000000476837,
+        "deliveredAt": 411.30000001192093
+      },
+      "focused": "textarea#typing-input",
+      "errors": []
+    },
+    "/?qwerty=1&duration=30 · native no-op (Backspace at the start)": {
+      "before": {
+        "value": "",
+        "state": "idle",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence."
+      },
+      "after": {
+        "value": "we f",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 308.80000001192093,
+        "releasedAt": 318.5,
+        "deliveredAt": 318.60000002384186
+      },
+      "focused": "textarea#typing-input",
+      "errors": []
+    },
+    "/?qwerty=1&duration=30 · accepted input": {
+      "before": {
+        "value": "ple",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence."
+      },
+      "after": {
+        "value": "please ",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 247.70000004768372,
+        "releasedAt": 354.2000000476837,
+        "deliveredAt": 354.2000000476837
+      },
+      "focused": "textarea#typing-input",
+      "errors": []
+    },
+    "/?qwerty=1&duration=30 · next sentence": {
+      "before": {
+        "value": "",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence."
+      },
+      "after": {
+        "value": "we t",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 227.19999998807907,
+        "releasedAt": 895.1000000238419,
+        "deliveredAt": 895.1000000238419
+      },
+      "focused": "textarea#typing-input",
+      "errors": []
+    },
+    "/?qwerty=1&duration=30 · restart before history": {
+      "before": {
+        "value": "th",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence."
+      },
+      "after": {
+        "value": " fav",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 266.4000000357628,
+        "releasedAt": 469.5,
+        "deliveredAt": 469.69999998807907
+      },
+      "focused": "textarea#typing-input",
+      "errors": []
+    },
+    "/?qwerty=1&duration=30&practice=recommended · idle": {
+      "before": {
+        "value": "",
+        "state": "idle",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence."
+      },
+      "after": {
+        "value": "the ",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 760.5,
+        "releasedAt": 314,
+        "deliveredAt": 314.10000002384186
+      },
+      "focused": "textarea#typing-input",
+      "errors": []
+    },
+    "/?qwerty=1&duration=30&practice=recommended · native no-op (Backspace at the start)": {
+      "before": {
+        "value": "",
+        "state": "idle",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence."
+      },
+      "after": {
+        "value": "we l",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 549.5999999642372,
+        "releasedAt": 576.3999999761581,
+        "deliveredAt": 576.5
+      },
+      "focused": "textarea#typing-input",
+      "errors": []
+    },
+    "/?qwerty=1&duration=30&practice=recommended · accepted input": {
+      "before": {
+        "value": "i w",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence."
+      },
+      "after": {
+        "value": "i will ",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 276.30000001192093,
+        "releasedAt": 380.5,
+        "deliveredAt": 380.5999999642372
+      },
+      "focused": "textarea#typing-input",
+      "errors": []
+    },
+    "/?qwerty=1&duration=30&practice=recommended · next sentence": {
+      "before": {
+        "value": "",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence."
+      },
+      "after": {
+        "value": "add ",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 382.60000002384186,
+        "releasedAt": 1152.4000000357628,
+        "deliveredAt": 1152.5
+      },
+      "focused": "textarea#typing-input",
+      "errors": []
+    },
+    "/?qwerty=1&duration=30&practice=recommended · restart before history": {
+      "before": {
+        "value": "th",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence."
+      },
+      "after": {
+        "value": "bowl",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 328.10000002384186,
+        "releasedAt": 562.5,
+        "deliveredAt": 562.5
+      },
+      "focused": "textarea#typing-input",
+      "errors": []
+    }
+  },
+  "results": [
+    {
+      "name": "/?qwerty=1&duration=30 · idle: no page error (no second freeze)",
+      "ok": true,
+      "details": []
+    },
+    {
+      "name": "/?qwerty=1&duration=30 · idle: history delivered after the interaction",
+      "ok": true,
+      "details": {
+        "value": "we c",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 857.2000000476837,
+        "releasedAt": 411.2000000476837,
+        "deliveredAt": 411.30000001192093
+      }
+    },
+    {
+      "name": "/?qwerty=1&duration=30 · idle: typing continues natively after late history",
+      "ok": true,
+      "details": {
+        "value": "we c",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 857.2000000476837,
+        "releasedAt": 411.2000000476837,
+        "deliveredAt": 411.30000001192093
+      }
+    },
+    {
+      "name": "/?qwerty=1&duration=30 · native no-op (Backspace at the start): no page error (no second freeze)",
+      "ok": true,
+      "details": []
+    },
+    {
+      "name": "/?qwerty=1&duration=30 · native no-op (Backspace at the start): history delivered after the interaction",
+      "ok": true,
+      "details": {
+        "value": "we f",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 308.80000001192093,
+        "releasedAt": 318.5,
+        "deliveredAt": 318.60000002384186
+      }
+    },
+    {
+      "name": "/?qwerty=1&duration=30 · native no-op (Backspace at the start): typing continues natively after late history",
+      "ok": true,
+      "details": {
+        "value": "we f",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 308.80000001192093,
+        "releasedAt": 318.5,
+        "deliveredAt": 318.60000002384186
+      }
+    },
+    {
+      "name": "/?qwerty=1&duration=30 · accepted input: no page error (no second freeze)",
+      "ok": true,
+      "details": []
+    },
+    {
+      "name": "/?qwerty=1&duration=30 · accepted input: history delivered after the interaction",
+      "ok": true,
+      "details": {
+        "value": "please ",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 247.70000004768372,
+        "releasedAt": 354.2000000476837,
+        "deliveredAt": 354.2000000476837
+      }
+    },
+    {
+      "name": "/?qwerty=1&duration=30 · accepted input: typing continues natively after late history",
+      "ok": true,
+      "details": {
+        "value": "please ",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 247.70000004768372,
+        "releasedAt": 354.2000000476837,
+        "deliveredAt": 354.2000000476837
+      }
+    },
+    {
+      "name": "/?qwerty=1&duration=30 · next sentence: no page error (no second freeze)",
+      "ok": true,
+      "details": []
+    },
+    {
+      "name": "/?qwerty=1&duration=30 · next sentence: history delivered after the interaction",
+      "ok": true,
+      "details": {
+        "value": "we t",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 227.19999998807907,
+        "releasedAt": 895.1000000238419,
+        "deliveredAt": 895.1000000238419
+      }
+    },
+    {
+      "name": "/?qwerty=1&duration=30 · next sentence: typing continues natively after late history",
+      "ok": true,
+      "details": {
+        "value": "we t",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 227.19999998807907,
+        "releasedAt": 895.1000000238419,
+        "deliveredAt": 895.1000000238419
+      }
+    },
+    {
+      "name": "/?qwerty=1&duration=30 · restart before history: no page error (no second freeze)",
+      "ok": true,
+      "details": []
+    },
+    {
+      "name": "/?qwerty=1&duration=30 · restart before history: history delivered after the interaction",
+      "ok": true,
+      "details": {
+        "value": " fav",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 266.4000000357628,
+        "releasedAt": 469.5,
+        "deliveredAt": 469.69999998807907
+      }
+    },
+    {
+      "name": "/?qwerty=1&duration=30 · restart before history: typing continues natively after late history",
+      "ok": true,
+      "details": {
+        "value": " fav",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 266.4000000357628,
+        "releasedAt": 469.5,
+        "deliveredAt": 469.69999998807907
+      }
+    },
+    {
+      "name": "/?qwerty=1&duration=30&practice=recommended · idle: no page error (no second freeze)",
+      "ok": true,
+      "details": []
+    },
+    {
+      "name": "/?qwerty=1&duration=30&practice=recommended · idle: history delivered after the interaction",
+      "ok": true,
+      "details": {
+        "value": "the ",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 760.5,
+        "releasedAt": 314,
+        "deliveredAt": 314.10000002384186
+      }
+    },
+    {
+      "name": "/?qwerty=1&duration=30&practice=recommended · idle: typing continues natively after late history",
+      "ok": true,
+      "details": {
+        "value": "the ",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 760.5,
+        "releasedAt": 314,
+        "deliveredAt": 314.10000002384186
+      }
+    },
+    {
+      "name": "/?qwerty=1&duration=30&practice=recommended · native no-op (Backspace at the start): no page error (no second freeze)",
+      "ok": true,
+      "details": []
+    },
+    {
+      "name": "/?qwerty=1&duration=30&practice=recommended · native no-op (Backspace at the start): history delivered after the interaction",
+      "ok": true,
+      "details": {
+        "value": "we l",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 549.5999999642372,
+        "releasedAt": 576.3999999761581,
+        "deliveredAt": 576.5
+      }
+    },
+    {
+      "name": "/?qwerty=1&duration=30&practice=recommended · native no-op (Backspace at the start): typing continues natively after late history",
+      "ok": true,
+      "details": {
+        "value": "we l",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 549.5999999642372,
+        "releasedAt": 576.3999999761581,
+        "deliveredAt": 576.5
+      }
+    },
+    {
+      "name": "/?qwerty=1&duration=30&practice=recommended · accepted input: no page error (no second freeze)",
+      "ok": true,
+      "details": []
+    },
+    {
+      "name": "/?qwerty=1&duration=30&practice=recommended · accepted input: history delivered after the interaction",
+      "ok": true,
+      "details": {
+        "value": "i will ",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 276.30000001192093,
+        "releasedAt": 380.5,
+        "deliveredAt": 380.5999999642372
+      }
+    },
+    {
+      "name": "/?qwerty=1&duration=30&practice=recommended · accepted input: typing continues natively after late history",
+      "ok": true,
+      "details": {
+        "value": "i will ",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 276.30000001192093,
+        "releasedAt": 380.5,
+        "deliveredAt": 380.5999999642372
+      }
+    },
+    {
+      "name": "/?qwerty=1&duration=30&practice=recommended · next sentence: no page error (no second freeze)",
+      "ok": true,
+      "details": []
+    },
+    {
+      "name": "/?qwerty=1&duration=30&practice=recommended · next sentence: history delivered after the interaction",
+      "ok": true,
+      "details": {
+        "value": "add ",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 382.60000002384186,
+        "releasedAt": 1152.4000000357628,
+        "deliveredAt": 1152.5
+      }
+    },
+    {
+      "name": "/?qwerty=1&duration=30&practice=recommended · next sentence: typing continues natively after late history",
+      "ok": true,
+      "details": {
+        "value": "add ",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 382.60000002384186,
+        "releasedAt": 1152.4000000357628,
+        "deliveredAt": 1152.5
+      }
+    },
+    {
+      "name": "/?qwerty=1&duration=30&practice=recommended · restart before history: no page error (no second freeze)",
+      "ok": true,
+      "details": []
+    },
+    {
+      "name": "/?qwerty=1&duration=30&practice=recommended · restart before history: history delivered after the interaction",
+      "ok": true,
+      "details": {
+        "value": "bowl",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 328.10000002384186,
+        "releasedAt": 562.5,
+        "deliveredAt": 562.5
+      }
+    },
+    {
+      "name": "/?qwerty=1&duration=30&practice=recommended · restart before history: typing continues natively after late history",
+      "ok": true,
+      "details": {
+        "value": "bowl",
+        "state": "running",
+        "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
+        "firstKeyAt": 328.10000002384186,
+        "releasedAt": 562.5,
+        "deliveredAt": 562.5
+      }
+    }
+  ],
+  "summary": {
+    "checks": 30,
+    "failed": 0,
+    "pageErrors": 0
+  }
+}

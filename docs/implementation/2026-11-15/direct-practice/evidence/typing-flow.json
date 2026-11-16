@@ -196,5 +196,14 @@
     "Accelerated Playwright clock; not wall-clock duration evidence",
     "Single available browser engine; no physical AT, OS IME, device or browser UI zoom certification"
   ],
-  "seconds": 17
+  "seconds": 16,
+  "build": {
+    "servedFrom": "http://127.0.0.1:5301",
+    "assets": [
+      "app-BQOyU45s.css",
+      "app-Dvv-e4Tc.js",
+      "define-element-B_WeKIXB.js",
+      "env-B-odJnus.js"
+    ]
+  }
 }

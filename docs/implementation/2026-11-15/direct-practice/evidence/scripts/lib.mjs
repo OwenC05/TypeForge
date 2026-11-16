@@ -101,3 +101,29 @@ export async function seedResults(page, results) {
     return rows.length;
   }, results);
 }
+
+/** Immutable identity of the build being served: Vite's content-hashed asset names referenced by BASE. */
+export async function buildIdentity() {
+  const html = await (await fetch(`${BASE}/`)).text();
+  return { servedFrom: BASE, assets: [...new Set([...html.matchAll(/assets\/([^"']+\.(?:js|css))/g)].map(m => m[1]))].sort() };
+}
+/** Run an action expected to navigate: waits for the exact href and proves a new document loaded. */
+export async function navigation(page, expectedHref, act) {
+  await page.evaluate(() => { window.__sameDocument = true; });
+  const arrived = page.waitForURL(url => url.href === expectedHref, { timeout: 8000 }).then(() => true, () => false);
+  await act();
+  const ok = await arrived;
+  if (ok) await page.waitForLoadState('domcontentloaded');
+  const newDocument = ok ? await page.evaluate(() => window.__sameDocument !== true) : false;
+  return { expected: expectedHref, url: page.url(), arrived: ok, newDocument };
+}
+/** Run an action expected to be held: same document and same URL after a settle. */
+export async function staysPut(page, act) {
+  const before = page.url();
+  await page.evaluate(() => { window.__heldMarker = true; });
+  await act();
+  await page.waitForTimeout(400);
+  return { before, after: page.url(), sameDocument: await page.evaluate(() => window.__heldMarker === true).catch(() => false) };
+}
+/** Fail the process when any check failed or any page error was recorded. */
+export function finish(summary) { if (summary.failed > 0 || summary.pageErrors > 0) process.exitCode = 1; }

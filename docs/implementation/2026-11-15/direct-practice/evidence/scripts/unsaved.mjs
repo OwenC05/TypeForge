@@ -2,9 +2,10 @@
 // Storage failure is injected only inside isolated dp-impl-* profiles by patching IDBObjectStore.add
 // (restored for the retry cases). Real keys and pointer events; Playwright clock paused and advanced.
 import fs from 'node:fs';
-import { launch, BASE, VIEWPORTS, target, active, shot, saved, geometry, seededRandom, writeJson } from './lib.mjs';
+import { launch, BASE, VIEWPORTS, target, active, shot, saved, geometry, seededRandom, writeJson, buildIdentity, navigation, staysPut, finish } from './lib.mjs';
 
-const report = { generatedAt: new Date().toISOString(), base: BASE, viewports: {}, flows: {}, notes: [] };
+const report = { generatedAt: new Date().toISOString(), base: BASE, build: await buildIdentity(), viewports: {}, flows: {}, notes: [] };
+const allErrors = [];
 const results = [];
 const check = (name, ok, details) => { results.push({ name, ok: Boolean(ok), ...(details === undefined ? {} : { details }) }); if (!ok) console.log('FAIL', name, JSON.stringify(details ?? null).slice(0, 400)); };
 
@@ -80,10 +81,11 @@ for (const vp of [1440, 390, 320]) {
   await shot(page, `${vp}-22-unsaved-2-running-with-hint.png`);
 
   // LR-1: a held departure during a run is operable; returning to the passage cancels it.
-  await page.locator('a.brand').click();
+  const heldRun = await staysPut(page, () => page.locator('a.brand').click());
   await page.waitForFunction(() => document.querySelector('#carried [data-act="leave"]'));
   l = await line(page);
-  check(`${vp}: in-app link during a run is held, not navigated`, new URL(page.url()).pathname === '/' && l.text === '2 results not saved. Leaving this page loses them.' && !l.inert && l.buttons.join() === 'export,leave', l);
+  check(`${vp}: in-app link during a run is held, not navigated`, heldRun.sameDocument && heldRun.after === heldRun.before && l.text === '2 results not saved. Leaving this page loses them.' && !l.inert && l.buttons.join() === 'export,leave', l);
+  check(`${vp}: the held line keeps the run (stage still running)`, await page.evaluate(() => document.querySelector('#stage').dataset.state) === 'running');
   check(`${vp}: Export takes focus when held`, await page.evaluate(() => document.activeElement?.dataset?.act === 'export'));
   facts.slotWhileHeld = await slotFacts(page);
   const held = await geometry(page);
@@ -102,10 +104,13 @@ for (const vp of [1440, 390, 320]) {
   check(`${vp}: Export downloads every unsaved result in one file`, Array.isArray(exported) && exported.length === 2 && new Set(exported.map(r => r.id)).size === 2, { file: download.suggestedFilename(), count: exported.length });
   l = await line(page);
   check(`${vp}: after export the hold stays and says the copies are kept`, /exported copies are yours to keep/.test(l.text), l);
-  await Promise.all([page.waitForURL(url => true), page.locator('#carried [data-act="leave"]').click()]);
+  const brandHref = await page.locator('a.brand').evaluate(a => a.href);
+  const left = await navigation(page, brandHref, () => page.locator('#carried [data-act="leave"]').click());
   await page.locator('#prompt span').first().waitFor();
-  check(`${vp}: 'leave without saving' navigates; the in-memory list does not survive (documented)`, (await line(page)).hidden);
-  facts.pageErrors = errors;
+  check(`${vp}: 'leave without saving' loads the link's destination as a new document`, left.arrived && left.newDocument, left);
+  check(`${vp}: the in-memory list does not survive leaving (documented limitation)`, (await line(page)).hidden && await page.evaluate(() => document.querySelector('#stage').dataset.state) === 'idle');
+  facts.pageErrors = errors; allErrors.push(...errors);
+  check(`${vp}: zero page errors`, errors.length === 0, errors);
   await context.close();
 }
 
@@ -126,10 +131,10 @@ for (const vp of [1440, 390, 320]) {
   await completeBlock(page); await page.keyboard.press('Enter'); await ready(page);
   await page.locator('#carried [data-act="discard"]').click();
   check('discard is explicit and removes the listed result', (await line(page)).hidden && (await saved(page)).length === 2);
-  await page.locator('a.brand').click();
-  await page.waitForLoadState();
-  check('empty list: in-app navigation is immediate', true);
-  report.flows.retry = { errors };
+  const emptyNav = await navigation(page, await page.locator('a.brand').evaluate(a => a.href), () => page.locator('a.brand').click());
+  check('empty list: the first in-app link activation navigates immediately to its destination', emptyNav.arrived && emptyNav.newDocument, emptyNav);
+  report.flows.retry = { errors }; allErrors.push(...errors);
+  check('retry flow: zero page errors', errors.length === 0, errors);
   await context.close();
 }
 
@@ -139,12 +144,13 @@ for (const link of ['#practice-next', '#retest-next']) {
   const { context, page, errors } = await open(`unsaved-assess-${link.slice(1)}`, viewport, '/practice.html?duration=15');
   await failSaves(page, true);
   await completeBlock(page);
-  await page.locator(link).click();
+  const href = await page.locator(link).evaluate(a => a.href);
+  const firstHold = await staysPut(page, () => page.locator(link).click());
   await page.waitForFunction(() => document.querySelector('#carried [data-act="leave"]'));
   const held = await line(page);
-  check(`assessment ${link}: held with the result-state slot line`, new URL(page.url()).pathname === '/practice.html' && held.text === '1 result not saved. Leaving this page loses it.' && await page.evaluate(() => document.activeElement?.dataset?.act === 'export'), held);
-  await page.locator(link).click(); // an ordinary second click on the unchanged link is not a discard
-  check(`assessment ${link}: a second click on the same link still holds`, new URL(page.url()).pathname === '/practice.html');
+  check(`assessment ${link}: held with the result-state slot line`, firstHold.sameDocument && firstHold.after === firstHold.before && held.text === '1 result not saved. Leaving this page loses it.' && await page.evaluate(() => document.activeElement?.dataset?.act === 'export'), held);
+  const secondHold = await staysPut(page, () => page.locator(link).click()); // an ordinary second click is not a discard
+  check(`assessment ${link}: a second click on the same link still holds`, secondHold.sameDocument && secondHold.after === secondHold.before && !(await line(page)).hidden, secondHold);
   if (link === '#practice-next') {
     await shot(page, '1440-24-departure-held-assessment.png');
     for (const vp of [390, 320]) { await page.setViewportSize(VIEWPORTS[vp]); await shot(page, `${vp}-24-departure-held-assessment.png`); }
@@ -154,19 +160,21 @@ for (const link of ['#practice-next', '#retest-next']) {
     await failSaves(page, false);
     await page.locator('#retry-save').click();
     await page.waitForFunction(() => document.querySelector('#carried').hidden);
-    check('assessment: a save settling while held clears the hold', true);
-    await Promise.all([page.waitForURL(url => url.pathname === '/practice.html' && url.searchParams.get('mode') === 'practice'), page.locator(link).click()]);
-    check('assessment: Practice next then navigates immediately', true);
+    check('assessment: a save settling while held clears the hold (line hidden, result saved)', (await line(page)).hidden && (await saved(page)).length === 1);
+    const next = await navigation(page, href, () => page.locator(link).click());
+    check('assessment: Practice next then navigates immediately to its exact destination', next.arrived && next.newDocument && new URL(next.url).searchParams.get('mode') === 'practice', next);
   } else {
-    await Promise.all([page.waitForURL(url => url.searchParams.has('retest') || url.search !== ''), page.locator('#carried [data-act="leave"]').click()]);
-    check('assessment fresh retest: leave without saving navigates', true);
+    const retest = await navigation(page, href, () => page.locator('#carried [data-act="leave"]').click());
+    check('assessment fresh retest: leave without saving loads the retest link destination', retest.arrived && retest.newDocument && new URL(retest.url).searchParams.has('retest'), retest);
   }
-  report.flows[link] = { errors };
+  report.flows[link] = { errors }; allErrors.push(...errors);
+  check(`assessment ${link}: zero page errors`, errors.length === 0, errors);
   await context.close();
 }
 
 report.results = results;
-report.summary = { checks: results.length, failed: results.filter(r => !r.ok).length };
+report.summary = { checks: results.length, failed: results.filter(r => !r.ok).length, pageErrors: allErrors.length };
 report.notes.push('The unsaved list is document-scoped and in memory only; tab close, reload and BFCache reload lose it (documented limitation, no beforeunload prompt).');
 writeJson('unsaved.json', report);
 console.log(JSON.stringify(report.summary));
+finish(report.summary);

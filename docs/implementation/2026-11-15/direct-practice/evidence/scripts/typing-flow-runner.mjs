@@ -4,7 +4,7 @@
 // Usage: PLAYWRIGHT_MODULE=… SCRATCH=… node typing-flow-runner.mjs <typing-flow.js> <out.json>
 import fs from 'node:fs';
 import path from 'node:path';
-import { chromium, CHROME, SCRATCH, removeProfile } from './lib.mjs';
+import { chromium, CHROME, SCRATCH, removeProfile, buildIdentity } from './lib.mjs';
 
 const [file, outFile] = process.argv.slice(2);
 const source = fs.readFileSync(file, 'utf8');
@@ -22,6 +22,8 @@ const started = Date.now();
 let result;
 try { result = await fn({ context: () => ({ browser: () => ({ version: () => version, newContext: open }) }) }); } catch (error) { result = { crashed: String(error) }; }
 result.seconds = Math.round((Date.now() - started) / 1000);
+result.build = await buildIdentity();
 for (const { context, dir } of opened) { await context.close().catch(() => {}); removeProfile(dir); }
 fs.writeFileSync(outFile, JSON.stringify(result, null, 2) + '\n');
 console.log(JSON.stringify({ browser: result.browser, assertions: result.assertions, passed: result.passed, failed: result.failed, fails: result.results?.filter(r => r.status === 'FAIL'), errors: result.errors, crashed: result.crashed, seconds: result.seconds }, null, 1));
+if (result.crashed || result.failed !== 0 || result.errors?.length) process.exitCode = 1;

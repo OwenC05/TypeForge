@@ -1,6 +1,15 @@
 {
-  "generatedAt": "2026-11-16T12:28:23.048Z",
+  "generatedAt": "2026-11-16T12:45:25.741Z",
   "base": "http://127.0.0.1:5301",
+  "build": {
+    "servedFrom": "http://127.0.0.1:5301",
+    "assets": [
+      "app-BQOyU45s.css",
+      "app-Dvv-e4Tc.js",
+      "define-element-B_WeKIXB.js",
+      "env-B-odJnus.js"
+    ]
+  },
   "viewports": {
     "320": {
       "cleanReady": {
@@ -374,6 +383,10 @@
       }
     },
     {
+      "name": "1440: the held line keeps the run (stage still running)",
+      "ok": true
+    },
+    {
       "name": "1440: Export takes focus when held",
       "ok": true
     },
@@ -448,8 +461,23 @@
       }
     },
     {
-      "name": "1440: 'leave without saving' navigates; the in-memory list does not survive (documented)",
+      "name": "1440: 'leave without saving' loads the link's destination as a new document",
+      "ok": true,
+      "details": {
+        "expected": "http://127.0.0.1:5301/index.html",
+        "url": "http://127.0.0.1:5301/index.html",
+        "arrived": true,
+        "newDocument": true
+      }
+    },
+    {
+      "name": "1440: the in-memory list does not survive leaving (documented limitation)",
       "ok": true
+    },
+    {
+      "name": "1440: zero page errors",
+      "ok": true,
+      "details": []
     },
     {
       "name": "390: first block save fails in place",
@@ -582,6 +610,10 @@
       }
     },
     {
+      "name": "390: the held line keeps the run (stage still running)",
+      "ok": true
+    },
+    {
       "name": "390: Export takes focus when held",
       "ok": true
     },
@@ -656,8 +688,23 @@
       }
     },
     {
-      "name": "390: 'leave without saving' navigates; the in-memory list does not survive (documented)",
+      "name": "390: 'leave without saving' loads the link's destination as a new document",
+      "ok": true,
+      "details": {
+        "expected": "http://127.0.0.1:5301/index.html",
+        "url": "http://127.0.0.1:5301/index.html",
+        "arrived": true,
+        "newDocument": true
+      }
+    },
+    {
+      "name": "390: the in-memory list does not survive leaving (documented limitation)",
       "ok": true
+    },
+    {
+      "name": "390: zero page errors",
+      "ok": true,
+      "details": []
     },
     {
       "name": "320: first block save fails in place",
@@ -790,6 +837,10 @@
       }
     },
     {
+      "name": "320: the held line keeps the run (stage still running)",
+      "ok": true
+    },
+    {
       "name": "320: Export takes focus when held",
       "ok": true
     },
@@ -864,8 +915,23 @@
       }
     },
     {
-      "name": "320: 'leave without saving' navigates; the in-memory list does not survive (documented)",
+      "name": "320: 'leave without saving' loads the link's destination as a new document",
+      "ok": true,
+      "details": {
+        "expected": "http://127.0.0.1:5301/index.html",
+        "url": "http://127.0.0.1:5301/index.html",
+        "arrived": true,
+        "newDocument": true
+      }
+    },
+    {
+      "name": "320: the in-memory list does not survive leaving (documented limitation)",
       "ok": true
+    },
+    {
+      "name": "320: zero page errors",
+      "ok": true,
+      "details": []
     },
     {
       "name": "retry saves both carried results exactly once, then the line clears",
@@ -884,8 +950,19 @@
       "ok": true
     },
     {
-      "name": "empty list: in-app navigation is immediate",
-      "ok": true
+      "name": "empty list: the first in-app link activation navigates immediately to its destination",
+      "ok": true,
+      "details": {
+        "expected": "http://127.0.0.1:5301/index.html",
+        "url": "http://127.0.0.1:5301/index.html",
+        "arrived": true,
+        "newDocument": true
+      }
+    },
+    {
+      "name": "retry flow: zero page errors",
+      "ok": true,
+      "details": []
     },
     {
       "name": "assessment #practice-next: held with the result-state slot line",
@@ -902,15 +979,31 @@
     },
     {
       "name": "assessment #practice-next: a second click on the same link still holds",
+      "ok": true,
+      "details": {
+        "before": "http://127.0.0.1:5301/practice.html?duration=15",
+        "after": "http://127.0.0.1:5301/practice.html?duration=15",
+        "sameDocument": true
+      }
+    },
+    {
+      "name": "assessment: a save settling while held clears the hold (line hidden, result saved)",
       "ok": true
     },
     {
-      "name": "assessment: a save settling while held clears the hold",
-      "ok": true
+      "name": "assessment: Practice next then navigates immediately to its exact destination",
+      "ok": true,
+      "details": {
+        "expected": "http://127.0.0.1:5301/practice.html?mode=practice&practice=general&from=485d4bd5-0c93-4731-a5ff-29d2e5c46afa&duration=15&qwerty=0",
+        "url": "http://127.0.0.1:5301/practice.html?mode=practice&practice=general&from=485d4bd5-0c93-4731-a5ff-29d2e5c46afa&duration=15&qwerty=0",
+        "arrived": true,
+        "newDocument": true
+      }
     },
     {
-      "name": "assessment: Practice next then navigates immediately",
-      "ok": true
+      "name": "assessment #practice-next: zero page errors",
+      "ok": true,
+      "details": []
     },
     {
       "name": "assessment #retest-next: held with the result-state slot line",
@@ -927,15 +1020,32 @@
     },
     {
       "name": "assessment #retest-next: a second click on the same link still holds",
-      "ok": true
+      "ok": true,
+      "details": {
+        "before": "http://127.0.0.1:5301/practice.html?duration=15",
+        "after": "http://127.0.0.1:5301/practice.html?duration=15",
+        "sameDocument": true
+      }
     },
     {
-      "name": "assessment fresh retest: leave without saving navigates",
-      "ok": true
+      "name": "assessment fresh retest: leave without saving loads the retest link destination",
+      "ok": true,
+      "details": {
+        "expected": "http://127.0.0.1:5301/practice.html?retest=10e66e7e-5cbd-4b95-b015-8d7c3b7e6aa7&duration=15&qwerty=0",
+        "url": "http://127.0.0.1:5301/practice.html?retest=10e66e7e-5cbd-4b95-b015-8d7c3b7e6aa7&duration=15&qwerty=0",
+        "arrived": true,
+        "newDocument": true
+      }
+    },
+    {
+      "name": "assessment #retest-next: zero page errors",
+      "ok": true,
+      "details": []
     }
   ],
   "summary": {
-    "checks": 62,
-    "failed": 0
+    "checks": 74,
+    "failed": 0,
+    "pageErrors": 0
   }
 }
