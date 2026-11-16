@@ -53,3 +53,18 @@ Root committed bounded follow-up briefs at `ad97218`:
 | H3 independent history review | task_d9abd8476e9b / ctx_405e1c4ab979 | tf-history-review; Codex gpt-6.1-sol / high, based on frozen 92803c8 | ready |
 
 Root informed P1 of the frozen history API and pending independent review (`msg_f5f884e14c3f`). A saturating baseline milestone with ten valid witnesses is distinct from an exact lifetime count or complete coaching profile. No unsupported stopping proof, incomplete-profile diagnosis, or metric change is accepted by launch alone. Root continues to own integration and later contract review.
+
+## Policy proposal delivered; independent reviews active
+
+P1 completion `msg_f203f59f0ca8` delivers `e4847548380cd50cde911645314dc023737068ad`, imported as `11b1853`. It contains the proposed ten-test participation contract, separate newest20/30-day clean-timing policy, strict independent coach config/sidecar schemas, primary references and bounded probes. Reported checks: 148 contract assertions and 25 unchanged model/profile tests. These are contract/probe results, not an implemented selector, migration or observed learning outcome. All P1 helpers, including refinement `ctx_ec8b3a271a82`, are settled. No adaptive code is integrated.
+
+Root read the proposal and explicitly asked actual Claude P2 to reconcile the final statuses/counting semantics and challenge the personalization promise/complexity (`msg_0254894bf2f3`), committing its baseline UX artifacts separately from the unrelated forced-colors repair. Independent frozen-input technical reviews started from briefs committed at `706e459`:
+
+| Review | Task / Dispatch | Workspace | Configured model / receipt |
+|---|---|---|---|
+| A2 architecture, data lifecycle and minimal implementation boundary | task_f7be3b31ee6c / ctx_d8261cc94d11 | tf-policy-architecture | Codex gpt-6.1-sol / high; ready |
+| C2 independent feasibility, arithmetic, support and corpus exposure challenge | task_ca690cf33109 / ctx_83dfdde470f7 | tf-policy-critique | Codex gpt-6.1-sol / high; ready |
+
+Both inspect the exact P1 proposal independently; A2 uses frozen P3 API while H3 separately reviews its low-level correctness. They may propose amendments, not silently implement them. Root reconciles with actual Claude before production policy/UI work.
+
+S2's earlier unobserved start was inspected after no report arrived: exact `ctx_e82887c464ea` remained live/idle with no provider transcript, zero tokens and a blank composer. Root sent one supported attempt-specific acknowledgement/continuation `msg_cbf69a556c40` referencing its existing Task and brief. No terminal input steering, duplicate launch, cancellation or abandonment occurred. Await execution/report evidence; do not infer success from message delivery alone.
