@@ -1,0 +1,22 @@
+- link "Skip to content":
+  - /url: "#main"
+- banner:
+  - link "typeforge":
+    - /url: ./index.html
+  - button "menu"
+- main:
+  - heading "Practice" [level=1]
+  - paragraph
+  - region "Typing exercise":
+    - timer "Seconds left": "30"
+    - paragraph: General practice · 30 s
+    - button "why?" [disabled]
+    - text: Type the passage
+    - paragraph: "Passage to copy: fresh bread makes the whole room smell lovely"
+    - paragraph: "Space advances words; Backspace corrects the current passage. Enter does not advance. Completed passages cannot be edited. Correction at character 1: expected \"f\"."
+    - button "continue typing ↵"
+    - textbox "Type the passage": a
+    - status:
+      - paragraph: "Focus left the typing field: this run is flagged and excluded from headline progress. The timer kept running."
+    - button "restart"
+    - status: Timer running. Keep typing; Space advances the passage.

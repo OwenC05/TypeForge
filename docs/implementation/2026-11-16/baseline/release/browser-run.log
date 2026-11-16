@@ -1,0 +1,150 @@
+[
+  {
+    "channel": "chrome",
+    "version": "157.0.8103.52",
+    "regression": {
+      "passed": 46,
+      "failed": 0,
+      "errors": []
+    },
+    "checks": [
+      {
+        "name": "named textarea role",
+        "pass": true
+      },
+      {
+        "name": "described passage and native help",
+        "pass": true
+      },
+      {
+        "name": "named navigation and timer",
+        "pass": true
+      },
+      {
+        "name": "middle native selection",
+        "pass": true
+      },
+      {
+        "name": "middle selection replacement",
+        "pass": true
+      },
+      {
+        "name": "middle native backspace preserves suffix",
+        "pass": true
+      },
+      {
+        "name": "running Tab reaches Restart",
+        "pass": true
+      },
+      {
+        "name": "keyboard restart returns textarea focus",
+        "pass": true
+      },
+      {
+        "name": "keyboard changes idle duration",
+        "pass": true
+      },
+      {
+        "name": "keyboard switch toggles checked state",
+        "pass": true
+      },
+      {
+        "name": "duration and keyboard persist without query",
+        "pass": true
+      },
+      {
+        "name": "keyboard reaches manual pair control",
+        "pass": true
+      },
+      {
+        "name": "manual choice and selected pair persist",
+        "pass": true,
+        "detail": {
+          "selected": "ti"
+        }
+      },
+      {
+        "name": "reduced motion disables topbar transition",
+        "pass": true
+      },
+      {
+        "name": "forced colors active with native textarea reachable",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "channel": "msedge",
+    "version": "157.0.4341.60",
+    "regression": {
+      "passed": 46,
+      "failed": 0,
+      "errors": []
+    },
+    "checks": [
+      {
+        "name": "named textarea role",
+        "pass": true
+      },
+      {
+        "name": "described passage and native help",
+        "pass": true
+      },
+      {
+        "name": "named navigation and timer",
+        "pass": true
+      },
+      {
+        "name": "middle native selection",
+        "pass": true
+      },
+      {
+        "name": "middle selection replacement",
+        "pass": true
+      },
+      {
+        "name": "middle native backspace preserves suffix",
+        "pass": true
+      },
+      {
+        "name": "running Tab reaches Restart",
+        "pass": true
+      },
+      {
+        "name": "keyboard restart returns textarea focus",
+        "pass": true
+      },
+      {
+        "name": "keyboard changes idle duration",
+        "pass": true
+      },
+      {
+        "name": "keyboard switch toggles checked state",
+        "pass": true
+      },
+      {
+        "name": "duration and keyboard persist without query",
+        "pass": true
+      },
+      {
+        "name": "keyboard reaches manual pair control",
+        "pass": true
+      },
+      {
+        "name": "manual choice and selected pair persist",
+        "pass": true,
+        "detail": {
+          "selected": "ti"
+        }
+      },
+      {
+        "name": "reduced motion disables topbar transition",
+        "pass": true
+      },
+      {
+        "name": "forced colors active with native textarea reachable",
+        "pass": true
+      }
+    ]
+  }
+]

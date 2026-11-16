@@ -1,0 +1,5 @@
+{
+    "ProcessId":  8760,
+    "ExecutablePath":  "C:\\Program Files\\nodejs\\node.exe",
+    "CommandLine":  "\"C:\\Program Files\\nodejs\\node.exe\" node_modules/vite/bin/vite.js preview --host 127.0.0.1 --port 5314 --strictPort "
+}
