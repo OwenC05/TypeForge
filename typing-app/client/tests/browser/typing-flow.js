@@ -30,7 +30,7 @@ async (page) => {
     p.on('pageerror', error => errors.push({case: name, message: error.message}));
     try {
       await p.clock.install();
-      await p.clock.pauseAt(new Date());
+      await p.clock.pauseAt(new Date(Date.now() + 1000)); // a lead: the page clock started at install and may already be past Node's now
       await p.goto(base + path);
       const input = p.locator('#typing-input');
       await input.waitFor();
