@@ -1,0 +1,324 @@
+﻿{
+  "checks": 62,
+  "pairUniverse": 280,
+  "corpusSummary": {
+    "countTwentyAssessment": [
+      "he",
+      "in",
+      "le",
+      "th"
+    ],
+    "countTwentyCombined": [
+      "ai",
+      "al",
+      "an",
+      "ar",
+      "as",
+      "at",
+      "be",
+      "bo",
+      "ch",
+      "de",
+      "ea",
+      "ed",
+      "ee",
+      "en",
+      "er",
+      "es",
+      "et",
+      "fo",
+      "ha",
+      "he",
+      "ho",
+      "in",
+      "is",
+      "ke",
+      "la",
+      "le",
+      "ll",
+      "lo",
+      "nd",
+      "ne",
+      "ng",
+      "nt",
+      "on",
+      "oo",
+      "or",
+      "ou",
+      "ow",
+      "pl",
+      "re",
+      "ri",
+      "ro",
+      "se",
+      "sh",
+      "si",
+      "st",
+      "te",
+      "th",
+      "to",
+      "ur",
+      "ve",
+      "wa",
+      "we"
+    ],
+    "certificateStatusCounts": {
+      "impossible-bank-contexts": 141,
+      "constructed": 136,
+      "impossible-first-whole-prompt": 3
+    },
+    "assessmentTwentyAndCertificate": [
+      "he",
+      "in",
+      "le",
+      "th"
+    ],
+    "combinedTwentyAndCertificate": [
+      "ai",
+      "al",
+      "an",
+      "ar",
+      "as",
+      "at",
+      "be",
+      "bo",
+      "ch",
+      "de",
+      "ea",
+      "ed",
+      "ee",
+      "en",
+      "er",
+      "es",
+      "et",
+      "fo",
+      "ha",
+      "he",
+      "ho",
+      "in",
+      "is",
+      "ke",
+      "la",
+      "le",
+      "ll",
+      "lo",
+      "nd",
+      "ne",
+      "ng",
+      "nt",
+      "on",
+      "oo",
+      "or",
+      "ou",
+      "ow",
+      "pl",
+      "re",
+      "ri",
+      "ro",
+      "se",
+      "sh",
+      "si",
+      "st",
+      "te",
+      "th",
+      "to",
+      "ur",
+      "ve",
+      "wa",
+      "we"
+    ]
+  },
+  "selectedPairs": [
+    {
+      "pair": "ag",
+      "assessmentOccurrences": 4,
+      "combinedOccurrences": 7,
+      "practiceWords": 3,
+      "assessmentTop20Ceiling": 4,
+      "plan": {
+        "status": "impossible-bank-contexts",
+        "nodes": 0
+      }
+    },
+    {
+      "pair": "au",
+      "assessmentOccurrences": 1,
+      "combinedOccurrences": 2,
+      "practiceWords": 1,
+      "assessmentTop20Ceiling": 1,
+      "plan": {
+        "status": "impossible-bank-contexts",
+        "nodes": 0
+      }
+    },
+    {
+      "pair": "br",
+      "assessmentOccurrences": 6,
+      "combinedOccurrences": 17,
+      "practiceWords": 9,
+      "assessmentTop20Ceiling": 6,
+      "plan": {
+        "status": "constructed",
+        "nodes": 13,
+        "certificate": {
+          "pass": true,
+          "length": 518,
+          "bankPrompts": 11,
+          "bankOccurrences": 11,
+          "words240": 6,
+          "passages480": 11,
+          "firstFailure": null,
+          "repeats": false,
+          "promptIds": [
+            "practice-041",
+            "practice-004",
+            "practice-007",
+            "practice-030",
+            "practice-053",
+            "practice-064",
+            "practice-006",
+            "practice-008",
+            "practice-011",
+            "practice-049",
+            "practice-071",
+            "practice-041"
+          ]
+        }
+      }
+    },
+    {
+      "pair": "he",
+      "assessmentOccurrences": 59,
+      "combinedOccurrences": 171,
+      "practiceWords": 16,
+      "assessmentTop20Ceiling": 41,
+      "plan": {
+        "status": "constructed",
+        "nodes": 13,
+        "certificate": {
+          "pass": true,
+          "length": 501,
+          "bankPrompts": 74,
+          "bankOccurrences": 112,
+          "words240": 8,
+          "passages480": 11,
+          "firstFailure": null,
+          "repeats": false,
+          "promptIds": [
+            "practice-003",
+            "practice-019",
+            "practice-048",
+            "practice-013",
+            "practice-078",
+            "practice-028",
+            "practice-001",
+            "practice-036",
+            "practice-054",
+            "practice-002",
+            "practice-047",
+            "practice-074"
+          ]
+        }
+      }
+    },
+    {
+      "pair": "th",
+      "assessmentOccurrences": 62,
+      "combinedOccurrences": 170,
+      "practiceWords": 11,
+      "assessmentTop20Ceiling": 43,
+      "plan": {
+        "status": "constructed",
+        "nodes": 13,
+        "certificate": {
+          "pass": true,
+          "length": 480,
+          "bankPrompts": 71,
+          "bankOccurrences": 108,
+          "words240": 3,
+          "passages480": 12,
+          "firstFailure": null,
+          "repeats": false,
+          "promptIds": [
+            "practice-002",
+            "practice-072",
+            "practice-053",
+            "practice-003",
+            "practice-036",
+            "practice-054",
+            "practice-034",
+            "practice-047",
+            "practice-074",
+            "practice-077",
+            "practice-058",
+            "practice-062"
+          ]
+        }
+      }
+    }
+  ],
+  "scenarioCounts": [
+    {
+      "runs": 10,
+      "otherMs": 200,
+      "tested": 8,
+      "historiesWithPassingPair": 8
+    },
+    {
+      "runs": 10,
+      "otherMs": 100,
+      "tested": 8,
+      "historiesWithPassingPair": 8
+    },
+    {
+      "runs": 20,
+      "otherMs": 200,
+      "tested": 8,
+      "historiesWithPassingPair": 8
+    },
+    {
+      "runs": 20,
+      "otherMs": 100,
+      "tested": 8,
+      "historiesWithPassingPair": 8
+    }
+  ],
+  "firstWitness": {
+    "pair": "he",
+    "seed": 1,
+    "runs": 10,
+    "outcome": {
+      "full": {
+        "target": 28,
+        "reference": 543,
+        "runs": 10,
+        "prompts": 19,
+        "words": 4,
+        "delta": 0.6931471805599791
+      },
+      "halves": [
+        {
+          "target": 10,
+          "reference": 234,
+          "runs": 5,
+          "prompts": 8,
+          "words": 2,
+          "delta": 0.6931471805599436
+        },
+        {
+          "target": 18,
+          "reference": 309,
+          "runs": 5,
+          "prompts": 11,
+          "words": 3,
+          "delta": 0.6931471805599578
+        }
+      ],
+      "acceptedRunIds": 10,
+      "support": true,
+      "timing": true,
+      "certificate": true,
+      "passes": true
+    }
+  }
+}
