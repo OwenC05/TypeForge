@@ -6,7 +6,7 @@
 // Usage: PLAYWRIGHT_MODULE=… SCRATCH=… node zoom.mjs  -> ../zoom.json + screenshots/zoom200-*.png
 import fs from 'node:fs';
 import path from 'node:path';
-import { chromium, CHROME, SCRATCH, BASE, SHOTS, target, active, geometry, seededRandom, removeProfile, writeJson } from './lib.mjs';
+import { chromium, CHROME, SCRATCH, BASE, SHOTS, target, active, geometry, seededRandom, removeProfile, writeJson, buildIdentity } from './lib.mjs';
 
 const level = Math.log(2) / Math.log(1.2);
 const dir = fs.mkdtempSync(path.join(SCRATCH, 'dp-impl-zoom200-'));
@@ -17,7 +17,7 @@ const page = context.pages()[0] ?? await context.newPage();
 const errors = [];
 page.on('pageerror', error => errors.push(String(error)));
 await page.addInitScript(seededRandom(20261115));
-const report = { generatedAt: new Date().toISOString(), base: BASE, method: 'Chrome profile preference partition.default_zoom_level (browser zoom), headless system Chrome 1440x900 window, viewport emulation off', requestedZoomLevel: level, states: {} };
+const report = { generatedAt: new Date().toISOString(), base: BASE, build: await buildIdentity(), method: 'Chrome profile preference partition.default_zoom_level (browser zoom), headless system Chrome 1440x900 window, viewport emulation off', requestedZoomLevel: level, states: {} };
 const capture = async file => { const cdp = await context.newCDPSession(page); const shot = await cdp.send('Page.captureScreenshot', { format: 'png' }); fs.writeFileSync(path.join(SHOTS, file), Buffer.from(shot.data, 'base64')); await cdp.detach(); return `screenshots/${file}`; };
 const facts = async () => ({ ...(await geometry(page)), focused: await active(page),
   railFits: await page.evaluate(() => { const r = document.querySelector('#rail')?.getBoundingClientRect(); return r ? r.right <= innerWidth + 0.5 : null; }),

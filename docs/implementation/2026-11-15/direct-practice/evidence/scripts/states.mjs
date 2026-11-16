@@ -2,10 +2,10 @@
 // Real key/pointer events through the native textarea; Playwright clock paused and advanced
 // explicitly (accelerated clock, not wall-clock evidence). Reduced motion keeps the run-state
 // opacity change immediate so a paused clock cannot freeze a transition mid-way.
-import { launch, BASE, VIEWPORTS, target, active, shot, saved, savedInPlace, geometry, chromeVersion, seededRandom, writeJson } from './lib.mjs';
+import { launch, BASE, VIEWPORTS, target, active, shot, saved, savedInPlace, geometry, chromeVersion, seededRandom, writeJson, buildIdentity } from './lib.mjs';
 
 const only = process.argv[2] ? process.argv[2].split(',') : Object.keys(VIEWPORTS);
-const report = { generatedAt: new Date().toISOString(), base: BASE, chrome: null, notes: [], viewports: {} };
+const report = { generatedAt: new Date().toISOString(), base: BASE, build: await buildIdentity(), chrome: null, notes: [], viewports: {} };
 const SEED = 20261115;
 
 async function open(label, viewport, url, { seed = SEED } = {}) {

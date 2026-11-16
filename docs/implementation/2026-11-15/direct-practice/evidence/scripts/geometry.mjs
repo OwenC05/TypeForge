@@ -7,11 +7,11 @@
 //   shipped   : the production CSS (column-snapped, word-break: break-all)
 //   word-safe : the same page with a test-only override (word-break: normal; overflow-wrap: anywhere)
 // Word-safe is adopted only if every case and every sweep width agrees (direction §4.8).
-import { launch, BASE, VIEWPORTS, target, geometry, saved, seededRandom, writeJson, promptIds, chromeVersion } from './lib.mjs';
+import { launch, BASE, VIEWPORTS, target, geometry, saved, seededRandom, writeJson, promptIds, chromeVersion, buildIdentity } from './lib.mjs';
 
 const SEED = 20261115;
 const WORD_SAFE = '.typing-surface .prompt, .typing-surface .typing-input, .passage-context { word-break: normal !important; overflow-wrap: anywhere !important; }';
-const report = { generatedAt: new Date().toISOString(), base: BASE, seed: SEED, chrome: null, notes: [], modes: {}, promptIds: {}, savedSettings: {}, sweep: {} };
+const report = { generatedAt: new Date().toISOString(), base: BASE, build: await buildIdentity(), seed: SEED, chrome: null, notes: [], modes: {}, promptIds: {}, savedSettings: {}, sweep: {} };
 
 const mirrorState = page => page.evaluate(() => {
   const input = document.querySelector('#typing-input');

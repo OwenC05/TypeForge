@@ -1,6 +1,15 @@
 {
-  "generatedAt": "2026-11-16T12:07:28.142Z",
+  "generatedAt": "2026-11-16T12:53:41.073Z",
   "base": "http://127.0.0.1:5301",
+  "build": {
+    "servedFrom": "http://127.0.0.1:5301",
+    "assets": [
+      "app-BQOyU45s.css",
+      "app-Dvv-e4Tc.js",
+      "define-element-B_WeKIXB.js",
+      "env-B-odJnus.js"
+    ]
+  },
   "chrome": "Chrome/157.0.8103.52",
   "notes": [
     "Seeded Math.random (seed 20261115) is installed before app scripts so passages are reproducible.",

@@ -1,0 +1,146 @@
+{
+  "generatedAt": "2026-11-16T12:51:45.310Z",
+  "branch": "OwenC05/tf-direct-practice",
+  "clientCommit": "8ede09ded9f7a3500ccec598c1adcc3ca8b2aaa7",
+  "sourceCommit": "1ad38ca3e1a3b84f06198cc6f26ad637a0e9a177",
+  "sourceTree": "baa6b7abcfd43e75ce95deca2985c99197b615ca",
+  "workingTreeClientClean": true,
+  "node": "v24.21.0",
+  "servedEntryAssets": [
+    "app-BQOyU45s.css",
+    "app-Dvv-e4Tc.js",
+    "define-element-B_WeKIXB.js",
+    "env-B-odJnus.js"
+  ],
+  "dist": {
+    "assets": {
+      "app-BQOyU45s.css": "0520d636b294f0620c4d2f7f51770ec5204a4cdd6f03c0108385f61bb3184a98",
+      "app-Dvv-e4Tc.js": "025c6d6f4b876490a92ee88b50766b3791a3e5ae26b2757a5e309644cb169743",
+      "define-element-B_WeKIXB.js": "c97bab8f77c68afdec8c70ec787dbf97574cb4ba2028a982fda42a4e4deff86d",
+      "env-B-odJnus.js": "9ba81c4225754f059abf3e6d49552c790705be69de4ecd770b5880b4164a0029",
+      "favicon-2cBZDU6Q.svg": "c81817b819e26eaf5598e51754bdca5d75dcad2fbee3d45369195ac2ab94d569",
+      "select-D9fpQqgK.js": "a501bb57e95ba7021e327e5150f30e01133065d97af715ce8259b96669ef0e5b",
+      "sheet-presentation-BQEATMwe.js": "7a8ae76df44b577b0e0e20b6f79d15a3e1596abb099d097c770dab878d2a865b",
+      "sides-CecCr77z.js": "4a7d4bfd9fdf5d4f981d49bebb96946c6a17eb3710a7ebc87f1d8299813d9f3e"
+    },
+    "html": {
+      "DetailedResults.html": "955aeb80767b01a81311ada12086e925ade7be6d911a60563ae9dc5dd0dd88a4",
+      "LandingPage.html": "c10c7915250908ebec892c6f4ee83de6b9f1f7475fe34fea4af945e9746ce032",
+      "LeaderBoard.html": "c10c7915250908ebec892c6f4ee83de6b9f1f7475fe34fea4af945e9746ce032",
+      "ProgressDashboard.html": "56ec94edb3d7dcdeaa6d5a2a9e816da18da542441c2578ec624373b1b91399a2",
+      "ResultsPage.html": "955aeb80767b01a81311ada12086e925ade7be6d911a60563ae9dc5dd0dd88a4",
+      "SignIn.html": "c10c7915250908ebec892c6f4ee83de6b9f1f7475fe34fea4af945e9746ce032",
+      "TypingDrill.html": "ec8656dca06ab35ad13d7bb01365e535b360cd03c5041214a68fcfb2f13907f0",
+      "TypingTest.html": "da7846276b83daae6241e8f695c1005a07c2a6d23639e4c7470208e5dbc81995",
+      "index.html": "c4d9bb54574d64dd7a183ae90a55e2525f74e4565a8aa74bc7228b5cfbae287d",
+      "lab.html": "a8a3c20c663a52477095978c48a69316cbb05b63f872eaddf99ed9bd64d6e3d5",
+      "practice.html": "b1d15f2e21a45fde6b33181fa3004a93d12b0109a985bec5a39274cff4d30d6a",
+      "progress.html": "8db85c27c7b3772e9411d30ad06ac779c5885253981fb05e8571512e6af6424c",
+      "results.html": "79bdaf6c1c1978a1f6e5d6613d8d9a15ce634798e9f9c36809e0854358072ccd"
+    }
+  },
+  "receipts": {
+    "agent-test.json": {
+      "recordedBuild": null,
+      "note": "no served-build record in this receipt; see report.md for the build it ran on"
+    },
+    "bundle.json": {
+      "recordedBuild": null,
+      "note": "no served-build record in this receipt; see report.md for the build it ran on"
+    },
+    "geometry.json": {
+      "recordedBuild": null,
+      "note": "no served-build record in this receipt; see report.md for the build it ran on"
+    },
+    "late-history.json": {
+      "recordedBuild": [
+        [
+          "app-BQOyU45s.css",
+          "app-Dvv-e4Tc.js",
+          "define-element-B_WeKIXB.js",
+          "env-B-odJnus.js"
+        ]
+      ],
+      "matchesThisDist": [
+        true
+      ]
+    },
+    "retry-race.json": {
+      "recordedBuild": [
+        [
+          "app-BQOyU45s.css",
+          "app-Dvv-e4Tc.js",
+          "define-element-B_WeKIXB.js",
+          "env-B-odJnus.js"
+        ]
+      ],
+      "matchesThisDist": [
+        true
+      ]
+    },
+    "states.json": {
+      "recordedBuild": null,
+      "note": "no served-build record in this receipt; see report.md for the build it ran on"
+    },
+    "timing.json": {
+      "recordedBuild": [
+        [
+          "app-BQOyU45s.css",
+          "app-Dvv-e4Tc.js",
+          "define-element-B_WeKIXB.js",
+          "env-B-odJnus.js"
+        ],
+        [
+          "app-CiIXzPbM.css",
+          "app-DRnCp6G3.js"
+        ],
+        [
+          "app-BQOyU45s.css",
+          "app-Dvv-e4Tc.js",
+          "define-element-B_WeKIXB.js",
+          "env-B-odJnus.js"
+        ],
+        [
+          "app-CiIXzPbM.css",
+          "app-DRnCp6G3.js"
+        ]
+      ],
+      "matchesThisDist": [
+        true,
+        false,
+        true,
+        false
+      ]
+    },
+    "typing-flow.json": {
+      "recordedBuild": [
+        [
+          "app-BQOyU45s.css",
+          "app-Dvv-e4Tc.js",
+          "define-element-B_WeKIXB.js",
+          "env-B-odJnus.js"
+        ]
+      ],
+      "matchesThisDist": [
+        true
+      ]
+    },
+    "unsaved.json": {
+      "recordedBuild": [
+        [
+          "app-BQOyU45s.css",
+          "app-Dvv-e4Tc.js",
+          "define-element-B_WeKIXB.js",
+          "env-B-odJnus.js"
+        ]
+      ],
+      "matchesThisDist": [
+        true
+      ]
+    },
+    "zoom.json": {
+      "recordedBuild": null,
+      "note": "no served-build record in this receipt; see report.md for the build it ran on"
+    }
+  }
+}

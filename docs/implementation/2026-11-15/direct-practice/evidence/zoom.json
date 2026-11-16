@@ -1,6 +1,15 @@
 {
-  "generatedAt": "2026-11-16T12:35:32.781Z",
+  "generatedAt": "2026-11-16T12:52:21.560Z",
   "base": "http://127.0.0.1:5301",
+  "build": {
+    "servedFrom": "http://127.0.0.1:5301",
+    "assets": [
+      "app-BQOyU45s.css",
+      "app-Dvv-e4Tc.js",
+      "define-element-B_WeKIXB.js",
+      "env-B-odJnus.js"
+    ]
+  },
   "method": "Chrome profile preference partition.default_zoom_level (browser zoom), headless system Chrome 1440x900 window, viewport emulation off",
   "requestedZoomLevel": 3.8017840169239308,
   "states": {
