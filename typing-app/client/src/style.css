@@ -324,4 +324,22 @@ summary { cursor: pointer; padding-block: 8px; }
   .block-label { font-size: 11px; letter-spacing: .04em; }
   .result-figures dd { letter-spacing: -.05em; }
 }
+/* Forced colours strip the ink background that marks a checked key; use system colours instead. */
+@media (forced-colors: active) {
+  ui-segmented-control-item[data-checked], ui-switch.key[data-checked] { forced-color-adjust: none; background: Highlight; color: HighlightText; border-color: Highlight; box-shadow: none; }
+  /* forced-color-adjust: none also unforces the outline, which would fall back to the hard-coded cobalt. */
+  ui-segmented-control-item[data-checked]:focus-visible, ui-switch.key[data-checked]:focus-visible { outline: 2px solid CanvasText; outline-offset: 2px; }
+  ui-segmented-control-item[data-disabled] { color: GrayText; border-color: GrayText; border-style: dashed; }
+  /* Typed progress (F-2), colour only: untyped GrayText, typed CanvasText; geometry is untouched. */
+  .typing-surface .prompt { forced-color-adjust: none; color: GrayText; }
+  .prompt .correct { color: CanvasText; }
+  .prompt .wrong { color: CanvasText; text-decoration-color: CanvasText; }
+  .prompt .selected { background: Highlight; color: HighlightText; }
+  .stage[data-focus=in] .prompt .cursor::before { border-left-color: Highlight; }
+  .prompt .first-mismatch::after { background: CanvasText; color: Canvas; }
+  .prompt .cursor[data-pointer]::after { background: Canvas; color: CanvasText; border-color: CanvasText; }
+  /* Context lines are not typed text: GrayText like the untyped remainder (F-2b), colour only. */
+  .passage-context { color: GrayText; }
+  .passage-context .missed { text-decoration-color: CanvasText; }
+}
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }

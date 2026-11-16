@@ -1,0 +1,3034 @@
+{
+  "normalScreenshotsIdentical": [
+    [
+      "chrome-1440-normal-typed.png",
+      true
+    ],
+    [
+      "chrome-1440-normal-mismatch.png",
+      true
+    ],
+    [
+      "chrome-1440-normal-corrected.png",
+      true
+    ],
+    [
+      "chrome-1440-normal-selection.png",
+      true
+    ],
+    [
+      "chrome-1440-normal-pointer.png",
+      true
+    ],
+    [
+      "chrome-1440-normal-committed.png",
+      true
+    ],
+    [
+      "chrome-1440-normal-cover.png",
+      true
+    ],
+    [
+      "chrome-390-normal-typed.png",
+      true
+    ],
+    [
+      "chrome-390-normal-mismatch.png",
+      true
+    ],
+    [
+      "chrome-390-normal-corrected.png",
+      true
+    ],
+    [
+      "chrome-390-normal-selection.png",
+      true
+    ],
+    [
+      "chrome-390-normal-pointer.png",
+      true
+    ],
+    [
+      "chrome-390-normal-committed.png",
+      true
+    ],
+    [
+      "chrome-390-normal-cover.png",
+      true
+    ],
+    [
+      "msedge-1440-normal-typed.png",
+      true
+    ],
+    [
+      "msedge-1440-normal-mismatch.png",
+      true
+    ],
+    [
+      "msedge-1440-normal-corrected.png",
+      true
+    ],
+    [
+      "msedge-1440-normal-selection.png",
+      true
+    ],
+    [
+      "msedge-1440-normal-pointer.png",
+      true
+    ],
+    [
+      "msedge-1440-normal-committed.png",
+      true
+    ],
+    [
+      "msedge-1440-normal-cover.png",
+      true
+    ],
+    [
+      "msedge-390-normal-typed.png",
+      true
+    ],
+    [
+      "msedge-390-normal-mismatch.png",
+      true
+    ],
+    [
+      "msedge-390-normal-corrected.png",
+      true
+    ],
+    [
+      "msedge-390-normal-selection.png",
+      true
+    ],
+    [
+      "msedge-390-normal-pointer.png",
+      true
+    ],
+    [
+      "msedge-390-normal-committed.png",
+      true
+    ],
+    [
+      "msedge-390-normal-cover.png",
+      true
+    ]
+  ],
+  "geometry": [
+    {
+      "build": "f2-after",
+      "run": "chrome-1440",
+      "state": "typed",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 8,
+      "selection": [
+        8,
+        8,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 8,
+      "focus": "in"
+    },
+    {
+      "build": "f2-after",
+      "run": "chrome-1440",
+      "state": "mismatch",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 9,
+      "selection": [
+        9,
+        9,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 9,
+      "focus": "in"
+    },
+    {
+      "build": "f2-after",
+      "run": "chrome-1440",
+      "state": "corrected",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 12,
+      "selection": [
+        12,
+        12,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 12,
+      "focus": "in"
+    },
+    {
+      "build": "f2-after",
+      "run": "chrome-1440",
+      "state": "selection",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 8,
+      "selection": [
+        8,
+        12,
+        "backward"
+      ],
+      "nativeOffsetAtCursor": 8,
+      "focus": "in"
+    },
+    {
+      "build": "f2-after",
+      "run": "chrome-1440",
+      "state": "pointer",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 44,
+      "selection": [
+        44,
+        44,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 44,
+      "focus": "in"
+    },
+    {
+      "build": "f2-after",
+      "run": "chrome-1440",
+      "state": "committed",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 3,
+      "selection": [
+        3,
+        3,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 3,
+      "focus": "in"
+    },
+    {
+      "build": "f2-after",
+      "run": "chrome-1440",
+      "state": "cover",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 3,
+      "selection": [
+        3,
+        3,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": "node:#text",
+      "focus": "out"
+    },
+    {
+      "build": "f2-after",
+      "run": "chrome-390",
+      "state": "typed",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 8,
+      "selection": [
+        8,
+        8,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 8,
+      "focus": "in"
+    },
+    {
+      "build": "f2-after",
+      "run": "chrome-390",
+      "state": "mismatch",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 9,
+      "selection": [
+        9,
+        9,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 9,
+      "focus": "in"
+    },
+    {
+      "build": "f2-after",
+      "run": "chrome-390",
+      "state": "corrected",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 12,
+      "selection": [
+        12,
+        12,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 12,
+      "focus": "in"
+    },
+    {
+      "build": "f2-after",
+      "run": "chrome-390",
+      "state": "selection",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 8,
+      "selection": [
+        8,
+        12,
+        "backward"
+      ],
+      "nativeOffsetAtCursor": 8,
+      "focus": "in"
+    },
+    {
+      "build": "f2-after",
+      "run": "chrome-390",
+      "state": "pointer",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 32,
+      "selection": [
+        32,
+        32,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 0,
+      "focus": "in"
+    },
+    {
+      "build": "f2-after",
+      "run": "chrome-390",
+      "state": "committed",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 3,
+      "selection": [
+        3,
+        3,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 3,
+      "focus": "in"
+    },
+    {
+      "build": "f2-after",
+      "run": "chrome-390",
+      "state": "cover",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 3,
+      "selection": [
+        3,
+        3,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": "node:#text",
+      "focus": "out"
+    },
+    {
+      "build": "f2-after",
+      "run": "msedge-1440",
+      "state": "typed",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 8,
+      "selection": [
+        8,
+        8,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 8,
+      "focus": "in"
+    },
+    {
+      "build": "f2-after",
+      "run": "msedge-1440",
+      "state": "mismatch",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 9,
+      "selection": [
+        9,
+        9,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 9,
+      "focus": "in"
+    },
+    {
+      "build": "f2-after",
+      "run": "msedge-1440",
+      "state": "corrected",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 12,
+      "selection": [
+        12,
+        12,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 12,
+      "focus": "in"
+    },
+    {
+      "build": "f2-after",
+      "run": "msedge-1440",
+      "state": "selection",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 8,
+      "selection": [
+        8,
+        12,
+        "backward"
+      ],
+      "nativeOffsetAtCursor": 8,
+      "focus": "in"
+    },
+    {
+      "build": "f2-after",
+      "run": "msedge-1440",
+      "state": "pointer",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 44,
+      "selection": [
+        44,
+        44,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 44,
+      "focus": "in"
+    },
+    {
+      "build": "f2-after",
+      "run": "msedge-1440",
+      "state": "committed",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 3,
+      "selection": [
+        3,
+        3,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 3,
+      "focus": "in"
+    },
+    {
+      "build": "f2-after",
+      "run": "msedge-1440",
+      "state": "cover",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 3,
+      "selection": [
+        3,
+        3,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": "node:#text",
+      "focus": "out"
+    },
+    {
+      "build": "f2-after",
+      "run": "msedge-390",
+      "state": "typed",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 8,
+      "selection": [
+        8,
+        8,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 8,
+      "focus": "in"
+    },
+    {
+      "build": "f2-after",
+      "run": "msedge-390",
+      "state": "mismatch",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 9,
+      "selection": [
+        9,
+        9,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 9,
+      "focus": "in"
+    },
+    {
+      "build": "f2-after",
+      "run": "msedge-390",
+      "state": "corrected",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 12,
+      "selection": [
+        12,
+        12,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 12,
+      "focus": "in"
+    },
+    {
+      "build": "f2-after",
+      "run": "msedge-390",
+      "state": "selection",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 8,
+      "selection": [
+        8,
+        12,
+        "backward"
+      ],
+      "nativeOffsetAtCursor": 8,
+      "focus": "in"
+    },
+    {
+      "build": "f2-after",
+      "run": "msedge-390",
+      "state": "pointer",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 32,
+      "selection": [
+        32,
+        32,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 0,
+      "focus": "in"
+    },
+    {
+      "build": "f2-after",
+      "run": "msedge-390",
+      "state": "committed",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 3,
+      "selection": [
+        3,
+        3,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 3,
+      "focus": "in"
+    },
+    {
+      "build": "f2-after",
+      "run": "msedge-390",
+      "state": "cover",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 3,
+      "selection": [
+        3,
+        3,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": "node:#text",
+      "focus": "out"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "chrome-1440",
+      "state": "typed",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 8,
+      "selection": [
+        8,
+        8,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 8,
+      "focus": "in"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "chrome-1440",
+      "state": "mismatch",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 9,
+      "selection": [
+        9,
+        9,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 9,
+      "focus": "in"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "chrome-1440",
+      "state": "corrected",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 12,
+      "selection": [
+        12,
+        12,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 12,
+      "focus": "in"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "chrome-1440",
+      "state": "selection",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 8,
+      "selection": [
+        8,
+        12,
+        "backward"
+      ],
+      "nativeOffsetAtCursor": 8,
+      "focus": "in"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "chrome-1440",
+      "state": "pointer",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 44,
+      "selection": [
+        44,
+        44,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 44,
+      "focus": "in"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "chrome-1440",
+      "state": "committed",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 3,
+      "selection": [
+        3,
+        3,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 3,
+      "focus": "in"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "chrome-1440",
+      "state": "cover",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 3,
+      "selection": [
+        3,
+        3,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": "node:#text",
+      "focus": "out"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "chrome-390",
+      "state": "typed",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 8,
+      "selection": [
+        8,
+        8,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 8,
+      "focus": "in"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "chrome-390",
+      "state": "mismatch",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 9,
+      "selection": [
+        9,
+        9,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 9,
+      "focus": "in"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "chrome-390",
+      "state": "corrected",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 12,
+      "selection": [
+        12,
+        12,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 12,
+      "focus": "in"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "chrome-390",
+      "state": "selection",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 8,
+      "selection": [
+        8,
+        12,
+        "backward"
+      ],
+      "nativeOffsetAtCursor": 8,
+      "focus": "in"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "chrome-390",
+      "state": "pointer",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 32,
+      "selection": [
+        32,
+        32,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 0,
+      "focus": "in"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "chrome-390",
+      "state": "committed",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 3,
+      "selection": [
+        3,
+        3,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 3,
+      "focus": "in"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "chrome-390",
+      "state": "cover",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 3,
+      "selection": [
+        3,
+        3,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": "node:#text",
+      "focus": "out"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "msedge-1440",
+      "state": "typed",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 8,
+      "selection": [
+        8,
+        8,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 8,
+      "focus": "in"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "msedge-1440",
+      "state": "mismatch",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 9,
+      "selection": [
+        9,
+        9,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 9,
+      "focus": "in"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "msedge-1440",
+      "state": "corrected",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 12,
+      "selection": [
+        12,
+        12,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 12,
+      "focus": "in"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "msedge-1440",
+      "state": "selection",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 8,
+      "selection": [
+        8,
+        12,
+        "backward"
+      ],
+      "nativeOffsetAtCursor": 8,
+      "focus": "in"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "msedge-1440",
+      "state": "pointer",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 44,
+      "selection": [
+        44,
+        44,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 44,
+      "focus": "in"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "msedge-1440",
+      "state": "committed",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 3,
+      "selection": [
+        3,
+        3,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 3,
+      "focus": "in"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "msedge-1440",
+      "state": "cover",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 3,
+      "selection": [
+        3,
+        3,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": "node:#text",
+      "focus": "out"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "msedge-390",
+      "state": "typed",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 8,
+      "selection": [
+        8,
+        8,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 8,
+      "focus": "in"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "msedge-390",
+      "state": "mismatch",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 9,
+      "selection": [
+        9,
+        9,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 9,
+      "focus": "in"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "msedge-390",
+      "state": "corrected",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 12,
+      "selection": [
+        12,
+        12,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 12,
+      "focus": "in"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "msedge-390",
+      "state": "selection",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 8,
+      "selection": [
+        8,
+        12,
+        "backward"
+      ],
+      "nativeOffsetAtCursor": 8,
+      "focus": "in"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "msedge-390",
+      "state": "pointer",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 32,
+      "selection": [
+        32,
+        32,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 0,
+      "focus": "in"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "msedge-390",
+      "state": "committed",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 3,
+      "selection": [
+        3,
+        3,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": 3,
+      "focus": "in"
+    },
+    {
+      "build": "f2-f2b-after",
+      "run": "msedge-390",
+      "state": "cover",
+      "sameAsNormal": true,
+      "spans": 45,
+      "cursorIndex": 3,
+      "selection": [
+        3,
+        3,
+        "forward"
+      ],
+      "nativeOffsetAtCursor": "node:#text",
+      "focus": "out"
+    },
+    {
+      "build": "normal before vs after",
+      "run": "chrome-1440",
+      "state": "typed",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "chrome-1440",
+      "state": "mismatch",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "chrome-1440",
+      "state": "corrected",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "chrome-1440",
+      "state": "selection",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "chrome-1440",
+      "state": "pointer",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "chrome-1440",
+      "state": "committed",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "chrome-1440",
+      "state": "cover",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "chrome-390",
+      "state": "typed",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "chrome-390",
+      "state": "mismatch",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "chrome-390",
+      "state": "corrected",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "chrome-390",
+      "state": "selection",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "chrome-390",
+      "state": "pointer",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "chrome-390",
+      "state": "committed",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "chrome-390",
+      "state": "cover",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "msedge-1440",
+      "state": "typed",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "msedge-1440",
+      "state": "mismatch",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "msedge-1440",
+      "state": "corrected",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "msedge-1440",
+      "state": "selection",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "msedge-1440",
+      "state": "pointer",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "msedge-1440",
+      "state": "committed",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "msedge-1440",
+      "state": "cover",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "msedge-390",
+      "state": "typed",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "msedge-390",
+      "state": "mismatch",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "msedge-390",
+      "state": "corrected",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "msedge-390",
+      "state": "selection",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "msedge-390",
+      "state": "pointer",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "msedge-390",
+      "state": "committed",
+      "sameAsNormal": true
+    },
+    {
+      "build": "normal before vs after",
+      "run": "msedge-390",
+      "state": "cover",
+      "sameAsNormal": true
+    }
+  ],
+  "styles": [
+    {
+      "run": "chrome-1440",
+      "state": "typed",
+      "untyped": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "3px solid rgb(55, 0, 110)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(55, 0, 110)",
+        "border": "0px none rgb(55, 0, 110)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "chrome-1440",
+      "state": "mismatch",
+      "untyped": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "wrong": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "underline wavy rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "mismatchTag": {
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(0, 0, 0)",
+        "decoration": "none solid rgb(255, 255, 255)",
+        "borderLeft": "0px none rgb(255, 255, 255)",
+        "border": "0px none rgb(255, 255, 255)",
+        "font": "700 17px/17px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "3px solid rgb(55, 0, 110)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(55, 0, 110)",
+        "border": "0px none rgb(55, 0, 110)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "chrome-1440",
+      "state": "corrected",
+      "untyped": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "3px solid rgb(55, 0, 110)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(55, 0, 110)",
+        "border": "0px none rgb(55, 0, 110)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "chrome-1440",
+      "state": "selection",
+      "untyped": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "selected": {
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(55, 0, 110)",
+        "decoration": "none solid rgb(255, 255, 255)",
+        "borderLeft": "0px none rgb(255, 255, 255)",
+        "border": "0px none rgb(255, 255, 255)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(255, 255, 255)",
+        "borderLeft": "3px solid rgb(55, 0, 110)",
+        "border": "0px none rgb(255, 255, 255)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(55, 0, 110)",
+        "border": "0px none rgb(55, 0, 110)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "chrome-1440",
+      "state": "pointer",
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "wrong": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "underline wavy rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "mismatchTag": {
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(0, 0, 0)",
+        "decoration": "none solid rgb(255, 255, 255)",
+        "borderLeft": "0px none rgb(255, 255, 255)",
+        "border": "0px none rgb(255, 255, 255)",
+        "font": "700 17px/17px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "3px solid rgb(55, 0, 110)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(55, 0, 110)",
+        "border": "0px none rgb(55, 0, 110)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "chrome-1440",
+      "state": "committed",
+      "untyped": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "3px solid rgb(55, 0, 110)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "missed": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "underline wavy rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(55, 0, 110)",
+        "border": "0px none rgb(55, 0, 110)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "chrome-1440",
+      "state": "cover",
+      "untyped": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "missed": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "underline wavy rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "chrome-390",
+      "state": "typed",
+      "untyped": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "3px solid rgb(55, 0, 110)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(55, 0, 110)",
+        "border": "0px none rgb(55, 0, 110)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "chrome-390",
+      "state": "mismatch",
+      "untyped": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "wrong": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "underline wavy rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "mismatchTag": {
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(0, 0, 0)",
+        "decoration": "none solid rgb(255, 255, 255)",
+        "borderLeft": "0px none rgb(255, 255, 255)",
+        "border": "0px none rgb(255, 255, 255)",
+        "font": "700 15px/15px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "3px solid rgb(55, 0, 110)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(55, 0, 110)",
+        "border": "0px none rgb(55, 0, 110)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "chrome-390",
+      "state": "corrected",
+      "untyped": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "3px solid rgb(55, 0, 110)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(55, 0, 110)",
+        "border": "0px none rgb(55, 0, 110)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "chrome-390",
+      "state": "selection",
+      "untyped": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "selected": {
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(55, 0, 110)",
+        "decoration": "none solid rgb(255, 255, 255)",
+        "borderLeft": "0px none rgb(255, 255, 255)",
+        "border": "0px none rgb(255, 255, 255)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(255, 255, 255)",
+        "borderLeft": "3px solid rgb(55, 0, 110)",
+        "border": "0px none rgb(255, 255, 255)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(55, 0, 110)",
+        "border": "0px none rgb(55, 0, 110)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "chrome-390",
+      "state": "pointer",
+      "untyped": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "wrong": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "underline wavy rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "mismatchTag": {
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(0, 0, 0)",
+        "decoration": "none solid rgb(255, 255, 255)",
+        "borderLeft": "0px none rgb(255, 255, 255)",
+        "border": "0px none rgb(255, 255, 255)",
+        "font": "700 15px/15px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "3px solid rgb(55, 0, 110)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "pointer": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgb(255, 255, 255)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "1px solid rgb(0, 0, 0)",
+        "border": "1px solid rgb(0, 0, 0)",
+        "font": "400 13px/13px normal",
+        "forcedColorAdjust": "none",
+        "text": "↶ earlier error · expected f"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(55, 0, 110)",
+        "border": "0px none rgb(55, 0, 110)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "chrome-390",
+      "state": "committed",
+      "untyped": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "3px solid rgb(55, 0, 110)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "missed": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "underline wavy rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(55, 0, 110)",
+        "border": "0px none rgb(55, 0, 110)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "chrome-390",
+      "state": "cover",
+      "untyped": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "missed": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "underline wavy rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "msedge-1440",
+      "state": "typed",
+      "untyped": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "3px solid rgb(55, 0, 110)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(55, 0, 110)",
+        "border": "0px none rgb(55, 0, 110)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "msedge-1440",
+      "state": "mismatch",
+      "untyped": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "wrong": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "underline wavy rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "mismatchTag": {
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(0, 0, 0)",
+        "decoration": "none solid rgb(255, 255, 255)",
+        "borderLeft": "0px none rgb(255, 255, 255)",
+        "border": "0px none rgb(255, 255, 255)",
+        "font": "700 17px/17px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "3px solid rgb(55, 0, 110)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(55, 0, 110)",
+        "border": "0px none rgb(55, 0, 110)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "msedge-1440",
+      "state": "corrected",
+      "untyped": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "3px solid rgb(55, 0, 110)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(55, 0, 110)",
+        "border": "0px none rgb(55, 0, 110)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "msedge-1440",
+      "state": "selection",
+      "untyped": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "selected": {
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(55, 0, 110)",
+        "decoration": "none solid rgb(255, 255, 255)",
+        "borderLeft": "0px none rgb(255, 255, 255)",
+        "border": "0px none rgb(255, 255, 255)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(255, 255, 255)",
+        "borderLeft": "3px solid rgb(55, 0, 110)",
+        "border": "0px none rgb(255, 255, 255)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(55, 0, 110)",
+        "border": "0px none rgb(55, 0, 110)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "msedge-1440",
+      "state": "pointer",
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "wrong": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "underline wavy rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "mismatchTag": {
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(0, 0, 0)",
+        "decoration": "none solid rgb(255, 255, 255)",
+        "borderLeft": "0px none rgb(255, 255, 255)",
+        "border": "0px none rgb(255, 255, 255)",
+        "font": "700 17px/17px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "3px solid rgb(55, 0, 110)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(55, 0, 110)",
+        "border": "0px none rgb(55, 0, 110)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "msedge-1440",
+      "state": "committed",
+      "untyped": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "3px solid rgb(55, 0, 110)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "missed": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "underline wavy rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(55, 0, 110)",
+        "border": "0px none rgb(55, 0, 110)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "msedge-1440",
+      "state": "cover",
+      "untyped": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "none"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "missed": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "underline wavy rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 25.6px/40.96px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 32px/51.2px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "msedge-390",
+      "state": "typed",
+      "untyped": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "3px solid rgb(55, 0, 110)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(55, 0, 110)",
+        "border": "0px none rgb(55, 0, 110)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "msedge-390",
+      "state": "mismatch",
+      "untyped": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "wrong": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "underline wavy rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "mismatchTag": {
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(0, 0, 0)",
+        "decoration": "none solid rgb(255, 255, 255)",
+        "borderLeft": "0px none rgb(255, 255, 255)",
+        "border": "0px none rgb(255, 255, 255)",
+        "font": "700 15px/15px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "3px solid rgb(55, 0, 110)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(55, 0, 110)",
+        "border": "0px none rgb(55, 0, 110)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "msedge-390",
+      "state": "corrected",
+      "untyped": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "3px solid rgb(55, 0, 110)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(55, 0, 110)",
+        "border": "0px none rgb(55, 0, 110)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "msedge-390",
+      "state": "selection",
+      "untyped": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "selected": {
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(55, 0, 110)",
+        "decoration": "none solid rgb(255, 255, 255)",
+        "borderLeft": "0px none rgb(255, 255, 255)",
+        "border": "0px none rgb(255, 255, 255)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(255, 255, 255)",
+        "borderLeft": "3px solid rgb(55, 0, 110)",
+        "border": "0px none rgb(255, 255, 255)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(55, 0, 110)",
+        "border": "0px none rgb(55, 0, 110)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "msedge-390",
+      "state": "pointer",
+      "untyped": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "wrong": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "underline wavy rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "mismatchTag": {
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(0, 0, 0)",
+        "decoration": "none solid rgb(255, 255, 255)",
+        "borderLeft": "0px none rgb(255, 255, 255)",
+        "border": "0px none rgb(255, 255, 255)",
+        "font": "700 15px/15px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "3px solid rgb(55, 0, 110)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "pointer": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgb(255, 255, 255)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "1px solid rgb(0, 0, 0)",
+        "border": "1px solid rgb(0, 0, 0)",
+        "font": "400 13px/13px normal",
+        "forcedColorAdjust": "none",
+        "text": "↶ earlier error · expected f"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(55, 0, 110)",
+        "border": "0px none rgb(55, 0, 110)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "msedge-390",
+      "state": "committed",
+      "untyped": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "3px solid rgb(55, 0, 110)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "missed": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "underline wavy rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(55, 0, 110)",
+        "border": "0px none rgb(55, 0, 110)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    },
+    {
+      "run": "msedge-390",
+      "state": "cover",
+      "untyped": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "correct": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "caret": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "none"
+      },
+      "context": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "nextContext": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgb(96, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "missed": {
+        "color": "rgb(96, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "underline wavy rgb(0, 0, 0)",
+        "borderLeft": "0px none rgb(96, 0, 0)",
+        "border": "0px none rgb(96, 0, 0)",
+        "font": "400 16px/25.6px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textarea": {
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(255, 255, 255, 0)",
+        "decoration": "none solid rgba(0, 0, 0, 0)",
+        "borderLeft": "0px none rgb(0, 0, 0)",
+        "border": "0px none rgb(0, 0, 0)",
+        "font": "400 20px/32px normal",
+        "forcedColorAdjust": "auto"
+      },
+      "textareaCaret": "rgb(0, 0, 0)"
+    }
+  ]
+}
