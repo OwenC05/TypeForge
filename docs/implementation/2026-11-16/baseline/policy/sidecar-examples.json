@@ -1,0 +1,18 @@
+{
+  "membership": {
+    "schemaId": "typeforge-coach-sidecar-schema-v1", "kind": "source-membership-v1",
+    "resultId": "synthetic-current-run", "resultSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "contextId": "synthetic-default-context", "epochId": "synthetic-first-epoch",
+    "capturedAt": "2026-11-16T12:00:00.000Z", "purpose": "ordinary"
+  },
+  "generalDecision": {
+    "schemaId": "typeforge-coach-sidecar-schema-v1", "kind": "decision-v1",
+    "resultId": "synthetic-current-run", "resultSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "policyId": "clean-pair-contrast-v1", "configId": "280f03e3ee00ca3006908392bdda4afa3e432e86f8a59a2a709232f38fa354a6",
+    "contextId": "synthetic-default-context", "epochId": "synthetic-first-epoch",
+    "preparedAt": "2026-11-16T12:00:00.000Z", "now": "2026-11-16T12:00:00.000Z", "sourceRevision": 1,
+    "sourceIds": ["synthetic-source-1", "synthetic-source-2", "synthetic-source-3", "synthetic-source-4"],
+    "baselineWitnessIds": ["synthetic-test-1", "synthetic-test-2", "synthetic-test-3", "synthetic-test-4", "synthetic-test-5", "synthetic-test-6", "synthetic-test-7", "synthetic-test-8", "synthetic-test-9", "synthetic-test-10"],
+    "signal": "clean-pair-log-contrast", "outcome": "general", "reason": "no-effect", "focus": null, "exposure": null
+  }
+}

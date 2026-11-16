@@ -1,0 +1,33 @@
+✔ features respect maximal words, lowercase pairs and cold-history fallback (3.76ms)
+✔ missing artifact never invents population, uses explicitly labelled observed-user fallback (0.8722ms)
+✔ strict artifact validation rejects shape/version/task and nonfinite arrays, keeps a defensive copy (4.1321ms)
+✔ candidate overflow drops candidate for entire sentence without replacing with baseline (1.3932ms)
+✔ all candidate and baseline occurrences are prepared before a history mutation (1.2975ms)
+✔ actual exported model agrees with original Python estimator, features and baseline on golden fixtures (5.2369ms)
+✔ shared eligible Python event stream yields identical engine observations, history and matched predictions (7.8089ms)
+✔ history copies eligible summaries and rolls to ten (2.7932ms)
+✔ baseline-only focus requires evidence and bank support, with two target then general cadence (1.1675ms)
+✔ missing origin is explicitly a new assessment (0.1838ms)
+✔ history excludes practice and incompatible runs but keeps earlier eligible evidence in interrupted assessment (2.6452ms)
+✔ retest resolves exact origin, excludes partial prompts, fails on deleted/incompatible/exhausted origin (2.496ms)
+✔ selected smoothed baseline score, evidence threshold and alphabetical tie are exact (19.4117ms)
+✔ completion ties use stable IDs and within-run order, deletion changes only new snapshots (1.3756ms)
+✔ settings compatibility isolates every duration and flow from unchanged legacy records (1.086ms)
+✔ history and retest share mode, duration, layout, corpus and version compatibility (1.0674ms)
+✔ flow history retains only eligible submitted sentences after later interruption (0.9888ms)
+✔ legacy origin falls back for flow retest, while flow excludes every active partial ID (0.6673ms)
+✔ manual catalogue requires three distinct passages, not occurrences or cross-word pairs (5.8503ms)
+✔ manual and recommended drills share finite cadence and adjacent-repeat avoidance (1.0315ms)
+✔ warm no-artifact history supports baseline-only predictions, never a recommendation (0.6362ms)
+✔ actual engine ten-sentence constant-200-ms history abstains in original and permuted orders (18.6142ms)
+✔ seeded uniform histories abstain across sentence, pair-entry and summation orders (4890.1958ms)
+✔ maximum supported ten-sentence accumulation abstains at both log bounds (2.1554ms)
+✔ numerical boundary is inclusive before occurrence weighting and admits larger differences (3.8772ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5295.5648

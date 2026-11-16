@@ -1,0 +1,302 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:typeforge:coach-config-schema-v1",
+  "title": "Exact reviewed experimental TypeForge coaching configuration v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaId",
+    "policyId",
+    "baselineKind",
+    "signal",
+    "baseline",
+    "context",
+    "window",
+    "support",
+    "effect",
+    "stability",
+    "exposure",
+    "limits",
+    "fallback"
+  ],
+  "properties": {
+    "schemaId": {
+      "const": "typeforge-coach-config-schema-v1"
+    },
+    "policyId": {
+      "const": "clean-pair-contrast-v1"
+    },
+    "baselineKind": {
+      "const": "observed-unshrunk-complement"
+    },
+    "signal": {
+      "const": "clean-pair-log-contrast"
+    },
+    "baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tests",
+        "durationMs",
+        "minimumAttempts",
+        "expires"
+      ],
+      "properties": {
+        "tests": {
+          "const": 10
+        },
+        "durationMs": {
+          "const": 30000
+        },
+        "minimumAttempts": {
+          "const": 1
+        },
+        "expires": {
+          "const": false
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "metricVersion",
+        "inputMode",
+        "durationMs",
+        "language",
+        "qwerty",
+        "corpusVersion",
+        "poolDurations"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "metricVersion": {
+          "const": 1
+        },
+        "inputMode": {
+          "const": "flow-v1"
+        },
+        "durationMs": {
+          "const": 30000
+        },
+        "language": {
+          "const": "en"
+        },
+        "qwerty": {
+          "const": true
+        },
+        "corpusVersion": {
+          "const": "1"
+        },
+        "poolDurations": {
+          "const": false
+        }
+      }
+    },
+    "window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runs",
+        "ageMs",
+        "ageBoundary",
+        "modes",
+        "deduplicate",
+        "requireFullPairAttribution"
+      ],
+      "properties": {
+        "runs": {
+          "const": 20
+        },
+        "ageMs": {
+          "const": 2592000000
+        },
+        "ageBoundary": {
+          "const": "inclusive"
+        },
+        "modes": {
+          "const": [
+            "assessment",
+            "practice"
+          ]
+        },
+        "deduplicate": {
+          "const": "latest-exact-prompt-text"
+        },
+        "requireFullPairAttribution": {
+          "const": true
+        }
+      }
+    },
+    "support": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "targetIntervals",
+        "referenceIntervals",
+        "targetRuns",
+        "targetPrompts",
+        "targetWords"
+      ],
+      "properties": {
+        "targetIntervals": {
+          "const": 20
+        },
+        "referenceIntervals": {
+          "const": 80
+        },
+        "targetRuns": {
+          "const": 4
+        },
+        "targetPrompts": {
+          "const": 4
+        },
+        "targetWords": {
+          "const": 3
+        }
+      }
+    },
+    "effect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "minimumRatio",
+        "numericNoEffectLogTolerance"
+      ],
+      "properties": {
+        "minimumRatio": {
+          "const": 1.25
+        },
+        "numericNoEffectLogTolerance": {
+          "const": 1e-10
+        }
+      }
+    },
+    "stability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "halves",
+        "targetIntervalsPerHalf",
+        "referenceIntervalsPerHalf",
+        "targetRunsPerHalf",
+        "minimumRatioPerHalf",
+        "retirement",
+        "hysteresis"
+      ],
+      "properties": {
+        "halves": {
+          "const": 2
+        },
+        "targetIntervalsPerHalf": {
+          "const": 8
+        },
+        "referenceIntervalsPerHalf": {
+          "const": 20
+        },
+        "targetRunsPerHalf": {
+          "const": 2
+        },
+        "minimumRatioPerHalf": {
+          "const": 1.1
+        },
+        "retirement": {
+          "const": "next-preparation-any-failed-gate"
+        },
+        "hysteresis": {
+          "const": false
+        }
+      }
+    },
+    "exposure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "denominator",
+        "comparator",
+        "minimumRatio",
+        "firstTargetByCharacter",
+        "allPrefixesFrom",
+        "minimumPlanCharacters",
+        "wordsByCharacter",
+        "minimumWords",
+        "passagesByCharacter",
+        "minimumPassages",
+        "minimumBankPassages",
+        "repeatBeforeBankExhaustion"
+      ],
+      "properties": {
+        "denominator": {
+          "const": "prompt-characters-with-spaces-no-synthetic-separators"
+        },
+        "comparator": {
+          "const": "complete-uniform-general-bank-density"
+        },
+        "minimumRatio": {
+          "const": 1.25
+        },
+        "firstTargetByCharacter": {
+          "const": 20
+        },
+        "allPrefixesFrom": {
+          "const": 20
+        },
+        "minimumPlanCharacters": {
+          "const": 240
+        },
+        "wordsByCharacter": {
+          "const": 240
+        },
+        "minimumWords": {
+          "const": 3
+        },
+        "passagesByCharacter": {
+          "const": 480
+        },
+        "minimumPassages": {
+          "const": 4
+        },
+        "minimumBankPassages": {
+          "const": 4
+        },
+        "repeatBeforeBankExhaustion": {
+          "const": false
+        }
+      }
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rowsPerSlice",
+        "bytesPerSlice",
+        "rowsPerAutomaticPreparation",
+        "bytesPerAutomaticPreparation",
+        "cooperativeWorkMs"
+      ],
+      "properties": {
+        "rowsPerSlice": {
+          "const": 25
+        },
+        "bytesPerSlice": {
+          "const": 4194304
+        },
+        "rowsPerAutomaticPreparation": {
+          "const": 500
+        },
+        "bytesPerAutomaticPreparation": {
+          "const": 16777216
+        },
+        "cooperativeWorkMs": {
+          "const": 8
+        }
+      }
+    },
+    "fallback": {
+      "const": "general-manual"
+    }
+  }
+}

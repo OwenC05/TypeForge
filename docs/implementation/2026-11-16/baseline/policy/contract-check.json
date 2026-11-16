@@ -1,0 +1,66 @@
+{
+  "kind": "standalone-policy-contract-check",
+  "checkedAt": "2026-11-16T14:21:27.501Z",
+  "node": "v24.21.0",
+  "checks": 148,
+  "configId": "280f03e3ee00ca3006908392bdda4afa3e432e86f8a59a2a709232f38fa354a6",
+  "schemaId": "typeforge-coach-config-schema-v1",
+  "policyId": "clean-pair-contrast-v1",
+  "uniformDeltas": [
+    -1.5987211554602254e-14,
+    -1.5987211554602254e-14,
+    -1.5987211554602254e-14
+  ],
+  "sensitivity": [
+    {
+      "proposedSupport": 12,
+      "proposedEffectRatio": 1.15,
+      "syntheticAt20Intervals25Percent": true
+    },
+    {
+      "proposedSupport": 12,
+      "proposedEffectRatio": 1.25,
+      "syntheticAt20Intervals25Percent": true
+    },
+    {
+      "proposedSupport": 12,
+      "proposedEffectRatio": 1.35,
+      "syntheticAt20Intervals25Percent": false
+    },
+    {
+      "proposedSupport": 20,
+      "proposedEffectRatio": 1.15,
+      "syntheticAt20Intervals25Percent": true
+    },
+    {
+      "proposedSupport": 20,
+      "proposedEffectRatio": 1.25,
+      "syntheticAt20Intervals25Percent": true
+    },
+    {
+      "proposedSupport": 20,
+      "proposedEffectRatio": 1.35,
+      "syntheticAt20Intervals25Percent": false
+    },
+    {
+      "proposedSupport": 30,
+      "proposedEffectRatio": 1.15,
+      "syntheticAt20Intervals25Percent": false
+    },
+    {
+      "proposedSupport": 30,
+      "proposedEffectRatio": 1.25,
+      "syntheticAt20Intervals25Percent": false
+    },
+    {
+      "proposedSupport": 30,
+      "proposedEffectRatio": 1.35,
+      "syntheticAt20Intervals25Percent": false
+    }
+  ],
+  "limits": [
+    "Not a production selector",
+    "Threshold oracles do not prove storage/browser lifecycle",
+    "No participant data, human yield, statistical confidence or learning benefit"
+  ]
+}

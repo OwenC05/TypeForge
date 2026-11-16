@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:typeforge:coach-sidecar-schema-v1",
+  "title": "Proposed independent coaching provenance sidecars; requires architecture review before writes",
+  "oneOf": [{ "$ref": "#/$defs/membership" }, { "$ref": "#/$defs/decision" }],
+  "$defs": {
+    "id": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "time": { "type": "string", "format": "date-time", "pattern": "Z$" },
+    "counter": { "type": "integer", "minimum": 0, "maximum": 327680 },
+    "runCount": { "type": "integer", "minimum": 0, "maximum": 20 },
+    "half": {
+      "type": "object", "additionalProperties": false,
+      "required": ["targetCount", "referenceCount", "targetLogSum", "referenceLogSum", "sourceRuns"],
+      "properties": {
+        "targetCount": { "$ref": "#/$defs/counter" }, "referenceCount": { "$ref": "#/$defs/counter" },
+        "targetLogSum": { "type": "number" }, "referenceLogSum": { "type": "number" },
+        "sourceRuns": { "$ref": "#/$defs/runCount" }
+      }
+    },
+    "focus": {
+      "type": "object", "additionalProperties": false,
+      "required": ["pair", "targetCount", "referenceCount", "sourceRuns", "promptContexts", "wordContexts", "targetLogSum", "referenceLogSum", "halves", "certificateId"],
+      "properties": {
+        "pair": { "type": "string", "pattern": "^[a-z]{2}$" },
+        "targetCount": { "$ref": "#/$defs/counter" }, "referenceCount": { "$ref": "#/$defs/counter" },
+        "sourceRuns": { "$ref": "#/$defs/runCount" },
+        "promptContexts": { "type": "integer", "minimum": 0, "maximum": 120 },
+        "wordContexts": { "$ref": "#/$defs/counter" },
+        "targetLogSum": { "type": "number" }, "referenceLogSum": { "type": "number" },
+        "halves": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "$ref": "#/$defs/half" } },
+        "certificateId": { "$ref": "#/$defs/hash" }
+      }
+    },
+    "exposure": {
+      "type": "object", "additionalProperties": false,
+      "required": ["certificateId", "reachedCharacters", "targetOpportunities", "distinctWords", "distinctPassages", "status"],
+      "properties": {
+        "certificateId": { "$ref": "#/$defs/hash" },
+        "reachedCharacters": { "type": "integer", "minimum": 0, "maximum": 16384 },
+        "targetOpportunities": { "type": "integer", "minimum": 0, "maximum": 16384 },
+        "distinctWords": { "type": "integer", "minimum": 0, "maximum": 16384 },
+        "distinctPassages": { "type": "integer", "minimum": 0, "maximum": 256 },
+        "status": { "enum": ["unknown", "too-short-to-evaluate", "partial-context", "below-contract", "met"] }
+      }
+    },
+    "membership": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schemaId", "kind", "resultId", "resultSha256", "contextId", "epochId", "capturedAt", "purpose"],
+      "properties": {
+        "schemaId": { "const": "typeforge-coach-sidecar-schema-v1" }, "kind": { "const": "source-membership-v1" },
+        "resultId": { "$ref": "#/$defs/id" }, "resultSha256": { "$ref": "#/$defs/hash" },
+        "contextId": { "$ref": "#/$defs/id" }, "epochId": { "$ref": "#/$defs/id" },
+        "capturedAt": { "$ref": "#/$defs/time" }, "purpose": { "enum": ["ordinary", "protected-probe"] }
+      }
+    },
+    "decision": {
+      "type": "object", "additionalProperties": false,
+      "allOf": [
+        { "if": { "properties": { "outcome": { "const": "suggested" } } }, "then": { "properties": { "focus": { "$ref": "#/$defs/focus" }, "reason": { "const": "supported" } } }, "else": { "properties": { "focus": { "type": "null" } } } },
+        { "if": { "properties": { "outcome": { "const": "pending" } } }, "then": { "properties": { "reason": { "const": "scan-incomplete" } } } },
+        { "if": { "properties": { "outcome": { "const": "unavailable" } } }, "then": { "properties": { "reason": { "enum": ["policy-invalid", "storage-unavailable", "context-unavailable"] } } } },
+        { "if": { "properties": { "outcome": { "const": "general" } } }, "then": { "properties": { "reason": { "enum": ["baseline-incomplete", "stale-evidence", "too-few-observations-for-any-pair", "insufficient-context-diversity", "unstable-evidence", "no-effect", "corpus-coverage", "exposure-unsupported"] } } } }
+      ],
+      "required": ["schemaId", "kind", "resultId", "resultSha256", "policyId", "configId", "contextId", "epochId", "preparedAt", "now", "sourceRevision", "sourceIds", "baselineWitnessIds", "signal", "outcome", "reason", "focus", "exposure"],
+      "properties": {
+        "schemaId": { "const": "typeforge-coach-sidecar-schema-v1" }, "kind": { "const": "decision-v1" },
+        "resultId": { "$ref": "#/$defs/id" }, "resultSha256": { "$ref": "#/$defs/hash" },
+        "policyId": { "const": "clean-pair-contrast-v1" }, "configId": { "$ref": "#/$defs/hash" },
+        "contextId": { "$ref": "#/$defs/id" }, "epochId": { "$ref": "#/$defs/id" },
+        "preparedAt": { "$ref": "#/$defs/time" }, "now": { "$ref": "#/$defs/time" },
+        "sourceRevision": { "type": "integer", "minimum": 0, "maximum": 9007199254740991 },
+        "sourceIds": { "type": "array", "maxItems": 20, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "baselineWitnessIds": { "type": "array", "maxItems": 10, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "signal": { "const": "clean-pair-log-contrast" },
+        "outcome": { "enum": ["suggested", "general", "pending", "unavailable"] },
+        "reason": { "enum": ["supported", "policy-invalid", "storage-unavailable", "context-unavailable", "scan-incomplete", "baseline-incomplete", "stale-evidence", "too-few-observations-for-any-pair", "insufficient-context-diversity", "unstable-evidence", "no-effect", "corpus-coverage", "exposure-unsupported"] },
+        "focus": { "anyOf": [{ "type": "null" }, { "$ref": "#/$defs/focus" }] },
+        "exposure": { "anyOf": [{ "type": "null" }, { "$ref": "#/$defs/exposure" }] }
+      }
+    }
+  }
+}
