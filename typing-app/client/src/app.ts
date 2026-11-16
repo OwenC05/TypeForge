@@ -29,12 +29,12 @@ function typingHelp(prompt: string, value: string): string {
 function parseDuration(value: string | null, inherited: DurationMs = 60000): {durationMs: DurationMs; reason: string} {
   if (value === null) return {durationMs: inherited, reason: ''};
   const supported = SUPPORTED_DURATIONS.find(duration => String(duration / 1000) === value);
-  return supported ? {durationMs: supported, reason: ''} : {durationMs: 60000, reason: 'Unsupported duration. Using 60 seconds; choose 15, 30, 60 or 120 seconds.'};
+  return supported ? {durationMs: supported, reason: ''} : {durationMs: 60000, reason: 'Unsupported duration. Using 60 seconds.'};
 }
 function parseQwerty(value: string | null, inherited = false): {qwerty: boolean; reason: string} {
   if (value === null) return {qwerty: inherited, reason: ''};
   if (value === '1' || value === '0') return {qwerty: value === '1', reason: ''};
-  return {qwerty: false, reason: 'Unsupported keyboard declaration. Using an undeclared keyboard; check the physical QWERTY option if appropriate.'};
+  return {qwerty: false, reason: 'Unsupported keyboard declaration. Using an undeclared keyboard.'};
 }
 type PracticeKind = 'general' | 'recommended' | 'manual';
 function parsePracticeChoice(kind: string | null, pair: string | null, pairs: readonly string[], recommendation: {pair: string} | null, unavailable: string): {kind: PracticeKind; pair?: string; reason: string} {
