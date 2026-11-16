@@ -20,14 +20,28 @@ const html = Object.fromEntries(fs.readdirSync(dist).filter(file => file.endsWit
 const clientCommit = git('log', '-1', '--format=%H', '--', 'typing-app/client');
 const sourceCommit = git('log', '-1', '--format=%H', '--', 'typing-app/client/src');
 const servedNames = ['app', 'define-element', 'env'].map(stem => Object.keys(assets).find(name => name.startsWith(`${stem}-`) && name.endsWith('.js'))).concat(Object.keys(assets).filter(name => /^app-.*\.css$/.test(name))).sort();
+// Builds that earlier, unaffected receipts ran on (Vite entry asset names -> source commit). A receipt that
+// does not match this dist is labelled historical with the build it actually ran on; nothing is relabelled.
+const KNOWN_BUILDS = {
+  'app-7HF6yCwN.css,app-Dcu90w2F.js,define-element-B_WeKIXB.js,env-B-odJnus.js': 'historical: 1e29064 build (T4 freeze 0747d17, before L-1)',
+  'app-BQOyU45s.css,app-Dvv-e4Tc.js,define-element-B_WeKIXB.js,env-B-odJnus.js': 'historical: 1ad38ca build (input path unchanged since)',
+  'app-CiIXzPbM.css,app-DRnCp6G3.js': 'baseline: b898dc6 build',
+};
+const NO_BUILD_RECORD = {
+  'agent-test.json': 'Vite dev server on the working-tree source (see report.md for the commit); no served-build record',
+  'bundle.json': 'compares two dist directories; labels inside the receipt (base, current)',
+  'visual-evidence.json': 'hashes every artifact and source; the captures it lists record their build in states.json, unsaved.json, zoom.json and context-wrap.json',
+  'visual-evidence-verify.json': 'output of the ui-taste integrity helper over visual-evidence.json',
+};
 const receipts = {};
 for (const file of fs.readdirSync(evidence).filter(name => name.endsWith('.json') && name !== 'manifest.json').sort()) {
   const data = JSON.parse(fs.readFileSync(path.join(evidence, file), 'utf8'));
   const runs = Array.isArray(data.runs) ? data.runs.map(run => run.build) : [data.build];
   const builds = runs.filter(Boolean);
+  const label = assets => JSON.stringify(assets) === JSON.stringify(servedNames) ? `this dist (${sourceCommit.slice(0, 7)})` : KNOWN_BUILDS[assets.join(',')] ?? 'unknown build';
   receipts[file] = builds.length
-    ? { recordedBuild: builds.map(build => build.assets), matchesThisDist: builds.map(build => JSON.stringify(build.assets) === JSON.stringify(servedNames)) }
-    : { recordedBuild: null, note: 'no served-build record in this receipt; see report.md for the build it ran on' };
+    ? { recordedBuild: builds.map(build => build.assets), matchesThisDist: builds.map(build => JSON.stringify(build.assets) === JSON.stringify(servedNames)), buildLabel: builds.map(build => label(build.assets)) }
+    : { recordedBuild: null, note: NO_BUILD_RECORD[file] ?? 'no served-build record in this receipt; see report.md for the build it ran on' };
 }
 const manifest = {
   generatedAt: new Date().toISOString(),

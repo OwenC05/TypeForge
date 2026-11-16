@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-11-16T12:59:21.153Z",
+  "generatedAt": "2026-11-16T13:26:13.424Z",
   "base": "http://127.0.0.1:5301",
   "build": {
     "servedFrom": "http://127.0.0.1:5301",
     "assets": [
-      "app-7HF6yCwN.css",
-      "app-Dcu90w2F.js",
+      "app-BNPI8kHH.js",
+      "app-ChsJ1aui.css",
       "define-element-B_WeKIXB.js",
       "env-B-odJnus.js"
     ]
@@ -2843,9 +2843,9 @@
           "docOverflowX": false
         },
         "cls": {
-          "entries": 3,
-          "total": 0.018268375396728518,
-          "excludingRecentInput": 0
+          "entries": 4,
+          "total": 0.04077510452270508,
+          "excludingRecentInput": 0.022506729125976562
         },
         "pageErrors": [],
         "slotCapacity": [

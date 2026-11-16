@@ -12,6 +12,11 @@ const file = relative => { const bytes = fs.readFileSync(path.resolve(evidence, 
 const image = relative => ({ ...file(relative), kind: 'image' });
 const shot = name => image(`screenshots/${name}`);
 const states = JSON.parse(fs.readFileSync(path.join(evidence, 'states.json'), 'utf8'));
+// Every capture listed below comes from states, unsaved, zoom or context-wrap; refuse a mixed-build receipt.
+for (const name of ['unsaved.json', 'zoom.json', 'context-wrap.json']) {
+  const build = JSON.parse(fs.readFileSync(path.join(evidence, name), 'utf8')).build;
+  if (JSON.stringify(build?.assets) !== JSON.stringify(states.build.assets)) throw new Error(`${name} ran on ${build?.assets} but states.json on ${states.build.assets}`);
+}
 const chrome = `Chrome ${String(states.chrome).replace('Chrome/', '')} (headless, system install)`;
 const env = (width, height) => ({ kind: 'browser', name: chrome, width, height });
 const vp = { 1440: [1440, 900], 390: [390, 844], 320: [320, 640] };
@@ -37,13 +42,17 @@ const checks = [
   ['pair-list', 'interaction', 'Pair list open from the pair trigger', [1440, 390, 320].map(w => shot(`${w}-12-pair-popover.png`)),
     'The pair trigger shows the current value (th) beside the segmented "pair" key; the lazy Select opens as a grid of supported pairs with th scrolled into view inside the list, highlighted and focused; the page does not scroll (states.json facts at all three widths).',
     ['Return to / with 60 s pair practice remembered', 'Click the pair trigger']],
+  ['context-wrap', 'visual', 'L-1: non-editable previous and next lines at ready and after a committed passage with one error, shipped CSS beside the pre-L-1 rule re-applied by a test-only style (same build, seed 3)',
+    [...[390, 320].flatMap(w => ['shipped-ready', 'shipped-committed', 'old-rule-ready', 'old-rule-committed'].map(s => shot(`ctxwrap-${w}-${s}.png`))), shot('ctxwrap-1440-shipped-committed.png')],
+    'Shipped: the upcoming and committed lines keep whole words at 390 and 320 (0 split words over the lead\'s 25 seeds at each width, context-wrap.json; the old rule splits 17/25 and 13/25 upcoming lines, matching the lead review). The committed line keeps its wavy vermilion .missed mark, the active line stays at the same top for every seed, and the active passage still breaks mid-word by contract (break-all).',
+    ['Open / with the lead\'s seeded Math.random (seed 3 shown)', 'Type the first passage with one wrong glyph mid-word', 'Press Space to commit']],
   ['zoom-200', 'visual', 'Real 200% browser zoom (profile default zoom, devicePixelRatio 2): ready and first mismatch', [image('screenshots/zoom200-01-ready.png'), image('screenshots/zoom200-02-first-mismatch.png')],
     'No horizontal overflow, rail fits, focus stays in the passage, the expected-glyph tag is in view. Restart and the slot are below the fold of the short 704×398 CSS window (page scroll).', null, [704, 398]],
 ];
 
 const receipt = {
   schemaVersion: 'uizze.visual-evidence.v1',
-  scope: 'TypeForge direct practice "Paper and ink" redesign at /: ready, running, error, result, save failure, unsaved-result recovery, held departure, pair list and 200% zoom',
+  scope: `TypeForge direct practice "Paper and ink" redesign at /: ready, running, error, result, save failure, unsaved-result recovery, held departure, pair list, context-line wrapping (L-1) and 200% zoom. Every capture is from the build ${states.build.assets.join(' / ')}.`,
   platform: 'web',
   sources: ['../../../../../typing-app/client/src/style.css', '../../../../../typing-app/client/src/app.ts', '../../../../../typing-app/client/src/unsaved.ts', '../../../../../typing-app/client/index.html'].map(file),
   comparison: 'target',
@@ -55,7 +64,7 @@ const receipt = {
     'Pair practice is a segmented "pair" key plus a separate trigger showing the current pair, so the value is always visible.',
     'Suggested is drawn dashed when unavailable rather than solid and faded.',
     'No paper grain (optional per T-9).',
-    'Passages wrap with break-all at narrow widths (mid-word breaks); word-safe wrapping failed the geometry matrix.',
+    'The active passage (the line being typed) wraps with break-all at narrow widths, so it can break mid-word; word-safe wrapping of the editor failed the geometry matrix. The non-editable previous and next lines keep whole words (L-1).',
     'Clicking an untyped glyph on a line below the typed text moves the native caret to the same column on the last typed line (native textarea hit-testing; no edit).',
   ],
   unresolved,

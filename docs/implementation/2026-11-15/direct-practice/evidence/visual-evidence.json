@@ -1,11 +1,11 @@
 {
   "schemaVersion": "uizze.visual-evidence.v1",
-  "scope": "TypeForge direct practice \"Paper and ink\" redesign at /: ready, running, error, result, save failure, unsaved-result recovery, held departure, pair list and 200% zoom",
+  "scope": "TypeForge direct practice \"Paper and ink\" redesign at /: ready, running, error, result, save failure, unsaved-result recovery, held departure, pair list, context-line wrapping (L-1) and 200% zoom. Every capture is from the build app-BNPI8kHH.js / app-ChsJ1aui.css / define-element-B_WeKIXB.js / env-B-odJnus.js.",
   "platform": "web",
   "sources": [
     {
       "path": "../../../../../typing-app/client/src/style.css",
-      "sha256": "de3407e1e280ae1a2062130780132638a8c3d2184a12f5a722ec7d6a00512e82"
+      "sha256": "aea2a41c05d83191ceedaae632358f6eb8f9e0bee606e5bb6905dd490e93569c"
     },
     {
       "path": "../../../../../typing-app/client/src/app.ts",
@@ -44,7 +44,7 @@
     "Pair practice is a segmented \"pair\" key plus a separate trigger showing the current pair, so the value is always visible.",
     "Suggested is drawn dashed when unavailable rather than solid and faded.",
     "No paper grain (optional per T-9).",
-    "Passages wrap with break-all at narrow widths (mid-word breaks); word-safe wrapping failed the geometry matrix.",
+    "The active passage (the line being typed) wraps with break-all at narrow widths, so it can break mid-word; word-safe wrapping of the editor failed the geometry matrix. The non-editable previous and next lines keep whole words (L-1).",
     "Clicking an untyped glyph on a line below the typed text moves the native caret to the same column on the last typed line (native textarea hit-testing; no edit)."
   ],
   "unresolved": [],
@@ -80,6 +80,10 @@
     {
       "id": "pair-list",
       "kind": "interaction"
+    },
+    {
+      "id": "context-wrap",
+      "kind": "visual"
     },
     {
       "id": "zoom-200",
@@ -302,17 +306,17 @@
         },
         {
           "path": "screenshots/320-20-unsaved-1-ready.png",
-          "sha256": "c63c8bcbda23290bb048738542dd107c123f233fed1803961b3db2f9913eede0",
+          "sha256": "93eaec981a8a37db46640ad256fb37ef9300fc9b36e3d4fc0215eaddb4e01a5e",
           "kind": "image"
         },
         {
           "path": "screenshots/320-21-unsaved-2-ready.png",
-          "sha256": "b94d8955b807af867d67fc59e3d594a7edfe7fe0ba0c3aa33ccfe44d8d2973c1",
+          "sha256": "5de2b2565b1689a3e534981f5465e41cb5b2dbcf23610887759a2d4d440c00fa",
           "kind": "image"
         },
         {
           "path": "screenshots/320-22-unsaved-2-running-with-hint.png",
-          "sha256": "e5df303f5795bee716c82236b73fb0b80d53c1007f90c16f0c105d866e47d426",
+          "sha256": "4d39f9d2ac924638b5ef75de826f97b95b70a40afc369dd69f5a1d49e70acc6a",
           "kind": "image"
         }
       ],
@@ -362,7 +366,7 @@
         },
         {
           "path": "screenshots/320-23-departure-held-running.png",
-          "sha256": "04ff126f880a7f2d100bc8994cf20a951de6360f8c913caf5983adecbac8dcae",
+          "sha256": "de69f44eaa170451ed6e8c6383f9cb6f263b8f96966b11f35d17ad77e871c883",
           "kind": "image"
         },
         {
@@ -408,7 +412,7 @@
         },
         {
           "path": "screenshots/320-08-focus-lost.png",
-          "sha256": "80591ecfb82700b6a2ce93cbe16a4018cdd7e8a6799ba07dbee36264a83424d6",
+          "sha256": "d6ef84dc4de8f753a7e394b1b955189c31dfb22678abe28e197fb50a93941f78",
           "kind": "image"
         }
       ]
@@ -449,6 +453,75 @@
       "steps": [
         "Return to / with 60 s pair practice remembered",
         "Click the pair trigger"
+      ]
+    },
+    {
+      "id": "context-wrap",
+      "status": "pass",
+      "state": "L-1: non-editable previous and next lines at ready and after a committed passage with one error, shipped CSS beside the pre-L-1 rule re-applied by a test-only style (same build, seed 3)",
+      "observed": "Shipped: the upcoming and committed lines keep whole words at 390 and 320 (0 split words over the lead's 25 seeds at each width, context-wrap.json; the old rule splits 17/25 and 13/25 upcoming lines, matching the lead review). The committed line keeps its wavy vermilion .missed mark, the active line stays at the same top for every seed, and the active passage still breaks mid-word by contract (break-all).",
+      "environment": {
+        "kind": "browser",
+        "name": "Chrome 157.0.8103.52 (headless, system install)",
+        "width": 1440,
+        "height": 900
+      },
+      "viewports": [
+        "1440x900",
+        "390x844",
+        "320x640"
+      ],
+      "artifacts": [
+        {
+          "path": "screenshots/ctxwrap-390-shipped-ready.png",
+          "sha256": "43582a6ee9eecd8d85aea72419982f25ab7f5b7a07a5b5cacf312cbe2b7ff30c",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/ctxwrap-390-shipped-committed.png",
+          "sha256": "414fd9baa57db077eb27d4b9d1202c3855edcf1188ca387e62c433c0f56c27c6",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/ctxwrap-390-old-rule-ready.png",
+          "sha256": "874197623fbc8a1ce92d8bd0ba72e24e5c44ae83996c5d79f0107446fc025ec1",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/ctxwrap-390-old-rule-committed.png",
+          "sha256": "5b8977df2273536f55efd5872e4b8f741cdd1758d0924996f4f3498c9aad49f1",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/ctxwrap-320-shipped-ready.png",
+          "sha256": "4e39c1452c59324800bb8cbd19f71e9df72100951bbec973f73ce369f488d5ba",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/ctxwrap-320-shipped-committed.png",
+          "sha256": "204febcdf4737f38c7bdc85a429f15f8e22db7b7ed444cc422ca910c89340b40",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/ctxwrap-320-old-rule-ready.png",
+          "sha256": "4e39c1452c59324800bb8cbd19f71e9df72100951bbec973f73ce369f488d5ba",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/ctxwrap-320-old-rule-committed.png",
+          "sha256": "df8f4fd8a1a3718a8e7becf3463267de8bde2ce9de588e76ae361603b5fcbd1c",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/ctxwrap-1440-shipped-committed.png",
+          "sha256": "46fdb1015c16052dff4e6f060a17f96397fe9c8ae6050d48abc9cd07c7a92555",
+          "kind": "image"
+        }
+      ],
+      "steps": [
+        "Open / with the lead's seeded Math.random (seed 3 shown)",
+        "Type the first passage with one wrong glyph mid-word",
+        "Press Space to commit"
       ]
     },
     {

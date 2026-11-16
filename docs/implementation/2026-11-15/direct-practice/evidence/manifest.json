@@ -1,21 +1,21 @@
 {
-  "generatedAt": "2026-11-16T13:06:02.298Z",
+  "generatedAt": "2026-11-16T13:33:06.087Z",
   "branch": "OwenC05/tf-direct-practice",
-  "clientCommit": "1e29064ddff758832e05b41563e37b46d8e8ce9f",
-  "sourceCommit": "1e29064ddff758832e05b41563e37b46d8e8ce9f",
-  "sourceTree": "62ad0a005c165b0c4b972bf4ddfd5ecda26db246",
+  "clientCommit": "932f000a8636a411a250960e53f8ef2933ffc33d",
+  "sourceCommit": "932f000a8636a411a250960e53f8ef2933ffc33d",
+  "sourceTree": "344f0ee309e89975d62d7180df695a51cc3d3365",
   "workingTreeClientClean": true,
   "node": "v24.21.0",
   "servedEntryAssets": [
-    "app-7HF6yCwN.css",
-    "app-Dcu90w2F.js",
+    "app-BNPI8kHH.js",
+    "app-ChsJ1aui.css",
     "define-element-B_WeKIXB.js",
     "env-B-odJnus.js"
   ],
   "dist": {
     "assets": {
-      "app-7HF6yCwN.css": "c0df7d1eb3c81434667713c99449ed09b940f8b56d763d1984e7fbc16595f429",
-      "app-Dcu90w2F.js": "2d818106d879c671ec27d296689ffda952565abcf98dd65c78d4f9eb7c880834",
+      "app-BNPI8kHH.js": "2d818106d879c671ec27d296689ffda952565abcf98dd65c78d4f9eb7c880834",
+      "app-ChsJ1aui.css": "45558491c9b2704a2eff2223beaa823b3b7512d8f46bac8198cd1f6d47212cfc",
       "define-element-B_WeKIXB.js": "c97bab8f77c68afdec8c70ec787dbf97574cb4ba2028a982fda42a4e4deff86d",
       "env-B-odJnus.js": "9ba81c4225754f059abf3e6d49552c790705be69de4ecd770b5880b4164a0029",
       "favicon-2cBZDU6Q.svg": "c81817b819e26eaf5598e51754bdca5d75dcad2fbee3d45369195ac2ab94d569",
@@ -32,33 +32,52 @@
       "SignIn.html": "c10c7915250908ebec892c6f4ee83de6b9f1f7475fe34fea4af945e9746ce032",
       "TypingDrill.html": "ec8656dca06ab35ad13d7bb01365e535b360cd03c5041214a68fcfb2f13907f0",
       "TypingTest.html": "da7846276b83daae6241e8f695c1005a07c2a6d23639e4c7470208e5dbc81995",
-      "index.html": "b7670b07af69ab1ffbef2296c83abccc86547f78bf4371ebb7dd1a1ab7bca0d2",
-      "lab.html": "61bf864f1d4b0070d67582e08bd34bbf9c3c28fc35d2a9fa761288abe500e12c",
-      "practice.html": "320cea7d2e3abecce3d0df3928382dd4c5a59cccab5265f69b9f7a502fb2d991",
-      "progress.html": "a7bc22d95df64f26559159eb7c10b17a295d2057cd463cf3b57f134d89fc6923",
-      "results.html": "a422579755a4718841a1a31630cb2cbf1d94827d2e6dfb5f009cea5aa20707cb"
+      "index.html": "263850357065215688160104fe489c49ef57aae6a73eb271b98f9bcacb01eb1d",
+      "lab.html": "9bba395e516c7e8372d2dede46f4f87ef1a7ba72a5c6115d1e3fc988106d758b",
+      "practice.html": "0d271a039f921273d59768fdff3bd40732c4156202cead336e8eaef52cb69a85",
+      "progress.html": "50c11198b65cccc73c69c254abb71bcd6f8e227468540ae149bc1e0933e26e5b",
+      "results.html": "6e90163dbfc1a791297433f0ca018f5ba3a05ba5f232ebb43bc00889012a270b"
     }
   },
   "receipts": {
     "agent-test.json": {
       "recordedBuild": null,
-      "note": "no served-build record in this receipt; see report.md for the build it ran on"
+      "note": "Vite dev server on the working-tree source (see report.md for the commit); no served-build record"
     },
     "bundle.json": {
       "recordedBuild": null,
-      "note": "no served-build record in this receipt; see report.md for the build it ran on"
+      "note": "compares two dist directories; labels inside the receipt (base, current)"
     },
-    "geometry.json": {
+    "context-wrap.json": {
       "recordedBuild": [
         [
-          "app-7HF6yCwN.css",
-          "app-Dcu90w2F.js",
+          "app-BNPI8kHH.js",
+          "app-ChsJ1aui.css",
           "define-element-B_WeKIXB.js",
           "env-B-odJnus.js"
         ]
       ],
       "matchesThisDist": [
         true
+      ],
+      "buildLabel": [
+        "this dist (932f000)"
+      ]
+    },
+    "geometry.json": {
+      "recordedBuild": [
+        [
+          "app-BNPI8kHH.js",
+          "app-ChsJ1aui.css",
+          "define-element-B_WeKIXB.js",
+          "env-B-odJnus.js"
+        ]
+      ],
+      "matchesThisDist": [
+        true
+      ],
+      "buildLabel": [
+        "this dist (932f000)"
       ]
     },
     "late-history.json": {
@@ -71,7 +90,10 @@
         ]
       ],
       "matchesThisDist": [
-        true
+        false
+      ],
+      "buildLabel": [
+        "historical: 1e29064 build (T4 freeze 0747d17, before L-1)"
       ]
     },
     "retry-race.json": {
@@ -84,20 +106,26 @@
         ]
       ],
       "matchesThisDist": [
-        true
+        false
+      ],
+      "buildLabel": [
+        "historical: 1e29064 build (T4 freeze 0747d17, before L-1)"
       ]
     },
     "states.json": {
       "recordedBuild": [
         [
-          "app-7HF6yCwN.css",
-          "app-Dcu90w2F.js",
+          "app-BNPI8kHH.js",
+          "app-ChsJ1aui.css",
           "define-element-B_WeKIXB.js",
           "env-B-odJnus.js"
         ]
       ],
       "matchesThisDist": [
         true
+      ],
+      "buildLabel": [
+        "this dist (932f000)"
       ]
     },
     "timing.json": {
@@ -128,53 +156,68 @@
         false,
         false,
         false
+      ],
+      "buildLabel": [
+        "historical: 1ad38ca build (input path unchanged since)",
+        "baseline: b898dc6 build",
+        "historical: 1ad38ca build (input path unchanged since)",
+        "baseline: b898dc6 build"
       ]
     },
     "typing-flow.json": {
       "recordedBuild": [
         [
-          "app-7HF6yCwN.css",
-          "app-Dcu90w2F.js",
+          "app-BNPI8kHH.js",
+          "app-ChsJ1aui.css",
           "define-element-B_WeKIXB.js",
           "env-B-odJnus.js"
         ]
       ],
       "matchesThisDist": [
         true
+      ],
+      "buildLabel": [
+        "this dist (932f000)"
       ]
     },
     "unsaved.json": {
       "recordedBuild": [
         [
-          "app-7HF6yCwN.css",
-          "app-Dcu90w2F.js",
+          "app-BNPI8kHH.js",
+          "app-ChsJ1aui.css",
           "define-element-B_WeKIXB.js",
           "env-B-odJnus.js"
         ]
       ],
       "matchesThisDist": [
         true
+      ],
+      "buildLabel": [
+        "this dist (932f000)"
       ]
     },
     "visual-evidence-verify.json": {
       "recordedBuild": null,
-      "note": "no served-build record in this receipt; see report.md for the build it ran on"
+      "note": "output of the ui-taste integrity helper over visual-evidence.json"
     },
     "visual-evidence.json": {
       "recordedBuild": null,
-      "note": "no served-build record in this receipt; see report.md for the build it ran on"
+      "note": "hashes every artifact and source; the captures it lists record their build in states.json, unsaved.json, zoom.json and context-wrap.json"
     },
     "zoom.json": {
       "recordedBuild": [
         [
-          "app-7HF6yCwN.css",
-          "app-Dcu90w2F.js",
+          "app-BNPI8kHH.js",
+          "app-ChsJ1aui.css",
           "define-element-B_WeKIXB.js",
           "env-B-odJnus.js"
         ]
       ],
       "matchesThisDist": [
         true
+      ],
+      "buildLabel": [
+        "this dist (932f000)"
       ]
     }
   }
