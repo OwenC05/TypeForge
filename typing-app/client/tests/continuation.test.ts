@@ -99,14 +99,17 @@ test('ET-1 (LR-2): a validation refusal that arrives after Again lists as reject
   assert.equal(host.node('#save-state').textContent, '', 'the stale block UI is not written');
 });
 
-test('ET-1: a stale in-place retry settling after Again or disposal touches nothing of the old block', async () => {
-  for (const leave of ['again', 'dispose'] as const) {
+test('ET-1: a stale in-place retry settling after Again, a setting, a replacement result or disposal touches nothing of the old block', async () => {
+  for (const leave of ['again', 'setting', 'replacement', 'dispose'] as const) {
     const host = continuationHost();
     const { finishing } = host.complete(`stale-${leave}`);
     host.saves[0]!.reject(new Error('storage unavailable'));
     await finishing;
     host.node('#retry-save').onclick();
-    if (leave === 'again') await host.again(); else host.context.disposed = true;
+    if (leave === 'again') await host.again();
+    else if (leave === 'setting') await host.settingChange();
+    else if (leave === 'replacement') { await host.again(); const next = host.complete('replacement-result'); host.saves[2]!.resolve(); await next.finishing; }
+    else host.context.disposed = true;
     // From here the old block's controls are gone, as in the page: lookups return null.
     let focusAttempts = 0;
     host.context.mayFocusInput = () => { focusAttempts++; return true; };
@@ -115,7 +118,7 @@ test('ET-1: a stale in-place retry settling after Again or disposal touches noth
     host.saves[1]!.resolve();
     await tick(); await tick();
     assert.equal(focusAttempts, 0, `${leave}: afterResultRendered is not called for a replaced or disposed block`);
-    if (leave === 'again') assert.equal(host.context.unsaved.unsaved.length, 0, 'again: the retried save still reaches its carried record');
+    if (leave !== 'dispose') assert.equal(host.context.unsaved.unsaved.length, 0, `${leave}: the retried save still reaches its carried record`);
     else assert.equal(host.context.currentSave.state, 'saved', 'dispose: the retried save still reaches its record');
   }
 });
