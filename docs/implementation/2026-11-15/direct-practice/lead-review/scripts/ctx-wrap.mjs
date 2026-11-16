@@ -16,7 +16,7 @@ for (const [w, h] of [[390, 844], [320, 640]]) {
       return { splits, text, overflow: document.documentElement.scrollWidth > innerWidth, activeTop: Math.round(document.querySelector('#typing-input').getBoundingClientRect().top) };
     });
     checked++; split += r.splits; overflow += r.overflow ? 1 : 0; activeTop.add(r.activeTop);
-    if (seed === 3) await page.screenshot({ path: `lead-review/ctxwrap-${w}.png` });
+    if (seed === 3) await page.screenshot({ path: `lead-review/final-ctxwrap-${w}.png` });
     await page.close();
   }
   out[w] = { checked, wordsSplitInNextLine: split, overflowPages: overflow, activeLineTops: [...activeTop], errors };

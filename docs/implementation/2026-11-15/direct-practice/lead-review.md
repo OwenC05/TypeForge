@@ -4,7 +4,7 @@
 
 **Reviewed:** T4 frozen at `0747d17` on `OwenC05/tf-direct-practice`. Final source is `1e29064`. `git diff --quiet 1e29064 0747d17 -- typing-app/client/src` holds.
 
-**Verdict:** accepted with one required presentation fix, **L-1**. Everything else in the brief's completion list is met or honestly limited. Final acceptance follows once L-1 lands and is verified.
+**Verdict:** accepted at **`db56cf0`** (final source `932f000`) after the one required presentation fix, **L-1**, landed and was independently verified (see Final acceptance). Previously: accepted at `0747d17` except L-1.
 
 ## Method
 
@@ -113,3 +113,54 @@ This is a CSS-only delta after `1e29064`.
 
 - Lead preview on port 5303 is stopped after review (PID recorded in the scratchpad).
 - Lead profiles `dp-lead-*` remain in the lead scratchpad. Cleanup is optional, so I left them rather than run an unverified deletion.
+
+## Final acceptance (L-1 delta)
+
+**Commits.** T4 follow-up (Task `task_99e9239f71f9`, Dispatch `ctx_a83524e4db81`): `932f000` (CSS) and `db56cf0` (evidence).
+
+**Delta.** `git diff 0747d17 932f000` touches only `typing-app/client/src/style.css`:
+
+- `.passage-context` leaves the editor's break-all selector.
+- It gets `pre-wrap` / `word-break: normal` / `overflow-wrap: break-word`, with the same mono metrics.
+- The editor rule (`.prompt`, `.typing-input`) is unchanged.
+
+Client source is identical between `932f000` and `db56cf0`.
+
+**Independent rebuild.** Lead scratchpad, final `style.css`:
+
+- `npm run check`: **132/132**.
+- Build: `app-BNPI8kHH.js` and `app-ChsJ1aui.css`, the same as T4's receipt. The JS name changed only because Vite's chunk hash includes the CSS.
+
+**Measured on that build** (`scripts/ctx-wrap.mjs`, same 25 seeds, real time):
+
+| Width | Split words in upcoming line | Active-line top | Overflow | Page errors |
+|---|---|---|---|---|
+| 390 | **0 / 25** | 317 px, unchanged | none | 0 |
+| 320 | **0 / 25** | 310 px, unchanged | none | 0 |
+
+- Clean first visit at 390 and 320 is still ready, focused, 30 s General, with 0 errors.
+- The first key starts the run.
+
+Captures: `final-ctxwrap-390.png`, `final-ctxwrap-320.png`.
+
+**Accepted from T4's receipts on `932f000`** (not rerun by the lead):
+
+- geometry identical to `1e29064` (zero displacement, every slot message fits);
+- 57 state captures;
+- typing-flow 46/46, unsaved 74/74, agent 50/50;
+- zoom ok;
+- visual receipt and helper ok, 55 files;
+- +17 B gzip CSS.
+
+Retry-race, late-history and timing are labelled historical against their own builds. The only source change since then is the context-line CSS, which is outside their paths.
+
+**Remaining honest limits:**
+
+- The active line still breaks mid-word at narrow widths. This is the measured native-editing limit.
+- Unsaved-result recovery is in-memory only: it does not survive reload, tab close or BFCache.
+- 200% zoom on a short window puts restart and the slot below the fold.
+- The bundle grows by +33.5 KB gzip initial.
+- Timing evidence is bounded: headless, single host.
+- Not covered: OS IME, screen readers and AT, Firefox and Safari, physical devices, human typing.
+
+None of these is claimed as passed.
