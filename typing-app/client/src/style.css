@@ -330,5 +330,13 @@ summary { cursor: pointer; padding-block: 8px; }
   /* forced-color-adjust: none also unforces the outline, which would fall back to the hard-coded cobalt. */
   ui-segmented-control-item[data-checked]:focus-visible, ui-switch.key[data-checked]:focus-visible { outline: 2px solid CanvasText; outline-offset: 2px; }
   ui-segmented-control-item[data-disabled] { color: GrayText; border-color: GrayText; border-style: dashed; }
+  /* Typed progress (F-2), colour only: untyped GrayText, typed CanvasText; geometry is untouched. */
+  .typing-surface .prompt { forced-color-adjust: none; color: GrayText; }
+  .prompt .correct { color: CanvasText; }
+  .prompt .wrong { color: CanvasText; text-decoration-color: CanvasText; }
+  .prompt .selected { background: Highlight; color: HighlightText; }
+  .stage[data-focus=in] .prompt .cursor::before { border-left-color: Highlight; }
+  .prompt .first-mismatch::after { background: CanvasText; color: Canvas; }
+  .prompt .cursor[data-pointer]::after { background: Canvas; color: CanvasText; border-color: CanvasText; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }
