@@ -85,12 +85,12 @@ test('retry stops at the first permanent refusal, which stays listed with its re
   assert.deepEqual(calls, ['bad', 'later'], 'a refused entry is not retried; the next one is');
 });
 
-test('a write that landed before its error surfaced counts as saved and is not written twice', async () => {
+test('a retry whose write errors but whose copy is stored reconciles as saved (lookup after the error)', async () => {
   let saves = 0;
   const { unsaved } = list(async () => { saves++; throw new Error('late abort'); }, new Set(['landed']));
   unsaved.adopt(failed('landed'));
   await unsaved.retry();
-  assert.equal(saves, 1);
+  assert.equal(saves, 1, 'one attempted write; storage add() rejects an existing id rather than overwriting');
   assert.equal(unsaved.listed.length, 0);
 });
 

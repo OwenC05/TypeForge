@@ -89,8 +89,15 @@ test('ET-1 (LR-2): a validation refusal that arrives after Again lists as reject
   const host = continuationHost();
   const { finishing } = host.complete('invalid-late');
   await host.again();
+  const carried = host.context.unsaved.unsaved[0];
+  const notified: [string, string][] = [];
+  const announce = carried.onSettled;
+  carried.onSettled = () => { notified.push([carried.state, carried.reason]); announce(); };
   host.saves[0]!.reject(new host.context.ResultValidationError('invalid result'));
   await finishing;
+  assert.equal(notified.length, 1);
+  assert.equal(notified[0]![0], 'rejected', 'the one notification already carries the final state');
+  assert.match(notified[0]![1], /validation/);
   const [entry] = host.context.unsaved.listed;
   assert.equal(entry.state, 'rejected');
   assert.match(entry.reason, /validation/);
@@ -110,14 +117,17 @@ test('ET-1: a stale in-place retry settling after Again, a setting, a replacemen
     else if (leave === 'setting') await host.settingChange();
     else if (leave === 'replacement') { await host.again(); const next = host.complete('replacement-result'); host.saves[2]!.resolve(); await next.finishing; }
     else host.context.disposed = true;
-    // From here the old block's controls are gone, as in the page: lookups return null.
-    let focusAttempts = 0;
+    // From here the old block's controls are gone (Again, setting: lookups return null), replaced by a
+    // saved replacement result (hidden retry, a focusable primary action) or retained after disposal.
+    let focusAttempts = 0, lookups = 0;
+    const replacementDom = leave === 'replacement' || leave === 'dispose';
     host.context.mayFocusInput = () => { focusAttempts++; return true; };
-    host.context.$ = () => null;
-    host.context.document = { getElementById: () => null, querySelector: () => null };
+    host.context.$ = (key: string) => { lookups++; return replacementDom ? (key === '#retry-save' ? { hidden: leave === 'replacement' } : { focus: () => { focusAttempts++; } }) : null; };
+    host.context.document = { getElementById: () => { lookups++; return replacementDom ? { onclick: null } : null; }, querySelector: () => { lookups++; return replacementDom ? { focus: () => { focusAttempts++; } } : null; } };
     host.saves[1]!.resolve();
     await tick(); await tick();
-    assert.equal(focusAttempts, 0, `${leave}: afterResultRendered is not called for a replaced or disposed block`);
+    assert.equal(lookups, 0, `${leave}: the settled retry looks up nothing of the page`);
+    assert.equal(focusAttempts, 0, `${leave}: no focus handoff for a replaced or disposed block`);
     if (leave !== 'dispose') assert.equal(host.context.unsaved.unsaved.length, 0, `${leave}: the retried save still reaches its carried record`);
     else assert.equal(host.context.currentSave.state, 'saved', 'dispose: the retried save still reaches its record');
   }

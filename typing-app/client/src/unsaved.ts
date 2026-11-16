@@ -18,7 +18,7 @@ export interface SaveRecord {
 }
 export interface UnsavedDeps {
   save(result: SessionResult): Promise<void>;
-  /** Whether a result with this id is already stored (a write that landed before its error surfaced). */
+  /** Whether a result with this id is already stored; consulted only after a failed write. */
   exists(id: string): Promise<boolean>;
   isPermanent(error: unknown): boolean;
   onChange(): void;
@@ -61,7 +61,8 @@ export class UnsavedResults {
           await this.deps.save(entry.result);
           entry.state = 'saved';
         } catch (error) {
-          // A write that landed before its error surfaced is already saved; never write it twice.
+          // After an error, look the id up: a copy already stored (an earlier write that landed, or add()
+          // refusing an existing id) is reconciled as saved instead of being reported as failed.
           let stored = false;
           try { stored = await this.deps.exists(entry.result.id); } catch { stored = false; }
           if (stored) entry.state = 'saved';
