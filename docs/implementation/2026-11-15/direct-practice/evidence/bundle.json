@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-11-16T12:42:08.178Z",
+  "generatedAt": "2026-11-16T13:06:10.399Z",
   "base": "b898dc6",
-  "current": "1ad38ca",
+  "current": "1e29064",
   "method": "vite build output; gzip via zlib level 9; initial load = HTML + referenced scripts, modulepreloads and stylesheets",
   "chunks": {
     "app.css": {
@@ -11,13 +11,13 @@
         "gzip": 3135
       },
       "current": {
-        "file": "app-BQOyU45s.css",
-        "raw": 19961,
-        "gzip": 5152
+        "file": "app-7HF6yCwN.css",
+        "raw": 20240,
+        "gzip": 5197
       },
       "delta": {
-        "raw": 9399,
-        "gzip": 2017
+        "raw": 9678,
+        "gzip": 2062
       }
     },
     "app.js": {
@@ -27,13 +27,13 @@
         "gzip": 35882
       },
       "current": {
-        "file": "app-Dvv-e4Tc.js",
-        "raw": 141769,
-        "gzip": 48350
+        "file": "app-Dcu90w2F.js",
+        "raw": 141871,
+        "gzip": 48368
       },
       "delta": {
-        "raw": 38397,
-        "gzip": 12468
+        "raw": 38499,
+        "gzip": 12486
       }
     },
     "define-element.js": {
@@ -130,12 +130,12 @@
           "app.js",
           "app.css"
         ],
-        "raw": 214432,
-        "gzip": 72942
+        "raw": 214813,
+        "gzip": 73008
       },
       "delta": {
-        "raw": 99628,
-        "gzip": 33410
+        "raw": 100009,
+        "gzip": 33476
       }
     },
     "lab.html": {
@@ -154,12 +154,12 @@
           "app.js",
           "app.css"
         ],
-        "raw": 214421,
-        "gzip": 72929
+        "raw": 214802,
+        "gzip": 72994
       },
       "delta": {
-        "raw": 99633,
-        "gzip": 33412
+        "raw": 100014,
+        "gzip": 33477
       }
     },
     "LandingPage.html": {
@@ -210,12 +210,12 @@
           "app.js",
           "app.css"
         ],
-        "raw": 214278,
-        "gzip": 72869
+        "raw": 214659,
+        "gzip": 72934
       },
       "delta": {
-        "raw": 99645,
-        "gzip": 33418
+        "raw": 100026,
+        "gzip": 33483
       }
     },
     "progress.html": {
@@ -234,12 +234,12 @@
           "app.js",
           "app.css"
         ],
-        "raw": 214289,
-        "gzip": 72877
+        "raw": 214670,
+        "gzip": 72943
       },
       "delta": {
-        "raw": 99645,
-        "gzip": 33419
+        "raw": 100026,
+        "gzip": 33485
       }
     },
     "ProgressDashboard.html": {
@@ -274,12 +274,12 @@
           "app.js",
           "app.css"
         ],
-        "raw": 214282,
-        "gzip": 72871
+        "raw": 214663,
+        "gzip": 72936
       },
       "delta": {
-        "raw": 99645,
-        "gzip": 33418
+        "raw": 100026,
+        "gzip": 33483
       }
     },
     "ResultsPage.html": {

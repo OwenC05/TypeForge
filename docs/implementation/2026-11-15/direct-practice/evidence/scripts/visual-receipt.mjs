@@ -35,7 +35,7 @@ const checks = [
   ['focus-lost', 'visual', 'Focus lost mid-run: integrity notice and continue-typing key', [1440, 390, 320].map(w => shot(`${w}-08-focus-lost.png`)),
     'The notice uses the slot with its vermilion-deep rule; the continue-typing key covers the dimmed passage; nothing above the slot moves.', null],
   ['pair-list', 'interaction', 'Pair list open from the pair trigger', [1440, 390, 320].map(w => shot(`${w}-12-pair-popover.png`)),
-    'The pair trigger shows the current value (th) beside the segmented "pair" key; the lazy Select opens as a grid of supported pairs.',
+    'The pair trigger shows the current value (th) beside the segmented "pair" key; the lazy Select opens as a grid of supported pairs with th scrolled into view inside the list, highlighted and focused; the page does not scroll (states.json facts at all three widths).',
     ['Return to / with 60 s pair practice remembered', 'Click the pair trigger']],
   ['zoom-200', 'visual', 'Real 200% browser zoom (profile default zoom, devicePixelRatio 2): ready and first mismatch', [image('screenshots/zoom200-01-ready.png'), image('screenshots/zoom200-02-first-mismatch.png')],
     'No horizontal overflow, rail fits, focus stays in the passage, the expected-glyph tag is in view. Restart and the slot are below the fold of the short 704×398 CSS window (page scroll).', null, [704, 398]],

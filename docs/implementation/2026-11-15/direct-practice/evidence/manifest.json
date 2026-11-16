@@ -1,21 +1,21 @@
 {
-  "generatedAt": "2026-11-16T12:54:45.008Z",
+  "generatedAt": "2026-11-16T13:06:02.298Z",
   "branch": "OwenC05/tf-direct-practice",
-  "clientCommit": "8ede09ded9f7a3500ccec598c1adcc3ca8b2aaa7",
-  "sourceCommit": "1ad38ca3e1a3b84f06198cc6f26ad637a0e9a177",
-  "sourceTree": "baa6b7abcfd43e75ce95deca2985c99197b615ca",
+  "clientCommit": "1e29064ddff758832e05b41563e37b46d8e8ce9f",
+  "sourceCommit": "1e29064ddff758832e05b41563e37b46d8e8ce9f",
+  "sourceTree": "62ad0a005c165b0c4b972bf4ddfd5ecda26db246",
   "workingTreeClientClean": true,
   "node": "v24.21.0",
   "servedEntryAssets": [
-    "app-BQOyU45s.css",
-    "app-Dvv-e4Tc.js",
+    "app-7HF6yCwN.css",
+    "app-Dcu90w2F.js",
     "define-element-B_WeKIXB.js",
     "env-B-odJnus.js"
   ],
   "dist": {
     "assets": {
-      "app-BQOyU45s.css": "0520d636b294f0620c4d2f7f51770ec5204a4cdd6f03c0108385f61bb3184a98",
-      "app-Dvv-e4Tc.js": "025c6d6f4b876490a92ee88b50766b3791a3e5ae26b2757a5e309644cb169743",
+      "app-7HF6yCwN.css": "c0df7d1eb3c81434667713c99449ed09b940f8b56d763d1984e7fbc16595f429",
+      "app-Dcu90w2F.js": "2d818106d879c671ec27d296689ffda952565abcf98dd65c78d4f9eb7c880834",
       "define-element-B_WeKIXB.js": "c97bab8f77c68afdec8c70ec787dbf97574cb4ba2028a982fda42a4e4deff86d",
       "env-B-odJnus.js": "9ba81c4225754f059abf3e6d49552c790705be69de4ecd770b5880b4164a0029",
       "favicon-2cBZDU6Q.svg": "c81817b819e26eaf5598e51754bdca5d75dcad2fbee3d45369195ac2ab94d569",
@@ -32,11 +32,11 @@
       "SignIn.html": "c10c7915250908ebec892c6f4ee83de6b9f1f7475fe34fea4af945e9746ce032",
       "TypingDrill.html": "ec8656dca06ab35ad13d7bb01365e535b360cd03c5041214a68fcfb2f13907f0",
       "TypingTest.html": "da7846276b83daae6241e8f695c1005a07c2a6d23639e4c7470208e5dbc81995",
-      "index.html": "c4d9bb54574d64dd7a183ae90a55e2525f74e4565a8aa74bc7228b5cfbae287d",
-      "lab.html": "a8a3c20c663a52477095978c48a69316cbb05b63f872eaddf99ed9bd64d6e3d5",
-      "practice.html": "b1d15f2e21a45fde6b33181fa3004a93d12b0109a985bec5a39274cff4d30d6a",
-      "progress.html": "8db85c27c7b3772e9411d30ad06ac779c5885253981fb05e8571512e6af6424c",
-      "results.html": "79bdaf6c1c1978a1f6e5d6613d8d9a15ce634798e9f9c36809e0854358072ccd"
+      "index.html": "b7670b07af69ab1ffbef2296c83abccc86547f78bf4371ebb7dd1a1ab7bca0d2",
+      "lab.html": "61bf864f1d4b0070d67582e08bd34bbf9c3c28fc35d2a9fa761288abe500e12c",
+      "practice.html": "320cea7d2e3abecce3d0df3928382dd4c5a59cccab5265f69b9f7a502fb2d991",
+      "progress.html": "a7bc22d95df64f26559159eb7c10b17a295d2057cd463cf3b57f134d89fc6923",
+      "results.html": "a422579755a4718841a1a31630cb2cbf1d94827d2e6dfb5f009cea5aa20707cb"
     }
   },
   "receipts": {
@@ -51,8 +51,8 @@
     "geometry.json": {
       "recordedBuild": [
         [
-          "app-BQOyU45s.css",
-          "app-Dvv-e4Tc.js",
+          "app-7HF6yCwN.css",
+          "app-Dcu90w2F.js",
           "define-element-B_WeKIXB.js",
           "env-B-odJnus.js"
         ]
@@ -64,8 +64,8 @@
     "late-history.json": {
       "recordedBuild": [
         [
-          "app-BQOyU45s.css",
-          "app-Dvv-e4Tc.js",
+          "app-7HF6yCwN.css",
+          "app-Dcu90w2F.js",
           "define-element-B_WeKIXB.js",
           "env-B-odJnus.js"
         ]
@@ -77,8 +77,8 @@
     "retry-race.json": {
       "recordedBuild": [
         [
-          "app-BQOyU45s.css",
-          "app-Dvv-e4Tc.js",
+          "app-7HF6yCwN.css",
+          "app-Dcu90w2F.js",
           "define-element-B_WeKIXB.js",
           "env-B-odJnus.js"
         ]
@@ -90,8 +90,8 @@
     "states.json": {
       "recordedBuild": [
         [
-          "app-BQOyU45s.css",
-          "app-Dvv-e4Tc.js",
+          "app-7HF6yCwN.css",
+          "app-Dcu90w2F.js",
           "define-element-B_WeKIXB.js",
           "env-B-odJnus.js"
         ]
@@ -124,17 +124,17 @@
         ]
       ],
       "matchesThisDist": [
-        true,
         false,
-        true,
+        false,
+        false,
         false
       ]
     },
     "typing-flow.json": {
       "recordedBuild": [
         [
-          "app-BQOyU45s.css",
-          "app-Dvv-e4Tc.js",
+          "app-7HF6yCwN.css",
+          "app-Dcu90w2F.js",
           "define-element-B_WeKIXB.js",
           "env-B-odJnus.js"
         ]
@@ -146,8 +146,8 @@
     "unsaved.json": {
       "recordedBuild": [
         [
-          "app-BQOyU45s.css",
-          "app-Dvv-e4Tc.js",
+          "app-7HF6yCwN.css",
+          "app-Dcu90w2F.js",
           "define-element-B_WeKIXB.js",
           "env-B-odJnus.js"
         ]
@@ -156,11 +156,19 @@
         true
       ]
     },
+    "visual-evidence-verify.json": {
+      "recordedBuild": null,
+      "note": "no served-build record in this receipt; see report.md for the build it ran on"
+    },
+    "visual-evidence.json": {
+      "recordedBuild": null,
+      "note": "no served-build record in this receipt; see report.md for the build it ran on"
+    },
     "zoom.json": {
       "recordedBuild": [
         [
-          "app-BQOyU45s.css",
-          "app-Dvv-e4Tc.js",
+          "app-7HF6yCwN.css",
+          "app-Dcu90w2F.js",
           "define-element-B_WeKIXB.js",
           "env-B-odJnus.js"
         ]
