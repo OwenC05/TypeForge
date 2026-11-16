@@ -1,0 +1,73 @@
+﻿{
+    "timeUtc":  "2026-11-16T12:06:14.8036311Z",
+    "reviewedCommit":  "21013142e3b920628e4e434470716f3446052580",
+    "foundation":  "c8a479f624f19f5079f8b73d9ad12093a040e52a",
+    "worktree":  "C:\\Users\\Owenc\\orca\\workspaces\\TypeForge\\tf-direct-tech-review",
+    "branch":  "OwenC05/tf-direct-tech-review",
+    "node":  "v24.21.0",
+    "npm":  "11.19.0",
+    "task":  "task_2a6435afe127",
+    "dispatch":  "ctx_57f48d285555",
+    "requested":  {
+                      "provider":  "codex",
+                      "effort":  "high",
+                      "model":  "gpt-6.1-sol"
+                  },
+    "clientObserved":  {
+                           "modelFlag":  "-m gpt-6.1-sol",
+                           "pid":  34560,
+                           "effortFlag":  "model_reasoning_effort=high",
+                           "meaning":  "Client argv only; backend model and applied effort unverified",
+                           "process":  "codex.exe"
+                       },
+    "orcaObserved":  {
+                         "meaning":  "Exact-dispatch routing/liveness observation; not backend attestation",
+                         "activity":  "working",
+                         "liveness":  "live",
+                         "stage":  "turn_start_unobserved",
+                         "state":  "start_unknown"
+                     },
+    "verification":  {
+                         "npmCheck":  {
+                                          "passed":  114,
+                                          "exit":  0,
+                                          "skipped":  0,
+                                          "build":  "TypeScript and Vite passed",
+                                          "tests":  114,
+                                          "command":  "npm run check",
+                                          "evidence":  "npm-check.txt",
+                                          "failed":  0
+                                      },
+                         "probes":  {
+                                        "meaning":  "Expected defect reproduction, not product pass",
+                                        "command":  "node --disable-warning=ExperimentalWarning docs/implementation/2026-11-15/direct-practice/review/early-technical-evidence/probe.mjs",
+                                        "evidence":  "probe.txt",
+                                        "exit":  0
+                                    },
+                         "npmCi":  {
+                                       "command":  "npm ci --no-audit --no-fund",
+                                       "packages":  21,
+                                       "exit":  0
+                                   }
+                     },
+    "protectedCoreUnchangedFromFoundation":  true,
+    "trackedClientUnmodified":  true,
+    "hashes":  [
+                   {
+                       "sha256":  "517D927500DE4EBA8C6F9E32A0EF1380E9C6E16BFF19FB4DD3DA90917A6EFC46",
+                       "path":  "C:\\Users\\Owenc\\orca\\workspaces\\TypeForge\\tf-direct-tech-review\\typing-app\\client\\src\\app.ts"
+                   },
+                   {
+                       "sha256":  "73FFB83B23CDE3EDD1C79EDDB5848E44B959AA497C8C7114F2F46DF4A3B69966",
+                       "path":  "C:\\Users\\Owenc\\orca\\workspaces\\TypeForge\\tf-direct-tech-review\\typing-app\\client\\src\\preferences.ts"
+                   },
+                   {
+                       "sha256":  "1F2EEC2A22CF83640CC76852B4DF7486DADBB6E41095A468BB68FA6BB8B3E348",
+                       "path":  "C:\\Users\\Owenc\\orca\\workspaces\\TypeForge\\tf-direct-tech-review\\typing-app\\client\\tests\\app.test.ts"
+                   },
+                   {
+                       "sha256":  "3873229AD4FAFAE6EB42CF997499780D3CB3ECF1A03A81E302F0D45C271310FA",
+                       "path":  "C:\\Users\\Owenc\\orca\\workspaces\\TypeForge\\tf-direct-tech-review\\typing-app\\client\\package-lock.json"
+                   }
+               ]
+}

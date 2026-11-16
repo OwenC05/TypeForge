@@ -1,0 +1,39 @@
+{
+  "kind": "source-and-real-engine-probes",
+  "assertions": "Expected defects reproduced; not product acceptance",
+  "observations": [
+    {
+      "scenario": "idle",
+      "state": "idle",
+      "lateCalibrationError": "RangeError: Predictions must be exhaustive, finite and frozen once before editing the current sentence."
+    },
+    {
+      "scenario": "no-op edit",
+      "state": "idle",
+      "lateCalibrationError": "RangeError: Predictions must be exhaustive, finite and frozen once before editing the current sentence."
+    },
+    {
+      "scenario": "one native-style insertion",
+      "state": "running",
+      "lateCalibrationError": null
+    },
+    {
+      "scenario": "Again with save pending",
+      "originalResult": "original-unsaved-result",
+      "completionHidden": true,
+      "exportButtonRetained": false,
+      "retryButtonRetained": false,
+      "generation": 1,
+      "consequence": "Old save catch returns on generation mismatch; removed export/retry closures have no UI route."
+    },
+    {
+      "scenario": "Again with save already failed",
+      "originalResult": "original-unsaved-result",
+      "completionHidden": true,
+      "exportButtonRetained": false,
+      "retryButtonRetained": false,
+      "generation": 1,
+      "consequence": "Old save catch returns on generation mismatch; removed export/retry closures have no UI route."
+    }
+  ]
+}
