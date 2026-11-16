@@ -1,0 +1,29 @@
+{
+  "taskId": "task_1d858a48cbb2",
+  "dispatchId": "ctx_e33d53491b92",
+  "worker": "term_fdca8169-0868-4808-8014-0a983700fa44",
+  "coordinator": "term_68fded65-2f85-497d-a32e-38f10342d6df",
+  "run": "run_1aeb00550f39",
+  "requested": { "agent": "codex", "model": "gpt-6.1-sol", "effort": "high" },
+  "observedClient": {
+    "terminalIncarnation": "214e4137-7783-4ab2-b71f-e87b5ca8bfa0",
+    "terminalAgentIdentity": "codex",
+    "preview": "GPT-6.1-Sol high",
+    "ancestorExecutable": "codex.exe",
+    "ancestorPid": 27460,
+    "modelArgument": "-m gpt-6.1-sol",
+    "effortArgument": "-c model_reasoning_effort=high"
+  },
+  "helper": {
+    "taskId": "task_64a2ed080fba",
+    "dispatchId": "ctx_cbfc683b8d7b",
+    "terminal": "term_f23f7e30-97da-4fbc-8aaf-cdce20ef20f3",
+    "requested": { "agent": "codex", "model": "gpt-6.1-sol", "effort": "high" },
+    "readyReceipt": { "state": "ready", "agent": "codex", "model": "gpt-6.1-sol", "effort": "high", "mode": "terminal" },
+    "ownership": "undo-review.md only; report-only, no browser/server/performance work or further helpers",
+    "outcome": "succeeded",
+    "commit": "402dc0d311fe9abfa217c809b084847465cead08",
+    "report": "docs/implementation/2026-11-16/baseline/reliability/undo-review.md"
+  },
+  "limits": "Observed client launch/terminal settings do not independently attest backend execution; no global/provider/account settings were changed."
+}

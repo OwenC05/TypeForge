@@ -1,0 +1,33 @@
+﻿{
+    "notes":  "Raw hashes record local fixture bytes; Git blob IDs record normalized committed source; local Vite development fixture only",
+    "node":  "v24.21.0",
+    "sourceCommit":  "65f1a794cefb7dc06baf699ab338f0619889f0fe",
+    "files":  [
+                  {
+                      "path":  "typing-app/client/src/storage.ts",
+                      "gitBlob":  "e47b5002eabc6613ed8124ad8eeb007095e9c328",
+                      "rawSha256":  "5197ab1168467be3f33eb164c30a8a07a5b0c5df71d0562853140c489113ae5e"
+                  },
+                  {
+                      "path":  "typing-app/client/tests/history.test.ts",
+                      "gitBlob":  "2439a44be67bc6bac7388ac66178e026cd088747",
+                      "rawSha256":  "27ce53420ced13d5d2978205858967c2bfa74f234b205f5dbae7c06da5d23f98"
+                  },
+                  {
+                      "path":  "typing-app/client/tests/browser/bounded-history.ts",
+                      "gitBlob":  "114d4556cd9028f849e2f56a985be3c2df1f90cf",
+                      "rawSha256":  "8035ab36cfd6f95a946f47e6c088dabd36ed29eb3732e794a30fdd1157754df2"
+                  },
+                  {
+                      "path":  "typing-app/client/tests/browser/bounded-history.html",
+                      "gitBlob":  "95a4177c0db69399d8bb49e8f1fe9a800b285f98",
+                      "rawSha256":  "6583164ae106ff1c36ecde2241189702130560a17a7f51717cb03b98c2204581"
+                  },
+                  {
+                      "path":  "docs/implementation/2026-11-16/baseline/reliability/browser-runner.js",
+                      "gitBlob":  null,
+                      "rawSha256":  "a9a43078fe9948704b01cbc39747557adb6e08bd18fd752255f17e4eb95de567"
+                  }
+              ],
+    "npm":  "11.19.0"
+}
