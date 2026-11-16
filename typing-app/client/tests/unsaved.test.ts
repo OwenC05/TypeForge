@@ -116,3 +116,16 @@ test('the departure check counts the current unsaved block once', () => {
   current.state = 'saved'; current.onSettled?.();
   assert.equal(unsaved.atRisk(current).length, 0, 'a save settling while held empties the list');
 });
+
+test('a permanent refusal at the head of a retry leaves the rest retryable and announces it', async () => {
+  const seen: boolean[] = [];
+  const unsaved: UnsavedResults = new UnsavedResults({ save: async r => { if (r.id === 'bad') throw new Permanent('invalid'); }, exists: async () => false,
+    isPermanent: error => error instanceof Permanent, onChange: () => { seen.push(unsaved.retrying); } });
+  unsaved.adopt(failed('bad')); unsaved.adopt(failed('next')); unsaved.adopt(failed('last'));
+  await unsaved.retry();
+  assert.equal(unsaved.retrying, false);
+  assert.equal(seen.at(-1), false, 'the last notification already shows no save in flight (Retry re-enabled)');
+  assert.deepEqual(unsaved.listed.map(entry => [entry.result.id, entry.state, entry.saving]), [['bad', 'rejected', false], ['next', 'failed', false], ['last', 'failed', false]]);
+  await unsaved.retry();
+  assert.equal(unsaved.listed.length, 1, 'the remaining entries retry normally afterwards');
+});

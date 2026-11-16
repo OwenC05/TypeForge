@@ -68,6 +68,7 @@ export class UnsavedResults {
           else if (this.deps.isPermanent(error)) {
             entry.state = 'rejected';
             entry.reason = 'It failed validation and cannot be saved here; export it instead.';
+            for (const rest of queue.slice(index + 1)) rest.saving = false; // not attempted: retryable again
             break;
           } else entry.state = 'failed';
         } finally {
@@ -76,7 +77,10 @@ export class UnsavedResults {
         }
       }
     } finally {
-      for (const entry of queue) entry.saving = false;
+      // Safety net: any flag still set (an unexpected throw) is cleared and announced.
+      const stuck = queue.filter(entry => entry.saving);
+      for (const entry of stuck) entry.saving = false;
+      if (stuck.length) this.changed();
     }
   }
 

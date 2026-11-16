@@ -99,6 +99,27 @@ test('ET-1 (LR-2): a validation refusal that arrives after Again lists as reject
   assert.equal(host.node('#save-state').textContent, '', 'the stale block UI is not written');
 });
 
+test('ET-1: a stale in-place retry settling after Again or disposal touches nothing of the old block', async () => {
+  for (const leave of ['again', 'dispose'] as const) {
+    const host = continuationHost();
+    const { finishing } = host.complete(`stale-${leave}`);
+    host.saves[0]!.reject(new Error('storage unavailable'));
+    await finishing;
+    host.node('#retry-save').onclick();
+    if (leave === 'again') await host.again(); else host.context.disposed = true;
+    // From here the old block's controls are gone, as in the page: lookups return null.
+    let focusAttempts = 0;
+    host.context.mayFocusInput = () => { focusAttempts++; return true; };
+    host.context.$ = () => null;
+    host.context.document = { getElementById: () => null, querySelector: () => null };
+    host.saves[1]!.resolve();
+    await tick(); await tick();
+    assert.equal(focusAttempts, 0, `${leave}: afterResultRendered is not called for a replaced or disposed block`);
+    if (leave === 'again') assert.equal(host.context.unsaved.unsaved.length, 0, 'again: the retried save still reaches its carried record');
+    else assert.equal(host.context.currentSave.state, 'saved', 'dispose: the retried save still reaches its record');
+  }
+});
+
 test('ET-1: a result-state setting change carries the unsaved result like Again', async () => {
   const host = continuationHost();
   const { finishing } = host.complete('settings-path');

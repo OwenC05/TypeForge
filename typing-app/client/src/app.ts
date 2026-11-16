@@ -579,7 +579,11 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
       } finally { saving = false; }
     };
     // A retry that succeeds hides its own (focused) button: hand focus to the primary action, not to body.
-    $('#retry-save').onclick = () => void attemptSave().then(() => { if ($('#retry-save').hidden) afterResultRendered(); });
+    // Only while this block's result is still on screen (Again, a setting or disposal replace it).
+    $('#retry-save').onclick = () => void attemptSave().then(() => {
+      if (disposed || generation !== restartGeneration) return;
+      if (document.getElementById('retry-save')?.hidden) afterResultRendered();
+    });
     $('#export-current').onclick = () => { record.exported = true; download(result, `typeforge-${result.id}.json`); };
     await attemptSave();
   }
