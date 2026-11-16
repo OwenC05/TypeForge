@@ -1,4 +1,4 @@
-// F-2 forced-colors typed-progress capture. Usage: node f2-capture.cjs <before|after>
+// F-2 forced-colors typed-progress capture. Usage: node f2-capture.cjs <before|after|f2b-after>
 // Needs playwright-core@1.65.1 installed outside the repo (PW_CORE env = that folder) and
 // `vite preview --host 127.0.0.1 --port 5313 --strictPort` serving the build under test.
 // The same keystroke script runs with forced colors on and off. It records screenshots,
@@ -9,7 +9,7 @@ const crypto = require('node:crypto');
 const {chromium} = require(path.join(process.env.PW_CORE, 'node_modules', 'playwright-core'));
 const BASE = 'http://127.0.0.1:5313';
 const label = process.argv[2];
-if (!['before', 'after'].includes(label)) throw new Error('label must be before|after');
+if (!['before', 'after', 'f2b-after'].includes(label)) throw new Error('label must be before|after|f2b-after');
 const OUT = path.join(__dirname, 'f2-' + label);
 fs.mkdirSync(OUT, {recursive: true});
 const BROWSERS = [
@@ -39,6 +39,8 @@ const styles = page => page.evaluate(() => {
   if (q('#prompt .cursor')) out.caret = pick(q('#prompt .cursor'), '::before');
   if (q('#prompt .cursor[data-pointer]')) out.pointer = {...pick(q('#prompt .cursor[data-pointer]'), '::after'), text: q('#prompt .cursor').dataset.pointer};
   out.context = pick(q('#previous-prompt'));
+  out.nextContext = pick(q('#next-prompt'));
+  if (q('#previous-prompt .missed')) out.missed = pick(q('#previous-prompt .missed'));
   out.textarea = pick(q('#typing-input'));
   out.textareaCaret = getComputedStyle(q('#typing-input')).caretColor;
   return out;

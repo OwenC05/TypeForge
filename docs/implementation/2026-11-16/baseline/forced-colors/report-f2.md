@@ -58,7 +58,22 @@ The capture list with sha256 is in `captures-f2.md`.
 - In the 390 `pointer` state, the caret sits at index 32, exactly on a soft wrap. Native hit-testing at the mirror cursor returns offset 0. The native textarea caret, which forced colors make black, is drawn at the end of line 1, while the mirror caret is drawn at the start of line 2. Both builds and both themes show this.
 - The textarea's own text is forced to CanvasText (the textarea is unchanged, by rule). It overprints the typed mirror glyphs in the same colour, so it does not reduce the distinction.
 
+## F-2b: context lines (P2 review finding; source commit `55728f6`)
+
+P2 found that the aria-hidden context lines (`#previous-prompt`, `#next-prompt`, `.passage-context`) still rendered in CanvasText. That is the same colour as typed text, so the upcoming passage looked as if it had already been typed. I added two colour-only rules inside the same forced-colors block, with no `forced-color-adjust` and no metrics: `.passage-context { color: GrayText }` and `.passage-context .missed { text-decoration-color: CanvasText }`.
+
+- `npm run check`: exit 0, 132/132 tests pass, and typecheck and build pass (`check-f2b.log`). Build assets: `app-BPASI-5n.css`, `app-C9cAkf09.js` became `app-C0hnm0Lw.js`. The JS changes only because it references the CSS hash.
+- I re-ran `f2-capture.cjs f2b-after` (output in `f2-f2b-after/`; preview PID 30896, stopped by PID). It covers Chrome and Edge at 1440 and 390, every state including `mismatch` and `committed`. I then ran `node f2-compare.cjs f2-after f2-f2b-after f2b-compare.json` against the F-2 build.
+  - Under forced colors, the previous and next context lines go from `rgb(0,0,0)` (CanvasText) to `rgb(96,0,0)` (GrayText). That matches the untyped remainder in all 4 runs.
+  - The `.missed` underline is `underline wavy rgb(0,0,0)`.
+  - Font metrics are unchanged: 25.6px/40.96px at 1440 and 16px/25.6px at 390.
+- **Zero geometry change.** 84 of 84 comparisons are equal (mirror spans, textarea selection and hit-test offset, scrollTop), forced on versus off, in both builds.
+- **Normal theme unchanged.** 28 of 28 normal-theme screenshots are byte-identical between F-2 and F-2b. All 28 forced screenshots changed, as intended.
+- Visual check (`f2-f2b-after/*-forced-committed.png`, `*-forced-mismatch.png`): only the typed prefix of the active line is black. The committed and upcoming lines read as GrayText, and the missed-run underline is black.
+- The capture list with sha256 is in `captures-f2b.md`. Two small changes to the scripts: `f2-capture.cjs` gained the `f2b-after` label and now records `nextContext` and `missed` styles, and `f2-compare.cjs` now takes its two directories and output file as arguments. Earlier outputs are unaffected.
+
 ## Limits
 
+- **Hue more than luminance (observed by P2).** In the emulated palette, GrayText is a dark maroon `rgb(96,0,0)` against CanvasText black `rgb(0,0,0)`. The typed/untyped distinction therefore relies on hue more than on lightness. That is acceptable because both are system colours, but no real Windows high-contrast theme was tested, and there the GrayText/CanvasText pair is whatever the theme defines.
 - The forced colors are Chromium emulation (`forcedColors: 'active'`, default light palette). This was not tested on a real Windows contrast theme or on dark palettes, where GrayText legibility depends on the theme.
 - No screen reader was used, and only headless Chrome and Edge were tested.
