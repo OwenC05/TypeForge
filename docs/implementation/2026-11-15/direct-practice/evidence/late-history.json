@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-11-16T12:45:54.292Z",
+  "generatedAt": "2026-11-16T12:58:37.316Z",
   "base": "http://127.0.0.1:5301",
   "build": {
     "servedFrom": "http://127.0.0.1:5301",
     "assets": [
-      "app-BQOyU45s.css",
-      "app-Dvv-e4Tc.js",
+      "app-7HF6yCwN.css",
+      "app-Dcu90w2F.js",
       "define-element-B_WeKIXB.js",
       "env-B-odJnus.js"
     ]
@@ -21,9 +21,9 @@
         "value": "we c",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 857.2000000476837,
-        "releasedAt": 411.2000000476837,
-        "deliveredAt": 411.30000001192093
+        "firstKeyAt": 835.1000000238419,
+        "releasedAt": 384.19999998807907,
+        "deliveredAt": 384.30000001192093
       },
       "focused": "textarea#typing-input",
       "errors": []
@@ -35,29 +35,29 @@
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence."
       },
       "after": {
-        "value": "we f",
+        "value": "i wi",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 308.80000001192093,
-        "releasedAt": 318.5,
-        "deliveredAt": 318.60000002384186
+        "firstKeyAt": 256.5,
+        "releasedAt": 263.89999997615814,
+        "deliveredAt": 263.89999997615814
       },
       "focused": "textarea#typing-input",
       "errors": []
     },
     "/?qwerty=1&duration=30 · accepted input": {
       "before": {
-        "value": "ple",
+        "value": "the",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence."
       },
       "after": {
-        "value": "please ",
+        "value": "the was",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 247.70000004768372,
-        "releasedAt": 354.2000000476837,
-        "deliveredAt": 354.2000000476837
+        "firstKeyAt": 327.19999998807907,
+        "releasedAt": 437,
+        "deliveredAt": 437.10000002384186
       },
       "focused": "textarea#typing-input",
       "errors": []
@@ -69,29 +69,29 @@
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence."
       },
       "after": {
-        "value": "we t",
+        "value": "plea",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 227.19999998807907,
-        "releasedAt": 895.1000000238419,
-        "deliveredAt": 895.1000000238419
+        "firstKeyAt": 267.5,
+        "releasedAt": 1066.4000000357628,
+        "deliveredAt": 1066.4000000357628
       },
       "focused": "textarea#typing-input",
       "errors": []
     },
     "/?qwerty=1&duration=30 · restart before history": {
       "before": {
-        "value": "th",
+        "value": "pl",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence."
       },
       "after": {
-        "value": " fav",
+        "value": "e sh",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 266.4000000357628,
-        "releasedAt": 469.5,
-        "deliveredAt": 469.69999998807907
+        "firstKeyAt": 366.19999998807907,
+        "releasedAt": 549.8000000119209,
+        "deliveredAt": 549.8999999761581
       },
       "focused": "textarea#typing-input",
       "errors": []
@@ -103,12 +103,12 @@
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence."
       },
       "after": {
-        "value": "the ",
+        "value": "a sm",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 760.5,
-        "releasedAt": 314,
-        "deliveredAt": 314.10000002384186
+        "firstKeyAt": 949.7000000476837,
+        "releasedAt": 483.80000001192093,
+        "deliveredAt": 483.9000000357628
       },
       "focused": "textarea#typing-input",
       "errors": []
@@ -120,29 +120,29 @@
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence."
       },
       "after": {
-        "value": "we l",
+        "value": "my f",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 549.5999999642372,
-        "releasedAt": 576.3999999761581,
-        "deliveredAt": 576.5
+        "firstKeyAt": 327.60000002384186,
+        "releasedAt": 339.69999998807907,
+        "deliveredAt": 339.80000001192093
       },
       "focused": "textarea#typing-input",
       "errors": []
     },
     "/?qwerty=1&duration=30&practice=recommended · accepted input": {
       "before": {
-        "value": "i w",
+        "value": "i e",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence."
       },
       "after": {
-        "value": "i will ",
+        "value": "i enjoy",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 276.30000001192093,
-        "releasedAt": 380.5,
-        "deliveredAt": 380.5999999642372
+        "firstKeyAt": 262.39999997615814,
+        "releasedAt": 362.7999999523163,
+        "deliveredAt": 362.89999997615814
       },
       "focused": "textarea#typing-input",
       "errors": []
@@ -154,19 +154,19 @@
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence."
       },
       "after": {
-        "value": "add ",
+        "value": "we t",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 382.60000002384186,
-        "releasedAt": 1152.4000000357628,
-        "deliveredAt": 1152.5
+        "firstKeyAt": 223.5,
+        "releasedAt": 931.5,
+        "deliveredAt": 931.6000000238419
       },
       "focused": "textarea#typing-input",
       "errors": []
     },
     "/?qwerty=1&duration=30&practice=recommended · restart before history": {
       "before": {
-        "value": "th",
+        "value": "pl",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence."
       },
@@ -174,9 +174,9 @@
         "value": "bowl",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 328.10000002384186,
-        "releasedAt": 562.5,
-        "deliveredAt": 562.5
+        "firstKeyAt": 207.69999998807907,
+        "releasedAt": 384.9000000357628,
+        "deliveredAt": 384.9000000357628
       },
       "focused": "textarea#typing-input",
       "errors": []
@@ -195,9 +195,9 @@
         "value": "we c",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 857.2000000476837,
-        "releasedAt": 411.2000000476837,
-        "deliveredAt": 411.30000001192093
+        "firstKeyAt": 835.1000000238419,
+        "releasedAt": 384.19999998807907,
+        "deliveredAt": 384.30000001192093
       }
     },
     {
@@ -207,9 +207,9 @@
         "value": "we c",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 857.2000000476837,
-        "releasedAt": 411.2000000476837,
-        "deliveredAt": 411.30000001192093
+        "firstKeyAt": 835.1000000238419,
+        "releasedAt": 384.19999998807907,
+        "deliveredAt": 384.30000001192093
       }
     },
     {
@@ -221,24 +221,24 @@
       "name": "/?qwerty=1&duration=30 · native no-op (Backspace at the start): history delivered after the interaction",
       "ok": true,
       "details": {
-        "value": "we f",
+        "value": "i wi",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 308.80000001192093,
-        "releasedAt": 318.5,
-        "deliveredAt": 318.60000002384186
+        "firstKeyAt": 256.5,
+        "releasedAt": 263.89999997615814,
+        "deliveredAt": 263.89999997615814
       }
     },
     {
       "name": "/?qwerty=1&duration=30 · native no-op (Backspace at the start): typing continues natively after late history",
       "ok": true,
       "details": {
-        "value": "we f",
+        "value": "i wi",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 308.80000001192093,
-        "releasedAt": 318.5,
-        "deliveredAt": 318.60000002384186
+        "firstKeyAt": 256.5,
+        "releasedAt": 263.89999997615814,
+        "deliveredAt": 263.89999997615814
       }
     },
     {
@@ -250,24 +250,24 @@
       "name": "/?qwerty=1&duration=30 · accepted input: history delivered after the interaction",
       "ok": true,
       "details": {
-        "value": "please ",
+        "value": "the was",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 247.70000004768372,
-        "releasedAt": 354.2000000476837,
-        "deliveredAt": 354.2000000476837
+        "firstKeyAt": 327.19999998807907,
+        "releasedAt": 437,
+        "deliveredAt": 437.10000002384186
       }
     },
     {
       "name": "/?qwerty=1&duration=30 · accepted input: typing continues natively after late history",
       "ok": true,
       "details": {
-        "value": "please ",
+        "value": "the was",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 247.70000004768372,
-        "releasedAt": 354.2000000476837,
-        "deliveredAt": 354.2000000476837
+        "firstKeyAt": 327.19999998807907,
+        "releasedAt": 437,
+        "deliveredAt": 437.10000002384186
       }
     },
     {
@@ -279,24 +279,24 @@
       "name": "/?qwerty=1&duration=30 · next sentence: history delivered after the interaction",
       "ok": true,
       "details": {
-        "value": "we t",
+        "value": "plea",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 227.19999998807907,
-        "releasedAt": 895.1000000238419,
-        "deliveredAt": 895.1000000238419
+        "firstKeyAt": 267.5,
+        "releasedAt": 1066.4000000357628,
+        "deliveredAt": 1066.4000000357628
       }
     },
     {
       "name": "/?qwerty=1&duration=30 · next sentence: typing continues natively after late history",
       "ok": true,
       "details": {
-        "value": "we t",
+        "value": "plea",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 227.19999998807907,
-        "releasedAt": 895.1000000238419,
-        "deliveredAt": 895.1000000238419
+        "firstKeyAt": 267.5,
+        "releasedAt": 1066.4000000357628,
+        "deliveredAt": 1066.4000000357628
       }
     },
     {
@@ -308,24 +308,24 @@
       "name": "/?qwerty=1&duration=30 · restart before history: history delivered after the interaction",
       "ok": true,
       "details": {
-        "value": " fav",
+        "value": "e sh",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 266.4000000357628,
-        "releasedAt": 469.5,
-        "deliveredAt": 469.69999998807907
+        "firstKeyAt": 366.19999998807907,
+        "releasedAt": 549.8000000119209,
+        "deliveredAt": 549.8999999761581
       }
     },
     {
       "name": "/?qwerty=1&duration=30 · restart before history: typing continues natively after late history",
       "ok": true,
       "details": {
-        "value": " fav",
+        "value": "e sh",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 266.4000000357628,
-        "releasedAt": 469.5,
-        "deliveredAt": 469.69999998807907
+        "firstKeyAt": 366.19999998807907,
+        "releasedAt": 549.8000000119209,
+        "deliveredAt": 549.8999999761581
       }
     },
     {
@@ -337,24 +337,24 @@
       "name": "/?qwerty=1&duration=30&practice=recommended · idle: history delivered after the interaction",
       "ok": true,
       "details": {
-        "value": "the ",
+        "value": "a sm",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 760.5,
-        "releasedAt": 314,
-        "deliveredAt": 314.10000002384186
+        "firstKeyAt": 949.7000000476837,
+        "releasedAt": 483.80000001192093,
+        "deliveredAt": 483.9000000357628
       }
     },
     {
       "name": "/?qwerty=1&duration=30&practice=recommended · idle: typing continues natively after late history",
       "ok": true,
       "details": {
-        "value": "the ",
+        "value": "a sm",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 760.5,
-        "releasedAt": 314,
-        "deliveredAt": 314.10000002384186
+        "firstKeyAt": 949.7000000476837,
+        "releasedAt": 483.80000001192093,
+        "deliveredAt": 483.9000000357628
       }
     },
     {
@@ -366,24 +366,24 @@
       "name": "/?qwerty=1&duration=30&practice=recommended · native no-op (Backspace at the start): history delivered after the interaction",
       "ok": true,
       "details": {
-        "value": "we l",
+        "value": "my f",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 549.5999999642372,
-        "releasedAt": 576.3999999761581,
-        "deliveredAt": 576.5
+        "firstKeyAt": 327.60000002384186,
+        "releasedAt": 339.69999998807907,
+        "deliveredAt": 339.80000001192093
       }
     },
     {
       "name": "/?qwerty=1&duration=30&practice=recommended · native no-op (Backspace at the start): typing continues natively after late history",
       "ok": true,
       "details": {
-        "value": "we l",
+        "value": "my f",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 549.5999999642372,
-        "releasedAt": 576.3999999761581,
-        "deliveredAt": 576.5
+        "firstKeyAt": 327.60000002384186,
+        "releasedAt": 339.69999998807907,
+        "deliveredAt": 339.80000001192093
       }
     },
     {
@@ -395,24 +395,24 @@
       "name": "/?qwerty=1&duration=30&practice=recommended · accepted input: history delivered after the interaction",
       "ok": true,
       "details": {
-        "value": "i will ",
+        "value": "i enjoy",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 276.30000001192093,
-        "releasedAt": 380.5,
-        "deliveredAt": 380.5999999642372
+        "firstKeyAt": 262.39999997615814,
+        "releasedAt": 362.7999999523163,
+        "deliveredAt": 362.89999997615814
       }
     },
     {
       "name": "/?qwerty=1&duration=30&practice=recommended · accepted input: typing continues natively after late history",
       "ok": true,
       "details": {
-        "value": "i will ",
+        "value": "i enjoy",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 276.30000001192093,
-        "releasedAt": 380.5,
-        "deliveredAt": 380.5999999642372
+        "firstKeyAt": 262.39999997615814,
+        "releasedAt": 362.7999999523163,
+        "deliveredAt": 362.89999997615814
       }
     },
     {
@@ -424,24 +424,24 @@
       "name": "/?qwerty=1&duration=30&practice=recommended · next sentence: history delivered after the interaction",
       "ok": true,
       "details": {
-        "value": "add ",
+        "value": "we t",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 382.60000002384186,
-        "releasedAt": 1152.4000000357628,
-        "deliveredAt": 1152.5
+        "firstKeyAt": 223.5,
+        "releasedAt": 931.5,
+        "deliveredAt": 931.6000000238419
       }
     },
     {
       "name": "/?qwerty=1&duration=30&practice=recommended · next sentence: typing continues natively after late history",
       "ok": true,
       "details": {
-        "value": "add ",
+        "value": "we t",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 382.60000002384186,
-        "releasedAt": 1152.4000000357628,
-        "deliveredAt": 1152.5
+        "firstKeyAt": 223.5,
+        "releasedAt": 931.5,
+        "deliveredAt": 931.6000000238419
       }
     },
     {
@@ -456,9 +456,9 @@
         "value": "bowl",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 328.10000002384186,
-        "releasedAt": 562.5,
-        "deliveredAt": 562.5
+        "firstKeyAt": 207.69999998807907,
+        "releasedAt": 384.9000000357628,
+        "deliveredAt": 384.9000000357628
       }
     },
     {
@@ -468,9 +468,9 @@
         "value": "bowl",
         "state": "running",
         "prediction": "Experimental model + historical baseline · predictions frozen before each sentence.",
-        "firstKeyAt": 328.10000002384186,
-        "releasedAt": 562.5,
-        "deliveredAt": 562.5
+        "firstKeyAt": 207.69999998807907,
+        "releasedAt": 384.9000000357628,
+        "deliveredAt": 384.9000000357628
       }
     }
   ],

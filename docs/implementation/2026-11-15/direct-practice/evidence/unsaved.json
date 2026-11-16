@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-11-16T12:45:25.741Z",
+  "generatedAt": "2026-11-16T12:58:12.700Z",
   "base": "http://127.0.0.1:5301",
   "build": {
     "servedFrom": "http://127.0.0.1:5301",
     "assets": [
-      "app-BQOyU45s.css",
-      "app-Dvv-e4Tc.js",
+      "app-7HF6yCwN.css",
+      "app-Dcu90w2F.js",
       "define-element-B_WeKIXB.js",
       "env-B-odJnus.js"
     ]
@@ -994,8 +994,8 @@
       "name": "assessment: Practice next then navigates immediately to its exact destination",
       "ok": true,
       "details": {
-        "expected": "http://127.0.0.1:5301/practice.html?mode=practice&practice=general&from=485d4bd5-0c93-4731-a5ff-29d2e5c46afa&duration=15&qwerty=0",
-        "url": "http://127.0.0.1:5301/practice.html?mode=practice&practice=general&from=485d4bd5-0c93-4731-a5ff-29d2e5c46afa&duration=15&qwerty=0",
+        "expected": "http://127.0.0.1:5301/practice.html?mode=practice&practice=general&from=0d7042ae-c115-475f-b150-a00b3469b5d9&duration=15&qwerty=0",
+        "url": "http://127.0.0.1:5301/practice.html?mode=practice&practice=general&from=0d7042ae-c115-475f-b150-a00b3469b5d9&duration=15&qwerty=0",
         "arrived": true,
         "newDocument": true
       }
@@ -1031,8 +1031,8 @@
       "name": "assessment fresh retest: leave without saving loads the retest link destination",
       "ok": true,
       "details": {
-        "expected": "http://127.0.0.1:5301/practice.html?retest=10e66e7e-5cbd-4b95-b015-8d7c3b7e6aa7&duration=15&qwerty=0",
-        "url": "http://127.0.0.1:5301/practice.html?retest=10e66e7e-5cbd-4b95-b015-8d7c3b7e6aa7&duration=15&qwerty=0",
+        "expected": "http://127.0.0.1:5301/practice.html?retest=503849e0-c8ed-4d2e-9ea7-2f15771fd999&duration=15&qwerty=0",
+        "url": "http://127.0.0.1:5301/practice.html?retest=503849e0-c8ed-4d2e-9ea7-2f15771fd999&duration=15&qwerty=0",
         "arrived": true,
         "newDocument": true
       }

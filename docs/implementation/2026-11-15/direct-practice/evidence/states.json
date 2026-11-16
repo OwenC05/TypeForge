@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-11-16T12:53:41.073Z",
+  "generatedAt": "2026-11-16T13:02:35.448Z",
   "base": "http://127.0.0.1:5301",
   "build": {
     "servedFrom": "http://127.0.0.1:5301",
     "assets": [
-      "app-BQOyU45s.css",
-      "app-Dvv-e4Tc.js",
+      "app-7HF6yCwN.css",
+      "app-Dcu90w2F.js",
       "define-element-B_WeKIXB.js",
       "env-B-odJnus.js"
     ]
@@ -330,14 +330,19 @@
         {
           "id": "320-12",
           "slug": "pair-popover",
-          "state": "Pair list open (lazy Select), current pair highlighted",
+          "state": "Pair list open (lazy Select): the current pair is scrolled into view, highlighted and focused",
           "file": "screenshots/320-12-pair-popover.png",
-          "active": "button#manual-pair-trigger",
+          "active": "ui-select-item#manual-pair-option-th",
           "url": "/",
           "run": "idle",
           "slot": "",
           "saveState": null,
-          "overflowX": false
+          "overflowX": false,
+          "selected": "th",
+          "highlighted": "th",
+          "selectedInView": true,
+          "focused": "th",
+          "pageScrollY": 0
         },
         {
           "id": "320-13",
@@ -427,14 +432,14 @@
       ],
       "savedRows": [
         {
-          "mode": "assessment",
-          "durationMs": 15000,
+          "mode": "practice",
+          "durationMs": 30000,
           "eligible": true,
           "manualPair": null
         },
         {
-          "mode": "practice",
-          "durationMs": 30000,
+          "mode": "assessment",
+          "durationMs": 15000,
           "eligible": true,
           "manualPair": null
         }
@@ -755,14 +760,19 @@
         {
           "id": "390-12",
           "slug": "pair-popover",
-          "state": "Pair list open (lazy Select), current pair highlighted",
+          "state": "Pair list open (lazy Select): the current pair is scrolled into view, highlighted and focused",
           "file": "screenshots/390-12-pair-popover.png",
-          "active": "button#manual-pair-trigger",
+          "active": "ui-select-item#manual-pair-option-th",
           "url": "/",
           "run": "idle",
           "slot": "",
           "saveState": null,
-          "overflowX": false
+          "overflowX": false,
+          "selected": "th",
+          "highlighted": "th",
+          "selectedInView": true,
+          "focused": "th",
+          "pageScrollY": 0
         },
         {
           "id": "390-13",
@@ -1180,14 +1190,19 @@
         {
           "id": "1440-12",
           "slug": "pair-popover",
-          "state": "Pair list open (lazy Select), current pair highlighted",
+          "state": "Pair list open (lazy Select): the current pair is scrolled into view, highlighted and focused",
           "file": "screenshots/1440-12-pair-popover.png",
-          "active": "button#manual-pair-trigger",
+          "active": "ui-select-item#manual-pair-option-th",
           "url": "/",
           "run": "idle",
           "slot": "",
           "saveState": null,
-          "overflowX": false
+          "overflowX": false,
+          "selected": "th",
+          "highlighted": "th",
+          "selectedInView": true,
+          "focused": "th",
+          "pageScrollY": 0
         },
         {
           "id": "1440-13",

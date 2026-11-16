@@ -104,7 +104,11 @@ for (const vp of only) {
   await capture(page, '11', 'returning-remembered', 'Returning visit to /: remembered 60 s pair practice (today line shows above results only)', { facts: { duration: await page.locator('#duration').evaluate(e => e.value), kind: await page.locator('#practice-kind').evaluate(e => e.value) } });
   await page.locator('#manual-pair ui-select-trigger button').click();
   await page.locator('#manual-pair ui-select-content').waitFor();
-  await capture(page, '12', 'pair-popover', 'Pair list open (lazy Select), current pair highlighted');
+  // The Select highlights, focuses and scrolls to the selected pair on its own timers; the paused clock
+  // would freeze that (a harness artefact), so let it run before capturing.
+  await page.clock.runFor(200);
+  await page.waitForFunction(() => document.querySelector('.pair-list [data-highlighted][data-selected]'));
+  await capture(page, '12', 'pair-popover', 'Pair list open (lazy Select): the current pair is scrolled into view, highlighted and focused', { facts: await page.evaluate(() => { const list = document.querySelector('.pair-list'), sel = list.querySelector('[data-selected]'); const l = list.getBoundingClientRect(), r = sel.getBoundingClientRect(); return { selected: sel.textContent, highlighted: list.querySelector('[data-highlighted]')?.textContent, selectedInView: r.top >= l.top && r.bottom <= l.bottom, focused: document.activeElement?.textContent, pageScrollY: scrollY }; }) });
   await page.keyboard.press('Escape');
   // Assessment result.
   await page.goto(BASE + '/practice.html?duration=15');
