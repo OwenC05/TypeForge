@@ -125,8 +125,12 @@ body[data-run=completed] .today { display: block; }
 /* Column snapping (prototype B): per-glyph mirror boxes and the textarea text run wrap at the same
    index when the width is whole columns plus half a column of slack. */
 .active-passage { position: relative; font: 400 var(--passage)/var(--passage-line) var(--mono); width: calc(round(down, 100% - .5ch, 1ch) + .5ch); }
-.typing-surface .prompt, .typing-surface .typing-input, .passage-context {
+.typing-surface .prompt, .typing-surface .typing-input {
   font-family: var(--mono); font-weight: 400; letter-spacing: 0; white-space: pre-wrap; word-break: break-all; overflow-wrap: anywhere; tab-size: 1; font-kerning: none; font-variant-ligatures: none;
+}
+/* Context lines are not editable and take no part in hit-testing, so they keep whole words (L-1). */
+.passage-context {
+  font-family: var(--mono); font-weight: 400; letter-spacing: 0; white-space: pre-wrap; word-break: normal; overflow-wrap: break-word; tab-size: 1; font-kerning: none; font-variant-ligatures: none;
 }
 .typing-surface .prompt, .typing-surface .typing-input { font-size: var(--passage); line-height: var(--passage-line); }
 .typing-surface .prompt { margin: 0; min-height: calc(var(--passage-line) * 1em); padding: 0; color: var(--graphite); }
