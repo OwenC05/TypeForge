@@ -163,7 +163,14 @@ try {
   const after = await agent2.state();
   observed.bridgeOpenAttempt = { attempt, after };
   check(after.duration === before.duration && after.run === 'running' && after.value === 'b', 'With the bridge open, the running block still keeps its settings', { before: before.duration, after: after.duration, ok: attempt.ok, error: attempt.error });
-  check(!attempt.ok || after.status.startsWith('Agent change to duration refused: a block is running'), 'Refusal is either a bridge/visibility failure or the app’s agent-sourced reason', { ok: attempt.ok, status: after.status, error: attempt.error });
+  // ui-sdk contract (docs/agents.md, act Result): a change callback may cancel a change without failing
+  // the step, so `ok: true` is not proof of a mutation. Assert what actually took effect: no `changes`
+  // on the step, unchanged `values`, and the app's agent-sourced refusal. With the bridge lock (default
+  // above) the same request returns `ok: false` instead.
+  const durationChanges = (attempt.steps ?? []).flatMap(step => step.changes ?? []).filter(change => change.label === 'Duration in seconds' || change.key === 'value');
+  const reportedDuration = Object.entries(attempt.values ?? {}).find(([key]) => key.endsWith('Duration in seconds'))?.[1];
+  check(attempt.ok ? durationChanges.length === 0 && String(reportedDuration) === before.duration : true, 'Bridge open: a cancelled change reports no step change and the unchanged value', { ok: attempt.ok, steps: attempt.steps, reportedDuration, error: attempt.error });
+  check(after.status === 'Agent change to duration refused: a block is running. Finish it or restart first.', 'Bridge open: the app announces the agent-sourced refusal', { status: after.status });
   check(after.editorEvents === 3, 'Only the one real key reached the editor (keydown, beforeinput, input)', after.editorEvents);
   await open2.close();
   check(errors.length === 0, `No page errors: ${errors}`);
