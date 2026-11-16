@@ -18,7 +18,16 @@ async function open(label, viewport, url, { seed = SEED } = {}) {
   report.chrome ??= await chromeVersion(run.context, run.page);
   return run;
 }
-const blankPoint = vp => ({ x: Math.round(vp.width / 2), y: vp.height - 6 }); // footer whitespace, outside the stage
+const blankPoint = vp => ({ x: Math.round(vp.width / 2), y: 28 }); // empty middle of the top bar, never inside the stage
+/** Move focus off the passage with a real click on blank page, then wait for the recovery key (diagnostic on timeout). */
+async function blurStage(page, viewport) {
+  await page.mouse.click(blankPoint(viewport).x, blankPoint(viewport).y);
+  try { await page.locator('#continue-typing').waitFor({ state: 'visible', timeout: 5000 }); }
+  catch (error) {
+    const dump = await page.evaluate(() => ({ active: document.activeElement?.outerHTML.slice(0, 80), stage: { ...document.querySelector('#stage').dataset }, disabled: document.querySelector('#typing-input').disabled }));
+    throw new Error(`continue-typing not visible after blur: ${JSON.stringify(dump)}`, { cause: error });
+  }
+}
 
 for (const vp of only) {
   const viewport = VIEWPORTS[vp];
@@ -40,7 +49,7 @@ for (const vp of only) {
   const { context, page, errors } = await open(`states-${vp}`, viewport, '/');
   await page.waitForFunction(() => document.activeElement?.id === 'typing-input');
   await capture(page, '01', 'ready-focused-first-visit', 'Clean first visit to /: 30 s General ready, native focus, no gate', { facts: { geometry: await geometry(page) } });
-  await page.mouse.click(blankPoint(viewport).x, blankPoint(viewport).y);
+  await blurStage(page, viewport);
   await capture(page, '02', 'ready-unfocused', 'Ready, focus moved away: start-typing button over the passage');
   await page.locator('#continue-typing').click();
   const passage = await target(page);
@@ -63,7 +72,7 @@ for (const vp of only) {
   await page.keyboard.type(passage, { delay: 5 });
   await page.keyboard.press('Space');
   await capture(page, '07', 'committed', 'Passage committed with Space: previous line above, next passage active');
-  await page.mouse.click(blankPoint(viewport).x, blankPoint(viewport).y);
+  await blurStage(page, viewport);
   await capture(page, '08', 'focus-lost', 'Focus lost mid-run: integrity notice in the reserved slot, continue-typing button');
   await page.locator('#continue-typing').click();
   await page.locator('#restart').click();
@@ -82,7 +91,8 @@ for (const vp of only) {
   await page.keyboard.press('Space');
   await page.clock.fastForward(31000);
   await savedInPlace(page);
-  await capture(page, '10', 'practice-result', 'Practice result in place, saved, Again focused');
+  await page.waitForFunction(() => document.querySelector('#today-summary').textContent.length > 0);
+  await capture(page, '10', 'practice-result', 'Practice result in place, saved, Again focused, today line above');
   // Remember settings: 60 s + pair practice (default pair th), then return to /.
   await page.locator('#duration ui-segmented-control-item[value="60"]').click();
   await page.waitForFunction(() => document.querySelector('#stage').dataset.state === 'idle');
@@ -90,8 +100,8 @@ for (const vp of only) {
   await page.waitForFunction(() => customElements.get('ui-select') && !document.querySelector('#manual-pair').hidden && document.querySelector('#stage').dataset.state === 'idle');
   await page.goto(BASE + '/');
   await page.locator('#prompt span').first().waitFor();
-  await page.waitForFunction(() => !document.querySelector('#today-summary').hidden);
-  await capture(page, '11', 'returning-remembered', 'Returning visit to /: remembered 60 s pair practice, today line', { facts: { duration: await page.locator('#duration').evaluate(e => e.value), kind: await page.locator('#practice-kind').evaluate(e => e.value) } });
+  await page.waitForFunction(() => customElements.get('ui-select') && !document.querySelector('#manual-pair').hidden);
+  await capture(page, '11', 'returning-remembered', 'Returning visit to /: remembered 60 s pair practice (today line shows above results only)', { facts: { duration: await page.locator('#duration').evaluate(e => e.value), kind: await page.locator('#practice-kind').evaluate(e => e.value) } });
   await page.locator('#manual-pair ui-select-trigger button').click();
   await page.locator('#manual-pair ui-select-content').waitFor();
   await capture(page, '12', 'pair-popover', 'Pair list open (lazy Select), current pair highlighted');
@@ -142,5 +152,5 @@ for (const vp of only) {
   console.log(vp, states.map(s => `${s.id}:${s.active}:${s.run}`).join(' | '), 'errors', report.viewports[vp].pageErrors.length);
 }
 report.notes.push('Seeded Math.random (seed 20261115) is installed before app scripts so passages are reproducible.',
-  'Reduced motion emulated; clock paused at 2026-11-15T10:00 local and advanced with fastForward.');
+  'Reduced motion emulated; Playwright clock installed and paused one second after the real launch time, then advanced with fastForward (accelerated clock, not wall-clock evidence).');
 writeJson(only.length === 3 ? 'states.json' : `states-${only.join('-')}.json`, report);

@@ -95,7 +95,7 @@ ui-segmented-control.keys { display: inline-flex; gap: 6px; }
 .rail-rule { width: 1px; height: 28px; background: var(--edge); margin-inline: 8px; }
 ui-switch.key-toggle ui-switch-thumb { display: none; }
 ui-select.pair-select { display: inline-block; }
-.pair-select .caret-glyph { font-size: 11px; }
+.pair-select .caret-glyph { font-size: 13px; }
 ui-select:not(:defined) ui-select-content { display: none; }
 .pair-list { background: var(--paper); border: 1px solid var(--edge); border-radius: 8px; box-shadow: 0 14px 36px rgb(23 22 15 / .18); padding: 6px;
   max-height: min(340px, var(--available-height, 340px)); overflow: auto; display: grid; grid-template-columns: repeat(6, 48px); gap: 4px; outline: none; }
@@ -103,12 +103,14 @@ ui-select:not(:defined) ui-select-content { display: none; }
 .pair-list ui-select-item[data-highlighted] { background: var(--paper-raised); outline: 1px solid var(--edge); }
 .pair-list ui-select-item[data-selected] { background: var(--ink); color: var(--paper); }
 .pair-list[data-modality=keyboard] ui-select-item[data-highlighted] { outline: 2px solid var(--cobalt); outline-offset: -2px; }
-.today { margin-top: 14px; min-height: 20px; }
+.today { display: none; margin-top: 14px; min-height: 1.5em; }
+body[data-run=completed] .today { display: block; }
 .stage { position: relative; margin-top: 18px; border-top: 1px solid var(--rule); padding-top: 28px; }
 .run-line { display: flex; align-items: baseline; gap: 24px; min-height: calc(var(--countdown) * .9); }
 .countdown { font: 800 var(--countdown)/.9 var(--display); letter-spacing: -.04em; font-variant-numeric: tabular-nums; min-width: 1.3em; }
 .block-label { flex: 1; min-width: 0; font-size: 17px; letter-spacing: .14em; }
 .why { margin-left: auto; display: block; }
+.why .text-button { font-size: 17px; }
 .why[disabled] .text-button { color: var(--context); text-decoration: none; cursor: default; }
 .why-panel { position: absolute; left: 0; right: 0; top: calc(var(--countdown) + 40px); z-index: 5; padding: 16px 20px; background: var(--paper); border: 1px solid var(--edge); border-radius: 8px; box-shadow: 0 14px 36px rgb(23 22 15 / .14); font-size: 14px; color: var(--muted); }
 .why-panel p { margin: 0 0 8px; }
@@ -138,7 +140,7 @@ ui-select:not(:defined) ui-select-content { display: none; }
 /* First unresolved mismatch: the expected glyph sits above it, out of flow (the mirror is aria-hidden). */
 .prompt .first-mismatch { position: relative; }
 .prompt .first-mismatch::after { content: attr(data-expected); position: absolute; left: 50%; bottom: calc(100% - .2em); transform: translateX(-50%); pointer-events: none; z-index: 2;
-  font: 600 14px/1 var(--mono); color: var(--paper); background: var(--vermilion-deep); border-radius: 4px; padding: 3px 6px; white-space: nowrap; text-decoration: none; }
+  font: 700 17px/1 var(--mono); color: var(--paper); background: var(--vermilion); border-radius: 5px; padding: 4px 7px; white-space: nowrap; text-decoration: none; }
 /* Caret-side pointer: only when the mismatch is off the caret line or out of view (decided in paint). */
 .prompt .cursor[data-pointer]::after { content: attr(data-pointer); position: absolute; top: calc(100% - .15em); pointer-events: none; z-index: 2;
   font: 13px/1 var(--mono); color: var(--vermilion-deep); background: var(--paper); border: 1px solid var(--vermilion-deep); border-radius: 4px; padding: 3px 6px; white-space: nowrap; }
@@ -174,7 +176,7 @@ ui-select:not(:defined) ui-select-content { display: none; }
 body[data-run=running] .topbar { opacity: .3; }
 body[data-run=running] .topbar:focus-within, body[data-run=running] .topbar:hover { opacity: 1; }
 body[data-run=running] .stage { border-top-color: transparent; }
-body[data-run=running] .rail, body[data-run=running] .today, body[data-run=running] .foot-hints,
+body[data-run=running] .rail, body[data-run=running] .today, body[data-run=running] .foot-hints, body[data-run=running] .site-footer,
 body[data-run=stopped] .rail, body[data-run=stopped] .today { visibility: hidden; }
 
 /* ---------- Result in place ---------- */
@@ -281,6 +283,9 @@ summary { cursor: pointer; padding-block: 8px; }
   .passage-context { color: var(--graphite); }
   .wide-only { display: none; }
   .why-panel { top: calc(var(--countdown) + 44px); }
+  .today { min-height: 3em; letter-spacing: .08em; }
+  .why .text-button { font-size: 15px; }
+  .prompt .first-mismatch::after { font-size: 15px; }
   .result-figures { gap: 4px 32px; }
   .result-figures dt { font-size: 19px; }
   .result-observation { font-size: 18px; }
@@ -292,8 +297,11 @@ summary { cursor: pointer; padding-block: 8px; }
 }
 @media (max-width: 360px) {
   :root { --passage: 18px; --figure: 56px; --countdown: 44px; }
-  .key, ui-segmented-control-item { padding: 0 10px; font-size: 15px; }
+  .key, ui-segmented-control-item { padding: 0 8px; min-width: 40px; font-size: 15px; }
+  ui-segmented-control.keys { gap: 4px; }
+  .rail { gap: 10px 6px; }
   .run-line { gap: 16px; }
+  .block-label { font-size: 11px; letter-spacing: .04em; }
   .result-figures dd { letter-spacing: -.05em; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }

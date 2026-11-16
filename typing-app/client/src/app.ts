@@ -215,7 +215,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     <ui-switch id="qwerty" class="key key-toggle" aria-label="Physical QWERTY keyboard" ${declaredQwerty ? 'default-checked' : ''}><span aria-hidden="true">qwerty</span><ui-switch-thumb></ui-switch-thumb></ui-switch>
   </section>
   <p id="settings-status" class="sr-only"></p>
-  <p id="today-summary" class="micro today" hidden></p>
+  <p id="today-summary" class="micro today"></p>
   <section class="stage" id="stage" aria-label="Typing exercise" data-state="idle" data-focus="out" data-mode="${mode}">
     <div class="run-line">
       <span class="countdown" id="remaining" role="timer" aria-label="Seconds left">${durationMs / 1000}</span>
@@ -437,9 +437,8 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     void todayActivity().then(activity => {
       if (disposed) return;
       if (saved && !activity.complete) countActivity(activity, saved);
-      const line = $('#today-summary');
-      line.textContent = `${todayText(activity)} · ${Intl.DateTimeFormat().resolvedOptions().timeZone || 'local time'}`;
-      line.hidden = false;
+      // Shown above the result only (DESIGN.md); its space is reserved there, so filling it moves nothing.
+      $('#today-summary').textContent = `${todayText(activity)} · ${Intl.DateTimeFormat().resolvedOptions().timeZone || 'local time'}`;
     }, () => { /* Unreadable history hides the line; typing is unaffected. */ });
   }
 
@@ -710,6 +709,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     finished = false;
     $('#completion').hidden = true;
     $('#completion').innerHTML = '';
+    $('#today-summary').textContent = '';
     lastPromptKey = '';
     lastState = '';
     slotLevel = 0; hintMark = '';
@@ -731,7 +731,6 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
   paint();
   // Intentional entry: autofocus only if nobody moved focus while the stage was being prepared.
   if (!preparationFocusMoved && mayFocusInput()) input.focus();
-  refreshToday();
   // Saved evidence arrives after first paint. It may refine predictions and Suggested availability,
   // but it never replaces prompts the person has already seen typed into.
   if (evidencePending) {
