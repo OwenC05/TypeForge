@@ -1,0 +1,1286 @@
+{
+  "generatedAt": "2026-11-16T12:07:28.142Z",
+  "base": "http://127.0.0.1:5301",
+  "chrome": "Chrome/157.0.8103.52",
+  "notes": [
+    "Seeded Math.random (seed 20261115) is installed before app scripts so passages are reproducible.",
+    "Reduced motion emulated; Playwright clock installed and paused one second after the real launch time, then advanced with fastForward (accelerated clock, not wall-clock evidence)."
+  ],
+  "viewports": {
+    "320": {
+      "viewport": {
+        "width": 320,
+        "height": 640
+      },
+      "states": [
+        {
+          "id": "320-01",
+          "slug": "ready-focused-first-visit",
+          "state": "Clean first visit to /: 30 s General ready, native focus, no gate",
+          "file": "screenshots/320-01-ready-focused-first-visit.png",
+          "active": "textarea#typing-input",
+          "url": "/",
+          "run": "idle",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false,
+          "geometry": {
+            "viewport": {
+              "w": 320,
+              "h": 640
+            },
+            "scrollY": 0,
+            "stage": {
+              "x": 16,
+              "y": 182,
+              "w": 288,
+              "h": 388.8
+            },
+            "surface": {
+              "x": 16,
+              "y": 273,
+              "w": 288,
+              "h": 172.8
+            },
+            "slot": {
+              "x": 16,
+              "y": 465.8,
+              "w": 288,
+              "h": 80
+            },
+            "restart": {
+              "x": 241.48,
+              "y": 445.8,
+              "w": 62.52,
+              "h": 40
+            },
+            "rail": {
+              "x": 16,
+              "y": 76,
+              "w": 288,
+              "h": 90
+            },
+            "prompt": {
+              "x": 16,
+              "y": 310.03,
+              "w": 282.05,
+              "h": 57.59
+            },
+            "caret": {
+              "x": 16,
+              "y": 313.03,
+              "w": 9.91,
+              "h": 22
+            },
+            "activeLineTop": 313.03125,
+            "activeLineTopPct": 48.91,
+            "surfaceScrollTop": 0,
+            "passageFontPx": 18,
+            "slotText": "",
+            "slotOverflow": false,
+            "docOverflowX": false
+          }
+        },
+        {
+          "id": "320-02",
+          "slug": "ready-unfocused",
+          "state": "Ready, focus moved away: start-typing button over the passage",
+          "file": "screenshots/320-02-ready-unfocused.png",
+          "active": "body",
+          "url": "/",
+          "run": "idle",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "320-03",
+          "slug": "running",
+          "state": "Running, correct prefix typed, 6 s elapsed",
+          "file": "screenshots/320-03-running.png",
+          "active": "textarea#typing-input",
+          "url": "/",
+          "run": "running",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false,
+          "geometry": {
+            "viewport": {
+              "w": 320,
+              "h": 640
+            },
+            "scrollY": 0,
+            "stage": {
+              "x": 16,
+              "y": 182,
+              "w": 288,
+              "h": 388.8
+            },
+            "surface": {
+              "x": 16,
+              "y": 273,
+              "w": 288,
+              "h": 172.8
+            },
+            "slot": {
+              "x": 16,
+              "y": 465.8,
+              "w": 288,
+              "h": 80
+            },
+            "restart": {
+              "x": 241.48,
+              "y": 445.8,
+              "w": 62.52,
+              "h": 40
+            },
+            "rail": {
+              "x": 16,
+              "y": 76,
+              "w": 288,
+              "h": 90
+            },
+            "prompt": {
+              "x": 16,
+              "y": 310.03,
+              "w": 282.05,
+              "h": 57.59
+            },
+            "caret": {
+              "x": 105.16,
+              "y": 313.03,
+              "w": 9.91,
+              "h": 22
+            },
+            "activeLineTop": 313.03125,
+            "activeLineTopPct": 48.91,
+            "surfaceScrollTop": 0,
+            "passageFontPx": 18,
+            "slotText": "",
+            "slotOverflow": false,
+            "docOverflowX": false
+          }
+        },
+        {
+          "id": "320-04",
+          "slug": "running-error",
+          "state": "Running with a first mismatch: expected-glyph tag above the wrong glyph",
+          "file": "screenshots/320-04-running-error.png",
+          "active": "textarea#typing-input",
+          "url": "/",
+          "run": "running",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false,
+          "expected": "y",
+          "geometry": {
+            "viewport": {
+              "w": 320,
+              "h": 640
+            },
+            "scrollY": 0,
+            "stage": {
+              "x": 16,
+              "y": 182,
+              "w": 288,
+              "h": 388.8
+            },
+            "surface": {
+              "x": 16,
+              "y": 273,
+              "w": 288,
+              "h": 172.8
+            },
+            "slot": {
+              "x": 16,
+              "y": 465.8,
+              "w": 288,
+              "h": 80
+            },
+            "restart": {
+              "x": 241.48,
+              "y": 445.8,
+              "w": 62.52,
+              "h": 40
+            },
+            "rail": {
+              "x": 16,
+              "y": 76,
+              "w": 288,
+              "h": 90
+            },
+            "prompt": {
+              "x": 16,
+              "y": 310.03,
+              "w": 282.05,
+              "h": 57.59
+            },
+            "caret": {
+              "x": 115.06,
+              "y": 313.03,
+              "w": 9.91,
+              "h": 22
+            },
+            "activeLineTop": 313.03125,
+            "activeLineTopPct": 48.91,
+            "surfaceScrollTop": 0,
+            "passageFontPx": 18,
+            "slotText": "",
+            "slotOverflow": false,
+            "docOverflowX": false
+          }
+        },
+        {
+          "id": "320-05",
+          "slug": "corrected",
+          "state": "Mismatch corrected with Backspace + expected glyph",
+          "file": "screenshots/320-05-corrected.png",
+          "active": "textarea#typing-input",
+          "url": "/",
+          "run": "running",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "320-06",
+          "slug": "pointer-off-line",
+          "state": "Earlier error off the caret line: caret-side pointer names the expected glyph",
+          "file": "screenshots/320-06-pointer-off-line.png",
+          "active": "textarea#typing-input",
+          "url": "/",
+          "run": "running",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false,
+          "pointer": "↶ earlier error · expected ␣",
+          "extras": 0
+        },
+        {
+          "id": "320-07",
+          "slug": "committed",
+          "state": "Passage committed with Space: previous line above, next passage active",
+          "file": "screenshots/320-07-committed.png",
+          "active": "textarea#typing-input",
+          "url": "/",
+          "run": "running",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "320-08",
+          "slug": "focus-lost",
+          "state": "Focus lost mid-run: integrity notice in the reserved slot, continue-typing button",
+          "file": "screenshots/320-08-focus-lost.png",
+          "active": "body",
+          "url": "/",
+          "run": "running",
+          "slot": "Focus left the typing field: this run is flagged and excluded from headline progress. The timer kept running.",
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "320-09",
+          "slug": "undo",
+          "state": "Native Undo during a run: Undo notice, run continues unscored",
+          "file": "screenshots/320-09-undo.png",
+          "active": "textarea#typing-input",
+          "url": "/",
+          "run": "running",
+          "slot": "Undo isn’t scored: this run will be saved without accuracy and excluded from progress. Restart to keep scoring.",
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "320-10",
+          "slug": "practice-result",
+          "state": "Practice result in place, saved, Again focused, today line above",
+          "file": "screenshots/320-10-practice-result.png",
+          "active": "button#again",
+          "url": "/",
+          "run": "completed",
+          "slot": "",
+          "saveState": "Saved in this browser.",
+          "overflowX": false
+        },
+        {
+          "id": "320-11",
+          "slug": "returning-remembered",
+          "state": "Returning visit to /: remembered 60 s pair practice (today line shows above results only)",
+          "file": "screenshots/320-11-returning-remembered.png",
+          "active": "textarea#typing-input",
+          "url": "/",
+          "run": "idle",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false,
+          "duration": "60",
+          "kind": "manual"
+        },
+        {
+          "id": "320-12",
+          "slug": "pair-popover",
+          "state": "Pair list open (lazy Select), current pair highlighted",
+          "file": "screenshots/320-12-pair-popover.png",
+          "active": "button#manual-pair-trigger",
+          "url": "/",
+          "run": "idle",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "320-13",
+          "slug": "assessment-result",
+          "state": "Assessment result in place: Practice next focused, fresh retest secondary",
+          "file": "screenshots/320-13-assessment-result.png",
+          "active": "a#practice-next",
+          "url": "/practice.html?duration=15",
+          "run": "completed",
+          "slot": "",
+          "saveState": "Saved in this browser.",
+          "overflowX": false
+        },
+        {
+          "id": "320-14",
+          "slug": "insufficient-evidence",
+          "state": "Suggested requested without supporting evidence: general practice, reason in Why? and the slot",
+          "file": "screenshots/320-14-insufficient-evidence.png",
+          "active": "button#why-trigger",
+          "url": "/?qwerty=1&practice=recommended",
+          "run": "idle",
+          "slot": "Suggested needs more evidence — using general. No compatible eligible assessment timing history yet.",
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "320-15",
+          "slug": "progress",
+          "state": "Progress with saved practice and assessment history",
+          "file": "screenshots/320-15-progress.png",
+          "active": "body",
+          "url": "/progress.html",
+          "run": null,
+          "slot": null,
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "320-16",
+          "slug": "lab",
+          "state": "Lab page, lighter pass",
+          "file": "screenshots/320-16-lab.png",
+          "active": "body",
+          "url": "/lab.html",
+          "run": null,
+          "slot": null,
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "320-17",
+          "slug": "progress-empty",
+          "state": "Progress, first visit: nothing saved yet",
+          "file": "screenshots/320-17-progress-empty.png",
+          "active": "body",
+          "url": "/progress.html",
+          "run": null,
+          "slot": null,
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "320-18",
+          "slug": "save-failure",
+          "state": "Save failure (isolated profile, injected quota error): result kept, retry + export",
+          "file": "screenshots/320-18-save-failure.png",
+          "active": "button#again",
+          "url": "/?duration=15",
+          "run": "completed",
+          "slot": "",
+          "saveState": "This result could not be saved. Export it before leaving, or retry when browser storage is available.",
+          "overflowX": false
+        },
+        {
+          "id": "320-19",
+          "slug": "save-retried",
+          "state": "Retry after storage recovers: saved once",
+          "file": "screenshots/320-19-save-retried.png",
+          "active": "button#again",
+          "url": "/?duration=15",
+          "run": "completed",
+          "slot": "",
+          "saveState": "Saved in this browser.",
+          "overflowX": false,
+          "rows": 1
+        }
+      ],
+      "savedRows": [
+        {
+          "mode": "assessment",
+          "durationMs": 15000,
+          "eligible": true,
+          "manualPair": null
+        },
+        {
+          "mode": "practice",
+          "durationMs": 30000,
+          "eligible": true,
+          "manualPair": null
+        }
+      ],
+      "pageErrors": []
+    },
+    "390": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "states": [
+        {
+          "id": "390-01",
+          "slug": "ready-focused-first-visit",
+          "state": "Clean first visit to /: 30 s General ready, native focus, no gate",
+          "file": "screenshots/390-01-ready-focused-first-visit.png",
+          "active": "textarea#typing-input",
+          "url": "/",
+          "run": "idle",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false,
+          "geometry": {
+            "viewport": {
+              "w": 390,
+              "h": 844
+            },
+            "scrollY": 0,
+            "stage": {
+              "x": 16,
+              "y": 182,
+              "w": 358,
+              "h": 412
+            },
+            "surface": {
+              "x": 16,
+              "y": 277,
+              "w": 358,
+              "h": 192
+            },
+            "slot": {
+              "x": 16,
+              "y": 489,
+              "w": 358,
+              "h": 80
+            },
+            "restart": {
+              "x": 300.52,
+              "y": 469,
+              "w": 73.48,
+              "h": 40
+            },
+            "rail": {
+              "x": 16,
+              "y": 76,
+              "w": 358,
+              "h": 90
+            },
+            "prompt": {
+              "x": 16,
+              "y": 316.59,
+              "w": 357.36,
+              "h": 64
+            },
+            "caret": {
+              "x": 16,
+              "y": 320.59,
+              "w": 11,
+              "h": 23
+            },
+            "activeLineTop": 320.59375,
+            "activeLineTopPct": 37.99,
+            "surfaceScrollTop": 0,
+            "passageFontPx": 20,
+            "slotText": "",
+            "slotOverflow": false,
+            "docOverflowX": false
+          }
+        },
+        {
+          "id": "390-02",
+          "slug": "ready-unfocused",
+          "state": "Ready, focus moved away: start-typing button over the passage",
+          "file": "screenshots/390-02-ready-unfocused.png",
+          "active": "body",
+          "url": "/",
+          "run": "idle",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "390-03",
+          "slug": "running",
+          "state": "Running, correct prefix typed, 6 s elapsed",
+          "file": "screenshots/390-03-running.png",
+          "active": "textarea#typing-input",
+          "url": "/",
+          "run": "running",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false,
+          "geometry": {
+            "viewport": {
+              "w": 390,
+              "h": 844
+            },
+            "scrollY": 0,
+            "stage": {
+              "x": 16,
+              "y": 182,
+              "w": 358,
+              "h": 412
+            },
+            "surface": {
+              "x": 16,
+              "y": 277,
+              "w": 358,
+              "h": 192
+            },
+            "slot": {
+              "x": 16,
+              "y": 489,
+              "w": 358,
+              "h": 80
+            },
+            "restart": {
+              "x": 300.52,
+              "y": 469,
+              "w": 73.48,
+              "h": 40
+            },
+            "rail": {
+              "x": 16,
+              "y": 76,
+              "w": 358,
+              "h": 90
+            },
+            "prompt": {
+              "x": 16,
+              "y": 316.59,
+              "w": 357.36,
+              "h": 64
+            },
+            "caret": {
+              "x": 115,
+              "y": 320.59,
+              "w": 11,
+              "h": 23
+            },
+            "activeLineTop": 320.59375,
+            "activeLineTopPct": 37.99,
+            "surfaceScrollTop": 0,
+            "passageFontPx": 20,
+            "slotText": "",
+            "slotOverflow": false,
+            "docOverflowX": false
+          }
+        },
+        {
+          "id": "390-04",
+          "slug": "running-error",
+          "state": "Running with a first mismatch: expected-glyph tag above the wrong glyph",
+          "file": "screenshots/390-04-running-error.png",
+          "active": "textarea#typing-input",
+          "url": "/",
+          "run": "running",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false,
+          "expected": "y",
+          "geometry": {
+            "viewport": {
+              "w": 390,
+              "h": 844
+            },
+            "scrollY": 0,
+            "stage": {
+              "x": 16,
+              "y": 182,
+              "w": 358,
+              "h": 412
+            },
+            "surface": {
+              "x": 16,
+              "y": 277,
+              "w": 358,
+              "h": 192
+            },
+            "slot": {
+              "x": 16,
+              "y": 489,
+              "w": 358,
+              "h": 80
+            },
+            "restart": {
+              "x": 300.52,
+              "y": 469,
+              "w": 73.48,
+              "h": 40
+            },
+            "rail": {
+              "x": 16,
+              "y": 76,
+              "w": 358,
+              "h": 90
+            },
+            "prompt": {
+              "x": 16,
+              "y": 316.59,
+              "w": 357.36,
+              "h": 64
+            },
+            "caret": {
+              "x": 126,
+              "y": 320.59,
+              "w": 11,
+              "h": 23
+            },
+            "activeLineTop": 320.59375,
+            "activeLineTopPct": 37.99,
+            "surfaceScrollTop": 0,
+            "passageFontPx": 20,
+            "slotText": "",
+            "slotOverflow": false,
+            "docOverflowX": false
+          }
+        },
+        {
+          "id": "390-05",
+          "slug": "corrected",
+          "state": "Mismatch corrected with Backspace + expected glyph",
+          "file": "screenshots/390-05-corrected.png",
+          "active": "textarea#typing-input",
+          "url": "/",
+          "run": "running",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "390-06",
+          "slug": "pointer-off-line",
+          "state": "Earlier error off the caret line: caret-side pointer names the expected glyph",
+          "file": "screenshots/390-06-pointer-off-line.png",
+          "active": "textarea#typing-input",
+          "url": "/",
+          "run": "running",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false,
+          "pointer": "↶ earlier error · expected ␣",
+          "extras": 0
+        },
+        {
+          "id": "390-07",
+          "slug": "committed",
+          "state": "Passage committed with Space: previous line above, next passage active",
+          "file": "screenshots/390-07-committed.png",
+          "active": "textarea#typing-input",
+          "url": "/",
+          "run": "running",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "390-08",
+          "slug": "focus-lost",
+          "state": "Focus lost mid-run: integrity notice in the reserved slot, continue-typing button",
+          "file": "screenshots/390-08-focus-lost.png",
+          "active": "body",
+          "url": "/",
+          "run": "running",
+          "slot": "Focus left the typing field: this run is flagged and excluded from headline progress. The timer kept running.",
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "390-09",
+          "slug": "undo",
+          "state": "Native Undo during a run: Undo notice, run continues unscored",
+          "file": "screenshots/390-09-undo.png",
+          "active": "textarea#typing-input",
+          "url": "/",
+          "run": "running",
+          "slot": "Undo isn’t scored: this run will be saved without accuracy and excluded from progress. Restart to keep scoring.",
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "390-10",
+          "slug": "practice-result",
+          "state": "Practice result in place, saved, Again focused, today line above",
+          "file": "screenshots/390-10-practice-result.png",
+          "active": "button#again",
+          "url": "/",
+          "run": "completed",
+          "slot": "",
+          "saveState": "Saved in this browser.",
+          "overflowX": false
+        },
+        {
+          "id": "390-11",
+          "slug": "returning-remembered",
+          "state": "Returning visit to /: remembered 60 s pair practice (today line shows above results only)",
+          "file": "screenshots/390-11-returning-remembered.png",
+          "active": "textarea#typing-input",
+          "url": "/",
+          "run": "idle",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false,
+          "duration": "60",
+          "kind": "manual"
+        },
+        {
+          "id": "390-12",
+          "slug": "pair-popover",
+          "state": "Pair list open (lazy Select), current pair highlighted",
+          "file": "screenshots/390-12-pair-popover.png",
+          "active": "button#manual-pair-trigger",
+          "url": "/",
+          "run": "idle",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "390-13",
+          "slug": "assessment-result",
+          "state": "Assessment result in place: Practice next focused, fresh retest secondary",
+          "file": "screenshots/390-13-assessment-result.png",
+          "active": "a#practice-next",
+          "url": "/practice.html?duration=15",
+          "run": "completed",
+          "slot": "",
+          "saveState": "Saved in this browser.",
+          "overflowX": false
+        },
+        {
+          "id": "390-14",
+          "slug": "insufficient-evidence",
+          "state": "Suggested requested without supporting evidence: general practice, reason in Why? and the slot",
+          "file": "screenshots/390-14-insufficient-evidence.png",
+          "active": "button#why-trigger",
+          "url": "/?qwerty=1&practice=recommended",
+          "run": "idle",
+          "slot": "Suggested needs more evidence — using general. No compatible eligible assessment timing history yet.",
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "390-15",
+          "slug": "progress",
+          "state": "Progress with saved practice and assessment history",
+          "file": "screenshots/390-15-progress.png",
+          "active": "body",
+          "url": "/progress.html",
+          "run": null,
+          "slot": null,
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "390-16",
+          "slug": "lab",
+          "state": "Lab page, lighter pass",
+          "file": "screenshots/390-16-lab.png",
+          "active": "body",
+          "url": "/lab.html",
+          "run": null,
+          "slot": null,
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "390-17",
+          "slug": "progress-empty",
+          "state": "Progress, first visit: nothing saved yet",
+          "file": "screenshots/390-17-progress-empty.png",
+          "active": "body",
+          "url": "/progress.html",
+          "run": null,
+          "slot": null,
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "390-18",
+          "slug": "save-failure",
+          "state": "Save failure (isolated profile, injected quota error): result kept, retry + export",
+          "file": "screenshots/390-18-save-failure.png",
+          "active": "button#again",
+          "url": "/?duration=15",
+          "run": "completed",
+          "slot": "",
+          "saveState": "This result could not be saved. Export it before leaving, or retry when browser storage is available.",
+          "overflowX": false
+        },
+        {
+          "id": "390-19",
+          "slug": "save-retried",
+          "state": "Retry after storage recovers: saved once",
+          "file": "screenshots/390-19-save-retried.png",
+          "active": "button#again",
+          "url": "/?duration=15",
+          "run": "completed",
+          "slot": "",
+          "saveState": "Saved in this browser.",
+          "overflowX": false,
+          "rows": 1
+        }
+      ],
+      "savedRows": [
+        {
+          "mode": "practice",
+          "durationMs": 30000,
+          "eligible": true,
+          "manualPair": null
+        },
+        {
+          "mode": "assessment",
+          "durationMs": 15000,
+          "eligible": true,
+          "manualPair": null
+        }
+      ],
+      "pageErrors": []
+    },
+    "1440": {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "states": [
+        {
+          "id": "1440-01",
+          "slug": "ready-focused-first-visit",
+          "state": "Clean first visit to /: 30 s General ready, native focus, no gate",
+          "file": "screenshots/1440-01-ready-focused-first-visit.png",
+          "active": "textarea#typing-input",
+          "url": "/",
+          "run": "idle",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false,
+          "geometry": {
+            "viewport": {
+              "w": 1440,
+              "h": 900
+            },
+            "scrollY": 0,
+            "stage": {
+              "x": 240,
+              "y": 150,
+              "w": 960,
+              "h": 459.27
+            },
+            "surface": {
+              "x": 240,
+              "y": 277,
+              "w": 960,
+              "h": 225.27
+            },
+            "slot": {
+              "x": 240,
+              "y": 522.27,
+              "w": 960,
+              "h": 62
+            },
+            "restart": {
+              "x": 1125.48,
+              "y": 504.27,
+              "w": 74.52,
+              "h": 36
+            },
+            "rail": {
+              "x": 240,
+              "y": 96,
+              "w": 960,
+              "h": 36
+            },
+            "prompt": {
+              "x": 240,
+              "y": 331.95,
+              "w": 958.86,
+              "h": 51.19
+            },
+            "caret": {
+              "x": 240,
+              "y": 338.95,
+              "w": 17.59,
+              "h": 37
+            },
+            "activeLineTop": 338.953125,
+            "activeLineTopPct": 37.66,
+            "surfaceScrollTop": 0,
+            "passageFontPx": 32,
+            "slotText": "",
+            "slotOverflow": false,
+            "docOverflowX": false
+          }
+        },
+        {
+          "id": "1440-02",
+          "slug": "ready-unfocused",
+          "state": "Ready, focus moved away: start-typing button over the passage",
+          "file": "screenshots/1440-02-ready-unfocused.png",
+          "active": "body",
+          "url": "/",
+          "run": "idle",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "1440-03",
+          "slug": "running",
+          "state": "Running, correct prefix typed, 6 s elapsed",
+          "file": "screenshots/1440-03-running.png",
+          "active": "textarea#typing-input",
+          "url": "/",
+          "run": "running",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false,
+          "geometry": {
+            "viewport": {
+              "w": 1440,
+              "h": 900
+            },
+            "scrollY": 0,
+            "stage": {
+              "x": 240,
+              "y": 150,
+              "w": 960,
+              "h": 459.27
+            },
+            "surface": {
+              "x": 240,
+              "y": 277,
+              "w": 960,
+              "h": 225.27
+            },
+            "slot": {
+              "x": 240,
+              "y": 522.27,
+              "w": 960,
+              "h": 62
+            },
+            "restart": {
+              "x": 1125.48,
+              "y": 504.27,
+              "w": 74.52,
+              "h": 36
+            },
+            "rail": {
+              "x": 240,
+              "y": 96,
+              "w": 960,
+              "h": 36
+            },
+            "prompt": {
+              "x": 240,
+              "y": 331.95,
+              "w": 958.86,
+              "h": 51.19
+            },
+            "caret": {
+              "x": 398.34,
+              "y": 338.95,
+              "w": 17.59,
+              "h": 37
+            },
+            "activeLineTop": 338.953125,
+            "activeLineTopPct": 37.66,
+            "surfaceScrollTop": 0,
+            "passageFontPx": 32,
+            "slotText": "",
+            "slotOverflow": false,
+            "docOverflowX": false
+          }
+        },
+        {
+          "id": "1440-04",
+          "slug": "running-error",
+          "state": "Running with a first mismatch: expected-glyph tag above the wrong glyph",
+          "file": "screenshots/1440-04-running-error.png",
+          "active": "textarea#typing-input",
+          "url": "/",
+          "run": "running",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false,
+          "expected": "y",
+          "geometry": {
+            "viewport": {
+              "w": 1440,
+              "h": 900
+            },
+            "scrollY": 0,
+            "stage": {
+              "x": 240,
+              "y": 150,
+              "w": 960,
+              "h": 459.27
+            },
+            "surface": {
+              "x": 240,
+              "y": 277,
+              "w": 960,
+              "h": 225.27
+            },
+            "slot": {
+              "x": 240,
+              "y": 522.27,
+              "w": 960,
+              "h": 62
+            },
+            "restart": {
+              "x": 1125.48,
+              "y": 504.27,
+              "w": 74.52,
+              "h": 36
+            },
+            "rail": {
+              "x": 240,
+              "y": 96,
+              "w": 960,
+              "h": 36
+            },
+            "prompt": {
+              "x": 240,
+              "y": 331.95,
+              "w": 958.86,
+              "h": 51.19
+            },
+            "caret": {
+              "x": 415.94,
+              "y": 338.95,
+              "w": 17.59,
+              "h": 37
+            },
+            "activeLineTop": 338.953125,
+            "activeLineTopPct": 37.66,
+            "surfaceScrollTop": 0,
+            "passageFontPx": 32,
+            "slotText": "",
+            "slotOverflow": false,
+            "docOverflowX": false
+          }
+        },
+        {
+          "id": "1440-05",
+          "slug": "corrected",
+          "state": "Mismatch corrected with Backspace + expected glyph",
+          "file": "screenshots/1440-05-corrected.png",
+          "active": "textarea#typing-input",
+          "url": "/",
+          "run": "running",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "1440-06",
+          "slug": "pointer-off-line",
+          "state": "Earlier error off the caret line: caret-side pointer names the expected glyph",
+          "file": "screenshots/1440-06-pointer-off-line.png",
+          "active": "textarea#typing-input",
+          "url": "/",
+          "run": "running",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false,
+          "pointer": "↶ earlier error · expected ␣",
+          "extras": 10
+        },
+        {
+          "id": "1440-07",
+          "slug": "committed",
+          "state": "Passage committed with Space: previous line above, next passage active",
+          "file": "screenshots/1440-07-committed.png",
+          "active": "textarea#typing-input",
+          "url": "/",
+          "run": "running",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "1440-08",
+          "slug": "focus-lost",
+          "state": "Focus lost mid-run: integrity notice in the reserved slot, continue-typing button",
+          "file": "screenshots/1440-08-focus-lost.png",
+          "active": "body",
+          "url": "/",
+          "run": "running",
+          "slot": "Focus left the typing field: this run is flagged and excluded from headline progress. The timer kept running.",
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "1440-09",
+          "slug": "undo",
+          "state": "Native Undo during a run: Undo notice, run continues unscored",
+          "file": "screenshots/1440-09-undo.png",
+          "active": "textarea#typing-input",
+          "url": "/",
+          "run": "running",
+          "slot": "Undo isn’t scored: this run will be saved without accuracy and excluded from progress. Restart to keep scoring.",
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "1440-10",
+          "slug": "practice-result",
+          "state": "Practice result in place, saved, Again focused, today line above",
+          "file": "screenshots/1440-10-practice-result.png",
+          "active": "button#again",
+          "url": "/",
+          "run": "completed",
+          "slot": "",
+          "saveState": "Saved in this browser.",
+          "overflowX": false
+        },
+        {
+          "id": "1440-11",
+          "slug": "returning-remembered",
+          "state": "Returning visit to /: remembered 60 s pair practice (today line shows above results only)",
+          "file": "screenshots/1440-11-returning-remembered.png",
+          "active": "textarea#typing-input",
+          "url": "/",
+          "run": "idle",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false,
+          "duration": "60",
+          "kind": "manual"
+        },
+        {
+          "id": "1440-12",
+          "slug": "pair-popover",
+          "state": "Pair list open (lazy Select), current pair highlighted",
+          "file": "screenshots/1440-12-pair-popover.png",
+          "active": "button#manual-pair-trigger",
+          "url": "/",
+          "run": "idle",
+          "slot": "",
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "1440-13",
+          "slug": "assessment-result",
+          "state": "Assessment result in place: Practice next focused, fresh retest secondary",
+          "file": "screenshots/1440-13-assessment-result.png",
+          "active": "a#practice-next",
+          "url": "/practice.html?duration=15",
+          "run": "completed",
+          "slot": "",
+          "saveState": "Saved in this browser.",
+          "overflowX": false
+        },
+        {
+          "id": "1440-14",
+          "slug": "insufficient-evidence",
+          "state": "Suggested requested without supporting evidence: general practice, reason in Why? and the slot",
+          "file": "screenshots/1440-14-insufficient-evidence.png",
+          "active": "button#why-trigger",
+          "url": "/?qwerty=1&practice=recommended",
+          "run": "idle",
+          "slot": "Suggested needs more evidence — using general. No compatible eligible assessment timing history yet.",
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "1440-15",
+          "slug": "progress",
+          "state": "Progress with saved practice and assessment history",
+          "file": "screenshots/1440-15-progress.png",
+          "active": "body",
+          "url": "/progress.html",
+          "run": null,
+          "slot": null,
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "1440-16",
+          "slug": "lab",
+          "state": "Lab page, lighter pass",
+          "file": "screenshots/1440-16-lab.png",
+          "active": "body",
+          "url": "/lab.html",
+          "run": null,
+          "slot": null,
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "1440-17",
+          "slug": "progress-empty",
+          "state": "Progress, first visit: nothing saved yet",
+          "file": "screenshots/1440-17-progress-empty.png",
+          "active": "body",
+          "url": "/progress.html",
+          "run": null,
+          "slot": null,
+          "saveState": null,
+          "overflowX": false
+        },
+        {
+          "id": "1440-18",
+          "slug": "save-failure",
+          "state": "Save failure (isolated profile, injected quota error): result kept, retry + export",
+          "file": "screenshots/1440-18-save-failure.png",
+          "active": "button#again",
+          "url": "/?duration=15",
+          "run": "completed",
+          "slot": "",
+          "saveState": "This result could not be saved. Export it before leaving, or retry when browser storage is available.",
+          "overflowX": false
+        },
+        {
+          "id": "1440-19",
+          "slug": "save-retried",
+          "state": "Retry after storage recovers: saved once",
+          "file": "screenshots/1440-19-save-retried.png",
+          "active": "button#again",
+          "url": "/?duration=15",
+          "run": "completed",
+          "slot": "",
+          "saveState": "Saved in this browser.",
+          "overflowX": false,
+          "rows": 1
+        }
+      ],
+      "savedRows": [
+        {
+          "mode": "assessment",
+          "durationMs": 15000,
+          "eligible": true,
+          "manualPair": null
+        },
+        {
+          "mode": "practice",
+          "durationMs": 30000,
+          "eligible": true,
+          "manualPair": null
+        }
+      ],
+      "pageErrors": []
+    }
+  }
+}
