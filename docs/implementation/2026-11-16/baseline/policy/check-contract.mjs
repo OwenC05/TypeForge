@@ -1,4 +1,5 @@
-// Standalone Stage 2A contract oracle. No production imports, selector or stored human data.
+// Legacy independent-scalar/schema smoke oracle; NOT evidence of connected qualification,
+// sidecar authority, storage races or application/model independence. See revision-check.mjs.
 import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -16,8 +17,8 @@ const exactSchema = value => value !== null && typeof value === 'object' && !Arr
   : { const: value };
 const expectedSchema = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'urn:typeforge:coach-config-schema-v1',
-  title: 'Exact reviewed experimental TypeForge coaching configuration v1',
+  $id: 'urn:typeforge:coach-config-schema-v2',
+  title: 'Exact amended experimental TypeForge coaching configuration v1-r1',
   ...exactSchema(config),
 };
 if (process.argv.includes('--write-schema')) {
@@ -56,7 +57,8 @@ const schemaCheck = (s, value) => {
     if (s.minLength !== undefined && value.length < s.minLength) return false;
     if (s.maxLength !== undefined && value.length > s.maxLength) return false;
     if (s.pattern && !new RegExp(s.pattern).test(value)) return false;
-    if (s.format === 'date-time' && !Number.isFinite(Date.parse(value))) return false;
+    if (s.format === 'date-time' && (!/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{3}Z$/.test(value) ||
+      !Number.isFinite(Date.parse(value)) || new Date(value).toISOString() !== value)) return false;
   }
   if (s.type === 'array' && !Array.isArray(value)) return false;
   if (Array.isArray(value)) {
@@ -197,10 +199,11 @@ for (const support of [12, 20, 30]) for (const ratio of [1.15, 1.25, 1.35]) {
     syntheticAt20Intervals25Percent: 20 >= support && 1.25 >= ratio });
 }
 const receipt = {
-  kind: 'standalone-policy-contract-check', checkedAt: new Date().toISOString(),
+  kind: 'legacy-independent-threshold-and-schema-smoke', checkedAt: new Date().toISOString(),
   node: process.version, checks, configId: sha256(config), schemaId: config.schemaId,
   policyId: config.policyId, uniformDeltas, sensitivity,
-  limits: ['Not a production selector', 'Threshold oracles do not prove storage/browser lifecycle',
+  limits: ['Not a production selector', 'Scalar thresholds do not prove connected qualification or sidecar authority',
+    'Ridge states are labels here, not an application model-loading test', 'Threshold oracles do not prove storage/browser lifecycle',
     'No participant data, human yield, statistical confidence or learning benefit'],
 };
 writeFileSync(new URL('contract-check.json', import.meta.url), `${JSON.stringify(receipt, null, 2)}\n`);

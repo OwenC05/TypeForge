@@ -1,11 +1,11 @@
 {
-  "kind": "standalone-policy-contract-check",
-  "checkedAt": "2026-11-16T14:21:27.501Z",
+  "kind": "legacy-independent-threshold-and-schema-smoke",
+  "checkedAt": "2026-11-17T14:09:59.298Z",
   "node": "v24.21.0",
   "checks": 148,
-  "configId": "280f03e3ee00ca3006908392bdda4afa3e432e86f8a59a2a709232f38fa354a6",
-  "schemaId": "typeforge-coach-config-schema-v1",
-  "policyId": "clean-pair-contrast-v1",
+  "configId": "730f46e589c8682b09494ef54e0d53d5b15686f3adf763092e57cd86a743593d",
+  "schemaId": "typeforge-coach-config-schema-v2",
+  "policyId": "clean-pair-contrast-v1-r1",
   "uniformDeltas": [
     -1.5987211554602254e-14,
     -1.5987211554602254e-14,
@@ -60,6 +60,8 @@
   ],
   "limits": [
     "Not a production selector",
+    "Scalar thresholds do not prove connected qualification or sidecar authority",
+    "Ridge states are labels here, not an application model-loading test",
     "Threshold oracles do not prove storage/browser lifecycle",
     "No participant data, human yield, statistical confidence or learning benefit"
   ]

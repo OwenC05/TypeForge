@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:typeforge:coach-config-schema-v1",
-  "title": "Exact reviewed experimental TypeForge coaching configuration v1",
+  "$id": "urn:typeforge:coach-config-schema-v2",
+  "title": "Exact amended experimental TypeForge coaching configuration v1-r1",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -17,14 +17,16 @@
     "stability",
     "exposure",
     "limits",
-    "fallback"
+    "fallback",
+    "releaseScope",
+    "admission"
   ],
   "properties": {
     "schemaId": {
-      "const": "typeforge-coach-config-schema-v1"
+      "const": "typeforge-coach-config-schema-v2"
     },
     "policyId": {
-      "const": "clean-pair-contrast-v1"
+      "const": "clean-pair-contrast-v1-r1"
     },
     "baselineKind": {
       "const": "observed-unshrunk-complement"
@@ -39,7 +41,8 @@
         "tests",
         "durationMs",
         "minimumAttempts",
-        "expires"
+        "expires",
+        "summary"
       ],
       "properties": {
         "tests": {
@@ -53,6 +56,30 @@
         },
         "expires": {
           "const": false
+        },
+        "summary": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "sources",
+            "wpm",
+            "accuracy",
+            "orderingProofRequired"
+          ],
+          "properties": {
+            "sources": {
+              "const": "newest-ten-qualifying-assessments"
+            },
+            "wpm": {
+              "const": "median-all-ten"
+            },
+            "accuracy": {
+              "const": "median-all-ten-or-unavailable"
+            },
+            "orderingProofRequired": {
+              "const": true
+            }
+          }
         }
       }
     },
@@ -67,7 +94,9 @@
         "language",
         "qwerty",
         "corpusVersion",
-        "poolDurations"
+        "poolDurations",
+        "defaultContextOnly",
+        "epochReset"
       ],
       "properties": {
         "schemaVersion": {
@@ -93,6 +122,12 @@
         },
         "poolDurations": {
           "const": false
+        },
+        "defaultContextOnly": {
+          "const": true
+        },
+        "epochReset": {
+          "const": true
         }
       }
     },
@@ -226,7 +261,11 @@
         "passagesByCharacter",
         "minimumPassages",
         "minimumBankPassages",
-        "repeatBeforeBankExhaustion"
+        "repeatBeforeBankExhaustion",
+        "maximumPlanCharacters",
+        "catalogueId",
+        "automaticPairs",
+        "actualExposure"
       ],
       "properties": {
         "denominator": {
@@ -245,7 +284,7 @@
           "const": 20
         },
         "minimumPlanCharacters": {
-          "const": 240
+          "const": 480
         },
         "wordsByCharacter": {
           "const": 240
@@ -264,6 +303,23 @@
         },
         "repeatBeforeBankExhaustion": {
           "const": false
+        },
+        "maximumPlanCharacters": {
+          "const": 600
+        },
+        "catalogueId": {
+          "const": "17de69ffe905a28e8e00ad65d1494a003b080bcd2a894a81fea5c28351594a25"
+        },
+        "automaticPairs": {
+          "const": [
+            "he",
+            "in",
+            "le",
+            "th"
+          ]
+        },
+        "actualExposure": {
+          "const": "unknown-without-reviewed-instrumentation"
         }
       }
     },
@@ -297,6 +353,66 @@
     },
     "fallback": {
       "const": "general-manual"
+    },
+    "releaseScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "firstIncrement",
+        "automaticCoachingEnabled",
+        "nextIncrement"
+      ],
+      "properties": {
+        "firstIncrement": {
+          "const": "baseline-summary-general-manual"
+        },
+        "automaticCoachingEnabled": {
+          "const": false
+        },
+        "nextIncrement": {
+          "const": "four-template-catalogue-pilot-after-delta-review"
+        }
+      }
+    },
+    "admission": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "minimumIntervalMs",
+        "maximumIntervalMs",
+        "logDomainTolerance",
+        "runMinimumTimeToleranceMs",
+        "latestRowBeforeSemanticExclusion",
+        "filteredGapLowerBoundMs",
+        "defaultContextOnly"
+      ],
+      "properties": {
+        "version": {
+          "const": "all-contributing-pairs-v1"
+        },
+        "minimumIntervalMs": {
+          "const": 5e-324
+        },
+        "maximumIntervalMs": {
+          "const": 5000
+        },
+        "logDomainTolerance": {
+          "const": "64*EPSILON*count*maxAbsIntervalLog"
+        },
+        "runMinimumTimeToleranceMs": {
+          "const": 0.000001
+        },
+        "latestRowBeforeSemanticExclusion": {
+          "const": true
+        },
+        "filteredGapLowerBoundMs": {
+          "const": 5000
+        },
+        "defaultContextOnly": {
+          "const": true
+        }
+      }
     }
   }
 }

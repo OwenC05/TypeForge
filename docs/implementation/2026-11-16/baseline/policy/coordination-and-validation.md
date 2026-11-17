@@ -1,5 +1,7 @@
 # P1 coordination and validation
 
+**Historical original-P1 receipt, frozen at `e484754`; current r1 findings and launch/check evidence are in `amendment-r1.md` and `revision-validation.json`. The original148 checks were independent scalar/schema checks, not connected qualification or DB integration evidence.**
+
 16 November 2026. Worker `task_dad9dc52ce84` / dispatch `ctx_cbc26b52dc79`, terminal `term_5ba278be-b180-421a-8821-fbb9f1a267aa`, root terminal `term_68fded65-2f85-497d-a32e-38f10342d6df`, run `run_1aeb00550f39`. Base `c65460b91ab2b310cb51f2f8cd4247d6c9f7c482`, branch `OwenC05/tf-baseline-policy`. Only the assigned spec and policy artifact directory are owned/changed. No production files, source instruments, model/config installations, accounts or services changed.
 
 ## Small task graph and identities
