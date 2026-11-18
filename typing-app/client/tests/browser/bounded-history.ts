@@ -1,6 +1,6 @@
 import {
   readHistorySlice, scanHistory, listResultsPage, getStorageDiagnostics,
-  HISTORY_SLICE_BYTES, HISTORY_SCAN_BYTES, type HistoryRead,
+  HISTORY_SLICE_BYTES, HISTORY_SCAN_BYTES, validateResult, type HistoryRead,
 } from '../../src/storage.ts';
 import type { SessionResult } from '../../src/engine.ts';
 
@@ -170,7 +170,9 @@ export async function runHistoryChecks() {
     const output = await scanHistory({ byteLimit: MIB });
     assert(output.examinedRows === 1 && output.examinedBytes === Math.min(bytes, MIB), 'reservation pre-admission and exact record bytes');
     assert(output.diagnostics.oversizedRows === (bytes > MIB ? 1 : 0), 'oversized exclusion boundary');
-    assert(output.diagnostics.oversizedSerializedBytes === (bytes > MIB ? bytes : 0), 'actual oversize disclosed');
+    assert(output.diagnostics.oversizedSerializedBytes === (bytes > MIB ? null : 0), 'unmeasured oversized total is unknown');
+    assert(output.diagnostics.oversizedByteLowerBound === (bytes > MIB ? MIB + 1 : 0), 'explicit oversized lower bound');
+    if (bytes > MIB) assert(output.reason === 'record-limit' && output.costs.slices === 1, 'record stop carries through automatic continuation');
     const next = await scanHistory({ before: output.cursor });
     assert(next.complete && next.results.length === 1, 'underfilled reservation resumes without loss');
   }
@@ -188,9 +190,11 @@ export async function runHistoryChecks() {
   const cyclic: any = { id: id(4), completedAt: valid(4).completedAt }; cyclic.self = cyclic;
   await seed([valid(1), { id: id(2), completedAt: {} }, { id: id(3), completedAt: 123 }, cyclic]);
   const unusual = await scanHistory();
-  assert(unusual.complete && unusual.examinedRows === 3 && unusual.diagnostics.unindexableRows === 1, 'unindexable excluded and counted');
-  assert(unusual.diagnostics.unserializableRows === 1 && unusual.diagnostics.invalidRows === 2, 'cyclic/indexable invalid retained');
-  assert(unusual.results.length === 1 && await storedCount() === 4, 'unusual rows retained');
+  assert(!unusual.complete && unusual.reason === 'record-limit' && unusual.examinedRows === 1 && unusual.diagnostics.unindexableRows === 1, 'unindexable count and cyclic explicit stop');
+  assert(unusual.diagnostics.unserializableRows === 1 && unusual.diagnostics.invalidRows === 1, 'cyclic exclusion retained');
+  const unusualTail = await scanHistory({ before: unusual.cursor });
+  assert(unusualTail.complete && unusualTail.examinedRows === 2 && unusualTail.diagnostics.invalidRows === 1, 'explicit continuation after cyclic row');
+  assert(unusualTail.results.length === 1 && await storedCount() === 4, 'unusual rows retained');
   const rawPages = await allSlices();
   assert(rawPages.examined === 3, 'non-string raw key continuity');
   // Force the numeric date key to be the only row on the first slice.
@@ -228,4 +232,221 @@ export async function runHistoryChecks() {
 
   await seed([]);
   return { checks, assertions, observations, userAgent: navigator.userAgent, fixtureDatabaseCleared: await storedCount() === 0 };
+}
+
+/** Independently observe actual native serialization/UTF-8 allocation, not reported charges. */
+export async function runHistoryByteRepairChecks() {
+  const failures: string[] = [];
+  const cases: unknown[] = [];
+  let assertions = 0;
+  const assert = (condition: unknown, message: string) => {
+    assertions++;
+    if (!condition) failures.push(message);
+  };
+  const fixtures = Array.from({ length: 17 }, (_, n) => padded(n + 1, 2 * MIB));
+  assert(fixtures.every(value => size(value) === 2 * MIB), 'fixture is exactly 2 MiB per row');
+  await seed(fixtures);
+  for (const fixedClock of [true, false]) {
+    for (const automatic of [false, true]) {
+      const nativeStringify = JSON.stringify;
+      const nativeEncode = TextEncoder.prototype.encode;
+      const nativeCharCodeAt = String.prototype.charCodeAt;
+      let stringifyBytes = 0;
+      let encodedBytes = 0;
+      let wholeRecordCalls = 0;
+      let largeStringInspections = 0;
+      let output: HistoryRead;
+      try {
+        (JSON as any).stringify = (...args: any[]) => {
+          const json = (nativeStringify as any)(...args);
+          if (typeof json === 'string') stringifyBytes += nativeEncode.call(new TextEncoder(), json).length;
+          if (args[0] && typeof args[0] === 'object' && 'id' in args[0]) wholeRecordCalls++;
+          return json;
+        };
+        TextEncoder.prototype.encode = function(input?: string) {
+          const bytes = nativeEncode.call(this, input);
+          encodedBytes += bytes.length;
+          return bytes;
+        };
+        String.prototype.charCodeAt = function(this: string, position: number) {
+          if (this.length >= MIB - 512) largeStringInspections++;
+          return nativeCharCodeAt.call(this, position);
+        };
+        const read = () => automatic ? scanHistory() : readHistorySlice();
+        output = await (fixedClock ? withFixedWorkClock(read) : read());
+      } finally {
+        JSON.stringify = nativeStringify;
+        TextEncoder.prototype.encode = nativeEncode;
+        String.prototype.charCodeAt = nativeCharCodeAt;
+      }
+      const limit = automatic ? HISTORY_SCAN_BYTES : HISTORY_SLICE_BYTES;
+      const label = `${fixedClock ? 'fixed' : 'ordinary'} ${automatic ? 'automatic' : 'slice'}`;
+      cases.push({ label, limit, stringifyBytes, encodedBytes, wholeRecordCalls, largeStringInspections, output });
+      assert(stringifyBytes <= limit, `${label}: actual JSON serialization exceeds byte budget`);
+      assert(encodedBytes <= limit, `${label}: actual UTF-8 allocation exceeds byte budget`);
+      assert(!output.complete, `${label}: corrupt budget stop must not fabricate exhaustion`);
+      assert(await storedCount() === 17, `${label}: source corruption retained`);
+      assert(output.reason === 'record-limit' && output.examinedRows === 1 && output.costs.slices === 1, `${label}: automatic continuation does not repeat materialization exceptions`);
+      assert(wholeRecordCalls === 0 && encodedBytes === 0, `${label}: corrupt payload is never fully serialized or encoded`);
+      assert(output.examinedBytes === MIB && output.diagnostics.oversizedSerializedBytes === null && output.diagnostics.oversizedByteLowerBound === MIB + 1, `${label}: prefix bound and unknown total are truthful`);
+      assert(largeStringInspections > 0 && largeStringInspections <= MIB, `${label}: actual long-string traversal stops within bounded prefix`);
+    }
+  }
+
+  // Differential oracle: exercise every JSON escape class, lone/paired
+  // surrogates, non-ASCII keys, native number formatting, holes and aliases.
+  const scalars = [null, true, false, 0, -0, 1e-7, 1e21, Number.MIN_VALUE, Number.MAX_VALUE, NaN, Infinity, -Infinity,
+    '', '"\\\b\t\n\f\r', Array.from({ length: 32 }, (_, n) => String.fromCharCode(n)).join(''),
+    '\u007f\u0080\u07ff\u0800\uffff\ud800\udfff\ud800\udc00', 'é𝄞'];
+  const shared = { escaped: '\ud800"\u0000', number: 0.125 };
+  const sparse = new Array(5); sparse[2] = 'middle';
+  const payloads: unknown[] = [...scalars, scalars, sparse, { a: shared, b: shared }];
+  let state = 179;
+  const random = () => { state = (state * 1664525 + 1013904223) >>> 0; return state; };
+  for (let n = 0; n < 120; n++) {
+    const payload: Record<string, unknown> = {};
+    for (let k = 0; k < 1 + n % 9; k++) payload[`key-${k}-\u0080\ud800`] = [scalars[random() % scalars.length], { nested: scalars[random() % scalars.length] }];
+    payloads.push(payload);
+  }
+  const jsonValues = payloads.map((payload, n) => ({ id: id(n + 1), completedAt: valid(1).completedAt, payload }));
+  await seed(jsonValues);
+  let differentialCursor: IDBValidKey | null = null;
+  for (const expected of jsonValues.toReversed()) {
+    const output = await readHistorySlice({ before: differentialCursor, rowLimit: 1 });
+    assert(output.examinedRows === 1 && output.examinedBytes === size(expected), `native JSON byte oracle for ${expected.id}`);
+    assert(output.diagnostics.invalidRows === 1 && output.diagnostics.unserializableRows === 0, 'bounded JSON trees measured before strict invalid-shape exclusion');
+    differentialCursor = output.cursor;
+  }
+  assert((await readHistorySlice({ before: differentialCursor })).complete, 'differential traversal exhausted exactly');
+  cases.push({ label: 'native JSON byte differential', records: jsonValues.length });
+
+  // Build truly valid exact-size records. Per-sentence pair payloads provide
+  // capacity; bounded prompt IDs fill the final small remainder legally.
+  const largeValid = (n: number, target: number): SessionResult => {
+    const value = valid(n);
+    const pairs = Object.fromEntries(Array.from({ length: 299 }, (_, p) => [
+      String.fromCharCode(97 + Math.floor(p / 26), 97 + p % 26), { count: 1, logSum: Math.log(1234.56789) },
+    ]));
+    const sentence = { promptId: 'fixture', promptText: 'a'.repeat(300), response: 'a'.repeat(300), submitted: true,
+      eligible: true, diagnosticsAvailable: true, qualityFlags: [], keys: {}, pairs };
+    let bytes = size(value);
+    const fullSize = size(sentence);
+    while (bytes + fullSize + (value.sentences.length ? 1 : 0) <= target) {
+      bytes += fullSize + (value.sentences.length ? 1 : 0);
+      value.sentences.push(structuredClone(sentence));
+    }
+    const partial = { ...sentence, pairs: {} as typeof pairs };
+    if (bytes + size(partial) + 1 <= target) {
+      bytes += size(partial) + 1;
+      value.sentences.push(partial);
+      for (const [pair, stats] of Object.entries(pairs)) {
+        const added = size(pair) + 1 + size(stats) + (Object.keys(partial.pairs).length ? 1 : 0);
+        if (bytes + added > target) break;
+        partial.pairs[pair] = stats;
+        bytes += added;
+      }
+    }
+    for (const item of value.sentences) {
+      const extra = Math.min(target - bytes, 128 - item.promptId.length);
+      item.promptId += 'x'.repeat(extra);
+      bytes += extra;
+    }
+    assert(bytes === target && size(value) === target, 'valid fixture has independently measured exact size');
+    if (target <= MIB) validateResult(value);
+    return value;
+  };
+  const large = [largeValid(3, MIB - 1), largeValid(2, MIB), largeValid(1, MIB + 1)];
+  await seed(large);
+  const nativeStringify = JSON.stringify;
+  const nativeEncode = TextEncoder.prototype.encode;
+  let measuredLarge: HistoryRead;
+  try {
+    (JSON as any).stringify = (...args: any[]) => {
+      if (args[0] && typeof args[0] === 'object') throw new Error('Whole-record serialization forbidden during bounded read.');
+      return (nativeStringify as any)(...args);
+    };
+    TextEncoder.prototype.encode = () => { throw new Error('Whole-buffer UTF-8 encoding forbidden during bounded read.'); };
+    measuredLarge = await withFixedWorkClock(() => scanHistory());
+  } finally { JSON.stringify = nativeStringify; TextEncoder.prototype.encode = nativeEncode; }
+  assert(measuredLarge.examinedRows === 3 && measuredLarge.results.length === 2 && measuredLarge.reason === 'record-limit', 'valid below/at record ceiling accepted; over-ceiling structure excluded');
+  assert(measuredLarge.examinedBytes === 3 * MIB - 1, 'valid size accounting has no duplicate serialization charge');
+  assert(measuredLarge.diagnostics.oversizedRows === 1 && measuredLarge.diagnostics.oversizedSerializedBytes === null, 'over-ceiling total remains unknown');
+  assert((await scanHistory({ before: measuredLarge.cursor })).complete, 'explicit continuation proves exhaustion after last oversized record');
+  cases.push({ label: 'valid below/at/over record ceiling', examinedRows: measuredLarge.examinedRows, bytes: measuredLarge.examinedBytes, reason: measuredLarge.reason });
+
+  await seed(Array.from({ length: 5 }, (_, n) => ({ ...large[1], id: id(n + 1) })));
+  const exactValidSlice = await withFixedWorkClock(() => readHistorySlice());
+  assert(exactValidSlice.examinedRows === 4 && exactValidSlice.examinedBytes === 4 * MIB && exactValidSlice.results.length === 4 && exactValidSlice.reason === 'byte-budget', 'exact 4 MiB of valid results stops before fifth value');
+  const exactValidTail = await scanHistory({ before: exactValidSlice.cursor });
+  assert(exactValidTail.complete && exactValidTail.examinedRows === 1 && exactValidTail.results[0].id === id(1), 'valid byte-limit cursor neither skips nor repeats fifth value');
+  cases.push({ label: 'five valid exact-1-MiB records', sliceRows: exactValidSlice.examinedRows, sliceBytes: exactValidSlice.examinedBytes, tailRows: exactValidTail.examinedRows });
+
+  // More than one slice of mixed valid/invalid/incompatible rows before a
+  // record stop, then explicit continuation through every intended valid row.
+  const mixedValues: unknown[] = [valid(1), padded(2, 2 * MIB), valid(3)];
+  for (let n = 4; n <= 90; n++) mixedValues.push(n % 3 === 0 ? { ...valid(n), metricVersion: 999 } : valid(n));
+  await seed(mixedValues);
+  const mixed = await withFixedWorkClock(() => scanHistory({ compatible: value => Number(value.id.slice(-12)) % 2 === 1 }));
+  assert(mixed.reason === 'record-limit' && mixed.examinedRows === 89 && mixed.costs.slices >= 4 && !mixed.complete, 'record stop carried after cumulative multi-slice mixed history');
+  const expectedIds = Array.from({ length: 87 }, (_, k) => 90 - k).filter(n => n % 3 !== 0 && n % 2 === 1).map(id).concat(id(3));
+  assert(mixed.results.map(value => value.id).join() === expectedIds.join(), 'mixed excluded/cohort rows do not skip or duplicate valid results');
+  const continued = await scanHistory({ before: mixed.cursor });
+  assert(continued.complete && continued.examinedRows === 1 && continued.results[0].id === id(1), 'explicit continuation keeps following valid row');
+  assert(await storedCount() === 90, 'mixed source data retained');
+  cases.push({ label: 'mixed multi-slice stop and explicit continuation', rows: mixed.examinedRows, slices: mixed.costs.slices, returned: mixed.results.length });
+
+  for (const { prefix, cyclic } of [{ prefix: MIB - 256, cyclic: true }, { prefix: 16 * MIB, cyclic: true }, { prefix: 16 * MIB, cyclic: false }]) {
+    const lateCycle: any = { id: id(2), completedAt: valid(1).completedAt, pad: 'x'.repeat(prefix) };
+    if (cyclic) lateCycle.self = lateCycle;
+    await seed([lateCycle, valid(1)]);
+    // Never call native stringify on the cyclic IDB clone: fail fast if the
+    // corrected path accidentally regresses to that hazardous native operation.
+    const originalStringify = JSON.stringify;
+    const originalCharCodeAt = String.prototype.charCodeAt;
+    let inspected = 0;
+    let output: HistoryRead;
+    try {
+      (JSON as any).stringify = () => { throw new Error('Native serialization forbidden for late-cycle fixture.'); };
+      String.prototype.charCodeAt = function(this: string, position: number) {
+        if (this.length >= MIB - 512) inspected++;
+        return originalCharCodeAt.call(this, position);
+      };
+      output = await scanHistory();
+    } finally { JSON.stringify = originalStringify; String.prototype.charCodeAt = originalCharCodeAt; }
+    assert(output.reason === 'record-limit' && output.examinedRows === 1 && output.costs.slices === 1, 'late-cycle/large native exception never repeats automatically');
+    assert(output.examinedBytes > MIB - 512 && output.examinedBytes <= MIB, 'large prefix work is charged even on later cycle/overflow');
+    assert(inspected >= MIB - 256 && inspected <= MIB, 'independent scalar inspection counter bounds late-cycle/large-prefix work');
+    const tail = await scanHistory({ before: output.cursor });
+    assert(tail.complete && tail.results.length === 1 && tail.results[0].id === id(1), 'late-cycle/large-record continuation retains the following valid row');
+    cases.push({ label: cyclic ? 'late cycle with guarded native serialization' : 'large JSON tree with guarded native serialization', nativeStringCodeUnits: prefix, inspected, chargedBytes: output.examinedBytes, diagnostics: output.diagnostics });
+  }
+
+  const cycle: any = { id: id(8), completedAt: valid(1).completedAt }; cycle.self = cycle;
+  let deep: unknown = 'leaf'; for (let n = 0; n < 40; n++) deep = { deep };
+  const unsupported: unknown[] = [cycle, ...[new Map([['a', 1]]), new Date(), 1n, new Uint8Array(2 * MIB), deep].map((payload, n) => ({ id: id(7 - n), completedAt: valid(1).completedAt, payload })), valid(1)];
+  await seed(unsupported);
+  let cursor: IDBValidKey | null = null;
+  for (let n = 0; n < unsupported.length - 1; n++) {
+    const output = await scanHistory({ before: cursor });
+    assert(output.reason === 'record-limit' && output.examinedRows === 1 && output.costs.slices === 1 && !output.complete, 'unsupported clone/tree stops automatic work');
+    assert(output.diagnostics.unserializableRows === 1 && output.examinedBytes <= MIB, 'unsupported prefix work remains accounted and bounded');
+    cursor = output.cursor;
+  }
+  const supportedTail = await scanHistory({ before: cursor });
+  assert(supportedTail.complete && supportedTail.results[0].id === id(1) && await storedCount() === unsupported.length, 'unsupported explicit continuations preserve the valid tail and retained corrupt source');
+  cases.push({ label: 'cyclic, Map, Date, bigint, binary and depth stops', excluded: unsupported.length - 1 });
+
+  await seed(Array.from({ length: 50 }, (_, n) => valid(n + 1)));
+  const abortController = new AbortController();
+  let examined = 0;
+  const cancelled = await scanHistory({ signal: abortController.signal, compatible: () => {
+    examined++;
+    if (examined === 26) abortController.abort(new Error('superseded second slice'));
+    return true;
+  } });
+  assert(cancelled.reason === 'aborted' && !cancelled.complete && cancelled.examinedRows === 26 && cancelled.costs.slices >= 2, 'cancellation stops an automatic multi-slice read');
+  assert((await scanHistory()).complete, 'new read succeeds after cancelled multi-slice cleanup');
+  cases.push({ label: 'multi-slice abort and recovery', rows: cancelled.examinedRows, slices: cancelled.costs.slices });
+  await seed([]);
+  return { passed: failures.length === 0, failures, assertions, cases, fixtureDatabaseCleared: await storedCount() === 0 };
 }

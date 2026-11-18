@@ -71,8 +71,7 @@ function resultId(value: unknown): void {
   check(typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value), 'id');
 }
 
-/** Reject unsupported or corrupt records before they reach a view or profile. */
-export function validateResult(value: unknown): asserts value is SessionResult {
+function validateResultShape(value: unknown): asserts value is SessionResult {
   const root = record(value, 'record');
   const result = record(value, 'record', [
     'id', 'owner', 'schemaVersion', 'metricVersion', 'completedAt', 'mode',
@@ -208,7 +207,11 @@ export function validateResult(value: unknown): asserts value is SessionResult {
     accuracy(sample.accuracy, `${path}.accuracy`);
   }
   check(previousTime === durationMs, 'chartSamples final time');
+}
 
+/** Reject unsupported or corrupt records before they reach a view or profile. */
+export function validateResult(value: unknown): asserts value is SessionResult {
+  validateResultShape(value);
   // Every property above is a bounded JSON value; extra fields are rejected.
   check(new TextEncoder().encode(JSON.stringify(value)).length <= MAX_RESULT_BYTES, 'record exceeds 1 MiB');
 }
@@ -368,16 +371,18 @@ export interface HistoryRead {
   cursor: IDBValidKey | null;
   /** Indexed traversal exhausted; exclusions remain explicit below. */
   complete: boolean;
-  reason: 'exhausted' | 'row-budget' | 'byte-budget' | 'yield' | 'aborted' | 'failed';
+  reason: 'exhausted' | 'row-budget' | 'byte-budget' | 'record-limit' | 'yield' | 'aborted' | 'failed';
   examinedRows: number;
-  /** UTF-8 JSON bytes, charging oversized exclusions their 1 MiB reservation. */
+  /** JSON UTF-8 bytes traversed; a record-limit can leave a bounded prefix only. */
   examinedBytes: number;
   diagnostics: {
     invalidRows: number;
     incompatibleRows: number;
     unindexableRows: number | null;
     oversizedRows: number;
-    oversizedSerializedBytes: number;
+    /** Exact oversized size is unknown because traversal stops before allocating it. */
+    oversizedSerializedBytes: number | null;
+    oversizedByteLowerBound: number;
     unserializableRows: number;
     firstInvalidReason: string | null;
     error: string | null;
@@ -402,10 +407,75 @@ function emptyHistory(before: IDBValidKey | null = null): HistoryRead {
     results: [], cursor: before, complete: false, reason: 'failed', examinedRows: 0, examinedBytes: 0,
     diagnostics: {
       invalidRows: 0, incompatibleRows: 0, unindexableRows: null, oversizedRows: 0,
-      oversizedSerializedBytes: 0, unserializableRows: 0, firstInvalidReason: null, error: null,
+      oversizedSerializedBytes: 0, oversizedByteLowerBound: 0, unserializableRows: 0, firstInvalidReason: null, error: null,
     },
     costs: { maxOperationMs: 0, maxOperationOvershootMs: 0, slices: 0, yields: 0 },
   };
+}
+
+/** Measure a JSON prefix without allocating a whole string/UTF-8 buffer. Only
+ * plain JSON trees are needed: other IDB clone types cannot pass result shape
+ * validation. Depth 32 exceeds the valid schema; cycles/deeper trees stop too.
+ */
+function historyJsonBytes(value: unknown): { bytes: number; oversized: boolean; error: string | null } {
+  let bytes = 0;
+  let oversized = false;
+  const ancestors = new Set<object>();
+  const add = (amount: number) => {
+    if (amount > MAX_RESULT_BYTES - bytes) { bytes = MAX_RESULT_BYTES; oversized = true; return false; }
+    bytes += amount;
+    return true;
+  };
+  const quoted = (text: string): boolean => {
+    if (!add(1)) return false;
+    for (let i = 0; i < text.length; i++) {
+      const code = text.charCodeAt(i);
+      let width: number;
+      if (code === 34 || code === 92 || code === 8 || code === 9 || code === 10 || code === 12 || code === 13) width = 2;
+      else if (code < 32) width = 6;
+      else if (code < 128) width = 1;
+      else if (code < 2048) width = 2;
+      else if (code >= 0xd800 && code <= 0xdbff && text.charCodeAt(i + 1) >= 0xdc00 && text.charCodeAt(i + 1) <= 0xdfff) { width = 4; i++; }
+      else if (code >= 0xd800 && code <= 0xdfff) width = 6; // JSON escapes lone surrogates.
+      else width = 3;
+      if (!add(width)) return false;
+    }
+    return add(1);
+  };
+  const visit = (item: unknown, depth: number): boolean => {
+    if (item === null) return add(4);
+    if (typeof item === 'string') return quoted(item);
+    if (typeof item === 'boolean') return add(item ? 4 : 5);
+    if (typeof item === 'number') return add(Number.isFinite(item) ? String(item).length : 4);
+    if (typeof item !== 'object') throw new Error('Local record contains a non-JSON value.');
+    if (depth > 32 || ancestors.has(item)) throw new Error('Local record is cyclic or exceeds JSON depth 32.');
+    if (!Array.isArray(item) && Object.getPrototypeOf(item) !== Object.prototype && Object.getPrototypeOf(item) !== null) {
+      throw new Error('Local record contains a non-JSON object.');
+    }
+    ancestors.add(item);
+    try {
+      if (!add(1)) return false;
+      if (Array.isArray(item)) {
+        for (let i = 0; i < item.length; i++) {
+          if (i && !add(1)) return false;
+          // Native JSON represents sparse/undefined array slots as null.
+          if (!visit(item[i] === undefined ? null : item[i], depth + 1)) return false;
+        }
+      } else {
+        let first = true;
+        // Avoid creating a second unbounded array of corrupt property names.
+        for (const key in item) {
+          if (!Object.hasOwn(item, key)) continue;
+          if (!first && !add(1)) return false;
+          first = false;
+          if (!quoted(key) || !add(1) || !visit((item as Record<string, unknown>)[key], depth + 1)) return false;
+        }
+      }
+      return add(1);
+    } finally { ancestors.delete(item); }
+  };
+  try { visit(value, 0); return { bytes, oversized, error: null }; }
+  catch (error) { return { bytes, oversized: false, error: error instanceof Error ? error.message : String(error) }; }
 }
 
 /** Additive bounded optional-data reader; legacy assessment/export APIs retain their meaning. */
@@ -420,6 +490,7 @@ export async function readHistorySlice(options: HistoryOptions = {}): Promise<Hi
     await new Promise<void>((resolve, reject) => {
       const transaction = database!.transaction(STORE, 'readonly');
       let failed = false;
+      let recordLimited = false;
       const abort = () => transaction.abort();
       const cleanup = () => options.signal?.removeEventListener('abort', abort);
       transaction.oncomplete = () => { cleanup(); resolve(); };
@@ -451,26 +522,21 @@ export async function readHistorySlice(options: HistoryOptions = {}): Promise<Hi
             const value: unknown = valueRequest.result;
             output.examinedRows++;
             output.cursor = entry.key;
-            let bytes: number;
-            try {
-              const json = JSON.stringify(value);
-              if (json === undefined) throw new Error('Local record has no JSON representation.');
-              bytes = new TextEncoder().encode(json).length;
-            } catch (error) {
+            const measured = historyJsonBytes(value);
+            output.examinedBytes += measured.bytes;
+            if (measured.error || measured.oversized) {
               diagnostics.invalidRows++;
-              diagnostics.unserializableRows++;
-              diagnostics.firstInvalidReason ??= error instanceof Error ? error.message : String(error);
+              if (measured.oversized) {
+                diagnostics.oversizedRows++;
+                diagnostics.oversizedSerializedBytes = null;
+                diagnostics.oversizedByteLowerBound += MAX_RESULT_BYTES + 1;
+              } else diagnostics.unserializableRows++;
+              diagnostics.firstInvalidReason ??= measured.error ?? 'Local record exceeds 1 MiB; exact size was not serialized and the record remains stored.';
+              output.reason = 'record-limit';
+              recordLimited = true; // Never repeat a native oversized/unsupported materialization automatically.
               return;
             }
-            output.examinedBytes += Math.min(bytes, MAX_RESULT_BYTES);
-            if (bytes > MAX_RESULT_BYTES) {
-              diagnostics.invalidRows++;
-              diagnostics.oversizedRows++;
-              diagnostics.oversizedSerializedBytes += bytes;
-              diagnostics.firstInvalidReason ??= 'Local record exceeds 1 MiB and remains stored.';
-              return;
-            }
-            try { validateResult(value); }
+            try { validateResultShape(value); }
             catch (error) {
               diagnostics.invalidRows++;
               diagnostics.firstInvalidReason ??= error instanceof Error ? error.message : String(error);
@@ -485,7 +551,7 @@ export async function readHistorySlice(options: HistoryOptions = {}): Promise<Hi
             costs.maxOperationMs = Math.max(costs.maxOperationMs, elapsed);
             costs.maxOperationOvershootMs = Math.max(0, costs.maxOperationMs - HISTORY_WORK_MS);
             // Abort may be requested from a compatibility predicate.
-            if (!failed && !options.signal?.aborted) {
+            if (!failed && !recordLimited && !options.signal?.aborted) {
               try { entry.continue(); } catch (error) { fail(error); }
             }
           }
@@ -516,16 +582,18 @@ export async function scanHistory(options: HistoryOptions = {}): Promise<History
     output.reason = slice.reason;
     output.examinedRows += slice.examinedRows;
     output.examinedBytes += slice.examinedBytes;
-    for (const field of ['invalidRows', 'incompatibleRows', 'oversizedRows', 'oversizedSerializedBytes', 'unserializableRows'] as const) {
+    for (const field of ['invalidRows', 'incompatibleRows', 'oversizedRows', 'oversizedByteLowerBound', 'unserializableRows'] as const) {
       output.diagnostics[field] += slice.diagnostics[field];
     }
+    output.diagnostics.oversizedSerializedBytes = output.diagnostics.oversizedSerializedBytes === null || slice.diagnostics.oversizedSerializedBytes === null
+      ? null : output.diagnostics.oversizedSerializedBytes + slice.diagnostics.oversizedSerializedBytes;
     if (slice.diagnostics.unindexableRows !== null) output.diagnostics.unindexableRows = slice.diagnostics.unindexableRows;
     output.diagnostics.firstInvalidReason ??= slice.diagnostics.firstInvalidReason;
     output.diagnostics.error = slice.diagnostics.error;
     output.costs.slices += slice.costs.slices;
     output.costs.maxOperationMs = Math.max(output.costs.maxOperationMs, slice.costs.maxOperationMs);
     output.costs.maxOperationOvershootMs = Math.max(output.costs.maxOperationOvershootMs, slice.costs.maxOperationOvershootMs);
-    if (slice.complete || slice.reason === 'aborted' || slice.reason === 'failed') return output;
+    if (slice.complete || slice.reason === 'record-limit' || slice.reason === 'aborted' || slice.reason === 'failed') return output;
     if (output.examinedRows >= rowLimit) { output.reason = 'row-budget'; return output; }
     if (byteLimit - output.examinedBytes < MAX_RESULT_BYTES) { output.reason = 'byte-budget'; return output; }
     output.costs.yields++;

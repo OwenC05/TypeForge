@@ -3,6 +3,7 @@
 <title>Bounded history fixture</title>
 <pre id="output">Ready: generated local fixtures only.</pre>
 <script type="module">
-  import { runHistoryChecks } from './bounded-history.ts';
+  import { runHistoryChecks, runHistoryByteRepairChecks } from './bounded-history.ts';
   window.runHistoryChecks = runHistoryChecks;
+  window.runHistoryByteRepairChecks = runHistoryByteRepairChecks;
 </script>
