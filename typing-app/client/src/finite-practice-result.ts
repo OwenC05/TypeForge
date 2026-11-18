@@ -110,6 +110,7 @@ export function validateFinitePracticeResult(value: unknown, suppliedPlan: Certi
         (stats.firstErrors as number) <= attempts - matched, `${path}.key consistency`);
       keyAttempts += attempts; keyCorrect += matched;
     }
+    check(Object.hasOwn(keys, prompt.text[0]), `${path}.initial key`);
     if (sentence.eligible) {
       const expectedKeys = [...new Set(prompt.text)];
       check(Object.keys(keys).length === expectedKeys.length, `${path}.clean keys`);

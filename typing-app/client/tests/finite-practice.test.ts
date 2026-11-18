@@ -32,13 +32,21 @@ function key(adapter: FiniteAdapter, text: string, now: number, extra = {}) {
   return adapter.edit({ start, end: start, text, pressTime: now, ...extra }, now);
 }
 function finish(input = snapshot(), options: { step?: number; finalAt?: number;
-  variant?: 'edited' | 'incorrect' | 'repeat' | 'interrupted' | 'invalid-input' | 'missing-timing' | 'malformed-timing' } = {}) {
+  variant?: 'edited' | 'incorrect' | 'repeat' | 'interrupted' | 'invalid-input' | 'missing-timing' | 'malformed-timing' | 'reverse' } = {}) {
   const adapter = createFiniteAdapter({ id, snapshot: input });
   let now = 100;
   const step = options.step ?? 1;
   for (const [sentenceIndex, prompt] of input.plan.prompts.entries()) {
     assert.deepEqual(adapter.tick(now).engine.prompt, prompt);
     assert.deepEqual(adapter.tick(now).next, input.plan.prompts[sentenceIndex + 1] ?? null);
+    if (sentenceIndex === 0 && options.variant === 'reverse') {
+      for (const text of [...prompt.text].reverse()) {
+        adapter.edit({ start: 0, end: 0, text, pressTime: now }, now);
+        now += step;
+      }
+      key(adapter, ' ', now); now += step;
+      continue;
+    }
     for (const [index, char] of [...prompt.text].entries()) {
       if (sentenceIndex === 0 && index === 0 && options.variant === 'edited') {
         key(adapter, 'x', now); now += step;
@@ -63,6 +71,43 @@ function finite(source: SavedSource | null): FinitePracticeResult {
   assert.ok(source && 'schemaId' in source);
   return source;
 }
+
+for (const missing of ['all-keys', 'initial-key'] as const) {
+  test(`non-clean source rejects coherently adjusted ${missing} accounting`, () => {
+    const input = snapshot();
+    const genuine = finite(finish(input, { variant: 'repeat' }).source);
+    assert.deepEqual(validateFinitePracticeResult(genuine, input.plan), genuine);
+    const corrupt = structuredClone(genuine);
+    const sentence = corrupt.sentences[0];
+    assert.equal(sentence.eligible, false);
+    const removedKeys = missing === 'all-keys' ? Object.keys(sentence.keys) : [sentence.promptText[0]];
+    for (const key of removedKeys) {
+      corrupt.metrics.correctAttempts -= sentence.keys[key].correct;
+      delete sentence.keys[key];
+    }
+    corrupt.metrics.accuracy = corrupt.metrics.correctAttempts / corrupt.metrics.attemptedCharacters * 100;
+    corrupt.chartSamples.at(-1)!.accuracy = corrupt.metrics.accuracy;
+    assert.equal(corrupt.metrics.correctCharacters, 501);
+    assert.equal(corrupt.metrics.attemptedCharacters, 501);
+    assert.equal(corrupt.metrics.elapsedMs, 512);
+    if (missing === 'all-keys') assert.equal(corrupt.metrics.correctAttempts, 463);
+    else assert.ok(Object.keys(sentence.keys).length > 0);
+    assert.throws(() => validateFinitePracticeResult(corrupt, input.plan), /initial key/);
+  });
+}
+
+test('valid reverse insertion retains only the initial expected key on a non-clean sentence', () => {
+  const input = snapshot();
+  const source = finite(finish(input, { variant: 'reverse' }).source);
+  const sentence = source.sentences[0];
+  assert.equal(sentence.response, sentence.promptText);
+  assert.deepEqual(Object.keys(sentence.keys), [sentence.promptText[0]]);
+  assert.deepEqual(sentence.qualityFlags, ['incorrect', 'edited']);
+  assert.equal(sentence.eligible, false);
+  assert.ok(sentence.keys[sentence.promptText[0]].attempts > 0);
+  assert.ok(sentence.keys[sentence.promptText[0]].firstAttempts > 0);
+  assert.deepEqual(validateFinitePracticeResult(source, input.plan), source);
+});
 
 for (const [pair, characters] of [['he', 501], ['in', 491], ['le', 502], ['th', 480]] as const) {
   test(`actual ${pair} adapter submits exactly ${characters} certified characters and rejects overrun`, () => {
