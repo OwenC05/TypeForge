@@ -7,6 +7,7 @@ import type { FiniteAdapter, FinitePracticeResult, PracticeSnapshot, SavedSource
 import { MAX_ATTEMPTS, MAX_RESPONSE_LENGTH, TypingEngine, type SessionResult } from '../src/engine.ts';
 import { validateResult } from '../src/storage.ts';
 import { selectHistory } from '../src/profile.ts';
+import { pairPositions } from '../src/model.ts';
 
 const id = '00000000-0000-4000-8000-000000000001';
 const completedAt = '2026-11-18T12:00:00.000Z';
@@ -111,11 +112,11 @@ for (const [pair, characters] of [['he', 501], ['in', 491], ['le', 502], ['th', 
   });
 }
 
-test('finite actual-engine edits, backspace, incorrect/repeated/flagged/timing input preserve metric1 semantics', () => {
+for (const pair of ['he', 'in', 'le', 'th']) test(`${pair} actual-engine edits, backspace, incorrect/repeated/flagged/timing input preserve metric1 semantics`, () => {
   for (const variant of ['edited', 'incorrect', 'repeat', 'interrupted', 'invalid-input', 'missing-timing', 'malformed-timing'] as const) {
-    const { source } = finish(snapshot(), { variant });
+    const { source } = finish(snapshot(pair), { variant });
     const result = finite(source);
-    validateFinitePracticeResult(result, snapshot().plan);
+    validateFinitePracticeResult(result, snapshot(pair).plan);
     assert.equal(result.sentences[0].eligible, false, variant);
     assert.deepEqual(result.sentences[0].pairs, {}, variant);
     assert.equal(result.eligibleForProgress, false);
@@ -267,4 +268,32 @@ test('finite engine default remains opt-in: timed two-prompt runs continue wrapp
   for (const [i, text] of [...'a b a '].entries()) engine.edit({ start: engine.value.length, end: engine.value.length, text }, 100 + i);
   assert.equal(engine.state, 'running'); assert.equal(engine.submittedSummaries.length, 3);
   assert.equal(engine.prompt.id, 'two');
+});
+
+test('optional existing metric1 predictions retain their strict sentence shape and observation binding', () => {
+  const input = snapshot();
+  const engine = new TypingEngine({ id, prompts: input.plan.prompts, finite: true,
+    inputMode: 'flow-v1', durationMs: 30000, corpusVersion: '1', qwerty: true, mode: 'practice' });
+  engine.setSentencePredictions(0, { featureVersion: 1, baseline: { kind: 'population', version: 'v1' },
+    candidate: { modelVersion: 'm1', status: 'experimental' },
+    occurrences: pairPositions(input.plan.prompts[0].text).map(position => ({ position, baselineLogMs: 1, candidateLogMs: 2 })) });
+  let now = 100;
+  for (const prompt of input.plan.prompts) for (const text of [...prompt.text, ' ']) {
+    engine.edit({ start: engine.value.length, end: engine.value.length, text, pressTime: now }, now++);
+  }
+  const source = { ...finite(finish(input).source), ...engine.finiteResult()! };
+  assert.ok(source.sentences[0].prediction);
+  validateFinitePracticeResult(source, input.plan);
+  for (const mutate of [
+    (r: FinitePracticeResult) => { r.sentences[0].prediction!.baseline.version = ''; },
+    (r: FinitePracticeResult) => { r.sentences[0].prediction!.candidate!.status = 'wrong' as 'experimental'; },
+    (r: FinitePracticeResult) => { Object.values(r.sentences[0].prediction!.pairs)[0].count++; },
+    (r: FinitePracticeResult) => { Object.values(r.sentences[0].prediction!.pairs)[0].observedLogSum++; },
+    (r: FinitePracticeResult) => { Object.values(r.sentences[0].prediction!.pairs)[0].baselinePredictedLogSum = Infinity; },
+    (r: FinitePracticeResult) => { Object.values(r.sentences[0].prediction!.pairs)[0].candidatePredictedLogSum = -1e10; },
+    (r: FinitePracticeResult) => { Object.assign(r.sentences[0].prediction!, { extra: true }); },
+  ]) {
+    const corrupt = structuredClone(source); mutate(corrupt);
+    assert.throws(() => validateFinitePracticeResult(corrupt, input.plan));
+  }
 });

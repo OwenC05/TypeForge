@@ -82,9 +82,9 @@ export function validateFinitePracticeResult(value: unknown, suppliedPlan: Certi
   const observedRunFlags = new Set<string>();
   for (const [index, value] of sentences.entries()) {
     const path = `sentences[${index}]`;
-    // This producer has no prediction seam; no legacy selector/model provenance is admitted.
+    const raw = record(value, path);
     const sentence = record(value, path, ['promptId', 'promptText', 'response', 'submitted', 'eligible',
-      'diagnosticsAvailable', 'qualityFlags', 'keys', 'pairs']);
+      'diagnosticsAvailable', 'qualityFlags', 'keys', 'pairs', ...(Object.hasOwn(raw, 'prediction') ? ['prediction'] : [])]);
     const prompt = plan.prompts[index]!;
     check(sentence.promptId === prompt.id && sentence.promptText === prompt.text && prompt.text.length <= MAX_PROMPT_LENGTH, `${path}.prompt`);
     check(typeof sentence.response === 'string' && sentence.response.length > 0 && sentence.response.length <= MAX_RESPONSE_LENGTH &&
@@ -130,6 +130,32 @@ export function validateFinitePracticeResult(value: unknown, suppliedPlan: Certi
       check(observations > 0, `${path}.pair.count`);
       number(stats.logSum, `${path}.pair.logSum`, observations * Math.log(5000) + 1e-9,
         observations * Math.log(Number.MIN_VALUE) - 1e-9);
+    }
+    if (Object.hasOwn(sentence, 'prediction')) {
+      const rawPrediction = record(sentence.prediction, `${path}.prediction`);
+      const hasCandidate = Object.hasOwn(rawPrediction, 'candidate');
+      const prediction = record(rawPrediction, `${path}.prediction`, ['featureVersion', 'baseline', 'pairs', ...(hasCandidate ? ['candidate'] : [])]);
+      check(sentence.eligible && prediction.featureVersion === 1, `${path}.prediction eligibility`);
+      const version = (value: unknown) => typeof value === 'string' && value.length > 0 && value.length <= 80;
+      const baseline = record(prediction.baseline, 'prediction.baseline', ['kind', 'version']);
+      check(['population', 'user', 'smoothed-pair'].includes(baseline.kind as string) && version(baseline.version), 'prediction.baseline');
+      if (hasCandidate) {
+        const candidate = record(prediction.candidate, 'prediction.candidate', ['modelVersion', 'status']);
+        check(version(candidate.modelVersion) && candidate.status === 'experimental', 'prediction.candidate');
+      }
+      const predicted = record(prediction.pairs, 'prediction.pairs');
+      check(Object.keys(predicted).length > 0 && Object.keys(predicted).length === Object.keys(pairs).length, 'prediction.pairs completeness');
+      for (const [pair, value] of Object.entries(predicted)) {
+        check(Object.hasOwn(pairs, pair), 'prediction.pair');
+        const observed = pairs[pair] as { count: number; logSum: number };
+        const stats = record(value, 'prediction.pair', ['count', 'observedLogSum', 'baselinePredictedLogSum', ...(hasCandidate ? ['candidatePredictedLogSum'] : [])]);
+        check(stats.count === observed.count && stats.observedLogSum === observed.logSum, 'prediction.matched observations');
+        for (const field of ['baselinePredictedLogSum', ...(hasCandidate ? ['candidatePredictedLogSum'] : [])]) {
+          const sum = number(stats[field], `prediction.${field}`, Number.MAX_VALUE, -Number.MAX_VALUE);
+          const milliseconds = Math.exp(sum / observed.count);
+          check(Number.isFinite(milliseconds) && milliseconds > 0, `prediction.${field} representability`);
+        }
+      }
     }
   }
   check(correctCharacters === retained && responseCharacters + deleted === attempted && keyAttempts <= attempted && keyCorrect === correct,

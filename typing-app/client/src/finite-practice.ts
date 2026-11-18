@@ -24,7 +24,7 @@ export function createFiniteAdapter(input: { id: string; snapshot: Readonly<Prac
     tick(now): FiniteAdapterSnapshot {
       const state = engine.tick(now);
       return { terminal: state.state === 'completed' ? 'timeout' : state.state, engine: state,
-        next: engine.nextPrompt, completedSentences: engine.submittedSummaries.length };
+        next: engine.nextPrompt, completedSentences: state.sentenceIndex };
     },
     result(completedAt) {
       if (engine.state === 'completed') return engine.result(completedAt);
