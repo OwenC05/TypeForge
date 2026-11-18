@@ -1,0 +1,42 @@
+{
+ "phase": "real",
+ "port": 5302,
+ "node": "C:\\Program Files\\nodejs\\node.exe",
+ "started": "2026-11-18T23:36:43.321Z",
+ "server": {
+  "pid": 72460,
+  "executable": "C:\\Program Files\\nodejs\\node.exe",
+  "args": [
+   "node_modules/vite/bin/vite.js",
+   "preview",
+   "--host",
+   "127.0.0.1",
+   "--port",
+   "5302",
+   "--strictPort"
+  ],
+  "cwd": "C:\\Users\\Owenc\\orca\\workspaces\\TypeForge\\typeforge-daily-practice\\typing-app\\client",
+  "windowsHide": true,
+  "shell": false,
+  "exitCode": null
+ },
+ "browser": {
+  "executable": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+  "version": "157.0.8103.79",
+  "headless": true,
+  "launchedBy": "playwright-core launch (temporary profile)"
+ },
+ "cleanup": {
+  "serverExited": true,
+  "portClosed": true,
+  "finished": "2026-11-18T23:39:26.867Z"
+ },
+ "databases": [
+  "typeforge-ui-synthetic-c64add1c-5ef6-466e-ac76-3805dc6b15ed",
+  "typeforge-ui-synthetic-7e80f096-5c66-475f-9deb-a02a2c87ee6b",
+  "typeforge-ui-synthetic-62fbe8a9-7995-4bf7-939d-72951af55060",
+  "typeforge-ui-synthetic-573e8041-a1b0-4935-af37-3589483aa182",
+  "typeforge-ui-synthetic-9dabeb4c-4ed5-4377-bc99-bde2703ff470",
+  "typeforge-ui-synthetic-6e16bbbd-d0eb-4e36-9f3e-954ec1d916ea"
+ ]
+}

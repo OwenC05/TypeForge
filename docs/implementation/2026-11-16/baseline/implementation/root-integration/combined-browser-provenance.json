@@ -1,0 +1,262 @@
+{
+    "sourceCommit":  "bc7a885",
+    "head":  "e0ed4c006e2252bd1db2eca21dc4cb8c872aa30d",
+    "scope":  "Root replay of unchanged author real phase against combined F and C build; only executable port declaration adapted from5324 to5302; historical author labels/comments still mention5324",
+    "productionInputs":  [
+                             {
+                                 "path":  "typing-app/client/src/app.ts",
+                                 "gitBlob":  "9353263540cef3a29d22af63780819916d6106a9",
+                                 "sha256":  "71c09f4661297a4633cbbdc4b1d452d2ebbcb70146749dcd4f879fc1892d6b86"
+                             },
+                             {
+                                 "path":  "typing-app/client/src/style.css",
+                                 "gitBlob":  "1ec6c1348d3e62a5eae0f6fe44c3c472b04d8ed0",
+                                 "sha256":  "1200c972b36751ce5f1ff4d9c3626c4b1e8c2de4615cdcca1fcdb1c06af7561f"
+                             },
+                             {
+                                 "path":  "typing-app/client/src/coach-ui.ts",
+                                 "gitBlob":  "d5f8fe053e1983a74b275493d90505b67f55b858",
+                                 "sha256":  "9b7aae36462de23901c7581602175d8da42cb23bdf57825f1604eda026257461"
+                             },
+                             {
+                                 "path":  "typing-app/client/src/unsaved.ts",
+                                 "gitBlob":  "c41408080e1d6563bc9c2f021fbeb3ab28acca8e",
+                                 "sha256":  "6fed6b9e3a9e2d87b670980a7155c0ff997fd77c6d09c39f17ef8b876729ba77"
+                             },
+                             {
+                                 "path":  "typing-app/client/src/storage.ts",
+                                 "gitBlob":  "a46a0a62eed07507ca0c2b4c0f23ce41c8cb1036",
+                                 "sha256":  "45e778c864d58bd1addf724c0dd309a962a654a8298d6b5417f0ce6413e9a820"
+                             },
+                             {
+                                 "path":  "typing-app/client/src/coach-storage.ts",
+                                 "gitBlob":  "07371e38c33de1531e40440102c688fb31581bdf",
+                                 "sha256":  "449231cd936d8495b2a978a53f3495d1bfb6ce4c2f07812e9a4f3a6453356869"
+                             },
+                             {
+                                 "path":  "typing-app/client/src/coach-policy.ts",
+                                 "gitBlob":  "a3868390989d6b8e84e370ee125fdfd3c19c0cce",
+                                 "sha256":  "15e96269947005cccf3a1f1debf7928e486d7cb5e22e81f192132d304b36463b"
+                             },
+                             {
+                                 "path":  "typing-app/client/src/coach-plan.ts",
+                                 "gitBlob":  "8c3c411f56b9732fe2a47ff1bcbf509e71f85107",
+                                 "sha256":  "289a3bde9443d3791257c27556c4d3dd7b2c165edf5cf7dace2a379134d7e3d5"
+                             },
+                             {
+                                 "path":  "typing-app/client/src/coach-types.ts",
+                                 "gitBlob":  "43f7c070788631e8014ee905dc634d55171cb38a",
+                                 "sha256":  "709bec8f3a830a3c990e81e3bba8a62c0916a39fa174e6454b00f44601d65263"
+                             },
+                             {
+                                 "path":  "typing-app/client/src/engine.ts",
+                                 "gitBlob":  "49191b896c27a5381ca2cbfa6c366221cd5820fe",
+                                 "sha256":  "d62b08eee7c1acc55ba2d31ca914d3db52a93017e27fba55d37f154293a936c9"
+                             },
+                             {
+                                 "path":  "typing-app/client/src/finite-practice.ts",
+                                 "gitBlob":  "727e469d0f24edc8d52e1029aae461988e20dbc0",
+                                 "sha256":  "e10b6accfee3047d875ebbf40e2b1d3707888f6f4448f9f2cdef8944fa06c498"
+                             },
+                             {
+                                 "path":  "typing-app/client/src/finite-practice-result.ts",
+                                 "gitBlob":  "a1ea3f4c3d359ad3973ec8f6ba1b03111e88b9c7",
+                                 "sha256":  "fd8200654a792fb3d6cdb86cda02f3701e92bf874aa725ffc7ceb19249a3c7e0"
+                             },
+                             {
+                                 "path":  "typing-app/client/src/profile.ts",
+                                 "gitBlob":  "4278d052ab900aa5b10a05bb9446812d835f35a4",
+                                 "sha256":  "3eb148c75f85482675ab00f4577b3a7a450f4ba8268734d5f74c8646bd5d4b9b"
+                             },
+                             {
+                                 "path":  "typing-app/client/src/corpus.ts",
+                                 "gitBlob":  "f50180ea88f95d1b0c2a999a3e94f447a2b587fb",
+                                 "sha256":  "28f37ce212e8704397e0097f22b77b2f9f84978f86f9db767decb5edf505741e"
+                             },
+                             {
+                                 "path":  "typing-app/client/package.json",
+                                 "gitBlob":  "a92cf80db2aad307634e0883597e4c6e89084f26",
+                                 "sha256":  "38283cf58160d6b51c0258d70a1ec85b120100b04aa577927419b5fec80555f1"
+                             },
+                             {
+                                 "path":  "typing-app/client/package-lock.json",
+                                 "gitBlob":  "151cf9b3f5022abed2d3783b7fc6991127b11fb3",
+                                 "sha256":  "c54a9f65c71af508465f95d25b45515b4733efde3cbcf62911a78425bbb36cc8"
+                             },
+                             {
+                                 "path":  "typing-app/client/tests/browser/coach-app.mjs",
+                                 "gitBlob":  "244f357756f3755d7f6afa5595b1631b799e43da",
+                                 "sha256":  "2c8e467424145ae22573e401a15f493d9869684ed055774a29a31fd9027de279"
+                             }
+                         ],
+    "build":  [
+                  {
+                      "path":  "assets/app-BGkX9qSh.js",
+                      "bytes":  137936,
+                      "sha256":  "9b79ab41acbe30023bc0183a492b14a77db5d529ff879789d4757d25103ad542"
+                  },
+                  {
+                      "path":  "assets/app-Ut7hJad6.css",
+                      "bytes":  25839,
+                      "sha256":  "7295d0e64f2f72414ebfae85708f090544318374f6800ffe8795180ca282389b"
+                  },
+                  {
+                      "path":  "assets/coach-plan-Br9S6n_x.js",
+                      "bytes":  17713,
+                      "sha256":  "6f2e020a2cc06bfcf9b04fa958d61070ccdd9177ea2a06ef22d11d6a6948c68b"
+                  },
+                  {
+                      "path":  "assets/coach-plan-DhalpHzf.js",
+                      "bytes":  373,
+                      "sha256":  "68db75841760e4752c942efe5002ecaa4766d93f8608cac866df55a66368bce0"
+                  },
+                  {
+                      "path":  "assets/coach-policy-CzuUptLR.js",
+                      "bytes":  16953,
+                      "sha256":  "134d5103f6027f91687ec157f515bf60b80684a3075e9eedfb8a47d99a254328"
+                  },
+                  {
+                      "path":  "assets/define-element-D0WD7WfV.js",
+                      "bytes":  40157,
+                      "sha256":  "20ef42d6bb8f69efee84c3d782b304c7d1c395482316ead6b00450f94b694698"
+                  },
+                  {
+                      "path":  "assets/engine-DpILMHCO.js",
+                      "bytes":  15130,
+                      "sha256":  "ce9d680e14c5813c4cf812686e7969bc361f99b7977feabc88ea0b83dc6a9b7a"
+                  },
+                  {
+                      "path":  "assets/env-B-odJnus.js",
+                      "bytes":  2426,
+                      "sha256":  "9ba81c4225754f059abf3e6d49552c790705be69de4ecd770b5880b4164a0029"
+                  },
+                  {
+                      "path":  "assets/favicon-2cBZDU6Q.svg",
+                      "bytes":  286,
+                      "sha256":  "c81817b819e26eaf5598e51754bdca5d75dcad2fbee3d45369195ac2ab94d569"
+                  },
+                  {
+                      "path":  "assets/finite-practice-BTc1G19J.js",
+                      "bytes":  1469,
+                      "sha256":  "26ff468542eea4046f52d7c8304237a153c8e3cd7b7624763816f54bec0ce947"
+                  },
+                  {
+                      "path":  "assets/finite-practice-result-B0bC42J7.js",
+                      "bytes":  136,
+                      "sha256":  "6b3dbbea77f00cfee0fe29a292a415c1bb2e119d2ff2d9d4baf4e03b75d4409c"
+                  },
+                  {
+                      "path":  "assets/finite-practice-result-CJH76_0N.js",
+                      "bytes":  7435,
+                      "sha256":  "e556a95db4671296d841b5e2c6365c372d815eff26cf13f54f539250b3bfa733"
+                  },
+                  {
+                      "path":  "assets/name-check-stub-DRJfdF45.js",
+                      "bytes":  519,
+                      "sha256":  "819c7675ea0aeae2a9eb093d0a5d3b30f675f349d77bfee6f745186f5d48b2d8"
+                  },
+                  {
+                      "path":  "assets/preload-helper-BaNbYf_w.js",
+                      "bytes":  1398,
+                      "sha256":  "49e31bba082196935782ac14bbedbc2a8e7c4229f918bc086ab5dd08ca015034"
+                  },
+                  {
+                      "path":  "assets/presence-B2EglB5H.js",
+                      "bytes":  8163,
+                      "sha256":  "e5af23ceb833f7fae52fc3abc01b4cc321e5c72c67786de938d3faf46eae833b"
+                  },
+                  {
+                      "path":  "assets/progress-wypFnXAy.js",
+                      "bytes":  3366,
+                      "sha256":  "b32e10405f38bfcb65fe06fdadb4085dad7de17fca53e25535f15a1383d60fc7"
+                  },
+                  {
+                      "path":  "assets/select-JeFgax_B.js",
+                      "bytes":  87524,
+                      "sha256":  "a4d651fa16afe6d53ddd574f36e1d4ea3d370ddf67fdab38c937496d7327ddb5"
+                  },
+                  {
+                      "path":  "assets/sheet-presentation-BQEATMwe.js",
+                      "bytes":  37665,
+                      "sha256":  "7a8ae76df44b577b0e0e20b6f79d15a3e1596abb099d097c770dab878d2a865b"
+                  },
+                  {
+                      "path":  "assets/sides-CecCr77z.js",
+                      "bytes":  99,
+                      "sha256":  "4a7d4bfd9fdf5d4f981d49bebb96946c6a17eb3710a7ebc87f1d8299813d9f3e"
+                  },
+                  {
+                      "path":  "assets/storage-DGRnyVj4.js",
+                      "bytes":  31255,
+                      "sha256":  "fca79915410dc7ac9780c78575dbd1b9ef524cc530267e36d8d0b36dc61c4245"
+                  },
+                  {
+                      "path":  "DetailedResults.html",
+                      "bytes":  412,
+                      "sha256":  "955aeb80767b01a81311ada12086e925ade7be6d911a60563ae9dc5dd0dd88a4"
+                  },
+                  {
+                      "path":  "index.html",
+                      "bytes":  1448,
+                      "sha256":  "ee7c416a5e128615cb6e802e2a294a4569d2c83d069edb94e51b6109d58d4947"
+                  },
+                  {
+                      "path":  "lab.html",
+                      "bytes":  1436,
+                      "sha256":  "49b4a4494e59bfb17071e1df720a1297b71525e4c8a542e6a5991a1a82a7c593"
+                  },
+                  {
+                      "path":  "LandingPage.html",
+                      "bytes":  406,
+                      "sha256":  "c10c7915250908ebec892c6f4ee83de6b9f1f7475fe34fea4af945e9746ce032"
+                  },
+                  {
+                      "path":  "LeaderBoard.html",
+                      "bytes":  406,
+                      "sha256":  "c10c7915250908ebec892c6f4ee83de6b9f1f7475fe34fea4af945e9746ce032"
+                  },
+                  {
+                      "path":  "practice.html",
+                      "bytes":  1293,
+                      "sha256":  "c6fe233a2a696e4562f979a9907f2443905ce7a053f14f5d9d2ca5bb75228ff0"
+                  },
+                  {
+                      "path":  "progress.html",
+                      "bytes":  1304,
+                      "sha256":  "2341ccd8e9854e008740f39f22a1e1353230ac60d1c902b50cbebcc00aca9fd3"
+                  },
+                  {
+                      "path":  "ProgressDashboard.html",
+                      "bytes":  415,
+                      "sha256":  "56ec94edb3d7dcdeaa6d5a2a9e816da18da542441c2578ec624373b1b91399a2"
+                  },
+                  {
+                      "path":  "results.html",
+                      "bytes":  1297,
+                      "sha256":  "da5da841affe33b9a32ad9ec6e9a855702a3c705a6e202bf46c51049e63b68e7"
+                  },
+                  {
+                      "path":  "ResultsPage.html",
+                      "bytes":  412,
+                      "sha256":  "955aeb80767b01a81311ada12086e925ade7be6d911a60563ae9dc5dd0dd88a4"
+                  },
+                  {
+                      "path":  "SignIn.html",
+                      "bytes":  406,
+                      "sha256":  "c10c7915250908ebec892c6f4ee83de6b9f1f7475fe34fea4af945e9746ce032"
+                  },
+                  {
+                      "path":  "TypingDrill.html",
+                      "bytes":  831,
+                      "sha256":  "ec8656dca06ab35ad13d7bb01365e535b360cd03c5041214a68fcfb2f13907f0"
+                  },
+                  {
+                      "path":  "TypingTest.html",
+                      "bytes":  415,
+                      "sha256":  "da7846276b83daae6241e8f695c1005a07c2a6d23639e4c7470208e5dbc81995"
+                  }
+              ],
+    "playwrightModule":  "C:/Users/Owenc/AppData/Local/npm-cache/_npx/9833c18b2d85bc59/node_modules/playwright-core/index.mjs",
+    "playwrightVersion":  "1.64.0-alpha-1790635538000",
+    "runnerSha256":  "279e8a78d6c4f289745a539f0a873c757ceb999d0c952a4f631ff1c2c3bf2950"
+}

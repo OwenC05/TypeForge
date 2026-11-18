@@ -1,0 +1,128 @@
+PASS [real] K1/REG-3c first visit: General 30 s, qwerty off, textarea focused, Suggested locked after the check 
+PASS [real] layout home-ready @1440: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout home-ready @390: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout home-ready @320: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] K1 first key starts the General block (checking never took focus) 
+PASS [real] isolation home: only the UUID synthetic database exists 
+PASS [real] K2d/K2c pointer press on locked Suggested: General kept, slot explains with a take-test key 
+PASS [real] layout locked-press @1440: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout locked-press @390: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout locked-press @320: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] K2 locked Suggested reachable by arrow; the change is cancelled and explained 
+PASS [real] K2b Space on the locked key keeps the value and explains 
+PASS [real] K3 why? opens with Enter and explains progress 
+PASS [real] D2b General at 60 s stays ordinary: no hint, duration untouched 
+PASS [real] D2c Suggested with qwerty off (locked here): an ordinary General block, no finite plan 
+PASS [real] layout suggested-qwerty-off @1440: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout suggested-qwerty-off @390: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout suggested-qwerty-off @320: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] REG-3a assessment hint offers explicit qwerty declaration; the first key still starts 
+PASS [real] REG-3b not-counted (qwerty off) result says so and offers the same declaration key 
+PASS [real] layout result-not-counted @1440: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout result-not-counted @390: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout result-not-counted @320: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] K9 a letter on the result is not intercepted: the result stays, nothing restarts 
+PASS [real] baseline test 1 ready: label and hint from the prepared status 
+PASS [real] layout baseline-1-ready @1440: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout baseline-1-ready @390: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout baseline-1-ready @320: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] K4 test 1 completes in place, counted after save, next test focused 
+PASS [real] layout result-1-saved @1440: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout result-1-saved @390: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout result-1-saved @320: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] K4b/REG-5c Enter continues to test 2 with native focus 
+PASS [real] REG-5a rapid Again during the save: no stale ordinal is frozen; test 3 once the status is fresh 
+PASS [real] real reload: test 3 is still next (count read back from storage) 
+PASS [real] K5 interrupted test is not counted; the count is unchanged 
+PASS [real] REG-5g interrupted -> try test 4 again: label 4, native focus 
+PASS [real] REG-6a test 5 save failed: retry saving is the focused visible primary; not counted 
+PASS [real] layout result-5-save-failed @1440: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout result-5-save-failed @390: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout result-5-save-failed @320: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] K6 Enter retries the save; the test then counts (5 of 10) and next test is focused 
+PASS [real] REG-5d next test after a failed save: test 7 (the unsaved test still holds its place), recovery offered 
+PASS [real] layout ready-7-test-6-unsaved @1440: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout ready-7-test-6-unsaved @390: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout ready-7-test-6-unsaved @320: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] REG-8b why? in progress: "about five minutes of typing", the unsaved test named 
+PASS [real] layout why-in-progress @1440: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout why-in-progress @390: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout why-in-progress @320: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] REG-5f retry saving from the ready slot succeeds; label stays 7, focus back to the text 
+PASS [real] REG-2a/K7 test 10: Baseline complete, "Last 10 tests · median", focus th explained, try suggested primary 
+PASS [real] K9 the keyboard-reached primary shows a visible focus indicator 
+PASS [real] layout result-10-baseline-complete @1440: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout result-10-baseline-complete @390: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout result-10-baseline-complete @320: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout result-10-baseline-complete {"forcedColors":"active"} @1440: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout result-10-baseline-complete {"forcedColors":"active"} @390: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout result-10-baseline-complete {"forcedColors":"active"} @320: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] forced colours: the focused primary keeps a real outline shape (not colour alone) 
+PASS [real] ten counted assessments and one interrupted are stored as current sources 
+PASS [real] isolation baseline: only the UUID synthetic database exists 
+PASS [real] K7 try suggested -> ready Suggested practice on the admitted th plan; no previous pair named 
+PASS [real] why? on Suggested explains th from the admitted snapshot; no promise of general sentences mixed in 
+PASS [real] layout suggested-ready-why @1440: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout suggested-ready-why @390: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout suggested-ready-why @320: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] REG-9/D2e finite plan ends at its last sentence: no wrap, "all N sentences done at T s of 30", never "30 s · complete" 
+PASS [real] layout suggested-plan-end @1440: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout suggested-plan-end @390: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout suggested-plan-end @320: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] the finite record is saved as itself (not a timed result) 
+PASS [real] suggested again: the same plan, admitted afresh, no change note 
+PASS [real] timer first: an ordinary practice result labelled 30 s · complete 
+PASS [real] REG-9b flagged finite end: leads with the flag, shows no figures, still labelled by what happened 
+PASS [real] layout suggested-plan-end-flagged @1440: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout suggested-plan-end-flagged @390: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout suggested-plan-end-flagged @320: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] general from a Suggested result starts an ordinary General block 
+PASS [real] D2a/D2d Suggested at 60 s: General block, duration kept, honest hint with use 30 s; no finite plan 
+PASS [real] layout suggested-at-60 @1440: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout suggested-at-60 @390: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout suggested-at-60 @320: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] D2a pressing use 30 s is the person's own choice and admits Suggested 
+PASS [real] REG-2b/REG-8a Progress: 10 of 10 once, summary with dates and update note, finite rows listed 
+PASS [real] layout progress-complete @1440: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout progress-complete @390: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout progress-complete @320: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] export all saved sources: C's envelope carries the original finite and timed sources 
+PASS [real] layout progress-reset-confirm @1440: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout progress-reset-confirm @390: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout progress-reset-confirm @320: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] K10 reset confirm is safe-first; start over -> "New baseline started: 0 of 10" after a proved re-read 
+PASS [real] layout progress-after-reset @1440: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout progress-after-reset @390: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout progress-after-reset @320: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] stale admission: a reset elsewhere before the first key switches the ready block to honest General and says why 
+PASS [real] layout suggested-stepped-back @1440: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout suggested-stepped-back @390: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout suggested-stepped-back @320: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] D1a reload after stepping back: no previous pair named; truthful General 
+PASS [real] results page reads the finite record from the source union, labelled by what happened 
+PASS [real] layout results-finite @1440: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout results-finite @390: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout results-finite @320: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] isolation baseline: only the UUID synthetic database exists 
+PASS [real] K8 complete-insufficient (even timing): Baseline complete, reason sentence, General primary 
+PASS [real] layout result-10-insufficient @1440: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout result-10-insufficient @390: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout result-10-insufficient @320: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] stale evidence (31 days later): tests still count, only timing needs refreshing; take an assessment offered 
+PASS [real] layout stale-evidence-why @1440: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout stale-evidence-why @390: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout stale-evidence-why @320: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout stale-evidence-why {"reducedMotion":"reduce"} @1440: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout stale-evidence-why {"reducedMotion":"reduce"} @390: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] layout stale-evidence-why {"reducedMotion":"reduce"} @320: no horizontal overflow, no clipped slot key, no undefined/NaN 
+PASS [real] isolation stale: only the UUID synthetic database exists 
+PASS [real] helper cleanup: own server exited and port 5324 closed 
+PASS [real] no page errors or console errors 
+{
+ "phase": "real",
+ "base": "http://127.0.0.1:5302",
+ "browser": "157.0.8103.79",
+ "total": 120,
+ "passed": 120,
+ "failed": []
+}
