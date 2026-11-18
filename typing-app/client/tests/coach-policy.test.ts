@@ -395,3 +395,23 @@ test('real finite result never enters assessment or next coach window; ordinary 
   const changed=derivePolicy(inputFor(history));assert.equal(changed.candidate,null);assert.equal(changed.status.participation.counted,10);
   if(changed.status.summary.state==='available')assert.deepEqual(changed.status.summary.value.sources.map(r=>r.id),original.witnesses.map(r=>r.id));
 });
+
+test('exact cohort, ordinary purpose and run integrity precede weak participation counting',()=>{
+  const original=oneKeys(1)[0];
+  assert.equal(original.metrics.correctCharacters,0);assert.equal(original.metrics.attemptedCharacters,1);
+  assert.equal(derivePolicy(inputFor([original])).status.participation.counted,1);
+  for(const change of [
+    (r:SessionResult)=>{r.settings.qwerty=false;},
+    (r:SessionResult)=>{delete r.settings.inputMode;r.settings.durationMs=60000;r.metrics.elapsedMs=60000;r.chartSamples.at(-1)!.elapsedMs=60000;},
+    (r:SessionResult)=>{r.settings.corpusVersion='2';},
+    (r:SessionResult)=>{r.qualityFlags=['interrupted'];r.eligibleForProgress=false;},
+    (r:SessionResult)=>{r.metrics.attemptedCharacters=0;r.metrics.accuracy=null;},
+    (r:SessionResult)=>{r.completedAt='2026-11-16T12:00:00.001Z';},
+  ]) {
+    const source=structuredClone(original);change(source);validateResult(source);
+    const p=derivePolicy(inputFor([source]));assert.equal(p.status.participation.counted,0);assert.equal(p.candidate,null);
+  }
+  const protectedInput=inputFor(oneKeys());
+  protectedInput.sources=protectedInput.sources.map(r=>({...r,membership:r.membership?{...r.membership,purpose:'protected-probe'}:null}));prove(protectedInput);
+  assert.equal(derivePolicy(protectedInput).status.participation.counted,0);
+});

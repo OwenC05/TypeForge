@@ -149,7 +149,8 @@ function rangeRows<K extends keyof RangeEnd>(range: RangeProof<K>, rows: SourceR
 function pendingCount(input: ProjectionInput, saved: readonly SourceRead[]): number {
   const ids = new Set<string>(), durable = new Set(saved.map(r => r.ref.id));
   for (const pending of input.pendingSources) {
-    if (!pending.retryable || pending.durablySaved !== false || pending.state === 'rejected' || !pending.capture) continue;
+    if (pending.retryable !== true || pending.durablySaved !== false ||
+      (pending.state !== 'pending' && pending.state !== 'failed') || !pending.capture) continue;
     try {
       validateCapture(pending.capture); validateResult(pending.source);
       const c = pending.capture, m = input.metadata, r = pending.source;
@@ -388,10 +389,13 @@ const c = COACH_CONFIG;
 export function admitPractice(input: AdmissionInput): Admission {
   if (input.runState !== 'idle') return { admitted: false, reason: 'started' };
   const candidate = input.candidate;
+  // Only the immutable snapshot returned by this selector is an admission candidate.
+  // This continuity guard cannot authenticate C's transaction; C owns that proof.
+  if (!issuedSnapshots.has(candidate)) return { admitted: false, reason: 'scan-incomplete' };
   if (input.currentConfigId !== CONFIG_ID || candidate.configId !== CONFIG_ID) return { admitted: false, reason: 'policy-invalid' };
   if (!validAuthority(input.currentAuthority) || !same(input.currentAuthority,candidate.proof.authority) ||
     input.currentGeneration !== candidate.generation) return { admitted: false, reason: 'authority-changed' };
-  if (!issuedSnapshots.has(candidate) || input.proof !== candidate.proof) return { admitted: false, reason: 'scan-incomplete' };
+  if (input.proof !== candidate.proof) return { admitted: false, reason: 'scan-incomplete' };
   try {
     validateCoachConfig(COACH_CONFIG); validateCertifiedPlan(candidate.plan);
     requireValue(candidate.focus.certificateId === candidate.plan.certificateId && candidate.focus.pair === candidate.plan.pair &&
