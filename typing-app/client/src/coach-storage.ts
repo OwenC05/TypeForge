@@ -194,7 +194,7 @@ export async function saveSource(source: SavedSource, capture: Capture | null): 
             if (metadata) tx.objectStore(METADATA_STORE).put({ ...metadata,
               sourceRevision: Math.min(MAX_REVISION, metadata.sourceRevision + 1) }, 'authority');
             changed = true;
-          } catch (error) { tx.abort(); reject(error); }
+          } catch (error) { try { tx.abort(); } catch { /* Already aborted/inactive. */ } reject(error); }
         };
         tx.oncomplete = () => resolve();
         tx.onabort = () => reject(tx.error ?? new Error('Atomic source save aborted.'));
@@ -250,16 +250,15 @@ export async function deleteSource(id: string): Promise<void> {
       const m = tx.objectStore(MEMBERSHIP_STORE).getKey(id);
       const meta = tx.objectStore(METADATA_STORE).get('authority');
       meta.onsuccess = () => {
-        changed = a.result !== undefined || b.result !== undefined || m.result !== undefined;
-        if (!changed) return;
-        tx.objectStore(STORE).delete(id); tx.objectStore(CURRENT_STORE).delete(id); tx.objectStore(MEMBERSHIP_STORE).delete(id);
-        let metadata: Metadata | null = null;
-        try { bounded(meta.result, COMPACT_BYTES); metadata = validate(meta.result); }
-        catch { /* Ordinary source deletion remains available without authority. */ }
-        if (metadata) {
-          try { tx.objectStore(METADATA_STORE).put({ ...metadata, sourceRevision: Math.min(MAX_REVISION, metadata.sourceRevision + 1) }, 'authority'); }
-          catch (error) { tx.abort(); reject(error); }
-        }
+        try {
+          changed = a.result !== undefined || b.result !== undefined || m.result !== undefined;
+          if (!changed) return;
+          tx.objectStore(STORE).delete(id); tx.objectStore(CURRENT_STORE).delete(id); tx.objectStore(MEMBERSHIP_STORE).delete(id);
+          let metadata: Metadata | null = null;
+          try { bounded(meta.result, COMPACT_BYTES); metadata = validate(meta.result); }
+          catch { /* Ordinary source deletion remains available without authority. */ }
+          if (metadata) tx.objectStore(METADATA_STORE).put({ ...metadata, sourceRevision: Math.min(MAX_REVISION, metadata.sourceRevision + 1) }, 'authority');
+        } catch (error) { try { tx.abort(); } catch { /* Already aborted/inactive. */ } reject(error); }
       };
       tx.oncomplete = () => resolve(); tx.onabort = () => reject(tx.error ?? new Error('Atomic source delete aborted.'));
     });
@@ -357,15 +356,21 @@ function point(tx: IDBTransaction, store: string, key: IDBValidKey, ledger: Ledg
   catch (error) { ledger.settle(0, 'failure'); throw error; }
   request.onerror = () => { ledger.work.maxOperationMs = Math.max(ledger.work.maxOperationMs, performance.now() - requestedAt); ledger.settle(0, 'failure'); };
   request.onsuccess = () => {
-    const started = performance.now();
-    const value = request.result;
-    const measured = value === undefined ? { bytes: 0, oversized: false, error: null } : historyJsonBytes(value, ceiling);
-    if (measured.oversized) { ledger.work.oversizedSerializedBytes = null; ledger.work.oversizedByteLowerBound += ceiling + 1; }
-    ledger.settle(measured.bytes, measured.error || measured.oversized ? 'record-limit' : null);
-    const duration = performance.now() - started;
-    ledger.work.maxOperationMs = Math.max(ledger.work.maxOperationMs, performance.now() - requestedAt);
-    ledgerStates.get(ledger)!.processingMs += duration;
-    if (!ledger.terminal) ready(value);
+    try {
+      const started = performance.now();
+      const value = request.result;
+      const measured = value === undefined ? { bytes: 0, oversized: false, error: null } : historyJsonBytes(value, ceiling);
+      if (measured.oversized) { ledger.work.oversizedSerializedBytes = null; ledger.work.oversizedByteLowerBound += ceiling + 1; }
+      ledger.settle(measured.bytes, measured.error || measured.oversized ? 'record-limit' : null);
+      const duration = performance.now() - started;
+      ledger.work.maxOperationMs = Math.max(ledger.work.maxOperationMs, performance.now() - requestedAt);
+      ledgerStates.get(ledger)!.processingMs += duration;
+      if (!ledger.terminal) ready(value);
+    } catch {
+      // ready() may schedule a nested point after this point has settled.
+      // Its failed attempt is already charged; abort without settling twice.
+      try { tx.abort(); } catch { /* Already aborted/inactive. */ }
+    }
   };
 }
 
@@ -450,7 +455,7 @@ async function sourcePage(input: { cursor: MergedCursor | null; ledger: Ledger; 
               });
             });
           });
-        } catch (error) { tx.abort(); reject(error); }
+        } catch (error) { try { tx.abort(); } catch { /* Already aborted/inactive. */ } reject(error); }
       }, () => { stop = 'exhausted'; }, () => {
         if (ledger.terminal) { stop = ledger.terminal; return false; }
         if (ledger.work.keyRequests >= Math.min(1004, 2 * state.sourceAttempts + 4)) { stop = 'row-budget'; return false; }

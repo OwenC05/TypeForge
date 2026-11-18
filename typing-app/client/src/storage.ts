@@ -234,19 +234,25 @@ export function openDatabase(signal?: AbortSignal): Promise<IDBDatabase> {
     const abort = () => { blocked = true; cleanup(); reject(signal?.reason); };
     signal?.addEventListener('abort', abort, { once: true });
     request.onupgradeneeded = () => {
-      if (blocked || signal?.aborted) { request.transaction!.abort(); return; }
-      const store = request.result.objectStoreNames.contains(STORE)
-        ? request.transaction!.objectStore(STORE)
-        : request.result.createObjectStore(STORE, { keyPath: 'id' });
-      if (!store.indexNames.contains(ORDER_INDEX)) store.createIndex(ORDER_INDEX, ['completedAt', 'id']);
-      const current = request.result.createObjectStore(CURRENT_STORE, { keyPath: 'id' });
-      current.createIndex(ORDER_INDEX, ['completedAt', 'id']);
-      request.result.createObjectStore(MEMBERSHIP_STORE, { keyPath: 'resultId' });
-      const metadata = request.result.createObjectStore(METADATA_STORE);
-      const epoch = crypto.randomUUID();
-      metadata.add({ schemaId: 'typeforge-coach-metadata-v3', databaseId: crypto.randomUUID(),
-        defaultContextId: crypto.randomUUID(), activeEpochId: epoch, legacyEpochId: epoch,
-        legacyCutoffCompletedAt: new Date().toISOString(), sourceRevision: 0 }, 'authority');
+      try {
+        if (blocked || signal?.aborted) { request.transaction!.abort(); return; }
+        const store = request.result.objectStoreNames.contains(STORE)
+          ? request.transaction!.objectStore(STORE)
+          : request.result.createObjectStore(STORE, { keyPath: 'id' });
+        if (!store.indexNames.contains(ORDER_INDEX)) store.createIndex(ORDER_INDEX, ['completedAt', 'id']);
+        const current = request.result.createObjectStore(CURRENT_STORE, { keyPath: 'id' });
+        current.createIndex(ORDER_INDEX, ['completedAt', 'id']);
+        request.result.createObjectStore(MEMBERSHIP_STORE, { keyPath: 'resultId' });
+        const metadata = request.result.createObjectStore(METADATA_STORE);
+        const epoch = crypto.randomUUID();
+        metadata.add({ schemaId: 'typeforge-coach-metadata-v3', databaseId: crypto.randomUUID(),
+          defaultContextId: crypto.randomUUID(), activeEpochId: epoch, legacyEpochId: epoch,
+          legacyCutoffCompletedAt: new Date().toISOString(), sourceRevision: 0 }, 'authority');
+      } catch (error) {
+        blocked = true; cleanup();
+        try { request.transaction?.abort(); } catch { /* Already aborted/inactive. */ }
+        reject(error);
+      }
     };
     request.onerror = () => { cleanup(); reject(request.error ?? new Error('Could not open local results.')); };
     request.onblocked = () => {

@@ -3,8 +3,9 @@
 <title>Isolated coach storage acceptance</title>
 <pre id="output">Ready: synthetic isolated IndexedDB fixtures only.</pre>
 <script type="module">
-  import { runCoachStorageChecks, runAcceptedHistoryChecks, startCoachTabFixture, mutateCoachTabFixture, finishCoachTabFixture } from './coach-storage.ts';
+  import { runCoachStorageChecks, runStorageContainmentCheck, runAcceptedHistoryChecks, startCoachTabFixture, mutateCoachTabFixture, finishCoachTabFixture } from './coach-storage.ts';
   window.runCoachStorageChecks = runCoachStorageChecks;
+  window.runStorageContainmentCheck = runStorageContainmentCheck;
   window.runAcceptedHistoryChecks = runAcceptedHistoryChecks;
   window.startCoachTabFixture = startCoachTabFixture;
   window.mutateCoachTabFixture = mutateCoachTabFixture;

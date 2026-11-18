@@ -733,6 +733,118 @@ export async function runCoachStorageChecks() {
   }
 }
 
+/** C1 author regressions. Window/external page errors are observed, never suppressed. */
+export async function runStorageContainmentCheck(which: 'upgrade' | 'delete' | 'membership') {
+  const name = `typeforge-coach-tab-synthetic-${crypto.randomUUID()}`;
+  const { native, descriptor } = tabDatabase(name);
+  const errors: string[] = [], unhandled: string[] = [], failures: string[] = [];
+  let assertions = 0;
+  const check = (condition: unknown, message: string) => { assertions++; if (!condition) failures.push(message); };
+  const observe = (event: ErrorEvent) => { errors.push(String(event.error ?? event.message)); };
+  const observeUnhandled = (event: PromiseRejectionEvent) => { unhandled.push(String(event.reason)); };
+  window.addEventListener('error', observe); window.addEventListener('unhandledrejection', observeUnhandled);
+  const request = <T>(pending: IDBRequest<T>) => new Promise<T>((resolve, reject) => {
+    pending.onsuccess = () => resolve(pending.result); pending.onerror = () => reject(pending.error);
+  });
+  const complete = (tx: IDBTransaction) => new Promise<void>((resolve, reject) => {
+    tx.oncomplete = () => resolve(); tx.onabort = () => reject(tx.error ?? new Error('Synthetic transaction aborted.'));
+  });
+  async function read(store: string, key: IDBValidKey): Promise<any> {
+    const database = await request(native.open(name));
+    try { const tx = database.transaction(store), pending = tx.objectStore(store).get(key);
+      await complete(tx); return pending.result;
+    } finally { database.close(); }
+  }
+  let details: Record<string, unknown> = {}, harnessError: string | undefined;
+  try {
+    if (which === 'upgrade') {
+      const source = actualAssessment(1), pending = native.open(name, 2);
+      pending.onupgradeneeded = () => {
+        const store = pending.result.createObjectStore('results', { keyPath: 'id' });
+        store.createIndex('completedAt-id', ['completedAt', 'id']); store.add(source);
+      };
+      (await request(pending)).close();
+      const add = IDBObjectStore.prototype.add;
+      IDBObjectStore.prototype.add = function (...args: Parameters<IDBObjectStore['add']>) {
+        if (this.name === 'coachMetadata') throw new DOMException('C1 synchronous bootstrap add', 'QuotaExceededError');
+        return add.apply(this, args);
+      };
+      let rejection: unknown;
+      try { (await openDatabase()).close(); } catch (error) { rejection = error; }
+      finally { IDBObjectStore.prototype.add = add; }
+      check(!!rejection, 'bootstrap fault rejects open');
+      const preserved = await request(native.open(name));
+      check(preserved.version === 2, 'failed bootstrap preserves v2 version');
+      check([...preserved.objectStoreNames].join() === 'results', 'failed bootstrap leaves no partial stores/metadata');
+      preserved.close();
+      check(await sourceHash(await read('results', source.id)) === await sourceHash(source), 'failed bootstrap preserves complete legacy source');
+      const capture = await captureContext(); check(!!capture, 'clean upgrade retry captures authority');
+      check((await read('coachMetadata', 'authority')).sourceRevision === 0, 'clean upgrade retry starts revision zero');
+      check(await read('currentResults', source.id) === undefined && await read('coachMembership', source.id) === undefined,
+        'retry never copies/reassigns legacy source');
+      details = { rejection: String(rejection), versionAfterFailure: 2 };
+    } else if (which === 'delete') {
+      const source = actualAssessment(1), capture = await captureContext();
+      const saved = await saveSource(source, capture); check(saved.state === 'saved', 'delete setup durably saves source');
+      const before = await read('coachMetadata', 'authority'), originalMember = await read('coachMembership', source.id);
+      const remove = IDBObjectStore.prototype.delete;
+      IDBObjectStore.prototype.delete = function (...args: Parameters<IDBObjectStore['delete']>) {
+        if (this.name === 'currentResults') throw new DOMException('C1 synchronous current delete', 'UnknownError');
+        return remove.apply(this, args);
+      };
+      let rejection: unknown;
+      try { await deleteSource(source.id); } catch (error) { rejection = error; }
+      finally { IDBObjectStore.prototype.delete = remove; }
+      check(!!rejection, 'delete fault rejects');
+      check(await sourceHash((await getSavedSource(source.id))!) === await sourceHash(source), 'failed delete preserves source bytes');
+      check(JSON.stringify(await read('coachMetadata', 'authority')) === JSON.stringify(before), 'failed delete preserves full authority/revision');
+      check(JSON.stringify(await read('coachMembership', source.id)) === JSON.stringify(originalMember), 'failed delete preserves membership');
+      await deleteSource(source.id);
+      check(await getSavedSource(source.id) === undefined && await read('coachMembership', source.id) === undefined, 'clean delete retry removes source/member');
+      check((await read('coachMetadata', 'authority')).sourceRevision === before.sourceRevision + 1, 'clean delete retry advances revision once');
+      check((await saveSource(actualAssessment(2), capture)).state === 'saved', 'ordinary save remains usable after failed delete/retry');
+      details = { rejection: String(rejection), revisionBefore: before.sourceRevision };
+    } else {
+      check(!!await captureContext(), 'membership setup has real metadata');
+      const database = await request(native.open(name));
+      try { const tx = database.transaction(SOURCE_STORES, 'readwrite');
+        tx.objectStore('results').add(actualAssessment(1)); tx.objectStore('currentResults').add(actualAssessment(2)); await complete(tx);
+      } finally { database.close(); }
+      const get = IDBObjectStore.prototype.get, physical: string[] = [];
+      IDBObjectStore.prototype.get = function (...args: Parameters<IDBObjectStore['get']>) {
+        physical.push(this.name);
+        if (this.name === 'coachMembership') throw new DOMException('C1 synchronous nested membership get', 'UnknownError');
+        return get.apply(this, args);
+      };
+      const ledger = createPreparationLedger(); let page;
+      try { page = await listSavedSourcesPage({ cursor: null, ledger }); }
+      finally { IDBObjectStore.prototype.get = get; }
+      check(!page.complete && page.stop === 'failure' && ledger.terminal === 'failure', 'nested get failure is terminal and incomplete');
+      check(physical.join() === 'coachMetadata,currentResults,results,coachMembership', 'real point attempts include current/missing legacy/failed member');
+      check(ledger.work.examinedRows === 4 && ledger.work.examinedRows === physical.length, 'each attempted point is charged once');
+      const rows = ledger.work.examinedRows, bytes = ledger.work.examinedBytes;
+      const again = await listSavedSourcesPage({ cursor: page.cursor, ledger });
+      check(again.stop === 'failure' && ledger.work.examinedRows === rows && ledger.work.examinedBytes === bytes,
+        'terminal same-ledger retry issues no point and no fresh allowance');
+      const explicit = await listSavedSourcesPage({ cursor: null, ledger: createPreparationLedger() });
+      check(explicit.complete && explicit.sources.length === 2, 'explicit new lookup works after fault removal');
+      check(await read('coachMembership', uuid(2)) === undefined, 'failed read/retry never repairs missing membership');
+      details = { physical, work: { ...ledger.work }, retryWork: explicit.work };
+    }
+    await new Promise<void>(resolve => setTimeout(resolve, 0));
+    check(errors.length === 0, 'callback exception never escapes as a window/page error');
+    check(unhandled.length === 0, 'failed operation has no unhandled promise rejection');
+  } catch (error) { harnessError = error instanceof Error ? error.stack : String(error); }
+  finally {
+    window.removeEventListener('error', observe); window.removeEventListener('unhandledrejection', observeUnhandled);
+    if (descriptor) Object.defineProperty(globalThis, 'indexedDB', descriptor); else Reflect.deleteProperty(globalThis, 'indexedDB');
+    await request(native.deleteDatabase(name));
+  }
+  const remaining = (await native.databases()).filter(database => database.name === name);
+  return { which, assertions, failures, errors, unhandled, harnessError, details,
+    cleanup: { database: name, remaining }, passed: !harnessError && failures.length === 0 && remaining.length === 0 };
+}
+
 let tabState: { native: IDBFactory; descriptor?: PropertyDescriptor; broadcastDescriptor?: PropertyDescriptor;
   name: string; ready: Awaited<ReturnType<typeof preparePractice>>; notifications: number; storageEvents: number;
   broadcastEvents: number; monitor: BroadcastChannel | null;
