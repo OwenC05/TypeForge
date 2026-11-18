@@ -1,7 +1,7 @@
 // Presentation only: maps the actual P1 r2 PreparedStatus to the accepted copy deck
 // (ux/prototype/copy.ts, independent APPROVE 82006aa). Nothing here derives a statistic,
 // a count, an ordinal or a proof; every number comes from the status as projected by D.
-import type { PreparedStatus, Reason } from './coach-types.ts';
+import type { Focus, PreparedStatus, Reason } from './coach-types.ts';
 
 export const TARGET = 10;
 export const PILOT_SECONDS = 30;
@@ -41,6 +41,12 @@ export interface BaselineView {
 const checkingView: BaselineView = { state: 'checking', counted: null, exact: false, ordinal: null, pending: 0, evidenceScanComplete: null,
   automaticCoaching: 'enabled', reason: null, focus: null, summary: null };
 
+/** The focus as the explanation presents it: geometric means of the clean intervals D already selected. */
+export function focusView(f: Focus): FocusView {
+  return { pair: f.pair, pairGeometricMs: Math.exp(f.targetLogSum / f.targetCount), referenceGeometricMs: Math.exp(f.referenceLogSum / f.referenceCount),
+    observations: f.targetCount, sourceRuns: f.sourceRuns, wordContexts: f.wordContexts };
+}
+
 /** Each component is read from its own projection; nothing is borrowed from another. */
 export function baselineView(status: PreparedStatus | null): BaselineView {
   if (!status) return checkingView;
@@ -54,12 +60,7 @@ export function baselineView(status: PreparedStatus | null): BaselineView {
   }
   const complete = { ...base, counted: TARGET, exact: true, ordinal: null };
   const coach = status.coach;
-  if (coach.state === 'complete-ready') {
-    const f = coach.snapshot.focus;
-    return { ...complete, state: 'complete-ready', reason: coach.reason, focus: { pair: f.pair,
-      pairGeometricMs: Math.exp(f.targetLogSum / f.targetCount), referenceGeometricMs: Math.exp(f.referenceLogSum / f.referenceCount),
-      observations: f.targetCount, sourceRuns: f.sourceRuns, wordContexts: f.wordContexts } };
-  }
+  if (coach.state === 'complete-ready') return { ...complete, state: 'complete-ready', reason: coach.reason, focus: focusView(coach.snapshot.focus) };
   if (coach.state === 'pending') return { ...complete, state: 'pending', reason: 'scan-incomplete' };
   // Unavailable, not requested and insufficient all leave a complete milestone with a reason sentence.
   return { ...complete, state: 'complete-insufficient', reason: coach.reason };
@@ -103,12 +104,14 @@ export const reasonText: Record<PresentedReason | 'unknown', string> = {
 };
 export const reasonSentence = (s: BaselineView) => reasonText[shownReason(s)];
 export const worksAsUsual = 'General and pair practice work as usual.';
+export const staleAfter = 'Your 10 tests still count; only the timing needs refreshing.';
 export const generalFits = 'General practice fits best for now, and pair practice lets you pick a pair yourself. Suggested re-checks after each saved 30-second run.';
 /** What follows a complete-baseline reason: the re-check promise only after a gate that ran. */
 export function afterReason(s: BaselineView): string {
   const shown = shownReason(s);
   if (shown === 'coaching-deferred') return '';
   if (shown === 'scan-incomplete') return 'Using general until it can be read.';
+  if (shown === 'stale-evidence') return staleAfter;
   return gateReasons.includes(shown) ? generalFits : worksAsUsual;
 }
 
@@ -136,6 +139,10 @@ const ms = (value: number) => `${Math.round(value)} ms`;
 export function focusExplanation(focus: FocusView) {
   return `In your recent runs, ${focus.pair} took longer than your other key pairs: ${ms(focus.pairGeometricMs)} against ${ms(focus.referenceGeometricMs)}, across ${focus.observations} clean ${focus.pair} transitions in ${focus.wordContexts} different words and ${focus.sourceRuns} runs.`;
 }
+// Copy correction (actual Claude, design owner): the certified plans contain only sentences with the pair
+// (root msg_2119dbb98d07: he/in/le/th, 12 prompts each, none without the pair), so the prototype's
+// "with general sentences mixed in" would promise a mixture the plan does not have.
+export const suggestedPlanLine = (pair: string) => `Every sentence in this block contains ${pair}. It is one fixed set of sentences, so it can end before the timer.`;
 export const ruleOfThumb = 'A rule of thumb from your own timings, not a diagnosis or a proven training method. It re-checks before every block and may change focus or step back to general.';
 export const ruleOfThumbShort = 'A rule of thumb from your own timings, not a diagnosis.';
 
@@ -143,15 +150,20 @@ export const summaryLabel = `Last ${TARGET} tests · median`;
 export const summaryUpdates = 'Updates as you take more 30-second tests. Practice doesn’t change it.';
 export const summaryReading = `${summaryLabel}: your latest tests are still being read.`;
 export const summaryUpdating = 'Updating after your latest test is saved.';
+/** The newest-ten time range as local calendar days (the projection carries UTC instants). */
+export const summaryRange = (from: string, to: string, locale?: string) => {
+  const day = (iso: string) => new Date(iso).toLocaleDateString(locale ?? 'en-GB', { day: 'numeric', month: 'short' });
+  return day(from) === day(to) ? day(to) : `${day(from)} – ${day(to)}`;
+};
 export type SummaryView =
-  | { kind: 'figures'; wpm: string; accuracy: string | null; note: string | null; from: string; to: string; updating: boolean }
+  | { kind: 'figures'; wpm: string; accuracy: string | null; note: string | null; range: string; updating: boolean }
   | { kind: 'reading' } | { kind: 'none' };
 /** Figures need the available summary and its own ordering proof; never a cached or partial median. */
 export function summaryView(s: BaselineView): SummaryView {
   const sum = s.summary;
   if (!sum || !usable(s)) return { kind: 'none' };
   if (sum.state === 'available' && sum.selectionProofComplete && sum.medianWpm !== null && sum.from && sum.to) {
-    return { kind: 'figures', wpm: sum.medianWpm.toFixed(1), from: sum.from, to: sum.to, updating: s.pending > 0,
+    return { kind: 'figures', wpm: sum.medianWpm.toFixed(1), range: summaryRange(sum.from, sum.to), updating: s.pending > 0,
       accuracy: sum.medianAccuracy === null ? null : `${sum.medianAccuracy.toFixed(1)}%`,
       note: sum.medianAccuracy === null ? `Accuracy isn’t available for all ${TARGET}, so only speed is shown.` : null };
   }

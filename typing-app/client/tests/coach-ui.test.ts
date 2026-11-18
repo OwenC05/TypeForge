@@ -122,7 +122,7 @@ test('every reason in every coaching state maps to its sentence without undefine
       if (coaching === 'unavailable') assert.doesNotMatch(text, /switched on/);
       const promise = /re-checks after each saved 30-second run/.test(text);
       const gate = ['stale-evidence', 'too-few-observations-for-any-pair', 'insufficient-context-diversity', 'unstable-evidence', 'no-effect', 'corpus-coverage', 'exposure-unsupported'].includes(reason);
-      assert.equal(promise, gate && coaching === 'enabled' && scanned === true, `re-check promise ${reason}/${coaching}/${scanned}`);
+      assert.equal(promise, gate && reason !== 'stale-evidence' && coaching === 'enabled' && scanned === true, `re-check promise ${reason}/${coaching}/${scanned}`);
     }
   }
 });
@@ -143,6 +143,7 @@ test('gate reasons show only when a gate ran; deferred never promises a re-check
   assert.equal(reasonSentence(invalid), 'Suggested is unavailable in this version of TypeForge.');
   assert.equal(afterReason(invalid), 'General and pair practice work as usual.');
   const stale = baselineView(insufficient('stale-evidence'));
+  assert.equal(afterReason(stale), 'Your 10 tests still count; only the timing needs refreshing.');
   assert.deepEqual(lockedPress(stale), { text: 'Baseline done; its timing is over 30 days old.', action: 'assessment', label: 'take an assessment →' });
   const coachPending = baselineView(status({ participation: complete, coach: { state: 'pending', reason: 'scan-incomplete', evidenceScanComplete: false, snapshot: null } }));
   assert.equal(lockedPress(coachPending).text, 'Baseline done; recent timing couldn’t all be read.');
@@ -151,7 +152,7 @@ test('gate reasons show only when a gate ran; deferred never promises a re-check
 test('rolling summary: figures need the available value and its own selection proof', () => {
   const figures = summaryView(baselineView(status({ participation: complete, summary: available(95.4), summaryProof: true })));
   assert.equal(figures.kind, 'figures');
-  if (figures.kind === 'figures') { assert.equal(figures.wpm, '41.3'); assert.equal(figures.accuracy, '95.4%'); assert.equal(figures.updating, false); }
+  if (figures.kind === 'figures') { assert.equal(figures.wpm, '41.3'); assert.equal(figures.accuracy, '95.4%'); assert.equal(figures.updating, false); assert.match(figures.range, /^\d{1,2} Nov – \d{1,2} Nov$/); }
   const speedOnly = summaryView(baselineView(status({ participation: complete, summary: available(null), summaryProof: true })));
   assert.ok(speedOnly.kind === 'figures' && speedOnly.accuracy === null && /only speed/.test(speedOnly.note!));
   assert.equal(summaryView(baselineView(status({ participation: complete, summary: available(95), summaryProof: false }))).kind, 'reading');
