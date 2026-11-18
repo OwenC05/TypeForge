@@ -4,13 +4,22 @@ import '@ui-sdk/web/switch';
 import '@ui-sdk/web/collapsible';
 import type { UiChangeEvent, UiCollapsibleElement, UiSegmentedControlElement, UiSelectElement, UiSwitchElement } from '@ui-sdk/web';
 import { CORPUS_VERSION, selectPrompts, practicePrompts, assessmentPrompts } from './corpus.ts';
-import { TypingEngine, type SessionResult, type SentenceSummary, SUPPORTED_DURATIONS, type DurationMs } from './engine.ts';
-import { ResultValidationError, saveResult, getResult, listResults, deleteResult, listResultsPage, getStorageDiagnostics } from './storage.ts';
+import { TypingEngine, type SessionResult, type SentenceSummary, type EngineSnapshot, type RunState, type Prompt, type Edit, type StoppedSnapshot, SUPPORTED_DURATIONS, type DurationMs } from './engine.ts';
+import { getResult, listResults, deleteResult, listResultsPage, getStorageDiagnostics } from './storage.ts';
+import { captureContext, saveSource, getSavedSource, exportSavedSources, preparePractice, admitPreparedPractice, subscribeStorageInvalidation,
+  resetEpoch, listSavedSourcesPage, createPreparationLedger } from './coach-storage.ts';
+import type { Capture, FiniteAdapter, FinitePracticeResult, Persistence, PracticeSnapshot, PreparedStatus, SavedSource } from './coach-types.ts';
 import { loadPreferences, savePreferences, withRemembered } from './preferences.ts';
-import { UnsavedResults, unsavedLine, type SaveRecord } from './unsaved.ts';
+import { UnsavedResults, unsavedLine, newSaveRecord, applyOutcome, exportDocument, isFiniteSource, type SaveRecord } from './unsaved.ts';
+import * as coachUi from './coach-ui.ts';
 
 import { parseModelArtifact, predictSentence, type ModelArtifact } from './model.ts';
-import { selectHistory, buildHistory, appendHistory, selectPracticeFocus, selectDrillPrompts, resolveRetest, compatible, compatibleSettings, supportedManualPairs } from './profile.ts';
+import { selectHistory, buildHistory, appendHistory, selectDrillPrompts, resolveRetest, compatible, compatibleSettings, supportedManualPairs } from './profile.ts';
+
+// The coach's plan and finite runtime load on demand: General practice never waits for them.
+const coachPlan = () => import('./coach-plan.ts');
+const finiteRuntime = () => import('./finite-practice.ts');
+const progressElement = () => import('@ui-sdk/web/progress');
 
 // Optional bundled evidence: a missing artifact must not disable ordinary typing.
 const generated = import.meta.glob('./generated/*.json', { eager: true, import: 'default' });
@@ -37,23 +46,14 @@ function parseQwerty(value: string | null, inherited = false): {qwerty: boolean;
   return {qwerty: false, reason: 'Unsupported keyboard declaration. Using an undeclared keyboard.'};
 }
 type PracticeKind = 'general' | 'recommended' | 'manual';
-function parsePracticeChoice(kind: string | null, pair: string | null, pairs: readonly string[], recommendation: {pair: string} | null, unavailable: string): {kind: PracticeKind; pair?: string; reason: string} {
+// Suggested is only a request here: a block becomes Suggested once the coach admits a prepared plan.
+function parsePracticeChoice(kind: string | null, pair: string | null, pairs: readonly string[]): {kind: PracticeKind; pair?: string; reason: string} {
   if (kind === 'manual') {
     if (pair && pairs.includes(pair)) return {kind, pair, reason: ''};
     return {kind: 'general', reason: 'Unsupported manual pair. Using General practice; choose a pair from the supported list.'};
   }
-  if (kind === 'recommended') {
-    if (recommendation) return {kind, reason: ''};
-    return {kind: 'general', reason: `Recommended unavailable: ${unavailable} Using General practice.`};
-  }
+  if (kind === 'recommended') return {kind, reason: ''};
   return {kind: 'general', reason: kind && kind !== 'general' ? 'Unsupported practice choice. Using General practice.' : ''};
-}
-function recommendationReason(history: readonly SentenceSummary[], qwerty: boolean, focus: {pair: string} | null) {
-  if (focus) return 'Recommendation available from compatible saved assessment observations.';
-  if (!qwerty) return 'Declare a physical QWERTY keyboard to use supported pair timing.';
-  if (!buildHistory(history).count) return 'No compatible eligible assessment timing history yet.';
-  if (!artifact) return 'No bundled model supports a positive recommendation score. Warm history can still support baseline-only timing predictions.';
-  return 'No pair has eight observations, three supporting practice passages and a positive baseline score.';
 }
 async function calibration(actualSettings: SessionResult['settings']) {
   let sentences: SentenceSummary[] = [];
@@ -153,6 +153,72 @@ function reconstructEdit(before: PendingEdit, value: string) {
   return { start: from, end: old.length - tail, text: value.slice(from, value.length - tail), tracked: false };
 }
 
+const esc = (text: string) => text.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
+const ended = (state: string) => state === 'completed' || state === 'plan-exhausted' || state === 'aborted' || state === 'stopped';
+
+// One block of typing: a timed engine, or E's finite adapter for an admitted Suggested plan.
+interface Block {
+  readonly state: RunState;
+  readonly nextPrompt: Prompt | null;
+  readonly submittedSummaries: readonly SentenceSummary[];
+  tick(now: number): EngineSnapshot;
+  snapshot(now: number): EngineSnapshot;
+  edit(edit: Edit, now: number): unknown;
+  interrupt(now: number): void;
+  abort(now: number): void;
+  result(completedAt: string): SavedSource | null;
+  stoppedSnapshot(): StoppedSnapshot | null;
+  setSentencePredictions(sentenceIndex: number, predictions: Parameters<TypingEngine['setSentencePredictions']>[1]): void;
+}
+interface FiniteBlock extends Block { readonly finite: true; readonly pair: string; readonly sentences: number }
+const isFiniteBlock = (block: Block): block is FiniteBlock => 'finite' in block;
+function finiteBlock(adapter: FiniteAdapter, snapshot: PracticeSnapshot): FiniteBlock {
+  let last = adapter.tick(performance.now());
+  const read = (now: number) => (last = adapter.tick(now)).engine as EngineSnapshot;
+  return {
+    finite: true, pair: snapshot.plan.pair, sentences: snapshot.plan.prompts.length,
+    get state() { return last.engine.state as RunState; },
+    get nextPrompt() { return last.next; },
+    submittedSummaries: [],
+    tick: read, snapshot: read,
+    edit(edit, now) { const accepted = adapter.edit(edit, now); last = adapter.tick(now); return accepted; },
+    interrupt(now) { adapter.interrupt(now); last = adapter.tick(now); },
+    abort(now) { adapter.abort(now); last = adapter.tick(now); },
+    result: completedAt => adapter.result(completedAt),
+    stoppedSnapshot: () => adapter.stoppedSnapshot(),
+    setSentencePredictions() { /* Suggested blocks carry no timing predictions. */ },
+  };
+}
+/** E's adapter refuses any snapshot it cannot run; that refusal leaves an honest General block, never a broken stage. */
+function admittedBlock(runtime: { createFiniteAdapter: (input: { id: string; snapshot: PracticeSnapshot }) => FiniteAdapter }, snapshot: PracticeSnapshot): FiniteBlock | null {
+  try { return finiteBlock(runtime.createFiniteAdapter({ id: crypto.randomUUID(), snapshot }), snapshot); } catch { return null; }
+}
+/** What a run is, frozen at its first accepted insertion. Late saves and re-checks never change it. */
+interface RunIdentity { label: string; baseline: boolean; test: number | null; capture: Capture | null; pair: string | null }
+
+/** Semantic progress (ui-progress); its visible value is the exact sentence, never a percentage. */
+function baselineProgress(coach: coachUi.BaselineView, label = 'baseline') {
+  if (coach.counted === null) return '';
+  void progressElement();
+  const pending = coach.pending > 0 && coach.counted < coachUi.TARGET;
+  const value = Math.min(coach.counted, coachUi.TARGET);
+  return `<ui-progress class="baseline-progress" value="${value}" max="${coachUi.TARGET}" ${pending ? 'data-pending' : ''} style="--counted:${value}">
+      <ui-progress-label>${label}</ui-progress-label><ui-progress-track><ui-progress-indicator></ui-progress-indicator></ui-progress-track><ui-progress-value></ui-progress-value></ui-progress>`;
+}
+function formatBaselineProgress(coach: coachUi.BaselineView) {
+  const text = `${coachUi.countText(coach)} tests${coach.pending && (coach.counted ?? 0) < coachUi.TARGET ? ` · ${coach.pending} waiting to save` : ''}`;
+  document.querySelectorAll<HTMLElement & { format?: unknown }>('ui-progress.baseline-progress').forEach(element => { element.format = () => text; });
+}
+/** "Last 10 tests · median": figures, a plain still-reading line, or nothing. Never a cached or partial median. */
+function summaryBlock(coach: coachUi.BaselineView, compact = false) {
+  const view = coachUi.summaryView(coach);
+  if (view.kind === 'none') return '';
+  if (view.kind === 'reading') return `<p class="note summary-reading">${coachUi.summaryReading}</p>`;
+  const figures = `<dl class="summary-figures"><div><dt>wpm</dt><dd>${view.wpm}</dd></div>${view.accuracy ? `<div><dt>accuracy</dt><dd>${view.accuracy}</dd></div>` : ''}</dl>`;
+  const notes = [view.note, view.updating ? coachUi.summaryUpdating : null, `${view.range}. ${coachUi.summaryUpdates}`].filter(Boolean).map(note => `<p class="note">${esc(note!)}</p>`).join('');
+  return `<div class="summary${compact ? ' summary-compact' : ''}"><p class="micro">${coachUi.summaryLabel}</p>${figures}${notes}</div>`;
+}
+
 type StageOptions = { home?: boolean };
 
 async function practice(requested: URLSearchParams = new URLSearchParams(location.search), options: StageOptions = {}) {
@@ -179,18 +245,17 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
   } else if (mode === 'practice' && origin?.mode === 'assessment' && origin.eligibleForProgress && compatible(origin, settings(declaredQwerty, durationMs))) sourceAssessmentId = origin.id;
   // Optional saved evidence loads after the stage is ready; General practice never waits for it.
   let history: SentenceSummary[] = [];
+  let historyKey = `${declaredQwerty}|${durationMs}`;
   let evidencePending = declaredQwerty;
   const manualPairs = supportedManualPairs(practicePrompts);
-  let recommendedFocus = mode === 'practice' ? selectPracticeFocus(buildHistory(history), practicePrompts, artifact) : null;
-  let practiceChoice = parsePracticeChoice(params.get('practice'), params.get('pair'), manualPairs, recommendedFocus, recommendationReason(history, declaredQwerty, recommendedFocus));
-  let focus = mode === 'practice' && practiceChoice.kind === 'recommended' ? recommendedFocus : null;
+  let practiceChoice = parsePracticeChoice(params.get('practice'), params.get('pair'), manualPairs);
   const choosePrompts = () => {
     if (mode !== 'practice') return selectPrompts(mode, excluded);
-    const drillIdentity = focus ?? (practiceChoice.kind === 'manual' ? {pair: practiceChoice.pair!} : null);
-    return selectDrillPrompts(drillIdentity, practicePrompts);
+    return selectDrillPrompts(practiceChoice.kind === 'manual' ? {pair: practiceChoice.pair!} : null, practicePrompts);
   };
   let prompts = choosePrompts();
   const initialPair = practiceChoice.pair ?? (manualPairs.includes('th') ? 'th' : manualPairs[0]!);
+  // Suggested starts locked: the coach is checked after first paint, so a requested Suggested shows General first.
   shell(`<h1 class="sr-only">${mode === 'practice' ? 'Practice' : 'Assessment'}</h1>
   <div class="column">
   <section class="rail" id="rail" aria-label="${mode === 'practice' ? 'Practice' : 'Assessment'} settings">
@@ -201,11 +266,12 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     </div>
     ${mode === 'practice' ? `<span class="rail-rule" aria-hidden="true"></span>
     <div class="rail-group">
-      <ui-segmented-control id="practice-kind" class="keys" aria-label="Practice" default-value="${practiceChoice.kind}">
+      <ui-segmented-control id="practice-kind" class="keys" aria-label="Practice" default-value="${practiceChoice.kind === 'recommended' ? 'general' : practiceChoice.kind}">
         <ui-segmented-control-item value="general">general</ui-segmented-control-item>
         <ui-segmented-control-item value="manual">pair</ui-segmented-control-item>
-        <ui-segmented-control-item value="recommended" id="suggested-item" ${recommendedFocus ? '' : 'disabled'}>suggested</ui-segmented-control-item>
+        <ui-segmented-control-item value="recommended" id="suggested-item" data-locked aria-disabled="true" aria-describedby="suggested-status">suggested</ui-segmented-control-item>
       </ui-segmented-control>
+      <span id="suggested-status" class="sr-only">Checking saved tests.</span>
       <ui-select id="manual-pair" class="pair-select" default-value="${initialPair}" ${practiceChoice.kind === 'manual' ? '' : 'hidden'}>
         <ui-select-label class="sr-only">Pair</ui-select-label>
         <ui-select-trigger><button type="button" class="key"><ui-select-value>${initialPair}</ui-select-value><span class="caret-glyph" aria-hidden="true">▾</span></button></ui-select-trigger>
@@ -224,7 +290,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
       <ui-collapsible class="why" id="why">
         <ui-collapsible-trigger><button type="button" class="text-button">why?</button></ui-collapsible-trigger>
         <ui-collapsible-panel class="why-panel" keep-mounted hidden>
-          <p id="focus-state"></p><p id="recommendation-reason">${mode === 'practice' ? recommendationReason(history, declaredQwerty, recommendedFocus) : ''}</p>
+          <p id="focus-state"></p><div id="baseline-why"><div class="baseline-block"><p>Checking saved tests…</p></div></div>
           <p id="exercise-intro">English · lowercase · ${sourceAssessmentId && mode === 'assessment' ? 'fresh assessment passages' : 'short sentences'}</p><p id="prediction-state"></p>
           <p>The timer keeps running if you leave the text. Interrupted runs stay in history, outside headline progress.</p>
         </ui-collapsible-panel>
@@ -243,7 +309,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
       </div>
     </div>
     <div class="slot-row">
-      <div class="slot" id="slot" role="status" aria-live="polite"><div class="carried" id="carried" hidden></div><p id="exercise-warning" class="slot-text"></p></div>
+      <div class="slot" id="slot" role="status" aria-live="polite"><div class="carried" id="carried" hidden></div><p id="exercise-warning" class="slot-text"></p><span id="slot-action" class="slot-action"></span></div>
       <button class="key" id="restart" type="button">restart</button>
     </div>
     <p class="foot-hints"><kbd>space</kbd> next<span class="wide-only"> passage</span> · <kbd>backspace</kbd> fix<span class="wide-only"> · <kbd>tab</kbd> <kbd>enter</kbd> restart</span></p>
@@ -251,33 +317,42 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     <div id="completion" class="completion" hidden></div>
   </section>
   </div>`, {stage: true});
-  const makeEngine = (qwerty: boolean) => new TypingEngine({ id: crypto.randomUUID(), prompts, mode, durationMs, inputMode: 'flow-v1', corpusVersion: CORPUS_VERSION, qwerty, ...(focus ? {practiceFocus: focus} : {}), ...(mode === 'practice' && practiceChoice.kind === 'manual' ? {manualDrill: {pair: practiceChoice.pair!, source: 'manual' as const}} : {}), ...(sourceAssessmentId ? {sourceAssessmentId} : {}) });
-  let engine = makeEngine(declaredQwerty);
-  // Predictions freeze once per sentence. Late evidence re-runs prepare() for labels and
-  // Suggested availability; it refines predictions from the next sentence, never re-freezes.
-  const prepared = new WeakMap<TypingEngine, {sentenceIndex: number; preparation: ReturnType<typeof predictSentence> | null}>();
+  const makeEngine = (qwerty: boolean) => new TypingEngine({ id: crypto.randomUUID(), prompts, mode, durationMs, inputMode: 'flow-v1', corpusVersion: CORPUS_VERSION, qwerty, ...(mode === 'practice' && practiceChoice.kind === 'manual' ? {manualDrill: {pair: practiceChoice.pair!, source: 'manual' as const}} : {}), ...(sourceAssessmentId ? {sourceAssessmentId} : {}) });
+  let engine: Block = makeEngine(declaredQwerty);
+
+  // ---- Coach state (P1 r2). Every count, ordinal, median and focus comes from a prepared status. ----
+  let coach = coachUi.baselineView(null);
+  let prepGeneration = 0;
+  let prepAbort: AbortController | null = null;
+  let prepCompleted = 0; // generation of the last preparation that finished
+  let readyCapture: Capture | null = null; // taken before this block's first insertion
+  let admitted: PracticeSnapshot | null = null; // the admission held by the current Suggested block
+  let lastAdmittedPair: string | null = null; // previous admitted snapshot in this document only
+  let changeNote = '';
+  let fellBack = false;
+  let frozen: RunIdentity | null = null;
+  let suggestedRequested = mode === 'practice' && practiceChoice.kind === 'recommended';
+
+  // Predictions freeze once per sentence. Late evidence re-runs prepare() for labels; it refines
+  // predictions from the next sentence and never re-freezes one already shown.
+  const prepared = new WeakMap<Block, {sentenceIndex: number; preparation: ReturnType<typeof predictSentence> | null}>();
   function prepare(now = performance.now()) {
     const snapshot = engine.snapshot(now);
     const earlier = prepared.get(engine);
+    const timed = !isFiniteBlock(engine);
     const preparation = earlier?.sentenceIndex === snapshot.sentenceIndex ? earlier.preparation
-      : qwerty.checked ? predictSentence(snapshot.prompt.text, buildHistory(history), artifact) : null;
+      : qwerty.checked && timed ? predictSentence(snapshot.prompt.text, buildHistory(history), artifact) : null;
     if (earlier?.sentenceIndex !== snapshot.sentenceIndex) {
       if (preparation?.predictions) engine.setSentencePredictions(snapshot.sentenceIndex, preparation.predictions);
       prepared.set(engine, {sentenceIndex: snapshot.sentenceIndex, preparation});
     }
-    $('#prediction-state').textContent = !qwerty.checked ? 'Timing predictions require a declared physical QWERTY keyboard.' : preparation?.status === 'candidate-and-baseline' ? 'Experimental model + historical baseline · predictions frozen before each sentence.' : `${preparation?.status === 'baseline-only' ? 'Historical baseline only' : 'Predictions unavailable'}: ${preparation?.reason ?? 'No supported observations yet.'}`;
-    $('#focus-state').textContent = [lineageMessage, practiceChoice.reason, mode === 'practice' && practiceChoice.kind === 'manual' ? `Manual pair: ${practiceChoice.pair} · chosen by you, not a diagnosed weakness. Two focused sentences, then one general sentence.` : (focus ? `Focus: ${focus.pair} · ${focus.evidenceCount} observations · baseline ${focus.baselineVersion}. Two focused sentences, then one general sentence.` : mode === 'practice' ? 'General practice · no supported targeted focus selected.' : 'Keep typing; a space after the last word brings the next passage.')].filter(Boolean).join(' ');
+    $('#prediction-state').textContent = !timed ? 'Timing predictions are not used in suggested blocks.' : !qwerty.checked ? 'Timing predictions require a declared physical QWERTY keyboard.' : preparation?.status === 'candidate-and-baseline' ? 'Experimental model + historical baseline · predictions frozen before each sentence.' : `${preparation?.status === 'baseline-only' ? 'Historical baseline only' : 'Predictions unavailable'}: ${preparation?.reason ?? 'No supported observations yet.'}`;
+    $('#focus-state').textContent = [lineageMessage, practiceChoice.reason, mode === 'practice' && practiceChoice.kind === 'manual' ? `Manual pair: ${practiceChoice.pair} · chosen by you, not a diagnosed weakness. Two focused sentences, then one general sentence.` : mode === 'assessment' ? 'Keep typing; a space after the last word brings the next passage.' : ''].filter(Boolean).join(' ');
     // Observed facts only: the current choice, never an invented target.
-    const identity = mode === 'assessment' ? (sourceAssessmentId ? 'Fresh retest' : 'Assessment') : practiceChoice.kind === 'manual' ? `Pair practice · ${practiceChoice.pair}` : focus ? `Suggested practice · ${focus.pair}` : 'General practice';
-    const label = `${identity} · ${durationMs / 1000} s`;
+    const label = `${frozen?.label ?? blockIdentity()} · ${durationMs / 1000} s`;
     if ($('#block-identity').textContent !== label) $('#block-identity').textContent = label;
     if ($('#remaining').textContent !== String(Math.ceil(snapshot.remainingMs / 1000))) $('#remaining').textContent = String(Math.ceil(snapshot.remainingMs / 1000));
     stage.dataset.promptIds = prompts.map(prompt => prompt.id).join(' ');
-    if (suggestedItem) {
-      const reason = evidencePending ? 'Checking saved assessment evidence…' : recommendationReason(history, qwerty.checked, recommendedFocus);
-      if (evidencePending) $('#recommendation-reason').textContent = 'Checking saved assessment evidence for a suggestion; general practice until one is supported.';
-      suggestedItem.title = recommendedFocus ? `Suggested: ${recommendedFocus.pair}` : `Not enough evidence for a focus yet — using general. ${reason}`;
-    }
   }
   const input = $<HTMLTextAreaElement>('#typing-input');
   const qwerty = $<UiSwitchElement>('#qwerty');
@@ -303,15 +378,37 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
   let undoUsed = false;
   let repeatRequested = false;
 
-  // ET-1: completed results whose save is not confirmed stay recoverable on this page (src/unsaved.ts).
+  // ---- Labels and readiness, from the actual status; a frozen run keeps its own. ----
+  const pilot = () => durationMs === coachUi.PILOT_SECONDS * 1000 && qwerty.checked;
+  const locked = () => coach.state !== 'complete-ready' || coach.automaticCoaching !== 'enabled' || !coach.focus;
+  const suggestedChosen = () => mode === 'practice' && (practiceKind?.value === 'recommended' || suggestedRequested);
+  // A 30-second QWERTY assessment counts only when a capture exists and the status can still count it.
+  const countsNow = () => mode === 'assessment' && readyCapture !== null && qwerty.checked && durationMs === 30000 && coachUi.counting(coach);
+  function blockIdentity() {
+    if (mode === 'assessment') {
+      if (countsNow()) { const n = coachUi.nextTestNumber(coach); return n ? `Baseline test ${n} of ${coachUi.TARGET}` : 'Baseline test'; }
+      return sourceAssessmentId ? 'Fresh retest' : 'Assessment';
+    }
+    if (practiceChoice.kind === 'manual') return `Pair practice · ${practiceChoice.pair}`;
+    return admitted ? `Suggested practice · ${admitted.plan.pair}` : 'General practice';
+  }
+  const untouched = () => !finished && !restarting && !disposed && engine.state === 'idle' && !key && !before && !composing && !input.value
+    && !engine.snapshot(performance.now()).value;
+  function freezeRun(): RunIdentity {
+    const counts = countsNow();
+    frozen = { label: blockIdentity(), baseline: counts, test: counts ? coachUi.nextTestNumber(coach) : null, capture: readyCapture,
+      pair: isFiniteBlock(engine) ? engine.pair : null };
+    // Nothing refreshes this run's identity: an in-flight check is dropped and restarts after the block.
+    prepAbort?.abort(); prepAbort = null;
+    return frozen;
+  }
+
+  // ET-1: completed sources whose save is not confirmed stay recoverable on this page (src/unsaved.ts).
   // Same-page continuation adopts the current record; leaving the page holds once while any remain.
   let currentSave: SaveRecord | null = null;
   let leavingTo: string | null = null;
   let leaveConfirmed = false;
-  const unsaved = new UnsavedResults({
-    save: saveResult, exists: async id => Boolean(await getResult(id)),
-    isPermanent: error => error instanceof ResultValidationError, onChange: () => renderUnsaved(),
-  });
+  const unsaved = new UnsavedResults({ save: saveSource, onChange: () => renderUnsaved() });
   function carryUnsaved() { const record = currentSave; currentSave = null; unsaved.adopt(record); }
   // One line in the reserved slot, above any other message (highest priority), fixed slot height.
   function renderUnsaved() {
@@ -346,9 +443,9 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     if (!act || disposed) return;
     if (act === 'retry') void unsaved.retry();
     else if (act === 'export') {
-      // One file, the existing per-result export format for each entry, oldest first.
+      // One file, oldest first: the existing per-result array, or the mixed-source envelope when a finite block is included.
       const list = leavingTo ? unsaved.atRisk(currentSave) : [...unsaved.listed];
-      download(list.map(entry => entry.result), `typeforge-unsaved-${list.length}-results.json`);
+      download(exportDocument(list.map(entry => entry.source)), `typeforge-unsaved-${list.length}-results.json`);
       for (const entry of list) entry.exported = true;
       $('#carried').dataset.key = '';
       renderUnsaved();
@@ -374,7 +471,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
   input.addEventListener('focus', () => { if (leavingTo) { leavingTo = null; renderUnsaved(); } });
   function returnFocus() {
     if (document.activeElement && document.activeElement !== document.body) return;
-    if (engine.state === 'completed') document.querySelector<HTMLElement>('#again, #practice-next')?.focus();
+    if (finished) document.querySelector<HTMLElement>('#result-actions .key-primary')?.focus();
     else if (!input.disabled) input.focus();
   }
 
@@ -387,20 +484,46 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     hintMark = '';
     text.hidden = false;
     text.className = `slot-text ${level === 1 ? 'is-hint' : 'is-notice'}`;
+    if (level > 1) $('#slot-action').replaceChildren();
     // Unchanged text is never rewritten, so the polite region announces each message once.
     if (text.textContent !== message) text.textContent = message;
   }
   let slotLevel = 0;
   let hintMark = '';
+  let hintAction: (() => void) | null = null;
   function clearSlot() {
     slotLevel = 0;
     hintMark = '';
+    hintAction = null;
     $('#exercise-warning').textContent = '';
+    $('#slot-action').replaceChildren();
   }
-  stageNotice = message => { if (engine.state === 'idle' || engine.state === 'completed') warning(message, 1); };
+  // A ready-state hint (level 1) may carry the person's own action key: a link (the leaving guard applies) or a button.
+  type HintAction = { label: string; href?: string; run?: () => void };
+  function hint(text: string, action?: HintAction) {
+    if (!text) { if (slotLevel <= 1) clearSlot(); return; }
+    warning(text, 1);
+    if (slotLevel !== 1) return; // a notice outranks the hint
+    const slot = $('#slot-action');
+    const current = slot.firstElementChild as HTMLElement | null;
+    if (current?.textContent === action?.label && (current?.getAttribute('href') ?? undefined) === action?.href) { hintAction = action?.run ?? null; return; }
+    const hadFocus = slot.contains(document.activeElement);
+    slot.replaceChildren();
+    hintAction = action?.run ?? null;
+    if (!action) { if (hadFocus) returnFocus(); return; }
+    const element = action.href ? Object.assign(document.createElement('a'), { href: action.href }) : Object.assign(document.createElement('button'), { type: 'button' });
+    element.className = 'key key-small';
+    element.textContent = action.label;
+    slot.append(element);
+    if (hadFocus) element.focus();
+  }
+  $('#slot-action').addEventListener('click', event => {
+    if ((event.target as Element | null)?.closest('button') && hintAction && !disposed) hintAction();
+  });
+  stageNotice = message => { if (engine.state === 'idle' || ended(engine.state)) warning(message, 1); };
   function setRunState(state: string) {
-    stage.dataset.state = state;
-    document.body.dataset.run = state;
+    stage.dataset.state = state === 'plan-exhausted' ? 'completed' : state;
+    document.body.dataset.run = stage.dataset.state;
     const running = state === 'running';
     // Why? is visibly unavailable while typing: not focusable, never an inert-looking active link.
     why.toggleAttribute('disabled', running);
@@ -431,7 +554,8 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
         renderCommitted($('#previous-prompt'), previousPromptText, previousResponse);
         committedKey = `${previousPromptText}\u0000${previousResponse}`;
       }
-      $('#next-prompt').textContent = engine.nextPrompt.text;
+      // A finite plan never wraps: after its last sentence the context line says the block ends.
+      $('#next-prompt').textContent = engine.nextPrompt?.text ?? coachUi.planEndMarker;
       // Mirror the actual response, not target offsets: extra letters and native
       // selections must wrap at exactly the same positions as the textarea.
       const displayed = snapshot.value + snapshot.prompt.text.slice(snapshot.value.length);
@@ -488,12 +612,12 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
       input.scrollTop = 0;
     }
     if (snapshot.state !== lastState) {
-      $('#exercise-state').textContent = snapshot.state === 'running' ? 'Timer running. Keep typing; Space advances the passage.' : snapshot.state === 'completed' ? 'Time is up. Your result is ready.' : 'Ready when you are.';
+      $('#exercise-state').textContent = snapshot.state === 'running' ? 'Timer running. Keep typing; Space advances the passage.' : snapshot.state === 'completed' ? 'Time is up. Your result is ready.' : snapshot.state === 'plan-exhausted' ? 'Every sentence in this block is done. Your result is ready.' : 'Ready when you are.';
       lastState = snapshot.state;
       setRunState(snapshot.state);
     }
     if (snapshot.state !== 'stopped' && snapshot.qualityFlags.length) warning(integrityCopy(snapshot.qualityFlags, undoUsed), 2);
-    if (snapshot.state === 'completed' && !finished) void finish();
+    if ((snapshot.state === 'completed' || snapshot.state === 'plan-exhausted') && !finished) void finish();
     if (snapshot.state === 'stopped' && !finished) {
       finished = true;
       clearInterval(timer);
@@ -511,12 +635,275 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     return snapshot;
   }
 
+  // ---- Coach preparation, invalidation and admission. ----
+  // One bounded preparation at a time; a newer request aborts the older one. An incomplete scan is
+  // shown as such and is only looked up again on an explicit state change (a save, a setting, Again,
+  // a storage change elsewhere) or the person's own "check again".
+  async function prepareCoach(intent: { admit?: boolean } = {}): Promise<PracticeSnapshot | null> {
+    if (disposed) return null;
+    prepAbort?.abort();
+    const controller = new AbortController();
+    prepAbort = controller;
+    const generation = ++prepGeneration;
+    const fresh = () => !disposed && prepAbort === controller && generation === prepGeneration;
+    let status: PreparedStatus | null = null;
+    let configId = '';
+    try {
+      const [capture, plan] = await Promise.all([captureContext(controller.signal), coachPlan()]);
+      if (!fresh()) return null;
+      readyCapture = capture;
+      configId = plan.CONFIG_ID;
+      status = await preparePractice({ config: plan.COACH_CONFIG, generation, now: new Date().toISOString(),
+        persistence: currentSave?.persistence ?? { state: 'idle', pendingIds: [] }, pendingSources: unsaved.pendingSources(currentSave), signal: controller.signal });
+    } catch { status = null; }
+    if (!fresh()) return null;
+    prepAbort = null;
+    prepCompleted = generation;
+    // A preparation that could not run at all reads as unavailable storage, never as zero tests.
+    coach = status ? coachUi.baselineView(status) : { ...coachUi.baselineView(null), state: 'unavailable', reason: 'storage-unavailable' };
+    let snapshot: PracticeSnapshot | null = null;
+    const wanted = intent.admit || (suggestedChosen() && pilot() && untouched());
+    if (status && wanted && status.coach.state === 'complete-ready') {
+      // C reads the current run state after its async barrier: a first key in between refuses admission.
+      const admission = await admitPreparedPractice(status, () => ({ generation: prepGeneration, configId,
+        runState: disposed ? 'disposed' : restarting || untouched() ? 'idle' : 'running' }));
+      if (!disposed && generation === prepGeneration && admission.admitted) snapshot = admission.snapshot;
+    }
+    if (disposed || generation !== prepGeneration) return null;
+    if (!intent.admit) await settleReadyBlock(snapshot);
+    refreshCoachSurfaces();
+    return snapshot;
+  }
+  // Before the first key only: switch the untouched ready block to match the latest admission.
+  async function settleReadyBlock(snapshot: PracticeSnapshot | null) {
+    if (mode !== 'practice' || !untouched()) return;
+    const previous = admitted;
+    if (snapshot && suggestedChosen() && pilot()) {
+      if (previous && previous.plan.planHash === snapshot.plan.planHash) { admitted = snapshot; return; }
+      const runtime = await finiteRuntime();
+      if (disposed || !untouched()) return; // the person started typing: the current block stands
+      const block = admittedBlock(runtime, snapshot);
+      if (!block) return;
+      changeNote = coachUi.changeHint(lastAdmittedPair, coach);
+      installBlock(block, snapshot);
+      lastAdmittedPair = snapshot.plan.pair;
+      fellBack = false;
+      if (practiceKind && practiceKind.value !== 'recommended') practiceKind.value = 'recommended'; // owner-to-view sync: no event
+      return;
+    }
+    if (suggestedRequested && !snapshot && coach.state !== 'checking') {
+      // A requested Suggested with no admitted plan stays General; say so once the status is known.
+      fellBack = coach.state !== 'unavailable' && pilot() && locked();
+      if (locked()) { suggestedRequested = false; practiceChoice = { kind: 'general', reason: '' }; }
+    }
+    if (previous) {
+      changeNote = coachUi.changeHint(previous.plan.pair, coach) || coachUi.noFocusFallback;
+      installBlock(makeEngine(qwerty.checked), null);
+    }
+  }
+  function installBlock(block: Block, snapshot: PracticeSnapshot | null) {
+    engine = block;
+    admitted = snapshot;
+    prompts = snapshot ? snapshot.plan.prompts.map(prompt => ({ ...prompt })) : choosePrompts();
+    previousPromptText = ''; previousResponse = ''; lastPromptKey = ''; lastState = '';
+    prepare();
+    paint();
+    startTimer();
+  }
+  function startTimer() {
+    clearInterval(timer);
+    const activeEngine = engine;
+    timer = setInterval(() => { if (!disposed && !restarting && engine === activeEngine) paint(); }, 100);
+  }
+  // A storage change elsewhere (or our own durable save) stales the status; idle or finished stages re-check.
+  let invalidationQueued = false;
+  const unsubscribe = subscribeStorageInvalidation(() => {
+    if (disposed) return;
+    if (!restarting) { prepAbort?.abort(); prepAbort = null; }
+    if (invalidationQueued || restarting || engine.state === 'running') return;
+    invalidationQueued = true;
+    setTimeout(() => { invalidationQueued = false; if (!disposed && !restarting && engine.state !== 'running') void prepareCoach(); }, 0);
+  });
+
+  // ---- Presentation of the status: rail, why?, label, ready hint and the result's baseline block. ----
+  const progressMarkup = (label = 'baseline') => baselineProgress(coach, label);
+  const formatProgress = () => formatBaselineProgress(coach);
+  const summaryMarkup = (compact = false) => summaryBlock(coach, compact);
+  const failedBaseline = () => unsaved.atRisk(currentSave).filter(entry => entry.baseline && entry.state !== 'pending');
+  const takeTestHref = () => `./practice.html?duration=30&qwerty=${qwerty.checked ? '1' : '0'}`;
+  function whyBaseline(): string {
+    if (admitted) {
+      const focus = coachUi.focusView(admitted.focus);
+      return `<div class="baseline-block"><p class="micro">suggested · ${esc(focus.pair)}</p><p>${esc(coachUi.focusExplanation(focus))}</p>
+        <p>${esc(coachUi.suggestedPlanLine(focus.pair))}</p><p class="note">${esc(coachUi.ruleOfThumb)} Prefer an even mix? Choose general.</p></div>`;
+    }
+    if (coach.state === 'checking') return `<div class="baseline-block"><p>Checking saved tests…</p></div>`;
+    if (coach.state === 'complete-ready' && coach.automaticCoaching === 'enabled' && coach.focus) {
+      if (mode === 'practice' && suggestedChosen() && !pilot()) return `<div class="baseline-block"><p>${esc(coachUi.suggestedContextWhy(coach.focus.pair, durationMs / 1000, qwerty.checked))}</p></div>`;
+      return `<div class="baseline-block">${progressMarkup()}<p>Suggested has a focus: ${esc(coach.focus.pair)}. Choose suggested to practise it.</p><p class="note">${esc(coachUi.focusExplanation(coach.focus))}</p></div>`;
+    }
+    if (coach.state === 'unavailable' || coachUi.shownReason(coach) === 'unknown') return `<div class="baseline-block"><p>${esc(coachUi.reasonSentence(coach))}</p><p class="note">${coachUi.worksAsUsual}</p></div>`;
+    const failed = failedBaseline();
+    const unsavedNote = failed.length ? `<p class="note">${esc(unsavedLine(failed, false))}.</p>` : '';
+    if ((coach.counted ?? 0) < coachUi.TARGET || !coach.exact) {
+      return `<div class="baseline-block">${progressMarkup()}<p>${esc(coachUi.baselinePurpose(coach))}</p><p>${coachUi.everyTestCounts}</p>
+        ${coachUi.shownReason(coach) === 'scan-incomplete' ? `<p class="note">${coachUi.reasonText['scan-incomplete']}</p>` : ''}${unsavedNote}
+        <p class="note">${coachUi.countSource}</p><a class="key key-small" href="${takeTestHref()}">${coachUi.takeTestLabel(coach)}</a></div>`;
+    }
+    const after = coachUi.afterReason(coach);
+    return `<div class="baseline-block">${progressMarkup()}<p>Baseline complete. ${esc(coachUi.reasonSentence(coach))}</p>${after ? `<p class="note">${esc(after)}</p>` : ''}
+      ${coachUi.shownReason(coach) === 'stale-evidence' ? `<a class="key key-small" href="${takeTestHref()}">take an assessment →</a>` : ''}</div>`;
+  }
+  function paintRail() {
+    if (!suggestedItem) return;
+    const isLocked = locked();
+    suggestedItem.toggleAttribute('data-locked', isLocked);
+    if (isLocked) suggestedItem.setAttribute('aria-disabled', 'true'); else suggestedItem.removeAttribute('aria-disabled');
+    const text = coachUi.suggestedDescription(coach, isLocked, pilot());
+    if ($('#suggested-status').textContent !== text) $('#suggested-status').textContent = text;
+  }
+  // Ready-state slot hint (level 1, yields to notices): the counting hint, a pilot mismatch, a change or a fallback.
+  function readyHint() {
+    if (!untouched() || frozen) return;
+    if (mode === 'assessment' && coachUi.counting(coach) && readyCapture) {
+      if (!qwerty.checked) { hint(coachUi.qwertyHint, { label: coachUi.declareQwerty, run: declareQwerty }); return; }
+      if (durationMs !== 30000) { hint('Not a baseline test: baseline tests are 30 seconds.'); return; }
+      const n = coachUi.nextTestNumber(coach);
+      hint(n ? `baseline test ${n} of ${coachUi.TARGET} — the clock starts with your first letter` : `At least ${coach.counted} of ${coachUi.TARGET} found; this one counts too.`);
+      return;
+    }
+    if (mode === 'practice' && suggestedChosen() && !locked() && !pilot()) {
+      const said = coachUi.suggestedContextHint(durationMs / 1000, qwerty.checked)!;
+      hint(said.text, { label: said.label, run: said.action === 'use-30' ? usePilotDuration : declareQwerty });
+      return;
+    }
+    if (mode === 'practice' && changeNote) { hint(changeNote); return; }
+    if (mode === 'practice' && fellBack) { hint(coachUi.noFocusFallback); return; }
+    if (slotLevel === 1 && $('#slot-action').childElementCount) hint('');
+  }
+  function pressExplanation() {
+    const said = coachUi.lockedPress(coach);
+    if (!said.action) { hint(said.text); return; }
+    if (said.action === 'check-again') hint(said.text, { label: said.label!, run: () => { hint('Checking saved tests…'); void prepareCoach(); } });
+    else hint(said.text, { label: said.label!, href: takeTestHref() });
+  }
+  // The person's own press of the existing 30 key or qwerty switch; nothing is clamped or inferred.
+  function usePilotDuration() { (document.querySelector(`#duration ui-segmented-control-item[value="${coachUi.PILOT_SECONDS}"]`) as HTMLElement | null)?.click(); }
+  function declareQwerty() { if (!qwerty.checked) qwerty.click(); }
+  function refreshCoachSurfaces() {
+    if (disposed) return;
+    paintRail();
+    const whyMarkup = whyBaseline();
+    const target = $('#baseline-why');
+    if (target.dataset.markup !== whyMarkup) { target.dataset.markup = whyMarkup; target.innerHTML = whyMarkup; }
+    if (!frozen && !finished) prepare();
+    readyHint();
+    if (finished) paintResultBaseline();
+    formatProgress();
+  }
+
+  // ---- Completed result: the frozen run identity, its save record and the baseline block. ----
+  let shown: { source: SavedSource; identity: RunIdentity; record: SaveRecord; savedAt: number | null; attemptSave: () => Promise<void> } | null = null;
   function afterResultRendered() {
     const again = document.getElementById('again');
     if (again) again.onclick = () => { repeatRequested = true; void $('#restart').onclick?.(new PointerEvent('click')); };
     // The primary action takes focus only from neutral focus (the disabled input hands focus to body).
-    if (mayFocusInput()) document.querySelector<HTMLElement>('#again, #practice-next')?.focus();
+    if (mayFocusInput()) document.querySelector<HTMLElement>('#result-actions .key-primary')?.focus();
   }
+  function actionKeys(primary: { id: string; label: string; href?: string }, secondary: { id: string; label: string; href?: string } | null, note = '') {
+    const key = (action: { id: string; label: string; href?: string }, className: string, enter: boolean) => action.href
+      ? `<a class="${className}" id="${action.id}" href="${action.href}">${esc(action.label)}${enter ? ' ↵' : ''}</a>`
+      : `<button class="${className}" id="${action.id}" type="button">${esc(action.label)}${enter ? ' ↵' : ''}</button>`;
+    return `${key(primary, 'key key-primary', true)}${secondary ? key(secondary, 'key', false) : ''}${note ? `<span class="action-note">${esc(note)}</span>` : ''}`;
+  }
+  // Repainted on save settle and status refresh only while this block's result is on screen.
+  function paintResultBaseline() {
+    if (!shown || disposed) return;
+    const { source, identity, record } = shown;
+    const block = document.getElementById('baseline-result');
+    const actions = document.getElementById('result-actions');
+    if (!block || !actions) return;
+    const hadFocus = actions.contains(document.activeElement);
+    const query = `duration=${source.settings.durationMs / 1000}&qwerty=${qwerty.checked ? '1' : '0'}`;
+    const practiseHref = `./index.html?mode=practice&${query}${source.mode === 'assessment' && source.eligibleForProgress && !isFiniteSource(source) ? `&from=${encodeURIComponent(source.id)}` : ''}`;
+    let markup = '', keys = '';
+    if (source.mode === 'practice') {
+      keys = identity.pair ? actionKeys({ id: 'again', label: 'suggested again' }, { id: 'to-general', label: 'general' })
+        : actionKeys({ id: 'again', label: 'again' }, null, 'same settings, new sentences');
+    } else {
+      const n = coachUi.nextTestNumber(coach);
+      const earlier = failedBaseline().filter(entry => entry !== record);
+      const earlierRow = earlier.length ? `<p class="note unsaved-earlier">${esc(unsavedLine(earlier, false))}. <button class="key key-small" id="retry-earlier" type="button">retry saving</button></p>` : '';
+      const retest = resolveRetest(source as SessionResult, source.settings, assessmentPrompts);
+      const retestKey = retest.kind === 'retest' ? { id: 'retest-next', label: 'fresh retest', href: `./practice.html?retest=${encodeURIComponent(source.id)}&${query}` } : { id: 'retest-next', label: 'new assessment', href: `./practice.html?${query}` };
+      if (!identity.baseline) {
+        const reason = !source.settings.qwerty ? (qwerty.checked ? 'Declared. Your next 30-second test counts.' : 'Not a baseline test (qwerty off). Baseline tests are 30 seconds on a physical QWERTY keyboard.')
+          : source.settings.durationMs !== 30000 ? `Not a baseline test (${source.settings.durationMs / 1000} s). Baseline tests are 30 seconds.`
+          : !identity.capture ? 'Not counted: the baseline record couldn’t be read when this test started.' : '';
+        markup = coachUi.usable(coach) && (coach.counted ?? 0) < coachUi.TARGET && reason
+          ? `<div class="baseline-block">${earlierRow}<p class="note">${esc(reason)} Still ${coachUi.countText(coach)}.</p>${!qwerty.checked ? `<button class="key key-small" id="declare" type="button">${coachUi.declareQwerty}</button>` : ''}</div>`
+          : earlierRow ? `<div class="baseline-block">${earlierRow}</div>` : '';
+        keys = qwerty.checked && durationMs === 30000 && readyCapture && coachUi.counting(coach)
+          ? actionKeys({ id: 'again', label: coachUi.takeTestLabel(coach).replace(' →', '') }, { id: 'practice-next', label: 'practice next', href: practiseHref })
+          : actionKeys({ id: 'practice-next', label: 'practice next', href: practiseHref }, retestKey);
+      } else if (!source.eligibleForProgress) {
+        const why = source.metrics.accuracy === null ? 'Undo or an unsupported edit was used' : 'focus left the text during the run';
+        markup = `<div class="baseline-block">${earlierRow}${progressMarkup()}<p>Not counted: ${why}. Still ${coachUi.countText(coach)}; nothing is taken away.</p></div>`;
+        keys = actionKeys({ id: 'again', label: n ? `try test ${n} again` : 'try the test again' }, { id: 'practice-next', label: 'practise', href: practiseHref });
+      } else {
+        const final = identity.test !== null ? identity.test >= coachUi.TARGET : (coach.counted ?? 0) + coach.pending >= coachUi.TARGET;
+        const settledAfterSave = shown.savedAt !== null && prepCompleted > shown.savedAt;
+        if (record.state === 'failed' || record.state === 'rejected') {
+          markup = `<div class="baseline-block">${earlierRow}${progressMarkup()}<p class="lead-line">Not saved yet, so it doesn’t count.</p><p class="note">${record.state === 'rejected' ? 'It failed validation and can’t be saved here; export it to keep a copy.' : 'Retrying is safe. If you go on, it keeps waiting here to be saved.'}</p></div>`;
+          keys = record.state === 'failed'
+            ? actionKeys({ id: 'retry-primary', label: 'retry saving' }, final ? { id: 'practice-next', label: 'practise', href: practiseHref } : { id: 'again', label: 'next test' })
+            : actionKeys(final ? { id: 'practice-next', label: 'practise', href: practiseHref } : { id: 'again', label: 'next test' }, null);
+        } else if (record.state === 'pending' || (final && !settledAfterSave)) {
+          markup = `<div class="baseline-block">${earlierRow}${progressMarkup()}<p>${final ? `Saving test ${identity.test ?? coachUi.TARGET}…` : 'Saving…'}</p></div>`;
+          keys = final ? actionKeys({ id: 'practice-next', label: 'practise', href: practiseHref }, { id: 'again', label: 'another assessment' })
+            : actionKeys({ id: 'again', label: 'next test' }, { id: 'practice-next', label: 'practise', href: practiseHref }, 'or stop here; progress is kept');
+        } else if (final && coach.exact && coach.counted === coachUi.TARGET) {
+          const lead = `<div class="baseline-block">${earlierRow}${progressMarkup()}<p class="lead-line">Baseline complete.</p>${summaryMarkup()}`;
+          if (coach.state === 'complete-ready' && coach.automaticCoaching === 'enabled' && coach.focus) {
+            markup = `${lead}<p>Suggested has a focus: ${esc(coach.focus.pair)}. ${esc(coachUi.focusExplanation(coach.focus))}</p><p class="note">${coachUi.ruleOfThumbShort}</p></div>`;
+            keys = actionKeys({ id: 'practice-next', label: `try suggested · ${coach.focus.pair}`, href: `./index.html?mode=practice&practice=recommended&${query}` }, { id: 'to-general-link', label: 'general', href: `./index.html?mode=practice&practice=general&${query}` });
+          } else {
+            const after = coachUi.afterReason(coach);
+            markup = `${lead}<p>${esc(coachUi.reasonSentence(coach))}</p>${after ? `<p class="note">${esc(after)}</p>` : ''}</div>`;
+            keys = actionKeys({ id: 'practice-next', label: 'practise general', href: `./index.html?mode=practice&practice=general&${query}` }, { id: 'again', label: 'another assessment' });
+          }
+        } else if (!coachUi.usable(coach)) {
+          markup = `<div class="baseline-block">${earlierRow}<p>${esc(coachUi.reasonSentence(coach))}</p><p class="note">${coachUi.worksAsUsual}</p></div>`;
+          keys = actionKeys({ id: 'practice-next', label: 'practise', href: practiseHref }, { id: 'again', label: 'another assessment' });
+        } else {
+          markup = `<div class="baseline-block">${earlierRow}${progressMarkup()}<p>Every finished test counts, mistakes included.</p><p class="note">Progress is kept in this browser. Stop any time and pick up later.</p></div>`;
+          keys = actionKeys({ id: 'again', label: 'next test' }, { id: 'practice-next', label: 'practise', href: practiseHref }, 'or stop here; progress is kept');
+        }
+      }
+    }
+    if (block.dataset.markup !== markup) { block.dataset.markup = markup; block.innerHTML = markup; }
+    if (actions.dataset.markup !== keys) {
+      actions.dataset.markup = keys;
+      actions.innerHTML = keys;
+      const again = document.getElementById('again');
+      if (again) again.onclick = () => { repeatRequested = true; void $('#restart').onclick?.(new PointerEvent('click')); };
+      if (hadFocus) actions.querySelector<HTMLElement>('.key-primary')?.focus();
+    }
+    const retryPrimary = document.getElementById('retry-primary');
+    if (retryPrimary) retryPrimary.onclick = () => void shown?.attemptSave();
+    const earlierRetry = document.getElementById('retry-earlier');
+    if (earlierRetry) earlierRetry.onclick = () => void unsaved.retry();
+    const declare = document.getElementById('declare');
+    if (declare) declare.onclick = () => { declareQwerty(); };
+    const toGeneral = document.getElementById('to-general');
+    if (toGeneral) toGeneral.onclick = () => {
+      if (!practiceKind) return;
+      practiceKind.value = 'general'; // owner-to-view sync: no event; changeSettings reads it
+      queueMicrotask(changeSettings);
+    };
+    formatProgress();
+  }
+
   // Today's bounded activity line: optional, never blocks the result or the next block.
   function refreshToday(saved?: SessionResult) {
     void todayActivity().then(activity => {
@@ -535,58 +922,65 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     input.value = engine.snapshot(performance.now()).value;
     input.disabled = true;
     $<HTMLButtonElement>('#restart').disabled = true;
-    const result = engine.result(new Date().toISOString());
-    if (!result) return;
+    const source = engine.result(new Date().toISOString());
+    if (!source) return;
+    const identity = frozen ?? freezeRun();
     // The result replaces the passage in place and stays readable even if IndexedDB is unavailable.
     const completion = $('#completion');
     completion.hidden = false;
-    completion.innerHTML = resultPanel(result, history);
-    afterResultRendered();
+    completion.innerHTML = resultPanel(source, identity);
     const generation = restartGeneration;
-    // The immutable payload's own outcome record: stale-generation guards protect this block's UI,
-    // but every outcome still reaches its record (and the unsaved list once the person moved on).
-    const record: SaveRecord = {result, state: 'pending', saving: false, exported: false, reason: '', onSettled: null};
+    // The immutable payload's own outcome record, with the capture taken before its first insertion:
+    // stale-generation guards protect this block's UI, but every outcome still reaches its record.
+    const record = newSaveRecord(source, identity.capture, { test: identity.test, baseline: identity.baseline });
     currentSave = record;
     let saving = false;
     let permanentlyRejected = false;
     const attemptSave = async () => {
       if (saving || permanentlyRejected || disposed || generation !== restartGeneration) return;
       saving = true;
+      record.saving = true;
       record.state = 'pending';
       $<HTMLButtonElement>('#retry-save').disabled = true;
-      try {
-        await saveResult(result);
-        record.state = 'saved';
-        record.onSettled?.();
-        if (disposed || generation !== restartGeneration) return;
-        $('#save-state').textContent = 'Saved in this browser.';
+      paintResultBaseline();
+      let outcome: Persistence | null = null;
+      try { outcome = await saveSource(source, record.capture); } catch { outcome = null; }
+      // Classify on the record before the stale-generation guard, so a carried entry is right at once.
+      applyOutcome(record, outcome);
+      const settled = record.state as SaveRecord['state']; // set by applyOutcome, not by this scope
+      saving = false;
+      record.saving = false;
+      record.onSettled?.();
+      if (disposed || generation !== restartGeneration) return;
+      if (settled === 'saved') {
+        if (shown) shown.savedAt = prepGeneration;
+        $('#save-state').textContent = outcome?.state === 'saved' && !outcome.membershipReady && record.capture && record.baseline ? 'Saved in this browser. It isn’t part of the baseline record yet.' : 'Saved in this browser.';
         $('#save-state').className = 'micro save-state'; // quiet again after a successful retry
         $('#retry-save').hidden = true;
         $('#full-result').hidden = false;
-        refreshToday(result);
-      } catch (error) {
-        // Classify on the record before the stale-generation guard, so a carried entry is right at once.
-        const permanent = error instanceof ResultValidationError;
-        record.state = permanent ? 'rejected' : 'failed';
-        if (permanent) record.reason = 'It failed validation and cannot be saved here; export it instead.';
-        record.onSettled?.();
-        if (disposed || generation !== restartGeneration) return;
-        permanentlyRejected = permanent;
+        refreshToday(isFiniteSource(source) ? undefined : source);
+      } else {
+        permanentlyRejected = settled === 'rejected';
         $('#save-state').className = 'micro save-state is-failed'; // presentation only: the notice treatment
         $('#save-state').textContent = permanentlyRejected
           ? 'This result cannot be saved because it failed validation. Export it before leaving; retrying cannot repair this result.'
           : 'This result could not be saved. Export it before leaving, or retry when browser storage is available.';
-        $('#retry-save').hidden = permanentlyRejected;
+        // A baseline test's retry is its primary action; the save row keeps export.
+        $('#retry-save').hidden = permanentlyRejected || record.baseline;
         $<HTMLButtonElement>('#retry-save').disabled = permanentlyRejected;
-      } finally { saving = false; }
+      }
+      paintResultBaseline();
     };
+    shown = { source, identity, record, savedAt: null, attemptSave };
+    paintResultBaseline();
+    afterResultRendered();
     // A retry that succeeds hides its own (focused) button: hand focus to the primary action, not to body.
     // Only while this block's result is still on screen (Again, a setting or disposal replace it).
     $('#retry-save').onclick = () => void attemptSave().then(() => {
       if (disposed || generation !== restartGeneration) return;
       if (($('#retry-save') as HTMLElement | null)?.hidden) afterResultRendered();
     });
-    $('#export-current').onclick = () => { record.exported = true; download(result, `typeforge-${result.id}.json`); };
+    $('#export-current').onclick = () => { record.exported = true; download(source, `typeforge-${source.id}.json`); };
     await attemptSave();
   }
 
@@ -594,7 +988,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     if (restarting || disposed) { event.preventDefault(); return; }
     const now = performance.now();
     const snapshot = paint(now);
-    if (snapshot.state === 'completed' || snapshot.state === 'aborted' || snapshot.state === 'stopped') {
+    if (ended(snapshot.state)) {
       // Keep native navigation, selection and copying available. beforeinput and
       // acceptInput guard mutations, and a stopped textarea is read-only.
       before = null; key = null;
@@ -614,7 +1008,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
   input.addEventListener('beforeinput', (event) => {
     if (restarting || disposed) { event.preventDefault(); return; }
     const snapshot = paint();
-    if (snapshot.state === 'completed' || snapshot.state === 'aborted' || snapshot.state === 'stopped') { event.preventDefault(); return; }
+    if (ended(snapshot.state)) { event.preventDefault(); return; }
     if (event.inputType === 'insertLineBreak' || event.inputType === 'insertParagraph') { event.preventDefault(); before = null; key = null; return; }
     if (event.inputType === 'historyUndo' || event.inputType === 'historyRedo') undoUsed = true;
     before = { value: snapshot.value, start: input.selectionStart ?? 0, end: input.selectionEnd ?? 0, type: event.inputType, data: event.data };
@@ -624,7 +1018,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     const inputEvent = event as InputEvent;
     const now = performance.now();
     const snapshot = engine.tick(now);
-    if (snapshot.state === 'completed' || snapshot.state === 'aborted' || snapshot.state === 'stopped') {
+    if (ended(snapshot.state)) {
       input.value = snapshot.value;
       paint(now);
       return;
@@ -632,7 +1026,10 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     const previous = before ?? { value: snapshot.value, start: key?.start ?? 0, end: key?.end ?? 0, type: key ? 'insertText' : '', data: key?.key ?? null };
     const edit = reconstructEdit(previous, input.value);
     const matchedKey = key && edit.text === key.key && edit.text.length === 1;
+    const starting = snapshot.state === 'idle';
     engine.edit({ ...edit, tracked: edit.tracked && (!edit.text || Boolean(matchedKey)), pressTime: matchedKey ? key!.time : undefined, repeat: matchedKey ? key!.repeat : false, composing: composing || inputEvent.isComposing }, now);
+    // The run's identity, capture and plan freeze at its first accepted insertion.
+    if (starting && engine.state !== 'idle' && !frozen) freezeRun();
     const accepted = engine.snapshot(now);
     const acceptedValue = accepted.value;
     if (accepted.sentenceIndex !== snapshot.sentenceIndex) {
@@ -663,7 +1060,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
   input.addEventListener('blur', interrupt);
   window.addEventListener('blur', interrupt);
   document.addEventListener('visibilitychange', () => { if (document.hidden) interrupt(); });
-  window.addEventListener('pagehide', () => { disposed = true; restartGeneration++; clearInterval(timer); if (!finished) engine.abort(performance.now()); });
+  window.addEventListener('pagehide', () => { disposed = true; restartGeneration++; clearInterval(timer); prepAbort?.abort(); unsubscribe(); if (!finished) engine.abort(performance.now()); });
   window.addEventListener('pageshow', (event) => { if (event.persisted) location.reload(); });
   input.addEventListener('focus', () => { stage.dataset.focus = 'in'; });
   input.addEventListener('blur', () => { stage.dataset.focus = 'out'; });
@@ -691,10 +1088,14 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
   function guard(setting: string, valid: (value: unknown) => boolean) {
     return (event: Event) => {
       const {value, source} = (event as UiChangeEvent<unknown>).detail;
-      const refused = disposed ? 'the page is closing.' : engine.state === 'running' && !restarting ? 'a block is running. Finish it or restart first.' : !valid(value) ? 'that value is not available.' : '';
+      // A locked Suggested key stays focusable and explains itself instead of switching.
+      const lockedSuggested = setting === 'practice' && value === 'recommended' && locked();
+      const refused = disposed ? 'the page is closing.' : engine.state === 'running' && !restarting ? 'a block is running. Finish it or restart first.'
+        : lockedSuggested ? 'Suggested is not available yet.' : !valid(value) ? 'that value is not available.' : '';
       if (refused) {
         event.preventDefault();
         settingsStatus(`${sourceName(source)} change to ${setting} refused: ${refused}`);
+        if (lockedSuggested && !disposed && engine.state !== 'running') pressExplanation();
         return;
       }
       settingsStatus(`${sourceName(source)} set ${setting} to ${String(value)}.`);
@@ -732,11 +1133,9 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
   }
   duration.addEventListener('valuechange', guard('duration', value => SUPPORTED_DURATIONS.some(supported => String(supported / 1000) === value)));
   qwerty.addEventListener('checkedchange', guard('qwerty', value => typeof value === 'boolean'));
-  practiceKind?.addEventListener('valuechange', guard('practice', value => value === 'general' || value === 'manual' || (value === 'recommended' && Boolean(recommendedFocus))));
-  // A disabled Suggested item cannot take focus or be checked; a press on it explains why instead.
-  suggestedItem?.addEventListener('pointerdown', () => {
-    if (!recommendedFocus) warning(`Suggested needs more evidence — using general. ${evidencePending ? 'Checking saved assessment evidence…' : recommendationReason(history, qwerty.checked, recommendedFocus)}`);
-  });
+  practiceKind?.addEventListener('valuechange', guard('practice', value => value === 'general' || value === 'manual' || value === 'recommended'));
+  // A press on the already-selected locked key changes no value; it still explains.
+  suggestedItem?.addEventListener('click', () => { if (locked() && engine.state !== 'running') pressExplanation(); });
   const changeSettings = () => {
     if (disposed || engine.state === 'running') return;
     if (restarting) { settingsPending = true; return; }
@@ -759,23 +1158,24 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     // A deliberate choice is remembered locally; `/` keeps its clean URL.
     savePreferences(mode, {durationSeconds: durationMs / 1000, qwerty: qwerty.checked, ...(practiceKind ? {kind} : {}), ...(kind === 'manual' && manualPair ? {pair: pairValue()} : {})});
     if (!options.home) window.history.replaceState(null, '', url);
-    repeatRequested = engine.state === 'completed';
+    repeatRequested = finished;
     void $('#restart').onclick?.call(stage, new PointerEvent('click'));
   };
   $('#restart').onclick = async () => {
-    if (restarting || disposed || (paint().state === 'completed' && !repeatRequested)) return;
+    if (restarting || disposed || (finished && !repeatRequested && paint().state !== 'stopped')) return;
     repeatRequested = false;
     carryUnsaved(); // Again or a result-state setting: continue now, keep any unsaved result listed
     restarting = true;
     const generation = ++restartGeneration;
     clearInterval(timer);
     engine.abort(performance.now());
+    prepAbort?.abort(); prepAbort = null;
     input.disabled = true;
     $<HTMLButtonElement>('#restart').disabled = true;
     before = null; key = null; composing = false;
-    $('#exercise-state').textContent = 'Refreshing saved evidence…';
-    const loaded = await calibration(settings(qwerty.checked, durationMs));
-    if (disposed || generation !== restartGeneration) return;
+    frozen = null; shown = null; fellBack = false;
+    const priorAdmitted = admitted;
+    admitted = null;
     if (originId) {
       let refreshedOrigin: SessionResult | null = null;
       try { refreshedOrigin = await getResult(originId) ?? null; }
@@ -793,19 +1193,35 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
         lineageMessage = sourceAssessmentId ? '' : 'Practice origin is unavailable or incompatible; a later assessment will start a new baseline.';
       }
     }
-    history = loaded.sentences;
-    evidencePending = false;
-    recommendedFocus = mode === 'practice' ? selectPracticeFocus(buildHistory(history), practicePrompts, artifact) : null;
-    practiceChoice = parsePracticeChoice(params.get('practice'), params.get('pair'), manualPairs, recommendedFocus, recommendationReason(history, qwerty.checked, recommendedFocus));
-    focus = mode === 'practice' && practiceChoice.kind === 'recommended' ? recommendedFocus : null;
-    if (practiceKind && manualPair) {
-      practiceKind.value = practiceChoice.kind; // Owner-to-view sync: emits no change event.
-      suggestedItem!.toggleAttribute('disabled', !recommendedFocus);
-      showPair(practiceChoice.kind === 'manual', practiceChoice.pair);
-      $('#recommendation-reason').textContent = recommendationReason(history, qwerty.checked, recommendedFocus);
+    practiceChoice = parsePracticeChoice(params.get('practice'), params.get('pair'), manualPairs);
+    suggestedRequested = mode === 'practice' && practiceChoice.kind === 'recommended';
+    // General never waits on optional evidence. A chosen Suggested block (30 s, qwerty on) waits for its
+    // own preparation and admission, then falls back to an honest General block if none is admitted.
+    let snapshot: PracticeSnapshot | null = null;
+    let block: Block | null = null;
+    const admitting = suggestedRequested && pilot();
+    if (admitting) {
+      $('#exercise-state').textContent = 'Checking saved tests…';
+      snapshot = await prepareCoach({ admit: true });
+      if (disposed || generation !== restartGeneration) return;
+      if (snapshot) {
+        block = admittedBlock(await finiteRuntime(), snapshot);
+        if (disposed || generation !== restartGeneration) return;
+        if (!block) snapshot = null;
+      }
     }
-    prompts = choosePrompts();
-    engine = makeEngine(qwerty.checked);
+    // Only the previous admitted snapshot in this document can explain a change of focus.
+    changeNote = priorAdmitted && (!snapshot || snapshot.plan.pair !== priorAdmitted.plan.pair) ? coachUi.changeHint(priorAdmitted.plan.pair, coach) : '';
+    if (suggestedRequested && pilot() && !snapshot && !changeNote) fellBack = coach.state !== 'checking' && coach.state !== 'unavailable';
+    if (practiceKind && manualPair) {
+      practiceKind.value = practiceChoice.kind === 'recommended' && locked() ? 'general' : practiceChoice.kind; // Owner-to-view sync: emits no change event.
+      showPair(practiceChoice.kind === 'manual', practiceChoice.pair);
+    }
+    if (`${qwerty.checked}|${durationMs}` !== historyKey) { history = []; historyKey = `${qwerty.checked}|${durationMs}`; }
+    admitted = snapshot;
+    if (snapshot) lastAdmittedPair = snapshot.plan.pair;
+    prompts = snapshot ? snapshot.plan.prompts.map(prompt => ({ ...prompt })) : choosePrompts();
+    engine = block ?? makeEngine(qwerty.checked);
     input.value = '';
     previousPromptText = '';
     previousResponse = '';
@@ -817,54 +1233,49 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     $('#today-summary').textContent = '';
     lastPromptKey = '';
     lastState = '';
-    slotLevel = 0; hintMark = '';
-    $('#exercise-warning').textContent = '';
-    storageNotice(loaded.diagnostics);
+    clearSlot();
     prepare();
     restarting = false;
     paint();
     input.disabled = false;
     $<HTMLButtonElement>('#restart').disabled = false;
-    const activeEngine = engine;
-    timer = setInterval(() => { if (!disposed && !restarting && engine === activeEngine) paint(); }, 100);
+    startTimer();
     if (mayFocusInput()) input.focus();
+    refreshCoachSurfaces();
+    // A Suggested restart has just read the status; any other restart reads it after the stage is ready.
+    if (!admitting) void prepareCoach();
+    loadEvidence();
     if (settingsPending) { settingsPending = false; queueMicrotask(changeSettings); }
   };
+  // Saved timing history arrives after the stage is ready. It may refine predictions, never the
+  // prompts or predictions the person has already seen; a failure leaves practice untouched.
+  function loadEvidence() {
+    if (!qwerty.checked || isFiniteBlock(engine)) { evidencePending = false; return; }
+    evidencePending = true;
+    const evidenceGeneration = restartGeneration;
+    const evidenceEngine = engine;
+    void calibration(settings(qwerty.checked, durationMs)).then(loaded => {
+      if (disposed || restarting || evidenceGeneration !== restartGeneration || engine !== evidenceEngine) return;
+      evidencePending = false;
+      storageNotice(loaded.diagnostics);
+      const fresh = engine.state === 'idle' && !engine.snapshot(performance.now()).value && engine.submittedSummaries.length === 0;
+      history = fresh ? loaded.sentences : loaded.sentences.reduce((merged, sentence) => appendHistory(merged, sentence), [] as SentenceSummary[]).concat(history).slice(-10);
+      prepare();
+    }).catch(() => {
+      // Optional evidence only: General practice is unaffected; a quiet note in Why?, never a banner.
+      if (disposed || evidenceGeneration !== restartGeneration) return;
+      evidencePending = false;
+      $('#prediction-state').textContent = 'Saved timing history could not be read; predictions are unavailable and practice is unaffected.';
+    });
+  }
   prepare();
-  const initialEngine = engine;
-  timer = setInterval(() => { if (!disposed && !restarting && engine === initialEngine) paint(); }, 100);
+  startTimer();
   paint();
   // Intentional entry: autofocus only if nobody moved focus while the stage was being prepared.
   if (!preparationFocusMoved && mayFocusInput()) input.focus();
-  // Saved evidence arrives after first paint. It may refine predictions and Suggested availability,
-  // but it never replaces prompts the person has already seen typed into.
-  if (evidencePending) {
-    const calibrationGeneration = restartGeneration;
-    void calibration(settings(declaredQwerty, durationMs)).then(loaded => {
-      if (disposed || restarting || calibrationGeneration !== restartGeneration || engine !== initialEngine) return;
-      evidencePending = false;
-      storageNotice(loaded.diagnostics);
-      const untouched = engine.state === 'idle' && !engine.snapshot(performance.now()).value && engine.submittedSummaries.length === 0;
-      history = untouched ? loaded.sentences : loaded.sentences.reduce((merged, sentence) => appendHistory(merged, sentence), [] as SentenceSummary[]).concat(history).slice(-10);
-      recommendedFocus = mode === 'practice' ? selectPracticeFocus(buildHistory(history), practicePrompts, artifact) : null;
-      suggestedItem?.toggleAttribute('disabled', !recommendedFocus);
-      if (mode === 'practice') $('#recommendation-reason').textContent = recommendationReason(history, qwerty.checked, recommendedFocus);
-      if (untouched && params.get('practice') === 'recommended' && recommendedFocus) {
-        void $('#restart').onclick?.call(stage, new PointerEvent('click'));
-        return;
-      }
-      if (untouched) {
-        practiceChoice = parsePracticeChoice(params.get('practice'), params.get('pair'), manualPairs, recommendedFocus, recommendationReason(history, qwerty.checked, recommendedFocus));
-        prepare();
-      }
-    }).catch(() => {
-      // Optional evidence only: General practice is unaffected; a quiet note in Why?, never a banner.
-      if (disposed || calibrationGeneration !== restartGeneration) return;
-      evidencePending = false;
-      suggestedItem?.toggleAttribute('disabled', !recommendedFocus);
-      if (mode === 'practice') $('#recommendation-reason').textContent = 'Saved evidence could not be read; general practice is unaffected.';
-    });
-  }
+  // The coach check and saved timing start after first paint; neither takes focus or blocks typing.
+  if (evidencePending) loadEvidence();
+  setTimeout(() => { if (!disposed) void prepareCoach(); }, 0);
   const configurationWarning = [parsedDuration.reason, parsedQwerty.reason].filter(Boolean).join(' ');
   if (configurationWarning) warning(configurationWarning);
 }
@@ -896,7 +1307,7 @@ function integrityCopy(flags: readonly string[], undoUsed: boolean) {
   return 'Focus left the typing field: this run is flagged and excluded from headline progress. The timer kept running.';
 }
 
-function observedTakeaway(result: SessionResult) {
+function observedTakeaway(result: SavedSource) {
   if (result.metrics.accuracy === null) return 'Accuracy is unavailable for this run: Undo or an unsupported edit was used.';
   const keys = new Map<string, {count: number; errors: number}>();
   for (const sentence of result.sentences) {
@@ -911,32 +1322,25 @@ function observedTakeaway(result: SessionResult) {
   return `Most first-attempt misses: ${label} (${worst[1].errors} of ${worst[1].count}). An observation, not a diagnosis.`;
 }
 
-function resultIdentity(result: SessionResult) {
-  if (result.mode === 'assessment') return result.sourceAssessmentId ? 'Fresh retest' : 'Assessment';
-  return result.manualDrill ? `Pair practice · ${result.manualDrill.pair}` : result.practiceFocus ? `Suggested practice · ${result.practiceFocus.pair}` : 'General practice';
-}
-
-// The result replaces the passage in place: two equal figures, one observed takeaway, one primary action.
-function resultPanel(result: SessionResult, history: readonly SentenceSummary[]) {
-  const seconds = result.settings.durationMs / 1000;
-  const query = `duration=${seconds}&qwerty=${result.settings.qwerty ? '1' : '0'}`;
-  let actions: string;
-  if (result.mode === 'practice') {
-    actions = `<button class="key key-primary" id="again" type="button">again ↵</button><span class="action-note">same settings, new sentences</span>`;
-  } else {
-    // Assessments never loop on "again": Practice next is primary, a compatible fresh retest secondary.
-    const focus = result.settings.qwerty ? selectPracticeFocus(buildHistory(history), practicePrompts, artifact) : null;
-    const retest = resolveRetest(result, result.settings, assessmentPrompts);
-    actions = `<a class="key key-primary" id="practice-next" href="./practice.html?mode=practice&practice=${focus ? 'recommended' : 'general'}&from=${encodeURIComponent(result.id)}&${query}">practice next${focus ? ` · ${focus.pair}` : ''} ↵</a>`
-      + (retest.kind === 'retest' ? `<a class="key" id="retest-next" href="./practice.html?retest=${encodeURIComponent(result.id)}&${query}">fresh retest</a>` : `<a class="key" id="retest-next" href="./practice.html?${query}">new assessment</a>`);
-  }
-  const flagged = result.eligibleForProgress ? '' : `<p class="result-flag">${result.metrics.accuracy === null ? 'Excluded from progress: Undo or an unsupported edit was used, so accuracy is unavailable.' : 'Flagged: this run was interrupted or used unsupported input. It is saved with a label and excluded from headline progress.'}</p>`;
-  return `<h2 class="micro result-label">${resultIdentity(result)} · ${seconds} s · complete</h2>
-    <dl class="result-figures"><div><dt>wpm</dt><dd>${format(result.metrics.wpm)}</dd></div><div><dt>accuracy</dt><dd>${accuracy(result.metrics.accuracy)}</dd></div></dl>
-    <p class="result-observation">${observedTakeaway(result)}</p>${flagged}
-    <div class="result-actions">${actions}</div>
+const flaggedLine = 'Flagged: this run was interrupted or used unsupported input. It is saved with a label and excluded from headline progress.';
+// The result replaces the passage in place: the frozen run label, figures, one observed takeaway and the actions.
+// An early-ended Suggested block says what happened; a flagged one leads with its flag and shows no figures.
+function resultPanel(source: SavedSource, identity: { label: string }) {
+  const seconds = source.settings.durationMs / 1000;
+  const finite = isFiniteSource(source);
+  const flagged = finite ? source.qualityFlags.length > 0 : !source.eligibleForProgress;
+  const label = finite ? coachUi.planEndLabel(source.plan.pair, source.plan.sentenceCount, source.metrics.elapsedMs) : `${identity.label} · ${seconds} s · complete`;
+  const figures = `<dl class="result-figures"><div><dt>wpm</dt><dd>${format(source.metrics.wpm)}</dd></div><div><dt>accuracy</dt><dd>${accuracy(source.metrics.accuracy)}</dd></div></dl>`;
+  const timedFlag = flagged ? `<p class="result-flag">${source.metrics.accuracy === null ? 'Excluded from progress: Undo or an unsupported edit was used, so accuracy is unavailable.' : flaggedLine}</p>` : '';
+  const body = !finite ? `${figures}<p class="result-observation">${observedTakeaway(source)}</p>${timedFlag}`
+    : flagged ? `<p class="result-flag">${flaggedLine}</p>`
+      : `${figures}<p class="micro figures-caption">${coachUi.planEndFigures(source.metrics.elapsedMs)}</p><p class="result-observation">${esc(coachUi.planEndLine(source.plan.pair))}</p>`;
+  return `<h2 class="micro result-label">${esc(label)}</h2>
+    ${body}
+    <div id="baseline-result"></div>
+    <div class="result-actions" id="result-actions"></div>
     <div class="save-row"><p id="save-state" class="micro save-state" role="status">Saving to this browser…</p><button id="retry-save" class="key key-small" type="button" hidden>retry saving</button><button id="export-current" class="key key-small" type="button">export</button></div>
-    <ui-collapsible class="result-details"><ui-collapsible-trigger><button type="button" class="text-button">details</button></ui-collapsible-trigger><ui-collapsible-panel keep-mounted hidden>${metricCards(result)}<p class="micro">Accuracy includes mistakes you corrected. Deleted characters are reported separately. ${result.sentences.filter(sentence => sentence.submitted).length} passages submitted.</p><a id="full-result" class="text-link" href="./results.html?id=${encodeURIComponent(result.id)}" hidden>full result, timing and export options →</a></ui-collapsible-panel></ui-collapsible>`;
+    <ui-collapsible class="result-details"><ui-collapsible-trigger><button type="button" class="text-button">details</button></ui-collapsible-trigger><ui-collapsible-panel keep-mounted hidden>${metricCards(source)}<p class="micro">Accuracy includes mistakes you corrected. Deleted characters are reported separately. ${source.sentences.filter(sentence => sentence.submitted).length} passages submitted.</p><a id="full-result" class="text-link" href="./results.html?id=${encodeURIComponent(source.id)}" hidden>full result, timing and export options →</a></ui-collapsible-panel></ui-collapsible>`;
 }
 
 type Activity = { practice: number; practiceMs: number; flagged: number; flaggedMs: number; assessments: number; complete: boolean };
@@ -994,7 +1398,7 @@ function renderActivity(history: readonly SessionResult[]) {
     + cell('assessments, 7 days', `${week.assessments}`, 'trend below');
 }
 
-function metricCards(result: SessionResult) {
+function metricCards(result: SavedSource) {
   const metrics = result.metrics;
   return `<dl class="metrics"><div class="metric"><dt>Words per minute</dt><dd>${format(metrics.wpm)}</dd></div><div class="metric"><dt>Attempt accuracy</dt><dd>${accuracy(metrics.accuracy)}</dd></div><div class="metric"><dt>Correct characters</dt><dd>${metrics.correctCharacters}</dd></div><div class="metric"><dt>Characters deleted</dt><dd>${metrics.deletedCharacters}</dd></div></dl>`;
 }
@@ -1021,10 +1425,10 @@ async function results() {
     shell(`<section class="panel empty"><p class="eyebrow">A fresh start</p><h1>Your next result starts here.</h1><p class="lead">Take an assessment, or choose a saved result from your history.</p><div class="actions" style="justify-content:center"><a class="button" href="./practice.html">Start an assessment</a><a class="button secondary" href="./progress.html">View history</a></div></section>`);
     return;
   }
-  const result = await getResult(id);
-  if (!result) throw new Error('This result is not saved in this browser. It may have been deleted or created on another device.');
-  const loaded = await calibration(result.settings);
-  const focus = result.settings.inputMode === 'flow-v1' ? selectPracticeFocus(buildHistory(loaded.sentences), practicePrompts, artifact) : null;
+  const saved = await getSavedSource(id);
+  if (!saved) throw new Error('This result is not saved in this browser. It may have been deleted or created on another device.');
+  if (isFiniteSource(saved)) { finiteResultPage(saved); return; }
+  const result = saved;
   const originId = result.mode === 'assessment' ? result.id : result.sourceAssessmentId;
   let origin: SessionResult | null = result.mode === 'assessment' ? result : null;
   if (result.mode === 'practice' && originId) {
@@ -1042,17 +1446,18 @@ async function results() {
     <section class="panel"><h2>What went into this result</h2><ul class="list" id="result-detail"></ul><p class="small">Accuracy includes mistakes you corrected. Deleted characters are reported separately.</p></section></div>
     <div class="two-col"><section class="panel"><h2>First attempts by key</h2><p class="small">Errors at the first entry to each position. Corrections do not add opportunities.</p><ul class="list" id="key-errors"></ul></section>
     <section class="panel"><h2>Observed pair timing</h2><p class="small">Typical intervals from fully correct, unedited sentences. These are observations, not predictions.</p><ul class="list" id="pair-times"></ul></section></div>
-    <div class="actions"><a class="button secondary" id="retest" href="./practice.html">${result.mode === 'assessment' ? 'Retest with fresh passages' : 'Take an assessment'}</a><a class="button secondary" href="./practice.html?mode=practice&practice=${result.manualDrill ? `manual&pair=${encodeURIComponent(result.manualDrill.pair)}` : result.practiceFocus ? 'recommended' : 'general'}&duration=${result.settings.durationMs / 1000}&qwerty=${result.settings.qwerty ? '1' : '0'}${originId ? `&from=${encodeURIComponent(originId)}` : ''}">Keep practising</a><button class="button secondary" id="export-result">Export result</button><button class="button secondary danger" id="delete-result">Delete result</button></div>
+    <div class="actions"><a class="button secondary" id="retest" href="./practice.html">${result.mode === 'assessment' ? 'Retest with fresh passages' : 'Take an assessment'}</a><a class="button secondary" href="./practice.html?mode=practice&practice=${result.manualDrill ? `manual&pair=${encodeURIComponent(result.manualDrill.pair)}` : 'general'}&duration=${result.settings.durationMs / 1000}&qwerty=${result.settings.qwerty ? '1' : '0'}${originId ? `&from=${encodeURIComponent(originId)}` : ''}">Keep practising</a><button class="button secondary" id="export-result">Export result</button><button class="button secondary danger" id="delete-result">Delete result</button></div>
     <p id="result-status" class="status" role="status"></p>
     <details><summary>How your scores are calculated</summary><p>WPM is the number of matching characters at their prompt positions, multiplied by 12000 and divided by the selected duration in milliseconds (${result.settings.durationMs} ms). It includes submitted sentences and your final partial response. ${result.settings.inputMode === 'flow-v1' ? 'Flow uses Space to advance; the terminal separator does not count.' : 'This legacy run used Enter to submit; it is not compared with flow runs.'} Accuracy is correct inserted characters divided by all inserted characters; corrections do not erase past mistakes. A timing sample requires a complete, correct first pass, with an interval no longer than five seconds.</p></details>`);
   $('#result-date').textContent = `${date(result.completedAt)} · ${result.settings.durationMs / 1000} seconds · ${result.settings.inputMode === 'flow-v1' ? 'Space flow' : 'Legacy Enter'} · Saved in this browser`;
-  storageNotice(loaded.diagnostics);
+  storageNotice(getStorageDiagnostics());
   const next = $<HTMLAnchorElement>('#next-action');
   if (result.mode === 'assessment') {
-    $('#coach-title').textContent = focus ? `Practise “${focus.pair}” next.` : 'Build your rhythm with general practice.';
-    $('#coach-explanation').textContent = focus ? `${focus.evidenceCount} observed intervals support this focus. Historical baseline ${focus.baselineVersion} ranks it above your typical timing; at least three practice sentences contain this pair. This is a practice hypothesis, not a diagnosis.` : 'No pair currently has enough evidence and a positive supported focus score. General practice is useful without inventing a weakness.';
-    next.textContent = focus ? `Practise ${focus.pair}` : 'Start general practice';
-    next.href = `./practice.html?mode=practice&practice=${focus ? 'recommended' : 'general'}&from=${encodeURIComponent(result.id)}&duration=${result.settings.durationMs / 1000}&qwerty=${result.settings.qwerty ? '1' : '0'}`;
+    // Suggested explains its own focus on the practice page from the current baseline; this page never re-selects one.
+    $('#coach-title').textContent = 'Keep practising.';
+    $('#coach-explanation').textContent = 'General and pair practice work as usual. Suggested checks your baseline tests on the practice page and explains any focus there.';
+    next.textContent = 'Start practice';
+    next.href = `./index.html?mode=practice&from=${encodeURIComponent(result.id)}&duration=${result.settings.durationMs / 1000}&qwerty=${result.settings.qwerty ? '1' : '0'}`;
   } else {
     $('#coach-title').textContent = retest.kind === 'retest' ? 'See how you type on fresh passages.' : 'Set a new assessment baseline.';
     $('#coach-explanation').textContent = retest.kind === 'retest' ? 'Your original assessment is saved. Compare with it on fresh passages; practice scores stay separate.' : `Fresh comparison unavailable: ${retest.reason}`;
@@ -1071,6 +1476,30 @@ async function results() {
   }
   renderPredictionComparison(result);
   renderResultDetails(result);
+  $('#export-result').onclick = () => download(result, `typeforge-${result.id}.json`);
+  $('#delete-result').onclick = async () => {
+    if (!window.confirm('Delete this saved result from this browser? Export it first if you want a copy.')) return;
+    try { await deleteResult(result.id); location.assign('./progress.html'); }
+    catch { $('#result-status').textContent = 'Deletion failed. Your saved result has not been removed; try again.'; }
+  };
+}
+
+// A saved early-ended Suggested block: readable and exportable as itself, never cast to a timed result.
+function finiteResultPage(result: FinitePracticeResult) {
+  const flagged = result.qualityFlags.length > 0;
+  shell(`<div class="page-heading"><div><p class="eyebrow">Suggested practice</p><h1 id="finite-title"></h1><p class="small" id="result-date"></p></div><span class="tag">SUGGESTED PRACTICE</span></div>
+    ${flagged ? `<p class="notice">${flaggedLine}</p>` : `${metricCards(result)}<p class="small" id="finite-figures"></p>`}
+    <section class="panel"><h2>What this block was</h2><p class="small" id="finite-explanation"></p><ul class="list" id="result-detail"></ul></section>
+    <div class="actions"><a class="button secondary" href="./index.html?mode=practice&practice=recommended&duration=30&qwerty=1">Suggested again</a><a class="button secondary" href="./index.html?mode=practice&practice=general">General practice</a><button class="button secondary" id="export-result">Export result</button><button class="button secondary danger" id="delete-result">Delete result</button></div>
+    <p id="result-status" class="status" role="status"></p>`);
+  $('#finite-title').textContent = coachUi.planEndLabel(result.plan.pair, result.plan.sentenceCount, result.metrics.elapsedMs);
+  $('#result-date').textContent = `${date(result.completedAt)} · Saved in this browser · not part of progress or the baseline`;
+  if (!flagged) $('#finite-figures').textContent = `Figures are ${coachUi.planEndFigures(result.metrics.elapsedMs)}.`;
+  $('#finite-explanation').textContent = coachUi.planEndLine(result.plan.pair);
+  addListRow($('#result-detail'), 'Pair', result.plan.pair, true);
+  addListRow($('#result-detail'), 'Sentences', `${result.sentences.filter(sentence => sentence.submitted).length} of ${result.plan.sentenceCount} submitted`);
+  addListRow($('#result-detail'), 'Time typed', `${coachUi.elapsedSeconds(result.metrics.elapsedMs)} s of 30`);
+  storageNotice(getStorageDiagnostics());
   $('#export-result').onclick = () => download(result, `typeforge-${result.id}.json`);
   $('#delete-result').onclick = async () => {
     if (!window.confirm('Delete this saved result from this browser? Export it first if you want a copy.')) return;
@@ -1151,27 +1580,109 @@ function renderResultDetails(result: SessionResult) {
   if (!$('#pair-times').children.length) addListRow($('#pair-times'), result.settings.qwerty ? 'No eligible timing observations yet' : 'QWERTY keyboard was not declared for this run', '');
 }
 
+// Finite Suggested blocks are listed beside timed results from a bounded scan of every saved source.
+async function finiteSources(): Promise<{ sources: FinitePracticeResult[]; complete: boolean }> {
+  const ledger = createPreparationLedger();
+  const sources: FinitePracticeResult[] = [];
+  let cursor: Parameters<typeof listSavedSourcesPage>[0]['cursor'] = null;
+  for (let page = 0; page < 50; page++) {
+    const read = await listSavedSourcesPage({ cursor, ledger });
+    for (const entry of read.sources) if (isFiniteSource(entry.source)) sources.push(entry.source);
+    if (read.complete) return { sources, complete: true };
+    if (read.stop !== 'slice') break;
+    cursor = read.cursor;
+  }
+  return { sources, complete: false };
+}
+
 async function progress() {
   const history = await listResults();
+  let finite: { sources: FinitePracticeResult[]; complete: boolean } = { sources: [], complete: false };
+  try { finite = await finiteSources(); } catch { /* Timed history stays readable; the note below says the list may be incomplete. */ }
   shell(`<div class="page-heading"><div><p class="eyebrow">Small steps, saved</p><h1>Your practice, over time.</h1><p class="small">History is saved in this browser. Export it to keep a separate copy.</p></div><div class="actions"><a class="button" href="./index.html">Practise</a><a class="button secondary" href="./practice.html">New assessment</a></div></div>
+    <section class="panel baseline-section" aria-labelledby="baseline-heading">
+      <h2 id="baseline-heading" tabindex="-1">Baseline</h2>
+      <div id="baseline-body"><p class="small">Checking saved tests…</p></div>
+      <p class="status" id="baseline-status" role="status"></p>
+      <p class="small">Start a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.</p>
+      <div id="reset-area"><button class="key" id="reset" type="button">start a new baseline</button></div>
+    </section>
     <section class="panel activity" aria-labelledby="activity-title"><h2 id="activity-title">Practice activity</h2><p id="activity-scope" class="small"></p><dl class="activity-grid" id="activity-grid"></dl></section>
     <div id="history-content"></div><p id="history-status" class="status" role="status"></p>`);
+  let coach = coachUi.baselineView(null);
+  // The Baseline section reads one prepared status; it never admits practice and never borrows a count.
+  async function readBaseline() {
+    try {
+      const plan = await coachPlan();
+      const status = await preparePractice({ config: plan.COACH_CONFIG, generation: 0, now: new Date().toISOString(),
+        persistence: { state: 'idle', pendingIds: [] }, pendingSources: [] });
+      coach = coachUi.baselineView(status);
+    } catch { coach = { ...coachUi.baselineView(null), state: 'unavailable', reason: 'storage-unavailable' }; }
+    paintBaseline();
+    return coach;
+  }
+  function paintBaseline() {
+    $('#baseline-body').innerHTML = !coachUi.usable(coach)
+      ? `<p class="small">${coach.state === 'checking' ? 'Checking saved tests…' : `${esc(coachUi.reasonSentence(coach))} ${coachUi.worksAsUsual}`}</p>`
+      : `${baselineProgress(coach, 'counted')}${summaryBlock(coach, true)}
+        <p class="small">From 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.</p>
+        ${(coach.counted ?? 0) < coachUi.TARGET || !coach.exact ? `<a class="key key-small" href="./practice.html?duration=30">${coachUi.takeTestLabel(coach)}</a>` : ''}`;
+    formatBaselineProgress(coach);
+  }
+  function resetButton() {
+    $('#reset-area').innerHTML = '<button class="key" id="reset" type="button">start a new baseline</button>';
+    $('#reset').onclick = confirmReset;
+  }
+  function confirmReset() {
+    $('#reset-area').innerHTML = `<div class="reset-confirm" role="group" aria-labelledby="reset-question"><p id="reset-question">Start a new baseline at 0 of ${coachUi.TARGET}? Saved results stay in your history.</p>
+      <div class="actions"><button class="key" id="keep" type="button">keep current baseline</button><button class="key" id="start-over" type="button">start over</button></div></div>`;
+    $('#keep').onclick = () => { resetButton(); $('#reset').focus(); };
+    $('#start-over').onclick = () => void startOver();
+    $('#keep').focus();
+  }
+  // Reset uses C's discriminated outcome. Only a usable commit followed by a proved re-read announces
+  // a new count; a failed reset never announces success, and saved results are never deleted.
+  async function startOver() {
+    $<HTMLButtonElement>('#start-over').disabled = true;
+    $<HTMLButtonElement>('#keep').disabled = true;
+    const capture = await captureContext();
+    const outcome = capture ? await resetEpoch(capture.databaseId) : { committed: false as const, authority: null, reason: 'context-unavailable' as const };
+    resetButton();
+    if (!outcome.committed) {
+      $('#baseline-status').textContent = 'A new baseline couldn’t be started here. Your current baseline is unchanged.';
+      $('#reset').focus();
+      return;
+    }
+    const reread = outcome.authority ? await readBaseline() : null;
+    if (reread && reread.exact && reread.counted !== null && coachUi.usable(reread)) {
+      $('#baseline-status').textContent = `New baseline started: ${coachUi.countText(reread)}. Earlier results are still in your history.`;
+    } else {
+      coach = { ...coachUi.baselineView(null), state: 'unavailable', reason: 'context-unavailable' };
+      paintBaseline();
+      $('#baseline-status').textContent = 'A new baseline was started, but saved tests can’t be counted right now. General works as usual.';
+    }
+    $('#baseline-heading').focus();
+  }
+  $('#reset').onclick = confirmReset;
+  void readBaseline();
   renderActivity(history);
-  if (!history.length) {
-    storageNotice(getStorageDiagnostics());
+  storageNotice(getStorageDiagnostics());
+  if (!history.length && !finite.sources.length) {
     $('#history-content').innerHTML = `<section class="panel empty"><h2>Everyone starts with one session.</h2><p class="lead">Your completed practice blocks and assessments will appear here.</p><a class="button" href="./index.html">Start practising</a></section>`;
     return;
   }
-  storageNotice(getStorageDiagnostics());
   const newest = history.find((result) => result.mode === 'assessment' && result.eligibleForProgress && result.settings.corpusVersion === CORPUS_VERSION);
   const valid = newest ? history.filter(result => result.mode === 'assessment' && result.eligibleForProgress && compatible(result, newest.settings)) : [];
   const recent = valid.slice(0, 5);
   $('#history-content').innerHTML = `<section class="panel"><h2>Your assessment trend</h2><p id="trend-summary" class="small"></p><div id="trend-chart"></div></section>
-    <div class="page-heading" style="margin-top:32px"><h2>Saved sessions</h2><button id="export-history" class="button secondary">Export history</button></div>
+    <div class="page-heading" style="margin-top:32px"><h2>Saved sessions</h2><div class="actions"><button id="export-history" class="button secondary">Export history</button><button id="export-sources" class="button secondary">Export all saved sources</button></div></div>
+    <p id="sources-note" class="small"></p>
     <div class="panel table-wrap" tabindex="0" aria-label="Saved sessions; scroll horizontally for more columns"><table><caption class="sr-only">Your locally saved typing sessions, newest first</caption><thead><tr><th scope="col">Session</th><th scope="col">Mode</th><th scope="col">Duration / interaction</th><th scope="col">WPM</th><th scope="col">Accuracy</th><th scope="col">Status</th></tr></thead><tbody id="history-rows"></tbody></table></div>`;
   $('#trend-summary').textContent = recent.length ? `${format(recent.reduce((sum, result) => sum + result.metrics.wpm, 0) / recent.length)} WPM average across your latest ${recent.length} eligible assessment${recent.length === 1 ? '' : 's'}. Best: ${format(Math.max(...valid.map((result) => result.metrics.wpm)))} WPM. Bucket: ${newest!.settings.durationMs / 1000}s · ${newest!.settings.inputMode === 'flow-v1' ? 'Space flow' : 'Legacy Enter'} · ${newest!.settings.qwerty ? 'QWERTY declared' : 'keyboard undeclared'} · ${newest!.settings.language} · ${newest!.settings.corpusVersion}. Only compatible settings are compared. Passage variation affects comparisons.` : 'Complete an uninterrupted assessment to start your trend. Practice sessions stay separate.';
   if (recent.length > 1) drawChart([...recent].reverse().map((result, index) => ({ x: index, y: result.metrics.wpm })), $('#trend-chart'), recent.length - 1);
-  for (const result of history) {
+  $('#sources-note').textContent = finite.complete ? '' : 'Some suggested blocks that ended early may not be listed: not every saved source could be read just now. Timed results are all listed.';
+  const rows: SavedSource[] = [...history, ...finite.sources].sort((a, b) => b.completedAt.localeCompare(a.completedAt) || b.id.localeCompare(a.id));
+  for (const result of rows) {
     const row = document.createElement('tr');
     const first = document.createElement('td');
     const link = document.createElement('a');
@@ -1179,14 +1690,24 @@ async function progress() {
     link.textContent = date(result.completedAt);
     first.append(link);
     row.append(first);
-    for (const value of [result.mode === 'assessment' ? 'Assessment' : 'Practice', `${result.settings.durationMs / 1000}s · ${result.settings.inputMode === 'flow-v1' ? 'Space flow' : 'Legacy Enter'}`, format(result.metrics.wpm), accuracy(result.metrics.accuracy), result.eligibleForProgress ? 'Complete' : 'Flagged']) {
+    const flagged = isFiniteSource(result) && result.qualityFlags.length > 0;
+    const values = isFiniteSource(result)
+      ? [`Suggested practice · ${result.plan.pair}`, `${coachUi.elapsedSeconds(result.metrics.elapsedMs)} s of 30 · all ${result.plan.sentenceCount} sentences`,
+        flagged ? '—' : format(result.metrics.wpm), flagged ? '—' : accuracy(result.metrics.accuracy), flagged ? 'Flagged' : 'Ended early · practice only']
+      : [result.mode === 'assessment' ? 'Assessment' : 'Practice', `${result.settings.durationMs / 1000}s · ${result.settings.inputMode === 'flow-v1' ? 'Space flow' : 'Legacy Enter'}`, format(result.metrics.wpm), accuracy(result.metrics.accuracy), result.eligibleForProgress ? 'Complete' : 'Flagged'];
+    for (const value of values) {
       const cell = document.createElement('td');
       cell.textContent = value;
       row.append(cell);
     }
     $('#history-rows').append(row);
   }
+  // The existing timed-history export is unchanged; the mixed export is C's separate envelope with original sources.
   $('#export-history').onclick = () => download({ exportedAt: new Date().toISOString(), scope: 'this browser only', results: history }, 'typeforge-history.json');
+  $('#export-sources').onclick = async () => {
+    try { download(await exportSavedSources(), 'typeforge-saved-sources.json'); }
+    catch { $('#history-status').textContent = 'Saved sources could not be exported just now. Your history is unchanged; try again.'; }
+  };
 }
 
 function lab() {
