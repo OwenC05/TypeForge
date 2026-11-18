@@ -1,0 +1,30 @@
+[
+ {
+  "flow": "F8 Enter on next test after 0 ms",
+  "atResult": {
+   "focus": "next test ↵",
+   "save": "Saving to this browser…",
+   "baseline": "BASELINE\n4 of 10 tests · 1 waiting to save\n\nSaving…"
+  },
+  "next": {
+   "label": "Baseline test 5 of 10 · 30 s",
+   "slot": "baseline test 5 of 10 — the clock starts with your first letter"
+  },
+  "errors": [
+   "TypeError: Cannot set properties of null (setting 'textContent')"
+  ]
+ },
+ {
+  "flow": "F8 Enter on next test after 800 ms",
+  "atResult": {
+   "focus": "next test ↵",
+   "save": "Saving to this browser…",
+   "baseline": "BASELINE\n4 of 10 tests · 1 waiting to save\n\nSaving…"
+  },
+  "next": {
+   "label": "Baseline test 6 of 10 · 30 s",
+   "slot": "baseline test 6 of 10 — the clock starts with your first letter"
+  },
+  "errors": []
+ }
+]
