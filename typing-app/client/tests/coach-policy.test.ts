@@ -8,7 +8,7 @@ import { validateResult } from '../src/storage.ts';
 import { createFiniteAdapter } from '../src/finite-practice.ts';
 import { validateFinitePracticeResult } from '../src/finite-practice-result.ts';
 import { COACH_CONFIG, CONFIG_ID } from '../src/coach-plan.ts';
-import { derivePolicy, admitPractice, validateMetadata, validateMembership } from '../src/coach-policy.ts';
+import { derivePolicy, admitPractice, qualifiesPolicySource, validateMetadata, validateMembership } from '../src/coach-policy.ts';
 import type { Capture, PendingSource, ProjectionInput, SavedSource, SourceRead, SourceRef, VerifiedProof } from '../src/coach-types.ts';
 
 const NOW = '2026-11-16T12:00:00.000Z', AGE = 30 * 86400000;
@@ -79,6 +79,40 @@ function ready(sources: readonly SavedSource[] = connected()) {
   assert.equal(output.status.coach.state,'complete-ready'); assert.ok(output.candidate);
   return {input,output,snapshot:output.candidate};
 }
+
+test('shared source classification uses only metadata/now before proof without publishing authority',()=>{
+  const input=inputFor(oneKeys(1));input.finalProof=null;
+  const context:Pick<ProjectionInput,'metadata'|'now'>={metadata:input.metadata,now:input.now};
+  const before=canonical(input);
+  assert.equal(qualifiesPolicySource(input.sources[0],context),true);
+  assert.equal(qualifiesPolicySource(input.sources[0],context,true),true);
+  assert.equal(canonical(input),before);
+  const projection=derivePolicy(input);
+  assert.equal(projection.status.participation.state,'pending');
+  assert.equal(projection.status.participation.counted,0);
+  assert.equal(projection.status.summary.value,null);assert.equal(projection.candidate,null);
+  const practice=inputFor([run(20,250,{oneKey:true,mode:'practice'})]);
+  const practiceContext={metadata:practice.metadata,now:practice.now};
+  assert.equal(qualifiesPolicySource(practice.sources[0],practiceContext),true);
+  assert.equal(qualifiesPolicySource(practice.sources[0],practiceContext,false),true);
+  assert.equal(qualifiesPolicySource(practice.sources[0],practiceContext,true),false);
+});
+
+test('shared classification retains physical legacy and current captured-context semantics',()=>{
+  const input=inputFor(oneKeys(1)), read=input.sources[0];
+  const context={metadata:input.metadata,now:input.now};
+  const legacy:SourceRead={...read,ref:{...read.ref,partition:'legacy'},membership:null};
+  assert.equal(qualifiesPolicySource(legacy,context,true),true);
+  assert.equal(qualifiesPolicySource(legacy,{...context,metadata:{...context.metadata,legacyEpochId:'old'}},true),false);
+  assert.equal(qualifiesPolicySource(legacy,{...context,metadata:{...context.metadata,
+    legacyCutoffCompletedAt:'2026-11-16T09:59:59.999Z'}},true),false);
+  assert.equal(qualifiesPolicySource({...read,membership:null},context,true),false);
+  assert.ok(read.membership);
+  for(const patch of [{databaseId:'other'},{contextId:'other'},{epochId:'old'},{purpose:'protected-probe' as const}])
+    assert.equal(qualifiesPolicySource({...read,membership:{...read.membership,...patch}},context,true),false);
+  assert.equal(qualifiesPolicySource(read,{...context,metadata:{...context.metadata,activeEpochId:'reset'}},true),false);
+  assert.equal(qualifiesPolicySource(read,{...context,now:'2026-11-16T09:59:59.999Z'},true),false);
+});
 
 test('metadata strict shape/calendar/IDs/revision, with readable terminal MAX',()=>{
   const m=inputFor([]).metadata;
@@ -389,6 +423,9 @@ test('real finite result never enters assessment or next coach window; ordinary 
   }
   const source=adapter.result('2026-11-16T11:30:00.000Z');assert.ok(source && 'schemaId' in source);
   assert.deepEqual(validateFinitePracticeResult(source,snapshot.plan),source);assert.throws(()=>validateResult(source));
+  const finite=inputFor([source]), context={metadata:finite.metadata,now:finite.now};
+  assert.equal(qualifiesPolicySource(finite.sources[0],context),false);
+  assert.equal(qualifiesPolicySource(finite.sources[0],context,true),false);
   const original=ready().snapshot, next=ready([...connected(),source]).snapshot;
   assert.deepEqual(next.focus,original.focus);assert.deepEqual(next.sources,original.sources);assert.deepEqual(next.witnesses,original.witnesses);
   const history=[...connected(),...Array.from({length:20},(_,i)=>run(i+20,250,{prompts:practicePrompts,mode:'practice'}))];

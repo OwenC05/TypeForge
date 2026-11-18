@@ -115,7 +115,15 @@ function sourceSet(input: ProjectionInput): SourceRead[] {
   return [...ids.values()].sort((a,b) => sourceOrder(b.ref, a.ref));
 }
 
-function qualifying(read: SourceRead, input: ProjectionInput, assessmentsOnly = false): boolean {
+/** Provisional classification for bounded scanning, not persistence or current authority.
+ * C must acquire/validate sources, references, metadata and membership on its bounded path;
+ * final projection still checks the entire bound selection after C's actual final proof.
+ * This predicate cannot authorize a count, median, candidate or practice admission. */
+export function qualifiesPolicySource(
+  read: SourceRead,
+  input: Pick<ProjectionInput, 'metadata' | 'now'>,
+  assessmentsOnly = false,
+): boolean {
   if (read.ref.kind !== 'timed-v1') return false;
   const r = read.source;
   try { validateResult(r); } catch { return false; }
@@ -159,7 +167,7 @@ function pendingCount(input: ProjectionInput, saved: readonly SourceRead[]): num
       const ref: SourceRef = { partition: 'current', kind: 'timed-v1', id: r.id,
         completedAt: r.completedAt, sha256: hashCanonical(r) };
       const membership: Membership = { ...c, schemaId: 'typeforge-coach-membership-v2', sourceKind: 'timed-v1', resultId: r.id, resultSha256: ref.sha256 };
-      if (qualifying({ ref, source: r, membership }, input, true)) ids.add(r.id);
+      if (qualifiesPolicySource({ ref, source: r, membership }, input, true)) ids.add(r.id);
     } catch { /* Invalid/uncaptured sources are recoverable, never a projected baseline test. */ }
   }
   return ids.size;
@@ -331,7 +339,7 @@ export function derivePolicy(input: ProjectionInput): PreparedProjection {
     const participationRows = rangeRows(input.participationRange,rows,'participation');
     const summaryRows = rangeRows(input.summaryRange,rows,'summary');
     const coachRows = input.coachRange === null ? null : rangeRows(input.coachRange,rows,'coach');
-    const assessments = (participationRows ?? rows).filter(r => qualifying(r,input,true)).slice(0,c.baseline.tests);
+    const assessments = (participationRows ?? rows).filter(r => qualifiesPolicySource(r,input,true)).slice(0,c.baseline.tests);
     const baselineComplete = assessments.length === c.baseline.tests || input.participationRange.complete;
     requireValue(!input.participationRange.complete || input.participationRange.stop !== 'ten-witnesses' || assessments.length === 10, 'ten witnesses');
     const count = assessments.length;
@@ -340,7 +348,7 @@ export function derivePolicy(input: ProjectionInput): PreparedProjection {
       ? { state: count === 0 ? 'not-started' : 'in-progress', reason: 'baseline-incomplete', counted: count,
           ordinal: count + pendingSave < 10 ? count + pendingSave + 1 : null, witnesses: assessments.map(r => r.ref), proof }
       : { state: 'pending', reason: 'scan-incomplete', counted: count, ordinal: null, proof: null };
-    const newest = summaryRows?.filter(r => qualifying(r,input,true)).slice(0,10);
+    const newest = summaryRows?.filter(r => qualifiesPolicySource(r,input,true)).slice(0,10);
     requireValue(!input.summaryRange.complete || input.summaryRange.stop !== 'tenth-assessment' || newest?.length === 10, 'summary boundary');
     const median = (xs: number[]) => { xs.sort((a,b) => a-b); return (xs[4]+xs[5])/2; };
     let summary: Summary = { state: 'pending', reason: 'scan-incomplete', value: null };
@@ -363,7 +371,7 @@ export function derivePolicy(input: ProjectionInput): PreparedProjection {
     else if (!coachRows) coach = { state: 'pending', reason: 'scan-incomplete', evidenceScanComplete: false, snapshot: null };
     else {
       const cutoff = Date.parse(input.now)-c.window.ageMs;
-      const window = coachRows.filter(r => qualifying(r,input) && Date.parse(r.ref.completedAt) >= cutoff).slice(0,20);
+      const window = coachRows.filter(r => qualifiesPolicySource(r,input) && Date.parse(r.ref.completedAt) >= cutoff).slice(0,20);
       requireValue(input.coachRange.stop !== 'twentieth-run' || window.length === 20, 'coach boundary');
       requireValue(input.coachRange.stop !== 'older-than-cutoff' || coachRows.some(r => Date.parse(r.ref.completedAt) < cutoff), 'coach cutoff');
       const decision = chooseFocus(window);
