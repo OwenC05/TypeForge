@@ -1,0 +1,1737 @@
+{
+  "pin": "2832ceef907a02ca7a9487bfe7eb6b398218d911",
+  "head": "4e990c344f243455bccea923f6c04d1b3383f2e6",
+  "node": "v24.21.0",
+  "checks": [
+    {
+      "name": "frozen source and accepted artifact bytes",
+      "pass": true
+    },
+    {
+      "name": "canonical SHA oracle 1",
+      "pass": true
+    },
+    {
+      "name": "canonical SHA oracle 2",
+      "pass": true
+    },
+    {
+      "name": "canonical SHA oracle 3",
+      "pass": true
+    },
+    {
+      "name": "canonical SHA oracle 4",
+      "pass": true
+    },
+    {
+      "name": "canonical SHA oracle 5",
+      "pass": true
+    },
+    {
+      "name": "canonical SHA oracle 6",
+      "pass": true
+    },
+    {
+      "name": "canonical SHA oracle 7",
+      "pass": true
+    },
+    {
+      "name": "canonical SHA oracle 8",
+      "pass": true
+    },
+    {
+      "name": "canonical SHA oracle 9",
+      "pass": true
+    },
+    {
+      "name": "canonical SHA oracle 10",
+      "pass": true
+    },
+    {
+      "name": "canonical SHA oracle 11",
+      "pass": true
+    },
+    {
+      "name": "canonical invalid domain 12",
+      "pass": true
+    },
+    {
+      "name": "canonical invalid domain 13",
+      "pass": true
+    },
+    {
+      "name": "canonical invalid domain 14",
+      "pass": true
+    },
+    {
+      "name": "canonical invalid domain 15",
+      "pass": true
+    },
+    {
+      "name": "canonical invalid domain 16",
+      "pass": true
+    },
+    {
+      "name": "canonical invalid domain 17",
+      "pass": true
+    },
+    {
+      "name": "canonical invalid domain 18",
+      "pass": true
+    },
+    {
+      "name": "config exact accepted identity",
+      "pass": true
+    },
+    {
+      "name": "catalogue exact accepted identity",
+      "pass": true
+    },
+    {
+      "name": "complete corpus identity",
+      "pass": true
+    },
+    {
+      "name": "independent complete prefix certificate he",
+      "pass": true
+    },
+    {
+      "name": "independent complete prefix certificate in",
+      "pass": true
+    },
+    {
+      "name": "independent complete prefix certificate le",
+      "pass": true
+    },
+    {
+      "name": "independent complete prefix certificate th",
+      "pass": true
+    },
+    {
+      "name": "unknown config abstains 26",
+      "pass": true
+    },
+    {
+      "name": "unknown config abstains 27",
+      "pass": true
+    },
+    {
+      "name": "unknown config abstains 28",
+      "pass": true
+    },
+    {
+      "name": "plan mutation rejects 29",
+      "pass": true
+    },
+    {
+      "name": "plan mutation rejects 30",
+      "pass": true
+    },
+    {
+      "name": "plan mutation rejects 31",
+      "pass": true
+    },
+    {
+      "name": "plan mutation rejects 32",
+      "pass": true
+    },
+    {
+      "name": "unknown pair and stored identity abstain",
+      "pass": true
+    },
+    {
+      "name": "stored exact identity resolves",
+      "pass": true
+    },
+    {
+      "name": "unknown stored config refuses",
+      "pass": true
+    },
+    {
+      "name": "new LCG engine history reaches supported he",
+      "pass": true
+    },
+    {
+      "name": "independent full and half count/context recomputation",
+      "pass": true
+    },
+    {
+      "name": "genuine wrong-key participation cap 0",
+      "pass": true
+    },
+    {
+      "name": "genuine wrong-key participation cap 1",
+      "pass": true
+    },
+    {
+      "name": "genuine wrong-key participation cap 9",
+      "pass": true
+    },
+    {
+      "name": "genuine wrong-key participation cap 10",
+      "pass": true
+    },
+    {
+      "name": "genuine wrong-key participation cap 11",
+      "pass": true
+    },
+    {
+      "name": "no age expiry or accuracy floor",
+      "pass": true
+    },
+    {
+      "name": "independent newest-ten medians on varied real engine WPM",
+      "pass": true
+    },
+    {
+      "name": "nullable accuracy is all-ten or null (strict-valid aggregate mutation)",
+      "pass": true
+    },
+    {
+      "name": "deletion recomputes rather than sticky milestone",
+      "pass": true
+    },
+    {
+      "name": "reset rejects previous membership bucket",
+      "pass": true
+    },
+    {
+      "name": "eligible pending original capture gives null ordinal at nine",
+      "pass": true
+    },
+    {
+      "name": "classifier positive cannot publish without final proof",
+      "pass": true
+    },
+    {
+      "name": "component independence summary",
+      "pass": true
+    },
+    {
+      "name": "component independence coach",
+      "pass": true
+    },
+    {
+      "name": "exact inclusive 30-day endpoint",
+      "pass": true
+    },
+    {
+      "name": "newest20 before clean filters and ordinary timed practice next-choice feedback",
+      "pass": true
+    },
+    {
+      "name": "delivery and pair insertion permutation preserve deterministic focus",
+      "pass": true
+    },
+    {
+      "name": "real engine 25-percent boundary 224.999999",
+      "pass": true
+    },
+    {
+      "name": "real engine 25-percent boundary 225",
+      "pass": true
+    },
+    {
+      "name": "real engine 25-percent boundary 225.000001",
+      "pass": true
+    },
+    {
+      "name": "real engine 25-percent boundary 180",
+      "pass": true
+    },
+    {
+      "name": "fabricated strict-valid absentPair whole-sentence exclusion",
+      "pass": true
+    },
+    {
+      "name": "fabricated strict-valid excessiveCount whole-sentence exclusion",
+      "pass": true
+    },
+    {
+      "name": "fabricated strict-valid impossibleLog whole-sentence exclusion",
+      "pass": true
+    },
+    {
+      "name": "fabricated strict-valid missingKey whole-sentence exclusion",
+      "pass": true
+    },
+    {
+      "name": "fabricated run count contradiction excludes coach only",
+      "pass": true
+    },
+    {
+      "name": "latest text before partial exclusion has no older backfill",
+      "pass": true
+    },
+    {
+      "name": "latest text before identity exclusion has no older backfill",
+      "pass": true
+    },
+    {
+      "name": "real uniform newer half defeats pooled effect",
+      "pass": true
+    },
+    {
+      "name": "reference-only producer runs enter whole-run split",
+      "pass": true
+    },
+    {
+      "name": "new genuine lagged-clock trace exceeds aggregate elapsed yet remains usable",
+      "pass": true
+    },
+    {
+      "name": "greatest ordinal before exclusion (strict-valid constructed aggregate)",
+      "pass": true
+    },
+    {
+      "name": "real filtered interval endpoint 0.25",
+      "pass": true
+    },
+    {
+      "name": "real filtered interval endpoint 5000",
+      "pass": true
+    },
+    {
+      "name": "real filtered interval endpoint 5000.001",
+      "pass": true
+    },
+    {
+      "name": "highest independent full delta wins among two supported producer candidates",
+      "pass": true
+    },
+    {
+      "name": "proof object and measured Work propagate unchanged",
+      "pass": true
+    },
+    {
+      "name": "issued candidate admission and immutable snapshot",
+      "pass": true
+    },
+    {
+      "name": "admission continuity rejects currentGeneration",
+      "pass": true
+    },
+    {
+      "name": "admission continuity rejects currentAuthority",
+      "pass": true
+    },
+    {
+      "name": "admission continuity rejects runState",
+      "pass": true
+    },
+    {
+      "name": "admission continuity rejects proof",
+      "pass": true
+    },
+    {
+      "name": "selection mutation fails binding without fabricating a proof",
+      "pass": true
+    },
+    {
+      "name": "real early finite source stays outside all timed evidence domains",
+      "pass": true
+    },
+    {
+      "name": "source dependency hashes unchanged after all probes",
+      "pass": true
+    }
+  ],
+  "independentChecks": 83,
+  "passed": 83,
+  "failed": 0,
+  "authorReplay": {
+    "command": "node --experimental-strip-types --test typing-app/client/tests/coach-policy.test.ts typing-app/client/tests/coach-plan.test.ts",
+    "tests": 31,
+    "independent": false
+  },
+  "observations": {
+    "hePlan": {
+      "characters": 501,
+      "prefixes": 482
+    },
+    "inPlan": {
+      "characters": 491,
+      "prefixes": 472
+    },
+    "lePlan": {
+      "characters": 502,
+      "prefixes": 483
+    },
+    "thPlan": {
+      "characters": 480,
+      "prefixes": 461
+    },
+    "storedUnknown": null,
+    "positive": {
+      "state": "complete-ready",
+      "reason": "supported",
+      "focus": {
+        "targetCount": 30,
+        "referenceCount": 492,
+        "targetLogSum": 171.113474239686,
+        "referenceLogSum": 2554.9347706379835,
+        "sourceRuns": 10,
+        "pair": "he",
+        "promptContexts": 19,
+        "wordContexts": 5,
+        "halves": [
+          {
+            "targetCount": 15,
+            "referenceCount": 243,
+            "targetLogSum": 85.556737119843,
+            "referenceLogSum": 1261.8885147663211,
+            "sourceRuns": 5
+          },
+          {
+            "targetCount": 15,
+            "referenceCount": 249,
+            "targetLogSum": 85.556737119843,
+            "referenceLogSum": 1293.0462558716624,
+            "sourceRuns": 5
+          }
+        ],
+        "certificateId": "a2e307f08e4c941db7fb4a9380ad2538b446a04fcf3c2a35648077a19222340e"
+      },
+      "oracle": {
+        "full": {
+          "targetCount": 30,
+          "referenceCount": 492,
+          "targetLogSum": 171.11347423968607,
+          "referenceLogSum": 2554.9347706379885,
+          "sourceRuns": 10,
+          "promptContexts": 19,
+          "wordContexts": 5,
+          "delta": 0.5108256237659825
+        },
+        "halves": [
+          {
+            "targetCount": 15,
+            "referenceCount": 243,
+            "targetLogSum": 85.55673711984304,
+            "referenceLogSum": 1261.8885147663211,
+            "sourceRuns": 5,
+            "promptContexts": 9,
+            "wordContexts": 5,
+            "delta": 0.5108256237659923
+          },
+          {
+            "targetCount": 15,
+            "referenceCount": 249,
+            "targetLogSum": 85.55673711984304,
+            "referenceLogSum": 1293.0462558716617,
+            "sourceRuns": 5,
+            "promptContexts": 10,
+            "wordContexts": 1,
+            "delta": 0.5108256237659949
+          }
+        ],
+        "contributing": [
+          "10203040-0000-4000-8000-000000000001",
+          "10203040-0000-4000-8000-000000000002",
+          "10203040-0000-4000-8000-000000000003",
+          "10203040-0000-4000-8000-000000000004",
+          "10203040-0000-4000-8000-000000000005",
+          "10203040-0000-4000-8000-000000000006",
+          "10203040-0000-4000-8000-000000000007",
+          "10203040-0000-4000-8000-000000000008",
+          "10203040-0000-4000-8000-000000000009",
+          "10203040-0000-4000-8000-000000000010"
+        ]
+      }
+    },
+    "effect224.999999": {
+      "ready": false,
+      "reason": "no-effect",
+      "he": {
+        "full": {
+          "targetCount": 30,
+          "referenceCount": 492,
+          "targetLogSum": 162.4830119327993,
+          "referenceLogSum": 2554.9347706379885,
+          "sourceRuns": 10,
+          "promptContexts": 19,
+          "wordContexts": 5,
+          "delta": 0.22314354686975602
+        },
+        "halves": [
+          {
+            "targetCount": 15,
+            "referenceCount": 243,
+            "targetLogSum": 81.24150596639964,
+            "referenceLogSum": 1261.8885147663211,
+            "sourceRuns": 5,
+            "promptContexts": 9,
+            "wordContexts": 5,
+            "delta": 0.22314354686976579
+          },
+          {
+            "targetCount": 15,
+            "referenceCount": 249,
+            "targetLogSum": 81.24150596639963,
+            "referenceLogSum": 1293.0462558716617,
+            "sourceRuns": 5,
+            "promptContexts": 10,
+            "wordContexts": 1,
+            "delta": 0.22314354686976756
+          }
+        ],
+        "contributing": [
+          "10203040-0000-4000-8000-000000000001",
+          "10203040-0000-4000-8000-000000000002",
+          "10203040-0000-4000-8000-000000000003",
+          "10203040-0000-4000-8000-000000000004",
+          "10203040-0000-4000-8000-000000000005",
+          "10203040-0000-4000-8000-000000000006",
+          "10203040-0000-4000-8000-000000000007",
+          "10203040-0000-4000-8000-000000000008",
+          "10203040-0000-4000-8000-000000000009",
+          "10203040-0000-4000-8000-000000000010"
+        ]
+      }
+    },
+    "effect225": {
+      "ready": true,
+      "reason": "supported",
+      "he": {
+        "full": {
+          "targetCount": 30,
+          "referenceCount": 492,
+          "targetLogSum": 162.4830120661326,
+          "referenceLogSum": 2554.9347706379885,
+          "sourceRuns": 10,
+          "promptContexts": 19,
+          "wordContexts": 5,
+          "delta": 0.22314355131419994
+        },
+        "halves": [
+          {
+            "targetCount": 15,
+            "referenceCount": 243,
+            "targetLogSum": 81.2415060330663,
+            "referenceLogSum": 1261.8885147663211,
+            "sourceRuns": 5,
+            "promptContexts": 9,
+            "wordContexts": 5,
+            "delta": 0.2231435513142097
+          },
+          {
+            "targetCount": 15,
+            "referenceCount": 249,
+            "targetLogSum": 81.2415060330663,
+            "referenceLogSum": 1293.0462558716617,
+            "sourceRuns": 5,
+            "promptContexts": 10,
+            "wordContexts": 1,
+            "delta": 0.22314355131421237
+          }
+        ],
+        "contributing": [
+          "10203040-0000-4000-8000-000000000001",
+          "10203040-0000-4000-8000-000000000002",
+          "10203040-0000-4000-8000-000000000003",
+          "10203040-0000-4000-8000-000000000004",
+          "10203040-0000-4000-8000-000000000005",
+          "10203040-0000-4000-8000-000000000006",
+          "10203040-0000-4000-8000-000000000007",
+          "10203040-0000-4000-8000-000000000008",
+          "10203040-0000-4000-8000-000000000009",
+          "10203040-0000-4000-8000-000000000010"
+        ]
+      }
+    },
+    "effect225.000001": {
+      "ready": true,
+      "reason": "supported",
+      "he": {
+        "full": {
+          "targetCount": 30,
+          "referenceCount": 492,
+          "targetLogSum": 162.48301219946597,
+          "referenceLogSum": 2554.934770637989,
+          "sourceRuns": 10,
+          "promptContexts": 19,
+          "wordContexts": 5,
+          "delta": 0.22314355575864386
+        },
+        "halves": [
+          {
+            "targetCount": 15,
+            "referenceCount": 243,
+            "targetLogSum": 81.24150609973299,
+            "referenceLogSum": 1261.8885147663214,
+            "sourceRuns": 5,
+            "promptContexts": 9,
+            "wordContexts": 5,
+            "delta": 0.22314355575865452
+          },
+          {
+            "targetCount": 15,
+            "referenceCount": 249,
+            "targetLogSum": 81.24150609973299,
+            "referenceLogSum": 1293.0462558716617,
+            "sourceRuns": 5,
+            "promptContexts": 10,
+            "wordContexts": 1,
+            "delta": 0.22314355575865807
+          }
+        ],
+        "contributing": [
+          "10203040-0000-4000-8000-000000000001",
+          "10203040-0000-4000-8000-000000000002",
+          "10203040-0000-4000-8000-000000000003",
+          "10203040-0000-4000-8000-000000000004",
+          "10203040-0000-4000-8000-000000000005",
+          "10203040-0000-4000-8000-000000000006",
+          "10203040-0000-4000-8000-000000000007",
+          "10203040-0000-4000-8000-000000000008",
+          "10203040-0000-4000-8000-000000000009",
+          "10203040-0000-4000-8000-000000000010"
+        ]
+      }
+    },
+    "effect180": {
+      "ready": false,
+      "reason": "no-effect",
+      "he": {
+        "full": {
+          "targetCount": 30,
+          "referenceCount": 492,
+          "targetLogSum": 155.7887055267063,
+          "referenceLogSum": 2554.9347706379885,
+          "sourceRuns": 10,
+          "promptContexts": 19,
+          "wordContexts": 5,
+          "delta": -9.769962616701378e-15
+        },
+        "halves": [
+          {
+            "targetCount": 15,
+            "referenceCount": 243,
+            "targetLogSum": 77.89435276335317,
+            "referenceLogSum": 1261.8885147663211,
+            "sourceRuns": 5,
+            "promptContexts": 9,
+            "wordContexts": 5,
+            "delta": 8.881784197001252e-16
+          },
+          {
+            "targetCount": 15,
+            "referenceCount": 249,
+            "targetLogSum": 77.89435276335317,
+            "referenceLogSum": 1293.0462558716617,
+            "sourceRuns": 5,
+            "promptContexts": 10,
+            "wordContexts": 1,
+            "delta": 3.552713678800501e-15
+          }
+        ],
+        "contributing": [
+          "10203040-0000-4000-8000-000000000001",
+          "10203040-0000-4000-8000-000000000002",
+          "10203040-0000-4000-8000-000000000003",
+          "10203040-0000-4000-8000-000000000004",
+          "10203040-0000-4000-8000-000000000005",
+          "10203040-0000-4000-8000-000000000006",
+          "10203040-0000-4000-8000-000000000007",
+          "10203040-0000-4000-8000-000000000008",
+          "10203040-0000-4000-8000-000000000009",
+          "10203040-0000-4000-8000-000000000010"
+        ]
+      }
+    },
+    "uniformHalf": {
+      "oracle": {
+        "full": {
+          "targetCount": 30,
+          "referenceCount": 492,
+          "targetLogSum": 168.49817343251433,
+          "referenceLogSum": 2554.9347706379885,
+          "sourceRuns": 10,
+          "promptContexts": 19,
+          "wordContexts": 5,
+          "delta": 0.4236489301935906
+        },
+        "halves": [
+          {
+            "targetCount": 15,
+            "referenceCount": 243,
+            "targetLogSum": 90.60382066916121,
+            "referenceLogSum": 1261.8885147663211,
+            "sourceRuns": 5,
+            "promptContexts": 9,
+            "wordContexts": 5,
+            "delta": 0.8472978603872034
+          },
+          {
+            "targetCount": 15,
+            "referenceCount": 249,
+            "targetLogSum": 77.89435276335317,
+            "referenceLogSum": 1293.0462558716617,
+            "sourceRuns": 5,
+            "promptContexts": 10,
+            "wordContexts": 1,
+            "delta": 3.552713678800501e-15
+          }
+        ],
+        "contributing": [
+          "10203040-0000-4000-8000-000000000001",
+          "10203040-0000-4000-8000-000000000002",
+          "10203040-0000-4000-8000-000000000003",
+          "10203040-0000-4000-8000-000000000004",
+          "10203040-0000-4000-8000-000000000005",
+          "10203040-0000-4000-8000-000000000006",
+          "10203040-0000-4000-8000-000000000007",
+          "10203040-0000-4000-8000-000000000008",
+          "10203040-0000-4000-8000-000000000009",
+          "10203040-0000-4000-8000-000000000010"
+        ]
+      },
+      "reason": "unstable-evidence"
+    },
+    "referenceOnly": {
+      "oracle": {
+        "full": {
+          "targetCount": 30,
+          "referenceCount": 553,
+          "targetLogSum": 171.11347423968607,
+          "referenceLogSum": 2871.7051385422988,
+          "sourceRuns": 10,
+          "promptContexts": 19,
+          "wordContexts": 5,
+          "delta": 0.5108256237659701
+        },
+        "halves": [
+          {
+            "targetCount": 13,
+            "referenceCount": 251,
+            "targetLogSum": 74.14917217053062,
+            "referenceLogSum": 1303.432169573443,
+            "sourceRuns": 4,
+            "promptContexts": 7,
+            "wordContexts": 4,
+            "delta": 0.5108256237659905
+          },
+          {
+            "targetCount": 17,
+            "referenceCount": 302,
+            "targetLogSum": 96.96430206915542,
+            "referenceLogSum": 1568.2729689688401,
+            "sourceRuns": 6,
+            "promptContexts": 12,
+            "wordContexts": 2,
+            "delta": 0.510825623766002
+          }
+        ],
+        "contributing": [
+          "10203040-0000-4000-8000-000000000501",
+          "10203040-0000-4000-8000-000000000001",
+          "10203040-0000-4000-8000-000000000002",
+          "10203040-0000-4000-8000-000000000003",
+          "10203040-0000-4000-8000-000000000004",
+          "10203040-0000-4000-8000-000000000005",
+          "10203040-0000-4000-8000-000000000006",
+          "10203040-0000-4000-8000-000000000007",
+          "10203040-0000-4000-8000-000000000008",
+          "10203040-0000-4000-8000-000000000009",
+          "10203040-0000-4000-8000-000000000010"
+        ]
+      },
+      "focus": {
+        "targetCount": 30,
+        "referenceCount": 553,
+        "targetLogSum": 171.113474239686,
+        "referenceLogSum": 2871.7051385422865,
+        "sourceRuns": 10,
+        "pair": "he",
+        "promptContexts": 19,
+        "wordContexts": 5,
+        "halves": [
+          {
+            "targetCount": 13,
+            "referenceCount": 251,
+            "targetLogSum": 74.14917217053062,
+            "referenceLogSum": 1303.4321695734427,
+            "sourceRuns": 4
+          },
+          {
+            "targetCount": 17,
+            "referenceCount": 302,
+            "targetLogSum": 96.96430206915542,
+            "referenceLogSum": 1568.2729689688435,
+            "sourceRuns": 6
+          }
+        ],
+        "certificateId": "a2e307f08e4c941db7fb4a9380ad2538b446a04fcf3c2a35648077a19222340e"
+      },
+      "reason": "supported"
+    },
+    "lagged": {
+      "necessary": 30000.029999999995,
+      "elapsed": 30000,
+      "hash": "a426fd548762f7422c06b405f09a6d7b6d2ee0b0600e3e6058b9f759847da86f",
+      "sentenceEligible": true,
+      "reason": "supported",
+      "oracle": {
+        "full": {
+          "targetCount": 30,
+          "referenceCount": 492,
+          "targetLogSum": 172.42280855966936,
+          "referenceLogSum": 2602.2589291754616,
+          "sourceRuns": 10,
+          "promptContexts": 19,
+          "wordContexts": 5,
+          "delta": 0.45828278699820313
+        },
+        "halves": [
+          {
+            "targetCount": 15,
+            "referenceCount": 243,
+            "targetLogSum": 85.55673711984304,
+            "referenceLogSum": 1261.8885147663211,
+            "sourceRuns": 5,
+            "promptContexts": 9,
+            "wordContexts": 5,
+            "delta": 0.5108256237659923
+          },
+          {
+            "targetCount": 15,
+            "referenceCount": 249,
+            "targetLogSum": 86.86607143982629,
+            "referenceLogSum": 1340.3704144091446,
+            "sourceRuns": 5,
+            "promptContexts": 10,
+            "wordContexts": 1,
+            "delta": 0.40805771683522796
+          }
+        ],
+        "contributing": [
+          "10203040-0000-4000-8000-000000000001",
+          "10203040-0000-4000-8000-000000000002",
+          "10203040-0000-4000-8000-000000000003",
+          "10203040-0000-4000-8000-000000000004",
+          "10203040-0000-4000-8000-000000000005",
+          "10203040-0000-4000-8000-000000000006",
+          "10203040-0000-4000-8000-000000000008",
+          "10203040-0000-4000-8000-000000000009",
+          "10203040-0000-4000-8000-000000000010",
+          "10203040-0000-4000-8000-000000000600"
+        ]
+      }
+    },
+    "twoCandidates": {
+      "winner": "he",
+      "candidates": [
+        {
+          "pair": "he",
+          "delta": 0.75306416879073,
+          "target": 30,
+          "words": 5
+        },
+        {
+          "pair": "th",
+          "delta": 0.750015326002103,
+          "target": 28,
+          "words": 3
+        }
+      ]
+    },
+    "finite": {
+      "kind": "typeforge-finite-practice-result-v1",
+      "elapsed": 1024,
+      "sentences": 12,
+      "hash": "41ff30f0763951731be3c7e80d5ed8159fd17b3b772c36758fc9cc76b0b01379"
+    }
+  },
+  "before": [
+    {
+      "path": "typing-app/client/src/app.ts",
+      "sha256": "2ffd829110cf9401b0d710e4d1c7c9d754dcf95d499223d6a23a7205433138f3",
+      "blob": "6135d9006dc52aea054b2036300fb881232a90f9",
+      "frozenBlob": "6135d9006dc52aea054b2036300fb881232a90f9"
+    },
+    {
+      "path": "typing-app/client/src/coach-catalogue.json",
+      "sha256": "1e821571403a2ba558a84ec696e052a33cfbd21c3eda7a07bebf448be1a4f931",
+      "blob": "cf7f0975fde5b702c72d59f786d47f03cfd31ea8",
+      "frozenBlob": "cf7f0975fde5b702c72d59f786d47f03cfd31ea8"
+    },
+    {
+      "path": "typing-app/client/src/coach-config.json",
+      "sha256": "949d5cd20710f69924470a953274063198be2c99fbeacda76877cc4846d3284b",
+      "blob": "bb30c0092b1619316776c728d285e18ea337f98e",
+      "frozenBlob": "bb30c0092b1619316776c728d285e18ea337f98e"
+    },
+    {
+      "path": "typing-app/client/src/coach-plan.ts",
+      "sha256": "289a3bde9443d3791257c27556c4d3dd7b2c165edf5cf7dace2a379134d7e3d5",
+      "blob": "8c3c411f56b9732fe2a47ff1bcbf509e71f85107",
+      "frozenBlob": "8c3c411f56b9732fe2a47ff1bcbf509e71f85107"
+    },
+    {
+      "path": "typing-app/client/src/coach-policy.ts",
+      "sha256": "15e96269947005cccf3a1f1debf7928e486d7cb5e22e81f192132d304b36463b",
+      "blob": "a3868390989d6b8e84e370ee125fdfd3c19c0cce",
+      "frozenBlob": "a3868390989d6b8e84e370ee125fdfd3c19c0cce"
+    },
+    {
+      "path": "typing-app/client/src/coach-storage.ts",
+      "sha256": "4e35c6f4d7547870417ec9f462476225e8e75eeaae96758096134ab94d156f77",
+      "blob": "ec62e02598b787c69be1891b54e4a63751ba1082",
+      "frozenBlob": "ec62e02598b787c69be1891b54e4a63751ba1082"
+    },
+    {
+      "path": "typing-app/client/src/coach-types.ts",
+      "sha256": "0d84fa8dcc63ab7c4d8f24c7d29a96a79f40b62b7bd493a9a8641e1e9845cce0",
+      "blob": "43f7c070788631e8014ee905dc634d55171cb38a",
+      "frozenBlob": "43f7c070788631e8014ee905dc634d55171cb38a"
+    },
+    {
+      "path": "typing-app/client/src/corpus.ts",
+      "sha256": "28f37ce212e8704397e0097f22b77b2f9f84978f86f9db767decb5edf505741e",
+      "blob": "f50180ea88f95d1b0c2a999a3e94f447a2b587fb",
+      "frozenBlob": "f50180ea88f95d1b0c2a999a3e94f447a2b587fb"
+    },
+    {
+      "path": "typing-app/client/src/engine.ts",
+      "sha256": "d62b08eee7c1acc55ba2d31ca914d3db52a93017e27fba55d37f154293a936c9",
+      "blob": "49191b896c27a5381ca2cbfa6c366221cd5820fe",
+      "frozenBlob": "49191b896c27a5381ca2cbfa6c366221cd5820fe"
+    },
+    {
+      "path": "typing-app/client/src/finite-practice-result.ts",
+      "sha256": "fd8200654a792fb3d6cdb86cda02f3701e92bf874aa725ffc7ceb19249a3c7e0",
+      "blob": "a1ea3f4c3d359ad3973ec8f6ba1b03111e88b9c7",
+      "frozenBlob": "a1ea3f4c3d359ad3973ec8f6ba1b03111e88b9c7"
+    },
+    {
+      "path": "typing-app/client/src/finite-practice.ts",
+      "sha256": "e10b6accfee3047d875ebbf40e2b1d3707888f6f4448f9f2cdef8944fa06c498",
+      "blob": "727e469d0f24edc8d52e1029aae461988e20dbc0",
+      "frozenBlob": "727e469d0f24edc8d52e1029aae461988e20dbc0"
+    },
+    {
+      "path": "typing-app/client/src/generated/benchmark.json",
+      "sha256": "eb2fa62020e6edca75f2b21e7ef2079df1e79e35254c9e3e5b1d886d64bbf713",
+      "blob": "61f1999ed790a812218f672b046a3cf3a5f7028b",
+      "frozenBlob": "61f1999ed790a812218f672b046a3cf3a5f7028b"
+    },
+    {
+      "path": "typing-app/client/src/generated/model.json",
+      "sha256": "d7d960f4c553a84bae92ff36dd4890a1e321ac9967f777708e44c13ea0f64862",
+      "blob": "1f8996759cc665ba09bbc8145907dd66ea9b7cfd",
+      "frozenBlob": "1f8996759cc665ba09bbc8145907dd66ea9b7cfd"
+    },
+    {
+      "path": "typing-app/client/src/model.ts",
+      "sha256": "1ad60559fd7187692272eca3e8721ac43606628b317effb0c73ec40d94641e4e",
+      "blob": "9c9a254f32d43b6129311db5ba22776c0abfecaf",
+      "frozenBlob": "9c9a254f32d43b6129311db5ba22776c0abfecaf"
+    },
+    {
+      "path": "typing-app/client/src/preferences.ts",
+      "sha256": "73ffb83b23cde3edd1c79eddb5848e44b959aa497c8c7114f2f46df4a3b69966",
+      "blob": "9b0ef83748f1a5f8983cde38c4999671496ea68b",
+      "frozenBlob": "9b0ef83748f1a5f8983cde38c4999671496ea68b"
+    },
+    {
+      "path": "typing-app/client/src/profile.ts",
+      "sha256": "3eb148c75f85482675ab00f4577b3a7a450f4ba8268734d5f74c8646bd5d4b9b",
+      "blob": "4278d052ab900aa5b10a05bb9446812d835f35a4",
+      "frozenBlob": "4278d052ab900aa5b10a05bb9446812d835f35a4"
+    },
+    {
+      "path": "typing-app/client/src/storage.ts",
+      "sha256": "ce7834de8f3ba1f189b0ce0b3f854bb6f33ba1d5127629bea023ee64ff1a844b",
+      "blob": "a65a6e2a1933ecac25049cc6e5444d59d990d3da",
+      "frozenBlob": "a65a6e2a1933ecac25049cc6e5444d59d990d3da"
+    },
+    {
+      "path": "typing-app/client/src/style.css",
+      "sha256": "685d4c99dcb0a9355258c14ba2589eda00446b88528d57a4358030857b34e526",
+      "blob": "1b10cbea2453aad470ca5b4918b1f222309eda89",
+      "frozenBlob": "1b10cbea2453aad470ca5b4918b1f222309eda89"
+    },
+    {
+      "path": "typing-app/client/src/unsaved.ts",
+      "sha256": "3e12efd6236c7276b6da5a02fd49b29c8d309f68f30929e03507ea9fbdfe7fff",
+      "blob": "31f9562482db4080226784de701b5a426b6c668f",
+      "frozenBlob": "31f9562482db4080226784de701b5a426b6c668f"
+    },
+    {
+      "path": ".omx/specs/typeforge-practice-policy-v1.md",
+      "sha256": "4c2583873aab0f3f6a5fd5967704794634e49ada3577f89b1e03f5b4964071f6",
+      "blob": "749b5d451992344f3f1a4a44a8691a6a7ebe6b07",
+      "frozenBlob": "749b5d451992344f3f1a4a44a8691a6a7ebe6b07"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/README.md",
+      "sha256": "556823f18874c10462464221755d30ce6a8d9684a8563df748a4e75936caddb9",
+      "blob": "4171513fa1c0c2a9b3a1747ac3d22ec85eb548d9",
+      "frozenBlob": "4171513fa1c0c2a9b3a1747ac3d22ec85eb548d9"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/amendment-r1.md",
+      "sha256": "1f0444a596d833fb466feb5db3a4197de30474229ac6765e946ce2ed87fa48ea",
+      "blob": "dc7a33dd2e2447916512a4c39eae1b9e429fd33d",
+      "frozenBlob": "dc7a33dd2e2447916512a4c39eae1b9e429fd33d"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/amendment-r2.md",
+      "sha256": "fbd4b5532b702a459d3dc50af303163b46c0e29478a750c18bc34e93b5b8edd8",
+      "blob": "cb6b3f4e2601f42d02ceddf8c64c9fc52feb3ccb",
+      "frozenBlob": "cb6b3f4e2601f42d02ceddf8c64c9fc52feb3ccb"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/authority-delta.md",
+      "sha256": "65168c92869bf026f7c009317200cd7960e9b413a2b5946883d127a71e59567a",
+      "blob": "927d9c8cc109d311ba93cb71219c9aaa73476d16",
+      "frozenBlob": "927d9c8cc109d311ba93cb71219c9aaa73476d16"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/authority-seams-after.json",
+      "sha256": "73c51e58d47685f89f49920a13b38d3484a600f0c63d7c208374434e95f94648",
+      "blob": "959b8e5f96dd8dea096630f983573c496c36f1cb",
+      "frozenBlob": "959b8e5f96dd8dea096630f983573c496c36f1cb"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/authority-seams-before.json",
+      "sha256": "155aefec82141cdfabd359be74ad6e34a8f62e7dbfd56b482e6e1156ce9c655f",
+      "blob": "ec08af20aa6d2d401292aeaedbb6a5d46cbe7054",
+      "frozenBlob": "ec08af20aa6d2d401292aeaedbb6a5d46cbe7054"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/authority-seams-check.mjs",
+      "sha256": "81e0cf69ddc574e4457a3a0569ddf5aa7cdccaf7b18dadfdd1ae839f173f83a8",
+      "blob": "9099b94f03df1cc8a839211e8ae40abef9ad31cb",
+      "frozenBlob": "9099b94f03df1cc8a839211e8ae40abef9ad31cb"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/authority-types.test.ts",
+      "sha256": "ce75e6b627eee524d1c3740c928dbf930b42b00bdcf9b64b224dbcf76c6b204f",
+      "blob": "5b79f999dccb637ba1b0a84d0bdc73ac4f3516d2",
+      "frozenBlob": "5b79f999dccb637ba1b0a84d0bdc73ac4f3516d2"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/authority-validation.json",
+      "sha256": "65c2f9f1a6438ae2f3cb1f1edeb30744de52e9861ea6d6d01ec0aebcea8aa9bf",
+      "blob": "7db43ba19236f3d75da3882b9ee561c11cc979bb",
+      "frozenBlob": "7db43ba19236f3d75da3882b9ee561c11cc979bb"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/check-contract.mjs",
+      "sha256": "db3a1621e264ee6b16cf4224aacb116943b3241346f72ed129a3f899feb35e44",
+      "blob": "9d72001de4db5dbbf52ff5f57265dfc7be0b3bb0",
+      "frozenBlob": "9d72001de4db5dbbf52ff5f57265dfc7be0b3bb0"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/coach-config.example.json",
+      "sha256": "949d5cd20710f69924470a953274063198be2c99fbeacda76877cc4846d3284b",
+      "blob": "bb30c0092b1619316776c728d285e18ea337f98e",
+      "frozenBlob": "bb30c0092b1619316776c728d285e18ea337f98e"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/coach-config.schema.json",
+      "sha256": "dadceed2ffdeee8ba3ca64d93dc22f9da2f739e72d0a46205ed094c98753db67",
+      "blob": "fd8e39d36fe81a57802f18feb3d83870fc5727fc",
+      "frozenBlob": "fd8e39d36fe81a57802f18feb3d83870fc5727fc"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/coach-sidecar.schema.json",
+      "sha256": "e014a98446c9e3d0ce1da42e90859b050b5deafbe2619be801c7f0b5759b9aad",
+      "blob": "f5ccd3a629de0b9f90c546238702d5f0b77dd043",
+      "frozenBlob": "f5ccd3a629de0b9f90c546238702d5f0b77dd043"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/contract-boundaries.json",
+      "sha256": "4a3e9e31e933075f5da846f0c64e32d72381f33a19969f6afd4581291ff596dd",
+      "blob": "aadf72c32cf4b1660f03d5a33bbac2144854b9e2",
+      "frozenBlob": "aadf72c32cf4b1660f03d5a33bbac2144854b9e2"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/contract-check.json",
+      "sha256": "f3751516935112b224a8fa438d467c51373cc04db753554e0fd1f1176d7b0a19",
+      "blob": "d77ca101dfc20a1a8765b1d0af3dfd7da815029b",
+      "frozenBlob": "d77ca101dfc20a1a8765b1d0af3dfd7da815029b"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/coordination-and-validation.md",
+      "sha256": "4d93fa5d30610fc68662210cdfeedf9b41de86d4118ed2ee09b0bbf9833d346d",
+      "blob": "7452d4aa28ff795a2fc3e23c54dc548e4cf8759b",
+      "frozenBlob": "7452d4aa28ff795a2fc3e23c54dc548e4cf8759b"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/coverage-helper-task.txt",
+      "sha256": "758b9de08d949247286759f608602da1665059aa73a7eb7c6e56cc7808796f06",
+      "blob": "cc989965aef56caf2140a7ab317bc84053bf9f62",
+      "frozenBlob": "cc989965aef56caf2140a7ab317bc84053bf9f62"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/coverage-probe.json",
+      "sha256": "94169ff5fa9e3e195f5db560e1c21b54786c45cfe3ee1133e4a691d5cdfe8a05",
+      "blob": "863cc9e2d8b5e0deecad2a210027661ed1c0c14c",
+      "frozenBlob": "863cc9e2d8b5e0deecad2a210027661ed1c0c14c"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/coverage-probe.mjs",
+      "sha256": "bf81cd8da4f2981f7afb45b14e99a5872462617f9c7b35b325c0348abffee09a",
+      "blob": "714a320fc0c9365ddd24e7065b4e16129f1e80c1",
+      "frozenBlob": "714a320fc0c9365ddd24e7065b4e16129f1e80c1"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/coverage-report.md",
+      "sha256": "b983529e242d9e2498923af06b9488da2c8d6772da0ae02357a649037836cdf6",
+      "blob": "c7a352455537ea2ed8d6c9871e14ef783ed909a2",
+      "frozenBlob": "c7a352455537ea2ed8d6c9871e14ef783ed909a2"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/evidence-helper-task.txt",
+      "sha256": "65537c9572251cc15e55c65eabe8f352279f3500d141b5647a4ed250472fb26a",
+      "blob": "aabfa938bb918d1b9f825b4a9b6550b46640c60e",
+      "frozenBlob": "aabfa938bb918d1b9f825b4a9b6550b46640c60e"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/existing-profile-model-tests.txt",
+      "sha256": "1bf5f5d0a7fc92706ef61ab16375b898d9b33e65ed2482952f57ef8685ac28cf",
+      "blob": "dfe37bddd143a18f208a52679959dc43d70bf585",
+      "frozenBlob": "dfe37bddd143a18f208a52679959dc43d70bf585"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/finite-adapter-r2.md",
+      "sha256": "af3780561d087663fbe9abb2ca7b289f37f5a89a04ac0e2d8431265edc642f0f",
+      "blob": "9d4a35a83dae6e9c26bbacd26799633ccc734014",
+      "frozenBlob": "9d4a35a83dae6e9c26bbacd26799633ccc734014"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/finite-catalogue.example.json",
+      "sha256": "1e821571403a2ba558a84ec696e052a33cfbd21c3eda7a07bebf448be1a4f931",
+      "blob": "cf7f0975fde5b702c72d59f786d47f03cfd31ea8",
+      "frozenBlob": "cf7f0975fde5b702c72d59f786d47f03cfd31ea8"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/implementation-dag-r2.md",
+      "sha256": "676ac0f9248c66ce9cb1513007237676d1d7de36f9f45ac7620d2f2bd32cf5b4",
+      "blob": "cc32cc77b99e09762822e7f967d8f8a008ef6f35",
+      "frozenBlob": "cc32cc77b99e09762822e7f967d8f8a008ef6f35"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/interfaces-r2.ts",
+      "sha256": "c0cb9f3034e4b7be676edd357bc2c8f07a540e40681d5b0face8539d2ac251c3",
+      "blob": "7183d476e82a8866304ca86e3bccf14a403f73d2",
+      "frozenBlob": "7183d476e82a8866304ca86e3bccf14a403f73d2"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/lifecycle-r2.md",
+      "sha256": "58fa8f29cf2e4443cc1a15b25c92f9b353f2ef49396b6e74174e9430323aed99",
+      "blob": "f0270892bc9598729ca6dd75128618b90c509f8d",
+      "frozenBlob": "f0270892bc9598729ca6dd75128618b90c509f8d"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/metadata-membership.schema.json",
+      "sha256": "5e1beac496bdeea668c160711013755e4cb9d7cefee2deb70e385617af68d0f8",
+      "blob": "48f1bf8fff5083c2d0bd4d6365bd837178344ff7",
+      "frozenBlob": "48f1bf8fff5083c2d0bd4d6365bd837178344ff7"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/primary-evidence.md",
+      "sha256": "e8ccbd36f6c4377e668ff729f113be02174b0c16a1fd2532b93835f79ac5f0ce",
+      "blob": "b1ef5af96a8786052f95b80d9d4f7207f5595bed",
+      "frozenBlob": "b1ef5af96a8786052f95b80d9d4f7207f5595bed"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/r2-check.json",
+      "sha256": "f1a52c4a0fa8a302de19d06412442488c934528da089232bdbe22fd7e15b33b6",
+      "blob": "51c88c57e7dca3d150d28b652aff3f3d7afb0b01",
+      "frozenBlob": "51c88c57e7dca3d150d28b652aff3f3d7afb0b01"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/r2-check.mjs",
+      "sha256": "d3c3d6c4edb8e491d8cc772950aa5776982f819088992399aacb54a37689a34e",
+      "blob": "40b0d6d6f4f12a473fdc700b23ec68a8f34d0bde",
+      "frozenBlob": "40b0d6d6f4f12a473fdc700b23ec68a8f34d0bde"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/r2-validation.json",
+      "sha256": "2bb05562ea4827d76d996d16b77d892ff95e930226e159c75375d8cbd455bbeb",
+      "blob": "a14bcd84a1364da1cba5d3a0a5c9f5922d7663f0",
+      "frozenBlob": "a14bcd84a1364da1cba5d3a0a5c9f5922d7663f0"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/revision-check.json",
+      "sha256": "04c79a4fe90cf2785e4cc7ecb547fdc3465d2fdd8b8adea07210b82366fc7598",
+      "blob": "fcb8fb0caeb782e486e626b3cd8ff47e0be2f894",
+      "frozenBlob": "fcb8fb0caeb782e486e626b3cd8ff47e0be2f894"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/revision-check.mjs",
+      "sha256": "11489f3f000d1cbfcb6aeba9788dca43966dd0eb89b76f133cc8ea0902e16f1f",
+      "blob": "6f8c9cc56d19411b2a8b895213e1e700d04d9ecc",
+      "frozenBlob": "6f8c9cc56d19411b2a8b895213e1e700d04d9ecc"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/revision-launch-fields.json",
+      "sha256": "fa75c3d6747108b69157ec8eef1f0b8e3e221025349762259c411bd8100a507d",
+      "blob": "36b9134289e47aa1e79ae252e4a032034c6a7883",
+      "frozenBlob": "36b9134289e47aa1e79ae252e4a032034c6a7883"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/revision-profile-model-tests.txt",
+      "sha256": "30b41d64cb59ee7096d9378e89a6ec597bb56b222da251550678ee8f34747029",
+      "blob": "71c66c0c23889471aec8c57f4eb982ab8d9001e7",
+      "frozenBlob": "71c66c0c23889471aec8c57f4eb982ab8d9001e7"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/revision-runtime-client.json",
+      "sha256": "199105ee29d901033182ef29c766d8a010482fb0045c60e746b2e4c71364d796",
+      "blob": "44128f12a7417bfff6fc4c98bd82253cdc907483",
+      "frozenBlob": "44128f12a7417bfff6fc4c98bd82253cdc907483"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/revision-validation.json",
+      "sha256": "75982b3899dd97be5478ec215b1db9d5963f88b2a1d225f21ff130618a33df99",
+      "blob": "5c09b046f6f1891626c53b43d100ca3af0e95567",
+      "frozenBlob": "5c09b046f6f1891626c53b43d100ca3af0e95567"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/sidecar-examples.json",
+      "sha256": "8141bd016aadedeb18dd66777883a87b63ad81a730f7c6565ed49672aa714438",
+      "blob": "e0489a79a4080095182f4d26ef89621cfe7f7796",
+      "frozenBlob": "e0489a79a4080095182f4d26ef89621cfe7f7796"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy-delta-review/r2/.gitignore",
+      "sha256": "d568a6a9609ff5e5de7fefd7209e48f39e268ce2cb90788748a1c17661eac21a",
+      "blob": "35becf87782b40db3675f261250ef73bbe462244",
+      "frozenBlob": "35becf87782b40db3675f261250ef73bbe462244"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy-delta-review/r2/input-manifest.json",
+      "sha256": "ce355b25dc037f4bbadc7d4fa60b9d87925dd2df4ba8f5a9b49168d8b5455f90",
+      "blob": "6048ce25af0547c427cefdd700496c93ed723890",
+      "frozenBlob": "6048ce25af0547c427cefdd700496c93ed723890"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy-delta-review/r2/report.md",
+      "sha256": "9941ee454a7beb97149ebeda22873c8b00decf13e3e5468875c15edc629126cc",
+      "blob": "5b0783002c3297d559ae01f0df7694850c70dca4",
+      "frozenBlob": "5b0783002c3297d559ae01f0df7694850c70dca4"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy-delta-review/r2/results.json",
+      "sha256": "1f42b42a49596d5fd46e608b4f5865a3fb759f475c4d73c8eec653ca14821ed6",
+      "blob": "79d39dc0c820779b0fd92799f06ac3daaa6d8c16",
+      "frozenBlob": "79d39dc0c820779b0fd92799f06ac3daaa6d8c16"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy-delta-review/r2/review.mjs",
+      "sha256": "1ca70006348f3bf99495e6cf10a627da22b7421f17121c0cf2e98e5b1d3921ea",
+      "blob": "f9a0d4067636d6e269aa5c50d6e6a50dc33c5467",
+      "frozenBlob": "f9a0d4067636d6e269aa5c50d6e6a50dc33c5467"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy-delta-review/r2/run.txt",
+      "sha256": "d6321bcca65ebf1c650daf0cf2bbf33750e3b3311af01e5f40d1846bf6129c9c",
+      "blob": "396cd313cfcf4f189dfb2af92faad3599e508a53",
+      "frozenBlob": "396cd313cfcf4f189dfb2af92faad3599e508a53"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy-delta-review/r2/verification.json",
+      "sha256": "4cd01b4bd38bf0ec42ceee04e4f280eb0c95b71234e848deccacca40f42ef4be",
+      "blob": "e603f61e715af6fd05a3ae16b4ff081700c626ba",
+      "frozenBlob": "e603f61e715af6fd05a3ae16b4ff081700c626ba"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/implementation/policy/full-check.txt",
+      "sha256": "fb37a7e290637c9d820957ae44a165a11f749f20e9bef264e3a5e8fec74d2864",
+      "blob": "8efe3289966c66d9adfff676529fe0cb5f28bbd2",
+      "frozenBlob": "8efe3289966c66d9adfff676529fe0cb5f28bbd2"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/implementation/policy/report.md",
+      "sha256": "007f23f34ca5e36d2faeb50c48d1d672b15643d04ec4063afcbb8cda00a22dc8",
+      "blob": "f0bfc4de6e85aa63bfce3850f0b3f0ad5e3611a3",
+      "frozenBlob": "f0bfc4de6e85aa63bfce3850f0b3f0ad5e3611a3"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/implementation/policy/shared-classifier-check.txt",
+      "sha256": "6ab83e35eee46f718a03533ba9c9ca965571c535de2edd2f00981854c012631e",
+      "blob": "1691539d9d879122d74ebafe9901cbd39849f39e",
+      "frozenBlob": "1691539d9d879122d74ebafe9901cbd39849f39e"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/implementation/policy/shared-classifier-follow-up.md",
+      "sha256": "8d8bed98dd5ae7227aa2e3f86a7daf216c3c007aa3751f8f2c2753b8181fc951",
+      "blob": "67eeb5f9bd9db126b6be886ee2080c2be1ab08a8",
+      "frozenBlob": "67eeb5f9bd9db126b6be886ee2080c2be1ab08a8"
+    },
+    {
+      "path": "typing-app/client/tests/coach-policy.test.ts",
+      "sha256": "9fc29d25dd5ddc1210392924c1c68d2eb2f83baedc8fadd7518f34ad92de3030",
+      "blob": "71576b790645ab5578f49dde0424e8f5ebf79e27",
+      "frozenBlob": "71576b790645ab5578f49dde0424e8f5ebf79e27"
+    },
+    {
+      "path": "typing-app/client/tests/coach-plan.test.ts",
+      "sha256": "d2b73e1ace6f1d7bb6176bce58fa8954249d266e366b8899f8dac74fb0e4b366",
+      "blob": "be12fca85558f2cfda15068e0c0c81131f198ad3",
+      "frozenBlob": "be12fca85558f2cfda15068e0c0c81131f198ad3"
+    },
+    {
+      "path": "typing-app/client/package.json",
+      "sha256": "38283cf58160d6b51c0258d70a1ec85b120100b04aa577927419b5fec80555f1",
+      "blob": "a92cf80db2aad307634e0883597e4c6e89084f26",
+      "frozenBlob": "a92cf80db2aad307634e0883597e4c6e89084f26"
+    },
+    {
+      "path": "typing-app/client/package-lock.json",
+      "sha256": "c54a9f65c71af508465f95d25b45515b4733efde3cbcf62911a78425bbb36cc8",
+      "blob": "151cf9b3f5022abed2d3783b7fc6991127b11fb3",
+      "frozenBlob": "151cf9b3f5022abed2d3783b7fc6991127b11fb3"
+    }
+  ],
+  "after": [
+    {
+      "path": "typing-app/client/src/app.ts",
+      "sha256": "2ffd829110cf9401b0d710e4d1c7c9d754dcf95d499223d6a23a7205433138f3",
+      "blob": "6135d9006dc52aea054b2036300fb881232a90f9",
+      "frozenBlob": "6135d9006dc52aea054b2036300fb881232a90f9"
+    },
+    {
+      "path": "typing-app/client/src/coach-catalogue.json",
+      "sha256": "1e821571403a2ba558a84ec696e052a33cfbd21c3eda7a07bebf448be1a4f931",
+      "blob": "cf7f0975fde5b702c72d59f786d47f03cfd31ea8",
+      "frozenBlob": "cf7f0975fde5b702c72d59f786d47f03cfd31ea8"
+    },
+    {
+      "path": "typing-app/client/src/coach-config.json",
+      "sha256": "949d5cd20710f69924470a953274063198be2c99fbeacda76877cc4846d3284b",
+      "blob": "bb30c0092b1619316776c728d285e18ea337f98e",
+      "frozenBlob": "bb30c0092b1619316776c728d285e18ea337f98e"
+    },
+    {
+      "path": "typing-app/client/src/coach-plan.ts",
+      "sha256": "289a3bde9443d3791257c27556c4d3dd7b2c165edf5cf7dace2a379134d7e3d5",
+      "blob": "8c3c411f56b9732fe2a47ff1bcbf509e71f85107",
+      "frozenBlob": "8c3c411f56b9732fe2a47ff1bcbf509e71f85107"
+    },
+    {
+      "path": "typing-app/client/src/coach-policy.ts",
+      "sha256": "15e96269947005cccf3a1f1debf7928e486d7cb5e22e81f192132d304b36463b",
+      "blob": "a3868390989d6b8e84e370ee125fdfd3c19c0cce",
+      "frozenBlob": "a3868390989d6b8e84e370ee125fdfd3c19c0cce"
+    },
+    {
+      "path": "typing-app/client/src/coach-storage.ts",
+      "sha256": "4e35c6f4d7547870417ec9f462476225e8e75eeaae96758096134ab94d156f77",
+      "blob": "ec62e02598b787c69be1891b54e4a63751ba1082",
+      "frozenBlob": "ec62e02598b787c69be1891b54e4a63751ba1082"
+    },
+    {
+      "path": "typing-app/client/src/coach-types.ts",
+      "sha256": "0d84fa8dcc63ab7c4d8f24c7d29a96a79f40b62b7bd493a9a8641e1e9845cce0",
+      "blob": "43f7c070788631e8014ee905dc634d55171cb38a",
+      "frozenBlob": "43f7c070788631e8014ee905dc634d55171cb38a"
+    },
+    {
+      "path": "typing-app/client/src/corpus.ts",
+      "sha256": "28f37ce212e8704397e0097f22b77b2f9f84978f86f9db767decb5edf505741e",
+      "blob": "f50180ea88f95d1b0c2a999a3e94f447a2b587fb",
+      "frozenBlob": "f50180ea88f95d1b0c2a999a3e94f447a2b587fb"
+    },
+    {
+      "path": "typing-app/client/src/engine.ts",
+      "sha256": "d62b08eee7c1acc55ba2d31ca914d3db52a93017e27fba55d37f154293a936c9",
+      "blob": "49191b896c27a5381ca2cbfa6c366221cd5820fe",
+      "frozenBlob": "49191b896c27a5381ca2cbfa6c366221cd5820fe"
+    },
+    {
+      "path": "typing-app/client/src/finite-practice-result.ts",
+      "sha256": "fd8200654a792fb3d6cdb86cda02f3701e92bf874aa725ffc7ceb19249a3c7e0",
+      "blob": "a1ea3f4c3d359ad3973ec8f6ba1b03111e88b9c7",
+      "frozenBlob": "a1ea3f4c3d359ad3973ec8f6ba1b03111e88b9c7"
+    },
+    {
+      "path": "typing-app/client/src/finite-practice.ts",
+      "sha256": "e10b6accfee3047d875ebbf40e2b1d3707888f6f4448f9f2cdef8944fa06c498",
+      "blob": "727e469d0f24edc8d52e1029aae461988e20dbc0",
+      "frozenBlob": "727e469d0f24edc8d52e1029aae461988e20dbc0"
+    },
+    {
+      "path": "typing-app/client/src/generated/benchmark.json",
+      "sha256": "eb2fa62020e6edca75f2b21e7ef2079df1e79e35254c9e3e5b1d886d64bbf713",
+      "blob": "61f1999ed790a812218f672b046a3cf3a5f7028b",
+      "frozenBlob": "61f1999ed790a812218f672b046a3cf3a5f7028b"
+    },
+    {
+      "path": "typing-app/client/src/generated/model.json",
+      "sha256": "d7d960f4c553a84bae92ff36dd4890a1e321ac9967f777708e44c13ea0f64862",
+      "blob": "1f8996759cc665ba09bbc8145907dd66ea9b7cfd",
+      "frozenBlob": "1f8996759cc665ba09bbc8145907dd66ea9b7cfd"
+    },
+    {
+      "path": "typing-app/client/src/model.ts",
+      "sha256": "1ad60559fd7187692272eca3e8721ac43606628b317effb0c73ec40d94641e4e",
+      "blob": "9c9a254f32d43b6129311db5ba22776c0abfecaf",
+      "frozenBlob": "9c9a254f32d43b6129311db5ba22776c0abfecaf"
+    },
+    {
+      "path": "typing-app/client/src/preferences.ts",
+      "sha256": "73ffb83b23cde3edd1c79eddb5848e44b959aa497c8c7114f2f46df4a3b69966",
+      "blob": "9b0ef83748f1a5f8983cde38c4999671496ea68b",
+      "frozenBlob": "9b0ef83748f1a5f8983cde38c4999671496ea68b"
+    },
+    {
+      "path": "typing-app/client/src/profile.ts",
+      "sha256": "3eb148c75f85482675ab00f4577b3a7a450f4ba8268734d5f74c8646bd5d4b9b",
+      "blob": "4278d052ab900aa5b10a05bb9446812d835f35a4",
+      "frozenBlob": "4278d052ab900aa5b10a05bb9446812d835f35a4"
+    },
+    {
+      "path": "typing-app/client/src/storage.ts",
+      "sha256": "ce7834de8f3ba1f189b0ce0b3f854bb6f33ba1d5127629bea023ee64ff1a844b",
+      "blob": "a65a6e2a1933ecac25049cc6e5444d59d990d3da",
+      "frozenBlob": "a65a6e2a1933ecac25049cc6e5444d59d990d3da"
+    },
+    {
+      "path": "typing-app/client/src/style.css",
+      "sha256": "685d4c99dcb0a9355258c14ba2589eda00446b88528d57a4358030857b34e526",
+      "blob": "1b10cbea2453aad470ca5b4918b1f222309eda89",
+      "frozenBlob": "1b10cbea2453aad470ca5b4918b1f222309eda89"
+    },
+    {
+      "path": "typing-app/client/src/unsaved.ts",
+      "sha256": "3e12efd6236c7276b6da5a02fd49b29c8d309f68f30929e03507ea9fbdfe7fff",
+      "blob": "31f9562482db4080226784de701b5a426b6c668f",
+      "frozenBlob": "31f9562482db4080226784de701b5a426b6c668f"
+    },
+    {
+      "path": ".omx/specs/typeforge-practice-policy-v1.md",
+      "sha256": "4c2583873aab0f3f6a5fd5967704794634e49ada3577f89b1e03f5b4964071f6",
+      "blob": "749b5d451992344f3f1a4a44a8691a6a7ebe6b07",
+      "frozenBlob": "749b5d451992344f3f1a4a44a8691a6a7ebe6b07"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/README.md",
+      "sha256": "556823f18874c10462464221755d30ce6a8d9684a8563df748a4e75936caddb9",
+      "blob": "4171513fa1c0c2a9b3a1747ac3d22ec85eb548d9",
+      "frozenBlob": "4171513fa1c0c2a9b3a1747ac3d22ec85eb548d9"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/amendment-r1.md",
+      "sha256": "1f0444a596d833fb466feb5db3a4197de30474229ac6765e946ce2ed87fa48ea",
+      "blob": "dc7a33dd2e2447916512a4c39eae1b9e429fd33d",
+      "frozenBlob": "dc7a33dd2e2447916512a4c39eae1b9e429fd33d"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/amendment-r2.md",
+      "sha256": "fbd4b5532b702a459d3dc50af303163b46c0e29478a750c18bc34e93b5b8edd8",
+      "blob": "cb6b3f4e2601f42d02ceddf8c64c9fc52feb3ccb",
+      "frozenBlob": "cb6b3f4e2601f42d02ceddf8c64c9fc52feb3ccb"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/authority-delta.md",
+      "sha256": "65168c92869bf026f7c009317200cd7960e9b413a2b5946883d127a71e59567a",
+      "blob": "927d9c8cc109d311ba93cb71219c9aaa73476d16",
+      "frozenBlob": "927d9c8cc109d311ba93cb71219c9aaa73476d16"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/authority-seams-after.json",
+      "sha256": "73c51e58d47685f89f49920a13b38d3484a600f0c63d7c208374434e95f94648",
+      "blob": "959b8e5f96dd8dea096630f983573c496c36f1cb",
+      "frozenBlob": "959b8e5f96dd8dea096630f983573c496c36f1cb"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/authority-seams-before.json",
+      "sha256": "155aefec82141cdfabd359be74ad6e34a8f62e7dbfd56b482e6e1156ce9c655f",
+      "blob": "ec08af20aa6d2d401292aeaedbb6a5d46cbe7054",
+      "frozenBlob": "ec08af20aa6d2d401292aeaedbb6a5d46cbe7054"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/authority-seams-check.mjs",
+      "sha256": "81e0cf69ddc574e4457a3a0569ddf5aa7cdccaf7b18dadfdd1ae839f173f83a8",
+      "blob": "9099b94f03df1cc8a839211e8ae40abef9ad31cb",
+      "frozenBlob": "9099b94f03df1cc8a839211e8ae40abef9ad31cb"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/authority-types.test.ts",
+      "sha256": "ce75e6b627eee524d1c3740c928dbf930b42b00bdcf9b64b224dbcf76c6b204f",
+      "blob": "5b79f999dccb637ba1b0a84d0bdc73ac4f3516d2",
+      "frozenBlob": "5b79f999dccb637ba1b0a84d0bdc73ac4f3516d2"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/authority-validation.json",
+      "sha256": "65c2f9f1a6438ae2f3cb1f1edeb30744de52e9861ea6d6d01ec0aebcea8aa9bf",
+      "blob": "7db43ba19236f3d75da3882b9ee561c11cc979bb",
+      "frozenBlob": "7db43ba19236f3d75da3882b9ee561c11cc979bb"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/check-contract.mjs",
+      "sha256": "db3a1621e264ee6b16cf4224aacb116943b3241346f72ed129a3f899feb35e44",
+      "blob": "9d72001de4db5dbbf52ff5f57265dfc7be0b3bb0",
+      "frozenBlob": "9d72001de4db5dbbf52ff5f57265dfc7be0b3bb0"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/coach-config.example.json",
+      "sha256": "949d5cd20710f69924470a953274063198be2c99fbeacda76877cc4846d3284b",
+      "blob": "bb30c0092b1619316776c728d285e18ea337f98e",
+      "frozenBlob": "bb30c0092b1619316776c728d285e18ea337f98e"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/coach-config.schema.json",
+      "sha256": "dadceed2ffdeee8ba3ca64d93dc22f9da2f739e72d0a46205ed094c98753db67",
+      "blob": "fd8e39d36fe81a57802f18feb3d83870fc5727fc",
+      "frozenBlob": "fd8e39d36fe81a57802f18feb3d83870fc5727fc"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/coach-sidecar.schema.json",
+      "sha256": "e014a98446c9e3d0ce1da42e90859b050b5deafbe2619be801c7f0b5759b9aad",
+      "blob": "f5ccd3a629de0b9f90c546238702d5f0b77dd043",
+      "frozenBlob": "f5ccd3a629de0b9f90c546238702d5f0b77dd043"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/contract-boundaries.json",
+      "sha256": "4a3e9e31e933075f5da846f0c64e32d72381f33a19969f6afd4581291ff596dd",
+      "blob": "aadf72c32cf4b1660f03d5a33bbac2144854b9e2",
+      "frozenBlob": "aadf72c32cf4b1660f03d5a33bbac2144854b9e2"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/contract-check.json",
+      "sha256": "f3751516935112b224a8fa438d467c51373cc04db753554e0fd1f1176d7b0a19",
+      "blob": "d77ca101dfc20a1a8765b1d0af3dfd7da815029b",
+      "frozenBlob": "d77ca101dfc20a1a8765b1d0af3dfd7da815029b"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/coordination-and-validation.md",
+      "sha256": "4d93fa5d30610fc68662210cdfeedf9b41de86d4118ed2ee09b0bbf9833d346d",
+      "blob": "7452d4aa28ff795a2fc3e23c54dc548e4cf8759b",
+      "frozenBlob": "7452d4aa28ff795a2fc3e23c54dc548e4cf8759b"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/coverage-helper-task.txt",
+      "sha256": "758b9de08d949247286759f608602da1665059aa73a7eb7c6e56cc7808796f06",
+      "blob": "cc989965aef56caf2140a7ab317bc84053bf9f62",
+      "frozenBlob": "cc989965aef56caf2140a7ab317bc84053bf9f62"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/coverage-probe.json",
+      "sha256": "94169ff5fa9e3e195f5db560e1c21b54786c45cfe3ee1133e4a691d5cdfe8a05",
+      "blob": "863cc9e2d8b5e0deecad2a210027661ed1c0c14c",
+      "frozenBlob": "863cc9e2d8b5e0deecad2a210027661ed1c0c14c"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/coverage-probe.mjs",
+      "sha256": "bf81cd8da4f2981f7afb45b14e99a5872462617f9c7b35b325c0348abffee09a",
+      "blob": "714a320fc0c9365ddd24e7065b4e16129f1e80c1",
+      "frozenBlob": "714a320fc0c9365ddd24e7065b4e16129f1e80c1"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/coverage-report.md",
+      "sha256": "b983529e242d9e2498923af06b9488da2c8d6772da0ae02357a649037836cdf6",
+      "blob": "c7a352455537ea2ed8d6c9871e14ef783ed909a2",
+      "frozenBlob": "c7a352455537ea2ed8d6c9871e14ef783ed909a2"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/evidence-helper-task.txt",
+      "sha256": "65537c9572251cc15e55c65eabe8f352279f3500d141b5647a4ed250472fb26a",
+      "blob": "aabfa938bb918d1b9f825b4a9b6550b46640c60e",
+      "frozenBlob": "aabfa938bb918d1b9f825b4a9b6550b46640c60e"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/existing-profile-model-tests.txt",
+      "sha256": "1bf5f5d0a7fc92706ef61ab16375b898d9b33e65ed2482952f57ef8685ac28cf",
+      "blob": "dfe37bddd143a18f208a52679959dc43d70bf585",
+      "frozenBlob": "dfe37bddd143a18f208a52679959dc43d70bf585"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/finite-adapter-r2.md",
+      "sha256": "af3780561d087663fbe9abb2ca7b289f37f5a89a04ac0e2d8431265edc642f0f",
+      "blob": "9d4a35a83dae6e9c26bbacd26799633ccc734014",
+      "frozenBlob": "9d4a35a83dae6e9c26bbacd26799633ccc734014"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/finite-catalogue.example.json",
+      "sha256": "1e821571403a2ba558a84ec696e052a33cfbd21c3eda7a07bebf448be1a4f931",
+      "blob": "cf7f0975fde5b702c72d59f786d47f03cfd31ea8",
+      "frozenBlob": "cf7f0975fde5b702c72d59f786d47f03cfd31ea8"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/implementation-dag-r2.md",
+      "sha256": "676ac0f9248c66ce9cb1513007237676d1d7de36f9f45ac7620d2f2bd32cf5b4",
+      "blob": "cc32cc77b99e09762822e7f967d8f8a008ef6f35",
+      "frozenBlob": "cc32cc77b99e09762822e7f967d8f8a008ef6f35"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/interfaces-r2.ts",
+      "sha256": "c0cb9f3034e4b7be676edd357bc2c8f07a540e40681d5b0face8539d2ac251c3",
+      "blob": "7183d476e82a8866304ca86e3bccf14a403f73d2",
+      "frozenBlob": "7183d476e82a8866304ca86e3bccf14a403f73d2"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/lifecycle-r2.md",
+      "sha256": "58fa8f29cf2e4443cc1a15b25c92f9b353f2ef49396b6e74174e9430323aed99",
+      "blob": "f0270892bc9598729ca6dd75128618b90c509f8d",
+      "frozenBlob": "f0270892bc9598729ca6dd75128618b90c509f8d"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/metadata-membership.schema.json",
+      "sha256": "5e1beac496bdeea668c160711013755e4cb9d7cefee2deb70e385617af68d0f8",
+      "blob": "48f1bf8fff5083c2d0bd4d6365bd837178344ff7",
+      "frozenBlob": "48f1bf8fff5083c2d0bd4d6365bd837178344ff7"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/primary-evidence.md",
+      "sha256": "e8ccbd36f6c4377e668ff729f113be02174b0c16a1fd2532b93835f79ac5f0ce",
+      "blob": "b1ef5af96a8786052f95b80d9d4f7207f5595bed",
+      "frozenBlob": "b1ef5af96a8786052f95b80d9d4f7207f5595bed"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/r2-check.json",
+      "sha256": "f1a52c4a0fa8a302de19d06412442488c934528da089232bdbe22fd7e15b33b6",
+      "blob": "51c88c57e7dca3d150d28b652aff3f3d7afb0b01",
+      "frozenBlob": "51c88c57e7dca3d150d28b652aff3f3d7afb0b01"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/r2-check.mjs",
+      "sha256": "d3c3d6c4edb8e491d8cc772950aa5776982f819088992399aacb54a37689a34e",
+      "blob": "40b0d6d6f4f12a473fdc700b23ec68a8f34d0bde",
+      "frozenBlob": "40b0d6d6f4f12a473fdc700b23ec68a8f34d0bde"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/r2-validation.json",
+      "sha256": "2bb05562ea4827d76d996d16b77d892ff95e930226e159c75375d8cbd455bbeb",
+      "blob": "a14bcd84a1364da1cba5d3a0a5c9f5922d7663f0",
+      "frozenBlob": "a14bcd84a1364da1cba5d3a0a5c9f5922d7663f0"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/revision-check.json",
+      "sha256": "04c79a4fe90cf2785e4cc7ecb547fdc3465d2fdd8b8adea07210b82366fc7598",
+      "blob": "fcb8fb0caeb782e486e626b3cd8ff47e0be2f894",
+      "frozenBlob": "fcb8fb0caeb782e486e626b3cd8ff47e0be2f894"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/revision-check.mjs",
+      "sha256": "11489f3f000d1cbfcb6aeba9788dca43966dd0eb89b76f133cc8ea0902e16f1f",
+      "blob": "6f8c9cc56d19411b2a8b895213e1e700d04d9ecc",
+      "frozenBlob": "6f8c9cc56d19411b2a8b895213e1e700d04d9ecc"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/revision-launch-fields.json",
+      "sha256": "fa75c3d6747108b69157ec8eef1f0b8e3e221025349762259c411bd8100a507d",
+      "blob": "36b9134289e47aa1e79ae252e4a032034c6a7883",
+      "frozenBlob": "36b9134289e47aa1e79ae252e4a032034c6a7883"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/revision-profile-model-tests.txt",
+      "sha256": "30b41d64cb59ee7096d9378e89a6ec597bb56b222da251550678ee8f34747029",
+      "blob": "71c66c0c23889471aec8c57f4eb982ab8d9001e7",
+      "frozenBlob": "71c66c0c23889471aec8c57f4eb982ab8d9001e7"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/revision-runtime-client.json",
+      "sha256": "199105ee29d901033182ef29c766d8a010482fb0045c60e746b2e4c71364d796",
+      "blob": "44128f12a7417bfff6fc4c98bd82253cdc907483",
+      "frozenBlob": "44128f12a7417bfff6fc4c98bd82253cdc907483"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/revision-validation.json",
+      "sha256": "75982b3899dd97be5478ec215b1db9d5963f88b2a1d225f21ff130618a33df99",
+      "blob": "5c09b046f6f1891626c53b43d100ca3af0e95567",
+      "frozenBlob": "5c09b046f6f1891626c53b43d100ca3af0e95567"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/sidecar-examples.json",
+      "sha256": "8141bd016aadedeb18dd66777883a87b63ad81a730f7c6565ed49672aa714438",
+      "blob": "e0489a79a4080095182f4d26ef89621cfe7f7796",
+      "frozenBlob": "e0489a79a4080095182f4d26ef89621cfe7f7796"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy-delta-review/r2/.gitignore",
+      "sha256": "d568a6a9609ff5e5de7fefd7209e48f39e268ce2cb90788748a1c17661eac21a",
+      "blob": "35becf87782b40db3675f261250ef73bbe462244",
+      "frozenBlob": "35becf87782b40db3675f261250ef73bbe462244"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy-delta-review/r2/input-manifest.json",
+      "sha256": "ce355b25dc037f4bbadc7d4fa60b9d87925dd2df4ba8f5a9b49168d8b5455f90",
+      "blob": "6048ce25af0547c427cefdd700496c93ed723890",
+      "frozenBlob": "6048ce25af0547c427cefdd700496c93ed723890"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy-delta-review/r2/report.md",
+      "sha256": "9941ee454a7beb97149ebeda22873c8b00decf13e3e5468875c15edc629126cc",
+      "blob": "5b0783002c3297d559ae01f0df7694850c70dca4",
+      "frozenBlob": "5b0783002c3297d559ae01f0df7694850c70dca4"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy-delta-review/r2/results.json",
+      "sha256": "1f42b42a49596d5fd46e608b4f5865a3fb759f475c4d73c8eec653ca14821ed6",
+      "blob": "79d39dc0c820779b0fd92799f06ac3daaa6d8c16",
+      "frozenBlob": "79d39dc0c820779b0fd92799f06ac3daaa6d8c16"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy-delta-review/r2/review.mjs",
+      "sha256": "1ca70006348f3bf99495e6cf10a627da22b7421f17121c0cf2e98e5b1d3921ea",
+      "blob": "f9a0d4067636d6e269aa5c50d6e6a50dc33c5467",
+      "frozenBlob": "f9a0d4067636d6e269aa5c50d6e6a50dc33c5467"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy-delta-review/r2/run.txt",
+      "sha256": "d6321bcca65ebf1c650daf0cf2bbf33750e3b3311af01e5f40d1846bf6129c9c",
+      "blob": "396cd313cfcf4f189dfb2af92faad3599e508a53",
+      "frozenBlob": "396cd313cfcf4f189dfb2af92faad3599e508a53"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy-delta-review/r2/verification.json",
+      "sha256": "4cd01b4bd38bf0ec42ceee04e4f280eb0c95b71234e848deccacca40f42ef4be",
+      "blob": "e603f61e715af6fd05a3ae16b4ff081700c626ba",
+      "frozenBlob": "e603f61e715af6fd05a3ae16b4ff081700c626ba"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/implementation/policy/full-check.txt",
+      "sha256": "fb37a7e290637c9d820957ae44a165a11f749f20e9bef264e3a5e8fec74d2864",
+      "blob": "8efe3289966c66d9adfff676529fe0cb5f28bbd2",
+      "frozenBlob": "8efe3289966c66d9adfff676529fe0cb5f28bbd2"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/implementation/policy/report.md",
+      "sha256": "007f23f34ca5e36d2faeb50c48d1d672b15643d04ec4063afcbb8cda00a22dc8",
+      "blob": "f0bfc4de6e85aa63bfce3850f0b3f0ad5e3611a3",
+      "frozenBlob": "f0bfc4de6e85aa63bfce3850f0b3f0ad5e3611a3"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/implementation/policy/shared-classifier-check.txt",
+      "sha256": "6ab83e35eee46f718a03533ba9c9ca965571c535de2edd2f00981854c012631e",
+      "blob": "1691539d9d879122d74ebafe9901cbd39849f39e",
+      "frozenBlob": "1691539d9d879122d74ebafe9901cbd39849f39e"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/implementation/policy/shared-classifier-follow-up.md",
+      "sha256": "8d8bed98dd5ae7227aa2e3f86a7daf216c3c007aa3751f8f2c2753b8181fc951",
+      "blob": "67eeb5f9bd9db126b6be886ee2080c2be1ab08a8",
+      "frozenBlob": "67eeb5f9bd9db126b6be886ee2080c2be1ab08a8"
+    },
+    {
+      "path": "typing-app/client/tests/coach-policy.test.ts",
+      "sha256": "9fc29d25dd5ddc1210392924c1c68d2eb2f83baedc8fadd7518f34ad92de3030",
+      "blob": "71576b790645ab5578f49dde0424e8f5ebf79e27",
+      "frozenBlob": "71576b790645ab5578f49dde0424e8f5ebf79e27"
+    },
+    {
+      "path": "typing-app/client/tests/coach-plan.test.ts",
+      "sha256": "d2b73e1ace6f1d7bb6176bce58fa8954249d266e366b8899f8dac74fb0e4b366",
+      "blob": "be12fca85558f2cfda15068e0c0c81131f198ad3",
+      "frozenBlob": "be12fca85558f2cfda15068e0c0c81131f198ad3"
+    },
+    {
+      "path": "typing-app/client/package.json",
+      "sha256": "38283cf58160d6b51c0258d70a1ec85b120100b04aa577927419b5fec80555f1",
+      "blob": "a92cf80db2aad307634e0883597e4c6e89084f26",
+      "frozenBlob": "a92cf80db2aad307634e0883597e4c6e89084f26"
+    },
+    {
+      "path": "typing-app/client/package-lock.json",
+      "sha256": "c54a9f65c71af508465f95d25b45515b4733efde3cbcf62911a78425bbb36cc8",
+      "blob": "151cf9b3f5022abed2d3783b7fc6991127b11fb3",
+      "frozenBlob": "151cf9b3f5022abed2d3783b7fc6991127b11fb3"
+    }
+  ]
+}
