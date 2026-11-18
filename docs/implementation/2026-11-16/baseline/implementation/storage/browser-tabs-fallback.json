@@ -1,0 +1,13 @@
+{
+    "actualSeparateTab":  true,
+    "admission":  {
+                      "admitted":  false,
+                      "reason":  "authority-changed"
+                  },
+    "broadcastEvents":  0,
+    "database":  "typeforge-coach-tab-synthetic-f6c1a81c-a1c3-4c09-b65a-dd7a52bfd679",
+    "notifications":  1,
+    "passed":  true,
+    "sourceCount":  11,
+    "storageEvents":  1
+}

@@ -1,0 +1,11 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Isolated coach storage acceptance</title>
+<pre id="output">Ready: synthetic isolated IndexedDB fixtures only.</pre>
+<script type="module">
+  import { runCoachStorageChecks, startCoachTabFixture, mutateCoachTabFixture, finishCoachTabFixture } from './coach-storage.ts';
+  window.runCoachStorageChecks = runCoachStorageChecks;
+  window.startCoachTabFixture = startCoachTabFixture;
+  window.mutateCoachTabFixture = mutateCoachTabFixture;
+  window.finishCoachTabFixture = finishCoachTabFixture;
+</script>

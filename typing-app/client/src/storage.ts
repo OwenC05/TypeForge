@@ -264,29 +264,6 @@ export function openDatabase(signal?: AbortSignal): Promise<IDBDatabase> {
   });
 }
 
-async function request<T>(mode: IDBTransactionMode, operation: (store: IDBObjectStore) => IDBRequest<T>): Promise<T> {
-  const database = await openDatabase();
-  return new Promise((resolve, reject) => {
-    let transaction: IDBTransaction | undefined;
-    try {
-      transaction = database.transaction(STORE, mode);
-      const pending = operation(transaction.objectStore(STORE));
-      transaction.oncomplete = () => {
-        database.close();
-        resolve(pending.result);
-      };
-      transaction.onabort = () => {
-        database.close();
-        reject(transaction?.error ?? pending.error ?? new Error('Local results transaction was aborted.'));
-      };
-    } catch (error) {
-      transaction?.abort();
-      database.close();
-      reject(error);
-    }
-  });
-}
-
 export async function saveResult(result: SessionResult): Promise<void> {
   validateResult(result);
   const saved = await saveSource(result, null);
@@ -315,10 +292,14 @@ export async function listResults(): Promise<SessionResult[]> {
   });
   storageDiagnostics = [];
   const results: SessionResult[] = [];
-  const ids = new Set<string>();
+  const ids = new Set<string>(), collisions = new Set<string>();
+  for (const value of values) {
+    const id = value && typeof value === 'object' && 'id' in value ? value.id : undefined;
+    if (typeof id === 'string') { if (ids.has(id)) collisions.add(id); ids.add(id); }
+  }
   for (const value of values) {
     if (value && typeof value === 'object' && 'schemaId' in value) continue;
-    try { validateResult(value); if (ids.has(value.id)) throw new Error('Cross-partition source collision.'); ids.add(value.id); results.push(value); }
+    try { validateResult(value); if (collisions.has(value.id)) throw new Error('Cross-partition source collision.'); results.push(value); }
     catch (error) { storageDiagnostics.push(error instanceof Error ? error.message : 'Unsupported local result.'); }
   }
   return results.sort((a, b) => b.completedAt.localeCompare(a.completedAt) || b.id.localeCompare(a.id));
@@ -333,26 +314,26 @@ export async function listResultsPage(before: {completedAt: string; id: string} 
     let invalidCount = 0;
     let firstInvalidReason = '';
     const transaction = database.transaction([STORE, CURRENT_STORE], 'readonly');
-    const range = before ? IDBKeyRange.upperBound([before.completedAt, before.id], true) : null;
-    const store = transaction.objectStore(STORE);
-    const index = store.index(ORDER_INDEX);
     // Records lacking indexable dates/IDs cannot appear in an index cursor.
     // Count them explicitly so corruption is not hidden by the index itself.
     if (!before) {
-      const allCount = store.count();
-      const indexedCount = index.count();
-      indexedCount.onsuccess = () => {
-        const omitted = allCount.result - indexedCount.result;
-        if (omitted > 0) storageDiagnostics.push(`${omitted} local record(s) have unindexable history fields and remain stored for recovery.`);
-      };
+      for (const name of [STORE, CURRENT_STORE]) {
+        const store = transaction.objectStore(name), index = store.index(ORDER_INDEX);
+        const allCount = store.count(), indexedCount = index.count();
+        indexedCount.onsuccess = () => {
+          const omitted = allCount.result - indexedCount.result;
+          if (omitted > 0) storageDiagnostics.push(`${omitted} local record(s) have unindexable history fields and remain stored for recovery.`);
+        };
+      }
     }
     visitMergedKeys(transaction, { legacy: { before: before ? [before.completedAt, before.id] : null, exhausted: false },
       current: { before: before ? [before.completedAt, before.id] : null, exhausted: false } }, (entry, partition, next) => {
       const pending = transaction.objectStore(partition === 'legacy' ? STORE : CURRENT_STORE).get(entry.primaryKey);
-      pending.onsuccess = () => {
+      const counterpart = transaction.objectStore(partition === 'legacy' ? CURRENT_STORE : STORE).getKey(entry.primaryKey);
+      counterpart.onsuccess = () => {
       const value: unknown = pending.result;
       if (value && typeof value === 'object' && 'schemaId' in value) { next(); return; }
-      try { validateResult(value); if (results.some(result => result.id === value.id)) throw new Error('Cross-partition source collision.'); results.push(value); }
+      try { validateResult(value); if (counterpart.result !== undefined) throw new Error('Cross-partition source collision.'); results.push(value); }
       catch (error) {
         invalidCount++;
         firstInvalidReason ||= error instanceof Error ? error.message : 'Unsupported local result.';
@@ -378,8 +359,10 @@ export async function listResultsPage(before: {completedAt: string; id: string} 
 export function visitMergedKeys(tx: IDBTransaction,
   states: { legacy: { before: IDBValidKey | null; exhausted: boolean }; current: { before: IDBValidKey | null; exhausted: boolean } },
   visit: (entry: IDBCursor, partition: 'legacy' | 'current', next: () => void) => void,
-  exhausted: () => void, keyRequest: () => boolean = () => true): void {
+  exhausted: () => void, keyRequest: () => boolean = () => true,
+  keySettled: (duration: number) => void = () => {}): void {
   const entries: { legacy: IDBCursor | null | undefined; current: IDBCursor | null | undefined } = { legacy: undefined, current: undefined };
+  const started = { legacy: 0, current: 0 };
   let stopped = false;
   const choose = () => {
     if (stopped || entries.legacy === undefined || entries.current === undefined) return;
@@ -389,6 +372,7 @@ export function visitMergedKeys(tx: IDBTransaction,
     visit(entry, partition, () => {
       if (!keyRequest()) { stopped = true; return; }
       entries[partition] = undefined;
+      started[partition] = performance.now();
       entry.continue();
     });
   };
@@ -396,13 +380,16 @@ export function visitMergedKeys(tx: IDBTransaction,
     if (states[partition].exhausted) { entries[partition] = null; choose(); continue; }
     if (!keyRequest()) { stopped = true; return; }
     const before = states[partition].before;
+    started[partition] = performance.now();
     const request = tx.objectStore(partition === 'legacy' ? STORE : CURRENT_STORE).index(ORDER_INDEX)
       .openKeyCursor(before === null ? null : IDBKeyRange.upperBound(before, true), 'prev');
     request.onsuccess = () => {
+      keySettled(performance.now() - started[partition]);
       entries[partition] = request.result;
       if (!request.result) states[partition].exhausted = true;
       choose();
     };
+    request.onerror = () => keySettled(performance.now() - started[partition]);
   }
 }
 
@@ -575,7 +562,8 @@ export async function readHistorySlice(options: HistoryOptions = {}): Promise<Hi
         if (byteLimit - output.examinedBytes < MAX_RESULT_BYTES) { output.reason = 'byte-budget'; return; }
         if (workMs >= HISTORY_WORK_MS) { output.reason = 'yield'; return; }
         const valueRequest = transaction.objectStore(partition === 'legacy' ? STORE : CURRENT_STORE).get(entry.primaryKey);
-        valueRequest.onsuccess = () => {
+        const counterpart = transaction.objectStore(partition === 'legacy' ? CURRENT_STORE : STORE).getKey(entry.primaryKey);
+        counterpart.onsuccess = () => {
           const started = performance.now();
           try {
             const value: unknown = valueRequest.result;
@@ -602,6 +590,9 @@ export async function readHistorySlice(options: HistoryOptions = {}): Promise<Hi
               diagnostics.invalidRows++;
               diagnostics.firstInvalidReason ??= error instanceof Error ? error.message : String(error);
               return;
+            }
+            if (counterpart.result !== undefined) {
+              diagnostics.invalidRows++; diagnostics.firstInvalidReason ??= 'Cross-partition source collision.'; return;
             }
             if (options.compatible && !options.compatible(value)) diagnostics.incompatibleRows++;
             else output.results.push(value);
