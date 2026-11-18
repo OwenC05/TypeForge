@@ -1,0 +1,267 @@
+{
+  "verdict": "APPROVE",
+  "scope": "S1-S3 corrected seams and architecture contract implementation admission only",
+  "inputs": {
+    "AUTHOR": "f7ddfdde280ee6ae6fe26b4dd2011d01dd8085de",
+    "BEFORE": "c6a8a806ec98c6015e3e8819698ff5b19a97ad98",
+    "ROOT": "3caadca1b045e470b9ae4773a61b9c544ebf66bc"
+  },
+  "independentChecks": 21,
+  "checks": [
+    {
+      "name": "S1 old authority-only views remain indistinguishable",
+      "actual": 1,
+      "expected": 1
+    },
+    {
+      "name": "S1 explicit metadata now distinguishes three origin worlds",
+      "actual": 3,
+      "expected": 3
+    },
+    {
+      "name": "S1 physical legacy decisions retain initial/reset/cutoff semantics",
+      "actual": [
+        true,
+        false,
+        false
+      ],
+      "expected": [
+        true,
+        false,
+        false
+      ]
+    },
+    {
+      "name": "S1 missing current membership never gains legacy origin",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "S2 failed C operation gives no proved count median or candidate",
+      "actual": {
+        "proof": null,
+        "mayPublishProvedComponents": false,
+        "candidate": null,
+        "median": null,
+        "pendingCount": 0
+      },
+      "expected": {
+        "proof": null,
+        "mayPublishProvedComponents": false,
+        "candidate": null,
+        "median": null,
+        "pendingCount": 0
+      }
+    },
+    {
+      "name": "S2 valid supplied proof passes unchanged into output",
+      "actual": [
+        true,
+        true
+      ],
+      "expected": [
+        true,
+        true
+      ]
+    },
+    {
+      "name": "S2 proof selection binds metadata membership references and ranges without copying source payload",
+      "actual": [
+        true,
+        false
+      ],
+      "expected": [
+        true,
+        false
+      ]
+    },
+    {
+      "name": "S2 whole-source clone is frozen before proof rather than mutable behind a ref hash",
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "S2 unchanged authority does not authorize substituted cutoff",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "S2 exact membership substitution invalidates selection",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "S2 range substitution invalidates selection",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "S2 scalar-identical replacement is not continuity of the modeled actual C object",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "S2 unchanged local context can admit after real-proof prerequisite",
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "S2 start generation config and database changes reject local admission",
+      "actual": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "expected": [
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "name": "S2 unproved deletion cannot preserve provisional ten as a current lower bound",
+      "actual": 0,
+      "expected": 0
+    },
+    {
+      "name": "S3 schema still permits reading durable sentinel",
+      "actual": 9007199254740991,
+      "expected": 9007199254740991
+    },
+    {
+      "name": "S3 corrected actual relation distinguishes usable MAX-1 from non-admitting MAX",
+      "actual": [
+        true,
+        false
+      ],
+      "expected": [
+        true,
+        false
+      ]
+    },
+    {
+      "name": "S3 failed transaction preserves data epoch and usable revision",
+      "actual": {
+        "metadata": {
+          "schemaId": "typeforge-coach-metadata-v3",
+          "databaseId": "db",
+          "defaultContextId": "context",
+          "activeEpochId": "epoch",
+          "legacyEpochId": "epoch",
+          "legacyCutoffCompletedAt": "2026-11-16T12:00:00.000Z",
+          "sourceRevision": 9007199254740990
+        },
+        "ids": [
+          "old"
+        ]
+      },
+      "expected": {
+        "metadata": {
+          "schemaId": "typeforge-coach-metadata-v3",
+          "databaseId": "db",
+          "defaultContextId": "context",
+          "activeEpochId": "epoch",
+          "legacyEpochId": "epoch",
+          "legacyCutoffCompletedAt": "2026-11-16T12:00:00.000Z",
+          "sourceRevision": 9007199254740990
+        },
+        "ids": [
+          "old"
+        ]
+      }
+    },
+    {
+      "name": "S3 reset reaching MAX commits but honestly returns no usable Authority",
+      "actual": [
+        "new-epoch",
+        9007199254740991,
+        {
+          "committed": true,
+          "authority": null,
+          "reason": "authority-exhausted"
+        }
+      ],
+      "expected": [
+        "new-epoch",
+        9007199254740991,
+        {
+          "committed": true,
+          "authority": null,
+          "reason": "authority-exhausted"
+        }
+      ]
+    },
+    {
+      "name": "S3 reset already at MAX leaves epoch unchanged and is unavailable",
+      "actual": {
+        "committed": false,
+        "authority": null,
+        "reason": "context-unavailable"
+      },
+      "expected": {
+        "committed": false,
+        "authority": null,
+        "reason": "context-unavailable"
+      }
+    },
+    {
+      "name": "S3 ordinary save delete and recovery retain sentinel across reload and tabs",
+      "actual": [
+        [
+          9007199254740991,
+          false
+        ],
+        [
+          9007199254740991,
+          false
+        ],
+        [
+          9007199254740991,
+          false
+        ]
+      ],
+      "expected": [
+        [
+          9007199254740991,
+          false
+        ],
+        [
+          9007199254740991,
+          false
+        ],
+        [
+          9007199254740991,
+          false
+        ]
+      ]
+    }
+  ],
+  "authorReplay": {
+    "expectedBeforeReproductions": 6,
+    "correctedSeamChecks": 45,
+    "meaning": "Replayed author checks, not independent cases"
+  },
+  "compilation": {
+    "compilerVersion": "Version 7.0.2",
+    "existingCompiler": "C:/Users/Owenc/orca/workspaces/TypeForge/typeforge-daily-practice/typing-app/client/node_modules/typescript/bin/tsc",
+    "authorNegativeCases": 3,
+    "independentNegativeCases": 5,
+    "exitCode": 0
+  },
+  "unchangedPaths": [
+    "typing-app/client",
+    "docs/implementation/2026-11-16/baseline/policy/coach-config.example.json",
+    "docs/implementation/2026-11-16/baseline/policy/coach-config.schema.json",
+    "docs/implementation/2026-11-16/baseline/policy/finite-catalogue.example.json",
+    "docs/implementation/2026-11-16/baseline/policy/finite-adapter-r2.md",
+    "docs/implementation/2026-11-16/baseline/policy/revision-check.mjs"
+  ],
+  "limits": [
+    "No production derivePolicy/admitPractice or storage proof producer executed",
+    "C completion and transaction state examples are explicit in-memory models, not real IndexedDB or browser tests",
+    "Proof object continuity is not transaction evidence; future C implementation must actually create the proof",
+    "No repeated byte/corpus/numeric/finite/UI audit or production build"
+  ]
+}
