@@ -1,0 +1,1 @@
+export default { cacheDir: 'docs/implementation/2026-11-16/baseline/implementation/storage/containment-follow-up/.vite-cache' };

@@ -1,0 +1,48 @@
+✔ accepts bounded guest results including sub-millisecond timing and unknown accuracy (3.1586ms)
+✔ rejects corrupt shapes, unsupported versions, impossible counts and unsafe chart data (1.3897ms)
+✔ rejects an otherwise bounded record larger than the 1 MiB persistence limit (31.2454ms)
+✔ strict v1 extensions retain independent lineage and matched simultaneous predictions (1.0039ms)
+✔ rejects unknown extension keys, wrong identities and selectively retained predictions (1.2614ms)
+✔ UUID self-reference cannot bypass lineage validation with uppercase spelling (0.1744ms)
+✔ prediction means must exponentiate to finite positive milliseconds without clamping (0.517ms)
+✔ flow duration arithmetic is strict while legacy remains 60 seconds only (0.4356ms)
+✔ manual drills round trip independently of evidence-backed recommendations (0.6784ms)
+✔ validation failures are permanent named errors before IndexedDB is opened (1.9519ms)
+✖ upgrade callback contains a synchronous bootstrap failure and rejects the open (8.63ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 10
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 264.2509
+
+✖ failing tests:
+
+test at typing-app\client\tests\storage.test.ts:167:1
+✖ upgrade callback contains a synchronous bootstrap failure and rejects the open (8.63ms)
+  AssertionError [ERR_ASSERTION]: Got unwanted exception.
+  Actual message: "Synthetic metadata add failure"
+      at TestContext.<anonymous> (file:///C:/Users/Owenc/orca/workspaces/TypeForge/tf-coach-storage/typing-app/client/tests/storage.test.ts:183:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: QuotaExceededError: Synthetic metadata add failure
+        at new DOMException (node:internal/per_context/domexception:76:18)
+        at TestContext.<anonymous> (file:///C:/Users/Owenc/orca/workspaces/TypeForge/tf-coach-storage/typing-app/client/tests/storage.test.ts:170:17)
+        at Test.runInAsyncScope (node:async_hooks:227:14)
+        at Test.run (node:internal/test_runner/test:1402:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+        at Test.postRun (node:internal/test_runner/test:1542:19)
+        at Test.run (node:internal/test_runner/test:1467:12)
+        at async Test.processPendingSubtests (node:internal/test_runner/test:974:7),
+    expected: undefined,
+    operator: 'doesNotThrow',
+    diff: 'simple'
+  }

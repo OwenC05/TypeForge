@@ -1,0 +1,282 @@
+
+> typeforge@0.1.0 check
+> npm run test && npm run build
+
+
+> typeforge@0.1.0 test
+> node --experimental-strip-types --test tests/*.test.ts
+
+(node:46484) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ restart extraction rejects normalized-empty whitespace-only LF body before evaluation (3.9789ms)
+✔ restart extraction rejects normalized-empty semicolon-only LF body before evaluation (0.5969ms)
+✔ restart extraction preserves and executes a multiline LF handler (3.7956ms)
+✔ restart extraction rejects normalized-empty whitespace-only CRLF body before evaluation (0.3637ms)
+✔ restart extraction rejects normalized-empty semicolon-only CRLF body before evaluation (0.2286ms)
+✔ restart extraction preserves and executes a multiline CRLF handler (1.6092ms)
+✔ restart extraction rejects a missing start boundary before evaluation (0.5632ms)
+✔ restart extraction rejects a missing end boundary before evaluation (0.5289ms)
+✔ restart extraction rejects reversed or empty boundaries before evaluation (1.0602ms)
+✔ unsupported calibration never reads history; supported sparse pages retain newest ten chronologically (48.4981ms)
+✔ Restart waits for fresh calibration and focus before enabling replacement input (11.548ms)
+✔ comparison rendering never exposes overflow, underflow or grouped nonfinite milliseconds (7.522ms)
+✔ restarted retest re-resolves exact origin; deleted, incompatible or unreadable origin becomes ordinary assessment (21.8079ms)
+✔ flow input installs next predictions only after accepted value and eligible assessment history (6.7264ms)
+✔ late native input restores retained text without another engine edit or prediction (9.2167ms)
+✔ stopped input permits Tab, selection and copying while terminal edit guards retain accepted text (13.8148ms)
+✔ flagged safety-stop warning remains truthful after repeated paint and keyboard interaction (7.2245ms)
+✔ Enter is a no-op and clears stale edit metadata without calling submit (4.1491ms)
+✔ correction hint exposes the first expected character without changing the response mirror (3.3814ms)
+✔ duration query accepts only supported seconds, defaults safely and inherits origin (2.4396ms)
+✔ calibration uses actual duration and mode while retaining earlier eligible sentences in flagged runs (3.5767ms)
+✔ save retries are single-flight and late save success/failure cannot navigate or mutate disposed pages (10.2264ms)
+✔ save failure distinguishes permanent validation rejection from retryable browser storage errors (5.9896ms)
+✔ permanently rejected completion keeps export enabled and never navigates (4.6241ms)
+✔ practice query supports general, evidence-backed recommendation and catalogue-only manual pairs (2.1449ms)
+✔ direct recommended/manual practice selects shared drills and persists only the matching identity (15.2001ms)
+✔ keyboard query is explicit, inherits only when absent and fails safely with feedback (5.7131ms)
+✔ optional corrupt or deleted origins retain current results, export/delete and settings-preserving fallback links (49.0673ms)
+✔ assessment from URLs never acquire retest lineage on restart; explicit practice/retest origins retain their contracts (23.5673ms)
+✔ exact promoted config/catalogue and corpus identities; synchronous SHA agrees with Node (20.4344ms)
+✔ config rejects identity, extra fields, threshold, context and disabled-scope substitutions (9.4567ms)
+✔ all four immutable plans pass an independent every-integer-prefix certificate (65.8912ms)
+✔ plan validator rejects every identity substitution, reorder, repeat and extra text (109.4665ms)
+✔ stored finite resolution requires all five exact fields but no active evidence snapshot (161.9222ms)
+✔ shared source classification uses only metadata/now before proof without publishing authority (89.9619ms)
+✔ shared classification retains physical legacy and current captured-context semantics (4.3635ms)
+✔ metadata strict shape/calendar/IDs/revision, with readable terminal MAX (2.4084ms)
+✔ membership strict capture/ref/source kind/hash semantics, never legacy fallback (3.3396ms)
+✔ connected actual-engine he witness yields exact reviewed support, halves and certified snapshot (445.131ms)
+✔ full contrast exact boundary below/at/above and uniform no-target use whole engine histories (592.3841ms)
+✔ permuted delivery and pair insertion ordering cannot change deterministic selected evidence (217.9067ms)
+✔ null final proof cannot fabricate a current count, median or focus; coach null differs from false (99.3255ms)
+✔ all immutable proof-selection and source bindings reject substitution (567.7445ms)
+✔ physical legacy initial epoch and cutoff are required; missing current membership never becomes legacy (38.9426ms)
+✔ capped participation 0/1/9/10/11 and rolling newest-ten summary have independent proofs (56.9437ms)
+✔ participation cap accepts coherent ten witnesses while newest range rejects a known omitted newer source (19.3253ms)
+✔ all-ten median arithmetic, null accuracy, deletion and timestamp/ID tie ordering (252.0226ms)
+✔ epoch/source conflicts and terminal revision never manufacture authority (39.477ms)
+✔ pending original-capture assessments influence only the ordinal, never witnesses or summary (16.0459ms)
+✔ recent window uses inclusive exact30-day cutoff and newest20 before clean-sentence inspection (178.3856ms)
+✔ malformed complement/count/log/key/run envelopes cannot promote targets or invalidate participation (275.9383ms)
+✔ all-contributing-run halves include reference-only runs and cannot borrow target support or effect (253.3256ms)
+✔ final admission requires the exact issued immutable candidate/proof and current pre-insertion authority (70.2759ms)
+✔ invalid runtime config cannot use a legacy selector or model fallback (163.5851ms)
+✔ reviewed lagged keydown/input trace is admitted without an aggregate-to-elapsed rejection (145.4748ms)
+✔ newest immutable text wins before malformed identity and incomplete target exclusion (207.9261ms)
+✔ component range completion and not-requested/null flags stay independent (342.305ms)
+✔ complete summary and recent range boundaries require actual matching prefix witnesses (30.7385ms)
+✔ real finite result never enters assessment or next coach window; ordinary timed practice does (396.7839ms)
+✔ exact cohort, ordinary purpose and run integrity precede weak participation counting (15.8063ms)
+✔ canonical source hashes bind complete values with stable property order (41.7804ms)
+✔ one ledger charges missing and failed attempts and never resets a terminal stop (2.2731ms)
+✔ reservations include concurrent companion capacity and release unused bytes (0.4541ms)
+✔ a cooperative slice cannot issue a 26th point even with zero-byte results (0.5292ms)
+✔ prefix traversal matches native JSON bytes and stops actual inspection at either ceiling (93.6225ms)
+✔ invalid custom allowances and invalid point settlements fail explicitly (1.3134ms)
+✔ unavailable and cancelled storage cannot synthesize capture, reset or exhaustion (46.3543ms)
+✔ invalidation subscribers receive local lifecycle invalidation without a browser (14.0857ms)
+✔ restricted BroadcastChannel creation retains lifecycle invalidation fallback (4.7494ms)
+(node:67016) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ ET-1: a failed save before Again stays listed with its immutable payload (39.2209ms)
+✔ ET-1: a pending save that fails after Again appears then; one that succeeds is dropped quietly (7.6569ms)
+✔ ET-1 (LR-2): a validation refusal that arrives after Again lists as rejected at once, without retry (4.7568ms)
+✔ ET-1: a stale in-place retry settling after Again, a setting, a replacement result or disposal touches nothing of the old block (178.609ms)
+✔ ET-1: a result-state setting change carries the unsaved result like Again (11.3616ms)
+✔ ET-1: two consecutive unsaved blocks are both kept, in order, and overlapping saves settle in either order (21.0367ms)
+✔ ET-1: an exported result is still carried, marked exported; the in-place retry stays single-flight (34.6774ms)
+✔ ET-2: late calibration never re-freezes predictions (idle, no-op edit, accepted input, passage advance) (268.6959ms)
+✔ ET-2: a rejected optional calibration is handled quietly and leaves General practice untouched (41.0331ms)
+✔ versioned banks contain unique original sentence text and stable IDs (16.3781ms)
+✔ selection shuffles deterministically without replacement or bank mutation (6.6703ms)
+✔ fresh retests exclude prior passages and report an exhausted bank honestly (0.8414ms)
+✔ shared shuffle defensively copies custom practice banks (0.5689ms)
+✔ corrected errors retain attempts; incomplete final text contributes positional WPM (24.2669ms)
+✔ native middle insertion and selection replacement do not invent shifted attempts (2.0492ms)
+✔ all wrong input has zero accuracy; deadline rejects edits and late Enter (18.5657ms)
+✔ only correct submitted first passes retain within-word timing; later interruptions stay local (6.7508ms)
+✔ repeat, missing timestamps, corrections and undeclared layouts exclude timing (4.6417ms)
+✔ long gaps are excluded without shortening duration or bridging word boundaries (4.4722ms)
+✔ untracked/composed bulk input is visible but invalid; limits reject oversized edits (5.0272ms)
+✔ abort/restart discard prior state; result snapshots are immutable copies (15.5298ms)
+✔ delayed callbacks do not backfill chart samples, and regular samples fit persistence bounds (2.3315ms)
+✔ freezes exhaustive simultaneous predictions and retains only matched intervals (3.9713ms)
+✔ prediction seam rejects incomplete, duplicate, wrong-index and post-edit input (1.3448ms)
+✔ ineligible and unfinished sentences discard both predictions, next sentence can freeze afresh (4.0934ms)
+✔ practice and retest lineage is independent of optional practice focus and survives result assembly (1.3698ms)
+✔ focus options and submitted prediction identities are defensive snapshots (1.2245ms)
+✔ flow commits error-tolerant final spaces without counting the delimiter (1.2474ms)
+✔ flow interior edits and composition cannot commit; a later end separator can (0.9007ms)
+✔ all durations use deadline-first flow scoring and preserve final partials (5.9167ms)
+✔ response safety stop preserves accepted text and freezes diagnostics until restart (1.0153ms)
+✔ finite lifecycle ends atomically, holds the final prompt and freezes terminal edits and time (0.7498ms)
+✔ finite final boundary remains deadline-first at minus epsilon, exact and plus epsilon (1.1319ms)
+✔ non-clean source rejects coherently adjusted all-keys accounting (152.1382ms)
+✔ non-clean source rejects coherently adjusted initial-key accounting (81.7891ms)
+✔ valid reverse insertion retains only the initial expected key on a non-clean sentence (77.4209ms)
+✔ actual he adapter submits exactly 501 certified characters and rejects overrun (65.877ms)
+✔ actual he final boundary timeout wins at and after the deadline (68.1754ms)
+✔ actual in adapter submits exactly 491 certified characters and rejects overrun (44.6875ms)
+✔ actual in final boundary timeout wins at and after the deadline (52.7482ms)
+✔ actual le adapter submits exactly 502 certified characters and rejects overrun (58.3678ms)
+✔ actual le final boundary timeout wins at and after the deadline (43.6734ms)
+✔ actual th adapter submits exactly 480 certified characters and rejects overrun (44.4953ms)
+✔ actual th final boundary timeout wins at and after the deadline (51.2946ms)
+✔ he actual-engine edits, backspace, incorrect/repeated/flagged/timing input preserve metric1 semantics (267.145ms)
+✔ in actual-engine edits, backspace, incorrect/repeated/flagged/timing input preserve metric1 semantics (210.5231ms)
+✔ le actual-engine edits, backspace, incorrect/repeated/flagged/timing input preserve metric1 semantics (165.0581ms)
+✔ th actual-engine edits, backspace, incorrect/repeated/flagged/timing input preserve metric1 semantics (217.8661ms)
+✔ very fast valid finite output exceeds the timed WPM ceiling and remains valid (30.2578ms)
+✔ zero elapsed and nonfinite figures never become a saved finite source (82.2948ms)
+✔ abort and response/attempt safety stops remain distinct and cannot yield an early result (29.177ms)
+✔ adapter binds only a defensive exact supported plan and never reads later snapshot mutations (38.3512ms)
+✔ strict source validator rejects corrupted envelope, metrics, diagnostics, chart and immutable identity (484.973ms)
+✔ charts use actual observation times, ordered bounded samples and a final metric match (86.5925ms)
+✔ real finite envelope stays outside the timed history/calibration type boundary (21.7979ms)
+✔ finite engine default remains opt-in: timed two-prompt runs continue wrapping (1.1634ms)
+✔ optional existing metric1 predictions retain their strict sentence shape and observation binding (65.3272ms)
+✔ 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: 200 short commits (506.753ms)
+ℹ {"fixture":"200 short commits","bytes":545079,"commits":200,"summaries":200,"attempts":3000}
+✔ 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: shuffled assessment (312.2619ms)
+ℹ {"fixture":"shuffled assessment","bytes":420531,"commits":66,"summaries":67,"attempts":3000}
+✔ 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: shuffled practice (257.7876ms)
+ℹ {"fixture":"shuffled practice","bytes":428759,"commits":70,"summaries":71,"attempts":3000}
+✔ 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: targeted drill (228.6611ms)
+ℹ {"fixture":"targeted drill","bytes":430699,"commits":70,"summaries":71,"attempts":3000}
+✔ 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: shortest assessment (169.2081ms)
+ℹ {"fixture":"shortest assessment","bytes":372518,"commits":81,"summaries":82,"attempts":3000}
+✔ 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: shortest practice (183.3643ms)
+ℹ {"fixture":"shortest practice","bytes":392303,"commits":83,"summaries":84,"attempts":3000}
+✔ 120s corrected 6000-attempt envelope retains 3000 characters without truncation (163.5689ms)
+ℹ {"bytes":95621,"commits":66,"summaries":67,"attempts":6000}
+✔ a valid retest with one fresh prompt cycles only that remaining prompt within the envelope (201.2457ms)
+ℹ {"bytes":401835,"commits":61,"summaries":62,"attempts":3000}
+✔ overfull word count created by interior edit advances on a subsequent appended separator (2.472ms)
+✔ earlier eligible passages still calibrate when the later assessment passage is interrupted (2.8675ms)
+✔ capacity constants preserve the explicit bounded contract (0.7599ms)
+✔ response limit freezes accepted partial data, never a completed result (4.5688ms)
+✔ attempt limit freezes accepted partial data, never a completed result (14.8853ms)
+✔ sentence limit freezes accepted partial data, never a completed result (38.5886ms)
+✔ shipped prediction diagnostics stop before a 9000-character result exceeds 1 MiB (502.4996ms)
+ℹ {"accepted":7488,"commits":165,"diagnosticBytes":1043434}
+✔ an oversized final partial stops at the deadline, keeps escaped bytes and restarts cleanly (253.2911ms)
+ℹ {"finalPartialDiagnosticBytes":1052226}
+✔ optional history rejects invalid budgets before opening IndexedDB (9.7746ms)
+✔ unavailable optional storage returns explicit incomplete state and retained cursor (2.7362ms)
+✔ pre-aborted optional reads do not open storage and remain distinguishable from failure (1.438ms)
+✔ history diagnostics are per request rather than a shared mutable source (0.7729ms)
+✔ abort during open settles immediately and closes a late connection (2.856ms)
+✔ blocked open is unavailable and any later connection is closed (1.2394ms)
+✔ open failure is reported without returning a complete empty history (1.0458ms)
+✔ transaction setup failure closes its database and preserves failure status (1.6901ms)
+(node:34364) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ legacy v1 JSON loads, validates and exports unchanged without optional extensions (8.0082ms)
+✔ a submitted correction keeps attempt accuracy but cannot regain timing eligibility (6.7261ms)
+✔ a partial final word adds positional WPM without adding timing observations (3.3596ms)
+✔ interruption invalidates only the affected sentence while preserving earlier eligible evidence (1.6275ms)
+✔ a pre-deadline press committed at the exact deadline cannot change the frozen result (1.0196ms)
+✔ completed results defensively copy nested evidence, settings and charts on every read (1.0792ms)
+✔ legacy TypingDrill redirects only to practice chooser and preserves query intent for destination validation (8.9146ms)
+✔ legacy invalid settings reach destination parsers and their visible fallback messages (21.9562ms)
+✔ features respect maximal words, lowercase pairs and cold-history fallback (6.6056ms)
+✔ missing artifact never invents population, uses explicitly labelled observed-user fallback (4.3597ms)
+✔ strict artifact validation rejects shape/version/task and nonfinite arrays, keeps a defensive copy (7.9904ms)
+✔ candidate overflow drops candidate for entire sentence without replacing with baseline (19.3455ms)
+✔ all candidate and baseline occurrences are prepared before a history mutation (1.6148ms)
+✔ actual exported model agrees with original Python estimator, features and baseline on golden fixtures (5.2806ms)
+✔ shared eligible Python event stream yields identical engine observations, history and matched predictions (9.7463ms)
+✔ clean first visit: practice defaults to 30 s General with no keyboard declaration; assessment keeps its own default (2.2594ms)
+✔ remembered values fill only absent URL settings; explicit URL wins; lineage links ignore preferences (6.8674ms)
+✔ fields validate independently; corrupt, wrong-version and blocked storage never throw (1.6267ms)
+✔ reset clears only the preference record (0.6889ms)
+✔ history copies eligible summaries and rolls to ten (2.4915ms)
+✔ baseline-only focus requires evidence and bank support, with two target then general cadence (1.6389ms)
+✔ missing origin is explicitly a new assessment (0.3722ms)
+✔ history excludes practice and incompatible runs but keeps earlier eligible evidence in interrupted assessment (1.5286ms)
+✔ retest resolves exact origin, excludes partial prompts, fails on deleted/incompatible/exhausted origin (2.1476ms)
+✔ selected smoothed baseline score, evidence threshold and alphabetical tie are exact (25.2894ms)
+✔ completion ties use stable IDs and within-run order, deletion changes only new snapshots (3.1139ms)
+✔ settings compatibility isolates every duration and flow from unchanged legacy records (2.6689ms)
+✔ history and retest share mode, duration, layout, corpus and version compatibility (1.976ms)
+✔ flow history retains only eligible submitted sentences after later interruption (1.694ms)
+✔ legacy origin falls back for flow retest, while flow excludes every active partial ID (1.0497ms)
+✔ manual catalogue requires three distinct passages, not occurrences or cross-word pairs (9.1348ms)
+✔ manual and recommended drills share finite cadence and adjacent-repeat avoidance (1.4609ms)
+✔ warm no-artifact history supports baseline-only predictions, never a recommendation (0.849ms)
+✔ actual engine ten-sentence constant-200-ms history abstains in original and permuted orders (33.7595ms)
+✔ seeded uniform histories abstain across sentence, pair-entry and summation orders (4877.1126ms)
+✔ maximum supported ten-sentence accumulation abstains at both log bounds (1.3161ms)
+✔ numerical boundary is inclusive before occurrence weighting and admits larger differences (1.4747ms)
+✔ accepts bounded guest results including sub-millisecond timing and unknown accuracy (10.2141ms)
+✔ rejects corrupt shapes, unsupported versions, impossible counts and unsafe chart data (5.7891ms)
+✔ rejects an otherwise bounded record larger than the 1 MiB persistence limit (82.3395ms)
+✔ strict v1 extensions retain independent lineage and matched simultaneous predictions (1.9823ms)
+✔ rejects unknown extension keys, wrong identities and selectively retained predictions (2.3806ms)
+✔ UUID self-reference cannot bypass lineage validation with uppercase spelling (0.3144ms)
+✔ prediction means must exponentiate to finite positive milliseconds without clamping (0.9004ms)
+✔ flow duration arithmetic is strict while legacy remains 60 seconds only (0.974ms)
+✔ manual drills round trip independently of evidence-backed recommendations (1.1625ms)
+✔ validation failures are permanent named errors before IndexedDB is opened (1.7548ms)
+✔ upgrade callback contains a synchronous bootstrap failure and rejects the open (16.1359ms)
+✔ consecutive unsaved results are kept in order, never overwritten, with immutable payloads (4.4849ms)
+✔ a saved record is never listed; adopting a pending record lists it only if it fails (1.3484ms)
+✔ overlapping pending saves settle in either order and update only their own entry (1.4891ms)
+✔ retry is sequential oldest first and single-flight per entry (14.9915ms)
+✔ retry stops at the first permanent refusal, which stays listed with its reason (1.448ms)
+✔ a retry whose write errors but whose copy is stored reconciles as saved (lookup after the error) (0.5285ms)
+✔ export marks entries exported without removing them; discard removes exactly the listed entries (0.4649ms)
+✔ the departure check counts the current unsaved block once (0.3738ms)
+✔ a permanent refusal at the head of a retry leaves the rest retryable and announces it (0.6979ms)
+ℹ tests 207
+ℹ suites 0
+ℹ pass 207
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6256.8612
+
+> typeforge@0.1.0 build
+> npm run typecheck && vite build
+
+
+> typeforge@0.1.0 typecheck
+> tsc --noEmit
+
+vite v8.3.3 building client environment for production...
+transforming...
+✓ 177 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/assets/favicon-2cBZDU6Q.svg                  0.28 kB │ gzip:  0.20 kB
+dist/LandingPage.html                             0.40 kB │ gzip:  0.28 kB
+dist/LeaderBoard.html                             0.40 kB │ gzip:  0.28 kB
+dist/SignIn.html                                  0.40 kB │ gzip:  0.28 kB
+dist/DetailedResults.html                         0.41 kB │ gzip:  0.28 kB
+dist/ResultsPage.html                             0.41 kB │ gzip:  0.28 kB
+dist/ProgressDashboard.html                       0.41 kB │ gzip:  0.28 kB
+dist/TypingTest.html                              0.41 kB │ gzip:  0.28 kB
+dist/TypingDrill.html                             0.83 kB │ gzip:  0.44 kB
+dist/practice.html                                1.20 kB │ gzip:  0.53 kB
+dist/results.html                                 1.21 kB │ gzip:  0.54 kB
+dist/progress.html                                1.22 kB │ gzip:  0.54 kB
+dist/lab.html                                     1.35 kB │ gzip:  0.59 kB
+dist/index.html                                   1.36 kB │ gzip:  0.61 kB
+dist/assets/app-BPASI-5n.css                     21.40 kB │ gzip:  5.41 kB
+dist/assets/sides-CecCr77z.js                     0.09 kB │ gzip:  0.10 kB
+dist/assets/coach-plan-DhalpHzf.js                0.37 kB │ gzip:  0.25 kB
+dist/assets/preload-helper-BaNbYf_w.js            1.39 kB │ gzip:  0.75 kB
+dist/assets/env-B-odJnus.js                       2.42 kB │ gzip:  1.21 kB
+dist/assets/finite-practice-result-C98bc-_m.js    7.49 kB │ gzip:  3.00 kB
+dist/assets/engine-Dv0GYcIy.js                   15.13 kB │ gzip:  4.97 kB
+dist/assets/coach-policy-oBibUeYr.js             16.95 kB │ gzip:  5.73 kB
+dist/assets/coach-plan-Br9S6n_x.js               17.71 kB │ gzip:  7.19 kB
+dist/assets/storage-CzY_5noI.js                  19.00 kB │ gzip:  6.74 kB
+dist/assets/sheet-presentation-BQEATMwe.js       37.66 kB │ gzip: 13.54 kB
+dist/assets/define-element-B51a_ctJ.js           48.03 kB │ gzip: 17.45 kB
+dist/assets/select-zHWKkAye.js                   87.78 kB │ gzip: 31.60 kB
+dist/assets/app-Cn2MQOW_.js                     109.35 kB │ gzip: 38.57 kB
+
+✓ built in 226ms
