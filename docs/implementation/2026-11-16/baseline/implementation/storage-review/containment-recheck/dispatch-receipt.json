@@ -1,0 +1,206 @@
+{
+  "id": "af4aa694-b7a5-420c-9f06-7cc7fb6e4940",
+  "ok": true,
+  "result": {
+    "dispatch": {
+      "id": "ctx_49b7c42f7ead",
+      "runId": "run_1aeb00550f39",
+      "taskId": "task_158b0803a865",
+      "task_id": "task_158b0803a865",
+      "contractVersion": 1,
+      "assigneeHandle": "term_375bd675-235f-4566-993d-459d2c064cc4",
+      "assigneePaneKey": "8107aa94-c3db-4250-bfbe-8b04a1317cd5:b9a2bc1f-b2c5-426b-8b42-b957ccb7a7aa",
+      "processIncarnation": "0e2790bd-9921-41ea-8b18-8ff2513265a5::C:/Users/Owenc/orca/workspaces/TypeForge/tf-coach-storage-review@@07faa4e9:7b461bcc-9976-4626-99bc-57a6f7cd5e9a",
+      "capabilityRevokedAt": null,
+      "retryOfDispatchId": null,
+      "creatorDispatchId": null,
+      "followUpOf": "ctx_2915f7119931",
+      "hostScope": {
+        "kind": "local",
+        "hostId": "local"
+      },
+      "status": "dispatched",
+      "failureCount": 0,
+      "lastFailure": null,
+      "terminationReason": null,
+      "depth": 1,
+      "dispatchedAt": "2026-11-18 23:34:52",
+      "completedAt": null,
+      "createdAt": "2026-11-18 23:34:52",
+      "lastHeartbeatAt": null
+    },
+    "worker": {
+      "dispatchId": "ctx_49b7c42f7ead",
+      "runtimeEpoch": "19e04513-1ef5-4d38-9d02-d9354525c5f3",
+      "state": "ready",
+      "stage": "input_accepted",
+      "worktreeId": "0e2790bd-9921-41ea-8b18-8ff2513265a5::C:/Users/Owenc/orca/workspaces/TypeForge/tf-coach-storage-review",
+      "agentTerminalHandle": "term_375bd675-235f-4566-993d-459d2c064cc4",
+      "setupState": "not_applicable",
+      "effects": [
+        {
+          "kind": "worktree",
+          "action": "reused",
+          "id": "0e2790bd-9921-41ea-8b18-8ff2513265a5::C:/Users/Owenc/orca/workspaces/TypeForge/tf-coach-storage-review"
+        },
+        {
+          "kind": "setup",
+          "action": "not_applicable",
+          "state": "not_applicable"
+        },
+        {
+          "kind": "terminal",
+          "role": "agent",
+          "action": "reused",
+          "id": "term_375bd675-235f-4566-993d-459d2c064cc4"
+        },
+        {
+          "kind": "dispatch_input",
+          "role": "agent",
+          "id": "term_375bd675-235f-4566-993d-459d2c064cc4",
+          "state": "accepted"
+        }
+      ],
+      "residualResources": [],
+      "startOptions": {
+        "worktree": "id:0e2790bd-9921-41ea-8b18-8ff2513265a5::C:/Users/Owenc/orca/workspaces/TypeForge/tf-coach-storage-review",
+        "mode": {
+          "mode": "terminal",
+          "preferred": "terminal",
+          "reason": "user_default",
+          "detail": "Started a terminal agent worker, the default for new agent tabs in your settings."
+        },
+        "resolvedWorktreeId": "0e2790bd-9921-41ea-8b18-8ff2513265a5::C:/Users/Owenc/orca/workspaces/TypeForge/tf-coach-storage-review",
+        "name": null,
+        "repo": null,
+        "baseBranch": null,
+        "terminal": "term_375bd675-235f-4566-993d-459d2c064cc4",
+        "agent": null,
+        "launch": {
+          "requested": {
+            "agent": null,
+            "model": null,
+            "effort": null
+          },
+          "effective": {
+            "agent": "codex",
+            "model": null,
+            "effort": null
+          }
+        },
+        "timeoutMs": 60000,
+        "setup": "not_applicable",
+        "setupSource": "existing_worktree"
+      },
+      "lastError": null,
+      "createdAt": "2026-11-18 23:34:52",
+      "updatedAt": "2026-11-18 23:34:52"
+    },
+    "projection": {
+      "id": "ctx_49b7c42f7ead",
+      "dispatchId": "ctx_49b7c42f7ead",
+      "taskId": "task_158b0803a865",
+      "runId": "run_1aeb00550f39",
+      "role": "worker",
+      "parent": null,
+      "provider": {
+        "id": "codex",
+        "model": "gpt-6.1-sol"
+      },
+      "host": {
+        "kind": "local",
+        "id": "local"
+      },
+      "workspace": {
+        "id": "0e2790bd-9921-41ea-8b18-8ff2513265a5::C:/Users/Owenc/orca/workspaces/TypeForge/tf-coach-storage-review",
+        "kind": "folder_or_worktree"
+      },
+      "stage": {
+        "worker": "ready",
+        "dispatch": "dispatched",
+        "detail": "input_accepted",
+        "activity": "working"
+      },
+      "outcome": "in_progress",
+      "liveness": {
+        "verdict": "live",
+        "observedAt": 1795045063359,
+        "source": "agent_status"
+      },
+      "evidence": {
+        "durable": true,
+        "liveStatus": "fresh",
+        "lastObservedAt": 1795045063359
+      },
+      "resource": {
+        "state": "owned",
+        "id": "wtr_d2b2b0f87771",
+        "ownerDispatchId": "ctx_49b7c42f7ead",
+        "releaseState": "retained",
+        "terminalState": "retained"
+      },
+      "nextAction": {
+        "kind": "none",
+        "argv": []
+      },
+      "attention": {
+        "categories": [],
+        "requiresAction": false
+      }
+    },
+    "terminal": {
+      "handle": "term_375bd675-235f-4566-993d-459d2c064cc4",
+      "ptyId": "0e2790bd-9921-41ea-8b18-8ff2513265a5::C:/Users/Owenc/orca/workspaces/TypeForge/tf-coach-storage-review@@07faa4e9",
+      "incarnationId": "7b461bcc-9976-4626-99bc-57a6f7cd5e9a",
+      "orphaned": true,
+      "recordedPaneKey": "8107aa94-c3db-4250-bfbe-8b04a1317cd5:b9a2bc1f-b2c5-426b-8b42-b957ccb7a7aa",
+      "worktreeId": "0e2790bd-9921-41ea-8b18-8ff2513265a5::C:/Users/Owenc/orca/workspaces/TypeForge/tf-coach-storage-review",
+      "worktreePath": "C:/Users/Owenc/orca/workspaces/TypeForge/tf-coach-storage-review",
+      "branch": "refs/heads/OwenC05/tf-coach-storage-review",
+      "tabId": "8107aa94-c3db-4250-bfbe-8b04a1317cd5",
+      "leafId": "b9a2bc1f-b2c5-426b-8b42-b957ccb7a7aa",
+      "title": "? Reach coordinator | tf-coach-storage-review",
+      "connected": true,
+      "writable": true,
+      "lastOutputAt": 1795045068181,
+      "preview": "/stop to close\n? weekly limit: only 4% left · /status\n› Ask Codex to do anything\nGPT-6.1-Sol high · OwenC05/tf-coach-storage-review · Context 64% left · 4.68M in · 34.4K out · weekly 4% left\n? for agents · ? for shortcuts                                                      ? 5 warnings · f2 to view",
+      "executionHostId": "local",
+      "agentIdentity": "codex",
+      "paneRuntimeId": -1,
+      "rendererGraphEpoch": 1,
+      "agentWait": null
+    },
+    "observation": {
+      "status": "live",
+      "exactWorker": true,
+      "agentWait": null
+    },
+    "terminalResource": {
+      "id": "wtr_d2b2b0f87771",
+      "ownershipState": "owned",
+      "releaseState": "retained",
+      "retainedReason": "user_requested",
+      "terminalHandle": "term_375bd675-235f-4566-993d-459d2c064cc4",
+      "worktreeId": "0e2790bd-9921-41ea-8b18-8ff2513265a5::C:/Users/Owenc/orca/workspaces/TypeForge/tf-coach-storage-review",
+      "endpointId": "19e04513-1ef5-4d38-9d02-d9354525c5f3",
+      "endpointIncarnation": "0e2790bd-9921-41ea-8b18-8ff2513265a5::C:/Users/Owenc/orca/workspaces/TypeForge/tf-coach-storage-review@@07faa4e9:7b461bcc-9976-4626-99bc-57a6f7cd5e9a",
+      "originDispatchId": "ctx_2915f7119931",
+      "ownerDispatchId": "ctx_49b7c42f7ead",
+      "releaseRequestedAt": null,
+      "releaseCompletedAt": null,
+      "releaseError": null,
+      "recoveryAttemptCount": 0,
+      "lastRecoveryAt": null,
+      "autoReleaseAt": null,
+      "archive": {
+        "source": null,
+        "status": null
+      }
+    },
+    "autoReleaseAt": null,
+    "coordinatedFrom": null
+  },
+  "_meta": {
+    "runtimeId": "19e04513-1ef5-4d38-9d02-d9354525c5f3"
+  }
+}
