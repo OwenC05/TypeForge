@@ -40,6 +40,7 @@ For the single later owner of `app.ts`/`style.css` (actual Claude per the plan),
 - A21. Finite Suggested plan: as specified in `finite-plan-end.md` (REG-9, D2d–D2f), 30 s only. A flagged run that reaches the end leads with the flag explanation.
 - A23. Pilot context mismatch (delta r2.1): Suggested at a duration other than 30 s, or with qwerty off, gives a General block with an honest label, a slot hint and the person's own [use 30 s] / [my keyboard is qwerty] key. Duration is never clamped, nothing is blocked, and no focus evidence is shown for that block.
 - A24. `automaticCoaching: 'unavailable'` (P1 r2 projection) reads as unavailable, never as switched off.
+- A25. Reason precedence (independent r2 N1): a `complete-ready` status with a focus is explained by its pair before any reason fallback. P1 r2's `supported` is never presented. The re-check promise follows only the seven gate reasons.
 - A22. Port `evidence/scripts/regressions.mjs` (85 checks) against the real build with injected statuses and save outcomes.
 
 ## Concrete handoff

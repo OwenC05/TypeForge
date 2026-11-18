@@ -112,6 +112,36 @@ for (const [width, height] of (process.env.WIDTHS ?? '1440x900,390x844,320x640')
     check('D2f flagged run reaching the finite end: flag explanation leads, no end observation, no figures', width,
       o.stage === 'completed' && /Flagged/.test(o.text) && !/every sentence in this/.test(o.text) && / of 30$/.test(o.label ?? '') && !o.figures && !errors.length, { ...o, text: o.text.slice(0, 200), errors });
     await context.close(); }
+  // Independent r2 review N1 (b534512 / root d72d2ec, root 0527c88): complete-ready with reason null,
+  // absent or P1 r2 'supported' must explain the focus, never "unavailable"; automaticCoaching
+  // 'unavailable' is not "switched off"; no re-check promise after a non-gate reason.
+  const enc = s => `s=${encodeURIComponent(Buffer.from(JSON.stringify(s)).toString('base64'))}`;
+  const th = { pair: 'th', pairGeometricMs: 212, referenceGeometricMs: 168, observations: 46, sourceRuns: 10, wordContexts: 7 };
+  const sum = { state: 'available', selectionProofComplete: true, medianWpm: 39, medianAccuracy: 95.8, validAccuracySources: 10, from: '2026-11-09', to: '2026-11-18' };
+  const baseS = { policyId: 'fixture', target: 10, counted: 10, exact: true, evidenceScanComplete: true, pending: 0, automaticCoaching: 'enabled', summary: sum };
+  for (const reason of [null, undefined, 'supported']) for (const kind of ['general', 'recommended']) {
+    const s = { ...baseS, state: 'complete-ready', focus: th }; if (reason !== undefined) s.reason = reason;
+    const { context, page, errors } = await open(width, height, `page=practice&${enc(s)}&kind=${kind}&view=why`);
+    const o = await snap(page);
+    check(`N1a complete-ready reason=${reason === undefined ? 'absent' : reason} kind=${kind}: why? explains th, never unavailable`, width,
+      /\bth\b/.test(o.why) && /212 ms/.test(o.why) && !/unavailable/i.test(o.why) && !errors.length, { label: o.label, why: o.why.slice(0, 160), errors });
+    await context.close();
+  }
+  for (const counted of [4, 10]) {
+    const s = { ...baseS, automaticCoaching: 'unavailable', evidenceScanComplete: null, counted, state: counted < 10 ? 'in-progress' : 'complete-insufficient', reason: counted < 10 ? 'baseline-incomplete' : 'policy-invalid', summary: counted < 10 ? null : sum };
+    const { context, page, errors } = await open(width, height, `page=practice&${enc(s)}&view=press`);
+    const press = (await snap(page)).slot;
+    await page.click('#why button'); await page.waitForTimeout(150);
+    const why = (await snap(page)).why;
+    check(`N1b automaticCoaching unavailable at ${counted}: unavailable, not switched off, no re-check`, width,
+      /unavailable/i.test(`${press} ${why}`) && !/switched on|re-checks|look for a focus/i.test(`${press} ${why}`) && !errors.length, { press, why: why.slice(0, 160), errors });
+    await context.close();
+  }
+  { const s = { ...baseS, state: 'complete-insufficient', reason: 'policy-invalid' };
+    const { context, page, errors } = await open(width, height, `page=practice&${enc(s)}&view=why`);
+    const o = await snap(page);
+    check('N1c non-gate reason at ten (policy-invalid): no re-check promise', width, !/re-checks after each saved/.test(o.why) && !errors.length, { why: o.why.slice(0, 200), errors });
+    await context.close(); }
   { const status = { policyId: 'fixture', target: 10, counted: 10, exact: true, evidenceScanComplete: null, pending: 0, automaticCoaching: 'unavailable', state: 'complete-insufficient', reason: 'coaching-deferred', summary: null };
     const { context, page, errors } = await open(width, height, `page=practice&s=${encodeURIComponent(Buffer.from(JSON.stringify(status)).toString('base64'))}&view=press`);
     const s = await snap(page);

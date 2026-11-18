@@ -1,7 +1,7 @@
 {
   "base": "http://127.0.0.1:5312",
   "chrome": "system Chrome (headless, playwright-core 1.65.1)",
-  "capturedAt": "2026-11-18T18:51:32.452Z",
+  "capturedAt": "2026-11-18T19:05:15.225Z",
   "fixture": "all data simulated",
   "records": [
     {
@@ -10,7 +10,7 @@
       "width": 1440,
       "height": 900,
       "file": "1440-14-practice-suggested-why.png",
-      "sha256": "058234c37e9aa78003d824304406b69eadf8c57a8196a8814fa9f8867499ccbb",
+      "sha256": "9efb92b70e0e1e15fddb079a3537ae3e02d81f8221a19784ab68565a2241869c",
       "errors": [],
       "focus": "why-trigger",
       "overflowX": false,
@@ -246,7 +246,7 @@
       "width": 390,
       "height": 844,
       "file": "390-14-practice-suggested-why.png",
-      "sha256": "bdd6ddedb07cd3145711005cbb75ebbea7779798e56e54bc8538a313332a2c34",
+      "sha256": "f8fc5e78035f5ac8e2961d450cff94e414a4b947d605a01220cf1f8675c59133",
       "errors": [],
       "focus": "why-trigger",
       "overflowX": false,
@@ -482,7 +482,7 @@
       "width": 320,
       "height": 640,
       "file": "320-14-practice-suggested-why.png",
-      "sha256": "4eb3dba9fd344bc6fa08c4b1d9318b992e61f8f0d601be9922e3bc06462ed6b5",
+      "sha256": "8050518b4df768dc7f61eb646f746bc44c460008b170a57864c91cad2807822f",
       "errors": [],
       "focus": "why-trigger",
       "overflowX": false,

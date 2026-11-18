@@ -10,6 +10,9 @@ export const reasons = [
   'no-effect', 'corpus-coverage', 'exposure-unsupported',
 ] as const;
 export type Reason = typeof reasons[number];
+/** P1 r2 gives coach complete-ready the reason 'supported'. It is never presented as a reason: a focus is explained
+ *  by the focus itself, and on its own (no focus) it falls to the truthful unknown sentence. (Independent r2 N1.) */
+export const nonPresentingReasons = ['supported'] as const;
 /** Reasons that only exist because a coaching gate ran. They are shown only when one did. */
 export const gateReasons: readonly Reason[] = ['stale-evidence', 'too-few-observations-for-any-pair', 'insufficient-context-diversity', 'unstable-evidence', 'no-effect', 'corpus-coverage', 'exposure-unsupported'];
 export const unavailableReasons: readonly Reason[] = ['policy-invalid', 'storage-unavailable', 'context-unavailable', 'source-integrity'];
@@ -59,6 +62,8 @@ const coachingOn = (s: BaselineStatus) => s.automaticCoaching === 'enabled';
 /** A gate reason is only presented if coaching is on and the gate's evidence scan actually completed. */
 export function shownReason(s: BaselineStatus): Reason | 'unknown' {
   if (!isReason(s.reason)) return 'unknown';
+  // P1 r2 automaticCoaching 'unavailable' (invalid/unknown config) is not 'disabled': never 'isn't switched on'.
+  if (s.automaticCoaching === 'unavailable' && (s.reason === 'coaching-deferred' || gateReasons.includes(s.reason))) return 'unknown';
   if (gateReasons.includes(s.reason) && (!coachingOn(s) || s.evidenceScanComplete !== true)) return coachingOn(s) ? 'scan-incomplete' : 'coaching-deferred';
   return s.reason;
 }
@@ -84,7 +89,8 @@ export const reasonText: Record<Reason | 'unknown', string> = {
 export const reasonSentence = (s: BaselineStatus) => reasonText[shownReason(s)];
 export const worksAsUsual = 'General and pair practice work as usual.';
 
-// After a gate reason only (coaching on, scan complete). Never after coaching-deferred.
+// After a gate reason only (coaching on, scan complete). Never after coaching-deferred or a non-gate reason.
+export const afterNonGate = worksAsUsual;
 export const generalFits = 'General practice fits best for now, and pair practice lets you pick a pair yourself. Suggested re-checks after each saved 30-second run.';
 
 export const ms = (value: number) => `${Math.round(value)} ms`;

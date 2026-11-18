@@ -6,7 +6,7 @@ import '@ui-sdk/web/collapsible';
 import '@ui-sdk/web/progress';
 import type { UiCollapsibleElement } from '@ui-sdk/web';
 import {
-  type BaselineStatus, countText, nextTestNumber, takeTestLabel, reasonText, reasonSentence, shownReason, worksAsUsual, generalFits,
+  type BaselineStatus, countText, nextTestNumber, takeTestLabel, reasonText, reasonSentence, shownReason, worksAsUsual, generalFits, gateReasons, afterNonGate,
   baselinePurpose, focusExplanation, ruleOfThumb, ruleOfThumbShort, lockedPress, suggestedDescription, summaryView, summaryLabel,
   summaryUpdates, summaryReading, summaryUpdating, declareQwerty, qwertyHint, planEndLabel, planEndLine,
   noFocusFallback, suggestedContextHint, suggestedContextWhy, pilotSeconds,
@@ -135,6 +135,15 @@ function summaryBlock(compact = false): string {
 
 function whyBaseline(): string {
   if (status.state === 'checking') return `<div class="baseline-block"><p>Checking saved tests…</p></div>`;
+  // Independent r2 N1: a focus is presented before any reason fallback (P1 r2 complete-ready carries 'supported' or none).
+  if (status.state === 'complete-ready' && coachingOn() && status.focus) {
+    if (suggestedMismatch()) return `<div class="baseline-block"><p>${suggestedContextWhy(status.focus.pair, durationS, qwerty)}</p></div>`;
+    if (kind === 'recommended') return `<div class="baseline-block"><p class="micro">suggested · ${status.focus.pair}</p>
+      <p>${focusExplanation(status.focus)}</p>
+      <p>These blocks lean on sentences containing ${status.focus.pair}, with general sentences mixed in.${finite ? ' Each block is one fixed set of sentences, so it can end before the timer.' : ''}</p>
+      <p class="note">${ruleOfThumb} Prefer an even mix? Choose general.</p></div>`;
+    return `<div class="baseline-block">${progress()}<p>Suggested has a focus: ${status.focus.pair}. Choose suggested to practise it.</p><p class="note">${focusExplanation(status.focus)}</p></div>`;
+  }
   if (status.state === 'unavailable' || shownReason(status) === 'unknown') return `<div class="baseline-block"><p>${reasonSentence(status)}</p><p class="note">${worksAsUsual}</p></div>`;
   const source = 'Counted from the tests saved in this browser: deleting one, or starting a new baseline on the progress page, lowers the count.';
   const unsaved = failedBaseline().length ? `<p class="note">${unsavedSentence()}</p>` : '';
@@ -146,18 +155,8 @@ function whyBaseline(): string {
       <p class="note">${source}</p>
       <a class="key key-small" href="${href('assessment')}">${takeTestLabel(status)}</a></div>`;
   }
-  if (suggestedMismatch()) return `<div class="baseline-block"><p>${suggestedContextWhy(status.focus!.pair, durationS, qwerty)}</p></div>`;
-  if (status.state === 'complete-ready' && coachingOn() && kind === 'recommended') {
-    return `<div class="baseline-block"><p class="micro">suggested · ${status.focus!.pair}</p>
-      <p>${focusExplanation(status.focus!)}</p>
-      <p>These blocks lean on sentences containing ${status.focus!.pair}, with general sentences mixed in.${finite ? ' Each block is one fixed set of sentences, so it can end before the timer.' : ''}</p>
-      <p class="note">${ruleOfThumb} Prefer an even mix? Choose general.</p></div>`;
-  }
-  if (status.state === 'complete-ready' && coachingOn()) {
-    return `<div class="baseline-block">${progress()}<p>Suggested has a focus: ${status.focus!.pair}. Choose suggested to practise it.</p><p class="note">${focusExplanation(status.focus!)}</p></div>`;
-  }
   const shown = shownReason(status);
-  const after = shown === 'coaching-deferred' ? '' : shown === 'scan-incomplete' ? 'Using general until it can be read.' : shown === 'stale-evidence' ? 'Your 10 tests still count; only the timing needs refreshing.' : generalFits;
+  const after = shown === 'coaching-deferred' ? '' : shown === 'scan-incomplete' ? 'Using general until it can be read.' : shown === 'stale-evidence' ? 'Your 10 tests still count; only the timing needs refreshing.' : gateReasons.includes(shown as never) ? generalFits : afterNonGate;
   return `<div class="baseline-block">${progress()}<p>Baseline complete. ${reasonSentence(status)}</p>
     ${after ? `<p class="note">${after}</p>` : ''}
     ${shown === 'stale-evidence' ? `<a class="key key-small" href="${href('assessment')}">take an assessment →</a>` : ''}</div>`;
@@ -462,7 +461,7 @@ function paintResult() {
       kind = 'recommended';
       actions({ label: `try suggested · ${status.focus.pair}`, href: href('practice') }, { label: 'general', href: href('practice', { kind: 'general' }) });
     } else {
-      const after = shown === 'coaching-deferred' ? '' : shown === 'scan-incomplete' ? 'Using general until it can be read.' : generalFits;
+      const after = shown === 'coaching-deferred' ? '' : shown === 'scan-incomplete' ? 'Using general until it can be read.' : gateReasons.includes(shown as never) ? generalFits : afterNonGate;
       block.innerHTML = `${lead}<p>${reasonSentence(status)}</p>${after ? `<p class="note">${after}</p>` : ''}</div>`;
       kind = 'general';
       actions({ label: 'practise general', href: href('practice') }, { label: 'another assessment', href: href('assessment') });
