@@ -535,3 +535,45 @@ test('assessment from URLs never acquire retest lineage on restart; explicit pra
   }
  }
 });
+
+// New accepted behaviour (no old equivalent), found by the real browser flow (rapid Again while a save settles):
+// a run whose first key lands before the status for this block is prepared never freezes an earlier ordinal.
+test('a run started before its status is fresh is labelled without an ordinal and freezes no test number',()=>{
+ const begin=source.indexOf('  const countsNow = () =>'),end=source.indexOf('  // ET-1: completed sources whose save is not confirmed');
+ assert.ok(begin>0&&end>begin,'ordered nonempty identity boundaries');
+ const coach={...coachUi.baselineView(null),state:'in-progress',counted:2,exact:true,ordinal:3};
+ for(const coachFresh of [false,true]){
+  const context:any={coachUi,coach,coachFresh,mode:'assessment',readyCapture:{databaseId:'db'},qwerty:{checked:true},durationMs:30000,
+   sourceAssessmentId:undefined,practiceChoice:{kind:'general'},admitted:null,frozen:null,prepAbort:null,engine:{},isFiniteBlock:()=>false};
+  const {blockIdentity,freezeRun}=runInNewContext(`${stripTypeScriptTypes(source.slice(begin,end))}; ({blockIdentity,freezeRun})`,context);
+  assert.equal(blockIdentity(),coachFresh?'Baseline test 3 of 10':'Baseline test');
+  const frozen=freezeRun();
+  assert.equal(frozen.baseline,true,'it still counts: C decides from the capture, not from the label');
+  assert.equal(frozen.test,coachFresh?3:null);
+ }
+});
+
+// New accepted behaviour (D2a oracle): at 60 s the view shows General only because Suggested cannot run there;
+// [use 30 s] carries the person's Suggested request into the settings change instead of rewriting it to General.
+test('use 30 s keeps a Suggested request; without one it changes only the duration',()=>{
+ const begin=source.indexOf('  function usePilotDuration()'),end=source.indexOf('  function declareQwerty()');
+ assert.ok(begin>0&&end>begin,'ordered nonempty use-30 boundaries');
+ for(const suggestedRequested of [true,false]){
+  const clicks:string[]=[];const practiceKind={value:'general'};
+  const context:any={coachUi,practiceKind,suggestedRequested,document:{querySelector:(selector:string)=>({click:()=>clicks.push(`${selector}|${practiceKind.value}`)})}};
+  runInNewContext(`${stripTypeScriptTypes(source.slice(begin,end))}; usePilotDuration()`,context);
+  assert.deepEqual(clicks,[`#duration ui-segmented-control-item[value="30"]|${suggestedRequested?'recommended':'general'}`]);
+ }
+});
+
+// New accepted behaviour: a requested Suggested that falls back while locked shows General in the view too.
+test('a locked Suggested fallback clears the request and the selected view together',()=>{
+ const begin=source.indexOf('    if (suggestedRequested && !snapshot && coach.state !== \'checking\') {');
+ const end=source.indexOf('    if (previous) {',begin);
+ assert.ok(begin>0&&end>begin,'ordered nonempty fallback boundaries');
+ const context:any={suggestedRequested:true,snapshot:null,coach:{state:'complete-insufficient'},practiceKind:{value:'recommended'},practiceChoice:{kind:'recommended'},
+  pilot:()=>true,locked:()=>true,fellBack:false};
+ runInNewContext(stripTypeScriptTypes(source.slice(begin,end)),context);
+ assert.equal(context.suggestedRequested,false);assert.equal(context.practiceChoice.kind,'general');
+ assert.equal(context.practiceKind.value,'general');assert.equal(context.fellBack,true);
+});

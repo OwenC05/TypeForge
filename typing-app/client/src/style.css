@@ -180,11 +180,15 @@ body[data-run=completed] .today { display: block; }
 .carried[data-leaving]:not([hidden]) ~ .slot-text { display: none; }
 /* While held the slot may grow downward to show the whole choice; nothing above it moves. */
 .slot:has(.carried[data-leaving]:not([hidden])) { height: auto; min-height: var(--slot-height); }
+/* A ready hint with its key, or the unsaved recovery row (only before the first letter), may wrap at narrow widths: grow instead of clipping the key. */
+.stage[data-state=idle] .slot:has(.slot-action:not(:empty)), .stage[data-state=idle] .slot:has(.carried:not([hidden])) { height: auto; min-height: var(--slot-height); }
 /* During a run the line is static: its actions cannot be used, so only the count shows (a held departure un-inerts it). */
 .carried[inert] .key-small { display: none; }
 .slot-text.is-notice { color: var(--ink); border-left: 3px solid var(--vermilion-deep); padding-left: 10px; }
 .stage[data-state=idle] .slot-text:empty::before { content: 'start typing — the clock starts with your first letter'; font: 14px var(--mono); color: var(--muted); }
 .stage .carried:not([hidden]) ~ .slot-text:empty::before { content: none; } /* the unsaved line replaces the idle hint */
+/* It also replaces a ready hint (text and key) until it resolves: the block label already names the test. Notices still show. */
+.stage[data-state=idle] .carried:not([hidden]) ~ .slot-text.is-hint, .stage[data-state=idle] .carried:not([hidden]) ~ .slot-text.is-hint ~ .slot-action { display: none; }
 .foot-hints { margin: 4px 0 0; font: 13px var(--mono); color: var(--muted); }
 .foot-hints kbd { margin-inline: 2px; }
 

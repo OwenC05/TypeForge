@@ -325,6 +325,9 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
   let prepGeneration = 0;
   let prepAbort: AbortController | null = null;
   let prepCompleted = 0; // generation of the last preparation that finished
+  // True only while `coach` was prepared for this block, after its last restart or storage change. A run whose
+  // first key lands before that never freezes an ordinal from an earlier status (it is labelled without one).
+  let coachFresh = false;
   let readyCapture: Capture | null = null; // taken before this block's first insertion
   let admitted: PracticeSnapshot | null = null; // the admission held by the current Suggested block
   let lastAdmittedPair: string | null = null; // previous admitted snapshot in this document only
@@ -349,7 +352,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     $('#prediction-state').textContent = !timed ? 'Timing predictions are not used in suggested blocks.' : !qwerty.checked ? 'Timing predictions require a declared physical QWERTY keyboard.' : preparation?.status === 'candidate-and-baseline' ? 'Experimental model + historical baseline · predictions frozen before each sentence.' : `${preparation?.status === 'baseline-only' ? 'Historical baseline only' : 'Predictions unavailable'}: ${preparation?.reason ?? 'No supported observations yet.'}`;
     $('#focus-state').textContent = [lineageMessage, practiceChoice.reason, mode === 'practice' && practiceChoice.kind === 'manual' ? `Manual pair: ${practiceChoice.pair} · chosen by you, not a diagnosed weakness. Two focused sentences, then one general sentence.` : mode === 'assessment' ? 'Keep typing; a space after the last word brings the next passage.' : ''].filter(Boolean).join(' ');
     // Observed facts only: the current choice, never an invented target.
-    const label = `${frozen?.label ?? blockIdentity()} · ${durationMs / 1000} s`;
+    const label = `${frozen?.label ?? blockIdentity()} · ${durationMs / 1000} s`;
     if ($('#block-identity').textContent !== label) $('#block-identity').textContent = label;
     if ($('#remaining').textContent !== String(Math.ceil(snapshot.remainingMs / 1000))) $('#remaining').textContent = String(Math.ceil(snapshot.remainingMs / 1000));
     stage.dataset.promptIds = prompts.map(prompt => prompt.id).join(' ');
@@ -386,7 +389,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
   const countsNow = () => mode === 'assessment' && readyCapture !== null && qwerty.checked && durationMs === 30000 && coachUi.counting(coach);
   function blockIdentity() {
     if (mode === 'assessment') {
-      if (countsNow()) { const n = coachUi.nextTestNumber(coach); return n ? `Baseline test ${n} of ${coachUi.TARGET}` : 'Baseline test'; }
+      if (countsNow()) { const n = coachFresh ? coachUi.nextTestNumber(coach) : null; return n ? `Baseline test ${n} of ${coachUi.TARGET}` : 'Baseline test'; }
       return sourceAssessmentId ? 'Fresh retest' : 'Assessment';
     }
     if (practiceChoice.kind === 'manual') return `Pair practice · ${practiceChoice.pair}`;
@@ -396,7 +399,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     && !engine.snapshot(performance.now()).value;
   function freezeRun(): RunIdentity {
     const counts = countsNow();
-    frozen = { label: blockIdentity(), baseline: counts, test: counts ? coachUi.nextTestNumber(coach) : null, capture: readyCapture,
+    frozen = { label: blockIdentity(), baseline: counts, test: counts && coachFresh ? coachUi.nextTestNumber(coach) : null, capture: readyCapture,
       pair: isFiniteBlock(engine) ? engine.pair : null };
     // Nothing refreshes this run's identity: an in-flight check is dropped and restarts after the block.
     prepAbort?.abort(); prepAbort = null;
@@ -659,6 +662,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     if (!fresh()) return null;
     prepAbort = null;
     prepCompleted = generation;
+    coachFresh = true;
     // A preparation that could not run at all reads as unavailable storage, never as zero tests.
     coach = status ? coachUi.baselineView(status) : { ...coachUi.baselineView(null), state: 'unavailable', reason: 'storage-unavailable' };
     let snapshot: PracticeSnapshot | null = null;
@@ -694,7 +698,10 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     if (suggestedRequested && !snapshot && coach.state !== 'checking') {
       // A requested Suggested with no admitted plan stays General; say so once the status is known.
       fellBack = coach.state !== 'unavailable' && pilot() && locked();
-      if (locked()) { suggestedRequested = false; practiceChoice = { kind: 'general', reason: '' }; }
+      if (locked()) {
+        suggestedRequested = false; practiceChoice = { kind: 'general', reason: '' };
+        if (practiceKind && practiceKind.value === 'recommended') practiceKind.value = 'general'; // owner-to-view sync: no event
+      }
     }
     if (previous) {
       changeNote = coachUi.changeHint(previous.plan.pair, coach) || coachUi.noFocusFallback;
@@ -719,6 +726,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
   let invalidationQueued = false;
   const unsubscribe = subscribeStorageInvalidation(() => {
     if (disposed) return;
+    coachFresh = false;
     if (!restarting) { prepAbort?.abort(); prepAbort = null; }
     if (invalidationQueued || restarting || engine.state === 'running') return;
     invalidationQueued = true;
@@ -765,6 +773,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
   // Ready-state slot hint (level 1, yields to notices): the counting hint, a pilot mismatch, a change or a fallback.
   function readyHint() {
     if (!untouched() || frozen) return;
+    if (mode === 'assessment' && !coachFresh) { if (slotLevel <= 1) hint(''); return; }
     if (mode === 'assessment' && coachUi.counting(coach) && readyCapture) {
       if (!qwerty.checked) { hint(coachUi.qwertyHint, { label: coachUi.declareQwerty, run: declareQwerty }); return; }
       if (durationMs !== 30000) { hint('Not a baseline test: baseline tests are 30 seconds.'); return; }
@@ -788,7 +797,12 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     else hint(said.text, { label: said.label!, href: takeTestHref() });
   }
   // The person's own press of the existing 30 key or qwerty switch; nothing is clamped or inferred.
-  function usePilotDuration() { (document.querySelector(`#duration ui-segmented-control-item[value="${coachUi.PILOT_SECONDS}"]`) as HTMLElement | null)?.click(); }
+  function usePilotDuration() {
+    // The person asked for Suggested; the view showed General only because 60 s cannot run it. Carry the request
+    // into the settings change (owner-to-view sync, no event) so the 30 s restart admits Suggested, or says why not.
+    if (practiceKind && suggestedRequested) practiceKind.value = 'recommended';
+    (document.querySelector(`#duration ui-segmented-control-item[value="${coachUi.PILOT_SECONDS}"]`) as HTMLElement | null)?.click();
+  }
   function declareQwerty() { if (!qwerty.checked) qwerty.click(); }
   function refreshCoachSurfaces() {
     if (disposed) return;
@@ -1167,6 +1181,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     carryUnsaved(); // Again or a result-state setting: continue now, keep any unsaved result listed
     restarting = true;
     const generation = ++restartGeneration;
+    coachFresh = false;
     clearInterval(timer);
     engine.abort(performance.now());
     prepAbort?.abort(); prepAbort = null;
@@ -1329,7 +1344,7 @@ function resultPanel(source: SavedSource, identity: { label: string }) {
   const seconds = source.settings.durationMs / 1000;
   const finite = isFiniteSource(source);
   const flagged = finite ? source.qualityFlags.length > 0 : !source.eligibleForProgress;
-  const label = finite ? coachUi.planEndLabel(source.plan.pair, source.plan.sentenceCount, source.metrics.elapsedMs) : `${identity.label} · ${seconds} s · complete`;
+  const label = finite ? coachUi.planEndLabel(source.plan.pair, source.plan.sentenceCount, source.metrics.elapsedMs) : `${identity.label} · ${seconds} s · complete`;
   const figures = `<dl class="result-figures"><div><dt>wpm</dt><dd>${format(source.metrics.wpm)}</dd></div><div><dt>accuracy</dt><dd>${accuracy(source.metrics.accuracy)}</dd></div></dl>`;
   const timedFlag = flagged ? `<p class="result-flag">${source.metrics.accuracy === null ? 'Excluded from progress: Undo or an unsupported edit was used, so accuracy is unavailable.' : flaggedLine}</p>` : '';
   const body = !finite ? `${figures}<p class="result-observation">${observedTakeaway(source)}</p>${timedFlag}`
