@@ -1,0 +1,109 @@
+{
+  "schemaId": "typeforge-coach-config-schema-v3",
+  "policyId": "clean-pair-contrast-v1-r2-enabled",
+  "baselineKind": "observed-unshrunk-complement",
+  "signal": "clean-pair-log-contrast",
+  "baseline": {
+    "tests": 10,
+    "durationMs": 30000,
+    "minimumAttempts": 1,
+    "expires": false,
+    "summary": {
+      "sources": "newest-ten-qualifying-assessments",
+      "wpm": "median-all-ten",
+      "accuracy": "median-all-ten-or-unavailable",
+      "orderingProofRequired": true
+    }
+  },
+  "context": {
+    "schemaVersion": 1,
+    "metricVersion": 1,
+    "inputMode": "flow-v1",
+    "durationMs": 30000,
+    "language": "en",
+    "qwerty": true,
+    "corpusVersion": "1",
+    "poolDurations": false,
+    "defaultContextOnly": true,
+    "epochReset": true
+  },
+  "window": {
+    "runs": 20,
+    "ageMs": 2592000000,
+    "ageBoundary": "inclusive",
+    "modes": [
+      "assessment",
+      "practice"
+    ],
+    "deduplicate": "latest-exact-prompt-text",
+    "requireFullPairAttribution": true
+  },
+  "support": {
+    "targetIntervals": 20,
+    "referenceIntervals": 80,
+    "targetRuns": 4,
+    "targetPrompts": 4,
+    "targetWords": 3
+  },
+  "effect": {
+    "minimumRatio": 1.25,
+    "numericNoEffectLogTolerance": 1e-10
+  },
+  "stability": {
+    "halves": 2,
+    "targetIntervalsPerHalf": 8,
+    "referenceIntervalsPerHalf": 20,
+    "targetRunsPerHalf": 2,
+    "minimumRatioPerHalf": 1.1,
+    "retirement": "next-preparation-any-failed-gate",
+    "hysteresis": false
+  },
+  "exposure": {
+    "denominator": "prompt-characters-with-spaces-no-synthetic-separators",
+    "comparator": "complete-uniform-general-bank-density",
+    "minimumRatio": 1.25,
+    "firstTargetByCharacter": 20,
+    "allPrefixesFrom": 20,
+    "minimumPlanCharacters": 480,
+    "wordsByCharacter": 240,
+    "minimumWords": 3,
+    "passagesByCharacter": 480,
+    "minimumPassages": 4,
+    "minimumBankPassages": 4,
+    "repeatBeforeBankExhaustion": false,
+    "maximumPlanCharacters": 600,
+    "catalogueId": "17de69ffe905a28e8e00ad65d1494a003b080bcd2a894a81fea5c28351594a25",
+    "automaticPairs": [
+      "he",
+      "in",
+      "le",
+      "th"
+    ],
+    "actualExposure": "unknown-without-reviewed-instrumentation"
+  },
+  "limits": {
+    "rowsPerSlice": 25,
+    "bytesPerSlice": 4194304,
+    "rowsPerAutomaticPreparation": 500,
+    "bytesPerAutomaticPreparation": 16777216,
+    "cooperativeWorkMs": 8
+  },
+  "fallback": "general-manual",
+  "releaseScope": {
+    "increment": "baseline-summary-supported-practice",
+    "automaticCoachingEnabled": true,
+    "finiteEnd": "plan-exhausted-not-completed-30s",
+    "adapterId": "finite-practice-adapter-v1",
+    "earlyEndEvidence": "excluded",
+    "legacySuggested": "replaced-by-this-single-gate"
+  },
+  "admission": {
+    "version": "all-contributing-pairs-metric1-v2",
+    "minimumIntervalMs": 5e-324,
+    "maximumIntervalMs": 5000,
+    "logDomainTolerance": "64*EPSILON*count*maxAbsIntervalLog",
+    "latestRowBeforeSemanticExclusion": true,
+    "defaultContextOnly": true,
+    "aggregateElapsedRejection": false
+  }
+}
