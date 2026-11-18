@@ -716,13 +716,15 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     }
     if (previous) {
       changeNote = coachUi.changeHint(previous.plan.pair, coach) || coachUi.noFocusFallback;
-      installBlock(makeEngine(qwerty.checked), null);
+      installBlock(null, null);
     }
   }
-  function installBlock(block: Block, snapshot: PracticeSnapshot | null) {
-    engine = block;
+  // A finite block arrives built from its admitted plan. General (block null) is built here, after its prompts are
+  // chosen: the engine copies `prompts` when constructed, so selection must come first (as on restart).
+  function installBlock(block: Block | null, snapshot: PracticeSnapshot | null) {
     admitted = snapshot;
     prompts = snapshot ? snapshot.plan.prompts.map(prompt => ({ ...prompt })) : choosePrompts();
+    engine = block ?? makeEngine(qwerty.checked);
     previousPromptText = ''; previousResponse = ''; lastPromptKey = ''; lastState = '';
     prepare();
     paint();
@@ -1053,7 +1055,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     // must not start. This first key starts an honest General block instead (accepted once, focus kept).
     if (snapshot.state === 'idle' && !frozen && isFiniteBlock(engine) && !admissionCurrent(admitted)) {
       changeNote = ''; fellBack = false;
-      installBlock(makeEngine(qwerty.checked), null);
+      installBlock(null, null);
       hint(coachUi.recheckFallback);
       snapshot = engine.tick(now);
     }

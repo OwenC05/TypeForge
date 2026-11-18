@@ -7,6 +7,10 @@ import { resolveRetest, selectHistory, compatible } from '../src/profile.ts';
 import type { SessionResult, SentenceSummary } from '../src/engine.ts';
 import { newSaveRecord, applyOutcome, isFiniteSource } from '../src/unsaved.ts';
 import * as coachUi from '../src/coach-ui.ts';
+import { TypingEngine } from '../src/engine.ts';
+import { CORPUS_VERSION, practicePrompts } from '../src/corpus.ts';
+import { selectDrillPrompts } from '../src/profile.ts';
+import { resolveCertifiedPlan } from '../src/coach-plan.ts';
 
 // Old-test-to-new-invariant map (F, lease msg_2f1d0dd3484f; full table in the UI implementation report):
 // - Restart waits for fresh calibration and focus -> a General restart never waits on optional evidence (and a
@@ -595,7 +599,7 @@ test('a known invalidation stops an admitted finite block from starting: the fir
   const context:any={restarting:false,disposed:false,input:{value:'t'},performance:{now:()=>5},ended,frozen:null,composing:false,mode:'practice',
    before:{value:'',start:0,end:0,type:'insertText',data:'t'},key:{key:'t',time:5,repeat:false},reconstructEdit:()=>({start:0,end:0,text:'t',tracked:true}),
    engine:finite,admitted,isFiniteBlock:(e:unknown)=>e===finite,admissionCurrent:(s:unknown)=>current&&s===admitted,qwerty:{checked:true},coachUi,changeNote:'old',fellBack:true,
-   makeEngine:()=>engineOf('general'),installBlock:(block:unknown,snapshot:unknown)=>{log.push('install-general');context.engine=block;context.admitted=snapshot;},
+   makeEngine:()=>engineOf('general'),installBlock:(block:unknown,snapshot:unknown)=>{log.push('install-general');context.engine=block??context.makeEngine();context.admitted=snapshot;},
    hint:(text:string)=>log.push(`hint:${text}`),freezeRun:()=>{log.push(`freeze-${context.engine.kind}`);context.frozen={};},prepare:()=>{},paint:()=>{}};
   runInNewContext(stripTypeScriptTypes(`(${handler})`),context)({isComposing:false});
   assert.deepEqual(log,current?['edit-finite:t','freeze-finite']:['install-general',`hint:${coachUi.recheckFallback}`,'edit-general:t','freeze-general'],
@@ -613,7 +617,8 @@ test('an awaited runtime import never publishes an older snapshot over a newer g
    mode:'practice',untouched:()=>true,admitted:null,suggestedChosen:()=>true,pilot:()=>true,suggestedRequested:true,coach:{state:'complete-ready'},locked:()=>false,
    admissionCurrent:(s:typeof snapshot)=>s!==null&&epochs.get(s)===context.invalidations,finiteRuntime:()=>new Promise(r=>{release=r;}),
    admittedBlock:()=>({finite:true}),installBlock:(_b:unknown,s:unknown)=>installed.push(s),coachUi,lastAdmittedPair:null,changeNote:'',fellBack:false,practiceKind:null};
-  const settle=runInNewContext(`${stripTypeScriptTypes(code)}; settleReadyBlock`,context);
+  const settle=runInNewContext(`${stripTypeScriptTypes(code)}
+; settleReadyBlock`,context);
   const pending=settle(snapshot);
   if(race==='invalidation')context.invalidate();
   if(race==='generation')context.prepGeneration++;
@@ -651,4 +656,35 @@ test('every storage invalidation advances the admission epoch and stales the sta
  runInNewContext(stripTypeScriptTypes(code),context);
  context.invalidate();
  assert.equal(context.invalidations,4,'even while restarting');assert.equal(context.coachFresh,false);
+});
+
+// F fallback-prompts follow-up (task_01ea3afaaab7): actual factory/install source, actual TypingEngine, actual
+// certified th plan and actual General selector. Root's diagnostic observed the opposite on c7f85d1.
+test('a General fallback engine runs exactly the General prompts the app selected and shows; Suggested installs unchanged',()=>{
+ assert.equal(source.split('installBlock(null, null);').length-1,2,'both fallbacks (settle step-back, first key) build General inside installBlock');
+ assert.ok(!source.includes('installBlock(makeEngine('),'no engine is built from the previous prompts before selection');
+ const code=`${sliceBetween('  const makeEngine = ','\n  let engine: Block')}\n${sliceBetween('  function installBlock(','\n  function startTimer(')}`;
+ const plan=resolveCertifiedPlan('th');assert.ok(plan);
+ const planIds=plan.prompts.map(prompt=>prompt.id);
+ let selections=0;
+ const host:any={TypingEngine,crypto,CORPUS_VERSION,prompts:plan.prompts.map(prompt=>({...prompt})),mode:'practice',durationMs:30000,practiceChoice:{kind:'recommended'},
+  sourceAssessmentId:undefined,qwerty:{checked:true},engine:null,admitted:{plan},choosePrompts:()=>{selections++;return selectDrillPrompts(null,practicePrompts);},
+  previousPromptText:'',previousResponse:'',lastPromptKey:'',lastState:'',prepare:()=>{},paint:()=>{},startTimer:()=>{}};
+ const installBlock=runInNewContext(`${stripTypeScriptTypes(code)}\n; installBlock`,host);
+ installBlock(null,null);
+ const shown=host.prompts.map((prompt:{id:string})=>prompt.id);
+ assert.equal(selections,1,'one selection, no double randomization');assert.equal(host.admitted,null);
+ assert.notDeepEqual(shown,planIds,'General is a fresh selection, not the th plan');
+ // Type the first two General sentences through the actual engine: what it runs and records is what the app shows.
+ const engine=host.engine;let now=0;
+ for(const index of [0,1]){
+  const snapshot=engine.snapshot(now);assert.equal(snapshot.prompt.id,shown[index],`engine runs shown prompt ${index}`);
+  const text=`${snapshot.prompt.text} `;
+  for(let i=0;i<text.length;i++){now+=100;assert.equal(engine.edit({start:i,end:i,text:text[i],tracked:true,pressTime:now},now),true);if(index===0&&i===0)assert.equal(engine.snapshot(now).value,text[0],'first character accepted once');}
+ }
+ assert.deepEqual(engine.submittedSummaries.map((summary:{promptId:string})=>summary.promptId),shown.slice(0,2),'recorded sentence ids are the shown General ids');
+ // A Suggested installation keeps its finite block and the plan's prompts.
+ const finite={finite:true};const snapshot={plan};
+ installBlock(finite,snapshot);
+ assert.equal(host.engine,finite);assert.equal(host.admitted,snapshot);assert.deepEqual(host.prompts.map((prompt:{id:string})=>prompt.id),planIds);assert.equal(selections,1);
 });
