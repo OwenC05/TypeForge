@@ -1,0 +1,16 @@
+✔ optional history rejects invalid budgets before opening IndexedDB (2.4352ms)
+✔ unavailable optional storage returns explicit incomplete state and retained cursor (0.6947ms)
+✔ pre-aborted optional reads do not open storage and remain distinguishable from failure (0.3409ms)
+✔ history diagnostics are per request rather than a shared mutable source (0.2395ms)
+✔ abort during open settles immediately and closes a late connection (1.0957ms)
+✔ blocked open is unavailable and any later connection is closed (0.493ms)
+✔ open failure is reported without returning a complete empty history (0.5847ms)
+✔ transaction setup failure closes its database and preserves failure status (0.6734ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 199.0093

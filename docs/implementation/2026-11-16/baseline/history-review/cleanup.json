@@ -1,0 +1,10 @@
+{
+    "pid":  51488,
+    "identityMatched":  true,
+    "comparison":  "PID, executable, command line, exact creation timestamp after consistent JSON round trip",
+    "initialAttempt":  "Refused safely because epoch parsing misread ConvertFrom-Json Date conversion; compared canonical representations before retry",
+    "remaining5317Listeners":  0,
+    "browserContexts":  "closed in finally, including watchdog runs",
+    "root5301":  "untouched",
+    "stoppedAt":  "2026-11-18T17:30:18.4705351Z"
+}
