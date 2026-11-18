@@ -1,0 +1,905 @@
+{
+ "summary": {
+  "phase": "injected",
+  "base": "http://127.0.0.1:5324",
+  "browser": "157.0.8103.79",
+  "total": 61,
+  "passed": 61,
+  "failed": []
+ },
+ "checks": [
+  {
+   "id": "fixture counted1: the route rewrite was applied (labelled injected, not lifecycle proof)",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "rewritten": 1
+   }
+  },
+  {
+   "id": "layout injected-counted1-home @1440: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-counted1-home @390: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-counted1-home @320: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-counted1-assessment @1440: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-counted1-assessment @390: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-counted1-assessment @320: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-counted1-progress @1440: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-counted1-progress @390: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-counted1-progress @320: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "injected counted1: home stays General and usable; status, why?, assessment label and Progress agree",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "home": {
+     "status": "Not yet available: 1 of 10 baseline tests.",
+     "label": "General practice · 30 s",
+     "focus": "typing-input",
+     "slot": "Suggested needs 10 baseline tests · 1 done. take test 2 →",
+     "why": "\n          \n      baseline1 of 10 testsSuggested can look for a focus after 10 baseline tests: 30-second assessments on a physical QWERTY keyboard (the qwerty key on), about five minutes of typing, at your own pace.Every finished test counts, mistakes included. A run that stops early or loses focus just doesn’t count; nothing is taken away.\n        \n        Counted from the tests saved in this browser: deleting one, or starting a new baseline on the progress page, lowers the count.take test 2 →\n          English · lowercase · short sentencesTiming predictions require a declared physical QWERTY keyboard.\n          The timer keeps running if you leave the text. Interrupted runs stay in history, outside headline progress.\n        "
+    },
+    "ready": {
+     "label": "Baseline test 2 of 10 · 30 s",
+     "slot": "baseline test 2 of 10 — the clock starts with your first letter",
+     "focus": "typing-input"
+    },
+    "progress": {
+     "text": "t_\ntypeforge\npractice\nassessment\nprogress\nlab\n\nSMALL STEPS, SAVED\n\nYour practice, over time.\n\nHistory is saved in this browser. Export it to keep a separate copy.\n\nPractise\nNew assessment\nBaseline\nCOUNTED\n1 of 10 tests\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\ntake test 2 →\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline\nPractice activity\n\nLocal calendar days in Europe/London. Recorded session time is the elapsed time of saved blocks, not active typing time. Flagged blocks are counted separately and never as assessment evidence.\n\nTODAY\n0 blocks\n0 s\nLAST 7 DAYS\n0 blocks\n0 s · 0 days\nFLAGGED, 7 DAYS\n0\n0 s excluded\nASSESSMENTS, 7 DAYS\n0\ntrend below\nEveryone starts with one session.\n\nYour co"
+    }
+   }
+  },
+  {
+   "id": "fixture counted9: the route rewrite was applied (labelled injected, not lifecycle proof)",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "rewritten": 1
+   }
+  },
+  {
+   "id": "layout injected-counted9-home @1440: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-counted9-home @390: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-counted9-home @320: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-counted9-assessment @1440: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-counted9-assessment @390: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-counted9-assessment @320: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-counted9-progress @1440: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-counted9-progress @390: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-counted9-progress @320: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "injected counted9: home stays General and usable; status, why?, assessment label and Progress agree",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "home": {
+     "status": "Not yet available: 9 of 10 baseline tests.",
+     "label": "General practice · 30 s",
+     "focus": "typing-input",
+     "slot": "Suggested needs 10 baseline tests · 9 done. take test 10 →",
+     "why": "\n          \n      baseline9 of 10 testsSuggested can look for a focus after 10 baseline tests: 30-second assessments on a physical QWERTY keyboard (the qwerty key on), about five minutes of typing, at your own pace.Every finished test counts, mistakes included. A run that stops early or loses focus just doesn’t count; nothing is taken away.\n        \n        Counted from the tests saved in this browser: deleting one, or starting a new baseline on the progress page, lowers the count.take test 10 →\n          English · lowercase · short sentencesTiming predictions require a declared physical QWERTY keyboard.\n          The timer keeps running if you leave the text. Interrupted runs stay in history, outside headline progress.\n        "
+    },
+    "ready": {
+     "label": "Baseline test 10 of 10 · 30 s",
+     "slot": "baseline test 10 of 10 — the clock starts with your first letter",
+     "focus": "typing-input"
+    },
+    "progress": {
+     "text": "t_\ntypeforge\npractice\nassessment\nprogress\nlab\n\nSMALL STEPS, SAVED\n\nYour practice, over time.\n\nHistory is saved in this browser. Export it to keep a separate copy.\n\nPractise\nNew assessment\nBaseline\nCOUNTED\n9 of 10 tests\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\ntake test 10 →\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline\nPractice activity\n\nLocal calendar days in Europe/London. Recorded session time is the elapsed time of saved blocks, not active typing time. Flagged blocks are counted separately and never as assessment evidence.\n\nTODAY\n0 blocks\n0 s\nLAST 7 DAYS\n0 blocks\n0 s · 0 days\nFLAGGED, 7 DAYS\n0\n0 s excluded\nASSESSMENTS, 7 DAYS\n0\ntrend below\nEveryone starts with one session.\n\nYour c"
+    }
+   }
+  },
+  {
+   "id": "fixture pending: the route rewrite was applied (labelled injected, not lifecycle proof)",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "rewritten": 1
+   }
+  },
+  {
+   "id": "layout injected-pending-home @1440: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-pending-home @390: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-pending-home @320: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-pending-assessment @1440: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-pending-assessment @390: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-pending-assessment @320: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-pending-progress @1440: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-pending-progress @390: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-pending-progress @320: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "injected pending: home stays General and usable; status, why?, assessment label and Progress agree",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "home": {
+     "status": "Not yet available: at least 4 of 10 baseline tests.",
+     "label": "General practice · 30 s",
+     "focus": "typing-input",
+     "slot": "At least 4 of 10 found; some results couldn’t be read. check again",
+     "why": "\n          \n      baselineat least 4 of 10 tests · 1 waiting to saveSuggested can look for a focus after 10 baseline tests: 30-second assessments on a physical QWERTY keyboard (the qwerty key on), about five minutes of typing, at your own pace.Every finished test counts, mistakes included. A run that stops early or loses focus just doesn’t count; nothing is taken away.\n        Not every saved result could be read just now, so this may be incomplete.\n        Counted from the tests saved in this browser: deleting one, or starting a new baseline on the progress page, lowers the count.take a baseline test →\n          English · lowercase · short sentencesTiming predictions require a declared physical QWERTY keyboard.\n          The timer keeps running if you leave the text. Interrupted runs stay in history, outside headline progress.\n        "
+    },
+    "ready": {
+     "label": "Baseline test · 30 s",
+     "slot": "At least 4 of 10 found; this one counts too.",
+     "focus": "typing-input"
+    },
+    "progress": {
+     "text": "t_\ntypeforge\npractice\nassessment\nprogress\nlab\n\nSMALL STEPS, SAVED\n\nYour practice, over time.\n\nHistory is saved in this browser. Export it to keep a separate copy.\n\nPractise\nNew assessment\nBaseline\nCOUNTED\nat least 4 of 10 tests · 1 waiting to save\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\ntake a baseline test →\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline\nPractice activity\n\nLocal calendar days in Europe/London. Recorded session time is the elapsed time of saved blocks, not active typing time. Flagged blocks are counted separately and never as assessment evidence.\n\nTODAY\n0 blocks\n0 s\nLAST 7 DAYS\n0 blocks\n0 s · 0 days\nFLAGGED, 7 DAYS\n0\n0 s excluded\nASSESSMENTS, 7 DAYS\n0\ntrend below\nEver"
+    }
+   }
+  },
+  {
+   "id": "fixture context: the route rewrite was applied (labelled injected, not lifecycle proof)",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "rewritten": 1
+   }
+  },
+  {
+   "id": "layout injected-context-home @1440: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-context-home @390: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-context-home @320: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-context-assessment @1440: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-context-assessment @390: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-context-assessment @320: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-context-progress @1440: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-context-progress @390: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-context-progress @320: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "injected context: home stays General and usable; status, why?, assessment label and Progress agree",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "home": {
+     "status": "The baseline record in this browser couldn’t be read, so tests aren’t being counted right now. General and pair practice work as usual.",
+     "label": "General practice · 30 s",
+     "focus": "typing-input",
+     "slot": "Saved tests can’t be counted right now. General works as usual.",
+     "why": "\n          The baseline record in this browser couldn’t be read, so tests aren’t being counted right now.General and pair practice work as usual.\n          English · lowercase · short sentencesTiming predictions require a declared physical QWERTY keyboard.\n          The timer keeps running if you leave the text. Interrupted runs stay in history, outside headline progress.\n        "
+    },
+    "ready": {
+     "label": "Assessment · 30 s",
+     "slot": "",
+     "focus": "typing-input"
+    },
+    "progress": {
+     "text": "t_\ntypeforge\npractice\nassessment\nprogress\nlab\n\nSMALL STEPS, SAVED\n\nYour practice, over time.\n\nHistory is saved in this browser. Export it to keep a separate copy.\n\nPractise\nNew assessment\nBaseline\n\nThe baseline record in this browser couldn’t be read, so tests aren’t being counted right now. General and pair practice work as usual.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline\nPractice activity\n\nLocal calendar days in Europe/London. Recorded session time is the elapsed time of saved blocks, not active typing time. Flagged blocks are counted separately and never as assessment evidence.\n\nTODAY\n0 blocks\n0 s\nLAST 7 DAYS\n0 blocks\n0 s · 0 days\nFLAGGED, 7 DAYS\n0\n0 s excluded\nASSESSMENTS, 7 DAYS\n0\ntrend below\nEveryone starts with one session.\n\nYour compl"
+    }
+   }
+  },
+  {
+   "id": "fixture completePending: the route rewrite was applied (labelled injected, not lifecycle proof)",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "rewritten": 1
+   }
+  },
+  {
+   "id": "layout injected-completePending-home @1440: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-completePending-home @390: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-completePending-home @320: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-completePending-assessment @1440: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-completePending-assessment @390: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-completePending-assessment @320: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-completePending-progress @1440: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-completePending-progress @390: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout injected-completePending-progress @320: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "injected completePending: home stays General and usable; status, why?, assessment label and Progress agree",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "home": {
+     "status": "Baseline complete; Suggested has no focus for now. Not every saved result could be read just now, so this may be incomplete.",
+     "label": "General practice · 30 s",
+     "focus": "typing-input",
+     "slot": "Baseline done; recent timing couldn’t all be read. check again",
+     "why": "\n          \n      baseline10 of 10 testsBaseline complete. Not every saved result could be read just now, so this may be incomplete.Using general until it can be read.\n      \n          English · lowercase · short sentencesTiming predictions require a declared physical QWERTY keyboard.\n          The timer keeps running if you leave the text. Interrupted runs stay in history, outside headline progress.\n        "
+    },
+    "ready": {
+     "label": "Assessment · 30 s",
+     "slot": "",
+     "focus": "typing-input"
+    },
+    "progress": {
+     "text": "t_\ntypeforge\npractice\nassessment\nprogress\nlab\n\nSMALL STEPS, SAVED\n\nYour practice, over time.\n\nHistory is saved in this browser. Export it to keep a separate copy.\n\nPractise\nNew assessment\nBaseline\nCOUNTED\n10 of 10 tests\n\nLast 10 tests · median: your latest tests are still being read.\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline\nPractice activity\n\nLocal calendar days in Europe/London. Recorded session time is the elapsed time of saved blocks, not active typing time. Flagged blocks are counted separately and never as assessment evidence.\n\nTODAY\n0 blocks\n0 s\nLAST 7 DAYS\n0 blocks\n0 s · 0 days\nFLAGGED, 7 DAYS\n0\n0 s excluded\nASSESSMENTS, 7 DAYS\n0\ntre"
+    }
+   }
+  },
+  {
+   "id": "real C with a storage fault: unavailable (never 0 of 10), General keeps working",
+   "source": "real-fault",
+   "pass": true,
+   "observed": {
+    "status": "Suggested needs results saved in this browser, and saving isn’t available here (a private window can do this). General and pair practice work as usual.",
+    "slot": "Suggested needs results saved in this browser; saving is off here.",
+    "label": "General practice · 30 s",
+    "state": "running"
+   }
+  },
+  {
+   "id": "layout storage-fault-home @1440: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "real-fault",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout storage-fault-home @390: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "real-fault",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout storage-fault-home @320: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "real-fault",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "helper cleanup: own server exited and port 5324 closed",
+   "source": "injected",
+   "pass": true,
+   "observed": {
+    "serverExited": true,
+    "portClosed": true,
+    "finished": "2026-11-18T22:31:43.177Z"
+   }
+  },
+  {
+   "id": "no page errors or console errors",
+   "source": "injected",
+   "pass": true,
+   "observed": []
+  }
+ ],
+ "shots": [
+  {
+   "file": "injected-counted1-home-1440.png",
+   "source": "injected",
+   "width": 1440
+  },
+  {
+   "file": "injected-counted1-home-390.png",
+   "source": "injected",
+   "width": 390
+  },
+  {
+   "file": "injected-counted1-home-320.png",
+   "source": "injected",
+   "width": 320
+  },
+  {
+   "file": "injected-counted1-assessment-1440.png",
+   "source": "injected",
+   "width": 1440
+  },
+  {
+   "file": "injected-counted1-assessment-390.png",
+   "source": "injected",
+   "width": 390
+  },
+  {
+   "file": "injected-counted1-assessment-320.png",
+   "source": "injected",
+   "width": 320
+  },
+  {
+   "file": "injected-counted1-progress-1440.png",
+   "source": "injected",
+   "width": 1440
+  },
+  {
+   "file": "injected-counted1-progress-390.png",
+   "source": "injected",
+   "width": 390
+  },
+  {
+   "file": "injected-counted1-progress-320.png",
+   "source": "injected",
+   "width": 320
+  },
+  {
+   "file": "injected-counted9-home-1440.png",
+   "source": "injected",
+   "width": 1440
+  },
+  {
+   "file": "injected-counted9-home-390.png",
+   "source": "injected",
+   "width": 390
+  },
+  {
+   "file": "injected-counted9-home-320.png",
+   "source": "injected",
+   "width": 320
+  },
+  {
+   "file": "injected-counted9-assessment-1440.png",
+   "source": "injected",
+   "width": 1440
+  },
+  {
+   "file": "injected-counted9-assessment-390.png",
+   "source": "injected",
+   "width": 390
+  },
+  {
+   "file": "injected-counted9-assessment-320.png",
+   "source": "injected",
+   "width": 320
+  },
+  {
+   "file": "injected-counted9-progress-1440.png",
+   "source": "injected",
+   "width": 1440
+  },
+  {
+   "file": "injected-counted9-progress-390.png",
+   "source": "injected",
+   "width": 390
+  },
+  {
+   "file": "injected-counted9-progress-320.png",
+   "source": "injected",
+   "width": 320
+  },
+  {
+   "file": "injected-pending-home-1440.png",
+   "source": "injected",
+   "width": 1440
+  },
+  {
+   "file": "injected-pending-home-390.png",
+   "source": "injected",
+   "width": 390
+  },
+  {
+   "file": "injected-pending-home-320.png",
+   "source": "injected",
+   "width": 320
+  },
+  {
+   "file": "injected-pending-assessment-1440.png",
+   "source": "injected",
+   "width": 1440
+  },
+  {
+   "file": "injected-pending-assessment-390.png",
+   "source": "injected",
+   "width": 390
+  },
+  {
+   "file": "injected-pending-assessment-320.png",
+   "source": "injected",
+   "width": 320
+  },
+  {
+   "file": "injected-pending-progress-1440.png",
+   "source": "injected",
+   "width": 1440
+  },
+  {
+   "file": "injected-pending-progress-390.png",
+   "source": "injected",
+   "width": 390
+  },
+  {
+   "file": "injected-pending-progress-320.png",
+   "source": "injected",
+   "width": 320
+  },
+  {
+   "file": "injected-context-home-1440.png",
+   "source": "injected",
+   "width": 1440
+  },
+  {
+   "file": "injected-context-home-390.png",
+   "source": "injected",
+   "width": 390
+  },
+  {
+   "file": "injected-context-home-320.png",
+   "source": "injected",
+   "width": 320
+  },
+  {
+   "file": "injected-context-assessment-1440.png",
+   "source": "injected",
+   "width": 1440
+  },
+  {
+   "file": "injected-context-assessment-390.png",
+   "source": "injected",
+   "width": 390
+  },
+  {
+   "file": "injected-context-assessment-320.png",
+   "source": "injected",
+   "width": 320
+  },
+  {
+   "file": "injected-context-progress-1440.png",
+   "source": "injected",
+   "width": 1440
+  },
+  {
+   "file": "injected-context-progress-390.png",
+   "source": "injected",
+   "width": 390
+  },
+  {
+   "file": "injected-context-progress-320.png",
+   "source": "injected",
+   "width": 320
+  },
+  {
+   "file": "injected-completePending-home-1440.png",
+   "source": "injected",
+   "width": 1440
+  },
+  {
+   "file": "injected-completePending-home-390.png",
+   "source": "injected",
+   "width": 390
+  },
+  {
+   "file": "injected-completePending-home-320.png",
+   "source": "injected",
+   "width": 320
+  },
+  {
+   "file": "injected-completePending-assessment-1440.png",
+   "source": "injected",
+   "width": 1440
+  },
+  {
+   "file": "injected-completePending-assessment-390.png",
+   "source": "injected",
+   "width": 390
+  },
+  {
+   "file": "injected-completePending-assessment-320.png",
+   "source": "injected",
+   "width": 320
+  },
+  {
+   "file": "injected-completePending-progress-1440.png",
+   "source": "injected",
+   "width": 1440
+  },
+  {
+   "file": "injected-completePending-progress-390.png",
+   "source": "injected",
+   "width": 390
+  },
+  {
+   "file": "injected-completePending-progress-320.png",
+   "source": "injected",
+   "width": 320
+  },
+  {
+   "file": "storage-fault-home-1440.png",
+   "source": "real-fault",
+   "width": 1440
+  },
+  {
+   "file": "storage-fault-home-390.png",
+   "source": "real-fault",
+   "width": 390
+  },
+  {
+   "file": "storage-fault-home-320.png",
+   "source": "real-fault",
+   "width": 320
+  }
+ ],
+ "errors": [],
+ "receipts": {
+  "phase": "injected",
+  "port": 5324,
+  "node": "C:\\Program Files\\nodejs\\node.exe",
+  "started": "2026-11-18T22:31:24.462Z",
+  "server": {
+   "pid": 67704,
+   "executable": "C:\\Program Files\\nodejs\\node.exe",
+   "args": [
+    "node_modules/vite/bin/vite.js",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "5324",
+    "--strictPort"
+   ],
+   "cwd": "C:\\Users\\Owenc\\orca\\workspaces\\TypeForge\\tf-coach-ui\\typing-app\\client",
+   "windowsHide": true,
+   "shell": false,
+   "exitCode": null
+  },
+  "browser": {
+   "executable": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+   "version": "157.0.8103.79",
+   "headless": true,
+   "launchedBy": "playwright-core launch (temporary profile)"
+  },
+  "cleanup": {
+   "serverExited": true,
+   "portClosed": true,
+   "finished": "2026-11-18T22:31:43.177Z"
+  },
+  "databases": [
+   "typeforge-ui-synthetic-c6de4206-16a7-4d3a-bbf0-c3fd1444fd0a",
+   "typeforge-ui-synthetic-6d733b43-2077-44fd-a8e5-042119887231",
+   "typeforge-ui-synthetic-9ff1cb6f-06c1-4816-b99f-55d753c35992",
+   "typeforge-ui-synthetic-aa1430e8-d450-41da-9cf4-5563e27ac660",
+   "typeforge-ui-synthetic-1eecb769-350f-4eb2-b975-772c32e688c5",
+   "typeforge-ui-synthetic-5edf4440-4791-426b-ab3c-f990daf3daa6"
+  ]
+ }
+}
