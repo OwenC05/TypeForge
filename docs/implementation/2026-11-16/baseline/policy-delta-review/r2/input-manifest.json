@@ -1,0 +1,93 @@
+{
+  "revision": "c6a8a806ec98c6015e3e8819698ff5b19a97ad98",
+  "rootImport": "0c25a8b1f1f72c613c411864ffcfb02b9e3db236",
+  "files": {
+    "typing-app/client/src/engine.ts": {
+      "blob": "8f7c690a190b495fa28c062e70b5218d4095c55c",
+      "sha256": "eeb0bc14b09c1ea9c89b8487a709d8402cac79600c869281ae184ab5d2cc3a1a"
+    },
+    "typing-app/client/src/storage.ts": {
+      "blob": "378ab851a96d7778f17f6b9531a53370e798b791",
+      "sha256": "af23ff43b1af81f31544f1cd73b1103a606923c5cf493523b2a067a175c296f4"
+    },
+    "typing-app/client/src/model.ts": {
+      "blob": "9c9a254f32d43b6129311db5ba22776c0abfecaf",
+      "sha256": "b81116a91ae51be9a721d05e0c9d53883fc83155d02650e4db2c64801311c9de"
+    },
+    "typing-app/client/src/profile.ts": {
+      "blob": "4278d052ab900aa5b10a05bb9446812d835f35a4",
+      "sha256": "8f39607f15216af1f3e9f2809c8732f6f28f35ea7cd5309822ddd7609f1eb7cb"
+    },
+    "typing-app/client/src/corpus.ts": {
+      "blob": "f50180ea88f95d1b0c2a999a3e94f447a2b587fb",
+      "sha256": "06b1be5965d501300f05ecdad0555406c30dbe4c5608c4830c7eedf055e76964"
+    },
+    "typing-app/client/src/app.ts": {
+      "blob": "6135d9006dc52aea054b2036300fb881232a90f9",
+      "sha256": "86667c3b264068ec418d0ef969aa4bd3700ddfc5543025c0f737e9b9f293200f"
+    },
+    "docs/implementation/2026-11-16/baseline/policy/revision-check.mjs": {
+      "blob": "6f8c9cc56d19411b2a8b895213e1e700d04d9ecc",
+      "sha256": "2aa88932791b744b6bcd7290d99d30d4a2cd78df7c5556b4d7109d73d33949c4"
+    },
+    "docs/implementation/2026-11-16/baseline/policy/r2-check.mjs": {
+      "blob": "61e9b4df058a3b2ca10c03ad0bed386a0671eba4",
+      "sha256": "8e81267d8af1f88b3c8dd9baf92e5f95b8ad2bdc1a51a951c101caf608758869"
+    },
+    "docs/implementation/2026-11-16/baseline/policy/revision-check.json": {
+      "blob": "fcb8fb0caeb782e486e626b3cd8ff47e0be2f894",
+      "sha256": "e93664f476729db78717d69c65bc59f680d655599025720105dfb3941b08219d"
+    },
+    "docs/implementation/2026-11-16/baseline/policy/r2-check.json": {
+      "blob": "51c88c57e7dca3d150d28b652aff3f3d7afb0b01",
+      "sha256": "cf1feec8c84ba79260deebc92fb635441e56f6f1f6d9861bde9591f09df7e53c"
+    },
+    "docs/implementation/2026-11-16/baseline/policy/coach-config.example.json": {
+      "blob": "bb30c0092b1619316776c728d285e18ea337f98e",
+      "sha256": "7f946e2c880693c8c107da6cdfac882b9367438a50a6a2469b7f29f81047d3c6"
+    },
+    "docs/implementation/2026-11-16/baseline/policy/coach-config.schema.json": {
+      "blob": "fd8e39d36fe81a57802f18feb3d83870fc5727fc",
+      "sha256": "0e73384a3047f534bc7f23f921a69cc236c2756452dd9ef730aa1406cdffbe13"
+    },
+    "docs/implementation/2026-11-16/baseline/policy/finite-catalogue.example.json": {
+      "blob": "cf7f0975fde5b702c72d59f786d47f03cfd31ea8",
+      "sha256": "44c0e777f6a5aa68b26e01ebbc33a4f2437d881a68eaa43af0c02fe8a85b6fa3"
+    },
+    "docs/implementation/2026-11-16/baseline/policy/metadata-membership.schema.json": {
+      "blob": "48f1bf8fff5083c2d0bd4d6365bd837178344ff7",
+      "sha256": "1ff942177139df70de5c642e8e67510f4e26b879e1fc7975adaafe44de8673d6"
+    },
+    "docs/implementation/2026-11-16/baseline/policy/interfaces-r2.ts": {
+      "blob": "8fc8d3d1ce1e5348a456e4852713af080672a2fd",
+      "sha256": "e97a2355514648c677bce3dd385a4dff8aef8fdfadf4cf80698b4832960a8fe1"
+    },
+    "docs/implementation/2026-11-16/baseline/policy/finite-adapter-r2.md": {
+      "blob": "9d4a35a83dae6e9c26bbacd26799633ccc734014",
+      "sha256": "8e666a1e9c1d75e69117d9b8c1b1d48ea8721246321794ed5d7722c761d80899"
+    },
+    "docs/implementation/2026-11-16/baseline/policy/amendment-r2.md": {
+      "blob": "cb6b3f4e2601f42d02ceddf8c64c9fc52feb3ccb",
+      "sha256": "b9b791fc584e741e6237e5b87df753ee1da34ae20226a6bba5e43c01bf9ba930"
+    },
+    "docs/implementation/2026-11-16/baseline/policy/implementation-dag-r2.md": {
+      "blob": "d7ebe4056b454ab6442d551f8586f441be2e015e",
+      "sha256": "bc730c5468849a24b9244e75132bb98c4b94b1ca69063b91744c175ba748c892"
+    },
+    ".omx/specs/typeforge-practice-policy-v1.md": {
+      "blob": "061f00b83033a911d9eaeece4b3caf249f31f5ab",
+      "sha256": "c26cd701ee17c57a37b822296e78c40dce7bc70f3cebf2a5d791488a1d9d507f"
+    }
+  },
+  "priorFixture": {
+    "commit": "3c9342c2eb3758dfa9d3028f8adabf0ab470eeca",
+    "path": "docs/implementation/2026-11-16/baseline/policy-delta-review/review-results.json",
+    "sha256": "412476c6b692f5830cb07c3a4db30fd435524b8a994d331273d235e5c9608e49"
+  },
+  "rootTimedValidator": {
+    "revision": "0c25a8b1f1f72c613c411864ffcfb02b9e3db236",
+    "path": "typing-app/client/src/storage.ts",
+    "blob": "2cc5cbf056b5950e82a1543340b80a266a01d2d2",
+    "sha256": "bba93be7419fbf079c89a2be4b0c5a0b9352174f4c2a5c0429f5b9f8006950d5"
+  }
+}

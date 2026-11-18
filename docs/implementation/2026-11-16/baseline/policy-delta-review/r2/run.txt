@@ -1,0 +1,133 @@
+﻿{
+  "checks": 108,
+  "connected": [
+    {
+      "ms": 249.999999,
+      "passes": false,
+      "target": 29,
+      "reference": 574
+    },
+    {
+      "ms": 250,
+      "passes": true,
+      "target": 28,
+      "reference": 543
+    },
+    {
+      "ms": 250.000001,
+      "passes": true,
+      "target": 28,
+      "reference": 543
+    }
+  ],
+  "certificate": {
+    "pass": true,
+    "length": 501,
+    "firstFailure": null,
+    "words240": 8,
+    "passages480": 11,
+    "promptIds": [
+      "practice-003",
+      "practice-019",
+      "practice-048",
+      "practice-013",
+      "practice-078",
+      "practice-028",
+      "practice-001",
+      "practice-036",
+      "practice-054",
+      "practice-002",
+      "practice-047",
+      "practice-074"
+    ]
+  }
+}
+{
+  "r2Checks": 98,
+  "configId": "de43c1c2266364e8c859ac3abc61126590fbec2d10be9b7e0e14616770411995",
+  "clock": [
+    {
+      "lag": 0,
+      "clean": 0,
+      "issue": null
+    },
+    {
+      "lag": 0.01,
+      "clean": 0,
+      "issue": null
+    },
+    {
+      "lag": 0.1,
+      "clean": 1,
+      "issue": null
+    },
+    {
+      "lag": 1,
+      "clean": 1,
+      "issue": null
+    }
+  ],
+  "finite": [
+    {
+      "pair": "he",
+      "elapsed": 512,
+      "sentences": 12,
+      "timedResult": null,
+      "wpm": 11742.1875
+    },
+    {
+      "pair": "in",
+      "elapsed": 502,
+      "sentences": 12,
+      "timedResult": null,
+      "wpm": 11737.051792828684
+    },
+    {
+      "pair": "le",
+      "elapsed": 513,
+      "sentences": 12,
+      "timedResult": null,
+      "wpm": 11742.690058479533
+    },
+    {
+      "pair": "th",
+      "elapsed": 491,
+      "sentences": 12,
+      "timedResult": null,
+      "wpm": 11731.160896130346
+    }
+  ]
+}
+{
+  "checks": 72,
+  "authorR2Checks": 98,
+  "authorRelationalChecks": 108,
+  "clock": [
+    {
+      "lag": 0,
+      "issue": null,
+      "clean": 0
+    },
+    {
+      "lag": 0.01,
+      "issue": null,
+      "clean": 0
+    },
+    {
+      "lag": 0.1,
+      "issue": null,
+      "clean": 1
+    },
+    {
+      "lag": 1,
+      "issue": null,
+      "clean": 1
+    }
+  ],
+  "feedback": {
+    "beforeTarget": 28,
+    "afterTarget": 8,
+    "beforeTiming": true,
+    "afterTiming": false
+  }
+}
