@@ -15,6 +15,7 @@ export type Reason = 'policy-invalid' | 'storage-unavailable' | 'context-unavail
 export type Stop = 'row-budget' | 'byte-budget' | 'record-limit' | 'aborted' | 'failure'
   | 'authority-changed' | 'proof-unavailable';
 export interface Authority {
+  // Semantic authority requires 0 <= revision < MAX_SAFE_INTEGER; MAX is terminal.
   databaseId: OpaqueId; contextId: OpaqueId; epochId: OpaqueId; revision: number;
 }
 export interface Metadata {
@@ -56,8 +57,10 @@ export interface Ledger {
   settle(actualPrefixBytes: number, stop: Stop | null): void;
 }
 export interface VerifiedProof {
+  // Only C's completed final storage proof creates this object; D propagates it.
   authority: Authority; admittedAt: UTC; configId: Hash;
   method: 'all-writer-revision' | 'coherent-range-and-sources';
+  selection: ProofSelection;
 }
 export type RangeEnd = {
   participation: 'exhausted' | 'ten-witnesses';
@@ -69,6 +72,13 @@ export type RangeProof<K extends keyof RangeEnd> =
   | { complete: true; stop: RangeEnd[K];
       // Full merged newest-first prefix, with every intervening candidate classified.
       orderedSourceIds: readonly string[]; authority: Authority };
+export interface ProofSelection {
+  // Compact immutable bindings to C's already validated/hashed preparation values.
+  metadata: Metadata; now: UTC;
+  sourceBindings: readonly { ref: SourceRef; membership: Membership | null }[];
+  participationRange: RangeProof<'participation'>; summaryRange: RangeProof<'summary'>;
+  coachRange: RangeProof<'coach'> | null;
+}
 export type Participation =
   | { state: 'unavailable'; reason: Reason; counted: null; ordinal: null; proof: null }
   | { state: 'pending'; reason: 'scan-incomplete'; counted: number; ordinal: null; proof: null }
@@ -128,7 +138,8 @@ export interface PreparedStatus {
   persistence: Persistence; otherContextCount: null; work: Work;
 }
 export interface ProjectionInput {
-  now: UTC; authority: Authority; sources: readonly SourceRead[];
+  now: UTC; metadata: Metadata; authority: Authority; sources: readonly SourceRead[];
+  finalProof: VerifiedProof | null;
   participationRange: RangeProof<'participation'>; summaryRange: RangeProof<'summary'>;
   coachRange: RangeProof<'coach'> | null;
   config: unknown; configId: Hash; generation: number; persistence: Persistence;
@@ -138,7 +149,7 @@ export interface PreparedProjection { status: PreparedStatus; candidate: Practic
 export interface AdmissionInput {
   candidate: PracticeSnapshot; currentAuthority: Authority; currentConfigId: Hash;
   currentGeneration: number; runState: 'idle' | 'running' | 'disposed';
-  proof: VerifiedProof; // produced by the actual storage final barrier/revalidation, not UI
+  proof: VerifiedProof; // same actual C proof as candidate.proof, not a scalar-matching replacement
 }
 export type Admission = { admitted: true; snapshot: Readonly<PracticeSnapshot> }
   | { admitted: false; reason: 'authority-changed' | 'policy-invalid' | 'scan-incomplete' | 'started' };
@@ -175,7 +186,10 @@ export declare function listSavedSourcesPage(input: { cursor: MergedCursor | nul
   signal?: AbortSignal }): Promise<{ sources: readonly SourceRead[]; cursor: MergedCursor;
     complete: boolean; stop: Stop | 'exhausted' | 'slice'; work: Work }>;
 export declare function deleteSource(id: string): Promise<void>;
-export declare function resetEpoch(expectedDatabaseId: OpaqueId): Promise<Authority>;
+export type EpochReset = { committed: true; authority: Authority; reason: null }
+  | { committed: true; authority: null; reason: 'authority-exhausted' }
+  | { committed: false; authority: null; reason: 'context-unavailable' | 'storage-unavailable' };
+export declare function resetEpoch(expectedDatabaseId: OpaqueId): Promise<EpochReset>;
 export declare function readPolicySlice(input: { cursor: MergedCursor | null; ledger: Ledger;
   authority: Authority; signal?: AbortSignal }): Promise<{ sources: readonly SourceRead[];
     cursor: MergedCursor; complete: boolean; stop: Stop | 'exhausted' | 'slice'; work: Work }>;

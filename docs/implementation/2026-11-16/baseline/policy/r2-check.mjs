@@ -156,7 +156,10 @@ check('record-limit is terminal through both-stream/own-loop continuation', [ter
 const requiredWriters = ['save', 'retry', 'finite-save', 'delete', 'reset', 'membership', 'upgrade-fence', 'import-recovery-fence'];
 const authorityKey = m => [m.databaseId, m.defaultContextId, m.activeEpochId, m.sourceRevision].join('/');
 function revisionProof(before, after, fenced) {
-  return requiredWriters.every(w => fenced.has(w)) && authorityKey(before) === authorityKey(after);
+  const admitting = m => Number.isSafeInteger(m.sourceRevision) && m.sourceRevision >= 0
+    && m.sourceRevision < Number.MAX_SAFE_INTEGER;
+  return admitting(before) && admitting(after) && requiredWriters.every(w => fenced.has(w))
+    && authorityKey(before) === authorityKey(after);
 }
 const fenced = new Set(requiredWriters);
 check('revision relation requires exact durable lineage and complete writer contract', revisionProof(metadata, metadata, fenced), true);
