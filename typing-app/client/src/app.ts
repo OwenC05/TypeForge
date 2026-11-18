@@ -328,6 +328,11 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
   // True only while `coach` was prepared for this block, after its last restart or storage change. A run whose
   // first key lands before that never freezes an ordinal from an earlier status (it is labelled without one).
   let coachFresh = false;
+  // Every storage invalidation advances this epoch. An admitted snapshot is current only while the epoch it was
+  // prepared in still holds: a known storage change makes it stale until C admits again, never by a timer.
+  let invalidations = 0;
+  const admissionEpochs = new WeakMap<PracticeSnapshot, number>();
+  const admissionCurrent = (snapshot: PracticeSnapshot | null) => snapshot !== null && admissionEpochs.get(snapshot) === invalidations;
   let readyCapture: Capture | null = null; // taken before this block's first insertion
   let admitted: PracticeSnapshot | null = null; // the admission held by the current Suggested block
   let lastAdmittedPair: string | null = null; // previous admitted snapshot in this document only
@@ -648,6 +653,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     const controller = new AbortController();
     prepAbort = controller;
     const generation = ++prepGeneration;
+    const epoch = invalidations;
     const fresh = () => !disposed && prepAbort === controller && generation === prepGeneration;
     let status: PreparedStatus | null = null;
     let configId = '';
@@ -662,7 +668,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     if (!fresh()) return null;
     prepAbort = null;
     prepCompleted = generation;
-    coachFresh = true;
+    coachFresh = invalidations === epoch;
     // A preparation that could not run at all reads as unavailable storage, never as zero tests.
     coach = status ? coachUi.baselineView(status) : { ...coachUi.baselineView(null), state: 'unavailable', reason: 'storage-unavailable' };
     let snapshot: PracticeSnapshot | null = null;
@@ -671,7 +677,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
       // C reads the current run state after its async barrier: a first key in between refuses admission.
       const admission = await admitPreparedPractice(status, () => ({ generation: prepGeneration, configId,
         runState: disposed ? 'disposed' : restarting || untouched() ? 'idle' : 'running' }));
-      if (!disposed && generation === prepGeneration && admission.admitted) snapshot = admission.snapshot;
+      if (!disposed && generation === prepGeneration && admission.admitted) { snapshot = admission.snapshot; admissionEpochs.set(snapshot, epoch); }
     }
     if (disposed || generation !== prepGeneration) return null;
     if (!intent.admit) await settleReadyBlock(snapshot);
@@ -681,11 +687,16 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
   // Before the first key only: switch the untouched ready block to match the latest admission.
   async function settleReadyBlock(snapshot: PracticeSnapshot | null) {
     if (mode !== 'practice' || !untouched()) return;
+    // A storage change after this status was read: the queued re-preparation decides, not this one.
+    if (snapshot && !admissionCurrent(snapshot)) return;
+    const generation = prepGeneration;
     const previous = admitted;
     if (snapshot && suggestedChosen() && pilot()) {
       if (previous && previous.plan.planHash === snapshot.plan.planHash) { admitted = snapshot; return; }
       const runtime = await finiteRuntime();
-      if (disposed || !untouched()) return; // the person started typing: the current block stands
+      // The person started typing (the current block stands), or a newer preparation or storage change
+      // arrived during the import: an older snapshot never installs over newer state.
+      if (disposed || !untouched() || generation !== prepGeneration || !admissionCurrent(snapshot)) return;
       const block = admittedBlock(runtime, snapshot);
       if (!block) return;
       changeNote = coachUi.changeHint(lastAdmittedPair, coach);
@@ -726,6 +737,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
   let invalidationQueued = false;
   const unsubscribe = subscribeStorageInvalidation(() => {
     if (disposed) return;
+    invalidations++;
     coachFresh = false;
     if (!restarting) { prepAbort?.abort(); prepAbort = null; }
     if (invalidationQueued || restarting || engine.state === 'running') return;
@@ -1031,11 +1043,19 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     if (restarting || disposed) { input.value = ''; return; }
     const inputEvent = event as InputEvent;
     const now = performance.now();
-    const snapshot = engine.tick(now);
+    let snapshot = engine.tick(now);
     if (ended(snapshot.state)) {
       input.value = snapshot.value;
       paint(now);
       return;
+    }
+    // Saved tests changed after this Suggested plan was admitted and C has not admitted it again yet: the plan
+    // must not start. This first key starts an honest General block instead (accepted once, focus kept).
+    if (snapshot.state === 'idle' && !frozen && isFiniteBlock(engine) && !admissionCurrent(admitted)) {
+      changeNote = ''; fellBack = false;
+      installBlock(makeEngine(qwerty.checked), null);
+      hint(coachUi.recheckFallback);
+      snapshot = engine.tick(now);
     }
     const previous = before ?? { value: snapshot.value, start: key?.start ?? 0, end: key?.end ?? 0, type: key ? 'insertText' : '', data: key?.key ?? null };
     const edit = reconstructEdit(previous, input.value);
@@ -1217,11 +1237,19 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     const admitting = suggestedRequested && pilot();
     if (admitting) {
       $('#exercise-state').textContent = 'Checking saved tests…';
-      snapshot = await prepareCoach({ admit: true });
+      // The runtime loads first: nothing is awaited between C's admission and installing its plan.
+      const runtime = await finiteRuntime();
       if (disposed || generation !== restartGeneration) return;
-      if (snapshot) {
-        block = admittedBlock(await finiteRuntime(), snapshot);
+      for (let attempt = 0; attempt < 3; attempt++) {
+        const epoch = invalidations;
+        snapshot = await prepareCoach({ admit: true });
         if (disposed || generation !== restartGeneration) return;
+        if (invalidations === epoch) break;
+        snapshot = null; // saved tests changed during this admission: ask C again against the newer state
+      }
+      if (snapshot && !admissionCurrent(snapshot)) snapshot = null;
+      if (snapshot) {
+        block = admittedBlock(runtime, snapshot);
         if (!block) snapshot = null;
       }
     }
@@ -1258,7 +1286,8 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     if (mayFocusInput()) input.focus();
     refreshCoachSurfaces();
     // A Suggested restart has just read the status; any other restart reads it after the stage is ready.
-    if (!admitting) void prepareCoach();
+    // Any other restart reads the status after the stage is ready; so does one whose read a storage change overtook.
+    if (!admitting || !coachFresh) void prepareCoach();
     loadEvidence();
     if (settingsPending) { settingsPending = false; queueMicrotask(changeSettings); }
   };

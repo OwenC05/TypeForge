@@ -94,6 +94,7 @@ function restartContext(overrides: Record<string, unknown> = {}) {
   settings,params:new URLSearchParams(),mode:'practice',origin:null,sourceAssessmentId:undefined,excluded:[],lineageMessage:'',history:[],historyKey:'true|60000',
   coachUi,coach:coachUi.baselineView(null),pilot:()=>context.durationMs===30000&&context.qwerty.checked,locked:()=>true,
   prepAbort:null,frozen:null,shown:null,fellBack:false,admitted:null,lastAdmittedPair:null,changeNote:'',suggestedRequested:false,
+  invalidations:0,admissionCurrent:(snapshot:unknown)=>snapshot!==null,coachFresh:true,
   prepareCoach:async()=>null,finiteRuntime:async()=>({}),admittedBlock:()=>null,showPair:()=>{},
   choosePrompts:()=>[],prompts:[],makeEngine:()=>({abort:()=>{}}),clearSlot:()=>{},prepare:()=>{},startTimer:()=>{},refreshCoachSurfaces:()=>{},loadEvidence:()=>{},
   changeSettings:()=>{},queueMicrotask,clearInterval:()=>{},timer:1,restarting:false,disposed:false,restartGeneration:0,lastPromptKey:'old',lastState:'running',
@@ -152,7 +153,7 @@ test('a chosen Suggested restart waits only for its own admission, then runs the
   const context=restartContext({input,params:new URLSearchParams('practice=recommended'),durationMs:outcome==='not-pilot'?60000:30000,historyKey:'true|30000',
    coach:{...coachUi.baselineView(null),state:'complete-insufficient'},locked:()=>outcome!=='admitted',
    prepareCoach:(intent?:{admit?:boolean})=>{
-    log.push(intent?.admit?'admit':'status');
+    log.push(intent?.admit?'admit':'status');context.coachFresh=true; // a completed read is fresh unless a storage change overtook it
     if(intent?.admit){assert.equal(context.restarting,true,'C reads an idle run state while the restart holds input');assert.equal(input.disabled,true);}
     if(outcome==='disposed'&&intent?.admit)return new Promise(resolve=>{release=resolve;});
     return Promise.resolve(intent?.admit&&outcome!=='refused'?snapshot:null);
@@ -168,7 +169,9 @@ test('a chosen Suggested restart waits only for its own admission, then runs the
   const run=runInNewContext(stripTypeScriptTypes(`(${handler})`),context);
   const done=run();
   if(outcome==='disposed'){
-   await Promise.resolve();context.disposed=true;context.restartGeneration++;release(snapshot);await done;
+   // The runtime loads before admission (nothing is awaited between admission and installation): wait for it.
+   for(let i=0;i<20&&!release;i++)await Promise.resolve();
+   context.disposed=true;context.restartGeneration++;release(snapshot);await done;
    assert.equal(input.disabled,true,'disposed: input never returns');assert.deepEqual(log,['admit']);assert.equal(context.admitted,null);continue;
   }
   await done;
@@ -261,7 +264,7 @@ test('a run freezes its identity, capture and plan exactly once, at its first ac
   const context: any = { restarting: false, disposed: false, input, performance: {now: () => 5}, ended, frozen: null, composing: false, mode: 'practice',
    before: {value:'',start:0,end:0,type:'insertText',data:'t'}, key: {key:'t',time:5,repeat:false}, reconstructEdit: () => ({start:0,end:0,text:'t',tracked:true}),
    engine: {get state() { return state; }, tick: () => ({state, sentenceIndex:0, value:''}), edit: () => { if (accepted) state = 'running'; }, snapshot: () => ({state, sentenceIndex:0, value: accepted ? 't' : ''}), submittedSummaries: []},
-   freezeRun: () => { freezes++; context.frozen = {label:'General practice'}; }, prepare: () => {}, paint: () => {} };
+   freezeRun: () => { freezes++; context.frozen = {label:'General practice'}; }, prepare: () => {}, paint: () => {}, isFiniteBlock: () => false };
   const run = runInNewContext(stripTypeScriptTypes(`(${handler})`), context);
   run({isComposing:false});
   assert.equal(freezes, accepted ? 1 : 0, accepted ? 'first accepted insertion' : 'a refused first edit freezes nothing');
@@ -576,4 +579,76 @@ test('a locked Suggested fallback clears the request and the selected view toget
  runInNewContext(stripTypeScriptTypes(source.slice(begin,end)),context);
  assert.equal(context.suggestedRequested,false);assert.equal(context.practiceChoice.kind,'general');
  assert.equal(context.practiceKind.value,'general');assert.equal(context.fellBack,true);
+});
+
+// F admission follow-up (task_338af3c3e8c3). Corrected invariants; root's probe observed the opposite on 026cb69.
+const sliceBetween=(start:string,end:string)=>{const b=source.indexOf(start),e=source.indexOf(end,b+start.length);assert.ok(b>=0&&e>b,`ordered nonempty boundaries: ${start}`);return source.slice(b,e);};
+
+test('a known invalidation stops an admitted finite block from starting: the first key starts General once',()=>{
+ const begin=source.indexOf('  const acceptInput = ')+'  const acceptInput = '.length;
+ const handler=source.slice(begin,source.indexOf("\n  input.addEventListener('input', acceptInput);",begin)).trim().replace(/;$/,'');
+ for(const current of [false,true]){
+  const log:string[]=[];
+  const engineOf=(kind:string)=>{let state='idle';return {kind,get state(){return state;},tick:()=>({state,sentenceIndex:0,value:''}),snapshot:()=>({state,sentenceIndex:0,value:state==='idle'?'':'t'}),
+   edit:(edit:{text:string})=>{log.push(`edit-${kind}:${edit.text}`);state='running';},submittedSummaries:[]};};
+  const finite=engineOf('finite');const admitted={plan:{pair:'th'}};
+  const context:any={restarting:false,disposed:false,input:{value:'t'},performance:{now:()=>5},ended,frozen:null,composing:false,mode:'practice',
+   before:{value:'',start:0,end:0,type:'insertText',data:'t'},key:{key:'t',time:5,repeat:false},reconstructEdit:()=>({start:0,end:0,text:'t',tracked:true}),
+   engine:finite,admitted,isFiniteBlock:(e:unknown)=>e===finite,admissionCurrent:(s:unknown)=>current&&s===admitted,qwerty:{checked:true},coachUi,changeNote:'old',fellBack:true,
+   makeEngine:()=>engineOf('general'),installBlock:(block:unknown,snapshot:unknown)=>{log.push('install-general');context.engine=block;context.admitted=snapshot;},
+   hint:(text:string)=>log.push(`hint:${text}`),freezeRun:()=>{log.push(`freeze-${context.engine.kind}`);context.frozen={};},prepare:()=>{},paint:()=>{}};
+  runInNewContext(stripTypeScriptTypes(`(${handler})`),context)({isComposing:false});
+  assert.deepEqual(log,current?['edit-finite:t','freeze-finite']:['install-general',`hint:${coachUi.recheckFallback}`,'edit-general:t','freeze-general'],
+   current?'a current admission starts its plan':'stale: General is installed before the key, which is applied exactly once');
+  assert.equal(context.admitted,current?admitted:null);
+ }
+});
+
+test('an awaited runtime import never publishes an older snapshot over a newer generation or storage change',async()=>{
+ const code=`${sliceBetween('  const unsubscribe = subscribeStorageInvalidation(','\n\n  // ---- Presentation')}\n${sliceBetween('  async function settleReadyBlock(','\n  function installBlock(')}`;
+ for(const race of ['none','invalidation','generation'] as const){
+  const snapshot={plan:{pair:'th',planHash:'h'}};const epochs=new WeakMap([[snapshot,0]]);let release!:(v:unknown)=>void;const installed:unknown[]=[];
+  const context:any={disposed:false,restarting:false,coachFresh:true,prepAbort:null,prepGeneration:4,invalidationQueued:false,invalidations:0,engine:{state:'idle'},
+   subscribeStorageInvalidation:(cb:()=>void)=>{context.invalidate=cb;return ()=>{};},setTimeout:()=>{},prepareCoach:()=>{},
+   mode:'practice',untouched:()=>true,admitted:null,suggestedChosen:()=>true,pilot:()=>true,suggestedRequested:true,coach:{state:'complete-ready'},locked:()=>false,
+   admissionCurrent:(s:typeof snapshot)=>s!==null&&epochs.get(s)===context.invalidations,finiteRuntime:()=>new Promise(r=>{release=r;}),
+   admittedBlock:()=>({finite:true}),installBlock:(_b:unknown,s:unknown)=>installed.push(s),coachUi,lastAdmittedPair:null,changeNote:'',fellBack:false,practiceKind:null};
+  const settle=runInNewContext(`${stripTypeScriptTypes(code)}; settleReadyBlock`,context);
+  const pending=settle(snapshot);
+  if(race==='invalidation')context.invalidate();
+  if(race==='generation')context.prepGeneration++;
+  release({});await pending;
+  assert.deepEqual(installed,race==='none'?[snapshot]:[],race);
+ }
+});
+
+test('a Suggested restart loads the runtime first and admits again when a storage change overtakes its admission',async()=>{
+ const handler=restartHandler();
+ const blockCode=source.slice(source.indexOf('function admittedBlock('),source.indexOf('/** What a run is'));
+ const stale={plan:{pair:'th',planHash:'old',prompts:[{id:'p1',text:'the'}]},focus:{pair:'th'}};
+ const fresh={plan:{pair:'th',planHash:'new',prompts:[{id:'p2',text:'this'}]},focus:{pair:'th'}};
+ const log:string[]=[];const input={disabled:false,readOnly:false,value:'',focus:()=>{}};
+ const context=restartContext({input,params:new URLSearchParams('practice=recommended'),durationMs:30000,historyKey:'true|30000',
+  coach:{...coachUi.baselineView(null),state:'complete-ready'},locked:()=>false,
+  finiteRuntime:async()=>{log.push('runtime');return {createFiniteAdapter:(v:{snapshot:unknown})=>{log.push(`adapter:${(v.snapshot as typeof stale).plan.planHash}`);return {};}};},
+  prepareCoach:async(intent?:{admit?:boolean})=>{
+   const first=!log.some(item=>item.startsWith('admit'));log.push(intent?.admit?'admit':'status');context.coachFresh=true;
+   if(first){context.invalidations++;context.coachFresh=false;return stale;} // a save committed while C admitted
+   return fresh;},
+  crypto:{randomUUID:()=>'00000000-0000-4000-8000-000000000010'},finiteBlock:(adapter:unknown,admitted:unknown)=>({finite:true,adapter,admitted,abort:()=>{}}),
+ });
+ context.admissionCurrent=(s:unknown)=>s===fresh;
+ context.admittedBlock=runInNewContext(`${stripTypeScriptTypes(blockCode)}; admittedBlock`,context);
+ await runInNewContext(stripTypeScriptTypes(`(${handler})`),context)();
+ assert.deepEqual(log,['runtime','admit','admit','adapter:new'],'runtime first; an overtaken admission is taken again; only the newer plan installs');
+ assert.equal(context.admitted,fresh);assert.equal(input.disabled,false);
+});
+
+test('every storage invalidation advances the admission epoch and stales the status',()=>{
+ const code=sliceBetween('  const unsubscribe = subscribeStorageInvalidation(','\n\n  // ---- Presentation');
+ const context:any={disposed:false,restarting:true,coachFresh:true,prepAbort:null,invalidationQueued:false,invalidations:3,engine:{state:'idle'},
+  subscribeStorageInvalidation:(cb:()=>void)=>{context.invalidate=cb;return ()=>{};},setTimeout:()=>{}};
+ runInNewContext(stripTypeScriptTypes(code),context);
+ context.invalidate();
+ assert.equal(context.invalidations,4,'even while restarting');assert.equal(context.coachFresh,false);
 });

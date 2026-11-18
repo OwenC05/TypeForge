@@ -211,6 +211,8 @@ export function suggestedDescription(s: BaselineView, locked: boolean, pilot = t
 }
 
 export const noFocusFallback = 'Suggested has no focus for now, so this block is general. More in why?';
+/** Suggested was being re-checked (a storage change, or returning to the tab) when the first letter came: General ran. */
+export const recheckFallback = 'Suggested was re-checking your saved tests, so this block is general. It checks again for the next block.';
 export function suggestedContextHint(durationS: number, qwerty: boolean): { text: string; action: 'use-30' | 'declare'; label: string } | null {
   if (durationS !== PILOT_SECONDS) return { text: `Suggested runs at ${PILOT_SECONDS} s only; this block is general.`, action: 'use-30', label: `use ${PILOT_SECONDS} s` };
   if (!qwerty) return { text: 'Suggested needs QWERTY; this is general.', action: 'declare', label: declareQwerty };
