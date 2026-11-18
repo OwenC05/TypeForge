@@ -826,12 +826,69 @@ async function liveFlows() {
   }
 }
 
+// =====================================================================================
+// FALLBACK PROMPT IDENTITY (task_01ea3afaaab7). Both General fallbacks must run the prompts they show and record.
+// Identity is read three ways: the passage the engine paints (#target-description, from the engine snapshot),
+// the persisted record's sentence promptIds (C's saved source), and the stage metadata (dataset.promptIds).
+// General draws from the same bank as the th plan, so a shared prompt is legitimate: identity is the sequence.
+async function promptIdentity(page) {
+  return page.evaluate(async () => {
+    const { practicePrompts } = await import('/src/corpus.ts');
+    const meta = document.querySelector('#stage').dataset.promptIds.split(' ');
+    const displayed = document.querySelector('#target-description').textContent.replace('Passage to copy: ', '');
+    return { meta, displayed, displayedIds: practicePrompts.filter(p => p.text === displayed).map(p => p.id), metaFirstText: practicePrompts.find(p => p.id === meta[0])?.text ?? null };
+  });
+}
+async function newRecord(page, before) {
+  const known = new Set(before.map(s => s.id));
+  const fresh = (await savedSources(page)).filter(s => !known.has(s.id));
+  return fresh.length === 1 ? fresh[0] : { count: fresh.length };
+}
+async function fallbackFlows() {
+  const a = loadFixture('sources-a');
+  for (const path of ['settle', 'first-key']) {
+    const { w, p } = await seededWorld(`fallback-${path}`, a, SUGGESTED);
+    const suggested = await promptIdentity(p);
+    const thIds = suggested.meta;
+    check(`fallback/${path}: the admitted th block is ready and runs its own plan`, 'real-seeded',
+      await label(p) === 'Suggested practice · th · 30 s' && suggested.displayedIds.includes(thIds[0]), suggested);
+    check(`fallback/${path}: the reset committed through C`, 'real-seeded', await resetThroughC(p) === true, {});
+    // settle: the clock runs, the queued re-preparation finds no admission and steps the ready block back.
+    // first-key: the re-preparation stays queued under the paused clock; the first key meets the stale plan.
+    if (path === 'settle') await settle(p, 15);
+    const before = await savedSources(p);
+    await p.locator('#typing-input').focus();
+    if (path === 'settle') {
+      const back = { label: await label(p), ...(await promptIdentity(p)) };
+      check('fallback/settle: the stepped-back General block paints the first General prompt it lists, not the th plan sequence', 'real-seeded',
+        back.label === 'General practice · 30 s' && back.meta[0] !== thIds[0] && back.displayed === back.metaFirstText && back.displayedIds.includes(back.meta[0]), { thIds, back });
+    }
+    await p.keyboard.press('t');
+    const started = { label: await label(p), state: await state(p), value: await p.inputValue('#typing-input'), typed: await typedCount(p), focus: await active(p), ...(await promptIdentity(p)) };
+    check(`fallback/${path}: the running General block paints its listed first prompt; the first key landed once`, 'real-seeded',
+      started.label === 'General practice · 30 s' && started.state === 'running' && started.value === 't' && started.typed === 1 && started.focus === 'typing-input' &&
+      started.meta[0] !== thIds[0] && started.displayed === started.metaFirstText && started.displayedIds.includes(started.meta[0]), { thIds, started });
+    await capture(p, `fallback-${path}-running`, 'real-seeded');
+    // Let the block reach its deadline with only the first key typed; C saves the timed record.
+    await p.clock.runFor(30500); await waitSaved(p); await settle(p, 8);
+    const record = await newRecord(p, before);
+    const sentenceIds = (record.sentences ?? []).map(s => s.promptId);
+    const observed = { thIds, meta: started.meta, sentenceIds, first: record.sentences?.[0] ? { promptId: record.sentences[0].promptId, promptText: record.sentences[0].promptText, response: record.sentences[0].response } : null, mode: record.mode, resultLabel: await q(p, '.result-label'), count: record.count };
+    check(`fallback/${path}: the persisted record names the same General sequence it showed, not the th plan; the first key is recorded once`, 'real-seeded',
+      sentenceIds.length > 0 && sentenceIds.join(' ') === started.meta.slice(0, sentenceIds.length).join(' ') && sentenceIds.join(' ') !== thIds.slice(0, sentenceIds.length).join(' ') &&
+      observed.first?.promptText === started.metaFirstText && observed.first?.response === 't' && observed.mode === 'practice' && /^General practice · /.test(observed.resultLabel ?? ''), observed);
+    await verifyIsolation(w, p);
+    await w.context.close();
+  }
+}
+
 try {
   if (PHASE === 'real') await realFlows();
   else if (PHASE === 'typing-flow') await typingFlow();
   else if (PHASE === 'fixtures') await buildFixtures();
   else if (PHASE === 'race') await raceFlows();
   else if (PHASE === 'live') await liveFlows();
+  else if (PHASE === 'fallback') await fallbackFlows();
   else await injectedFlows();
 } catch (error) {
   check(`execution (${PHASE})`, PHASE, false, { error: String(error?.stack ?? error).slice(0, 1500) });
