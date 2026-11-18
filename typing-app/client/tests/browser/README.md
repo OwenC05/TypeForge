@@ -62,6 +62,11 @@ Starts its own hidden Vite dev server on `SDK_PORT` (default 5324,
   during the next block, a failed tenth save with retry, a focus change between
   two admitted pairs, and deletion through the results page's Delete control.
   These checks are labelled `real-seeded`.
+- `fallback` (dev server, needs `fixtures/sources-a.json`): covers both General
+  fallbacks, the settle step-back after a reset through C and the first key
+  after a known invalidation. Prompt identity is read from three places: the
+  passage the engine paints, the persisted record's sentence `promptId`s, and
+  the stage metadata. It also checks that the first key lands exactly once.
 
 Each phase writes `<phase>-flows.json` (every check, labelled `real`,
 `real-fault` or `injected`), a helper receipt (PID, executable, arguments, port

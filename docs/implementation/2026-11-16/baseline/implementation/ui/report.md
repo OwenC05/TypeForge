@@ -316,3 +316,69 @@ There were no C/D/engine/types/catalogue/package/lock changes. Everything earlie
 - No real user database, Portfolio/original checkout, account, deployment, push or upload was touched.
 
 **Reproduce:** from `typing-app/client`, run `npm run check`, then `COACH_PHASE=fixtures`, `race` and `live` (dev server) and `real` (after build), as in `tests/browser/README.md`.
+
+---
+
+## Addendum, 2026-11-18: General fallback prompt identity (task_01ea3afaaab7, dispatch ctx_5609eadd4661)
+
+**Scope and pins.** This continues from `c7f85d1` (`app.ts` sha256 `e3bcba2b…`). The corrected source is `62e534a` (`app.ts` `e2a99c7a…`). Root's brief is `task-ui-fallback-prompts.md` at `f2c77b9`, with root's diagnostic `root-integration/fallback-prompts-probe.mjs`; that diagnostic is untouched and remains a historical observation.
+
+Changed files, all leased F:
+- `src/app.ts`
+- `tests/app.test.ts`
+- `tests/browser/coach-app.mjs`
+- `tests/browser/README.md`
+
+There were no C/D/engine/types/catalogue/package changes. Earlier addenda and limits stand.
+
+**Runtime.** Claude Opus 5.5 (`claude-opus-5-5`); the effort setting is not exposed to the model. No global settings were changed.
+
+**Commits (not pushed):**
+- `c57b732`: red evidence.
+- `62e534a`: fix plus actual-engine regression.
+- (this commit): green evidence and this addendum.
+
+**Defect (P2, confirmed red in the browser on `c7f85d1`).** Both General fallbacks, the settle step-back and the new first-key fallback, called `installBlock(makeEngine(qwerty.checked), null)`. The order of operations was:
+1. `makeEngine` ran first, and `TypingEngine` copied the still-current Suggested `prompts`.
+2. Only after that did `installBlock` choose General prompts.
+
+The result, on both paths: the block was labelled "General practice", and `dataset.promptIds` listed General prompts, but the engine painted and persisted th-plan `practice-002` ("we take the short path beside the river"). See `fallback-red.json`: 14/19, with all 5 identity checks failing.
+
+**Correction (`62e534a`).**
+- `installBlock(block | null, snapshot)` now chooses prompts first, exactly once, and builds the General engine from them when no finite block is given. This is the order restart already used.
+- Both fallbacks call `installBlock(null, null)`.
+- Suggested installation (`installBlock(finiteBlock, snapshot)`) is unchanged.
+- There is no second randomization and no label- or metadata-only repair.
+
+**Regression.**
+- **Source (`tests/app.test.ts`).** Runs the actual `makeEngine`/`installBlock` source slices with the real `TypingEngine`, the certified th plan and the real General selector. It checks:
+  - one selection;
+  - the engine runs prompt 0 and then prompt 1 of the shown General sequence;
+  - `submittedSummaries` ids equal the shown ids;
+  - the first character is accepted once;
+  - a Suggested install keeps its finite block and the plan prompts.
+  It also asserts that both call sites build General inside `installBlock`. It is red against `c7f85d1`'s `app.ts`, verified by temporarily swapping the file and restoring it byte-identical, and green on `62e534a`.
+- **Browser (`COACH_PHASE=fallback`, `real-seeded`, strict 5324).** Covers both paths. Identity is the *sequence*, because General legitimately shares bank prompts with the th plan:
+  - the painted passage is the first listed General prompt;
+  - the persisted sentence ids equal the listed General prefix and differ from the th sequence;
+  - the first key `t` is recorded once as `sentences[0].response`;
+  - the record is `mode: practice` and the result reads "General practice · 30 s · complete".
+
+| Evidence | Receipt | Result |
+|---|---|---|
+| Fallback, **red** on `c7f85d1` | `fallback-prompts-follow-up/fallback-red.json`, `fallback-red-source.json`, `screens-red/` | 14/19 |
+| Fallback, **green** on `62e534a` | `fallback-green.json`, `screens/fallback-*` | 19/19 |
+| Affected race (first-key fallback) on `62e534a` | `race-flows.json` | 39/39 |
+| Affected live (deletion step-back etc.) on `62e534a` | `live-flows.json` | 42/42 |
+| Production real flows on the rebuilt `62e534a` | `real-flows.json` | 120/120 |
+| Source | `npm run check` | 234/234, typecheck and build green |
+
+**Limits.**
+- The fallback, race and live phases run on the dev server, because the seeding and import holds need unbundled source. The production build was covered by re-running the 120-check `real` phase on `62e534a` (`real-flows.json`, 120/120), not by the fallback assertions.
+- The fixtures were copied from `admission-follow-up/fixtures/` (real typing, synthetic).
+
+**Helpers.**
+- Five hidden servers ran (Node `windowsHide: true`, `shell: false`, strict 127.0.0.1:5324), each with `serverExited`/`portClosed` receipts.
+- Afterwards there was no 5324 listener and no `vite.js … 5324` process.
+- Root 5301 and reviewer 5326 were not used.
+- No user data, Portfolio/original checkout, push or deployment was touched.
