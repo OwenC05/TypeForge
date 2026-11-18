@@ -139,6 +139,8 @@ export interface PreparedStatus {
 }
 export interface ProjectionInput {
   now: UTC; metadata: Metadata; authority: Authority; sources: readonly SourceRead[];
+  // C supplies actual same-ledger work after final proof accounting; D propagates it.
+  work: Work;
   finalProof: VerifiedProof | null;
   participationRange: RangeProof<'participation'>; summaryRange: RangeProof<'summary'>;
   coachRange: RangeProof<'coach'> | null;
