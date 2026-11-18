@@ -70,7 +70,7 @@ export function hashCanonical(value: unknown): string {
 }
 
 export function deepFreeze<T>(value: T): T {
-  if (value !== null && typeof value === 'object' && !Object.isFrozen(value)) {
+  if (value !== null && typeof value === 'object') {
     Object.values(value).forEach(deepFreeze);
     Object.freeze(value);
   }
