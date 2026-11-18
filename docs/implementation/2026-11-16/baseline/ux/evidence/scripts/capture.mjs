@@ -14,13 +14,21 @@ const SHOTS = path.join(OUT, 'screenshots');
 fs.mkdirSync(SHOTS, { recursive: true });
 const states = JSON.parse(fs.readFileSync(path.join(OUT, 'states-list.json'), 'utf8'));
 const widths = [[1440, 900], [390, 844], [320, 640]];
+// r2: forced-colours emulation for the states where colour could carry meaning.
+const forced = ['02-practice-locked-press', '07-result-intermediate', '09-result-save-failed', '11-result-final-ready', '28-progress-summary', '35-assessment-recovery-ready'];
 
 const browser = await chromium.launch({ executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe', headless: true });
 const records = [];
+const runs = [];
+for (const [width, height] of widths) {
+  for (const state of states) runs.push({ width, height, state, mode: 'normal' });
+  for (const id of forced) runs.push({ width, height, state: states.find(s => s.id === id), mode: 'forced' });
+}
 for (const [width, height] of widths) {
   const context = await browser.newContext({ viewport: { width, height }, deviceScaleFactor: 1 });
-  for (const state of states) {
-    const page = await context.newPage();
+  const forcedContext = await browser.newContext({ viewport: { width, height }, deviceScaleFactor: 1, forcedColors: 'active' });
+  for (const { state, mode } of runs.filter(r => r.width === width)) {
+    const page = await (mode === 'forced' ? forcedContext : context).newPage();
     const errors = [];
     page.on('pageerror', e => errors.push(String(e)));
     page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
@@ -44,18 +52,22 @@ for (const [width, height] of widths) {
         progress: [...document.querySelectorAll('ui-progress.baseline-progress')].map(p => ({ now: p.getAttribute('aria-valuenow'), max: p.getAttribute('aria-valuemax'), text: p.querySelector('ui-progress-value')?.textContent ?? '' })),
         suggested: (() => { const s = document.querySelector('#suggested-item'); return s ? { role: s.getAttribute('role'), ariaDisabled: s.getAttribute('aria-disabled'), tabindex: s.getAttribute('tabindex'), locked: s.hasAttribute('data-locked'), checked: s.hasAttribute('data-checked') } : null; })(),
         resultPrimary: document.querySelector('#primary')?.textContent ?? null,
+        primaryInView: (() => { const p = document.querySelector('#primary'); if (!p) return null; const r = p.getBoundingClientRect(); return r.top >= 0 && r.bottom <= innerHeight; })(),
+        scrollY: Math.round(scrollY),
+        undefinedText: /undefined|NaN|\[object/.test(document.querySelector('#app')?.innerText ?? ''),
       };
     });
-    const file = `${width}-${state.id}.png`;
+    const file = `${width}-${mode === 'forced' ? 'FC-' : ''}${state.id}.png`;
     await page.screenshot({ path: path.join(SHOTS, file), fullPage: false });
+    if (state.full && mode === 'normal' && width !== 1440) await page.screenshot({ path: path.join(SHOTS, `${width}-${state.id}-full.png`), fullPage: true });
     const sha256 = crypto.createHash('sha256').update(fs.readFileSync(path.join(SHOTS, file))).digest('hex');
-    records.push({ id: state.id, width, height, file, sha256, errors, ...metrics });
+    records.push({ id: state.id, mode, width, height, file, sha256, errors, ...metrics });
     await page.close();
   }
-  await context.close();
+  await context.close(); await forcedContext.close();
 }
 await browser.close();
 fs.writeFileSync(path.join(OUT, 'states.json'), JSON.stringify({ base: BASE, chrome: 'system Chrome (headless, playwright-core 1.65.1)', capturedAt: new Date().toISOString(), fixture: 'all data simulated', records }, null, 2));
-const bad = records.filter(r => r.errors.length || r.overflowX || r.slotClipped);
+const bad = records.filter(r => r.errors.length || r.overflowX || r.slotClipped || r.undefinedText);
 console.log(`${records.length} captures; ${bad.length} with errors/overflow/clipped slot`);
-for (const r of bad) console.log(r.width, r.id, { errors: r.errors, overflowX: r.overflowX, slotClipped: r.slotClipped });
+for (const r of bad) console.log(r.width, r.mode, r.id, { errors: r.errors, overflowX: r.overflowX, slotClipped: r.slotClipped, undefinedText: r.undefinedText });

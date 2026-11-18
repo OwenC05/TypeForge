@@ -1,16 +1,11 @@
 /* Baseline delta: everything the baseline flow adds on top of the production style.css.
-   No new colours, fonts or radii; tokens come from production :root. */
+   No new colours, fonts or radii; tokens come from production :root.
+   r2: the hairline tally is removed (review finding 7); progress lives in why?, results and Progress. */
 
 /* Locked Suggested: still a focusable radio item (aria-disabled, change cancelled), dashed as before. */
 ui-segmented-control-item[data-locked] { color: var(--graphite); background: transparent; border-style: dashed; box-shadow: none; position: relative; }
 ui-segmented-control-item[data-locked]:hover { background: transparent; }
 ui-segmented-control-item[data-locked]:active { transform: none; }
-
-/* Ten-segment tally drawn inside the key's bottom edge: zero layout cost, decoration only. */
-.tally { position: absolute; left: 9px; right: 9px; bottom: 4px; height: 2px; display: flex; gap: 2px; pointer-events: none; }
-.tally i { flex: 1; background: var(--rule); }
-.tally i[data-on] { background: var(--ink); }
-.tally i[data-pending] { background: var(--graphite); }
 
 /* Semantic progress (ui-progress) for the readable "n of 10", used in why?, results and progress. */
 .baseline-progress { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 14px; }
@@ -33,6 +28,24 @@ ui-segmented-control-item[data-locked]:active { transform: none; }
 .slot-text .key-small { margin: 0 0 0 6px; min-height: 28px; padding: 0 8px; font-size: 13px; vertical-align: middle; }
 .figures-fixture { font: 500 11px var(--mono); letter-spacing: .1em; color: var(--muted); text-transform: uppercase; }
 
+/* "Last 10 tests · median": one step below the result hero (reuses the Progress .metric figure size). */
+.summary { margin-top: 14px; }
+.summary .micro { margin: 0; }
+.summary-figures { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 36px; margin: 6px 0 4px; }
+.summary-figures > div { display: flex; flex-direction: row-reverse; justify-content: flex-end; align-items: baseline; gap: 10px; }
+.summary-figures dd { margin: 0; font: 750 32px/1.1 var(--display); letter-spacing: -.02em; font-variant-numeric: tabular-nums; color: var(--ink); }
+.summary-figures dt { font: 400 17px var(--sans); color: var(--ink); }
+.baseline-block .summary p.note { margin-top: 2px; }
+.baseline-block p.micro { font-size: 13px; color: var(--muted); }
+.baseline-block p.figures-fixture, .summary p.figures-fixture { font-size: 11px; color: var(--muted); margin-top: 4px; }
+.baseline-section .summary p.note { margin: 0; font-size: 15px; color: var(--muted); }
+.summary-compact { margin: 6px 0 10px; }
+.baseline-section .summary-figures dd { font-size: 28px; }
+.unsaved-earlier { padding-left: 10px; border-left: 3px solid var(--vermilion-deep); }
+.unsaved-earlier .key-small { margin: 6px 0 0 0; }
+.baseline-block > .key-small { margin-top: 10px; }
+.baseline-section > .key-small { margin: 4px 0 6px; }
+
 /* Progress page baseline section and the inline reset confirmation. */
 .baseline-section .baseline-progress { margin: 12px 0 8px; }
 .reset-confirm { margin-top: 16px; padding-left: 10px; border-left: 3px solid var(--ink); }
@@ -43,11 +56,16 @@ ui-segmented-control-item[data-locked]:active { transform: none; }
 
 @media (max-width: 760px) {
   .baseline-block .lead-line { font-size: 19px; }
+  .summary-figures dd, .baseline-section .summary-figures dd { font-size: 26px; }
+  .summary-figures { gap: 2px 24px; }
   .baseline-block p { font-size: 16px; }
   .baseline-progress ui-progress-track { width: 158px; -webkit-mask: repeating-linear-gradient(90deg, #000 0 14px, transparent 14px 16px); mask: repeating-linear-gradient(90deg, #000 0 14px, transparent 14px 16px); }
   .baseline-progress[data-pending] ui-progress-track::after { left: calc(var(--counted) * 16px); width: 14px; }
 }
 @media (forced-colors: active) {
-  .tally i[data-on], .baseline-progress ui-progress-indicator { background: CanvasText; forced-color-adjust: none; }
-  .tally i, .baseline-progress ui-progress-track { background: GrayText; forced-color-adjust: none; }
+  .baseline-progress ui-progress-indicator { background: CanvasText; forced-color-adjust: none; }
+  /* Empty segments differ by shape (a thin centre line), not by colour alone. */
+  .baseline-progress ui-progress-track { background: linear-gradient(to bottom, transparent 2px, GrayText 2px 4px, transparent 4px); forced-color-adjust: none; }
+  /* Pending differs by shape, not colour: an outlined segment on Canvas. */
+  .baseline-progress[data-pending] ui-progress-track::after { background: Canvas; outline: 2px solid CanvasText; outline-offset: -2px; forced-color-adjust: none; }
 }

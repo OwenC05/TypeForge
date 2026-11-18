@@ -1,11 +1,12 @@
 {
   "base": "http://127.0.0.1:5312",
   "chrome": "system Chrome (headless, playwright-core 1.65.1)",
-  "capturedAt": "2026-11-16T14:32:57.758Z",
+  "capturedAt": "2026-11-18T18:14:09.370Z",
   "fixture": "all data simulated",
   "records": [
     {
       "id": "01-practice-first-visit",
+      "mode": "normal",
       "width": 1440,
       "height": 900,
       "file": "1440-01-practice-first-visit.png",
@@ -32,10 +33,14 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "02-practice-locked-press",
+      "mode": "normal",
       "width": 1440,
       "height": 900,
       "file": "1440-02-practice-locked-press.png",
@@ -62,14 +67,18 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "03-practice-why-in-progress",
+      "mode": "normal",
       "width": 1440,
       "height": 900,
       "file": "1440-03-practice-why-in-progress.png",
-      "sha256": "139ceee70cf6e44d32298440b567712425e0294bd1c1f9ff80325c886a388f5f",
+      "sha256": "7f50fe3faf8e59b6c5a4cfb730865e91e47b65f77ce6b67162b6598a3351ef76",
       "errors": [],
       "focus": "why-trigger",
       "overflowX": false,
@@ -92,10 +101,14 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "04-assessment-test-1-ready",
+      "mode": "normal",
       "width": 1440,
       "height": 900,
       "file": "1440-04-assessment-test-1-ready.png",
@@ -116,20 +129,24 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "05-assessment-keyboard-undeclared",
+      "mode": "normal",
       "width": 1440,
       "height": 900,
       "file": "1440-05-assessment-keyboard-undeclared.png",
-      "sha256": "81edb959b799b56380eb3c56d3e6a197a7d7ff2cc25698d3f0f39b86647d63d4",
+      "sha256": "4937b1b49019589fb5267270290fdbba496d56b852f5b5045f50239c2f9352b8",
       "errors": [],
       "focus": "typing-input",
       "overflowX": false,
       "activeLineTopPct": 36.9,
       "slotClipped": false,
-      "slotText": "Not a baseline test: it needs the qwerty key on (a physical QWERTY keyboard).",
+      "slotText": "Baseline tests need QWERTY.my keyboard is qwerty",
       "label": "Assessment · 30 s",
       "stage": "idle",
       "progress": [
@@ -140,10 +157,14 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "06-assessment-other-duration",
+      "mode": "normal",
       "width": 1440,
       "height": 900,
       "file": "1440-06-assessment-other-duration.png",
@@ -164,10 +185,14 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "07-result-intermediate",
+      "mode": "normal",
       "width": 1440,
       "height": 900,
       "file": "1440-07-result-intermediate.png",
@@ -182,7 +207,7 @@
       "stage": "completed",
       "progress": [
         {
-          "now": "4",
+          "now": "5",
           "max": "10",
           "text": "5 of 10 tests"
         },
@@ -193,10 +218,14 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": "next test ↵"
+      "resultPrimary": "next test ↵",
+      "primaryInView": true,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "08-result-flagged",
+      "mode": "normal",
       "width": 1440,
       "height": 900,
       "file": "1440-08-result-flagged.png",
@@ -222,14 +251,18 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": "try test 5 again ↵"
+      "resultPrimary": "try test 5 again ↵",
+      "primaryInView": true,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "09-result-save-failed",
+      "mode": "normal",
       "width": 1440,
       "height": 900,
       "file": "1440-09-result-save-failed.png",
-      "sha256": "83c0eb7cfa967bdeda5b21954a571c87b3e643eaeabb3d99c0ce9e64f5e15aa5",
+      "sha256": "0026fb2fecc984346ff1bd73b04591701a2f67328b117ad28d462ba4a55e8780",
       "errors": [],
       "focus": "primary",
       "overflowX": false,
@@ -251,10 +284,14 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": "next test ↵"
+      "resultPrimary": "retry saving ↵",
+      "primaryInView": true,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "10-assessment-resumed",
+      "mode": "normal",
       "width": 1440,
       "height": 900,
       "file": "1440-10-assessment-resumed.png",
@@ -275,14 +312,18 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "11-result-final-ready",
+      "mode": "normal",
       "width": 1440,
       "height": 900,
       "file": "1440-11-result-final-ready.png",
-      "sha256": "2538a9f9bab65c36ff702df647b9647e8e204b2ee8e326584104704199f44925",
+      "sha256": "819ff0323cd8e4d199fb03cbeba22d113f6c995882d2ff5d927a7ccf55dfa221",
       "errors": [],
       "focus": "primary",
       "overflowX": false,
@@ -293,7 +334,7 @@
       "stage": "completed",
       "progress": [
         {
-          "now": "9",
+          "now": "10",
           "max": "10",
           "text": "10 of 10 tests"
         },
@@ -304,14 +345,18 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": "try suggested · th ↵"
+      "resultPrimary": "try suggested · th ↵",
+      "primaryInView": true,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "12-result-final-insufficient",
+      "mode": "normal",
       "width": 1440,
       "height": 900,
       "file": "1440-12-result-final-insufficient.png",
-      "sha256": "adec63c01bb6aabd796ba0377515ef1fcf3eb74e98a717c9bd206625082f98ef",
+      "sha256": "c4320229d6f0b5775c9594a55b99c5e94cca9fa0dd9c376695f968767eec8c0b",
       "errors": [],
       "focus": "primary",
       "overflowX": false,
@@ -322,7 +367,7 @@
       "stage": "completed",
       "progress": [
         {
-          "now": "9",
+          "now": "10",
           "max": "10",
           "text": "10 of 10 tests"
         },
@@ -333,10 +378,14 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": "practise general ↵"
+      "resultPrimary": "practise general ↵",
+      "primaryInView": true,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "13-practice-unlocked",
+      "mode": "normal",
       "width": 1440,
       "height": 900,
       "file": "1440-13-practice-unlocked.png",
@@ -349,13 +398,7 @@
       "slotText": "",
       "label": "General practice · 30 s",
       "stage": "idle",
-      "progress": [
-        {
-          "now": "10",
-          "max": "10",
-          "text": "10 of 10 tests"
-        }
-      ],
+      "progress": [],
       "suggested": {
         "role": "radio",
         "ariaDisabled": null,
@@ -363,14 +406,18 @@
         "locked": false,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "14-practice-suggested-why",
+      "mode": "normal",
       "width": 1440,
       "height": 900,
       "file": "1440-14-practice-suggested-why.png",
-      "sha256": "674a26fd2e5e0088cca021ebe395eddcdf58e1ef9001ba5740c4ac41100c3ff9",
+      "sha256": "058234c37e9aa78003d824304406b69eadf8c57a8196a8814fa9f8867499ccbb",
       "errors": [],
       "focus": "why-trigger",
       "overflowX": false,
@@ -387,10 +434,14 @@
         "locked": false,
         "checked": true
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "15-practice-insufficient-why",
+      "mode": "normal",
       "width": 1440,
       "height": 900,
       "file": "1440-15-practice-insufficient-why.png",
@@ -417,10 +468,14 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "16-practice-stale-press",
+      "mode": "normal",
       "width": 1440,
       "height": 900,
       "file": "1440-16-practice-stale-press.png",
@@ -447,10 +502,14 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "17-practice-scan-incomplete",
+      "mode": "normal",
       "width": 1440,
       "height": 900,
       "file": "1440-17-practice-scan-incomplete.png",
@@ -477,10 +536,14 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "18-practice-focus-changed",
+      "mode": "normal",
       "width": 1440,
       "height": 900,
       "file": "1440-18-practice-focus-changed.png",
@@ -501,10 +564,14 @@
         "locked": false,
         "checked": true
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "19-practice-stepped-back",
+      "mode": "normal",
       "width": 1440,
       "height": 900,
       "file": "1440-19-practice-stepped-back.png",
@@ -531,14 +598,18 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "20-practice-after-deletion-why",
+      "mode": "normal",
       "width": 1440,
       "height": 900,
       "file": "1440-20-practice-after-deletion-why.png",
-      "sha256": "8a940b19530701f46f321b8a83ba69909b34a70d44260f7b4e8ebf01e5005bca",
+      "sha256": "48204db4c0c6c43802e01b0f0ad23ae966ecc6a06a5599eea7a39450765ec0e1",
       "errors": [],
       "focus": "why-trigger",
       "overflowX": false,
@@ -561,14 +632,18 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "21-progress-baseline",
+      "mode": "normal",
       "width": 1440,
       "height": 900,
       "file": "1440-21-progress-baseline.png",
-      "sha256": "4633e20fb3f4e61899245da1a2e9f0e9983399d6da35333c87c522d0c949275d",
+      "sha256": "4f3b422ed84d9e0addae5d04f0e7309917ba30c1e99c15518cd828459ed823c7",
       "errors": [],
       "focus": "body:Skip to content\n    \n    t_typeforge\n   ",
       "overflowX": false,
@@ -585,14 +660,18 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "22-progress-reset-confirm",
+      "mode": "normal",
       "width": 1440,
       "height": 900,
       "file": "1440-22-progress-reset-confirm.png",
-      "sha256": "845abb9c28c208fb1bb3243bc9681fad352dd4002d954ee6c9a8913283ed3f1e",
+      "sha256": "c1539dce763ad57c4f360b3b4e27d375d7d5e446ecb34821724bc32c17b3f4c3",
       "errors": [],
       "focus": "keep",
       "overflowX": false,
@@ -609,14 +688,18 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "23-progress-reset-done",
+      "mode": "normal",
       "width": 1440,
       "height": 900,
       "file": "1440-23-progress-reset-done.png",
-      "sha256": "132bdcedb918db4fd04f31aa7ed9eef2d86ad3df1e705a165445f18a3e11b9e6",
+      "sha256": "54edc4b9b68b2dc3a8bd2d5f3aac4a5f057658d9428dbc27157d208657ba7037",
       "errors": [],
       "focus": "baseline-heading",
       "overflowX": false,
@@ -633,10 +716,14 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "24-practice-storage-unavailable",
+      "mode": "normal",
       "width": 1440,
       "height": 900,
       "file": "1440-24-practice-storage-unavailable.png",
@@ -657,10 +744,14 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "25-practice-checking",
+      "mode": "normal",
       "width": 1440,
       "height": 900,
       "file": "1440-25-practice-checking.png",
@@ -681,14 +772,320 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "26-assessment-partial-scan",
+      "mode": "normal",
+      "width": 1440,
+      "height": 900,
+      "file": "1440-26-assessment-partial-scan.png",
+      "sha256": "83297006a1a2fcd9879aa0f419acfcb70c4f733b407a769a26edbc49c5d25d4a",
+      "errors": [],
+      "focus": "typing-input",
+      "overflowX": false,
+      "activeLineTopPct": 36.9,
+      "slotClipped": false,
+      "slotText": "At least 7 of 10 found; this one counts too.",
+      "label": "Baseline test · 30 s",
+      "stage": "idle",
+      "progress": [
+        {
+          "now": "7",
+          "max": "10",
+          "text": "at least 7 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "27-result-final-sparse",
+      "mode": "normal",
       "width": 1440,
       "height": 900,
       "file": "1440-27-result-final-sparse.png",
-      "sha256": "f842b1d52918e5f9658644f59cf4c369814777db7cdf811f01ccc68504eea149",
+      "sha256": "f32a51ad5f3d9294182bff104151823c0c6df963c338eef523c359d6b23eccf2",
+      "errors": [],
+      "focus": "primary",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": "",
+      "label": "Baseline test 10 of 10 · 30 s",
+      "stage": "completed",
+      "progress": [
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        },
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": "practise general ↵",
+      "primaryInView": true,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "28-progress-summary",
+      "mode": "normal",
+      "width": 1440,
+      "height": 900,
+      "file": "1440-28-progress-summary.png",
+      "sha256": "a1def539f435cbf64c07a693c661c385d938d7379cc97ce5b7d0d8ffbd69fb68",
+      "errors": [],
+      "focus": "body:Skip to content\n    \n    t_typeforge\n   ",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": null,
+      "label": null,
+      "stage": null,
+      "progress": [
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "29-progress-summary-pending",
+      "mode": "normal",
+      "width": 1440,
+      "height": 900,
+      "file": "1440-29-progress-summary-pending.png",
+      "sha256": "c3c4483a2135b0557cf17c0c9d16d8507a56a2ecc05c28b81b162907935a74ea",
+      "errors": [],
+      "focus": "body:Skip to content\n    \n    t_typeforge\n   ",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": null,
+      "label": null,
+      "stage": null,
+      "progress": [
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "30-progress-summary-null-accuracy",
+      "mode": "normal",
+      "width": 1440,
+      "height": 900,
+      "file": "1440-30-progress-summary-null-accuracy.png",
+      "sha256": "34b01f142bf7204757fc1714e304852644e5716a7727d96a18aaf26a6a9d2d73",
+      "errors": [],
+      "focus": "body:Skip to content\n    \n    t_typeforge\n   ",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": null,
+      "label": null,
+      "stage": null,
+      "progress": [
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "31-practice-deferred-press",
+      "mode": "normal",
+      "width": 1440,
+      "height": 900,
+      "file": "1440-31-practice-deferred-press.png",
+      "sha256": "fb1a967f0772cdd34f780037d8727dd9452311145fbec71f04f77c19dfcb2b76",
+      "errors": [],
+      "focus": "suggested-item",
+      "overflowX": false,
+      "activeLineTopPct": 36.9,
+      "slotClipped": false,
+      "slotText": "Suggested isn’t switched on in this version. General works as usual.",
+      "label": "General practice · 30 s",
+      "stage": "idle",
+      "progress": [
+        {
+          "now": "4",
+          "max": "10",
+          "text": "4 of 10 tests"
+        }
+      ],
+      "suggested": {
+        "role": "radio",
+        "ariaDisabled": "true",
+        "tabindex": "-1",
+        "locked": true,
+        "checked": false
+      },
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "32-practice-deferred-why",
+      "mode": "normal",
+      "width": 1440,
+      "height": 900,
+      "file": "1440-32-practice-deferred-why.png",
+      "sha256": "b9c57de516235d837a8874ac8e52f954af8864107b61ba0308fdb85a6fc91e03",
+      "errors": [],
+      "focus": "why-trigger",
+      "overflowX": false,
+      "activeLineTopPct": 36.9,
+      "slotClipped": false,
+      "slotText": "",
+      "label": "General practice · 30 s",
+      "stage": "idle",
+      "progress": [
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        }
+      ],
+      "suggested": {
+        "role": "radio",
+        "ariaDisabled": "true",
+        "tabindex": "-1",
+        "locked": true,
+        "checked": false
+      },
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "33-result-final-deferred",
+      "mode": "normal",
+      "width": 1440,
+      "height": 900,
+      "file": "1440-33-result-final-deferred.png",
+      "sha256": "7af2d74646e15b8377ec0a5949ad7cbdff9d7cc57a13df672e2e7226d928ef18",
+      "errors": [],
+      "focus": "primary",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": "",
+      "label": "Baseline test 10 of 10 · 30 s",
+      "stage": "completed",
+      "progress": [
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        },
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": "practise general ↵",
+      "primaryInView": true,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "34-result-not-counted-qwerty",
+      "mode": "normal",
+      "width": 1440,
+      "height": 900,
+      "file": "1440-34-result-not-counted-qwerty.png",
+      "sha256": "98bbdd13ed82bb024af19a1909ece992ca1db804b3c814aa4341f552dfd2fca0",
+      "errors": [],
+      "focus": "primary",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": "",
+      "label": "Assessment · 30 s",
+      "stage": "completed",
+      "progress": [
+        {
+          "now": "0",
+          "max": "10",
+          "text": "0 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": "practice next ↵",
+      "primaryInView": true,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "35-assessment-recovery-ready",
+      "mode": "normal",
+      "width": 1440,
+      "height": 900,
+      "file": "1440-35-assessment-recovery-ready.png",
+      "sha256": "a35a2d3ab4a39c79c7b30ac5cf78cabc66da049e7ae20020252cda983153ac7f",
+      "errors": [],
+      "focus": "typing-input",
+      "overflowX": false,
+      "activeLineTopPct": 36.9,
+      "slotClipped": false,
+      "slotText": "Test 5 isn’t saved yet, so it doesn’t count.retry saving",
+      "label": "Baseline test 6 of 10 · 30 s",
+      "stage": "idle",
+      "progress": [
+        {
+          "now": "4",
+          "max": "10",
+          "text": "4 of 10 tests · 1 waiting to save"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "36-result-final-save-failed",
+      "mode": "normal",
+      "width": 1440,
+      "height": 900,
+      "file": "1440-36-result-final-save-failed.png",
+      "sha256": "f2ee7c898b06492ac6919eb7a7f94691641bc98df44dce814122ef4aa76a1f74",
       "errors": [],
       "focus": "primary",
       "overflowX": false,
@@ -701,6 +1098,195 @@
         {
           "now": "9",
           "max": "10",
+          "text": "9 of 10 tests · 1 waiting to save"
+        },
+        {
+          "now": "9",
+          "max": "10",
+          "text": "9 of 10 tests · 1 waiting to save"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": "retry saving ↵",
+      "primaryInView": true,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "37-practice-plan-end",
+      "mode": "normal",
+      "width": 1440,
+      "height": 900,
+      "file": "1440-37-practice-plan-end.png",
+      "sha256": "75f1b1f87556aede306283f71b0bbd6da36644b4bcae28b7f95f5bc06f262f76",
+      "errors": [],
+      "focus": "primary",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": "",
+      "label": "Suggested practice · th · 60 s",
+      "stage": "completed",
+      "progress": [],
+      "suggested": {
+        "role": "radio",
+        "ariaDisabled": null,
+        "tabindex": "0",
+        "locked": false,
+        "checked": true
+      },
+      "resultPrimary": "suggested again ↵",
+      "primaryInView": true,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "38-practice-policy-invalid",
+      "mode": "normal",
+      "width": 1440,
+      "height": 900,
+      "file": "1440-38-practice-policy-invalid.png",
+      "sha256": "a475e1ee43c36f17189fafd85ee4e7b49d1034a3528d7c9355b216d438640b24",
+      "errors": [],
+      "focus": "why-trigger",
+      "overflowX": false,
+      "activeLineTopPct": 36.9,
+      "slotClipped": false,
+      "slotText": "",
+      "label": "General practice · 30 s",
+      "stage": "idle",
+      "progress": [],
+      "suggested": {
+        "role": "radio",
+        "ariaDisabled": "true",
+        "tabindex": "-1",
+        "locked": true,
+        "checked": false
+      },
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "02-practice-locked-press",
+      "mode": "forced",
+      "width": 1440,
+      "height": 900,
+      "file": "1440-FC-02-practice-locked-press.png",
+      "sha256": "f060d87d8fa1506ec7dc7601998d79457223dc05373c41447af0cf6170cfb27f",
+      "errors": [],
+      "focus": "suggested-item",
+      "overflowX": false,
+      "activeLineTopPct": 36.9,
+      "slotClipped": false,
+      "slotText": "Suggested needs 10 baseline tests · 0 done.take test 1 →",
+      "label": "General practice · 30 s",
+      "stage": "idle",
+      "progress": [
+        {
+          "now": "0",
+          "max": "10",
+          "text": "0 of 10 tests"
+        }
+      ],
+      "suggested": {
+        "role": "radio",
+        "ariaDisabled": "true",
+        "tabindex": "-1",
+        "locked": true,
+        "checked": false
+      },
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "07-result-intermediate",
+      "mode": "forced",
+      "width": 1440,
+      "height": 900,
+      "file": "1440-FC-07-result-intermediate.png",
+      "sha256": "86bf6229dc5b23f314488356d819e89e17f3af38f819dc912e96a1e6e11b9515",
+      "errors": [],
+      "focus": "primary",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": "",
+      "label": "Baseline test 5 of 10 · 30 s",
+      "stage": "completed",
+      "progress": [
+        {
+          "now": "5",
+          "max": "10",
+          "text": "5 of 10 tests"
+        },
+        {
+          "now": "5",
+          "max": "10",
+          "text": "5 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": "next test ↵",
+      "primaryInView": true,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "09-result-save-failed",
+      "mode": "forced",
+      "width": 1440,
+      "height": 900,
+      "file": "1440-FC-09-result-save-failed.png",
+      "sha256": "4603af1f6d46ea91023e0b1a39b8fbcaf54df1039dda77ee9837f3386b6dfb36",
+      "errors": [],
+      "focus": "primary",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": "",
+      "label": "Baseline test 5 of 10 · 30 s",
+      "stage": "completed",
+      "progress": [
+        {
+          "now": "4",
+          "max": "10",
+          "text": "4 of 10 tests · 1 waiting to save"
+        },
+        {
+          "now": "4",
+          "max": "10",
+          "text": "4 of 10 tests · 1 waiting to save"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": "retry saving ↵",
+      "primaryInView": true,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "11-result-final-ready",
+      "mode": "forced",
+      "width": 1440,
+      "height": 900,
+      "file": "1440-FC-11-result-final-ready.png",
+      "sha256": "54c31debb38aa8585b0fa82c41a7356fb1b91bb653401716de7bbcaa2e8dbefe",
+      "errors": [],
+      "focus": "primary",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": "",
+      "label": "Baseline test 10 of 10 · 30 s",
+      "stage": "completed",
+      "progress": [
+        {
+          "now": "10",
+          "max": "10",
           "text": "10 of 10 tests"
         },
         {
@@ -710,34 +1296,70 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": "practise general ↵"
+      "resultPrimary": "try suggested · th ↵",
+      "primaryInView": true,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
-      "id": "26-assessment-partial-scan",
+      "id": "28-progress-summary",
+      "mode": "forced",
       "width": 1440,
       "height": 900,
-      "file": "1440-26-assessment-partial-scan.png",
-      "sha256": "d9fb7bf34a12e87603f1bd0ec6f6bf713719b2ba640143935ed72cce258c6219",
+      "file": "1440-FC-28-progress-summary.png",
+      "sha256": "822b6e3824de742eb870bf793a2cefb92cb764eee83274fa5f71fc04ddb61ffa",
+      "errors": [],
+      "focus": "body:Skip to content\n    \n    t_typeforge\n   ",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": null,
+      "label": null,
+      "stage": null,
+      "progress": [
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "35-assessment-recovery-ready",
+      "mode": "forced",
+      "width": 1440,
+      "height": 900,
+      "file": "1440-FC-35-assessment-recovery-ready.png",
+      "sha256": "c31c01a8a51a284eb84cbeb6ede08e0440c06d989cfc1ba29a03eb5fd08b522f",
       "errors": [],
       "focus": "typing-input",
       "overflowX": false,
       "activeLineTopPct": 36.9,
       "slotClipped": false,
-      "slotText": "baseline test 8 of 10 — the clock starts with your first letter",
-      "label": "Baseline test 8 of 10 · 30 s",
+      "slotText": "Test 5 isn’t saved yet, so it doesn’t count.retry saving",
+      "label": "Baseline test 6 of 10 · 30 s",
       "stage": "idle",
       "progress": [
         {
-          "now": "7",
+          "now": "4",
           "max": "10",
-          "text": "at least 7 of 10 tests"
+          "text": "4 of 10 tests · 1 waiting to save"
         }
       ],
       "suggested": null,
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "01-practice-first-visit",
+      "mode": "normal",
       "width": 390,
       "height": 844,
       "file": "390-01-practice-first-visit.png",
@@ -764,10 +1386,14 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "02-practice-locked-press",
+      "mode": "normal",
       "width": 390,
       "height": 844,
       "file": "390-02-practice-locked-press.png",
@@ -794,14 +1420,18 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "03-practice-why-in-progress",
+      "mode": "normal",
       "width": 390,
       "height": 844,
       "file": "390-03-practice-why-in-progress.png",
-      "sha256": "d5e0c49678c13e067829eadcec7b1d771c6c262cb7c0d612583a5f5d89fa702b",
+      "sha256": "72f857f311e7dfcc14ec5a52eb5113e6a4769e0dd9ee4267314768421f76a36c",
       "errors": [],
       "focus": "why-trigger",
       "overflowX": false,
@@ -824,10 +1454,14 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "04-assessment-test-1-ready",
+      "mode": "normal",
       "width": 390,
       "height": 844,
       "file": "390-04-assessment-test-1-ready.png",
@@ -848,20 +1482,24 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "05-assessment-keyboard-undeclared",
+      "mode": "normal",
       "width": 390,
       "height": 844,
       "file": "390-05-assessment-keyboard-undeclared.png",
-      "sha256": "9d4a15aed1d28c36ff506211b179a68e7d730b50d2b15edf66f80419342bb84d",
+      "sha256": "9ff69f273d3d44e6f48224cf78ff1ac621fc86c22ab42b5c1ee0dcfb4b1f918d",
       "errors": [],
       "focus": "typing-input",
       "overflowX": false,
       "activeLineTopPct": 31.6,
       "slotClipped": false,
-      "slotText": "Not a baseline test: it needs the qwerty key on (a physical QWERTY keyboard).",
+      "slotText": "Baseline tests need QWERTY.my keyboard is qwerty",
       "label": "Assessment · 30 s",
       "stage": "idle",
       "progress": [
@@ -872,10 +1510,14 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "06-assessment-other-duration",
+      "mode": "normal",
       "width": 390,
       "height": 844,
       "file": "390-06-assessment-other-duration.png",
@@ -896,10 +1538,14 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "07-result-intermediate",
+      "mode": "normal",
       "width": 390,
       "height": 844,
       "file": "390-07-result-intermediate.png",
@@ -914,7 +1560,7 @@
       "stage": "completed",
       "progress": [
         {
-          "now": "4",
+          "now": "5",
           "max": "10",
           "text": "5 of 10 tests"
         },
@@ -925,10 +1571,14 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": "next test ↵"
+      "resultPrimary": "next test ↵",
+      "primaryInView": true,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "08-result-flagged",
+      "mode": "normal",
       "width": 390,
       "height": 844,
       "file": "390-08-result-flagged.png",
@@ -954,14 +1604,18 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": "try test 5 again ↵"
+      "resultPrimary": "try test 5 again ↵",
+      "primaryInView": true,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "09-result-save-failed",
+      "mode": "normal",
       "width": 390,
       "height": 844,
       "file": "390-09-result-save-failed.png",
-      "sha256": "255f7cf7bd80f1ff79681b94f8c421c8722b7664a85bd6cadbdeb8238142263b",
+      "sha256": "c5ebebd72315dd1b6de0a161d95aaee2de70be509b843332f64c28b05ababc77",
       "errors": [],
       "focus": "primary",
       "overflowX": false,
@@ -983,10 +1637,14 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": "next test ↵"
+      "resultPrimary": "retry saving ↵",
+      "primaryInView": true,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "10-assessment-resumed",
+      "mode": "normal",
       "width": 390,
       "height": 844,
       "file": "390-10-assessment-resumed.png",
@@ -1007,14 +1665,18 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "11-result-final-ready",
+      "mode": "normal",
       "width": 390,
       "height": 844,
       "file": "390-11-result-final-ready.png",
-      "sha256": "2e440fa367453dcf59a4733fb31867f4453bda1615d6c7e151b11d0a27c825e4",
+      "sha256": "82c75cb0d71871fef674a2c47265747a9291b7d6095314a6aece75b24eb98e99",
       "errors": [],
       "focus": "primary",
       "overflowX": false,
@@ -1025,7 +1687,7 @@
       "stage": "completed",
       "progress": [
         {
-          "now": "9",
+          "now": "10",
           "max": "10",
           "text": "10 of 10 tests"
         },
@@ -1036,14 +1698,18 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": "try suggested · th ↵"
+      "resultPrimary": "try suggested · th ↵",
+      "primaryInView": true,
+      "scrollY": 296,
+      "undefinedText": false
     },
     {
       "id": "12-result-final-insufficient",
+      "mode": "normal",
       "width": 390,
       "height": 844,
       "file": "390-12-result-final-insufficient.png",
-      "sha256": "44aae26063b9e5a7acf47b7129c8a1a0b008151ae44cd9669307e17e55b1b3ee",
+      "sha256": "995f585efdebb30e4ade07ac336dde57fcac3cd3066c02470f3e59315b860fdc",
       "errors": [],
       "focus": "primary",
       "overflowX": false,
@@ -1054,7 +1720,7 @@
       "stage": "completed",
       "progress": [
         {
-          "now": "9",
+          "now": "10",
           "max": "10",
           "text": "10 of 10 tests"
         },
@@ -1065,10 +1731,14 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": "practise general ↵"
+      "resultPrimary": "practise general ↵",
+      "primaryInView": true,
+      "scrollY": 299,
+      "undefinedText": false
     },
     {
       "id": "13-practice-unlocked",
+      "mode": "normal",
       "width": 390,
       "height": 844,
       "file": "390-13-practice-unlocked.png",
@@ -1081,13 +1751,7 @@
       "slotText": "",
       "label": "General practice · 30 s",
       "stage": "idle",
-      "progress": [
-        {
-          "now": "10",
-          "max": "10",
-          "text": "10 of 10 tests"
-        }
-      ],
+      "progress": [],
       "suggested": {
         "role": "radio",
         "ariaDisabled": null,
@@ -1095,14 +1759,18 @@
         "locked": false,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "14-practice-suggested-why",
+      "mode": "normal",
       "width": 390,
       "height": 844,
       "file": "390-14-practice-suggested-why.png",
-      "sha256": "dc93988030a194970b39125132a968f149fa5643106ab3cc32cc50e357ffdd7d",
+      "sha256": "bdd6ddedb07cd3145711005cbb75ebbea7779798e56e54bc8538a313332a2c34",
       "errors": [],
       "focus": "why-trigger",
       "overflowX": false,
@@ -1119,10 +1787,14 @@
         "locked": false,
         "checked": true
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "15-practice-insufficient-why",
+      "mode": "normal",
       "width": 390,
       "height": 844,
       "file": "390-15-practice-insufficient-why.png",
@@ -1149,10 +1821,14 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "16-practice-stale-press",
+      "mode": "normal",
       "width": 390,
       "height": 844,
       "file": "390-16-practice-stale-press.png",
@@ -1179,10 +1855,14 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "17-practice-scan-incomplete",
+      "mode": "normal",
       "width": 390,
       "height": 844,
       "file": "390-17-practice-scan-incomplete.png",
@@ -1209,10 +1889,14 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "18-practice-focus-changed",
+      "mode": "normal",
       "width": 390,
       "height": 844,
       "file": "390-18-practice-focus-changed.png",
@@ -1233,10 +1917,14 @@
         "locked": false,
         "checked": true
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "19-practice-stepped-back",
+      "mode": "normal",
       "width": 390,
       "height": 844,
       "file": "390-19-practice-stepped-back.png",
@@ -1263,14 +1951,18 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "20-practice-after-deletion-why",
+      "mode": "normal",
       "width": 390,
       "height": 844,
       "file": "390-20-practice-after-deletion-why.png",
-      "sha256": "d2bdf8405467ec14ea0775f94c4a9fdfe6f85916cfd95f3a4934c1ab1f01179b",
+      "sha256": "ed2528218be4313e292b7834299c1cda7a0b0a1556c308bbdd0f07a5e24d982d",
       "errors": [],
       "focus": "why-trigger",
       "overflowX": false,
@@ -1293,14 +1985,18 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "21-progress-baseline",
+      "mode": "normal",
       "width": 390,
       "height": 844,
       "file": "390-21-progress-baseline.png",
-      "sha256": "2c1dc26bc4f238d37731238b4c6d1da992b9c94163947f0c4b60cfc4b24c4202",
+      "sha256": "29376b85f4ce612fe2edb723e07101ca0e9aa75974761d99b18a596e552ac83b",
       "errors": [],
       "focus": "body:Skip to content\n    \n    t_typeforge\n   ",
       "overflowX": false,
@@ -1317,14 +2013,18 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "22-progress-reset-confirm",
+      "mode": "normal",
       "width": 390,
       "height": 844,
       "file": "390-22-progress-reset-confirm.png",
-      "sha256": "9739184ae77f12b5b18b511d9f8d297f8e04ef647709135aeba0fb046c83dabc",
+      "sha256": "1b3de04a43a7439cd6a355f577189dd19ec75e75fed976ab89ffaebca5a81786",
       "errors": [],
       "focus": "keep",
       "overflowX": false,
@@ -1341,14 +2041,18 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "23-progress-reset-done",
+      "mode": "normal",
       "width": 390,
       "height": 844,
       "file": "390-23-progress-reset-done.png",
-      "sha256": "46d4726de505b63a76ee4cd49a935cd838dba4b037b8eff32015f19f6ee38ad7",
+      "sha256": "f8acbc4b6854e9135d75f968cce3bd99dd98261cf6a6a579cb08b2af74f49736",
       "errors": [],
       "focus": "baseline-heading",
       "overflowX": false,
@@ -1365,10 +2069,14 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "24-practice-storage-unavailable",
+      "mode": "normal",
       "width": 390,
       "height": 844,
       "file": "390-24-practice-storage-unavailable.png",
@@ -1389,10 +2097,14 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "25-practice-checking",
+      "mode": "normal",
       "width": 390,
       "height": 844,
       "file": "390-25-practice-checking.png",
@@ -1413,14 +2125,320 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "26-assessment-partial-scan",
+      "mode": "normal",
+      "width": 390,
+      "height": 844,
+      "file": "390-26-assessment-partial-scan.png",
+      "sha256": "3ba4bccacd8ddc298e17fc0ec33a3c6474041669a27797437efccd76d8ed801d",
+      "errors": [],
+      "focus": "typing-input",
+      "overflowX": false,
+      "activeLineTopPct": 31.6,
+      "slotClipped": false,
+      "slotText": "At least 7 of 10 found; this one counts too.",
+      "label": "Baseline test · 30 s",
+      "stage": "idle",
+      "progress": [
+        {
+          "now": "7",
+          "max": "10",
+          "text": "at least 7 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "27-result-final-sparse",
+      "mode": "normal",
       "width": 390,
       "height": 844,
       "file": "390-27-result-final-sparse.png",
-      "sha256": "012ed72e867b709c58f65f29259beeab1b052c447a0b3863e3f6885d23c5228f",
+      "sha256": "3678aecfc5d86181575638a5540a4d7e5fb9d66fd1c7bf0a25e8ab18edfe3413",
+      "errors": [],
+      "focus": "primary",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": "",
+      "label": "Baseline test 10 of 10 · 30 s",
+      "stage": "completed",
+      "progress": [
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        },
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": "practise general ↵",
+      "primaryInView": true,
+      "scrollY": 325,
+      "undefinedText": false
+    },
+    {
+      "id": "28-progress-summary",
+      "mode": "normal",
+      "width": 390,
+      "height": 844,
+      "file": "390-28-progress-summary.png",
+      "sha256": "b7f204af9afb8b749c790af63744e4ff296caa2766c462fbc55f5bb82df78626",
+      "errors": [],
+      "focus": "body:Skip to content\n    \n    t_typeforge\n   ",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": null,
+      "label": null,
+      "stage": null,
+      "progress": [
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "29-progress-summary-pending",
+      "mode": "normal",
+      "width": 390,
+      "height": 844,
+      "file": "390-29-progress-summary-pending.png",
+      "sha256": "eade11883e657e04944e5fe33159499703fbf796ffa6415660d801396017b36a",
+      "errors": [],
+      "focus": "body:Skip to content\n    \n    t_typeforge\n   ",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": null,
+      "label": null,
+      "stage": null,
+      "progress": [
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "30-progress-summary-null-accuracy",
+      "mode": "normal",
+      "width": 390,
+      "height": 844,
+      "file": "390-30-progress-summary-null-accuracy.png",
+      "sha256": "40279fb4ba5c525408bc5d4c64d504073dc5a4c85e8df62c774d628fee578f29",
+      "errors": [],
+      "focus": "body:Skip to content\n    \n    t_typeforge\n   ",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": null,
+      "label": null,
+      "stage": null,
+      "progress": [
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "31-practice-deferred-press",
+      "mode": "normal",
+      "width": 390,
+      "height": 844,
+      "file": "390-31-practice-deferred-press.png",
+      "sha256": "41e2c9af070592bc206bbc6be50b73e317032d4994997029880944d7abfa97fd",
+      "errors": [],
+      "focus": "suggested-item",
+      "overflowX": false,
+      "activeLineTopPct": 37.5,
+      "slotClipped": false,
+      "slotText": "Suggested isn’t switched on in this version. General works as usual.",
+      "label": "General practice · 30 s",
+      "stage": "idle",
+      "progress": [
+        {
+          "now": "4",
+          "max": "10",
+          "text": "4 of 10 tests"
+        }
+      ],
+      "suggested": {
+        "role": "radio",
+        "ariaDisabled": "true",
+        "tabindex": "-1",
+        "locked": true,
+        "checked": false
+      },
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "32-practice-deferred-why",
+      "mode": "normal",
+      "width": 390,
+      "height": 844,
+      "file": "390-32-practice-deferred-why.png",
+      "sha256": "59760ca2ab686f63db31b9b05923ace53206e368f16c499ef5ff01af6df4c787",
+      "errors": [],
+      "focus": "why-trigger",
+      "overflowX": false,
+      "activeLineTopPct": 37.5,
+      "slotClipped": false,
+      "slotText": "",
+      "label": "General practice · 30 s",
+      "stage": "idle",
+      "progress": [
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        }
+      ],
+      "suggested": {
+        "role": "radio",
+        "ariaDisabled": "true",
+        "tabindex": "-1",
+        "locked": true,
+        "checked": false
+      },
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "33-result-final-deferred",
+      "mode": "normal",
+      "width": 390,
+      "height": 844,
+      "file": "390-33-result-final-deferred.png",
+      "sha256": "9a2394ee7e637de8cdca28122ab19e0867723fea46a8b00e298f7a85c1569c08",
+      "errors": [],
+      "focus": "primary",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": "",
+      "label": "Baseline test 10 of 10 · 30 s",
+      "stage": "completed",
+      "progress": [
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        },
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": "practise general ↵",
+      "primaryInView": true,
+      "scrollY": 43,
+      "undefinedText": false
+    },
+    {
+      "id": "34-result-not-counted-qwerty",
+      "mode": "normal",
+      "width": 390,
+      "height": 844,
+      "file": "390-34-result-not-counted-qwerty.png",
+      "sha256": "788b6590172673df7845fea0827355d7289ea0479f69cced4c2a5956e0b36fbd",
+      "errors": [],
+      "focus": "primary",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": "",
+      "label": "Assessment · 30 s",
+      "stage": "completed",
+      "progress": [
+        {
+          "now": "0",
+          "max": "10",
+          "text": "0 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": "practice next ↵",
+      "primaryInView": true,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "35-assessment-recovery-ready",
+      "mode": "normal",
+      "width": 390,
+      "height": 844,
+      "file": "390-35-assessment-recovery-ready.png",
+      "sha256": "db2206e9231fc7bee1e2d8b044351ef065e9230f2aa08f29220ada447c226870",
+      "errors": [],
+      "focus": "typing-input",
+      "overflowX": false,
+      "activeLineTopPct": 33.6,
+      "slotClipped": false,
+      "slotText": "Test 5 isn’t saved yet, so it doesn’t count.retry saving",
+      "label": "Baseline test 6 of 10 · 30 s",
+      "stage": "idle",
+      "progress": [
+        {
+          "now": "4",
+          "max": "10",
+          "text": "4 of 10 tests · 1 waiting to save"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "36-result-final-save-failed",
+      "mode": "normal",
+      "width": 390,
+      "height": 844,
+      "file": "390-36-result-final-save-failed.png",
+      "sha256": "8ac13693cc23e58915bc5aaee209b69e9f5263ac1000725b497d3cbbd860f8cc",
       "errors": [],
       "focus": "primary",
       "overflowX": false,
@@ -1433,6 +2451,195 @@
         {
           "now": "9",
           "max": "10",
+          "text": "9 of 10 tests · 1 waiting to save"
+        },
+        {
+          "now": "9",
+          "max": "10",
+          "text": "9 of 10 tests · 1 waiting to save"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": "retry saving ↵",
+      "primaryInView": true,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "37-practice-plan-end",
+      "mode": "normal",
+      "width": 390,
+      "height": 844,
+      "file": "390-37-practice-plan-end.png",
+      "sha256": "c22a81ac28c9979364cfa24e0a29397488c4df51a6d980c47b1ab36869ea941d",
+      "errors": [],
+      "focus": "primary",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": "",
+      "label": "Suggested practice · th · 60 s",
+      "stage": "completed",
+      "progress": [],
+      "suggested": {
+        "role": "radio",
+        "ariaDisabled": null,
+        "tabindex": "0",
+        "locked": false,
+        "checked": true
+      },
+      "resultPrimary": "suggested again ↵",
+      "primaryInView": true,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "38-practice-policy-invalid",
+      "mode": "normal",
+      "width": 390,
+      "height": 844,
+      "file": "390-38-practice-policy-invalid.png",
+      "sha256": "363171b24f876fbb137fdf5f50daaff617b4dd34a0456ca43122f0ad3e53d23b",
+      "errors": [],
+      "focus": "why-trigger",
+      "overflowX": false,
+      "activeLineTopPct": 37.5,
+      "slotClipped": false,
+      "slotText": "",
+      "label": "General practice · 30 s",
+      "stage": "idle",
+      "progress": [],
+      "suggested": {
+        "role": "radio",
+        "ariaDisabled": "true",
+        "tabindex": "-1",
+        "locked": true,
+        "checked": false
+      },
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "02-practice-locked-press",
+      "mode": "forced",
+      "width": 390,
+      "height": 844,
+      "file": "390-FC-02-practice-locked-press.png",
+      "sha256": "1d0f50ce2f9a64e49b20053bb88ca2526b87f9747b63ce5626d6c35b6a653be7",
+      "errors": [],
+      "focus": "suggested-item",
+      "overflowX": false,
+      "activeLineTopPct": 37.5,
+      "slotClipped": false,
+      "slotText": "Suggested needs 10 baseline tests · 0 done.take test 1 →",
+      "label": "General practice · 30 s",
+      "stage": "idle",
+      "progress": [
+        {
+          "now": "0",
+          "max": "10",
+          "text": "0 of 10 tests"
+        }
+      ],
+      "suggested": {
+        "role": "radio",
+        "ariaDisabled": "true",
+        "tabindex": "-1",
+        "locked": true,
+        "checked": false
+      },
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "07-result-intermediate",
+      "mode": "forced",
+      "width": 390,
+      "height": 844,
+      "file": "390-FC-07-result-intermediate.png",
+      "sha256": "0198ede26ad021dd20d8411466a4126ed5ed251a5c321e4f37e8a9010df26c08",
+      "errors": [],
+      "focus": "primary",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": "",
+      "label": "Baseline test 5 of 10 · 30 s",
+      "stage": "completed",
+      "progress": [
+        {
+          "now": "5",
+          "max": "10",
+          "text": "5 of 10 tests"
+        },
+        {
+          "now": "5",
+          "max": "10",
+          "text": "5 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": "next test ↵",
+      "primaryInView": true,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "09-result-save-failed",
+      "mode": "forced",
+      "width": 390,
+      "height": 844,
+      "file": "390-FC-09-result-save-failed.png",
+      "sha256": "db4690ed3d2641e54ff0c1b0d808f6289c8b4a0ae59ca04584d4dd0172f04d4c",
+      "errors": [],
+      "focus": "primary",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": "",
+      "label": "Baseline test 5 of 10 · 30 s",
+      "stage": "completed",
+      "progress": [
+        {
+          "now": "4",
+          "max": "10",
+          "text": "4 of 10 tests · 1 waiting to save"
+        },
+        {
+          "now": "4",
+          "max": "10",
+          "text": "4 of 10 tests · 1 waiting to save"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": "retry saving ↵",
+      "primaryInView": true,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "11-result-final-ready",
+      "mode": "forced",
+      "width": 390,
+      "height": 844,
+      "file": "390-FC-11-result-final-ready.png",
+      "sha256": "50dab50e2eb381f31b02c684be61ff0d0d120427a95ed38dd3ce53e103adba75",
+      "errors": [],
+      "focus": "primary",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": "",
+      "label": "Baseline test 10 of 10 · 30 s",
+      "stage": "completed",
+      "progress": [
+        {
+          "now": "10",
+          "max": "10",
           "text": "10 of 10 tests"
         },
         {
@@ -1442,34 +2649,70 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": "practise general ↵"
+      "resultPrimary": "try suggested · th ↵",
+      "primaryInView": true,
+      "scrollY": 296,
+      "undefinedText": false
     },
     {
-      "id": "26-assessment-partial-scan",
+      "id": "28-progress-summary",
+      "mode": "forced",
       "width": 390,
       "height": 844,
-      "file": "390-26-assessment-partial-scan.png",
-      "sha256": "4dcd332086b54813c56622818f9d69ce206b4a9ed9e27550596f92af6636e9ca",
+      "file": "390-FC-28-progress-summary.png",
+      "sha256": "3fba52308277eb26c7ba2606ab1b8a7b677c251be11cfa65cb4de04a932e0baf",
+      "errors": [],
+      "focus": "body:Skip to content\n    \n    t_typeforge\n   ",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": null,
+      "label": null,
+      "stage": null,
+      "progress": [
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "35-assessment-recovery-ready",
+      "mode": "forced",
+      "width": 390,
+      "height": 844,
+      "file": "390-FC-35-assessment-recovery-ready.png",
+      "sha256": "204ded49d2e23c9bfec1fe424d06bf06311eaa1470329218e8277a7eb79a7a16",
       "errors": [],
       "focus": "typing-input",
       "overflowX": false,
       "activeLineTopPct": 33.6,
       "slotClipped": false,
-      "slotText": "baseline test 8 of 10 — the clock starts with your first letter",
-      "label": "Baseline test 8 of 10 · 30 s",
+      "slotText": "Test 5 isn’t saved yet, so it doesn’t count.retry saving",
+      "label": "Baseline test 6 of 10 · 30 s",
       "stage": "idle",
       "progress": [
         {
-          "now": "7",
+          "now": "4",
           "max": "10",
-          "text": "at least 7 of 10 tests"
+          "text": "4 of 10 tests · 1 waiting to save"
         }
       ],
       "suggested": null,
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "01-practice-first-visit",
+      "mode": "normal",
       "width": 320,
       "height": 640,
       "file": "320-01-practice-first-visit.png",
@@ -1496,10 +2739,14 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "02-practice-locked-press",
+      "mode": "normal",
       "width": 320,
       "height": 640,
       "file": "320-02-practice-locked-press.png",
@@ -1526,14 +2773,18 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "03-practice-why-in-progress",
+      "mode": "normal",
       "width": 320,
       "height": 640,
       "file": "320-03-practice-why-in-progress.png",
-      "sha256": "d8cd5307fce9082780da67fc44914da90667209a459d08be8c6ac445c5643f19",
+      "sha256": "2d2215b5bbd9fa3bcc3eb6a53554ac101ee34d73ed5848a61fa5ef6704bbe729",
       "errors": [],
       "focus": "why-trigger",
       "overflowX": false,
@@ -1556,10 +2807,14 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "04-assessment-test-1-ready",
+      "mode": "normal",
       "width": 320,
       "height": 640,
       "file": "320-04-assessment-test-1-ready.png",
@@ -1580,20 +2835,24 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "05-assessment-keyboard-undeclared",
+      "mode": "normal",
       "width": 320,
       "height": 640,
       "file": "320-05-assessment-keyboard-undeclared.png",
-      "sha256": "dedb80a5000c31f698bbcbba79944f2233f0136fe28c024187ee565fec414dbc",
+      "sha256": "009c4656dcbcbdf5ab82440c96c741d37e2d223b05ea382a14aedf940692f783",
       "errors": [],
       "focus": "typing-input",
       "overflowX": false,
       "activeLineTopPct": 40.6,
       "slotClipped": false,
-      "slotText": "Not a baseline test: it needs the qwerty key on (a physical QWERTY keyboard).",
+      "slotText": "Baseline tests need QWERTY.my keyboard is qwerty",
       "label": "Assessment · 30 s",
       "stage": "idle",
       "progress": [
@@ -1604,10 +2863,14 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "06-assessment-other-duration",
+      "mode": "normal",
       "width": 320,
       "height": 640,
       "file": "320-06-assessment-other-duration.png",
@@ -1628,10 +2891,14 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "07-result-intermediate",
+      "mode": "normal",
       "width": 320,
       "height": 640,
       "file": "320-07-result-intermediate.png",
@@ -1646,7 +2913,7 @@
       "stage": "completed",
       "progress": [
         {
-          "now": "4",
+          "now": "5",
           "max": "10",
           "text": "5 of 10 tests"
         },
@@ -1657,10 +2924,14 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": "next test ↵"
+      "resultPrimary": "next test ↵",
+      "primaryInView": true,
+      "scrollY": 367,
+      "undefinedText": false
     },
     {
       "id": "08-result-flagged",
+      "mode": "normal",
       "width": 320,
       "height": 640,
       "file": "320-08-result-flagged.png",
@@ -1686,14 +2957,18 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": "try test 5 again ↵"
+      "resultPrimary": "try test 5 again ↵",
+      "primaryInView": true,
+      "scrollY": 447,
+      "undefinedText": false
     },
     {
       "id": "09-result-save-failed",
+      "mode": "normal",
       "width": 320,
       "height": 640,
       "file": "320-09-result-save-failed.png",
-      "sha256": "fca49ef05416cb003560ce548d11bbcb37e031c6e4f11f79d0bb29a00a670266",
+      "sha256": "96692af184c741d7f3b6d4aa606954baa2fa8d357d63101284ad57484bc40414",
       "errors": [],
       "focus": "primary",
       "overflowX": false,
@@ -1715,10 +2990,14 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": "next test ↵"
+      "resultPrimary": "retry saving ↵",
+      "primaryInView": true,
+      "scrollY": 413,
+      "undefinedText": false
     },
     {
       "id": "10-assessment-resumed",
+      "mode": "normal",
       "width": 320,
       "height": 640,
       "file": "320-10-assessment-resumed.png",
@@ -1739,14 +3018,18 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "11-result-final-ready",
+      "mode": "normal",
       "width": 320,
       "height": 640,
       "file": "320-11-result-final-ready.png",
-      "sha256": "de5787a452a5328311685c4127b7b16dc0b1a7b6feba517b56ffde5cb669089c",
+      "sha256": "dfb6a38b1316380c278a4197ceffd42cad6d1f90628fa478862500f89139e82a",
       "errors": [],
       "focus": "primary",
       "overflowX": false,
@@ -1757,7 +3040,7 @@
       "stage": "completed",
       "progress": [
         {
-          "now": "9",
+          "now": "10",
           "max": "10",
           "text": "10 of 10 tests"
         },
@@ -1768,14 +3051,18 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": "try suggested · th ↵"
+      "resultPrimary": "try suggested · th ↵",
+      "primaryInView": true,
+      "scrollY": 641,
+      "undefinedText": false
     },
     {
       "id": "12-result-final-insufficient",
+      "mode": "normal",
       "width": 320,
       "height": 640,
       "file": "320-12-result-final-insufficient.png",
-      "sha256": "4f0231198f5a8774c517b28cd55d540f002458cc835ad0db837cea3bc2c887c0",
+      "sha256": "d1b11e7ceb4b18c99c159d7d66f6c9ea48f6c3d8ab8fdb74a019fa945bf14bd0",
       "errors": [],
       "focus": "primary",
       "overflowX": false,
@@ -1786,7 +3073,7 @@
       "stage": "completed",
       "progress": [
         {
-          "now": "9",
+          "now": "10",
           "max": "10",
           "text": "10 of 10 tests"
         },
@@ -1797,10 +3084,14 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": "practise general ↵"
+      "resultPrimary": "practise general ↵",
+      "primaryInView": true,
+      "scrollY": 612,
+      "undefinedText": false
     },
     {
       "id": "13-practice-unlocked",
+      "mode": "normal",
       "width": 320,
       "height": 640,
       "file": "320-13-practice-unlocked.png",
@@ -1813,13 +3104,7 @@
       "slotText": "",
       "label": "General practice · 30 s",
       "stage": "idle",
-      "progress": [
-        {
-          "now": "10",
-          "max": "10",
-          "text": "10 of 10 tests"
-        }
-      ],
+      "progress": [],
       "suggested": {
         "role": "radio",
         "ariaDisabled": null,
@@ -1827,14 +3112,18 @@
         "locked": false,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "14-practice-suggested-why",
+      "mode": "normal",
       "width": 320,
       "height": 640,
       "file": "320-14-practice-suggested-why.png",
-      "sha256": "27eb087633dd3a331e0aa8fd60673adffcb755d48002e2280109c5155f9bcbee",
+      "sha256": "4eb3dba9fd344bc6fa08c4b1d9318b992e61f8f0d601be9922e3bc06462ed6b5",
       "errors": [],
       "focus": "why-trigger",
       "overflowX": false,
@@ -1851,10 +3140,14 @@
         "locked": false,
         "checked": true
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "15-practice-insufficient-why",
+      "mode": "normal",
       "width": 320,
       "height": 640,
       "file": "320-15-practice-insufficient-why.png",
@@ -1881,10 +3174,14 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "16-practice-stale-press",
+      "mode": "normal",
       "width": 320,
       "height": 640,
       "file": "320-16-practice-stale-press.png",
@@ -1911,10 +3208,14 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "17-practice-scan-incomplete",
+      "mode": "normal",
       "width": 320,
       "height": 640,
       "file": "320-17-practice-scan-incomplete.png",
@@ -1941,10 +3242,14 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "18-practice-focus-changed",
+      "mode": "normal",
       "width": 320,
       "height": 640,
       "file": "320-18-practice-focus-changed.png",
@@ -1965,10 +3270,14 @@
         "locked": false,
         "checked": true
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "19-practice-stepped-back",
+      "mode": "normal",
       "width": 320,
       "height": 640,
       "file": "320-19-practice-stepped-back.png",
@@ -1995,14 +3304,18 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "20-practice-after-deletion-why",
+      "mode": "normal",
       "width": 320,
       "height": 640,
       "file": "320-20-practice-after-deletion-why.png",
-      "sha256": "b883bf9a11edebd032d3a161f6bbdd184d515cfa12ca31c60578bac6ab55b3e4",
+      "sha256": "57e89ebd7458110660fe536a6363f2e39cfc53f6c6b676eba7dfc488401fd3f3",
       "errors": [],
       "focus": "why-trigger",
       "overflowX": false,
@@ -2025,14 +3338,18 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "21-progress-baseline",
+      "mode": "normal",
       "width": 320,
       "height": 640,
       "file": "320-21-progress-baseline.png",
-      "sha256": "421852fd8867228ebe69a4f43b482ac0b67fe594a391c407d59d773848b97ca4",
+      "sha256": "0d1ff5ba1324a0968569a75dc5b916faa694f880962c5b182898c54ed27018f7",
       "errors": [],
       "focus": "body:Skip to content\n    \n    t_typeforge\n   ",
       "overflowX": false,
@@ -2049,14 +3366,18 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "22-progress-reset-confirm",
+      "mode": "normal",
       "width": 320,
       "height": 640,
       "file": "320-22-progress-reset-confirm.png",
-      "sha256": "2168e24651eb85cf58444f309c28a4b9966d6049a1f0de875b25e9138d7012fb",
+      "sha256": "702c09949d7fb622243c19f8dc2f5f3c2eb507721a00870680ae4490663dcfcf",
       "errors": [],
       "focus": "keep",
       "overflowX": false,
@@ -2073,14 +3394,18 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 375,
+      "undefinedText": false
     },
     {
       "id": "23-progress-reset-done",
+      "mode": "normal",
       "width": 320,
       "height": 640,
       "file": "320-23-progress-reset-done.png",
-      "sha256": "e75f449924bdddf09271ca19db88c7c2bf684d6db6e3e6be1f295f929e440cd0",
+      "sha256": "d274f4bb5b6b1631cc44220f768db66ae515e41ce14e99e4e00715e749b8fc8a",
       "errors": [],
       "focus": "baseline-heading",
       "overflowX": false,
@@ -2097,10 +3422,14 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "24-practice-storage-unavailable",
+      "mode": "normal",
       "width": 320,
       "height": 640,
       "file": "320-24-practice-storage-unavailable.png",
@@ -2121,10 +3450,14 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "25-practice-checking",
+      "mode": "normal",
       "width": 320,
       "height": 640,
       "file": "320-25-practice-checking.png",
@@ -2145,14 +3478,320 @@
         "locked": true,
         "checked": false
       },
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "26-assessment-partial-scan",
+      "mode": "normal",
+      "width": 320,
+      "height": 640,
+      "file": "320-26-assessment-partial-scan.png",
+      "sha256": "c81075289db190161825f8e185ec3dc461e68a70a53e6d88dffe9b3f4a41ea9f",
+      "errors": [],
+      "focus": "typing-input",
+      "overflowX": false,
+      "activeLineTopPct": 40.6,
+      "slotClipped": false,
+      "slotText": "At least 7 of 10 found; this one counts too.",
+      "label": "Baseline test · 30 s",
+      "stage": "idle",
+      "progress": [
+        {
+          "now": "7",
+          "max": "10",
+          "text": "at least 7 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     },
     {
       "id": "27-result-final-sparse",
+      "mode": "normal",
       "width": 320,
       "height": 640,
       "file": "320-27-result-final-sparse.png",
-      "sha256": "8425057f9bdca7f10977d76950b1004009b49e985279014592f0ff90ce7dfa2a",
+      "sha256": "53d873c161acae15592f74b80bc9b1558bf89a46b58140364bc68958f0b4879b",
+      "errors": [],
+      "focus": "primary",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": "",
+      "label": "Baseline test 10 of 10 · 30 s",
+      "stage": "completed",
+      "progress": [
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        },
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": "practise general ↵",
+      "primaryInView": true,
+      "scrollY": 638,
+      "undefinedText": false
+    },
+    {
+      "id": "28-progress-summary",
+      "mode": "normal",
+      "width": 320,
+      "height": 640,
+      "file": "320-28-progress-summary.png",
+      "sha256": "c1087a9bb050194cde5149db0661d96d05dbe8f4dd03e2fe619d87574107c19f",
+      "errors": [],
+      "focus": "body:Skip to content\n    \n    t_typeforge\n   ",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": null,
+      "label": null,
+      "stage": null,
+      "progress": [
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "29-progress-summary-pending",
+      "mode": "normal",
+      "width": 320,
+      "height": 640,
+      "file": "320-29-progress-summary-pending.png",
+      "sha256": "33d98eac753e8c83c03b814c9286efe86192f45a1e19fab261a10ac72a2d7290",
+      "errors": [],
+      "focus": "body:Skip to content\n    \n    t_typeforge\n   ",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": null,
+      "label": null,
+      "stage": null,
+      "progress": [
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "30-progress-summary-null-accuracy",
+      "mode": "normal",
+      "width": 320,
+      "height": 640,
+      "file": "320-30-progress-summary-null-accuracy.png",
+      "sha256": "8445c523ac5b8bbbafdf2f7f9624f3bd5f69428e2f5499d9147b9c688c43abf1",
+      "errors": [],
+      "focus": "body:Skip to content\n    \n    t_typeforge\n   ",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": null,
+      "label": null,
+      "stage": null,
+      "progress": [
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "31-practice-deferred-press",
+      "mode": "normal",
+      "width": 320,
+      "height": 640,
+      "file": "320-31-practice-deferred-press.png",
+      "sha256": "f9540b0462701293eca27948f7020468537eeababdab97bf8d002bf6179e49c3",
+      "errors": [],
+      "focus": "suggested-item",
+      "overflowX": false,
+      "activeLineTopPct": 48.4,
+      "slotClipped": false,
+      "slotText": "Suggested isn’t switched on in this version. General works as usual.",
+      "label": "General practice · 30 s",
+      "stage": "idle",
+      "progress": [
+        {
+          "now": "4",
+          "max": "10",
+          "text": "4 of 10 tests"
+        }
+      ],
+      "suggested": {
+        "role": "radio",
+        "ariaDisabled": "true",
+        "tabindex": "-1",
+        "locked": true,
+        "checked": false
+      },
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "32-practice-deferred-why",
+      "mode": "normal",
+      "width": 320,
+      "height": 640,
+      "file": "320-32-practice-deferred-why.png",
+      "sha256": "1bc48c868774777e9094b0b77ada407cf45a1949178efed404ce3a37d4f69817",
+      "errors": [],
+      "focus": "why-trigger",
+      "overflowX": false,
+      "activeLineTopPct": 48.4,
+      "slotClipped": false,
+      "slotText": "",
+      "label": "General practice · 30 s",
+      "stage": "idle",
+      "progress": [
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        }
+      ],
+      "suggested": {
+        "role": "radio",
+        "ariaDisabled": "true",
+        "tabindex": "-1",
+        "locked": true,
+        "checked": false
+      },
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "33-result-final-deferred",
+      "mode": "normal",
+      "width": 320,
+      "height": 640,
+      "file": "320-33-result-final-deferred.png",
+      "sha256": "1ca1225cb345c371d52b809eeb78bbfa28f9c1c8009fe0acd9d9080259b0f72d",
+      "errors": [],
+      "focus": "primary",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": "",
+      "label": "Baseline test 10 of 10 · 30 s",
+      "stage": "completed",
+      "progress": [
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        },
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": "practise general ↵",
+      "primaryInView": true,
+      "scrollY": 534,
+      "undefinedText": false
+    },
+    {
+      "id": "34-result-not-counted-qwerty",
+      "mode": "normal",
+      "width": 320,
+      "height": 640,
+      "file": "320-34-result-not-counted-qwerty.png",
+      "sha256": "0db0a846cc13ef0a29a45d1579e94c67db9c822d8a6a7ed4b8b5e5f5770e21e7",
+      "errors": [],
+      "focus": "primary",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": "",
+      "label": "Assessment · 30 s",
+      "stage": "completed",
+      "progress": [
+        {
+          "now": "0",
+          "max": "10",
+          "text": "0 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": "practice next ↵",
+      "primaryInView": true,
+      "scrollY": 331,
+      "undefinedText": false
+    },
+    {
+      "id": "35-assessment-recovery-ready",
+      "mode": "normal",
+      "width": 320,
+      "height": 640,
+      "file": "320-35-assessment-recovery-ready.png",
+      "sha256": "9fb1f4bb8d09785f4cf4a03857b02b57846e1956b5581573dc466da01a8cf7b6",
+      "errors": [],
+      "focus": "typing-input",
+      "overflowX": false,
+      "activeLineTopPct": 42.8,
+      "slotClipped": false,
+      "slotText": "Test 5 isn’t saved yet, so it doesn’t count.retry saving",
+      "label": "Baseline test 6 of 10 · 30 s",
+      "stage": "idle",
+      "progress": [
+        {
+          "now": "4",
+          "max": "10",
+          "text": "4 of 10 tests · 1 waiting to save"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "36-result-final-save-failed",
+      "mode": "normal",
+      "width": 320,
+      "height": 640,
+      "file": "320-36-result-final-save-failed.png",
+      "sha256": "3255ea6d64de73f732ec58f67520ab79db8df034a268d935c672b8018e65ad74",
       "errors": [],
       "focus": "primary",
       "overflowX": false,
@@ -2165,6 +3804,195 @@
         {
           "now": "9",
           "max": "10",
+          "text": "9 of 10 tests · 1 waiting to save"
+        },
+        {
+          "now": "9",
+          "max": "10",
+          "text": "9 of 10 tests · 1 waiting to save"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": "retry saving ↵",
+      "primaryInView": true,
+      "scrollY": 413,
+      "undefinedText": false
+    },
+    {
+      "id": "37-practice-plan-end",
+      "mode": "normal",
+      "width": 320,
+      "height": 640,
+      "file": "320-37-practice-plan-end.png",
+      "sha256": "ba3c4b04b93d8023a42aea597f997a8301fac7c478c1f52e0b461afffee0bddf",
+      "errors": [],
+      "focus": "primary",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": "",
+      "label": "Suggested practice · th · 60 s",
+      "stage": "completed",
+      "progress": [],
+      "suggested": {
+        "role": "radio",
+        "ariaDisabled": null,
+        "tabindex": "0",
+        "locked": false,
+        "checked": true
+      },
+      "resultPrimary": "suggested again ↵",
+      "primaryInView": true,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "38-practice-policy-invalid",
+      "mode": "normal",
+      "width": 320,
+      "height": 640,
+      "file": "320-38-practice-policy-invalid.png",
+      "sha256": "00692b58b22d3ccbb05dc3944a3339d7a81c668304d81dc6fad98ba34dd2d4ef",
+      "errors": [],
+      "focus": "why-trigger",
+      "overflowX": false,
+      "activeLineTopPct": 48.4,
+      "slotClipped": false,
+      "slotText": "",
+      "label": "General practice · 30 s",
+      "stage": "idle",
+      "progress": [],
+      "suggested": {
+        "role": "radio",
+        "ariaDisabled": "true",
+        "tabindex": "-1",
+        "locked": true,
+        "checked": false
+      },
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "02-practice-locked-press",
+      "mode": "forced",
+      "width": 320,
+      "height": 640,
+      "file": "320-FC-02-practice-locked-press.png",
+      "sha256": "7709c2e36976e7b838eb9bcbcaa285a814d1e973ae4376a7ce1a8720b3df8973",
+      "errors": [],
+      "focus": "suggested-item",
+      "overflowX": false,
+      "activeLineTopPct": 48.4,
+      "slotClipped": false,
+      "slotText": "Suggested needs 10 baseline tests · 0 done.take test 1 →",
+      "label": "General practice · 30 s",
+      "stage": "idle",
+      "progress": [
+        {
+          "now": "0",
+          "max": "10",
+          "text": "0 of 10 tests"
+        }
+      ],
+      "suggested": {
+        "role": "radio",
+        "ariaDisabled": "true",
+        "tabindex": "-1",
+        "locked": true,
+        "checked": false
+      },
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "07-result-intermediate",
+      "mode": "forced",
+      "width": 320,
+      "height": 640,
+      "file": "320-FC-07-result-intermediate.png",
+      "sha256": "4941a3bf27ad63d7870dda57109bef20eb8ab3d0e71ed7e6a621cd05d694de30",
+      "errors": [],
+      "focus": "primary",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": "",
+      "label": "Baseline test 5 of 10 · 30 s",
+      "stage": "completed",
+      "progress": [
+        {
+          "now": "5",
+          "max": "10",
+          "text": "5 of 10 tests"
+        },
+        {
+          "now": "5",
+          "max": "10",
+          "text": "5 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": "next test ↵",
+      "primaryInView": true,
+      "scrollY": 367,
+      "undefinedText": false
+    },
+    {
+      "id": "09-result-save-failed",
+      "mode": "forced",
+      "width": 320,
+      "height": 640,
+      "file": "320-FC-09-result-save-failed.png",
+      "sha256": "58afed3dbccf774f2e0b1a59c5f03ba8da05725e8feaf3735a06a054fcfc20c2",
+      "errors": [],
+      "focus": "primary",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": "",
+      "label": "Baseline test 5 of 10 · 30 s",
+      "stage": "completed",
+      "progress": [
+        {
+          "now": "4",
+          "max": "10",
+          "text": "4 of 10 tests · 1 waiting to save"
+        },
+        {
+          "now": "4",
+          "max": "10",
+          "text": "4 of 10 tests · 1 waiting to save"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": "retry saving ↵",
+      "primaryInView": true,
+      "scrollY": 413,
+      "undefinedText": false
+    },
+    {
+      "id": "11-result-final-ready",
+      "mode": "forced",
+      "width": 320,
+      "height": 640,
+      "file": "320-FC-11-result-final-ready.png",
+      "sha256": "f44500ed727292ae24f1c6f43bdbcba3e56b266db7b88f77c931058df112301e",
+      "errors": [],
+      "focus": "primary",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": "",
+      "label": "Baseline test 10 of 10 · 30 s",
+      "stage": "completed",
+      "progress": [
+        {
+          "now": "10",
+          "max": "10",
           "text": "10 of 10 tests"
         },
         {
@@ -2174,31 +4002,66 @@
         }
       ],
       "suggested": null,
-      "resultPrimary": "practise general ↵"
+      "resultPrimary": "try suggested · th ↵",
+      "primaryInView": true,
+      "scrollY": 641,
+      "undefinedText": false
     },
     {
-      "id": "26-assessment-partial-scan",
+      "id": "28-progress-summary",
+      "mode": "forced",
       "width": 320,
       "height": 640,
-      "file": "320-26-assessment-partial-scan.png",
-      "sha256": "e42a44578f6b2e2b9408d19d632847b0734600ce9e4c890b4af9243c64868b5b",
+      "file": "320-FC-28-progress-summary.png",
+      "sha256": "b47b8c0ab8ec336ead9ebbe48aa053352e48020e1384dc51d937e750fabab306",
+      "errors": [],
+      "focus": "body:Skip to content\n    \n    t_typeforge\n   ",
+      "overflowX": false,
+      "activeLineTopPct": null,
+      "slotClipped": null,
+      "slotText": null,
+      "label": null,
+      "stage": null,
+      "progress": [
+        {
+          "now": "10",
+          "max": "10",
+          "text": "10 of 10 tests"
+        }
+      ],
+      "suggested": null,
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
+    },
+    {
+      "id": "35-assessment-recovery-ready",
+      "mode": "forced",
+      "width": 320,
+      "height": 640,
+      "file": "320-FC-35-assessment-recovery-ready.png",
+      "sha256": "1ea6d103204df350c44d818d92ecfc966761cbdf902dfc7ba37fc6fee75a9d26",
       "errors": [],
       "focus": "typing-input",
       "overflowX": false,
       "activeLineTopPct": 42.8,
       "slotClipped": false,
-      "slotText": "baseline test 8 of 10 — the clock starts with your first letter",
-      "label": "Baseline test 8 of 10 · 30 s",
+      "slotText": "Test 5 isn’t saved yet, so it doesn’t count.retry saving",
+      "label": "Baseline test 6 of 10 · 30 s",
       "stage": "idle",
       "progress": [
         {
-          "now": "7",
+          "now": "4",
           "max": "10",
-          "text": "at least 7 of 10 tests"
+          "text": "4 of 10 tests · 1 waiting to save"
         }
       ],
       "suggested": null,
-      "resultPrimary": null
+      "resultPrimary": null,
+      "primaryInView": null,
+      "scrollY": 0,
+      "undefinedText": false
     }
   ]
 }

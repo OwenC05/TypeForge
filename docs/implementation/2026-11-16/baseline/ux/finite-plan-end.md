@@ -12,7 +12,11 @@
 4. **The result label states what happened**: `Suggested practice · th · all N sentences done at T s of D`. T is the actual elapsed seconds and D is the chosen duration. It is never `D s · complete`, and nothing calls it a completed 30-second run.
 5. **Observation line:** *That’s every sentence in this th block, so it ended before the timer. The next suggested block uses the same small set of sentences.* There is no dose, exposure, "th came up n times" or improvement line (C3).
 6. **Figures are conditional, and unavailable by default.** The WPM/accuracy row is omitted until P1 r2 confirms that the existing metrics are valid over the actual elapsed time for a plan-exhausted result. If P1 does confirm it, the row returns with the caption *over the T s typed*. The formula never changes for this case.
-7. **It counts toward nothing.** It is practice, so it never counts toward the baseline, the newest-ten summary or any 30-second source, and no baseline copy appears on it. Whether it can feed later coach evidence is a P1 eligibility decision, and the UI says nothing about it.
+7. **What it counts toward** (clarified for root, `msg_025112f453c8`). Two separate exclusions apply, for two different reasons:
+   - **All practice**, early or not, is excluded from the assessment baseline and the newest-ten medians. That exclusion comes from practice purpose.
+   - **The early plan-exhausted outcome** is additionally excluded from completed-30 s coach sources. That exclusion comes from the early end, not from practice purpose. Ordinary eligible practice that reaches the timer remains an input to the next coach window, as before.
+
+   Root currently excludes early plan-exhausted results from coach evidence. Any broader future eligibility needs a separately reviewed policy. No baseline copy appears on this result, and the UI makes no claim about coach eligibility either way.
 8. **Actions:** the primary is **suggested again ↵** (it honestly repeats the same sentences, as line 5 says) and the secondary is **general**. Focus goes to the primary, and Enter acts only on it. The accepted save/retry/export row and details are unchanged.
 9. **Timer first:** if the timer expires before the plan ends, the result is the ordinary practice result. No new state is added.
 10. **Interruption** (focus loss, restart or safety stop) before the end follows the existing flagged/aborted semantics.

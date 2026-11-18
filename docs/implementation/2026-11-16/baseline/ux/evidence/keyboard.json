@@ -1,7 +1,7 @@
 {
   "base": "http://127.0.0.1:5312",
   "chrome": "system Chrome headless via playwright-core 1.65.1",
-  "ranAt": "2026-11-16T14:34:10.020Z",
+  "ranAt": "2026-11-18T18:11:47.365Z",
   "note": "fast=1 accelerates the prototype clock 10x; all data simulated",
   "passed": 45,
   "total": 45,
@@ -60,7 +60,7 @@
       "width": 1440,
       "pass": true,
       "observed": {
-        "excerpt": "baseline4 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments with the qwert"
+        "excerpt": "baseline4 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments on a physical "
       }
     },
     {
@@ -72,7 +72,7 @@
         "focus": "primary",
         "label": "Baseline test 5 of 10 · 30 s · complete",
         "progress": [
-          "4",
+          "5",
           "5"
         ],
         "clock": "accelerated 10x"
@@ -107,23 +107,24 @@
       }
     },
     {
-      "id": "K6 save failure pending then retry counts",
+      "id": "K6 save failure: retry saving primary, Enter retries, then counts",
       "width": 1440,
       "pass": true,
       "observed": {
+        "primary": "retry saving ↵",
         "tabOrder": [
           "primary",
           "secondary",
-          "retry-save",
           "export-current",
-          "ui-sdk-collapsible-11-trigger"
+          "ui-sdk-collapsible-11-trigger",
+          "body:Skip to content\n    \n    t_typ"
         ],
         "before": [
           "4",
           "4"
         ],
         "after": [
-          "4",
+          "5",
           "5"
         ]
       }
@@ -145,7 +146,7 @@
       "pass": true,
       "observed": {
         "primary": "practise general ↵",
-        "text": "baseline10 of 10 testsBaseline complete.Your baseline: 39 wpm and 95.8% accuracy, the median of your 10 tests. simulated"
+        "text": "baseline10 of 10 testsBaseline complete.Last 10 tests · medianwpm39.0accuracy95.8%9 Nov – 18 Nov. Updates as you take mo"
       }
     },
     {
@@ -223,7 +224,7 @@
       "width": 390,
       "pass": true,
       "observed": {
-        "excerpt": "baseline4 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments with the qwert"
+        "excerpt": "baseline4 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments on a physical "
       }
     },
     {
@@ -235,7 +236,7 @@
         "focus": "primary",
         "label": "Baseline test 5 of 10 · 30 s · complete",
         "progress": [
-          "4",
+          "5",
           "5"
         ],
         "clock": "accelerated 10x"
@@ -270,23 +271,24 @@
       }
     },
     {
-      "id": "K6 save failure pending then retry counts",
+      "id": "K6 save failure: retry saving primary, Enter retries, then counts",
       "width": 390,
       "pass": true,
       "observed": {
+        "primary": "retry saving ↵",
         "tabOrder": [
           "primary",
           "secondary",
-          "retry-save",
           "export-current",
-          "ui-sdk-collapsible-11-trigger"
+          "ui-sdk-collapsible-11-trigger",
+          "body:Skip to content\n    \n    t_typ"
         ],
         "before": [
           "4",
           "4"
         ],
         "after": [
-          "4",
+          "5",
           "5"
         ]
       }
@@ -308,7 +310,7 @@
       "pass": true,
       "observed": {
         "primary": "practise general ↵",
-        "text": "baseline10 of 10 testsBaseline complete.Your baseline: 39 wpm and 95.8% accuracy, the median of your 10 tests. simulated"
+        "text": "baseline10 of 10 testsBaseline complete.Last 10 tests · medianwpm39.0accuracy95.8%9 Nov – 18 Nov. Updates as you take mo"
       }
     },
     {
@@ -386,7 +388,7 @@
       "width": 320,
       "pass": true,
       "observed": {
-        "excerpt": "baseline4 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments with the qwert"
+        "excerpt": "baseline4 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments on a physical "
       }
     },
     {
@@ -398,7 +400,7 @@
         "focus": "primary",
         "label": "Baseline test 5 of 10 · 30 s · complete",
         "progress": [
-          "4",
+          "5",
           "5"
         ],
         "clock": "accelerated 10x"
@@ -433,23 +435,24 @@
       }
     },
     {
-      "id": "K6 save failure pending then retry counts",
+      "id": "K6 save failure: retry saving primary, Enter retries, then counts",
       "width": 320,
       "pass": true,
       "observed": {
+        "primary": "retry saving ↵",
         "tabOrder": [
           "primary",
           "secondary",
-          "retry-save",
           "export-current",
-          "ui-sdk-collapsible-11-trigger"
+          "ui-sdk-collapsible-11-trigger",
+          "body:Skip to content\n    \n    t_typ"
         ],
         "before": [
           "4",
           "4"
         ],
         "after": [
-          "4",
+          "5",
           "5"
         ]
       }
@@ -471,7 +474,7 @@
       "pass": true,
       "observed": {
         "primary": "practise general ↵",
-        "text": "baseline10 of 10 testsBaseline complete.Your baseline: 39 wpm and 95.8% accuracy, the median of your 10 tests. simulated"
+        "text": "baseline10 of 10 testsBaseline complete.Last 10 tests · medianwpm39.0accuracy95.8%9 Nov – 18 Nov. Updates as you take mo"
       }
     },
     {

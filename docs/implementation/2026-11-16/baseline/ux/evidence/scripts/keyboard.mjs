@@ -97,8 +97,9 @@ for (const [width, height] of [[1440, 900], [390, 844], [320, 640]]) {
     const order = [await active(page)];
     for (let i = 0; i < 4; i++) { await page.keyboard.press('Tab'); order.push(await active(page)); }
     const pending = await progressNow(page);
-    await page.click('#retry-save'); await page.waitForTimeout(100);
-    check('K6 save failure pending then retry counts', width, pending.includes('4') && (await progressNow(page)).includes('5'), { tabOrder: order, before: pending, after: await progressNow(page) });
+    // r2: retry saving is the result's focused primary (review finding 6), so Enter retries.
+    await page.focus('#primary'); const primaryText = await page.textContent('#primary'); await page.keyboard.press('Enter'); await page.waitForTimeout(500);
+    check('K6 save failure: retry saving primary, Enter retries, then counts', width, /retry saving/.test(primaryText ?? '') && order[0] === 'primary' && pending.includes('4') && (await progressNow(page)).includes('5'), { primary: primaryText, tabOrder: order, before: pending, after: await progressNow(page) });
     await page.close(); }
 
   // K7 final test to Suggested: Enter on try suggested lands on / ready, Suggested checked, focused.

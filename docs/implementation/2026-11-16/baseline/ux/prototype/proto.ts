@@ -5,16 +5,27 @@ import '@ui-sdk/web/switch';
 import '@ui-sdk/web/collapsible';
 import '@ui-sdk/web/progress';
 import type { UiCollapsibleElement } from '@ui-sdk/web';
-import { type BaselineStatus, countText, nextTestNumber, reasonText, generalFits, focusExplanation, ruleOfThumb, ruleOfThumbShort, lockedPress } from './copy.ts';
-import { statuses } from './fixtures.ts';
+import {
+  type BaselineStatus, countText, nextTestNumber, takeTestLabel, reasonText, reasonSentence, shownReason, worksAsUsual, generalFits,
+  baselinePurpose, focusExplanation, ruleOfThumb, ruleOfThumbShort, lockedPress, suggestedDescription, summaryView, summaryLabel,
+  summaryUpdates, summaryReading, summaryUpdating, declareQwerty, qwertyHint, planEndLabel, planEndLine,
+} from './copy.ts';
+import { statuses, finitePlan } from './fixtures.ts';
 
 // Prototype of the baseline flow on top of the accepted production markup and stylesheet.
-// It owns no storage: state arrives in the URL (fx fixture or s= serialised status).
+// It owns no storage: state arrives in the URL (fx fixture or s= serialised status). Saves are
+// simulated with a delay (save=ms, default 400) and can fail (outcome=savefail; retry=fail).
+// r2: a completed result is a save record that outlives navigation, so a late save can update
+// count surfaces but never the active run, its snapshot or its focus.
 const params = new URLSearchParams(location.search);
 const page = (params.get('page') ?? 'practice') as 'practice' | 'assessment' | 'progress';
 const view = params.get('view') ?? 'ready';
 const fast = params.get('fast') === '1';
-let status: BaselineStatus = params.has('s') ? JSON.parse(atob(params.get('s')!)) : structuredClone(statuses[params.get('fx') ?? 's0'] ?? statuses.s0!);
+const finalKind = params.get('final') ?? 'ready';
+const finite = params.get('plan') === 'finite';
+const saveDelay = Number(params.get('save') ?? (view === 'result' ? 0 : 400));
+let status: BaselineStatus = params.has('s') ? { automaticCoaching: 'enabled', summary: null, ...JSON.parse(atob(params.get('s')!)) } : structuredClone(statuses[params.get('fx') ?? 's0'] ?? statuses.s0!);
+if (finalKind === 'deferred') Object.assign(status, { automaticCoaching: 'disabled', evidenceScanComplete: null });
 let qwerty = params.get('qwerty') !== '0';
 let durationS = Number(params.get('dur') ?? 30);
 let kind = params.get('kind') ?? 'general';
@@ -22,17 +33,65 @@ const app = document.querySelector<HTMLDivElement>('#app')!;
 const $ = <T extends HTMLElement = HTMLElement>(selector: string) => document.querySelector<T>(selector)!;
 const esc = (text: string) => text.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
 
-const prompts = ['the weather turned cold before the storm', 'a row of yellow flowers lines the garden wall', 'please leave your muddy shoes beside the mat', 'they gathered their things and left together'];
-
-const locked = () => status.state !== 'complete-ready';
-const counting = () => page === 'assessment' && status.counted < status.target && status.state !== 'unavailable' && status.state !== 'checking';
+const generalPrompts = ['the weather turned cold before the storm', 'a row of yellow flowers lines the garden wall', 'please leave your muddy shoes beside the mat', 'they gathered their things and left together'];
+const coachingOn = () => status.automaticCoaching === 'enabled';
+const locked = () => status.state !== 'complete-ready' || !coachingOn() || !status.focus;
+const suggestedRun = () => page === 'practice' && kind === 'recommended' && !locked();
+const prompts = () => (suggestedRun() && finite ? finitePlan : generalPrompts);
+(window as unknown as { __plan: string[] | null }).__plan = finite ? finitePlan : null;
+const usable = () => status.state !== 'unavailable' && status.state !== 'checking';
+const counting = () => page === 'assessment' && usable() && status.counted + status.pending < status.target;
 const countsNow = () => counting() && qwerty && durationS === 30;
-const href = (to: string, extra: Record<string, string> = {}) => `?${new URLSearchParams({ page: to, s: btoa(JSON.stringify(status)), qwerty: qwerty ? '1' : '0', ...(to === 'practice' ? { kind } : {}), ...extra })}`;
+const href = (to: string, extra: Record<string, string> = {}) => `?${new URLSearchParams({ page: to, s: btoa(JSON.stringify({ ...status, pending: 0 })), qwerty: qwerty ? '1' : '0', ...(to === 'practice' ? { kind } : {}), ...extra })}`;
+
+// ---- Save records: one per completed result, kept across next-test/retry navigation. ----
+interface SaveRecord { id: number; baseline: boolean; testNumber: number | null; state: 'saving' | 'saved' | 'failed'; attempts: number }
+const saves: SaveRecord[] = [];
+let shownResult: SaveRecord | null = null;
+let nextId = 1;
+const failedBaseline = () => saves.filter(r => r.baseline && r.state === 'failed');
+if (params.get('pendingFailed') === '1') { saves.push({ id: nextId++, baseline: true, testNumber: status.counted + 1, state: 'failed', attempts: 1 }); status.pending += 1; }
+
+function settle(record: SaveRecord, ok: boolean) {
+  record.state = ok ? 'saved' : 'failed';
+  if (ok && record.baseline) {
+    status.pending = Math.max(0, status.pending - 1);
+    status.counted = Math.min(status.counted + 1, status.target);
+    if (status.counted >= status.target) {
+      const next = finalKind === 'ready' ? statuses.s10ready! : finalKind === 'sparse' ? statuses.s10sparse! : finalKind === 'deferred' ? statuses.sOff10! : statuses.s10insuff!;
+      Object.assign(status, structuredClone(next), { pending: status.pending });
+    } else if (status.exact) status.state = 'in-progress';
+  }
+  refreshAfterSave(record);
+}
+function attemptSave(record: SaveRecord, failFirst: boolean, delay: number) {
+  record.state = 'saving'; record.attempts++;
+  const fail = record.attempts === 1 ? failFirst : params.get('retry') === 'fail';
+  window.setTimeout(() => settle(record, !fail), delay);
+}
+const retry = (record: SaveRecord) => { attemptSave(record, false, 300); refreshAfterSave(record); };
+
+// A late save repaints only what is safe for the current surface; it never moves focus out of the text.
+function refreshAfterSave(record: SaveRecord) {
+  const stageState = document.querySelector<HTMLElement>('#stage')?.dataset.state;
+  const focusWasOnResult = document.activeElement?.closest('#completion') || document.activeElement === document.body;
+  if (document.querySelector('#why-panel')) paintWhy();
+  if (stageState === 'completed' && shownResult) {
+    paintResult();
+    if (focusWasOnResult && !document.activeElement?.closest('#completion')) $('#primary').focus();
+  } else if (stageState === 'idle') {
+    const hadSlotFocus = document.activeElement?.closest('#slot');
+    refreshReady();
+    if (hadSlotFocus && record.state !== 'failed') $<HTMLTextAreaElement>('#typing-input').focus();
+  }
+  // running: the active run, its label, slot and focus are frozen; only the hidden why? text changed.
+  if (page === 'progress') progressPage();
+  formatProgress();
+}
 
 function shell(content: string, stage: boolean) {
-  const here = page;
   const links = [['practice', href('practice')], ['assessment', href('assessment')], ['progress', href('progress')], ['lab', '#']]
-    .map(([name, link]) => `<a href="${link}" ${here === name ? 'aria-current="page"' : ''}>${name}</a>`).join('');
+    .map(([name, link]) => `<a href="${link}" ${page === name ? 'aria-current="page"' : ''}>${name}</a>`).join('');
   app.innerHTML = `<header class="topbar">
     <a class="brand" href="${href('practice')}"><span class="brand-mark" aria-hidden="true">t_</span><span class="brand-name">typeforge</span></a>
     <nav class="site-nav" aria-label="Main navigation">${links}</nav>
@@ -56,62 +115,91 @@ function formatProgress() {
     el.format = () => `${countText(status)} tests${status.pending && status.counted < status.target ? ` · ${status.pending} waiting to save` : ''}`;
   });
 }
-// No tally at 0: the first visit stays identical to the accepted UI.
-const tally = () => status.state === 'checking' || status.state === 'unavailable' || status.counted === 0 || status.counted >= status.target ? ''
-  : `<span class="tally" aria-hidden="true">${Array.from({ length: status.target }, (_, i) => `<i ${i < status.counted ? 'data-on' : i < status.counted + status.pending ? 'data-pending' : ''}></i>`).join('')}</span>`;
-function suggestedDescription() {
-  if (!locked()) return `Available: ${status.focus!.pair}.`;
-  if (status.state === 'checking') return 'Checking saved tests.';
-  if (status.state === 'unavailable') return reasonText[status.reason ?? 'policy-invalid'];
-  if (status.counted < status.target) return `Not yet available: ${countText(status)} baseline tests.`;
-  return `Baseline complete; no focus yet. ${reasonText[status.reason ?? 'no-effect']}`;
+
+// "Last 10 tests · median": figures one step below the result hero, or a plain pending line, or nothing.
+function summaryBlock(compact = false): string {
+  const v = summaryView(status);
+  if (v.kind === 'none') return '';
+  if (v.kind === 'reading') return `<p class="note summary-reading">${summaryReading(status)}</p>`;
+  const figures = `<dl class="summary-figures"><div><dt>wpm</dt><dd>${v.wpm}</dd></div>${v.accuracy ? `<div><dt>accuracy</dt><dd>${v.accuracy}</dd></div>` : ''}</dl>`;
+  const notes = [v.note, v.updating ? summaryUpdating : null, `${v.range}. ${summaryUpdates}`].filter(Boolean).map(n => `<p class="note">${n}</p>`).join('');
+  return `<div class="summary${compact ? ' summary-compact' : ''}"><p class="micro">${summaryLabel(status)}</p>${figures}${notes}<p class="figures-fixture">simulated fixture</p></div>`;
 }
 
 function whyBaseline(): string {
   if (status.state === 'checking') return `<div class="baseline-block"><p>Checking saved tests…</p></div>`;
-  if (status.state === 'unavailable') return `<div class="baseline-block"><p>${reasonText[status.reason ?? 'policy-invalid']}</p><p class="note">General and pair practice work as usual.</p></div>`;
+  if (status.state === 'unavailable' || shownReason(status) === 'unknown') return `<div class="baseline-block"><p>${reasonSentence(status)}</p><p class="note">${worksAsUsual}</p></div>`;
   const source = 'Counted from the tests saved in this browser: deleting one, or starting a new baseline on the progress page, lowers the count.';
-  if (status.counted < status.target) {
+  const unsaved = failedBaseline().length ? `<p class="note">${unsavedSentence()}</p>` : '';
+  if (status.counted < status.target || (!status.exact && status.state === 'pending')) {
     return `<div class="baseline-block">${progress()}
-      <p>Suggested can look for a focus after ${status.target} baseline tests: 30-second assessments with the qwerty key on, about five minutes in all, at your own pace.</p>
+      <p>${baselinePurpose(status)}</p>
       <p>Every finished test counts, mistakes included. A run that stops early or loses focus just doesn’t count; nothing is taken away.</p>
-      ${status.reason === 'scan-incomplete' ? `<p class="note">${reasonText['scan-incomplete']}</p>` : ''}
+      ${shownReason(status) === 'scan-incomplete' ? `<p class="note">${reasonText['scan-incomplete']}</p>` : ''}${unsaved}
       <p class="note">${source}</p>
-      <a class="key key-small" href="${href('assessment')}">take test ${nextTestNumber(status)} →</a></div>`;
+      <a class="key key-small" href="${href('assessment')}">${takeTestLabel(status)}</a></div>`;
   }
-  if (status.state === 'complete-ready' && kind === 'recommended') {
+  if (status.state === 'complete-ready' && coachingOn() && kind === 'recommended') {
     return `<div class="baseline-block"><p class="micro">suggested · ${status.focus!.pair}</p>
       <p>${focusExplanation(status.focus!)}</p>
-      <p>These blocks lean on sentences containing ${status.focus!.pair}, with general sentences mixed in.</p>
+      <p>These blocks lean on sentences containing ${status.focus!.pair}, with general sentences mixed in.${finite ? ' Each block is one fixed set of sentences, so it can end before the timer.' : ''}</p>
       <p class="note">${ruleOfThumb} Prefer an even mix? Choose general.</p></div>`;
   }
-  if (status.state === 'complete-ready') {
+  if (status.state === 'complete-ready' && coachingOn()) {
     return `<div class="baseline-block">${progress()}<p>Suggested has a focus: ${status.focus!.pair}. Choose suggested to practise it.</p><p class="note">${focusExplanation(status.focus!)}</p></div>`;
   }
-  const reason = status.reason ?? 'no-effect';
-  return `<div class="baseline-block">${progress()}<p>Baseline complete. ${reasonText[reason]}</p>
-    <p class="note">${reason === 'scan-incomplete' ? 'Using general until it can be read.' : reason === 'stale-evidence' ? 'Your 10 tests still count; only the timing needs refreshing.' : generalFits}</p>
-    ${reason === 'stale-evidence' ? `<a class="key key-small" href="${href('assessment')}">take an assessment →</a>` : ''}</div>`;
+  const shown = shownReason(status);
+  const after = shown === 'coaching-deferred' ? '' : shown === 'scan-incomplete' ? 'Using general until it can be read.' : shown === 'stale-evidence' ? 'Your 10 tests still count; only the timing needs refreshing.' : generalFits;
+  return `<div class="baseline-block">${progress()}<p>Baseline complete. ${reasonSentence(status)}</p>
+    ${after ? `<p class="note">${after}</p>` : ''}
+    ${shown === 'stale-evidence' ? `<a class="key key-small" href="${href('assessment')}">take an assessment →</a>` : ''}</div>`;
+}
+function paintWhy() {
+  $('#why-panel').innerHTML = `${whyBaseline()}<p>${page === 'assessment' ? 'English · lowercase · fresh assessment passages' : 'English · lowercase · short sentences'}</p><p>The timer keeps running if you leave the text. Interrupted runs stay in history, outside headline progress.</p>`;
+  formatProgress();
 }
 
 function blockLabel() {
-  if (page === 'assessment') return countsNow() ? `Baseline test ${nextTestNumber(status)} of ${status.target} · ${durationS} s` : `Assessment · ${durationS} s`;
-  return kind === 'recommended' && !locked() ? `Suggested practice · ${status.focus!.pair} · ${durationS} s` : `General practice · ${durationS} s`;
+  if (page === 'assessment') {
+    if (!countsNow()) return `Assessment · ${durationS} s`;
+    const n = nextTestNumber(status);
+    return n ? `Baseline test ${n} of ${status.target} · ${durationS} s` : `Baseline test · ${durationS} s`;
+  }
+  return suggestedRun() ? `Suggested practice · ${status.focus!.pair} · ${durationS} s` : `General practice · ${durationS} s`;
 }
 
-// Ready-state slot line (level 1 hint). Empty means the accepted idle hint shows.
-function readyHint(): string {
+const unsavedSentence = () => {
+  const failed = failedBaseline();
+  return failed.length === 1 ? `${failed[0]!.testNumber ? `Test ${failed[0]!.testNumber}` : 'Your last test'} isn’t saved yet, so it doesn’t count.` : `${failed.length} tests aren’t saved yet, so they don’t count.`;
+};
+
+// Ready-state slot line (level 1 hint). Recovery first, then the counting hint.
+function readyHint(): void {
+  if (page === 'assessment' && failedBaseline().length) { hint(unsavedSentence(), { label: 'retry saving', onClick: () => failedBaseline().forEach(retry) }); return; }
   if (page === 'assessment' && counting()) {
-    if (!qwerty) return 'Not a baseline test: it needs the qwerty key on (a physical QWERTY keyboard).';
-    if (durationS !== 30) return 'Not a baseline test: baseline tests are 30 seconds.';
-    return `baseline test ${nextTestNumber(status)} of ${status.target} — the clock starts with your first letter`;
+    if (!qwerty) { hint(qwertyHint, { label: declareQwerty, onClick: declare }); return; }
+    if (durationS !== 30) { hint('Not a baseline test: baseline tests are 30 seconds.'); return; }
+    const n = nextTestNumber(status);
+    hint(n ? `baseline test ${n} of ${status.target} — the clock starts with your first letter` : `At least ${status.counted} of ${status.target} found; this one counts too.`);
+    return;
   }
-  if (page === 'practice' && status.change?.kind === 'changed') return `Suggested now leans on ${status.focus!.pair}. ${status.change.from} no longer stands out in your recent timing; that’s a re-check, not a verdict.`;
-  if (page === 'practice' && status.change?.kind === 'stepped-back') return `Suggested stepped back to general: ${status.change.from} no longer stands out clearly in your recent timing. It re-checks before every block.`;
-  return '';
+  if (page === 'practice' && status.change?.kind === 'changed') { hint(`Suggested now leans on ${status.focus!.pair}. ${status.change.from} no longer stands out in your recent timing; that’s a re-check, not a verdict.`); return; }
+  if (page === 'practice' && status.change?.kind === 'stepped-back') { hint(`Suggested stepped back to general: ${status.change.from} no longer stands out clearly in your recent timing. It re-checks before every block.`); return; }
+  hint('');
+}
+// The declaration is the user's own press of the existing qwerty switch, never inferred or default-on.
+function declare() {
+  const sw = $('#qwerty');
+  if (!sw.hasAttribute('data-checked')) sw.click();
+  qwerty = true;
+  if ($('#stage').dataset.state === 'completed') { paintResult(); $('#primary').focus(); return; }
+  refreshReady();
+  $<HTMLTextAreaElement>('#typing-input').focus();
 }
 
 let running = false, flagged = false, startedAt = 0, timer = 0, promptIndex = 0;
+// Frozen at the first key: late saves cannot change what this run is.
+let snapshot: { baseline: boolean; testNumber: number | null; label: string } | null = null;
 function stage() {
   const isPractice = page === 'practice';
   if (isPractice && kind === 'recommended' && locked()) kind = 'general';
@@ -128,9 +216,9 @@ function stage() {
       <ui-segmented-control id="practice-kind" class="keys" aria-label="Practice" default-value="${kind}">
         <ui-segmented-control-item value="general">general</ui-segmented-control-item>
         <ui-segmented-control-item value="manual">pair</ui-segmented-control-item>
-        <ui-segmented-control-item value="recommended" id="suggested-item" ${locked() ? 'data-locked aria-disabled="true"' : ''} aria-describedby="suggested-status">suggested${locked() ? tally() : ''}</ui-segmented-control-item>
+        <ui-segmented-control-item value="recommended" id="suggested-item" ${locked() ? 'data-locked aria-disabled="true"' : ''} aria-describedby="suggested-status">suggested</ui-segmented-control-item>
       </ui-segmented-control>
-      <span id="suggested-status" class="sr-only">${esc(suggestedDescription())}</span>
+      <span id="suggested-status" class="sr-only">${esc(suggestedDescription(status, locked()))}</span>
     </div>` : ''}
     <span class="rail-rule" aria-hidden="true"></span>
     <ui-switch id="qwerty" class="key key-toggle" aria-label="Physical QWERTY keyboard" ${qwerty ? 'default-checked' : ''}><span aria-hidden="true">qwerty</span><ui-switch-thumb></ui-switch-thumb></ui-switch>
@@ -165,6 +253,7 @@ function stage() {
   </section>
   </div>`, true);
   document.body.dataset.run = 'idle';
+  shownResult = null; snapshot = null;
   wire();
 }
 
@@ -187,37 +276,43 @@ const pressExplanation = () => {
 
 function paintPrompt() {
   const input = $<HTMLTextAreaElement>('#typing-input');
-  const text = prompts[promptIndex % prompts.length]!;
+  const list = prompts();
+  const text = list[promptIndex % list.length]!;
   const typed = input.value;
   $('#prompt').innerHTML = [...text].map((c, i) => `<span class="${i < typed.length ? (typed[i] === c ? 'correct' : 'wrong') : ''}${i === typed.length ? ' cursor' : ''}">${c === ' ' ? ' ' : esc(c)}</span>`).join('') + (typed.length >= text.length ? '<span class="cursor"> </span>' : '');
-  $('#previous-prompt').textContent = promptIndex ? prompts[(promptIndex - 1) % prompts.length]! : '';
-  $('#next-prompt').textContent = prompts[(promptIndex + 1) % prompts.length]!;
+  $('#previous-prompt').textContent = promptIndex ? list[(promptIndex - 1) % list.length]! : '';
+  // A finite plan never wraps: after its last sentence the context line says the block ends.
+  const last = finite && suggestedRun() && promptIndex >= list.length - 1;
+  $('#next-prompt').textContent = last ? '— end of this block —' : list[(promptIndex + 1) % list.length]!;
 }
 
 function wire() {
   const input = $<HTMLTextAreaElement>('#typing-input');
   const stageEl = $('#stage');
   const why = $<UiCollapsibleElement>('#why');
-  $('#why-panel').innerHTML = `${whyBaseline()}<p>${page === 'assessment' ? 'English · lowercase · fresh assessment passages' : 'English · lowercase · short sentences'}</p><p>The timer keeps running if you leave the text. Interrupted runs stay in history, outside headline progress.</p>`;
-  formatProgress();
+  paintWhy();
   paintPrompt();
-  hint(readyHint());
+  readyHint();
   input.addEventListener('focus', () => { stageEl.dataset.focus = 'in'; });
   input.addEventListener('blur', () => { stageEl.dataset.focus = 'out'; if (running) { flagged = true; hint('Focus left the text: this run is flagged and excluded from headline progress. The timer kept running.'); $('#exercise-warning').className = 'slot-text is-notice'; } });
   $('#continue-typing').addEventListener('click', () => input.focus());
   input.addEventListener('input', () => {
     if (!running) start();
-    const text = prompts[promptIndex % prompts.length]!;
-    if (input.value === `${text} `) { promptIndex++; input.value = ''; }
+    const list = prompts();
+    const text = list[promptIndex % list.length]!;
+    if (input.value === `${text} `) {
+      if (finite && suggestedRun() && promptIndex >= list.length - 1) { finishPlan(); return; }
+      promptIndex++; input.value = '';
+    }
     paintPrompt();
   });
   $('#restart').addEventListener('click', () => { stop(); stage(); $<HTMLTextAreaElement>('#typing-input').focus(); });
   $('#duration').addEventListener('valuechange', (event) => { durationS = Number((event as CustomEvent).detail.value); refreshReady(); });
-  $('#qwerty').addEventListener('checkedchange', (event) => { qwerty = Boolean((event as CustomEvent).detail.value ?? (event as CustomEvent).detail.checked); refreshReady(); });
+  $('#qwerty').addEventListener('checkedchange', (event) => { qwerty = Boolean((event as CustomEvent).detail.value ?? (event as CustomEvent).detail.checked); if (stageEl.dataset.state !== 'completed') refreshReady(); });
   document.querySelector('#practice-kind')?.addEventListener('valuechange', (event) => {
     const value = (event as CustomEvent).detail.value;
     if (value === 'recommended' && locked()) { event.preventDefault(); pressExplanation(); return; }
-    kind = value; refreshReady();
+    kind = value; refreshReady(); paintPrompt();
   });
   const suggested = document.querySelector('#suggested-item');
   // A press on the already-focused locked key (no value change) still explains.
@@ -227,13 +322,15 @@ function wire() {
   else input.focus();
 }
 function refreshReady() {
+  if ($('#stage').dataset.state !== 'idle') return;
   $('#block-identity').textContent = blockLabel();
   $('#remaining').textContent = String(durationS);
-  hint(readyHint());
+  readyHint();
 }
 
 function start() {
   running = true; flagged = false; startedAt = performance.now();
+  snapshot = { baseline: countsNow(), testNumber: nextTestNumber(status), label: blockLabel() };
   document.body.dataset.run = 'running';
   $('#stage').dataset.state = 'running';
   if (!$('#exercise-warning').classList.contains('is-notice')) hint('');
@@ -245,104 +342,128 @@ function start() {
   }, 100);
 }
 function stop() { running = false; window.clearInterval(timer); }
+function finishPlan() {
+  const elapsed = Math.max(1, Math.round((performance.now() - startedAt) * (fast ? 10 : 1) / 1000));
+  stop(); complete('planend', elapsed);
+}
 
-// In-place result. outcome: saved | flagged | savefail. Counting happens only after a durable save.
-function complete(outcome: string) {
+// In-place result. outcome: saved | flagged | savefail | planend. Counting happens only after a durable save.
+let resultOutcome = 'saved', planSeconds = 0;
+function complete(outcome: string, seconds = 0) {
   document.body.dataset.run = 'completed';
-  const stageEl = $('#stage');
-  stageEl.dataset.state = 'completed';
-  const input = $<HTMLTextAreaElement>('#typing-input');
-  input.disabled = true;
+  $('#stage').dataset.state = 'completed';
+  $<HTMLTextAreaElement>('#typing-input').disabled = true;
   if (!$('#exercise-warning').classList.contains('is-notice')) hint('');
-  const isBaseline = countsNow();
-  const testNumber = nextTestNumber(status);
-  const willFinish = isBaseline && status.counted + 1 >= status.target;
-  const final = params.get('final') ?? 'ready';
-  if (isBaseline && outcome !== 'flagged') status.pending = 1;
-  const label = page === 'assessment' ? (isBaseline && outcome !== 'flagged' ? `Baseline test ${testNumber} of ${status.target}` : 'Assessment') : blockLabel().replace(/ · \d+ s$/, '');
+  snapshot ??= { baseline: countsNow(), testNumber: nextTestNumber(status), label: blockLabel() };
+  resultOutcome = outcome; planSeconds = seconds;
+  const record: SaveRecord = { id: nextId++, baseline: snapshot.baseline && outcome !== 'flagged', testNumber: snapshot.testNumber, state: 'saving', attempts: 0 };
+  saves.push(record); shownResult = record;
+  if (record.baseline) status.pending += 1;
   const completion = $('#completion');
   completion.hidden = false;
-  completion.innerHTML = `<h2 class="micro result-label">${esc(label)} · ${durationS} s · complete</h2>
-    <dl class="result-figures"><div><dt>wpm</dt><dd>41.6</dd></div><div><dt>accuracy</dt><dd>96.2%</dd></div></dl>
-    <p class="figures-fixture">simulated fixture figures</p>
-    <p class="result-observation">Most first-attempt misses: “e” (3 of 52). An observation, not a diagnosis.</p>
+  const label = outcome === 'planend' ? planEndLabel(status.focus!.pair, finitePlan.length, seconds, durationS)
+    : page === 'assessment' ? `${record.baseline ? snapshot.label.replace(/ · \d+ s$/, '') : 'Assessment'} · ${durationS} s · complete`
+    : `${snapshot.label.replace(/ · \d+ s$/, '')} · ${durationS} s · complete`;
+  completion.innerHTML = `<h2 class="micro result-label">${esc(label)}</h2>
+    ${outcome === 'planend' ? '<p class="figures-fixture">figures omitted: unavailable until P1 r2 validates metrics for a block that ends early (finite-plan-end.md rule 6)</p>'
+      : '<dl class="result-figures"><div><dt>wpm</dt><dd>41.6</dd></div><div><dt>accuracy</dt><dd>96.2%</dd></div></dl><p class="figures-fixture">simulated fixture figures</p>'}
+    ${outcome === 'planend' ? `<p class="result-observation">${planEndLine(status.focus!.pair)}</p>` : '<p class="result-observation">Most first-attempt misses: “e” (3 of 52). An observation, not a diagnosis.</p>'}
     ${outcome === 'flagged' ? '<p class="result-flag">Flagged: this run was interrupted or used unsupported input. It is saved with a label and excluded from headline progress.</p>' : ''}
     <div id="baseline-result"></div>
     <div class="result-actions" id="result-actions"></div>
     <div class="save-row"><p id="save-state" class="micro save-state" role="status">Saving to this browser…</p><button id="retry-save" class="key key-small" type="button" hidden>retry saving</button><button id="export-current" class="key key-small" type="button">export</button></div>
     <ui-collapsible class="result-details"><ui-collapsible-trigger><button type="button" class="text-button">details</button></ui-collapsible-trigger><ui-collapsible-panel keep-mounted hidden><p class="micro">Details unchanged from the accepted result (not prototyped).</p></ui-collapsible-panel></ui-collapsible>`;
-
-  const actions = (primary: string, primaryHref: string | null, secondary: string, secondaryHref: string, note = '') => {
-    $('#result-actions').innerHTML = `${primaryHref ? `<a class="key key-primary" id="primary" href="${primaryHref}">${primary} ↵</a>` : `<button class="key key-primary" id="primary" type="button">${primary} ↵</button>`}<a class="key" id="secondary" href="${secondaryHref}">${secondary}</a>${note ? `<span class="action-note">${note}</span>` : ''}`;
-  };
-  const nextTest = () => { stop(); status.pending = 0; promptIndex += 2; stage(); };
-  // PROPOSAL for root/P1: a descriptive baseline summary, so completion is worth something even with no focus.
-  const summaryLine = '<p>Your baseline: 39 wpm and 95.8% accuracy, the median of your 10 tests. <span class="figures-fixture">simulated fixture</span></p>';
-  const paintBaseline = () => {
-    const block = $('#baseline-result');
-    if (page !== 'assessment') { block.innerHTML = ''; return; }
-    if (!isBaseline) {
-      block.innerHTML = status.counted < status.target && status.state !== 'unavailable'
-        ? `<div class="baseline-block"><p class="note">Not a baseline test${!qwerty ? ' (qwerty off)' : ` (${durationS} s)`}. Baseline tests are 30 seconds with the qwerty key on. ${countText(status)} so far.</p></div>` : '';
-      actions('practice next', href('practice'), 'fresh retest', href('assessment'));
-      return;
-    }
-    if (outcome === 'flagged') {
-      block.innerHTML = `<div class="baseline-block">${progress()}<p>Not counted: focus left the text during the run. Still ${countText(status)}; nothing is taken away.</p></div>`;
-      actions(`try test ${testNumber} again`, null, 'practise', href('practice'));
-      $('#primary').addEventListener('click', nextTest);
-    } else if (status.pending) {
-      block.innerHTML = `<div class="baseline-block">${progress()}<p>${outcome === 'savefail' ? 'Counts once it’s saved.' : 'Saving…'}</p></div>`;
-      if (willFinish) actions('practise', href('practice'), 'details', '#');
-      else { actions('next test', null, 'practise', href('practice'), 'or stop here; progress is kept'); $('#primary').addEventListener('click', nextTest); }
-    } else if (status.counted >= status.target && status.state === 'complete-ready') {
-      block.innerHTML = `<div class="baseline-block">${progress()}<p class="lead-line">Baseline complete. Suggested has a focus: ${status.focus!.pair}.</p>${summaryLine}<p>${focusExplanation(status.focus!)}</p><p class="note">${ruleOfThumbShort}</p></div>`;
-      kind = 'recommended';
-      actions(`try suggested · ${status.focus!.pair}`, href('practice'), 'general', href('practice', { kind: 'general' }));
-    } else if (status.counted >= status.target) {
-      block.innerHTML = `<div class="baseline-block">${progress()}<p class="lead-line">Baseline complete.</p>${summaryLine}<p>${reasonText[status.reason ?? 'no-effect']}</p><p class="note">${generalFits}</p></div>`;
-      kind = 'general';
-      actions('practise general', href('practice'), 'another assessment', href('assessment'));
-    } else {
-      block.innerHTML = `<div class="baseline-block">${progress()}<p>Every finished test counts, mistakes included.</p><p class="note">Progress is kept in this browser. Stop any time and pick up later.</p></div>`;
-      actions('next test', null, 'practise', href('practice'), 'or stop here; progress is kept');
-      $('#primary').addEventListener('click', nextTest);
-    }
-    formatProgress();
-  };
-  const saved = () => {
-    $('#save-state').textContent = 'Saved in this browser.';
-    $('#save-state').className = 'micro save-state';
-    $('#retry-save').hidden = true;
-    if (isBaseline && status.pending) {
-      status.pending = 0; status.counted = Math.min(status.counted + 1, status.target);
-      if (status.counted >= status.target) Object.assign(status, structuredClone(final === 'ready' ? statuses.s10ready! : final === 'sparse' ? statuses.s10sparse! : statuses.s10insuff!));
-      else status.state = 'in-progress';
-    }
-    paintBaseline();
-    $('#primary').focus();
-  };
-  paintBaseline();
+  $('#retry-save').addEventListener('click', () => retry(record));
+  paintResult();
   $('#primary').focus();
-  if (outcome === 'savefail') {
-    const state = $('#save-state');
-    state.textContent = 'Not saved: this browser refused the write. Your result is kept on this page.';
-    state.className = 'micro save-state is-failed';
-    $('#retry-save').hidden = false;
-    $('#retry-save').addEventListener('click', saved);
-    paintBaseline();
-    $('#primary').focus();
-  } else window.setTimeout(saved, params.get('view') === 'result' ? 0 : 400);
+  attemptSave(record, outcome === 'savefail', saveDelay);
+}
+
+const nextTest = () => { stop(); promptIndex += 2; stage(); $<HTMLTextAreaElement>('#typing-input').focus(); };
+function actions(primary: { label: string; href?: string; onClick?: () => void }, secondary: { label: string; href?: string; onClick?: () => void }, note = '') {
+  const key = (a: typeof primary, cls: string, id: string, enter: boolean) => a.href ? `<a class="${cls}" id="${id}" href="${a.href}">${a.label}${enter ? ' ↵' : ''}</a>` : `<button class="${cls}" id="${id}" type="button">${a.label}${enter ? ' ↵' : ''}</button>`;
+  $('#result-actions').innerHTML = `${key(primary, 'key key-primary', 'primary', true)}${key(secondary, 'key', 'secondary', false)}${note ? `<span class="action-note">${note}</span>` : ''}`;
+  if (primary.onClick) $('#primary').addEventListener('click', primary.onClick);
+  if (secondary.onClick) $('#secondary').addEventListener('click', secondary.onClick);
+}
+
+function paintResult() {
+  const record = shownResult!;
+  const outcome = resultOutcome;
+  const block = $('#baseline-result');
+  // Save row: the accepted retry/export row. For a baseline test, retry moves up to the primary.
+  const state = $('#save-state');
+  state.textContent = record.state === 'saved' ? 'Saved in this browser.' : record.state === 'failed' ? 'Not saved: this browser refused the write. Your result is kept on this page.' : 'Saving to this browser…';
+  state.className = `micro save-state${record.state === 'failed' ? ' is-failed' : ''}`;
+  $('#retry-save').hidden = record.state !== 'failed' || record.baseline;
+  const earlier = failedBaseline().filter(r => r !== record);
+  const name = (r: SaveRecord) => r.testNumber ? `Test ${r.testNumber}` : 'An earlier test';
+  const earlierRow = earlier.length ? `<p class="note unsaved-earlier">${earlier.length === 1 ? `${name(earlier[0]!)} isn’t saved yet, so it doesn’t count.` : `${earlier.length} earlier tests aren’t saved yet, so they don’t count.`} <button class="key key-small" id="retry-earlier" type="button">retry saving</button></p>` : '';
+  const wire = () => document.querySelector('#retry-earlier')?.addEventListener('click', () => earlier.forEach(retry));
+
+  if (outcome === 'planend') {
+    block.innerHTML = '';
+    actions({ label: 'suggested again', href: href('practice', { kind: 'recommended', plan: 'finite' }) }, { label: 'general', href: href('practice', { kind: 'general' }) });
+    return;
+  }
+  if (page !== 'assessment') { block.innerHTML = ''; actions({ label: 'next block', onClick: nextTest }, { label: 'assessment', href: href('assessment') }); return; }
+  const n = nextTestNumber(status);
+  if (!record.baseline && outcome !== 'flagged') {
+    const why = !qwerty ? 'Not a baseline test (qwerty off). Baseline tests are 30 seconds on a physical QWERTY keyboard.' : durationS !== 30 ? `Not a baseline test (${durationS} s). Baseline tests are 30 seconds.` : 'Declared. Your next 30-second test counts.';
+    block.innerHTML = usable() && status.counted < status.target
+      ? `<div class="baseline-block">${earlierRow}<p class="note">${why} Still ${countText(status)}.</p>${!qwerty ? `<button class="key key-small" id="declare" type="button">${declareQwerty}</button>` : ''}</div>` : earlierRow ? `<div class="baseline-block">${earlierRow}</div>` : '';
+    document.querySelector('#declare')?.addEventListener('click', declare);
+    if (qwerty && durationS === 30 && counting()) actions({ label: takeTestLabel(status).replace(' →', ''), onClick: nextTest }, { label: 'practice next', href: href('practice') });
+    else actions({ label: 'practice next', href: href('practice') }, { label: 'fresh retest', onClick: nextTest });
+    wire(); return;
+  }
+  if (outcome === 'flagged') {
+    block.innerHTML = snapshot?.baseline ? `<div class="baseline-block">${earlierRow}${progress()}<p>Not counted: focus left the text during the run. Still ${countText(status)}; nothing is taken away.</p></div>` : '';
+    actions({ label: n ? `try test ${n} again` : 'try the test again', onClick: nextTest }, { label: 'practise', href: href('practice') });
+    wire(); formatProgress(); return;
+  }
+  const final = record.testNumber !== null ? record.testNumber >= status.target : status.counted + status.pending >= status.target;
+  if (record.state === 'failed') {
+    block.innerHTML = `<div class="baseline-block">${earlierRow}${progress()}<p class="lead-line">Not saved yet, so it doesn’t count.</p><p class="note">Retrying is safe. If you go on, it keeps waiting here to be saved.</p></div>`;
+    actions({ label: 'retry saving', onClick: () => retry(record) }, final ? { label: 'practise', href: href('practice') } : { label: 'next test', onClick: nextTest });
+  } else if (record.state === 'saving') {
+    block.innerHTML = `<div class="baseline-block">${earlierRow}${progress()}<p>${final ? `Saving test ${record.testNumber ?? status.target}…` : 'Saving…'}</p></div>`;
+    if (final) actions({ label: 'practise', href: href('practice') }, { label: 'another assessment', href: href('assessment') });
+    else actions({ label: 'next test', onClick: nextTest }, { label: 'practise', href: href('practice') }, 'or stop here; progress is kept');
+  } else if (status.counted >= status.target && final) {
+    const shown = shownReason(status);
+    const lead = `<div class="baseline-block">${earlierRow}${progress()}<p class="lead-line">Baseline complete.</p>${summaryBlock()}`;
+    if (status.state === 'complete-ready' && coachingOn() && status.focus) {
+      block.innerHTML = `${lead}<p>Suggested has a focus: ${status.focus.pair}. ${focusExplanation(status.focus)}</p><p class="note">${ruleOfThumbShort}</p></div>`;
+      kind = 'recommended';
+      actions({ label: `try suggested · ${status.focus.pair}`, href: href('practice') }, { label: 'general', href: href('practice', { kind: 'general' }) });
+    } else {
+      const after = shown === 'coaching-deferred' ? '' : shown === 'scan-incomplete' ? 'Using general until it can be read.' : generalFits;
+      block.innerHTML = `${lead}<p>${reasonSentence(status)}</p>${after ? `<p class="note">${after}</p>` : ''}</div>`;
+      kind = 'general';
+      actions({ label: 'practise general', href: href('practice') }, { label: 'another assessment', href: href('assessment') });
+    }
+  } else {
+    block.innerHTML = `<div class="baseline-block">${earlierRow}${progress()}<p>Every finished test counts, mistakes included.</p><p class="note">Progress is kept in this browser. Stop any time and pick up later.</p></div>`;
+    actions({ label: 'next test', onClick: nextTest }, { label: 'practise', href: href('practice') }, 'or stop here; progress is kept');
+  }
+  wire();
+  formatProgress();
 }
 
 function progressPage() {
+  const v = summaryView(status);
+  const body = !usable() ? `<p class="small">${status.state === 'checking' ? 'Checking saved tests…' : `${reasonSentence(status)} ${worksAsUsual}`}</p>` : `
+    ${progress('counted')}
+    ${v.kind !== 'none' ? summaryBlock(true) : ''}
+    <p class="small">From 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.</p>
+    ${status.counted < status.target || !status.exact ? `<a class="key key-small" href="${href('assessment')}">${takeTestLabel(status)}</a>` : ''}`;
   shell(`<div class="page-heading"><div><p class="eyebrow">Progress</p><h1>What you have done so far.</h1></div></div>
   <section class="panel baseline-section" aria-labelledby="baseline-heading">
     <h2 id="baseline-heading" tabindex="-1">Baseline</h2>
-    ${progress()}
-    <p class="small">${countText(status)} baseline tests, counted from 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count toward it.${status.otherContextCount ? ` ${status.otherContextCount} assessment at another duration or keyboard setting isn’t part of it.` : ''}</p>
+    ${body}
     <p class="status" id="baseline-status" role="status"></p>
-    <p class="small">Start a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward Suggested.</p>
+    <p class="small">Start a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.</p>
     <div id="reset-area"><button class="key" id="reset" type="button">start a new baseline</button></div>
   </section>
   <section class="panel"><p class="small">Activity, assessment trend and the session list are unchanged (not prototyped).</p></section>`, false);
@@ -352,7 +473,7 @@ function progressPage() {
     area.innerHTML = `<div class="reset-confirm" role="group" aria-labelledby="reset-question"><p id="reset-question">Start a new baseline at 0 of ${status.target}? Saved results stay in your history.</p>
       <div class="actions"><button class="key" id="keep" type="button">keep current baseline</button><button class="key" id="start-over" type="button">start over</button></div></div>`;
     $('#keep').addEventListener('click', () => { progressPage(); $('#reset').focus(); });
-    $('#start-over').addEventListener('click', () => { status = structuredClone(statuses.sReset!); progressPage(); done(); });
+    $('#start-over').addEventListener('click', () => { status = { ...structuredClone(statuses.sReset!), automaticCoaching: status.automaticCoaching, evidenceScanComplete: status.evidenceScanComplete === null ? null : true }; progressPage(); done(); });
     $('#keep').focus();
   };
   const done = () => { $('#baseline-status').textContent = `New baseline started: 0 of ${status.target}. Earlier results are still in your history.`; $('#baseline-heading').focus(); };
@@ -367,6 +488,7 @@ async function boot() {
   else {
     stage();
     if (view === 'result') { stop(); complete(params.get('outcome') ?? 'saved'); }
+    if (view === 'planend') { stop(); promptIndex = finitePlan.length - 1; paintPrompt(); complete('planend', 24); }
   }
   document.body.dataset.ready = '1';
 }
