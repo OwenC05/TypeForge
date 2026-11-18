@@ -1,6 +1,7 @@
 import {
   readHistorySlice, scanHistory, listResultsPage, getStorageDiagnostics,
   HISTORY_SLICE_BYTES, HISTORY_SCAN_BYTES, validateResult, type HistoryRead,
+  openDatabase,
 } from '../../src/storage.ts';
 import type { SessionResult } from '../../src/engine.ts';
 
@@ -23,15 +24,7 @@ function padded(n: number, bytes: number) {
   return value;
 }
 function open(): Promise<IDBDatabase> {
-  return new Promise((resolve, reject) => {
-    const pending = indexedDB.open('typeforge', 2);
-    pending.onupgradeneeded = () => {
-      const store = pending.result.createObjectStore('results', { keyPath: 'id' });
-      store.createIndex('completedAt-id', ['completedAt', 'id']);
-    };
-    pending.onerror = () => reject(pending.error);
-    pending.onsuccess = () => resolve(pending.result);
-  });
+  return openDatabase();
 }
 async function seed(values: unknown[]) {
   const database = await open();
