@@ -226,3 +226,93 @@ Portfolio or original checkout, account, deployment, push or upload was touched.
 ## Reproduce
 
 From `typing-app/client`, run `npm ci && npm run check`, then the phases in `tests/browser/README.md`.
+
+---
+
+## Addendum, 2026-11-18: admission follow-up (task_338af3c3e8c3, dispatch ctx_8769e62358cf)
+
+**Scope and pins.** This continues from the delivered source `026cb69`: `app.ts` sha256 `0a847b20…`, `coach-ui.ts` `f5efb10a…`. The corrected source is `200ffcd`: `app.ts` `e3bcba2b…`, `coach-ui.ts` `fc259d68…`. The brief is `task-ui-admission-follow-up.md` at root `1c330d6`.
+
+Only these leased F files changed:
+- `src/app.ts`
+- `src/coach-ui.ts` (one new copy constant)
+- `tests/app.test.ts`
+- `tests/browser/coach-app.mjs`
+- `tests/browser/README.md`
+
+There were no C/D/engine/types/catalogue/package/lock changes. Everything earlier in this report stands, including its limits.
+
+**Runtime.** Requested: actual Claude, claude-opus-5-5, high effort. Exposed to this session: Claude Opus 5.5 (`claude-opus-5-5`); the effort setting is not exposed back to the model. No coordinator or global model setting was changed.
+
+**Commits (not pushed):**
+- `b920b6b`: regression evidence (red).
+- `200ffcd`: minimal lifecycle correction plus source tests.
+- (this commit): live scenarios, green receipts and this addendum.
+
+### What was wrong (reproduced red in the real browser on `026cb69`)
+
+1. **P1a, stale first key.** A storage invalidation made the status stale and queued a re-preparation. The first native key then still started the old admitted finite `th` block and froze its identity. Two triggers were reproduced: a reset committed through C (`resetEpoch`), and a bare window `focus` invalidation.
+2. **P1b, awaited publication.**
+   - `settleReadyBlock` awaited `finiteRuntime()`. After the import resumed, it checked only `disposed`/`untouched()`. So the older `th` snapshot installed after a reset and a newer generation that had already shown 0 of 10.
+   - A Suggested restart awaited the runtime after admission, installed a snapshot taken before a reset, and never re-read the status.
+
+### Correction (`200ffcd`)
+
+**The rule.** An admitted snapshot is *current* only while the storage-invalidation epoch it was prepared in still holds. Each invalidation callback advances the epoch, including during a restart. There is no timer and no synthetic proof: only C's next real admission makes Suggested current again.
+
+- **First key** (`acceptInput`). The rule applies to an idle, unfrozen finite block whose admission is no longer current. General is installed first, then the key is applied exactly once to it, so `freezeRun` freezes General. Focus is not moved. The slot says: "Suggested was re-checking your saved tests, so this block is general. It checks again for the next block." A current admission starts exactly as before.
+- **Settle.** A stale snapshot never publishes. After the awaited import, generation and epoch are re-checked as well as untouched.
+- **Restart.**
+  - The runtime loads *before* admission, so nothing is awaited between C's admission and installation.
+  - An admission that a storage change overtook is retried (at most 3 attempts) against the newer state. A still-stale one becomes honest General.
+  - The status is re-read after the stage is ready whenever the read went stale.
+  - Input stays held during the restart (unchanged), so no key lands in the gap.
+- **Accepted tradeoff (bounded UX).** A focus/pageshow invalidation also stales the admission until C re-admits. That takes one `setTimeout(0)` plus a preparation, typically tens of milliseconds. A first key inside that window gets the General notice rather than Suggested. I chose this over relaxing the authority contract.
+
+### Acceptance matrix (separated by evidence kind)
+
+| Evidence | Receipt | Result |
+|---|---|---|
+| Real typing fixtures (`real`) | `admission-follow-up/fixtures-flows.json` | 5/5. A admits th; A+B admits in |
+| Race, **red** on `026cb69` (`real-seeded`) | `race-red.json`, `race-red-source.json`, `screens-red/` | 35/39. Fails P1a/reset, P1a/focus, P1b settle/idle, P1b restart |
+| Race, **green** on `200ffcd` (`real-seeded`) | `race-green.json`, `screens/race-*` | 39/39 |
+| Live scenarios on `200ffcd` (`real-seeded`) | `live-flows.json` | 42/42 |
+| Existing real flows on the rebuilt `200ffcd` production build (`real`) | `admission-follow-up/real-flows.json` | 120/120 (regression) |
+| Source tests (`source`) | `npm run check` | 233/233, typecheck and build green |
+| Injected statuses (`injected`) | earlier `injected-flows.json` | not re-run: presentation-only and unaffected |
+
+`real-seeded` means a fresh UUID synthetic database, with saved sources produced by real typing in the fixtures phase. They are re-saved through C's own `captureContext` + `saveSource` (each returned `saved` with membership ready). Counts, membership, proof and admission are therefore C/D's real results. Nothing injects a status, admission or freshness.
+
+**Live scenarios (all `real-seeded`, dev server, 1440/390/320 captures):**
+- **Delayed save (REG-5a/5b).** Each save is held at C's source hash. Enter at 0 ms and at 200 ms moves to the next numbered test with focus in the text, nothing at risk shown and one held save. Release then saves exactly once.
+- **Failure during the next block (REG-5e).** Test 7's save fails while test 8 runs. Test 8's label, prompt ids, text, state and focus are untouched. After test 8, "Test 7 isn't saved yet, so it doesn't count. retry saving" is offered.
+- **Failed tenth save (REG-6b).**
+  - Before retry: not counted, retry is primary, no completion or unlock, progress 9.
+  - Retry saves once. "Baseline complete." and "Suggested has a focus: th" each appear once, and "try suggested · th" is focused.
+  - Progress shows 10 of 10 once.
+- **Focus change between two admitted pairs (D1b/D1c).**
+  - Ten in-slow practice sources are saved through C during a running th block. Its label and prompt plan stay frozen, and the result is labelled th.
+  - The next Suggested block runs the newly admitted in plan and says once that it moved from th. The block after names no previous pair, and so does a reload.
+- **Deletion.** The existing results-page **Delete** control (`#delete-result` → confirm → `deleteResult` → C `deleteSource`) removes a counted test.
+  - Progress shows 9 of 10 and no median.
+  - The already open ready Suggested tab steps back to General through the real storage invalidation, with status "Not yet available: 9 of 10 baseline tests."
+  - No new deletion UI was built.
+
+### Observations and limits added
+
+- When the baseline drops below ten, the stepped-back slot reuses the accepted locked-fallback copy ("Suggested has no focus for now…"), while the status line states the actual reason (9 of 10). This is earlier accepted F UX, left unchanged and flagged for copy review.
+- Race and live use the dev server, because the delayed import is a route hold on `/src/finite-practice.ts`. The production bundle was covered by the 120-check real regression, not by the race holds.
+- A harness overshoot (keys typed past test 8's deadline onto the result action) was found while building REG-5e and fixed in the harness. It was not a product defect.
+- Root's VM observed-defect assertions were not copied. The new source tests assert the corrected invariants.
+- The separate C-lane storage callback exceptions (upgrade/delete/read faults) were neither duplicated nor touched.
+- There is no C/D interface gap: `admitPreparedPractice` and `subscribeStorageInvalidation` were sufficient.
+
+### Helpers
+
+- Every phase spawned exactly one hidden server: Node `windowsHide: true`, `shell: false`, strict 127.0.0.1:5324.
+- Receipts: `fixtures`, `race-red`, `race-green`, `live` and `real` `*-helper-receipt.json`, each with `serverExited: true, portClosed: true`.
+- Afterwards there was no listener on 5324 and no `vite.js … 5324` process; only kernel TIME_WAIT sockets (owner PID 0) remained.
+- Root 5301 and reviewer 5325 were not used.
+- No real user database, Portfolio/original checkout, account, deployment, push or upload was touched.
+
+**Reproduce:** from `typing-app/client`, run `npm run check`, then `COACH_PHASE=fixtures`, `race` and `live` (dev server) and `real` (after build), as in `tests/browser/README.md`.

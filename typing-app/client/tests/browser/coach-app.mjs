@@ -742,9 +742,10 @@ async function liveFlows() {
     check('REG-5e: a save failure settling during the next active block leaves its run, label, text and focus untouched', 'real-seeded',
       running.label === 'Baseline test 8 of 10 · 30 s' && during.label === running.label && during.value === running.value && during.state === 'running' && during.ids === running.ids && during.focus === 'typing-input', { running, during });
     await restoreWrites(p);
-    await typeBlock(p, { until: 26000 }); await waitSaved(p);
-    const after = { block: await q(p, '#completion', 'innerText') };
-    check('REG-5e: after the block, the unsaved test 7 is offered for recovery', 'real-seeded', /7 isn.t saved|Test 7/.test(after.block ?? '') && /retry/i.test(after.block ?? ''), after);
+    // Test 8 already ran ~4.35 s: type to ~29.5 s of its 30 s, then let the clock reach its deadline (no key lands on the result).
+    await typeBlock(p, { until: 25000 }); await p.clock.runFor(800); await waitSaved(p);
+    const after = { earlier: await q(p, '.unsaved-earlier', 'innerText'), label: await q(p, '.result-label'), state: await state(p) };
+    check('REG-5e: after test 8, the unsaved test 7 is offered for recovery beside the saved result', 'real-seeded', after.label === 'Baseline test 8 of 10 · 30 s · complete' && /Test 7 isn.t saved yet, so it doesn.t count/.test(after.earlier ?? '') && /retry saving/i.test(after.earlier ?? ''), after);
     await capture(p, 'delayed-save-failure-after-block', 'real-seeded');
     await verifyIsolation(w, p);
     await w.context.close();

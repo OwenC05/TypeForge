@@ -48,6 +48,20 @@ Starts its own hidden Vite dev server on `SDK_PORT` (default 5324,
   presentation, not lifecycle. The same phase also runs a `real-fault` case with
   real C over a failing `indexedDB.open`.
 - `typing-flow`: runs `typing-flow.js` unchanged against the preview server.
+- `fixtures` (dev server): real typing builds two saved-source sets in
+  `<COACH_OUT>/fixtures/`. Set A is ten assessments with th slow, which admits
+  th. Sets A and B together (B is ten General runs with in slow) admit in.
+- `race` (dev server, needs `fixtures`): sources seeded through C's own
+  `captureContext` + `saveSource`, never a status or admission override. It
+  covers a reset through C or a focus invalidation followed by a native first
+  key while the re-preparation is still queued under the paused clock. It also
+  holds the `/src/finite-practice.ts` import (a browser route) across a reset
+  and a newer generation in the settle and restart paths.
+- `live` (dev server, needs `fixtures`): saves held at C's source hash. It
+  covers Enter at 0 ms and 200 ms while a save is pending, a failure settling
+  during the next block, a failed tenth save with retry, a focus change between
+  two admitted pairs, and deletion through the results page's Delete control.
+  These checks are labelled `real-seeded`.
 
 Each phase writes `<phase>-flows.json` (every check, labelled `real`,
 `real-fault` or `injected`), a helper receipt (PID, executable, arguments, port
