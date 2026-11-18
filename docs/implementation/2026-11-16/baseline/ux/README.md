@@ -5,6 +5,7 @@ The smallest extension of the accepted paper-and-ink interface that adds an opti
 | File | What it is |
 |---|---|
 | [revision-r2.md](revision-r2.md) | **r2 (18 Nov):** finding-to-fix map for the independent critique `05a6767`, named regressions before/after, interface requests |
+| [delta-r2.1.md](delta-r2.1.md) | **Delta r2.1 (root `64a53b4`):** prior pair only from an in-memory snapshot; pilot exactly 30 s; P1 r2 alignment |
 | [finite-plan-end.md](finite-plan-end.md) | Visible contract for the finite Suggested plan end (root-selected; P1 r2 owns the adapter) |
 | [contract.md](contract.md) | State/transition contract, the `BaselineStatus` read interface for P1/P3, copy deck summary, P1 reconciliation and challenges C1–C6 |
 | [critique.md](critique.md) | State inventory and critique of the accepted UI for this flow |

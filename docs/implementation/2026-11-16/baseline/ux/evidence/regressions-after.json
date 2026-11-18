@@ -1,7 +1,7 @@
 {
  "summary": {
   "base": "http://127.0.0.1:5312",
-  "ranAt": "2026-11-18T18:17:18.417Z",
+  "ranAt": "2026-11-18T18:49:49.698Z",
   "total": 85,
   "passed": 85,
   "failed": []
@@ -342,15 +342,15 @@
    }
   },
   {
-   "id": "REG-9 finite plan: ends at last sentence, never wraps, never \"60 s · complete\"",
+   "id": "REG-9 finite plan (30 s pilot, delta r2.1): ends at last sentence, never wraps, never \"30 s · complete\"",
    "width": 1440,
    "pass": true,
    "observed": {
     "plan": 3,
     "stage": "completed",
-    "label": "Suggested practice · th · all 3 sentences done at 10 s of 60",
+    "label": "Suggested practice · th · all 3 sentences done at 10 s of 30",
     "prompt": "they think that this is the path ",
-    "block": "SUGGESTED PRACTICE · TH · ALL 3 SENTENCES DONE AT 10 S OF 60\n\nFIGURES OMITTED: UNAVAILABLE UNTIL P1 R2 VALIDATES METRICS FOR A BLOCK THAT ENDS EARLY (FINITE-PLAN-END.MD RULE 6)\n\nThat’s every sentence in this th block, so it ended before the timer. The next suggested block uses the same small set of ",
+    "block": "SUGGESTED PRACTICE · TH · ALL 3 SENTENCES DONE AT 10 S OF 30\n\nFIGURES OMITTED: UNAVAILABLE UNTIL P1 R2 VALIDATES METRICS FOR A BLOCK THAT ENDS EARLY (FINITE-PLAN-END.MD RULE 6)\n\nThat’s every sentence in this th block, so it ended before the timer. The next suggested block uses the same small set of ",
     "typed": 3,
     "errors": []
    }
@@ -696,15 +696,15 @@
    }
   },
   {
-   "id": "REG-9 finite plan: ends at last sentence, never wraps, never \"60 s · complete\"",
+   "id": "REG-9 finite plan (30 s pilot, delta r2.1): ends at last sentence, never wraps, never \"30 s · complete\"",
    "width": 390,
    "pass": true,
    "observed": {
     "plan": 3,
     "stage": "completed",
-    "label": "Suggested practice · th · all 3 sentences done at 11 s of 60",
+    "label": "Suggested practice · th · all 3 sentences done at 10 s of 30",
     "prompt": "they think that this is the path ",
-    "block": "SUGGESTED PRACTICE · TH · ALL 3 SENTENCES DONE AT 11 S OF 60\n\nFIGURES OMITTED: UNAVAILABLE UNTIL P1 R2 VALIDATES METRICS FOR A BLOCK THAT ENDS EARLY (FINITE-PLAN-END.MD RULE 6)\n\nThat’s every sentence in this th block, so it ended before the timer. The next suggested block uses the same small set of ",
+    "block": "SUGGESTED PRACTICE · TH · ALL 3 SENTENCES DONE AT 10 S OF 30\n\nFIGURES OMITTED: UNAVAILABLE UNTIL P1 R2 VALIDATES METRICS FOR A BLOCK THAT ENDS EARLY (FINITE-PLAN-END.MD RULE 6)\n\nThat’s every sentence in this th block, so it ended before the timer. The next suggested block uses the same small set of ",
     "typed": 3,
     "errors": []
    }
@@ -1044,15 +1044,15 @@
    }
   },
   {
-   "id": "REG-9 finite plan: ends at last sentence, never wraps, never \"60 s · complete\"",
+   "id": "REG-9 finite plan (30 s pilot, delta r2.1): ends at last sentence, never wraps, never \"30 s · complete\"",
    "width": 320,
    "pass": true,
    "observed": {
     "plan": 3,
     "stage": "completed",
-    "label": "Suggested practice · th · all 3 sentences done at 10 s of 60",
+    "label": "Suggested practice · th · all 3 sentences done at 11 s of 30",
     "prompt": "they think that this is the path ",
-    "block": "SUGGESTED PRACTICE · TH · ALL 3 SENTENCES DONE AT 10 S OF 60\n\nFIGURES OMITTED: UNAVAILABLE UNTIL P1 R2 VALIDATES METRICS FOR A BLOCK THAT ENDS EARLY (FINITE-PLAN-END.MD RULE 6)\n\nThat’s every sentence in this th block, so it ended before the timer. The next suggested block uses the same small set of ",
+    "block": "SUGGESTED PRACTICE · TH · ALL 3 SENTENCES DONE AT 11 S OF 30\n\nFIGURES OMITTED: UNAVAILABLE UNTIL P1 R2 VALIDATES METRICS FOR A BLOCK THAT ENDS EARLY (FINITE-PLAN-END.MD RULE 6)\n\nThat’s every sentence in this th block, so it ended before the timer. The next suggested block uses the same small set of ",
     "typed": 3,
     "errors": []
    }

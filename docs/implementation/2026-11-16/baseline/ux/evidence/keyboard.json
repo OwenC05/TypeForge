@@ -1,7 +1,7 @@
 {
   "base": "http://127.0.0.1:5312",
   "chrome": "system Chrome headless via playwright-core 1.65.1",
-  "ranAt": "2026-11-18T18:11:47.365Z",
+  "ranAt": "2026-11-18T18:51:00.251Z",
   "note": "fast=1 accelerates the prototype clock 10x; all data simulated",
   "passed": 45,
   "total": 45,

@@ -45,8 +45,12 @@ export interface BaselineStatus {
   reason?: Reason | string;
   focus?: Focus;
   /** From config releaseScope.automaticCoachingEnabled (named by A2 6418bcc). Interface request: expose it on the status. */
-  automaticCoaching: 'enabled' | 'disabled';
+  /** P1 r2 projection: 'unavailable' for invalid/unknown config (never inferred from focus or count). */
+  automaticCoaching: 'enabled' | 'disabled' | 'unavailable';
   summary: Summary | null;
+  /** UI-only, never from storage (delta r2.1): the previous admitted new-coach snapshot held in memory
+   *  in this document, compared with the current one. Absent after reload, navigation or when no prior
+   *  snapshot exists; the legacy saved `practiceFocus` (old selector) is never used for it. */
   change?: { kind: 'changed' | 'stepped-back'; from: string };
 }
 
@@ -143,6 +147,7 @@ export function lockedPress(s: BaselineStatus): { text: string; action?: string 
     if (shown === 'context-unavailable' || shown === 'source-integrity') return { text: 'Saved tests can’t be counted right now. General works as usual.' };
     return { text: 'Suggested is unavailable here. General works as usual.' };
   }
+  if (s.automaticCoaching === 'unavailable') return { text: 'Suggested is unavailable here. General works as usual.' };
   if (!coachingOn(s)) return { text: 'Suggested isn’t switched on in this version. General works as usual.' };
   if (shown === 'scan-incomplete') {
     return s.exact && s.counted >= s.target
@@ -162,10 +167,24 @@ export function suggestedDescription(s: BaselineStatus, locked: boolean) {
   if (!locked && s.focus) return `Available: ${s.focus.pair}.`;
   if (s.state === 'checking') return 'Checking saved tests.';
   if (s.state === 'unavailable' || shownReason(s) === 'unknown') return `${reasonSentence(s)} ${worksAsUsual}`;
+  if (s.automaticCoaching === 'unavailable') return `${reasonText.unknown} ${worksAsUsual}`;
   if (!coachingOn(s)) return reasonText['coaching-deferred'];
   if (s.counted < s.target || !s.exact) return `Not yet available: ${countText(s)} baseline tests.`;
   return `Baseline complete; Suggested has no focus for now. ${reasonSentence(s)}`;
 }
+
+// Delta r2.1: remembered Suggested with no focus and no in-memory prior snapshot. Names no previous pair.
+export const noFocusFallback = 'Suggested has no focus for now, so this block is general. More in why?';
+// Delta r2.1: the pilot context is exactly 30 s with a declared QWERTY keyboard (P1). Other settings stay
+// usable; a Suggested choice there runs as General and says so. Nothing is clamped or blocked.
+export const pilotSeconds = 30;
+export function suggestedContextHint(durationS: number, qwerty: boolean): { text: string; action: string } | null {
+  if (durationS !== pilotSeconds) return { text: `Suggested runs at ${pilotSeconds} s only; this block is general.`, action: `use ${pilotSeconds} s` };
+  if (!qwerty) return { text: 'Suggested needs QWERTY; this is general.', action: declareQwerty };
+  return null;
+}
+export const suggestedContextWhy = (pair: string, durationS: number, qwerty: boolean) =>
+  `Suggested blocks are ${pilotSeconds} seconds with the qwerty key on. ${durationS !== pilotSeconds ? `At ${durationS} s` : 'With qwerty off'} this block is general practice, and nothing about it changes your focus. Choose ${durationS !== pilotSeconds ? `${pilotSeconds} s` : 'qwerty'} to practise ${pair}.`;
 
 // Finite Suggested plan end (root msg_22b78999d17a). PROPOSAL pending P1 r2's engine/timing contract.
 export const planEndLabel = (pair: string, sentences: number, seconds: number, duration: number) => `Suggested practice · ${pair} · all ${sentences} sentences done at ${seconds} s of ${duration}`;

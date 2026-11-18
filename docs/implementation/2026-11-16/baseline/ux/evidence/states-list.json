@@ -222,8 +222,32 @@
   {
     "id": "37-practice-plan-end",
     "title": "Suggested · th: plan finished early",
-    "query": "page=practice&fx=s10ready&kind=recommended&plan=finite&dur=60&view=planend",
+    "query": "page=practice&fx=s10ready&kind=recommended&plan=finite&dur=30&view=planend",
     "note": "PROPOSAL: no wrap; ends at the last certified sentence; actual time shown."
+  },
+  {
+    "id": "39-practice-stepped-back-reload",
+    "title": "Stepped back, after reload (no prior snapshot)",
+    "query": "page=practice&fx=s10stepped&kind=recommended&reload=1",
+    "note": "SIMULATED reload: no previous pair is named; the current fallback reason only."
+  },
+  {
+    "id": "40-practice-changed-reload",
+    "title": "Focus changed, after reload (no prior snapshot)",
+    "query": "page=practice&fx=s10changed&kind=recommended&reload=1",
+    "note": "SIMULATED reload: Suggested · er is simply ready; no change announcement."
+  },
+  {
+    "id": "41-practice-suggested-60s",
+    "title": "Suggested chosen at 60 s",
+    "query": "page=practice&fx=s10ready&kind=recommended&dur=60",
+    "note": "Pilot is 30 s only: this block is general; 60 s is kept; [use 30 s] is offered."
+  },
+  {
+    "id": "42-practice-suggested-qwerty-off",
+    "title": "Suggested chosen with qwerty off",
+    "query": "page=practice&fx=s10ready&kind=recommended&qwerty=0",
+    "note": "Pilot needs declared QWERTY: general block; declaration key offered."
   },
   {
     "id": "38-practice-policy-invalid",

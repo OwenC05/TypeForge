@@ -9,6 +9,7 @@ import {
   type BaselineStatus, countText, nextTestNumber, takeTestLabel, reasonText, reasonSentence, shownReason, worksAsUsual, generalFits,
   baselinePurpose, focusExplanation, ruleOfThumb, ruleOfThumbShort, lockedPress, suggestedDescription, summaryView, summaryLabel,
   summaryUpdates, summaryReading, summaryUpdating, declareQwerty, qwertyHint, planEndLabel, planEndLine,
+  noFocusFallback, suggestedContextHint, suggestedContextWhy, pilotSeconds,
 } from './copy.ts';
 import { statuses, finitePlan } from './fixtures.ts';
 
@@ -26,6 +27,8 @@ const finite = params.get('plan') === 'finite';
 const saveDelay = Number(params.get('save') ?? (view === 'result' ? 0 : 400));
 let status: BaselineStatus = params.has('s') ? { automaticCoaching: 'enabled', summary: null, ...JSON.parse(atob(params.get('s')!)) } : structuredClone(statuses[params.get('fx') ?? 's0'] ?? statuses.s0!);
 if (finalKind === 'deferred') Object.assign(status, { automaticCoaching: 'disabled', evidenceScanComplete: null });
+// SIMULATED reload (delta r2.1): a new document has no in-memory prior snapshot, so no prior pair.
+if (params.get('reload') === '1') delete status.change;
 let qwerty = params.get('qwerty') !== '0';
 let durationS = Number(params.get('dur') ?? 30);
 let kind = params.get('kind') ?? 'general';
@@ -36,13 +39,17 @@ const esc = (text: string) => text.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<':
 const generalPrompts = ['the weather turned cold before the storm', 'a row of yellow flowers lines the garden wall', 'please leave your muddy shoes beside the mat', 'they gathered their things and left together'];
 const coachingOn = () => status.automaticCoaching === 'enabled';
 const locked = () => status.state !== 'complete-ready' || !coachingOn() || !status.focus;
-const suggestedRun = () => page === 'practice' && kind === 'recommended' && !locked();
+// The pilot runs only in its reviewed context (exactly 30 s, declared QWERTY). Elsewhere a Suggested choice is General.
+const pilotContext = () => durationS === pilotSeconds && qwerty;
+const suggestedRun = () => page === 'practice' && kind === 'recommended' && !locked() && pilotContext();
+const suggestedMismatch = () => page === 'practice' && kind === 'recommended' && !locked() && !pilotContext();
+let fellBack = false; // remembered Suggested had no focus at this preparation
 const prompts = () => (suggestedRun() && finite ? finitePlan : generalPrompts);
 (window as unknown as { __plan: string[] | null }).__plan = finite ? finitePlan : null;
 const usable = () => status.state !== 'unavailable' && status.state !== 'checking';
 const counting = () => page === 'assessment' && usable() && status.counted + status.pending < status.target;
 const countsNow = () => counting() && qwerty && durationS === 30;
-const href = (to: string, extra: Record<string, string> = {}) => `?${new URLSearchParams({ page: to, s: btoa(JSON.stringify({ ...status, pending: 0 })), qwerty: qwerty ? '1' : '0', ...(to === 'practice' ? { kind } : {}), ...extra })}`;
+const href = (to: string, extra: Record<string, string> = {}) => `?${new URLSearchParams({ page: to, s: btoa(JSON.stringify({ ...status, pending: 0, change: undefined })), qwerty: qwerty ? '1' : '0', kind, ...extra })}`;
 
 // ---- Save records: one per completed result, kept across next-test/retry navigation. ----
 interface SaveRecord { id: number; baseline: boolean; testNumber: number | null; state: 'saving' | 'saved' | 'failed'; attempts: number }
@@ -139,6 +146,7 @@ function whyBaseline(): string {
       <p class="note">${source}</p>
       <a class="key key-small" href="${href('assessment')}">${takeTestLabel(status)}</a></div>`;
   }
+  if (suggestedMismatch()) return `<div class="baseline-block"><p>${suggestedContextWhy(status.focus!.pair, durationS, qwerty)}</p></div>`;
   if (status.state === 'complete-ready' && coachingOn() && kind === 'recommended') {
     return `<div class="baseline-block"><p class="micro">suggested · ${status.focus!.pair}</p>
       <p>${focusExplanation(status.focus!)}</p>
@@ -183,9 +191,22 @@ function readyHint(): void {
     hint(n ? `baseline test ${n} of ${status.target} — the clock starts with your first letter` : `At least ${status.counted} of ${status.target} found; this one counts too.`);
     return;
   }
+  if (suggestedMismatch()) {
+    const said = suggestedContextHint(durationS, qwerty)!;
+    hint(said.text, { label: said.action, onClick: durationS !== pilotSeconds ? usePilotDuration : declare });
+    return;
+  }
   if (page === 'practice' && status.change?.kind === 'changed') { hint(`Suggested now leans on ${status.focus!.pair}. ${status.change.from} no longer stands out in your recent timing; that’s a re-check, not a verdict.`); return; }
   if (page === 'practice' && status.change?.kind === 'stepped-back') { hint(`Suggested stepped back to general: ${status.change.from} no longer stands out clearly in your recent timing. It re-checks before every block.`); return; }
+  if (page === 'practice' && fellBack) { hint(noFocusFallback); return; }
   hint('');
+}
+// The person's own press of the existing 30 key; the selected duration is never clamped silently.
+function usePilotDuration() {
+  (document.querySelector(`#duration ui-segmented-control-item[value="${pilotSeconds}"]`) as HTMLElement | null)?.click();
+  durationS = pilotSeconds;
+  refreshReady();
+  $<HTMLTextAreaElement>('#typing-input').focus();
 }
 // The declaration is the user's own press of the existing qwerty switch, never inferred or default-on.
 function declare() {
@@ -202,7 +223,7 @@ let running = false, flagged = false, startedAt = 0, timer = 0, promptIndex = 0;
 let snapshot: { baseline: boolean; testNumber: number | null; label: string } | null = null;
 function stage() {
   const isPractice = page === 'practice';
-  if (isPractice && kind === 'recommended' && locked()) kind = 'general';
+  if (isPractice && kind === 'recommended' && locked()) { kind = 'general'; fellBack = status.state !== 'checking' && status.state !== 'unavailable'; }
   shell(`<h1 class="sr-only">${isPractice ? 'Practice' : 'Assessment'}</h1>
   <div class="column">
   <section class="rail" id="rail" aria-label="${isPractice ? 'Practice' : 'Assessment'} settings">
@@ -312,7 +333,7 @@ function wire() {
   document.querySelector('#practice-kind')?.addEventListener('valuechange', (event) => {
     const value = (event as CustomEvent).detail.value;
     if (value === 'recommended' && locked()) { event.preventDefault(); pressExplanation(); return; }
-    kind = value; refreshReady(); paintPrompt();
+    kind = value; fellBack = false; refreshReady();
   });
   const suggested = document.querySelector('#suggested-item');
   // A press on the already-focused locked key (no value change) still explains.
@@ -326,6 +347,7 @@ function refreshReady() {
   $('#block-identity').textContent = blockLabel();
   $('#remaining').textContent = String(durationS);
   readyHint();
+  paintPrompt(); paintWhy(); // the plan and explanation follow the (pre-first-key) settings
 }
 
 function start() {
@@ -344,7 +366,8 @@ function start() {
 function stop() { running = false; window.clearInterval(timer); }
 function finishPlan() {
   const elapsed = Math.max(1, Math.round((performance.now() - startedAt) * (fast ? 10 : 1) / 1000));
-  stop(); complete('planend', elapsed);
+  // P1 r2: a flagged run that reaches the end keeps its flags; the interruption explanation leads.
+  stop(); complete(flagged ? 'planend-flagged' : 'planend', elapsed);
 }
 
 // In-place result. outcome: saved | flagged | savefail | planend. Counting happens only after a durable save.
@@ -361,13 +384,14 @@ function complete(outcome: string, seconds = 0) {
   if (record.baseline) status.pending += 1;
   const completion = $('#completion');
   completion.hidden = false;
-  const label = outcome === 'planend' ? planEndLabel(status.focus!.pair, finitePlan.length, seconds, durationS)
+  const label = outcome.startsWith('planend') ? planEndLabel(status.focus!.pair, finitePlan.length, seconds, durationS)
     : page === 'assessment' ? `${record.baseline ? snapshot.label.replace(/ · \d+ s$/, '') : 'Assessment'} · ${durationS} s · complete`
     : `${snapshot.label.replace(/ · \d+ s$/, '')} · ${durationS} s · complete`;
   completion.innerHTML = `<h2 class="micro result-label">${esc(label)}</h2>
-    ${outcome === 'planend' ? '<p class="figures-fixture">figures omitted: unavailable until P1 r2 validates metrics for a block that ends early (finite-plan-end.md rule 6)</p>'
+    ${outcome.startsWith('planend') ? '<p class="figures-fixture">figures omitted: unavailable until P1 r2 validates metrics for a block that ends early (finite-plan-end.md rule 6)</p>'
       : '<dl class="result-figures"><div><dt>wpm</dt><dd>41.6</dd></div><div><dt>accuracy</dt><dd>96.2%</dd></div></dl><p class="figures-fixture">simulated fixture figures</p>'}
-    ${outcome === 'planend' ? `<p class="result-observation">${planEndLine(status.focus!.pair)}</p>` : '<p class="result-observation">Most first-attempt misses: “e” (3 of 52). An observation, not a diagnosis.</p>'}
+    ${outcome === 'planend-flagged' ? '<p class="result-flag">Flagged: this run was interrupted or used unsupported input. It is saved with a label and excluded from headline progress.</p>'
+      : outcome === 'planend' ? `<p class="result-observation">${planEndLine(status.focus!.pair)}</p>` : '<p class="result-observation">Most first-attempt misses: “e” (3 of 52). An observation, not a diagnosis.</p>'}
     ${outcome === 'flagged' ? '<p class="result-flag">Flagged: this run was interrupted or used unsupported input. It is saved with a label and excluded from headline progress.</p>' : ''}
     <div id="baseline-result"></div>
     <div class="result-actions" id="result-actions"></div>
@@ -401,7 +425,7 @@ function paintResult() {
   const earlierRow = earlier.length ? `<p class="note unsaved-earlier">${earlier.length === 1 ? `${name(earlier[0]!)} isn’t saved yet, so it doesn’t count.` : `${earlier.length} earlier tests aren’t saved yet, so they don’t count.`} <button class="key key-small" id="retry-earlier" type="button">retry saving</button></p>` : '';
   const wire = () => document.querySelector('#retry-earlier')?.addEventListener('click', () => earlier.forEach(retry));
 
-  if (outcome === 'planend') {
+  if (outcome.startsWith('planend')) {
     block.innerHTML = '';
     actions({ label: 'suggested again', href: href('practice', { kind: 'recommended', plan: 'finite' }) }, { label: 'general', href: href('practice', { kind: 'general' }) });
     return;

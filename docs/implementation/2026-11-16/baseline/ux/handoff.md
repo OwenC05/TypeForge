@@ -21,7 +21,7 @@ For the single later owner of `app.ts`/`style.css` (actual Claude per the plan),
 **Completion**
 - A9. Test 10 saved with `complete-ready` → **try suggested · pair ↵**. Enter lands on `/` with Suggested checked, the label `Suggested practice · pair · 30 s`, and focus in the textarea.
 - A10. Test 10 saved with any `complete-insufficient` reason → **practise general ↵**, one reason sentence plus the General/pair alternative. No "fail", "level" or "weak". The re-check sentence appears only after a gate that ran.
-- A11. Focus change or step-back is announced once in the slot at the next ready state and never mid-block.
+- A11. Focus change or step-back is announced once in the slot at the next ready state and never mid-block, **only from the previous in-memory admitted snapshot** (delta r2.1). After a reload or navigation, or with no prior snapshot, the copy names no previous pair and gives the current fallback. Legacy `practiceFocus` is never read.
 
 **Explanation**
 - A12. `why?` states the count, what counts, what doesn't, the ~5-minute burden, and that the count comes from saved tests (so deletion and reset are self-explanatory). In Suggested mode it gives the ms comparison, observations, words, runs and the rule-of-thumb limit.
@@ -37,7 +37,9 @@ For the single later owner of `app.ts`/`style.css` (actual Claude per the plan),
 - A18. **Last 10 tests · median** sits on the final result, directly under *Baseline complete.*, with figures one step below the hero, and persistently on Progress with the date range and update note. The states are figures, WPM-only (null accuracy), updating (eleventh save pending), still being read (summary pending or selection proof incomplete) and none (below ten, deletion, reset, unavailable). There is never a cached median. Milestone proof and summary-selection proof are separate inputs.
 - A19. Save timing: Enter on *next test* at 0 ms, during the save, or after it gives n+1. A late success updates only the count surfaces. A late failure during an active run changes nothing visible in that run and is offered after it. Retry from the ready slot returns focus to the text. An interrupted test followed by *try again* raises no error. These are the named regressions REG-5a–g.
 - A20. Progress shows one count, one provenance line, no other-context sentence, and **take test n →** (or *take a baseline test →*). why? says *about five minutes of typing*.
-- A21. Finite Suggested plan: as specified in `finite-plan-end.md` (REG-9).
+- A21. Finite Suggested plan: as specified in `finite-plan-end.md` (REG-9, D2d–D2f), 30 s only. A flagged run that reaches the end leads with the flag explanation.
+- A23. Pilot context mismatch (delta r2.1): Suggested at a duration other than 30 s, or with qwerty off, gives a General block with an honest label, a slot hint and the person's own [use 30 s] / [my keyboard is qwerty] key. Duration is never clamped, nothing is blocked, and no focus evidence is shown for that block.
+- A24. `automaticCoaching: 'unavailable'` (P1 r2 projection) reads as unavailable, never as switched off.
 - A22. Port `evidence/scripts/regressions.mjs` (85 checks) against the real build with injected statuses and save outcomes.
 
 ## Concrete handoff

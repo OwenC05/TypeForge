@@ -209,13 +209,13 @@ for (const [width, height] of widths) {
     await context.close(); }
 
   // REG-9 finite Suggested plan ends truthfully: no wrap, not a full-duration result (root msg_22b78999d17a).
-  { const { context, page, errors } = await open(width, height, 'page=practice&fx=s10ready&kind=recommended&plan=finite&dur=60&fast=1');
+  { const { context, page, errors } = await open(width, height, 'page=practice&fx=s10ready&kind=recommended&plan=finite&dur=30&fast=1');
     const plan = await page.evaluate(() => window.__plan ?? null);
     let typed = 0;
     for (const sentence of plan ?? []) { await page.keyboard.type(`${sentence} `, { delay: 4 }); typed++; }
     await page.waitForTimeout(400);
     const o = { plan: plan?.length ?? 0, stage: await page.evaluate(() => document.querySelector('#stage').dataset.state), label: await q(page, '.result-label'), prompt: await q(page, '#prompt', 'innerText'), block: (await q(page, '#completion', 'innerText'))?.slice(0, 300) };
-    check('REG-9 finite plan: ends at last sentence, never wraps, never "60 s · complete"', width, o.plan > 0 && o.stage === 'completed' && /all \d+ sentences/i.test(o.label ?? '') && !/60 s · complete/.test(o.label ?? '') && !/Baseline/.test(o.block ?? '') && !errors.length, { ...o, typed, errors });
+    check('REG-9 finite plan (30 s pilot, delta r2.1): ends at last sentence, never wraps, never "30 s · complete"', width, o.plan > 0 && o.stage === 'completed' && /all \d+ sentences/i.test(o.label ?? '') && !/30 s · complete/.test(o.label ?? '') && !/Baseline/.test(o.block ?? '') && !errors.length, { ...o, typed, errors });
     await context.close(); }
 }
 

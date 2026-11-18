@@ -79,6 +79,11 @@ export const states: StateEntry[] = [
   { id: '34-result-not-counted-qwerty', title: 'Not counted: qwerty off', query: 'page=assessment&fx=s0&qwerty=0&view=result&outcome=saved', note: 'Same declaration key on the not-counted line.' },
   { id: '35-assessment-recovery-ready', title: 'Test 6 ready while test 5 is unsaved', query: 'page=assessment&fx=s4&pendingFailed=1', note: 'Recovery in the slot; focus stays in the text.' },
   { id: '36-result-final-save-failed', title: 'Test 10, save failed', query: 'page=assessment&fx=s9&view=result&outcome=savefail&final=ready', note: 'retry saving primary; no dead details key.' },
-  { id: '37-practice-plan-end', title: 'Suggested · th: plan finished early', query: 'page=practice&fx=s10ready&kind=recommended&plan=finite&dur=60&view=planend', note: 'PROPOSAL: no wrap; ends at the last certified sentence; actual time shown.' },
+  { id: '37-practice-plan-end', title: 'Suggested · th: plan finished early', query: 'page=practice&fx=s10ready&kind=recommended&plan=finite&dur=30&view=planend', note: 'PROPOSAL: no wrap; ends at the last certified sentence; actual time shown.' },
+  // delta r2.1 (root 64a53b4)
+  { id: '39-practice-stepped-back-reload', title: 'Stepped back, after reload (no prior snapshot)', query: 'page=practice&fx=s10stepped&kind=recommended&reload=1', note: 'SIMULATED reload: no previous pair is named; the current fallback reason only.' },
+  { id: '40-practice-changed-reload', title: 'Focus changed, after reload (no prior snapshot)', query: 'page=practice&fx=s10changed&kind=recommended&reload=1', note: 'SIMULATED reload: Suggested · er is simply ready; no change announcement.' },
+  { id: '41-practice-suggested-60s', title: 'Suggested chosen at 60 s', query: 'page=practice&fx=s10ready&kind=recommended&dur=60', note: 'Pilot is 30 s only: this block is general; 60 s is kept; [use 30 s] is offered.' },
+  { id: '42-practice-suggested-qwerty-off', title: 'Suggested chosen with qwerty off', query: 'page=practice&fx=s10ready&kind=recommended&qwerty=0', note: 'Pilot needs declared QWERTY: general block; declaration key offered.' },
   { id: '38-practice-policy-invalid', title: 'Invalid configuration', query: 'page=practice&fx=sPolicyInvalid&view=why', note: 'No number; General and pair as usual.' },
 ];

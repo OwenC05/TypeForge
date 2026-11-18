@@ -12,7 +12,9 @@ const BASE = process.env.BASE ?? 'http://127.0.0.1:5312';
 const OUT = path.resolve(here, '..');
 const SHOTS = path.join(OUT, 'screenshots');
 fs.mkdirSync(SHOTS, { recursive: true });
-const states = JSON.parse(fs.readFileSync(path.join(OUT, 'states-list.json'), 'utf8'));
+// ONLY=id,id limits a run to affected states (delta evidence); RECORDS names its output file.
+const ONLY = process.env.ONLY ? process.env.ONLY.split(',') : null;
+const states = JSON.parse(fs.readFileSync(path.join(OUT, 'states-list.json'), 'utf8')).filter(s => !ONLY || ONLY.includes(s.id));
 const widths = [[1440, 900], [390, 844], [320, 640]];
 // r2: forced-colours emulation for the states where colour could carry meaning.
 const forced = ['02-practice-locked-press', '07-result-intermediate', '09-result-save-failed', '11-result-final-ready', '28-progress-summary', '35-assessment-recovery-ready'];
@@ -22,7 +24,7 @@ const records = [];
 const runs = [];
 for (const [width, height] of widths) {
   for (const state of states) runs.push({ width, height, state, mode: 'normal' });
-  for (const id of forced) runs.push({ width, height, state: states.find(s => s.id === id), mode: 'forced' });
+  for (const id of forced.filter(id => states.some(s => s.id === id))) runs.push({ width, height, state: states.find(s => s.id === id), mode: 'forced' });
 }
 for (const [width, height] of widths) {
   const context = await browser.newContext({ viewport: { width, height }, deviceScaleFactor: 1 });
@@ -67,7 +69,7 @@ for (const [width, height] of widths) {
   await context.close(); await forcedContext.close();
 }
 await browser.close();
-fs.writeFileSync(path.join(OUT, 'states.json'), JSON.stringify({ base: BASE, chrome: 'system Chrome (headless, playwright-core 1.65.1)', capturedAt: new Date().toISOString(), fixture: 'all data simulated', records }, null, 2));
+fs.writeFileSync(path.join(OUT, process.env.RECORDS ?? 'states.json'), JSON.stringify({ base: BASE, chrome: 'system Chrome (headless, playwright-core 1.65.1)', capturedAt: new Date().toISOString(), fixture: 'all data simulated', records }, null, 2));
 const bad = records.filter(r => r.errors.length || r.overflowX || r.slotClipped || r.undefinedText);
 console.log(`${records.length} captures; ${bad.length} with errors/overflow/clipped slot`);
 for (const r of bad) console.log(r.width, r.mode, r.id, { errors: r.errors, overflowX: r.overflowX, slotClipped: r.slotClipped, undefinedText: r.undefinedText });

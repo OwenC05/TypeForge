@@ -1,0 +1,449 @@
+{
+ "summary": {
+  "base": "http://127.0.0.1:5312",
+  "ranAt": "2026-11-18T18:46:41.589Z",
+  "total": 33,
+  "passed": 33,
+  "failed": []
+ },
+ "checks": [
+  {
+   "id": "D1a reload, stepped back: no previous pair named; truthful fallback",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "focus": "typing-input",
+    "label": "General practice · 30 s",
+    "slot": "Suggested has no focus for now, so this block is general. More in why?",
+    "why": "\n    baseline10 of 10 testsBaseline complete. One pair looked slower, but not consistently across your earlier and later",
+    "kind": "general",
+    "duration": "30",
+    "next": "a row of yellow flowers lines the garden wall",
+    "clipped": false,
+    "errors": []
+   }
+  },
+  {
+   "id": "D1b reload, focus changed: current Suggested ready, no \"leans on\"/previous pair",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "focus": "typing-input",
+    "label": "Suggested practice · er · 30 s",
+    "slot": "",
+    "why": "Suggested is unavailable right now.General and pair practice work as usual.Engli",
+    "kind": "recommended",
+    "duration": "30",
+    "next": "a row of yellow flowers lines the garden wall",
+    "clipped": false,
+    "errors": []
+   }
+  },
+  {
+   "id": "D1c guard: in-memory prior snapshot still announces the change once",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "slot": "Suggested now leans on er. th no longer stands out in your recent timing; that’s a re-check, not a verdict.",
+    "errors": []
+   }
+  },
+  {
+   "id": "D1d navigation away and back: no stale prior-pair announcement",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "slot": "",
+    "label": "Suggested practice · er · 30 s",
+    "errors": []
+   }
+  },
+  {
+   "id": "D2a Suggested at 60 s: general block, setting kept, honest hint; [use 30 s] is the person's choice",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "s": {
+     "focus": "typing-input",
+     "label": "General practice · 60 s",
+     "slot": "Suggested runs at 30 s only; this block is general.use 30 s",
+     "why": "Suggested is unavailable right now.General and pair practice work as usual.English · lowercase · short sentencesThe timer keeps running if you leave the text. I",
+     "kind": "recommended",
+     "duration": "60",
+     "next": "a row of yellow flowers lines the garden wall",
+     "clipped": false
+    },
+    "after": {
+     "label": "Suggested practice · th · 30 s",
+     "duration": "30",
+     "focus": "typing-input"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "D2b General at 60 s stays ordinary: no hint, duration untouched",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "focus": "general",
+    "label": "General practice · 60 s",
+    "slot": "",
+    "kind": "general",
+    "duration": "60",
+    "next": "a row of yellow flowers lines the garden wall",
+    "clipped": false,
+    "errors": []
+   }
+  },
+  {
+   "id": "D2c Suggested with qwerty off: general block, declaration key offered",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "focus": "typing-input",
+    "label": "General practice · 30 s",
+    "slot": "Suggested needs QWERTY; this is general.my keyboard is qwerty",
+    "kind": "recommended",
+    "duration": "30",
+    "next": "a row of yellow flowers lines the garden wall",
+    "clipped": false,
+    "errors": []
+   }
+  },
+  {
+   "id": "D2d finite plan is not used at 60 s (no end-of-block marker, general prompts)",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "label": "General practice · 60 s",
+    "next": "a row of yellow flowers lines the garden wall",
+    "errors": []
+   }
+  },
+  {
+   "id": "D2e finite plan at 30 s ends early, label \"of 30\", metrics row still unavailable",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "stage": "completed",
+    "label": "Suggested practice · th · all 3 sentences done at 12 s of 30",
+    "figures": false,
+    "errors": []
+   }
+  },
+  {
+   "id": "D2f flagged run reaching the finite end: flag explanation leads, no end observation, no figures",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "stage": "completed",
+    "label": "Suggested practice · th · all 3 sentences done at 13 s of 30",
+    "text": "SUGGESTED PRACTICE · TH · ALL 3 SENTENCES DONE AT 13 S OF 30\n\nFIGURES OMITTED: UNAVAILABLE UNTIL P1 R2 VALIDATES METRICS FOR A BLOCK THAT ENDS EARLY (FINITE-PLAN-END.MD RULE 6)\n\nFlagged: this run was ",
+    "figures": false,
+    "errors": []
+   }
+  },
+  {
+   "id": "D1e automaticCoaching \"unavailable\" (P1 r2 projection) never reads as switched off",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "slot": "Suggested is unavailable here. General works as usual.",
+    "errors": []
+   }
+  },
+  {
+   "id": "D1a reload, stepped back: no previous pair named; truthful fallback",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "focus": "typing-input",
+    "label": "General practice · 30 s",
+    "slot": "Suggested has no focus for now, so this block is general. More in why?",
+    "why": "\n    baseline10 of 10 testsBaseline complete. One pair looked slower, but not consistently across your earlier and later",
+    "kind": "general",
+    "duration": "30",
+    "next": "a row of yellow flowers lines the garden wall",
+    "clipped": false,
+    "errors": []
+   }
+  },
+  {
+   "id": "D1b reload, focus changed: current Suggested ready, no \"leans on\"/previous pair",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "focus": "typing-input",
+    "label": "Suggested practice · er · 30 s",
+    "slot": "",
+    "why": "Suggested is unavailable right now.General and pair practice work as usual.Engli",
+    "kind": "recommended",
+    "duration": "30",
+    "next": "a row of yellow flowers lines the garden wall",
+    "clipped": false,
+    "errors": []
+   }
+  },
+  {
+   "id": "D1c guard: in-memory prior snapshot still announces the change once",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "slot": "Suggested now leans on er. th no longer stands out in your recent timing; that’s a re-check, not a verdict.",
+    "errors": []
+   }
+  },
+  {
+   "id": "D1d navigation away and back: no stale prior-pair announcement",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "slot": "",
+    "label": "Suggested practice · er · 30 s",
+    "errors": []
+   }
+  },
+  {
+   "id": "D2a Suggested at 60 s: general block, setting kept, honest hint; [use 30 s] is the person's choice",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "s": {
+     "focus": "typing-input",
+     "label": "General practice · 60 s",
+     "slot": "Suggested runs at 30 s only; this block is general.use 30 s",
+     "why": "Suggested is unavailable right now.General and pair practice work as usual.English · lowercase · short sentencesThe timer keeps running if you leave the text. I",
+     "kind": "recommended",
+     "duration": "60",
+     "next": "a row of yellow flowers lines the garden wall",
+     "clipped": false
+    },
+    "after": {
+     "label": "Suggested practice · th · 30 s",
+     "duration": "30",
+     "focus": "typing-input"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "D2b General at 60 s stays ordinary: no hint, duration untouched",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "focus": "general",
+    "label": "General practice · 60 s",
+    "slot": "",
+    "kind": "general",
+    "duration": "60",
+    "next": "a row of yellow flowers lines the garden wall",
+    "clipped": false,
+    "errors": []
+   }
+  },
+  {
+   "id": "D2c Suggested with qwerty off: general block, declaration key offered",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "focus": "typing-input",
+    "label": "General practice · 30 s",
+    "slot": "Suggested needs QWERTY; this is general.my keyboard is qwerty",
+    "kind": "recommended",
+    "duration": "30",
+    "next": "a row of yellow flowers lines the garden wall",
+    "clipped": false,
+    "errors": []
+   }
+  },
+  {
+   "id": "D2d finite plan is not used at 60 s (no end-of-block marker, general prompts)",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "label": "General practice · 60 s",
+    "next": "a row of yellow flowers lines the garden wall",
+    "errors": []
+   }
+  },
+  {
+   "id": "D2e finite plan at 30 s ends early, label \"of 30\", metrics row still unavailable",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "stage": "completed",
+    "label": "Suggested practice · th · all 3 sentences done at 10 s of 30",
+    "figures": false,
+    "errors": []
+   }
+  },
+  {
+   "id": "D2f flagged run reaching the finite end: flag explanation leads, no end observation, no figures",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "stage": "completed",
+    "label": "Suggested practice · th · all 3 sentences done at 11 s of 30",
+    "text": "SUGGESTED PRACTICE · TH · ALL 3 SENTENCES DONE AT 11 S OF 30\n\nFIGURES OMITTED: UNAVAILABLE UNTIL P1 R2 VALIDATES METRICS FOR A BLOCK THAT ENDS EARLY (FINITE-PLAN-END.MD RULE 6)\n\nFlagged: this run was ",
+    "figures": false,
+    "errors": []
+   }
+  },
+  {
+   "id": "D1e automaticCoaching \"unavailable\" (P1 r2 projection) never reads as switched off",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "slot": "Suggested is unavailable here. General works as usual.",
+    "errors": []
+   }
+  },
+  {
+   "id": "D1a reload, stepped back: no previous pair named; truthful fallback",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "focus": "typing-input",
+    "label": "General practice · 30 s",
+    "slot": "Suggested has no focus for now, so this block is general. More in why?",
+    "why": "\n    baseline10 of 10 testsBaseline complete. One pair looked slower, but not consistently across your earlier and later",
+    "kind": "general",
+    "duration": "30",
+    "next": "a row of yellow flowers lines the garden wall",
+    "clipped": false,
+    "errors": []
+   }
+  },
+  {
+   "id": "D1b reload, focus changed: current Suggested ready, no \"leans on\"/previous pair",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "focus": "typing-input",
+    "label": "Suggested practice · er · 30 s",
+    "slot": "",
+    "why": "Suggested is unavailable right now.General and pair practice work as usual.Engli",
+    "kind": "recommended",
+    "duration": "30",
+    "next": "a row of yellow flowers lines the garden wall",
+    "clipped": false,
+    "errors": []
+   }
+  },
+  {
+   "id": "D1c guard: in-memory prior snapshot still announces the change once",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "slot": "Suggested now leans on er. th no longer stands out in your recent timing; that’s a re-check, not a verdict.",
+    "errors": []
+   }
+  },
+  {
+   "id": "D1d navigation away and back: no stale prior-pair announcement",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "slot": "",
+    "label": "Suggested practice · er · 30 s",
+    "errors": []
+   }
+  },
+  {
+   "id": "D2a Suggested at 60 s: general block, setting kept, honest hint; [use 30 s] is the person's choice",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "s": {
+     "focus": "typing-input",
+     "label": "General practice · 60 s",
+     "slot": "Suggested runs at 30 s only; this block is general.use 30 s",
+     "why": "Suggested is unavailable right now.General and pair practice work as usual.English · lowercase · short sentencesThe timer keeps running if you leave the text. I",
+     "kind": "recommended",
+     "duration": "60",
+     "next": "a row of yellow flowers lines the garden wall",
+     "clipped": false
+    },
+    "after": {
+     "label": "Suggested practice · th · 30 s",
+     "duration": "30",
+     "focus": "typing-input"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "D2b General at 60 s stays ordinary: no hint, duration untouched",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "focus": "general",
+    "label": "General practice · 60 s",
+    "slot": "",
+    "kind": "general",
+    "duration": "60",
+    "next": "a row of yellow flowers lines the garden wall",
+    "clipped": false,
+    "errors": []
+   }
+  },
+  {
+   "id": "D2c Suggested with qwerty off: general block, declaration key offered",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "focus": "typing-input",
+    "label": "General practice · 30 s",
+    "slot": "Suggested needs QWERTY; this is general.my keyboard is qwerty",
+    "kind": "recommended",
+    "duration": "30",
+    "next": "a row of yellow flowers lines the garden wall",
+    "clipped": false,
+    "errors": []
+   }
+  },
+  {
+   "id": "D2d finite plan is not used at 60 s (no end-of-block marker, general prompts)",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "label": "General practice · 60 s",
+    "next": "a row of yellow flowers lines the garden wall",
+    "errors": []
+   }
+  },
+  {
+   "id": "D2e finite plan at 30 s ends early, label \"of 30\", metrics row still unavailable",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "stage": "completed",
+    "label": "Suggested practice · th · all 3 sentences done at 11 s of 30",
+    "figures": false,
+    "errors": []
+   }
+  },
+  {
+   "id": "D2f flagged run reaching the finite end: flag explanation leads, no end observation, no figures",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "stage": "completed",
+    "label": "Suggested practice · th · all 3 sentences done at 11 s of 30",
+    "text": "SUGGESTED PRACTICE · TH · ALL 3 SENTENCES DONE AT 11 S OF 30\n\nFIGURES OMITTED: UNAVAILABLE UNTIL P1 R2 VALIDATES METRICS FOR A BLOCK THAT ENDS EARLY (FINITE-PLAN-END.MD RULE 6)\n\nFlagged: this run was ",
+    "figures": false,
+    "errors": []
+   }
+  },
+  {
+   "id": "D1e automaticCoaching \"unavailable\" (P1 r2 projection) never reads as switched off",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "slot": "Suggested is unavailable here. General works as usual.",
+    "errors": []
+   }
+  }
+ ]
+}
