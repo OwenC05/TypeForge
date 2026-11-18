@@ -1,0 +1,23 @@
+{
+ "source": "orca orchestration worker-show --dispatch ctx_7da4854c30a4 --json --full (extracted fields only)",
+ "observedAt": "2026-11-18",
+ "task": "task_b2b8be79c156",
+ "dispatch": "ctx_7da4854c30a4",
+ "run": "run_1aeb00550f39",
+ "thisDispatch": {
+  "launch.requested": { "agent": null, "model": null, "effort": null },
+  "launch.effective": { "agent": "claude", "model": null, "effort": null },
+  "projection.provider": { "id": "claude", "model": "claude-opus-5-5" },
+  "terminal.agentIdentity": "claude",
+  "terminalResource.originDispatchId": "ctx_f5e22117b85e",
+  "note": "This dispatch resumed the existing reviewer terminal; Orca did not relaunch it, so no new requested/effective model or effort is recorded for this dispatch."
+ },
+ "originLaunchOfThisTerminal": {
+  "dispatch": "ctx_f5e22117b85e",
+  "requested": { "agent": "claude", "model": "claude-opus-5-5", "effort": "high" },
+  "effective": { "agent": "claude", "model": "claude-opus-5-5", "effort": "high" },
+  "recordedIn": "../../evidence/receipt.json (05a6767)"
+ },
+ "runtimeSelfReport": "Claude Code session declares model ID claude-opus-5-5; effort is not exposed inside the session, so 'high' rests on the origin launch record of this same terminal, not on a new record.",
+ "helpers": "none (no subagents, no Orca helper workers)"
+}
