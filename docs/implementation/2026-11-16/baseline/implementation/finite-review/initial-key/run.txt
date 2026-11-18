@@ -1,0 +1,31 @@
+﻿{
+  "checks": 30,
+  "originalError": "Invalid finite practice result: sentences[0].initial key.",
+  "plans": [
+    {
+      "pair": "he",
+      "initial": "p",
+      "error": "Invalid finite practice result: sentences[0].initial key.",
+      "realTraces": 4
+    },
+    {
+      "pair": "in",
+      "initial": "p",
+      "error": "Invalid finite practice result: sentences[0].initial key.",
+      "realTraces": 4
+    },
+    {
+      "pair": "le",
+      "initial": "a",
+      "error": "Invalid finite practice result: sentences[0].initial key.",
+      "realTraces": 4
+    },
+    {
+      "pair": "th",
+      "initial": "w",
+      "error": "Invalid finite practice result: sentences[0].initial key.",
+      "realTraces": 4
+    }
+  ],
+  "revision": "ca94e23667d80de2a5a4c939cbc03559662cf5a6"
+}
