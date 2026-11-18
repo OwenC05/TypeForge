@@ -44,7 +44,7 @@ const receipts = { phase: PHASE, port: PORT, node: process.execPath, started: ne
 // ---------- Owned helper: one hidden Vite server on the strict port ----------
 const portOpen = () => new Promise(resolve => { const socket = net.connect(PORT, '127.0.0.1'); socket.once('connect', () => { socket.destroy(); resolve(true); }); socket.once('error', () => resolve(false)); });
 assert.equal(await portOpen(), false, `port ${PORT} must be free before the run`);
-const args = ['node_modules/vite/bin/vite.js', ...(PHASE !== 'injected' ? ['preview'] : []), '--host', '127.0.0.1', '--port', String(PORT), '--strictPort'];
+const args = ['node_modules/vite/bin/vite.js', ...(['real', 'typing-flow'].includes(PHASE) ? ['preview'] : []), '--host', '127.0.0.1', '--port', String(PORT), '--strictPort'];
 const server = spawn(process.execPath, args, { cwd: process.cwd(), windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
 receipts.server = { pid: server.pid, executable: process.execPath, args, cwd: process.cwd(), windowsHide: true, shell: false };
 let serverOutput = '', serverExited = false;
@@ -127,7 +127,7 @@ async function savedSources(page) {
   }));
 }
 // Scripted intervals: every character `base` ms apart, the second letter of `slowPair` `slow` ms after the first.
-async function typeBlock(page, { base = 110, slowPair = 'th', slow = 300, until = 30000, sentences: limit = null } = {}) {
+async function typeBlock(page, { base = 110, slowPair = 'th', slow = 300, pairs = null, until = 30000, sentences: limit = null } = {}) {
   let elapsed = 0, previous = '', sentences = 0, started = false;
   while (elapsed < until) {
     const now = await page.evaluate(() => ({ s: document.querySelector('#stage').dataset.state, target: document.querySelector('#target-description').textContent.replace('Passage to copy: ', ''), value: document.querySelector('#typing-input').value }));
@@ -135,7 +135,7 @@ async function typeBlock(page, { base = 110, slowPair = 'th', slow = 300, until 
     const text = `${now.target} `;
     for (let i = now.value.length; i < text.length && elapsed < until; i++) {
       const ch = text[i];
-      const interval = slowPair && previous + ch === slowPair ? slow : base;
+      const interval = pairs ? pairs[previous + ch] ?? base : slowPair && previous + ch === slowPair ? slow : base;
       // Never press a key at or after the deadline: it would land on the focused result action instead.
       if (started && elapsed + interval >= until) { await page.clock.runFor(until - elapsed + 150); elapsed = until + 150; break; }
       if (started) { await page.clock.runFor(interval); elapsed += interval; }
@@ -545,9 +545,292 @@ async function typingFlow() {
   check('typing-flow: no page errors', 'real', report.errors.length === 0, report.errors);
 }
 
+// =====================================================================================
+// ADMISSION FOLLOW-UP (task_338af3c3e8c3). Dev server; the real C/D/E modules, unbundled. Saved sources come
+// from real typing (COACH_PHASE=fixtures) and are seeded through C's own captureContext + saveSource, so
+// counts, membership, proof and admission are C/D's actual results. Nothing injects a status or an admission.
+const FIXTURES = path.join(OUT, 'fixtures');
+const LATER = new Date(START.getTime() + 24 * 3600 * 1000); // seeded worlds start a day after the fixtures were typed
+const SUGGESTED = '/index.html?mode=practice&practice=recommended&duration=30&qwerty=1';
+async function seed(page, sources) {
+  const states = await page.evaluate(async list => {
+    const c = await import('/src/coach-storage.ts');
+    const out = [];
+    for (const source of list) { const capture = await c.captureContext(); const r = await c.saveSource(source, capture); out.push(`${r.state}${r.membershipReady ? '+member' : ''}`); }
+    return out;
+  }, sources);
+  assert.ok(states.every(s => s === 'saved+member'), `seeded through C: ${states}`);
+  return states;
+}
+// A real storage change made through C from inside the page (as another tab's reset would): it commits and
+// notifies without advancing any page timer, so a queued re-preparation stays queued under the paused clock.
+const resetThroughC = page => page.evaluate(async () => { const c = await import('/src/coach-storage.ts'); const capture = await c.captureContext(); return (await c.resetEpoch(capture.databaseId)).committed; });
+const realWait = async (page, predicate, label, tries = 100) => { for (let i = 0; i < tries; i++) { if (await predicate()) return true; await page.waitForTimeout(30); } throw new Error(`timed out: ${label}`); };
+const loadFixture = name => JSON.parse(readFileSync(path.join(FIXTURES, `${name}.json`), 'utf8'));
+// Holds the dev-served finite runtime module until released (controlled delayed import).
+async function holdFiniteRuntime(context) {
+  const state = { requested: 0, release: null };
+  const gate = new Promise(resolve => { state.release = resolve; });
+  await context.route(/\/src\/finite-practice\.ts(\?.*)?$/, async route => { state.requested++; await gate; await route.continue(); });
+  return state;
+}
+// Holds C's saveSource at its source hash (identified by its async stack), never a preparation's hashing.
+const armSaveGate = page => page.evaluate(() => {
+  const subtle = crypto.subtle;
+  const original = window.__digest ??= subtle.digest.bind(subtle);
+  let open; const gate = new Promise(resolve => { open = resolve; });
+  window.__saveGate = { held: 0, release: open };
+  Object.defineProperty(subtle, 'digest', { configurable: true, value: async (...args) => {
+    if (window.__saveGate && /saveSource/.test(new Error().stack ?? '')) { window.__saveGate.held++; await gate; }
+    return original(...args);
+  } });
+});
+const releaseSaveGate = page => page.evaluate(() => { const g = window.__saveGate; window.__saveGate = null; g?.release(); });
+const saveHeld = page => page.evaluate(() => window.__saveGate?.held ?? 0);
+const ids = page => page.evaluate(() => document.querySelector('#stage').dataset.promptIds);
+const typedCount = page => page.evaluate(() => document.querySelectorAll('#prompt .correct, #prompt .wrong').length);
+
+async function buildFixtures() {
+  const w = await world('fixtures');
+  const p = await w.open('/practice.html?duration=30&qwerty=1');
+  await settle(p);
+  for (let test = 1; test <= 10; test++) {
+    await p.locator('#typing-input').focus();
+    await typeBlock(p, { pairs: { th: 330, in: 250 } }); await waitSaved(p);
+    if (test < 10) { await p.keyboard.press('Enter'); await settle(p); }
+  }
+  await settle(p, 12);
+  const a = (await savedSources(p)).filter(s => s.mode === 'assessment');
+  check('fixture A: ten real assessments (th slow, in moderately slow) give Suggested focus th', 'real', a.length === 10 && /Suggested has a focus: th/.test(await q(p, '#baseline-result', 'innerText') ?? ''), { count: a.length });
+  await p.goto(`${BASE}/index.html?mode=practice&practice=general&duration=30&qwerty=1`); await p.waitForSelector('#typing-input'); await settle(p, 12);
+  for (let run = 1; run <= 10; run++) {
+    await p.locator('#typing-input').focus();
+    await typeBlock(p, { pairs: { in: 400 } }); await waitSaved(p);
+    if (run < 10) { await p.locator('#result-actions .key-primary').click(); await settle(p, 12); }
+  }
+  const b = (await savedSources(p)).filter(s => s.mode === 'practice');
+  await p.goto(BASE + SUGGESTED); await p.waitForSelector('#typing-input'); await settle(p, 15);
+  const after = await label(p);
+  check('fixture B: ten real General practice runs (in slow only) move the admitted focus to in', 'real', b.length === 10 && after === 'Suggested practice · in · 30 s', { count: b.length, label: after });
+  mkdirSync(FIXTURES, { recursive: true });
+  writeFileSync(path.join(FIXTURES, 'sources-a.json'), JSON.stringify(a));
+  writeFileSync(path.join(FIXTURES, 'sources-b.json'), JSON.stringify(b));
+  await verifyIsolation(w, p);
+  await w.context.close();
+}
+
+async function seededWorld(name, sources, url) {
+  const w = await world(name);
+  await w.context.clock.setSystemTime(LATER);
+  const p = await w.open('/index.html?mode=practice&practice=general&duration=30&qwerty=1');
+  await settle(p, 4);
+  await seed(p, sources);
+  await p.goto(BASE + url); await p.waitForSelector('#typing-input'); await settle(p, 15);
+  return { w, p };
+}
+
+async function raceFlows() {
+  const a = loadFixture('sources-a');
+  // ---- P1a: a known invalidation, preparation held (queued under the paused clock), then the first key ----
+  for (const trigger of ['reset', 'focus']) {
+    const { w, p } = await seededWorld(`race-first-key-${trigger}`, a, SUGGESTED);
+    const ready = { label: await label(p), ids: await ids(p) };
+    check(`P1a/${trigger}: the admitted Suggested th block is ready before the race`, 'real-seeded', ready.label === 'Suggested practice · th · 30 s', ready);
+    if (trigger === 'reset') check('P1a/reset: the reset committed through C', 'real-seeded', await resetThroughC(p) === true, {});
+    else await p.evaluate(() => window.dispatchEvent(new Event('focus'))); // C invalidates on focus; nothing changed
+    await p.locator('#typing-input').focus();
+    await p.keyboard.press('t');
+    const first = { label: await label(p), state: await state(p), value: await p.inputValue('#typing-input'), typed: await typedCount(p), ids: await ids(p), focus: await active(p), slot: await slot(p) };
+    check(`P1a/${trigger}: a known invalidation never lets the first key start the stale finite plan`, 'real-seeded',
+      first.label === 'General practice · 30 s' && first.ids !== ready.ids && first.state === 'running', first);
+    check(`P1a/${trigger}: the first key is accepted exactly once and focus stays in the text`, 'real-seeded', first.value === 't' && first.typed === 1 && first.focus === 'typing-input', first);
+    await capture(p, `race-first-key-${trigger}`, 'real-seeded');
+    await settle(p, 15);
+    const after = { label: await label(p), state: await state(p), value: await p.inputValue('#typing-input'), ids: await ids(p) };
+    check(`P1a/${trigger}: the re-preparation never replaces the running block`, 'real-seeded', after.label === first.label && after.ids === first.ids && after.state === 'running' && after.value === 't', after);
+    await verifyIsolation(w, p);
+    await w.context.close();
+  }
+
+  // ---- P1b settle: invalidation and a newer generation while the finite runtime import is pending ----
+  for (const variant of ['idle', 'first-key']) {
+    const w = await world(`race-settle-${variant}`);
+    await w.context.clock.setSystemTime(LATER);
+    const p = await w.open('/index.html?mode=practice&practice=general&duration=30&qwerty=1');
+    await settle(p, 4);
+    await seed(p, a);
+    const held = await holdFiniteRuntime(w.context);
+    await p.goto(BASE + SUGGESTED); await p.waitForSelector('#typing-input'); await settle(p, 4);
+    // Nothing is queued yet, so advancing the page clock here only lets the load-time preparation reach admission.
+    await realWait(p, async () => { await p.clock.runFor(40); return held.requested > 0; }, 'settle awaits the finite runtime');
+    const before = { label: await label(p), ids: await ids(p) };
+    if (variant === 'first-key') { await p.locator('#typing-input').focus(); await p.keyboard.press('t'); }
+    check(`P1b settle/${variant}: the reset committed through C while the runtime import is held`, 'real-seeded', await resetThroughC(p) === true, before);
+    await settle(p, 15); // the queued re-preparation runs: a newer generation, baseline reset, nothing admitted
+    held.release(); await p.waitForTimeout(200); await settle(p, 8);
+    const after = { label: await label(p), ids: await ids(p), state: await state(p), value: await p.inputValue('#typing-input'), typed: await typedCount(p), status: await q(p, '#suggested-status') };
+    if (variant === 'idle') check('P1b settle/idle: the older snapshot never installs after invalidation and a newer generation', 'real-seeded',
+      after.label === 'General practice · 30 s' && after.ids === before.ids && /0 of 10/.test(after.status ?? ''), { before, after });
+    else check('P1b settle/first-key: a block started during the gap stays intact (General, one key, running)', 'real-seeded',
+      after.label === 'General practice · 30 s' && after.ids === before.ids && after.state === 'running' && after.value === 't' && after.typed === 1, { before, after });
+    await capture(p, `race-settle-${variant}`, 'real-seeded');
+    await verifyIsolation(w, p);
+    await w.context.close();
+  }
+
+  // ---- P1b restart: invalidation while restarting into Suggested, runtime import pending ----
+  {
+    const w = await world('race-restart');
+    await w.context.clock.setSystemTime(LATER);
+    const p = await w.open('/index.html?mode=practice&practice=general&duration=30&qwerty=1');
+    await settle(p, 4);
+    await seed(p, a);
+    await p.goto(`${BASE}/index.html?mode=practice&practice=general&duration=30&qwerty=1`); await p.waitForSelector('#typing-input'); await settle(p, 15);
+    const held = await holdFiniteRuntime(w.context);
+    await p.locator('#suggested-item').click();
+    await realWait(p, async () => { await p.clock.runFor(40); return held.requested > 0; }, 'restart loads the finite runtime');
+    await p.keyboard.press('t'); // input is held during the restart: this key must not land anywhere
+    const during = { value: await p.inputValue('#typing-input'), disabled: await p.evaluate(() => document.querySelector('#typing-input').disabled) };
+    check('P1b restart: the reset committed through C while restarting', 'real-seeded', await resetThroughC(p) === true, during);
+    held.release(); await p.waitForTimeout(200); await settle(p, 15);
+    const after = { label: await label(p), slot: await slot(p), value: await p.inputValue('#typing-input'), focus: await active(p), status: await q(p, '#suggested-status') };
+    check('P1b restart: the snapshot admitted before the reset never installs; honest General with its reason', 'real-seeded',
+      after.label === 'General practice · 30 s' && /general/i.test(after.slot) && /0 of 10/.test(after.status ?? ''), { during, after });
+    check('P1b restart: no key landed while input was held; the next key starts exactly once', 'real-seeded', during.value === '' && after.value === '', { during, after });
+    await p.locator('#typing-input').focus(); await p.keyboard.press('t');
+    check('P1b restart: first key after the restart starts the General block once', 'real-seeded', await state(p) === 'running' && await typedCount(p) === 1, { state: await state(p) });
+    await capture(p, 'race-restart', 'real-seeded');
+    await verifyIsolation(w, p);
+    await w.context.close();
+  }
+}
+
+async function liveFlows() {
+  const a = loadFixture('sources-a'), b = loadFixture('sources-b');
+  // ---- Delayed save: Enter at 0 ms and at 200 ms while the save is pending; failure settling mid-block ----
+  {
+    const { w, p } = await seededWorld('delayed-save', a.slice(0, 4), '/practice.html?duration=30&qwerty=1');
+    check('delayed save: four seeded tests, test 5 ready', 'real-seeded', await label(p) === 'Baseline test 5 of 10 · 30 s', { label: await label(p) });
+    for (const [test, delay] of [[5, 0], [6, 200]]) {
+      await armSaveGate(p);
+      await p.locator('#typing-input').focus();
+      await typeBlock(p);
+      await realWait(p, async () => await saveHeld(p) > 0, `test ${test} save held`);
+      const result = { label: await q(p, '.result-label'), save: await q(p, '#save-state') };
+      if (delay) await p.clock.runFor(delay);
+      await p.keyboard.press('Enter');
+      await p.waitForTimeout(300);
+      const pending = { label: await label(p), focus: await active(p), slot: await slot(p), state: await state(p), held: await saveHeld(p) };
+      check(`REG-5${delay ? 'b' : 'a'}: Enter at ${delay} ms while test ${test}'s save is pending -> test ${test + 1}, focus in the text, nothing at risk shown`, 'real-seeded',
+        result.label === `Baseline test ${test} of 10 · 30 s · complete` && /^Baseline test( \d+ of 10)? · 30 s$/.test(pending.label ?? '') && pending.focus === 'typing-input' && pending.state === 'idle' && !/isn.t saved/.test(pending.slot) && pending.held === 1, { result, pending });
+      await releaseSaveGate(p); await p.waitForTimeout(300); await settle(p, 12);
+      const settled = { label: await label(p), slot: await slot(p), sources: (await savedSources(p)).length };
+      check(`REG-5${delay ? 'b' : 'a'}: the save then succeeds once; test ${test + 1} is ready with its number`, 'real-seeded', settled.label === `Baseline test ${test + 1} of 10 · 30 s` && settled.sources === test && !/isn.t saved/.test(settled.slot), settled);
+    }
+    // REG-5e: test 7's save is held, test 8 starts, then the save fails while test 8 runs.
+    await armSaveGate(p);
+    await p.locator('#typing-input').focus();
+    await typeBlock(p);
+    await realWait(p, async () => await saveHeld(p) > 0, 'test 7 save held');
+    await p.keyboard.press('Enter'); await p.waitForTimeout(300); await settle(p, 6);
+    await p.locator('#typing-input').focus();
+    await typeBlock(p, { until: 4000 });
+    const running = { label: await label(p), value: await p.inputValue('#typing-input'), state: await state(p), ids: await ids(p) };
+    await failWrites(p); await releaseSaveGate(p); await p.waitForTimeout(400);
+    await p.clock.runFor(200); await p.waitForTimeout(100);
+    const during = { label: await label(p), value: await p.inputValue('#typing-input'), state: await state(p), ids: await ids(p), focus: await active(p) };
+    check('REG-5e: a save failure settling during the next active block leaves its run, label, text and focus untouched', 'real-seeded',
+      running.label === 'Baseline test 8 of 10 · 30 s' && during.label === running.label && during.value === running.value && during.state === 'running' && during.ids === running.ids && during.focus === 'typing-input', { running, during });
+    await restoreWrites(p);
+    await typeBlock(p, { until: 26000 }); await waitSaved(p);
+    const after = { block: await q(p, '#completion', 'innerText') };
+    check('REG-5e: after the block, the unsaved test 7 is offered for recovery', 'real-seeded', /7 isn.t saved|Test 7/.test(after.block ?? '') && /retry/i.test(after.block ?? ''), after);
+    await capture(p, 'delayed-save-failure-after-block', 'real-seeded');
+    await verifyIsolation(w, p);
+    await w.context.close();
+  }
+
+  // ---- REG-6b: the tenth save fails, then retry unlocks exactly once ----
+  {
+    const { w, p } = await seededWorld('tenth-save', a.slice(0, 9), '/practice.html?duration=30&qwerty=1');
+    check('tenth save: nine seeded tests, test 10 ready', 'real-seeded', await label(p) === 'Baseline test 10 of 10 · 30 s', { label: await label(p) });
+    await failWrites(p);
+    await p.locator('#typing-input').focus();
+    await typeBlock(p); await waitSaved(p);
+    const failed = { block: await q(p, '#baseline-result', 'innerText'), focus: await activeText(p), value: await progressValue(p) };
+    check('REG-6b: tenth save failed: not counted, retry saving is the primary, no completion or unlock claimed', 'real-seeded',
+      /Not saved yet, so it doesn.t count/.test(failed.block ?? '') && /^retry saving/.test(failed.focus) && !/Baseline complete|Suggested has a focus/.test(failed.block ?? '') && failed.value === '9', failed);
+    await capture(p, 'tenth-save-failed', 'real-seeded');
+    await restoreWrites(p);
+    await p.keyboard.press('Enter'); await waitSaved(p); await settle(p, 12);
+    const unlocked = { block: await q(p, '#baseline-result', 'innerText'), focus: await activeText(p), retry: await p.locator('#result-actions', { hasText: 'retry saving' }).count(), sources: (await savedSources(p)).filter(s => s.mode === 'assessment').length };
+    check('REG-6b: retry saves once; Baseline complete and the th focus unlock exactly once', 'real-seeded',
+      (unlocked.block?.match(/Baseline complete/g) ?? []).length === 1 && /Suggested has a focus: th/.test(unlocked.block ?? '') && /try suggested · th/.test(unlocked.focus) && unlocked.retry === 0 && unlocked.sources === 10, unlocked);
+    await capture(p, 'tenth-save-retried', 'real-seeded');
+    const progress = await w.open('/progress.html'); await settle(progress, 12);
+    check('REG-6b: Progress counts 10 of 10 once', 'real-seeded', ((await appText(progress)).match(/10 of 10/g) ?? []).length === 1, {});
+    await verifyIsolation(w, p);
+    await w.context.close();
+  }
+
+  // ---- Focus change between two admitted pairs; a running plan stays frozen ----
+  {
+    const { w, p } = await seededWorld('focus-change', a, SUGGESTED);
+    const ready = { label: await label(p), ids: await ids(p) };
+    await p.locator('#typing-input').focus();
+    await typeBlock(p, { base: 35, slow: 35, sentences: 1 });
+    await seed(p, b); // a durable storage change during the running th block (ten in-slow practice runs)
+    await settle(p, 6);
+    const running = { label: await label(p), ids: await ids(p), state: await state(p) };
+    check('focus change: new evidence during a running th block never changes its label or plan', 'real-seeded',
+      ready.label === 'Suggested practice · th · 30 s' && running.label === ready.label && running.ids === ready.ids && running.state === 'running', { ready, running });
+    await typeBlock(p, { base: 35, slow: 35 }); await waitSaved(p);
+    const end = { label: await q(p, '.result-label') };
+    await p.keyboard.press('Enter'); await settle(p, 15);
+    const changed = { label: await label(p), slot: await slot(p), ids: await ids(p) };
+    check('D1c focus change: the next Suggested block runs the newly admitted in plan and says once that it moved from th', 'real-seeded',
+      /^Suggested practice · th · /.test(end.label ?? '') && changed.label === 'Suggested practice · in · 30 s' && /\bth\b/.test(changed.slot) && /\bin\b/.test(changed.slot) && changed.ids !== ready.ids, { end, changed });
+    await capture(p, 'focus-change-announced', 'real-seeded');
+    await p.locator('#typing-input').focus();
+    await typeBlock(p, { base: 220, slow: 220 }); await waitSaved(p);
+    await p.keyboard.press('Enter'); await settle(p, 15);
+    const again = { label: await label(p), slot: await slot(p) };
+    check('D1c: the change is announced once; the next in block names no previous pair', 'real-seeded', again.label === 'Suggested practice · in · 30 s' && !/\bth\b/.test(again.slot), again);
+    await p.reload(); await p.waitForSelector('#typing-input'); await settle(p, 15);
+    const reloaded = { label: await label(p), slot: await slot(p) };
+    check('D1b reload after the focus changed: the current in Suggested is ready, no previous pair named', 'real-seeded', reloaded.label === 'Suggested practice · in · 30 s' && !/\bth\b|leans on/.test(reloaded.slot), reloaded);
+    await verifyIsolation(w, p);
+    await w.context.close();
+  }
+
+  // ---- Deleting a counted result through the existing results-page control ----
+  {
+    const { w, p } = await seededWorld('delete-counted', a, SUGGESTED);
+    check('deletion: ten seeded tests, Suggested th ready', 'real-seeded', await label(p) === 'Suggested practice · th · 30 s', { label: await label(p) });
+    const results = await w.open(`/results.html?id=${encodeURIComponent(a[9].id)}`);
+    await settle(results, 8);
+    results.once('dialog', dialog => dialog.accept());
+    await results.locator('#delete-result').click();
+    await results.waitForURL(/progress\.html/); await settle(results, 15);
+    const progress = await appText(results);
+    check('deletion: the existing Delete control removes a counted test; Progress shows 9 of 10 and no median', 'real-seeded', /9 of 10/.test(progress) && !/Last 10 tests · median/i.test(progress), { text: progress.slice(0, 500) });
+    await capture(results, 'deleted-counted-progress', 'real-seeded');
+    await settle(p, 15);
+    const after = { label: await label(p), slot: await slot(p), status: await q(p, '#suggested-status') };
+    check('deletion: the open ready Suggested block steps back to honest General via the real storage invalidation', 'real-seeded',
+      after.label === 'General practice · 30 s' && /9 of 10/.test(after.status ?? '') && /general/i.test(after.slot), after);
+    await capture(p, 'deleted-counted-practice', 'real-seeded');
+    await verifyIsolation(w, p);
+    await w.context.close();
+  }
+}
+
 try {
   if (PHASE === 'real') await realFlows();
   else if (PHASE === 'typing-flow') await typingFlow();
+  else if (PHASE === 'fixtures') await buildFixtures();
+  else if (PHASE === 'race') await raceFlows();
+  else if (PHASE === 'live') await liveFlows();
   else await injectedFlows();
 } catch (error) {
   check(`execution (${PHASE})`, PHASE, false, { error: String(error?.stack ?? error).slice(0, 1500) });
