@@ -79,10 +79,12 @@ export function invalidatePreparations(): void {
 function listen(): void {
   if (listening || typeof window === 'undefined') return;
   listening = true;
-  if (typeof BroadcastChannel !== 'undefined') {
-    channel = new BroadcastChannel('typeforge-source-invalidation-v3');
-    channel.onmessage = () => invalidatePreparations();
-  }
+  try {
+    if (typeof BroadcastChannel !== 'undefined') {
+      channel = new BroadcastChannel('typeforge-source-invalidation-v3');
+      channel.onmessage = () => invalidatePreparations();
+    }
+  } catch { channel = null; } // Restricted channel creation still permits storage/focus fallback.
   window.addEventListener('storage', event => { if (event.key === 'typeforge-source-invalidation-v3') invalidatePreparations(); });
   window.addEventListener('focus', invalidatePreparations);
   window.addEventListener('pageshow', invalidatePreparations);
@@ -91,7 +93,8 @@ export function subscribeStorageInvalidation(listener: () => void): () => void {
   listen(); listeners.add(listener); return () => { listeners.delete(listener); };
 }
 function committed(): void {
-  listen(); invalidatePreparations(); channel?.postMessage({ invalidated: true });
+  listen(); invalidatePreparations();
+  try { channel?.postMessage({ invalidated: true }); } catch { /* Notification failure cannot reverse a committed source save. */ }
   try { globalThis.localStorage?.setItem('typeforge-source-invalidation-v3', crypto.randomUUID()); } catch { /* Broadcast/focus still invalidate. */ }
 }
 

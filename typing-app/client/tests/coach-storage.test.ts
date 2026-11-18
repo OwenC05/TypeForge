@@ -84,3 +84,22 @@ test('invalidation subscribers receive local lifecycle invalidation without a br
   invalidatePreparations(); assert.equal(calls, 1);
   dispose(); invalidatePreparations(); assert.equal(calls, 1);
 });
+
+test('restricted BroadcastChannel creation retains lifecycle invalidation fallback', t => {
+  // Narrow host doubles test this failure boundary, not IndexedDB behavior.
+  const savedWindow = Object.getOwnPropertyDescriptor(globalThis, 'window');
+  const savedChannel = Object.getOwnPropertyDescriptor(globalThis, 'BroadcastChannel');
+  const target = new EventTarget();
+  Object.defineProperty(globalThis, 'window', { configurable: true, value: target });
+  Object.defineProperty(globalThis, 'BroadcastChannel', { configurable: true,
+    value: class { constructor() { throw new Error('Restricted channel'); } } });
+  t.after(() => {
+    if (savedWindow) Object.defineProperty(globalThis, 'window', savedWindow); else Reflect.deleteProperty(globalThis, 'window');
+    if (savedChannel) Object.defineProperty(globalThis, 'BroadcastChannel', savedChannel); else Reflect.deleteProperty(globalThis, 'BroadcastChannel');
+  });
+  let calls = 0;
+  const dispose = subscribeStorageInvalidation(() => { calls++; });
+  target.dispatchEvent(new Event('focus')); target.dispatchEvent(new Event('pageshow'));
+  assert.equal(calls, 2);
+  dispose();
+});
