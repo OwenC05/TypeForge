@@ -1,0 +1,19 @@
+{
+  "reviewerCommit": "560dc6bec407d52d6cc5a908292849b8b06772ed",
+  "correctionCommit": "8378937f39c3bbdfcf476c80b558af4ffd38b44f",
+  "validatorBlob": "a1ea3f4c3d359ad3973ec8f6ba1b03111e88b9c7",
+  "exactIndependentEmptyEnvelopeRejected": true,
+  "positiveBoundary": {
+    "firstPrompt": "put the clean cups on the wooden shelf",
+    "recordedKeys": [
+      "p"
+    ],
+    "flags": [
+      "incorrect",
+      "edited"
+    ]
+  },
+  "limits": [
+    "Author correction replay only; independent reacceptance belongs to root/reviewer"
+  ]
+}
