@@ -57,13 +57,13 @@ function qualifying(r, memberships, epoch = 'epoch-1', assessmentOnly = false) {
 }
 const median = xs => { const sorted = [...xs].sort((a, b) => a - b), n = sorted.length;
   return n % 2 ? sorted[(n - 1) / 2] : (sorted[n / 2 - 1] + sorted[n / 2]) / 2; };
-function baseline(results, memberships, { exhausted = true, epoch = 'epoch-1', pendingSave = 0 } = {}) {
+function baseline(results, memberships, { exhausted = true, newestRangeProved = exhausted, epoch = 'epoch-1', pendingSave = 0 } = {}) {
   const set = sourceSet(results);
   if (set.error) return { state: 'unavailable', reason: set.error, summary: null };
   const witnesses = set.rows.filter(r => qualifying(r, memberships, epoch, true)).slice(-10);
   const complete = witnesses.length === 10 || exhausted;
   const common = { counted: witnesses.length, complete, pendingSave, ids: witnesses.map(r => r.id) };
-  if (witnesses.length !== 10 || !complete) return { ...common, summary: null };
+  if (witnesses.length !== 10 || !newestRangeProved) return { ...common, summary: null };
   const wpms = witnesses.map(r => r.metrics.wpm);
   const accuracies = witnesses.map(r => r.metrics.accuracy);
   return { ...common, summary: {
@@ -101,12 +101,9 @@ function runIssue(r) {
     correctKeys > r.metrics.correctAttempts) return 'coach-run-envelope';
   const valid = r.sentences.filter(s => sentenceIssue(r, s) === null);
   const observations = sum(valid.flatMap(s => Object.values(s.pairs).map(p => p.count)));
-  // Necessary arithmetic-time bound from geometric means; not recovery of omitted IKIs.
-  const omitted = sum(valid.map(s => occurrences(s.promptText).length - sum(Object.values(s.pairs).map(p => p.count))));
-  const observedMinimum = sum(valid.flatMap(s => Object.values(s.pairs).map(p => p.count * Math.exp(p.logSum / p.count))));
-  const minimumTime = observedMinimum === null || omitted === null ? null : sum([observedMinimum, omitted * 5000]);
-  if (observations === null || minimumTime === null || observations > r.metrics.attemptedCharacters || observations > r.metrics.correctAttempts ||
-    minimumTime > r.metrics.elapsedMs + 1e-6) return 'coach-run-envelope';
+  // Metric1 pair intervals use keydown times; elapsed starts at first input.
+  // Saved fields omit that offset, so no aggregate-to-elapsed bound is justified.
+  if (observations === null || observations > r.metrics.attemptedCharacters || observations > r.metrics.correctAttempts) return 'coach-run-envelope';
   return null;
 }
 function retained(results, memberships, epoch = 'epoch-1') {
@@ -224,7 +221,7 @@ function catalogueValid(value) {
     prompts: t.promptIds.map(id => practicePrompts.find(p => p.id === id)) }) && certificate(t.pair, t.promptIds).pass);
 }
 check('four fixed C2-derived catalogue entries hash and recertify', catalogueValid(catalogue), true);
-check('first increment never auto-enables prospective coach', config.releaseScope.automaticCoachingEnabled, false);
+check('r2 complete increment proposes enabled reviewed-identity pilot', config.releaseScope.automaticCoachingEnabled, true);
 const tamperedCatalogue = cloned(catalogue); tamperedCatalogue.templates[0].promptIds.reverse();
 check('catalogue identity cannot authorize changed plan', catalogueValid(tamperedCatalogue), false);
 const wrongBank = cloned(catalogue); wrongBank.bankHash = '0'.repeat(64);
@@ -284,7 +281,7 @@ const wrongCorrectEnvelope = cloned(firstClean.r); wrongCorrectEnvelope.metrics.
 check('run correct-attempt envelope', runIssue(wrongCorrectEnvelope), 'coach-run-envelope');
 const timeImpossible = cloned(firstClean.r);
 timeImpossible.sentences.filter(s => s.eligible).forEach(s => Object.values(s.pairs).forEach(p => { p.logSum = p.count * Math.log(5000); }));
-check('necessary aggregate time envelope', runIssue(timeImpossible), 'coach-run-envelope');
+check('metric1 saved aggregates cannot establish an elapsed envelope', runIssue(timeImpossible), null);
 const filteredEngine = engineRun(assessmentPrompts, 5000.001, 40);
 check('actual engine filtered interval remains coach-admissible', runIssue(filteredEngine), null);
 check('actual engine filter omits target without invented attribution', filteredEngine.sentences.some(s => s.eligible && occurrences(s.promptText, 'he').length > (s.pairs.he?.count ?? 0)), true);
@@ -292,7 +289,7 @@ const subMsEngine = engineRun(shuffled(1001), 0.5, 0);
 check('actual engine positive sub-ms log aggregates remain admissible', runIssue(subMsEngine), null);
 const exactlyFiveSeconds = engineRun(assessmentPrompts, 5000, 41);
 check('actual engine exact5000ms interval remains admitted', exactlyFiveSeconds.sentences.some(s => s.eligible && s.pairs.he?.count > 0), true);
-check('exact5000ms completed run passes necessary envelope', runIssue(exactlyFiveSeconds), null);
+check('exact5000ms completed run passes count envelope', runIssue(exactlyFiveSeconds), null);
 check('nonfinite accumulation rejects', sum([Number.MAX_VALUE, Number.MAX_VALUE]), null);
 
 const oneKeys = Array.from({ length: 10 }, (_, i) => engineRun(assessmentPrompts, 250, i, { oneKey: true }));
@@ -303,6 +300,8 @@ check('pending eleventh save preserves prior ten-source summary', baseline(oneKe
 const elevenTests = [...oneKeys, engineRun(assessmentPrompts, 250, 10, { oneKey: true })];
 check('summary deterministic newest-ten witness selection', baseline([...elevenTests].reverse(), membersFor(elevenTests)).ids, elevenTests.slice(1).map(r => r.id));
 check('incomplete scan below ten gives no summary', baseline(oneKeys.slice(0, 9), membersFor(oneKeys), { exhausted: false }).complete, false);
+check('ten cached witnesses prove milestone but not newest summary', baseline(oneKeys, membersFor(oneKeys), { exhausted: false }).summary, null);
+check('ten cached witnesses still prove capped participation', baseline(oneKeys, membersFor(oneKeys), { exhausted: false }).complete, true);
 check('overlapping pages count IDs once', baseline([...oneKeys, ...oneKeys], membersFor(oneKeys)).counted, 10);
 const conflicting = cloned(oneKeys[0]); conflicting.metrics.wpm += 1;
 check('same ID different bytes fails lookup integrity', baseline([...oneKeys, conflicting], membersFor(oneKeys)).reason, 'source-id-conflict');
@@ -401,7 +400,7 @@ check('reset while old run in flight rejects next epoch', admit(at.sources, at.s
 const historical = canonical(at.profile); admit(at.sources, []);
 check('deletion does not mutate an admitted historical snapshot', canonical(at.profile), historical);
 // Prospective decision witness relationships only: passing these does not override
-// the disabled r1 release scope or supply a real transaction/review authorization.
+// real transaction/review authorization, despite the proposed enabled r2 identity.
 const relationalDecision = { witnessIds: at.baseline.ids, sourceIds: at.profile.windowIds,
   sourceHashes: Object.fromEntries(at.sources.map(r => [r.id, hash(r)])),
   full: at.profile.full, halves: at.profile.halves,
@@ -448,3 +447,5 @@ const report = { kind: 'P1-relational-amendment-evidence', checks, node: process
 writeFileSync(new URL('revision-check.json', import.meta.url), JSON.stringify(report, null, 2) + '\n');
 console.log(JSON.stringify({ checks, connected: connectedReceipt.map(x => ({ ms: x.targetMs, passes: x.jointlyPasses,
   target: x.profile.full.target, reference: x.profile.full.reference })), certificate: heCertificate }, null, 2));
+export { baseline, qualifying, sentenceIssue, runIssue, inspect, certificate, membersFor, hash,
+  validTime, at, uniform, uniformMembers, catalogue, config, bankHash, decisionRelations, relationalDecision, engineRun };

@@ -1,11 +1,11 @@
 {
   "kind": "legacy-independent-threshold-and-schema-smoke",
-  "checkedAt": "2026-11-17T14:09:59.298Z",
+  "checkedAt": "2026-11-18T18:32:09.697Z",
   "node": "v24.21.0",
   "checks": 148,
-  "configId": "730f46e589c8682b09494ef54e0d53d5b15686f3adf763092e57cd86a743593d",
-  "schemaId": "typeforge-coach-config-schema-v2",
-  "policyId": "clean-pair-contrast-v1-r1",
+  "configId": "de43c1c2266364e8c859ac3abc61126590fbec2d10be9b7e0e14616770411995",
+  "schemaId": "typeforge-coach-config-schema-v3",
+  "policyId": "clean-pair-contrast-v1-r2-enabled",
   "uniformDeltas": [
     -1.5987211554602254e-14,
     -1.5987211554602254e-14,

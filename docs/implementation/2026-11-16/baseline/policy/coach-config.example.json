@@ -1,6 +1,6 @@
 {
-  "schemaId": "typeforge-coach-config-schema-v2",
-  "policyId": "clean-pair-contrast-v1-r1",
+  "schemaId": "typeforge-coach-config-schema-v3",
+  "policyId": "clean-pair-contrast-v1-r2-enabled",
   "baselineKind": "observed-unshrunk-complement",
   "signal": "clean-pair-log-contrast",
   "baseline": {
@@ -90,18 +90,20 @@
   },
   "fallback": "general-manual",
   "releaseScope": {
-    "firstIncrement": "baseline-summary-general-manual",
-    "automaticCoachingEnabled": false,
-    "nextIncrement": "four-template-catalogue-pilot-after-delta-review"
+    "increment": "baseline-summary-supported-practice",
+    "automaticCoachingEnabled": true,
+    "finiteEnd": "plan-exhausted-not-completed-30s",
+    "adapterId": "finite-practice-adapter-v1",
+    "earlyEndEvidence": "excluded",
+    "legacySuggested": "replaced-by-this-single-gate"
   },
   "admission": {
-    "version": "all-contributing-pairs-v1",
+    "version": "all-contributing-pairs-metric1-v2",
     "minimumIntervalMs": 5e-324,
     "maximumIntervalMs": 5000,
     "logDomainTolerance": "64*EPSILON*count*maxAbsIntervalLog",
-    "runMinimumTimeToleranceMs": 0.000001,
     "latestRowBeforeSemanticExclusion": true,
-    "filteredGapLowerBoundMs": 5000,
-    "defaultContextOnly": true
+    "defaultContextOnly": true,
+    "aggregateElapsedRejection": false
   }
 }

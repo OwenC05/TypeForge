@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:typeforge:coach-config-schema-v2",
-  "title": "Exact amended experimental TypeForge coaching configuration v1-r1",
+  "$id": "urn:typeforge:coach-config-schema-v3",
+  "title": "Exact enabled experimental TypeForge coaching configuration v1-r2",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -23,10 +23,10 @@
   ],
   "properties": {
     "schemaId": {
-      "const": "typeforge-coach-config-schema-v2"
+      "const": "typeforge-coach-config-schema-v3"
     },
     "policyId": {
-      "const": "clean-pair-contrast-v1-r1"
+      "const": "clean-pair-contrast-v1-r2-enabled"
     },
     "baselineKind": {
       "const": "observed-unshrunk-complement"
@@ -358,19 +358,31 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "firstIncrement",
+        "increment",
         "automaticCoachingEnabled",
-        "nextIncrement"
+        "finiteEnd",
+        "adapterId",
+        "earlyEndEvidence",
+        "legacySuggested"
       ],
       "properties": {
-        "firstIncrement": {
-          "const": "baseline-summary-general-manual"
+        "increment": {
+          "const": "baseline-summary-supported-practice"
         },
         "automaticCoachingEnabled": {
-          "const": false
+          "const": true
         },
-        "nextIncrement": {
-          "const": "four-template-catalogue-pilot-after-delta-review"
+        "finiteEnd": {
+          "const": "plan-exhausted-not-completed-30s"
+        },
+        "adapterId": {
+          "const": "finite-practice-adapter-v1"
+        },
+        "earlyEndEvidence": {
+          "const": "excluded"
+        },
+        "legacySuggested": {
+          "const": "replaced-by-this-single-gate"
         }
       }
     },
@@ -382,14 +394,13 @@
         "minimumIntervalMs",
         "maximumIntervalMs",
         "logDomainTolerance",
-        "runMinimumTimeToleranceMs",
         "latestRowBeforeSemanticExclusion",
-        "filteredGapLowerBoundMs",
-        "defaultContextOnly"
+        "defaultContextOnly",
+        "aggregateElapsedRejection"
       ],
       "properties": {
         "version": {
-          "const": "all-contributing-pairs-v1"
+          "const": "all-contributing-pairs-metric1-v2"
         },
         "minimumIntervalMs": {
           "const": 5e-324
@@ -400,17 +411,14 @@
         "logDomainTolerance": {
           "const": "64*EPSILON*count*maxAbsIntervalLog"
         },
-        "runMinimumTimeToleranceMs": {
-          "const": 0.000001
-        },
         "latestRowBeforeSemanticExclusion": {
           "const": true
         },
-        "filteredGapLowerBoundMs": {
-          "const": 5000
-        },
         "defaultContextOnly": {
           "const": true
+        },
+        "aggregateElapsedRejection": {
+          "const": false
         }
       }
     }

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:typeforge:coach-sidecar-schema-v2",
+  "$id": "urn:typeforge:coach-sidecar-schema-v3",
   "title": "Proposed independent coaching provenance sidecars; requires architecture review before writes",
   "oneOf": [
     {
@@ -22,8 +22,10 @@
     },
     "time": {
       "type": "string",
+      "minLength": 24,
+      "maxLength": 24,
       "format": "date-time",
-      "pattern": "Z$"
+      "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])T([01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d\\.\\d{3}Z$"
     },
     "counter": {
       "type": "integer",
@@ -134,7 +136,7 @@
       ],
       "properties": {
         "schemaId": {
-          "const": "typeforge-coach-sidecar-schema-v2"
+          "const": "typeforge-coach-sidecar-schema-v3"
         },
         "kind": {
           "const": "source-membership-v1"
@@ -278,7 +280,7 @@
       ],
       "properties": {
         "schemaId": {
-          "const": "typeforge-coach-sidecar-schema-v2"
+          "const": "typeforge-coach-sidecar-schema-v3"
         },
         "kind": {
           "const": "decision-v1"
@@ -290,7 +292,7 @@
           "$ref": "#/$defs/hash"
         },
         "policyId": {
-          "const": "clean-pair-contrast-v1-r1"
+          "const": "clean-pair-contrast-v1-r2-enabled"
         },
         "configId": {
           "$ref": "#/$defs/hash"

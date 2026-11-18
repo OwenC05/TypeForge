@@ -1,10 +1,10 @@
 {
   "kind": "P1-relational-amendment-evidence",
-  "checks": 106,
+  "checks": 108,
   "node": "v24.21.0",
   "frozenC2": "87fe85ecb703a255faea046a2294419be7d5dcff",
   "now": "2026-11-16T12:00:00.000Z",
-  "configId": "730f46e589c8682b09494ef54e0d53d5b15686f3adf763092e57cd86a743593d",
+  "configId": "de43c1c2266364e8c859ac3abc61126590fbec2d10be9b7e0e14616770411995",
   "catalogueId": "17de69ffe905a28e8e00ad65d1494a003b080bcd2a894a81fea5c28351594a25",
   "catalogueCertificates": [
     {
@@ -1716,7 +1716,7 @@
       "result": "passed"
     },
     {
-      "name": "first increment never auto-enables prospective coach",
+      "name": "r2 complete increment proposes enabled reviewed-identity pilot",
       "result": "passed"
     },
     {
@@ -1836,7 +1836,7 @@
       "result": "passed"
     },
     {
-      "name": "necessary aggregate time envelope",
+      "name": "metric1 saved aggregates cannot establish an elapsed envelope",
       "result": "passed"
     },
     {
@@ -1856,7 +1856,7 @@
       "result": "passed"
     },
     {
-      "name": "exact5000ms completed run passes necessary envelope",
+      "name": "exact5000ms completed run passes count envelope",
       "result": "passed"
     },
     {
@@ -1885,6 +1885,14 @@
     },
     {
       "name": "incomplete scan below ten gives no summary",
+      "result": "passed"
+    },
+    {
+      "name": "ten cached witnesses prove milestone but not newest summary",
+      "result": "passed"
+    },
+    {
+      "name": "ten cached witnesses still prove capped participation",
       "result": "passed"
     },
     {

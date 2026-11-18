@@ -1,6 +1,6 @@
 {
   "membership": {
-    "schemaId": "typeforge-coach-sidecar-schema-v2",
+    "schemaId": "typeforge-coach-sidecar-schema-v3",
     "kind": "source-membership-v1",
     "resultId": "synthetic-current-run",
     "resultSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -10,12 +10,12 @@
     "purpose": "ordinary"
   },
   "generalDecision": {
-    "schemaId": "typeforge-coach-sidecar-schema-v2",
+    "schemaId": "typeforge-coach-sidecar-schema-v3",
     "kind": "decision-v1",
     "resultId": "synthetic-current-run",
     "resultSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "policyId": "clean-pair-contrast-v1-r1",
-    "configId": "730f46e589c8682b09494ef54e0d53d5b15686f3adf763092e57cd86a743593d",
+    "policyId": "clean-pair-contrast-v1-r2-enabled",
+    "configId": "de43c1c2266364e8c859ac3abc61126590fbec2d10be9b7e0e14616770411995",
     "contextId": "synthetic-default-context",
     "epochId": "synthetic-first-epoch",
     "preparedAt": "2026-11-16T12:00:00.000Z",

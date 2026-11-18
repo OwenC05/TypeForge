@@ -17,8 +17,8 @@ const exactSchema = value => value !== null && typeof value === 'object' && !Arr
   : { const: value };
 const expectedSchema = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'urn:typeforge:coach-config-schema-v2',
-  title: 'Exact amended experimental TypeForge coaching configuration v1-r1',
+  $id: 'urn:typeforge:coach-config-schema-v3',
+  title: 'Exact enabled experimental TypeForge coaching configuration v1-r2',
   ...exactSchema(config),
 };
 if (process.argv.includes('--write-schema')) {
