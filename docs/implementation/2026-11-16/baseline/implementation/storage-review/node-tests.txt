@@ -1,0 +1,35 @@
+✔ canonical source hashes bind complete values with stable property order (50.5167ms)
+✔ one ledger charges missing and failed attempts and never resets a terminal stop (1.9763ms)
+✔ reservations include concurrent companion capacity and release unused bytes (0.5787ms)
+✔ a cooperative slice cannot issue a 26th point even with zero-byte results (0.6752ms)
+✔ prefix traversal matches native JSON bytes and stops actual inspection at either ceiling (25.386ms)
+✔ invalid custom allowances and invalid point settlements fail explicitly (2.5345ms)
+✔ unavailable and cancelled storage cannot synthesize capture, reset or exhaustion (17.3037ms)
+✔ invalidation subscribers receive local lifecycle invalidation without a browser (1.1483ms)
+✔ restricted BroadcastChannel creation retains lifecycle invalidation fallback (3.9239ms)
+✔ optional history rejects invalid budgets before opening IndexedDB (6.8694ms)
+✔ unavailable optional storage returns explicit incomplete state and retained cursor (9.6229ms)
+✔ pre-aborted optional reads do not open storage and remain distinguishable from failure (1.9008ms)
+✔ history diagnostics are per request rather than a shared mutable source (1.0563ms)
+✔ abort during open settles immediately and closes a late connection (4.3738ms)
+✔ blocked open is unavailable and any later connection is closed (2.2862ms)
+✔ open failure is reported without returning a complete empty history (4.5791ms)
+✔ transaction setup failure closes its database and preserves failure status (1.4358ms)
+✔ accepts bounded guest results including sub-millisecond timing and unknown accuracy (6.4505ms)
+✔ rejects corrupt shapes, unsupported versions, impossible counts and unsafe chart data (4.4437ms)
+✔ rejects an otherwise bounded record larger than the 1 MiB persistence limit (86.5593ms)
+✔ strict v1 extensions retain independent lineage and matched simultaneous predictions (2.6011ms)
+✔ rejects unknown extension keys, wrong identities and selectively retained predictions (6.8005ms)
+✔ UUID self-reference cannot bypass lineage validation with uppercase spelling (0.4823ms)
+✔ prediction means must exponentiate to finite positive milliseconds without clamping (1.1724ms)
+✔ flow duration arithmetic is strict while legacy remains 60 seconds only (1.5548ms)
+✔ manual drills round trip independently of evidence-backed recommendations (3.6474ms)
+✔ validation failures are permanent named errors before IndexedDB is opened (3.351ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 707.6738
