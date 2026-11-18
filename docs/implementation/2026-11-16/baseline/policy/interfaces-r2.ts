@@ -83,7 +83,7 @@ export type Participation =
   | { state: 'unavailable'; reason: Reason; counted: null; ordinal: null; proof: null }
   | { state: 'pending'; reason: 'scan-incomplete'; counted: number; ordinal: null; proof: null }
   | { state: 'not-started' | 'in-progress'; reason: 'baseline-incomplete'; counted: number;
-      ordinal: number; witnesses: readonly SourceRef[]; proof: VerifiedProof }
+      ordinal: number | null; witnesses: readonly SourceRef[]; proof: VerifiedProof }
   | { state: 'complete'; reason: 'supported'; counted: 10; ordinal: null;
       witnesses: readonly SourceRef[]; proof: VerifiedProof };
 export type Summary =
