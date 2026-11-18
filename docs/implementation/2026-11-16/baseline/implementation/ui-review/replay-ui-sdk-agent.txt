@@ -1,0 +1,11 @@
+﻿{
+ "failedAt": 50,
+ "last": {
+  "name": "No page errors: Failed to execute 'abort' on 'IDBTransaction': The transaction has finished.",
+  "ok": false
+ },
+ "error": "AssertionError [ERR_ASSERTION]: No page errors: Failed to execute 'abort' on 'IDBTransaction': The transaction has finished.",
+ "errors": [
+  "Failed to execute 'abort' on 'IDBTransaction': The transaction has finished."
+ ]
+}
