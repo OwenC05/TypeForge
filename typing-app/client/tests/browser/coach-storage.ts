@@ -738,6 +738,33 @@ let tabState: { native: IDBFactory; descriptor?: PropertyDescriptor; broadcastDe
   broadcastEvents: number; monitor: BroadcastChannel | null;
   unsubscribe: () => void; observer: (event: StorageEvent) => void } | null = null;
 
+/** Accepted P3 assertions, unchanged apart from the root-transferred v3 open
+ * helper. This realm-local factory keeps even its seed/clear operations isolated. */
+export async function runAcceptedHistoryChecks() {
+  const name = `typeforge-coach-tab-synthetic-${crypto.randomUUID()}`;
+  const { native, descriptor } = tabDatabase(name);
+  const result: { passed: boolean; database: string; history: unknown; byteRepair: unknown; failures: string[]; cleanup?: unknown } = {
+    passed: false, database: name, history: null, byteRepair: null, failures: [],
+  };
+  try {
+    const module = await import('./bounded-history.ts');
+    try { result.history = await module.runHistoryChecks(); }
+    catch (error) { result.failures.push(error instanceof Error ? error.stack! : String(error)); }
+    try { const bytes = await module.runHistoryByteRepairChecks(); result.byteRepair = bytes;
+      if (!bytes.passed) result.failures.push(...bytes.failures);
+    } catch (error) { result.failures.push(error instanceof Error ? error.stack! : String(error)); }
+    result.passed = result.failures.length === 0;
+    return result;
+  } finally {
+    if (descriptor) Object.defineProperty(globalThis, 'indexedDB', descriptor); else Reflect.deleteProperty(globalThis, 'indexedDB');
+    await new Promise<void>((resolve, reject) => { const request = native.deleteDatabase(name);
+      request.onsuccess = () => resolve(); request.onerror = () => reject(request.error); request.onblocked = () => reject(new Error('Owned P3 fixture cleanup blocked.')); });
+    const remaining = (await native.databases()).filter(database => database.name === name);
+    result.cleanup = { remaining };
+    if (remaining.length) result.passed = false;
+  }
+}
+
 function tabDatabase(name: string) {
   if (location.hostname !== '127.0.0.1' || location.port !== '5321'
     || !/^typeforge-coach-tab-synthetic-[a-f0-9-]+$/.test(name)) throw new Error('Synthetic tab fixture isolation required.');
