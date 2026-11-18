@@ -1,7 +1,21 @@
 // Playwright MCP browser_run_code_unsafe function; see README.md in this directory.
 async (page) => {
   const browser = page.context().browser();
-  const base = 'http://127.0.0.1:5301';
+  const base = 'http://127.0.0.1:5324'; // this task's strict loopback port
+  // Storage isolation: before any app code, indexedDB.open('typeforge') is redirected to a UUID synthetic name;
+  // other names and deleteDatabase are refused. Saved sources live in C's `currentResults` store.
+  const synthetic = name => {
+    const target = globalThis.indexedDB;
+    Object.defineProperty(globalThis, 'indexedDB', { configurable: true, value: new Proxy(target, { get(t, property) {
+      if (property === 'open') return (requested, version) => {
+        if (requested !== 'typeforge') throw new Error(`synthetic fixture refused database ${requested}`);
+        return version === undefined ? t.open(name) : t.open(name, version);
+      };
+      if (property === 'deleteDatabase') return () => { throw new Error('synthetic fixture refuses deleteDatabase'); };
+      const value = Reflect.get(t, property, t); return typeof value === 'function' ? value.bind(t) : value; } }) });
+    Object.defineProperty(globalThis, '__synthetic', { value: name });
+  };
+
   const results = [], errors = [];
   const check = (name, ok, details) => {
     results.push({name, status: ok ? 'PASS' : 'FAIL', ...(details === undefined ? {} : {details})});
@@ -16,8 +30,8 @@ async (page) => {
     open.onerror = () => reject(open.error);
     open.onsuccess = () => {
       const db = open.result;
-      if (!db.objectStoreNames.contains('results')) { db.close(); resolve([]); return; }
-      const request = db.transaction('results').objectStore('results').getAll();
+      if (!db.objectStoreNames.contains('currentResults')) { db.close(); resolve([]); return; }
+      const request = db.transaction('currentResults').objectStore('currentResults').getAll();
       request.onsuccess = () => { db.close(); resolve(request.result); };
       request.onerror = () => { db.close(); reject(request.error); };
     };
@@ -25,6 +39,8 @@ async (page) => {
   async function run(name, path, test) {
     // Every case gets a fresh database without touching the runner's real context.
     const context = await browser.newContext();
+    const database = `typeforge-ui-synthetic-${crypto.randomUUID()}`;
+    await context.addInitScript(synthetic, database);
     const p = await context.newPage();
     p.setDefaultTimeout(10000);
     p.on('pageerror', error => errors.push({case: name, message: error.message}));
@@ -34,6 +50,7 @@ async (page) => {
       await p.goto(base + path);
       const input = p.locator('#typing-input');
       await input.waitFor();
+      if (await p.evaluate(() => globalThis.__synthetic) !== database) throw new Error('synthetic database interception missing');
       await test(p, input);
     } catch (error) {
       results.push({name: `${name}: execution`, status: 'FAIL', details: String(error)});
@@ -117,6 +134,9 @@ async (page) => {
     });
   }
   await run('transient storage failure', '/practice.html?duration=15', async (p, input) => {
+    // As in the app, the load-time status check creates the database before any save; the fault starts after it.
+    await p.clock.runFor(100);
+    await p.waitForFunction(async () => (await indexedDB.databases()).some(d => d.name === globalThis.__synthetic), null, {polling: 50});
     await p.evaluate(() => {
       window.__originalAdd = IDBObjectStore.prototype.add;
       IDBObjectStore.prototype.add = function () { throw new DOMException('Test quota failure', 'QuotaExceededError'); };
@@ -157,7 +177,7 @@ async (page) => {
     check('legacy invalid duration visibly explains fallback',
       await value(p, '#duration') === '60' && (await p.locator('#exercise-warning').innerText()).includes('Unsupported duration'));
     check('legacy invalid manual pair visibly explains fallback',
-      await value(p, '#practice-kind') === 'general' && (await p.locator('#focus-state').innerText()).includes('Unsupported manual pair'));
+      await value(p, '#practice-kind') === 'general' && (await p.locator('#focus-state').textContent()).includes('Unsupported manual pair'));
   });
   return {suite: 'committed-native-typing-flow', browser: browser.version(), base,
     assertions: results.filter(r => !r.name.endsWith(': execution')).length,

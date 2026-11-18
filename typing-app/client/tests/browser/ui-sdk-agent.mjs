@@ -3,6 +3,7 @@
 // test-only createAgent page, and removes its own dp-impl-agent-* profile afterwards.
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
+import { randomUUID } from 'node:crypto';
 import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
@@ -10,7 +11,7 @@ import { pathToFileURL } from 'node:url';
 
 assert.ok(process.env.PLAYWRIGHT_MODULE, 'Set PLAYWRIGHT_MODULE to the scratchpad playwright-core/index.mjs');
 const { chromium } = await import(pathToFileURL(path.resolve(process.env.PLAYWRIGHT_MODULE)).href);
-const port = Number(process.env.SDK_PORT || 5301);
+const port = Number(process.env.SDK_PORT || 5324); // this task's strict loopback port
 const scratch = path.resolve(process.env.SDK_SCRATCHPAD || tmpdir());
 const profile = mkdtempSync(path.join(scratch, 'dp-impl-agent-'));
 const server = spawn(process.execPath, ['node_modules/vite/bin/vite.js', '--host', '127.0.0.1', '--port', String(port), '--strictPort'], {
@@ -31,6 +32,19 @@ try {
     await new Promise(resolve => setTimeout(resolve, 100));
   }
   context = await chromium.launchPersistentContext(profile, { executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe', headless: true });
+  // Storage isolation: indexedDB.open('typeforge') goes to a UUID synthetic name before any app code runs.
+  const database = `typeforge-ui-synthetic-${randomUUID()}`;
+  await context.addInitScript(name => {
+    const target = globalThis.indexedDB;
+    Object.defineProperty(globalThis, 'indexedDB', { configurable: true, value: new Proxy(target, { get(t, property) {
+      if (property === 'open') return (requested, version) => {
+        if (requested !== 'typeforge') throw new Error(`synthetic fixture refused database ${requested}`);
+        return version === undefined ? t.open(name) : t.open(name, version);
+      };
+      if (property === 'deleteDatabase') return () => { throw new Error('synthetic fixture refuses deleteDatabase'); };
+      const value = Reflect.get(t, property, t); return typeof value === 'function' ? value.bind(t) : value; } }) });
+    Object.defineProperty(globalThis, '__synthetic', { value: name });
+  }, database);
   async function open(query) {
     const page = await context.newPage();
     page.setDefaultTimeout(15000);
@@ -44,6 +58,7 @@ try {
     await page.clock.install();
     await page.goto(`http://127.0.0.1:${port}/tests/browser/ui-sdk-proof.html${query}`);
     await page.waitForFunction(() => window.sdkProof?.ready && document.querySelector('#prompt span'));
+    assert.equal(await page.evaluate(() => globalThis.__synthetic), database, 'synthetic database interception installed');
     return page;
   }
   const api = page => ({
@@ -141,7 +156,7 @@ try {
   const saved = await page.evaluate(() => new Promise((resolve, reject) => {
     const request = indexedDB.open('typeforge');
     request.onerror = () => reject(request.error);
-    request.onsuccess = () => { const db = request.result; const all = db.transaction('results').objectStore('results').getAll(); all.onsuccess = () => { db.close(); resolve(all.result); }; all.onerror = () => { db.close(); reject(all.error); }; };
+    request.onsuccess = () => { const db = request.result; const all = db.transaction('currentResults').objectStore('currentResults').getAll(); all.onsuccess = () => { db.close(); resolve(all.result); }; all.onerror = () => { db.close(); reject(all.error); }; };
   }));
   check(saved.length === 1 && saved[0].metrics.attemptedCharacters === 1, 'Saved metrics count exactly one native insertion, zero agent keystrokes', saved[0]?.metrics);
   check(saved[0].settings.durationMs === 30000 && saved[0].metrics.elapsedMs === 30000 && saved[0].manualDrill?.pair === chosen.value, 'Saved duration, elapsed and pair are genuine engine values');
