@@ -1,0 +1,155 @@
+﻿{
+    "verdict":  "REVISE",
+    "scope":  "finite implementation only",
+    "revision":  "1d80934f44874441c18d00199879da872b1c92af",
+    "initialPin":  "6bd969f",
+    "pinUpdateMessage":  "msg_c715fe4c5a77",
+    "sourceRoot":  "C:\\Users\\Owenc\\orca\\workspaces\\TypeForge\\typeforge-daily-practice",
+    "sourceHeadBefore":  "fbcc5d0462785e12dc6c21fd8398a3062fc08139",
+    "sourceHeadAfter":  "fbcc5d0462785e12dc6c21fd8398a3062fc08139",
+    "otherSourceChangesSincePin":  [
+                                       "typing-app/client/src/coach-policy.ts"
+                                   ],
+    "checkedAt":  "2026-11-18T19:56:15.5540098Z",
+    "node":  "v24.21.0",
+    "command":  "node docs/implementation/2026-11-16/baseline/implementation/finite-review/probe.mjs C:/Users/Owenc/orca/workspaces/TypeForge/typeforge-daily-practice",
+    "exitCode":  0,
+    "syntaxExitCode":  0,
+    "independentAssertions":  60,
+    "sampledProducerFailures":  0,
+    "corruptAcceptanceReproduced":  true,
+    "priorProtectedDiffExitCode":  0,
+    "sourceManifestBefore":  {
+                                 "typing-app/client/src/engine.ts":  {
+                                                                         "blob":  "49191b896c27a5381ca2cbfa6c366221cd5820fe",
+                                                                         "rawSha256":  "d62b08eee7c1acc55ba2d31ca914d3db52a93017e27fba55d37f154293a936c9",
+                                                                         "lfSha256":  "e63ac398018923ca7bed73d5eb1eeaebb1b9deb69b22729bb07062c41767bac2"
+                                                                     },
+                                 "typing-app/client/src/finite-practice.ts":  {
+                                                                                  "blob":  "727e469d0f24edc8d52e1029aae461988e20dbc0",
+                                                                                  "rawSha256":  "e10b6accfee3047d875ebbf40e2b1d3707888f6f4448f9f2cdef8944fa06c498",
+                                                                                  "lfSha256":  "9f5e9dff6e6a32d98b8e105a91642d0283578d66eae5c91f0fc011e13d745cb1"
+                                                                              },
+                                 "typing-app/client/src/finite-practice-result.ts":  {
+                                                                                         "blob":  "ac03b966e1e725611334050af0ffc19bde4940c4",
+                                                                                         "rawSha256":  "97acd34d944220152dd29f55fe0fd2864df86cf2a4b36f7ca5d5adf8b9f888b8",
+                                                                                         "lfSha256":  "47fee2da46e3ab84dc474f48a504808d45d8c954a052814d34938f5030233f1e"
+                                                                                     },
+                                 "typing-app/client/src/coach-plan.ts":  {
+                                                                             "blob":  "8c3c411f56b9732fe2a47ff1bcbf509e71f85107",
+                                                                             "rawSha256":  "289a3bde9443d3791257c27556c4d3dd7b2c165edf5cf7dace2a379134d7e3d5",
+                                                                             "lfSha256":  "69a179e295237ba26ff84f83f5a7fbd2674106d4027e444027ee708b717414b8"
+                                                                         },
+                                 "typing-app/client/src/coach-types.ts":  {
+                                                                              "blob":  "43f7c070788631e8014ee905dc634d55171cb38a",
+                                                                              "rawSha256":  "709bec8f3a830a3c990e81e3bba8a62c0916a39fa174e6454b00f44601d65263",
+                                                                              "lfSha256":  "709bec8f3a830a3c990e81e3bba8a62c0916a39fa174e6454b00f44601d65263"
+                                                                          },
+                                 "typing-app/client/src/model.ts":  {
+                                                                        "blob":  "9c9a254f32d43b6129311db5ba22776c0abfecaf",
+                                                                        "rawSha256":  "1ad60559fd7187692272eca3e8721ac43606628b317effb0c73ec40d94641e4e",
+                                                                        "lfSha256":  "b81116a91ae51be9a721d05e0c9d53883fc83155d02650e4db2c64801311c9de"
+                                                                    },
+                                 "typing-app/client/src/profile.ts":  {
+                                                                          "blob":  "4278d052ab900aa5b10a05bb9446812d835f35a4",
+                                                                          "rawSha256":  "3eb148c75f85482675ab00f4577b3a7a450f4ba8268734d5f74c8646bd5d4b9b",
+                                                                          "lfSha256":  "8f39607f15216af1f3e9f2809c8732f6f28f35ea7cd5309822ddd7609f1eb7cb"
+                                                                      },
+                                 "typing-app/client/src/corpus.ts":  {
+                                                                         "blob":  "f50180ea88f95d1b0c2a999a3e94f447a2b587fb",
+                                                                         "rawSha256":  "28f37ce212e8704397e0097f22b77b2f9f84978f86f9db767decb5edf505741e",
+                                                                         "lfSha256":  "06b1be5965d501300f05ecdad0555406c30dbe4c5608c4830c7eedf055e76964"
+                                                                     },
+                                 "typing-app/client/src/storage.ts":  {
+                                                                          "blob":  "2cc5cbf056b5950e82a1543340b80a266a01d2d2",
+                                                                          "rawSha256":  "f19761159175865315390c0109eeb5a0a1331b36882c8ca5ac0a563c28aa90b0",
+                                                                          "lfSha256":  "bba93be7419fbf079c89a2be4b0c5a0b9352174f4c2a5c0429f5b9f8006950d5"
+                                                                      },
+                                 "typing-app/client/src/coach-config.json":  {
+                                                                                 "blob":  "bb30c0092b1619316776c728d285e18ea337f98e",
+                                                                                 "rawSha256":  "949d5cd20710f69924470a953274063198be2c99fbeacda76877cc4846d3284b",
+                                                                                 "lfSha256":  "7f946e2c880693c8c107da6cdfac882b9367438a50a6a2469b7f29f81047d3c6"
+                                                                             },
+                                 "typing-app/client/src/coach-catalogue.json":  {
+                                                                                    "blob":  "cf7f0975fde5b702c72d59f786d47f03cfd31ea8",
+                                                                                    "rawSha256":  "1e821571403a2ba558a84ec696e052a33cfbd21c3eda7a07bebf448be1a4f931",
+                                                                                    "lfSha256":  "44c0e777f6a5aa68b26e01ebbc33a4f2437d881a68eaa43af0c02fe8a85b6fa3"
+                                                                                }
+                             },
+    "sourceManifestAfter":  {
+                                "typing-app/client/src/engine.ts":  {
+                                                                        "blob":  "49191b896c27a5381ca2cbfa6c366221cd5820fe",
+                                                                        "rawSha256":  "d62b08eee7c1acc55ba2d31ca914d3db52a93017e27fba55d37f154293a936c9",
+                                                                        "lfSha256":  "e63ac398018923ca7bed73d5eb1eeaebb1b9deb69b22729bb07062c41767bac2"
+                                                                    },
+                                "typing-app/client/src/finite-practice.ts":  {
+                                                                                 "blob":  "727e469d0f24edc8d52e1029aae461988e20dbc0",
+                                                                                 "rawSha256":  "e10b6accfee3047d875ebbf40e2b1d3707888f6f4448f9f2cdef8944fa06c498",
+                                                                                 "lfSha256":  "9f5e9dff6e6a32d98b8e105a91642d0283578d66eae5c91f0fc011e13d745cb1"
+                                                                             },
+                                "typing-app/client/src/finite-practice-result.ts":  {
+                                                                                        "blob":  "ac03b966e1e725611334050af0ffc19bde4940c4",
+                                                                                        "rawSha256":  "97acd34d944220152dd29f55fe0fd2864df86cf2a4b36f7ca5d5adf8b9f888b8",
+                                                                                        "lfSha256":  "47fee2da46e3ab84dc474f48a504808d45d8c954a052814d34938f5030233f1e"
+                                                                                    },
+                                "typing-app/client/src/coach-plan.ts":  {
+                                                                            "blob":  "8c3c411f56b9732fe2a47ff1bcbf509e71f85107",
+                                                                            "rawSha256":  "289a3bde9443d3791257c27556c4d3dd7b2c165edf5cf7dace2a379134d7e3d5",
+                                                                            "lfSha256":  "69a179e295237ba26ff84f83f5a7fbd2674106d4027e444027ee708b717414b8"
+                                                                        },
+                                "typing-app/client/src/coach-types.ts":  {
+                                                                             "blob":  "43f7c070788631e8014ee905dc634d55171cb38a",
+                                                                             "rawSha256":  "709bec8f3a830a3c990e81e3bba8a62c0916a39fa174e6454b00f44601d65263",
+                                                                             "lfSha256":  "709bec8f3a830a3c990e81e3bba8a62c0916a39fa174e6454b00f44601d65263"
+                                                                         },
+                                "typing-app/client/src/model.ts":  {
+                                                                       "blob":  "9c9a254f32d43b6129311db5ba22776c0abfecaf",
+                                                                       "rawSha256":  "1ad60559fd7187692272eca3e8721ac43606628b317effb0c73ec40d94641e4e",
+                                                                       "lfSha256":  "b81116a91ae51be9a721d05e0c9d53883fc83155d02650e4db2c64801311c9de"
+                                                                   },
+                                "typing-app/client/src/profile.ts":  {
+                                                                         "blob":  "4278d052ab900aa5b10a05bb9446812d835f35a4",
+                                                                         "rawSha256":  "3eb148c75f85482675ab00f4577b3a7a450f4ba8268734d5f74c8646bd5d4b9b",
+                                                                         "lfSha256":  "8f39607f15216af1f3e9f2809c8732f6f28f35ea7cd5309822ddd7609f1eb7cb"
+                                                                     },
+                                "typing-app/client/src/corpus.ts":  {
+                                                                        "blob":  "f50180ea88f95d1b0c2a999a3e94f447a2b587fb",
+                                                                        "rawSha256":  "28f37ce212e8704397e0097f22b77b2f9f84978f86f9db767decb5edf505741e",
+                                                                        "lfSha256":  "06b1be5965d501300f05ecdad0555406c30dbe4c5608c4830c7eedf055e76964"
+                                                                    },
+                                "typing-app/client/src/storage.ts":  {
+                                                                         "blob":  "2cc5cbf056b5950e82a1543340b80a266a01d2d2",
+                                                                         "rawSha256":  "f19761159175865315390c0109eeb5a0a1331b36882c8ca5ac0a563c28aa90b0",
+                                                                         "lfSha256":  "bba93be7419fbf079c89a2be4b0c5a0b9352174f4c2a5c0429f5b9f8006950d5"
+                                                                     },
+                                "typing-app/client/src/coach-config.json":  {
+                                                                                "blob":  "bb30c0092b1619316776c728d285e18ea337f98e",
+                                                                                "rawSha256":  "949d5cd20710f69924470a953274063198be2c99fbeacda76877cc4846d3284b",
+                                                                                "lfSha256":  "7f946e2c880693c8c107da6cdfac882b9367438a50a6a2469b7f29f81047d3c6"
+                                                                            },
+                                "typing-app/client/src/coach-catalogue.json":  {
+                                                                                   "blob":  "cf7f0975fde5b702c72d59f786d47f03cfd31ea8",
+                                                                                   "rawSha256":  "1e821571403a2ba558a84ec696e052a33cfbd21c3eda7a07bebf448be1a4f931",
+                                                                                   "lfSha256":  "44c0e777f6a5aa68b26e01ebbc33a4f2437d881a68eaa43af0c02fe8a85b6fa3"
+                                                                               }
+                            },
+    "artifactSha256":  {
+                           "probe.mjs":  "e40af2030d1e4ba9e2c7efe15cb58b4168a368cc3f592cebacd099e6011456a9",
+                           "results.json":  "51f15905ce78a5d8cfe28e19c3bcdcdae3602bf72a0218c8c138cc07d4b402ac",
+                           "run.txt":  "5d2fbb91675bb2216b28d2ee32c3eda8643a9eb935e49c301f290e1885511e5f",
+                           "report.md":  "6168dced7f387dfc557cff507cd98e57c4efa6182547520514eb55d9d5a4141c"
+                       },
+    "task":  "task_b9006db69620",
+    "dispatch":  "ctx_33d22197e720",
+    "receipt":  "f701fdf7-e3e7-44e0-b479-ca881c3bf5c1",
+    "observedAgent":  "codex",
+    "observedModel":  "gpt-6.1-sol",
+    "requestedEffort":  "high",
+    "effectiveEffort":  "not independently exposed by reuse fields",
+    "limits":  [
+                   "Read-only root; no builds or servers",
+                   "No storage/UI/full-policy acceptance",
+                   "Author/integration suites not independently rerun",
+                   "Synthetic admitted adapter fixtures, not proof authority"
+               ]
+}
