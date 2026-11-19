@@ -1,0 +1,1475 @@
+[
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scanned unavailable/policy-invalid",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Suggested is unavailable here. General works as usual.",
+   "sr": "Suggested is unavailable in this version of TypeForge. General and pair practice work as usual.",
+   "why": "Suggested is unavailable in this version of TypeForge.\n\nGeneral and pair practice work as usual.",
+   "progress": "Baseline\n\nSuggested is unavailable in this version of TypeForge. General and pair practice work as usual.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scanned unavailable/storage-unavailable",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Suggested needs results saved in this browser; saving is off here.",
+   "sr": "Suggested needs results saved in this browser, and saving isn’t available here (a private window can do this). General and pair practice work as usual.",
+   "why": "Suggested needs results saved in this browser, and saving isn’t available here (a private window can do this).\n\nGeneral and pair practice work as usual.",
+   "progress": "Baseline\n\nSuggested needs results saved in this browser, and saving isn’t available here (a private window can do this). General and pair practice work as usual.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop ",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scanned unavailable/context-unavailable",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Saved tests can’t be counted right now. General works as usual.",
+   "sr": "The baseline record in this browser couldn’t be read, so tests aren’t being counted right now. General and pair practice work as usual.",
+   "why": "The baseline record in this browser couldn’t be read, so tests aren’t being counted right now.\n\nGeneral and pair practice work as usual.",
+   "progress": "Baseline\n\nThe baseline record in this browser couldn’t be read, so tests aren’t being counted right now. General and pair practice work as usual.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward ",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scanned unavailable/source-integrity",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Saved tests can’t be counted right now. General works as usual.",
+   "sr": "Some saved results couldn’t be checked, so tests aren’t being counted right now. General and pair practice work as usual.",
+   "why": "Some saved results couldn’t be checked, so tests aren’t being counted right now.\n\nGeneral and pair practice work as usual.",
+   "progress": "Baseline\n\nSome saved results couldn’t be checked, so tests aren’t being counted right now. General and pair practice work as usual.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scanned pending/scan-incomplete",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Baseline done; recent timing couldn’t all be read.check again",
+   "sr": "Baseline complete; Suggested has no focus for now. Not every saved result could be read just now, so this may be incomplete.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. Not every saved result could be read just now, so this may be incomplete.\n\nUsing general until it can be read.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baselin",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scanned in-progress/baseline-incomplete",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Suggested needs 10 baseline tests · 4 done.take test 5 →",
+   "sr": "Not yet available: 4 of 10 baseline tests.",
+   "why": "BASELINE\n4 of 10 tests\n\nSuggested can look for a focus after 10 baseline tests: 30-second assessments on a physical QWERTY keyboard (the qwerty key on), about five minutes of typing, at your own pace.\n\nEvery finished test counts, mistakes included. A run that stops early or loses focus just doesn’t count; nothing is taken away.\n\nCounted from the tests saved in this browser: deleting one, or starting a new baseline on the progress page, lowers the count.\n\ntake test 5 →",
+   "progress": "Baseline\nCOUNTED\n4 of 10 tests\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\ntake test 5 →\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting towa",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scanned complete-insufficient/coaching-deferred",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Baseline done; Suggested has no focus for now. More in why?",
+   "sr": "Baseline complete; Suggested has no focus for now. Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scanned complete-insufficient/stale-evidence",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Baseline done; its timing is over 30 days old.take an assessment →",
+   "sr": "Baseline complete; Suggested has no focus for now. Your baseline is complete, but its timing is more than 30 days old. A fresh 30-second assessment or two lets Suggested look again.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. Your baseline is complete, but its timing is more than 30 days old. A fresh 30-second assessment or two lets Suggested look again.\n\nYour 10 tests still count; only the timing needs refreshing.\n\ntake an assessment →",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scanned complete-insufficient/too-few-observations-for-any-pair",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Baseline done; Suggested has no focus for now. More in why?",
+   "sr": "Baseline complete; Suggested has no focus for now. No key pair has come up often enough in finished sentences yet to compare fairly.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. No key pair has come up often enough in finished sentences yet to compare fairly.\n\nGeneral practice fits best for now, and pair practice lets you pick a pair yourself. Suggested re-checks after each saved 30-second run.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scanned complete-insufficient/insufficient-context-diversity",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Baseline done; Suggested has no focus for now. More in why?",
+   "sr": "Baseline complete; Suggested has no focus for now. The slower pairs so far came from too few different words to be sure.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. The slower pairs so far came from too few different words to be sure.\n\nGeneral practice fits best for now, and pair practice lets you pick a pair yourself. Suggested re-checks after each saved 30-second run.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scanned complete-insufficient/unstable-evidence",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Baseline done; Suggested has no focus for now. More in why?",
+   "sr": "Baseline complete; Suggested has no focus for now. One pair looked slower, but not consistently across your earlier and later runs.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. One pair looked slower, but not consistently across your earlier and later runs.\n\nGeneral practice fits best for now, and pair practice lets you pick a pair yourself. Suggested re-checks after each saved 30-second run.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scanned complete-insufficient/no-effect",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Baseline done; Suggested has no focus for now. More in why?",
+   "sr": "Baseline complete; Suggested has no focus for now. No key pair stands out clearly from the rest.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. No key pair stands out clearly from the rest.\n\nGeneral practice fits best for now, and pair practice lets you pick a pair yourself. Suggested re-checks after each saved 30-second run.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scanned complete-insufficient/corpus-coverage",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Baseline done; Suggested has no focus for now. More in why?",
+   "sr": "Baseline complete; Suggested has no focus for now. The pair that stood out appears in too few practice sentences to build a focused block.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. The pair that stood out appears in too few practice sentences to build a focused block.\n\nGeneral practice fits best for now, and pair practice lets you pick a pair yourself. Suggested re-checks after each saved 30-second run.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scanned complete-insufficient/exposure-unsupported",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Baseline done; Suggested has no focus for now. More in why?",
+   "sr": "Baseline complete; Suggested has no focus for now. There aren’t enough practice sentences with that pair to give it real practice in one block.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. There aren’t enough practice sentences with that pair to give it real practice in one block.\n\nGeneral practice fits best for now, and pair practice lets you pick a pair yourself. Suggested re-checks after each saved 30-second run.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scanned complete-insufficient/bogus-future-reason",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Suggested is unavailable here. General works as usual.",
+   "sr": "Suggested is unavailable right now. General and pair practice work as usual.",
+   "why": "Suggested is unavailable right now.\n\nGeneral and pair practice work as usual.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scanned complete-insufficient/null",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Suggested is unavailable here. General works as usual.",
+   "sr": "Suggested is unavailable right now. General and pair practice work as usual.",
+   "why": "Suggested is unavailable right now.\n\nGeneral and pair practice work as usual.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": [],
+   "note": "off-contract null reason: defensive fallback observed"
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scan-false unavailable/policy-invalid",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Suggested is unavailable here. General works as usual.",
+   "sr": "Suggested is unavailable in this version of TypeForge. General and pair practice work as usual.",
+   "why": "Suggested is unavailable in this version of TypeForge.\n\nGeneral and pair practice work as usual.",
+   "progress": "Baseline\n\nSuggested is unavailable in this version of TypeForge. General and pair practice work as usual.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scan-false unavailable/storage-unavailable",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Suggested needs results saved in this browser; saving is off here.",
+   "sr": "Suggested needs results saved in this browser, and saving isn’t available here (a private window can do this). General and pair practice work as usual.",
+   "why": "Suggested needs results saved in this browser, and saving isn’t available here (a private window can do this).\n\nGeneral and pair practice work as usual.",
+   "progress": "Baseline\n\nSuggested needs results saved in this browser, and saving isn’t available here (a private window can do this). General and pair practice work as usual.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop ",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scan-false unavailable/context-unavailable",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Saved tests can’t be counted right now. General works as usual.",
+   "sr": "The baseline record in this browser couldn’t be read, so tests aren’t being counted right now. General and pair practice work as usual.",
+   "why": "The baseline record in this browser couldn’t be read, so tests aren’t being counted right now.\n\nGeneral and pair practice work as usual.",
+   "progress": "Baseline\n\nThe baseline record in this browser couldn’t be read, so tests aren’t being counted right now. General and pair practice work as usual.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward ",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scan-false unavailable/source-integrity",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Saved tests can’t be counted right now. General works as usual.",
+   "sr": "Some saved results couldn’t be checked, so tests aren’t being counted right now. General and pair practice work as usual.",
+   "why": "Some saved results couldn’t be checked, so tests aren’t being counted right now.\n\nGeneral and pair practice work as usual.",
+   "progress": "Baseline\n\nSome saved results couldn’t be checked, so tests aren’t being counted right now. General and pair practice work as usual.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scan-false pending/scan-incomplete",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Baseline done; recent timing couldn’t all be read.check again",
+   "sr": "Baseline complete; Suggested has no focus for now. Not every saved result could be read just now, so this may be incomplete.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. Not every saved result could be read just now, so this may be incomplete.\n\nUsing general until it can be read.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baselin",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scan-false in-progress/baseline-incomplete",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Suggested needs 10 baseline tests · 4 done.take test 5 →",
+   "sr": "Not yet available: 4 of 10 baseline tests.",
+   "why": "BASELINE\n4 of 10 tests\n\nSuggested can look for a focus after 10 baseline tests: 30-second assessments on a physical QWERTY keyboard (the qwerty key on), about five minutes of typing, at your own pace.\n\nEvery finished test counts, mistakes included. A run that stops early or loses focus just doesn’t count; nothing is taken away.\n\nCounted from the tests saved in this browser: deleting one, or starting a new baseline on the progress page, lowers the count.\n\ntake test 5 →",
+   "progress": "Baseline\nCOUNTED\n4 of 10 tests\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\ntake test 5 →\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting towa",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scan-false complete-insufficient/coaching-deferred",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Baseline done; Suggested has no focus for now. More in why?",
+   "sr": "Baseline complete; Suggested has no focus for now. Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scan-false complete-insufficient/stale-evidence",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Baseline done; recent timing couldn’t all be read.check again",
+   "sr": "Baseline complete; Suggested has no focus for now. Not every saved result could be read just now, so this may be incomplete.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. Not every saved result could be read just now, so this may be incomplete.\n\nUsing general until it can be read.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scan-false complete-insufficient/too-few-observations-for-any-pair",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Baseline done; recent timing couldn’t all be read.check again",
+   "sr": "Baseline complete; Suggested has no focus for now. Not every saved result could be read just now, so this may be incomplete.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. Not every saved result could be read just now, so this may be incomplete.\n\nUsing general until it can be read.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scan-false complete-insufficient/insufficient-context-diversity",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Baseline done; recent timing couldn’t all be read.check again",
+   "sr": "Baseline complete; Suggested has no focus for now. Not every saved result could be read just now, so this may be incomplete.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. Not every saved result could be read just now, so this may be incomplete.\n\nUsing general until it can be read.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scan-false complete-insufficient/unstable-evidence",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Baseline done; recent timing couldn’t all be read.check again",
+   "sr": "Baseline complete; Suggested has no focus for now. Not every saved result could be read just now, so this may be incomplete.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. Not every saved result could be read just now, so this may be incomplete.\n\nUsing general until it can be read.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scan-false complete-insufficient/no-effect",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Baseline done; recent timing couldn’t all be read.check again",
+   "sr": "Baseline complete; Suggested has no focus for now. Not every saved result could be read just now, so this may be incomplete.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. Not every saved result could be read just now, so this may be incomplete.\n\nUsing general until it can be read.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scan-false complete-insufficient/corpus-coverage",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Baseline done; recent timing couldn’t all be read.check again",
+   "sr": "Baseline complete; Suggested has no focus for now. Not every saved result could be read just now, so this may be incomplete.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. Not every saved result could be read just now, so this may be incomplete.\n\nUsing general until it can be read.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scan-false complete-insufficient/exposure-unsupported",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Baseline done; recent timing couldn’t all be read.check again",
+   "sr": "Baseline complete; Suggested has no focus for now. Not every saved result could be read just now, so this may be incomplete.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. Not every saved result could be read just now, so this may be incomplete.\n\nUsing general until it can be read.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scan-false complete-insufficient/bogus-future-reason",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Suggested is unavailable here. General works as usual.",
+   "sr": "Suggested is unavailable right now. General and pair practice work as usual.",
+   "why": "Suggested is unavailable right now.\n\nGeneral and pair practice work as usual.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R enabled+scan-false complete-insufficient/null",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Suggested is unavailable here. General works as usual.",
+   "sr": "Suggested is unavailable right now. General and pair practice work as usual.",
+   "why": "Suggested is unavailable right now.\n\nGeneral and pair practice work as usual.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": [],
+   "note": "off-contract null reason: defensive fallback observed"
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R disabled+scan-null unavailable/policy-invalid",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Suggested is unavailable here. General works as usual.",
+   "sr": "Suggested is unavailable in this version of TypeForge. General and pair practice work as usual.",
+   "why": "Suggested is unavailable in this version of TypeForge.\n\nGeneral and pair practice work as usual.",
+   "progress": "Baseline\n\nSuggested is unavailable in this version of TypeForge. General and pair practice work as usual.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R disabled+scan-null unavailable/storage-unavailable",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Suggested needs results saved in this browser; saving is off here.",
+   "sr": "Suggested needs results saved in this browser, and saving isn’t available here (a private window can do this). General and pair practice work as usual.",
+   "why": "Suggested needs results saved in this browser, and saving isn’t available here (a private window can do this).\n\nGeneral and pair practice work as usual.",
+   "progress": "Baseline\n\nSuggested needs results saved in this browser, and saving isn’t available here (a private window can do this). General and pair practice work as usual.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop ",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R disabled+scan-null unavailable/context-unavailable",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Saved tests can’t be counted right now. General works as usual.",
+   "sr": "The baseline record in this browser couldn’t be read, so tests aren’t being counted right now. General and pair practice work as usual.",
+   "why": "The baseline record in this browser couldn’t be read, so tests aren’t being counted right now.\n\nGeneral and pair practice work as usual.",
+   "progress": "Baseline\n\nThe baseline record in this browser couldn’t be read, so tests aren’t being counted right now. General and pair practice work as usual.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward ",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R disabled+scan-null unavailable/source-integrity",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Saved tests can’t be counted right now. General works as usual.",
+   "sr": "Some saved results couldn’t be checked, so tests aren’t being counted right now. General and pair practice work as usual.",
+   "why": "Some saved results couldn’t be checked, so tests aren’t being counted right now.\n\nGeneral and pair practice work as usual.",
+   "progress": "Baseline\n\nSome saved results couldn’t be checked, so tests aren’t being counted right now. General and pair practice work as usual.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R disabled+scan-null pending/scan-incomplete",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Suggested isn’t switched on in this version. General works as usual.",
+   "sr": "Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. Not every saved result could be read just now, so this may be incomplete.\n\nUsing general until it can be read.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baselin",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R disabled+scan-null in-progress/baseline-incomplete",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Suggested isn’t switched on in this version. General works as usual.",
+   "sr": "Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+   "why": "BASELINE\n4 of 10 tests\n\n10 short baseline tests give a steady picture of your typing: 30-second assessments on a physical QWERTY keyboard (the qwerty key on), about five minutes of typing, at your own pace.\n\nEvery finished test counts, mistakes included. A run that stops early or loses focus just doesn’t count; nothing is taken away.\n\nCounted from the tests saved in this browser: deleting one, or starting a new baseline on the progress page, lowers the count.\n\ntake test 5 →",
+   "progress": "Baseline\nCOUNTED\n4 of 10 tests\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\ntake test 5 →\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting towa",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R disabled+scan-null complete-insufficient/coaching-deferred",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Suggested isn’t switched on in this version. General works as usual.",
+   "sr": "Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R disabled+scan-null complete-insufficient/stale-evidence",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Suggested isn’t switched on in this version. General works as usual.",
+   "sr": "Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R disabled+scan-null complete-insufficient/too-few-observations-for-any-pair",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Suggested isn’t switched on in this version. General works as usual.",
+   "sr": "Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R disabled+scan-null complete-insufficient/insufficient-context-diversity",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Suggested isn’t switched on in this version. General works as usual.",
+   "sr": "Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R disabled+scan-null complete-insufficient/unstable-evidence",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Suggested isn’t switched on in this version. General works as usual.",
+   "sr": "Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R disabled+scan-null complete-insufficient/no-effect",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Suggested isn’t switched on in this version. General works as usual.",
+   "sr": "Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R disabled+scan-null complete-insufficient/corpus-coverage",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Suggested isn’t switched on in this version. General works as usual.",
+   "sr": "Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R disabled+scan-null complete-insufficient/exposure-unsupported",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Suggested isn’t switched on in this version. General works as usual.",
+   "sr": "Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R disabled+scan-null complete-insufficient/bogus-future-reason",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Suggested is unavailable here. General works as usual.",
+   "sr": "Suggested is unavailable right now. General and pair practice work as usual.",
+   "why": "Suggested is unavailable right now.\n\nGeneral and pair practice work as usual.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R disabled+scan-null complete-insufficient/null",
+  "expect": "honest, exhaustive copy for the presented reason",
+  "pass": true,
+  "observed": {
+   "press": "Suggested is unavailable here. General works as usual.",
+   "sr": "Suggested is unavailable right now. General and pair practice work as usual.",
+   "why": "Suggested is unavailable right now.\n\nGeneral and pair practice work as usual.",
+   "progress": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a n",
+   "problems": [],
+   "note": "off-contract null reason: defensive fallback observed"
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R complete-ready reason=null kind=general",
+  "expect": "why? explains the th focus; never \"unavailable\" while Suggested is available",
+  "pass": true,
+  "observed": {
+   "label": "General practice · 30 s",
+   "why": "BASELINE\n10 of 10 tests\n\nSuggested has a focus: th. Choose suggested to practise it.\n\nIn your recent runs, th took longer than your other key pairs: 212 ms against 168 ms, across 46 clean th transitions in 7 different words and 10 runs.",
+   "errors": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R complete-ready reason=null kind=recommended",
+  "expect": "why? explains the th focus; never \"unavailable\" while Suggested is available",
+  "pass": true,
+  "observed": {
+   "label": "Suggested practice · th · 30 s",
+   "why": "SUGGESTED · TH\n\nIn your recent runs, th took longer than your other key pairs: 212 ms against 168 ms, across 46 clean th transitions in 7 different words and 10 runs.\n\nThese blocks lean on sentences containing th, with general sentences mixed in.\n\nA rule of thumb from your own timings, not a diagnosis or a proven training method. It re-checks before every block and may change focus or step back to general. Prefer an even mix? Choose general.",
+   "errors": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R complete-ready reason=undefined kind=general",
+  "expect": "why? explains the th focus; never \"unavailable\" while Suggested is available",
+  "pass": true,
+  "observed": {
+   "label": "General practice · 30 s",
+   "why": "BASELINE\n10 of 10 tests\n\nSuggested has a focus: th. Choose suggested to practise it.\n\nIn your recent runs, th took longer than your other key pairs: 212 ms against 168 ms, across 46 clean th transitions in 7 different words and 10 runs.",
+   "errors": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R complete-ready reason=undefined kind=recommended",
+  "expect": "why? explains the th focus; never \"unavailable\" while Suggested is available",
+  "pass": true,
+  "observed": {
+   "label": "Suggested practice · th · 30 s",
+   "why": "SUGGESTED · TH\n\nIn your recent runs, th took longer than your other key pairs: 212 ms against 168 ms, across 46 clean th transitions in 7 different words and 10 runs.\n\nThese blocks lean on sentences containing th, with general sentences mixed in.\n\nA rule of thumb from your own timings, not a diagnosis or a proven training method. It re-checks before every block and may change focus or step back to general. Prefer an even mix? Choose general.",
+   "errors": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R complete-ready reason=supported kind=general",
+  "expect": "why? explains the th focus; never \"unavailable\" while Suggested is available",
+  "pass": true,
+  "observed": {
+   "label": "General practice · 30 s",
+   "why": "BASELINE\n10 of 10 tests\n\nSuggested has a focus: th. Choose suggested to practise it.\n\nIn your recent runs, th took longer than your other key pairs: 212 ms against 168 ms, across 46 clean th transitions in 7 different words and 10 runs.",
+   "errors": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R complete-ready reason=supported kind=recommended",
+  "expect": "why? explains the th focus; never \"unavailable\" while Suggested is available",
+  "pass": true,
+  "observed": {
+   "label": "Suggested practice · th · 30 s",
+   "why": "SUGGESTED · TH\n\nIn your recent runs, th took longer than your other key pairs: 212 ms against 168 ms, across 46 clean th transitions in 7 different words and 10 runs.\n\nThese blocks lean on sentences containing th, with general sentences mixed in.\n\nA rule of thumb from your own timings, not a diagnosis or a proven training method. It re-checks before every block and may change focus or step back to general. Prefer an even mix? Choose general.",
+   "errors": []
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R automaticCoaching=unavailable at 4",
+  "expect": "informational: how the r2 third value renders (UI type has only enabled|disabled)",
+  "pass": false,
+  "observed": {
+   "press": "Suggested is unavailable here. General works as usual.",
+   "why": "BASELINE\n4 of 10 tests\n\n10 short baseline tests give a steady picture of your typing: 30-second assessments on a physical QWERTY keyboard (the qwerty key on), about five minutes of typing, at your own pace.\n\nEvery finished test counts, mistakes included. A run that stops early or loses focus just doesn’t count; nothing is taken away.\n\nCounted from the tests saved in this browser: deleting one, or starting a new baseline on the progress page, lowers the count.\n\ntake test 5 →",
+   "errors": []
+  },
+  "pending": true
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R automaticCoaching=unavailable at 10",
+  "expect": "informational: how the r2 third value renders (UI type has only enabled|disabled)",
+  "pass": false,
+  "observed": {
+   "press": "Suggested is unavailable here. General works as usual.",
+   "why": "BASELINE\n10 of 10 tests\n\nBaseline complete. Suggested is unavailable in this version of TypeForge.\n\nGeneral and pair practice work as usual.",
+   "errors": []
+  },
+  "pending": true
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R author fixture s10ready Suggested why?",
+  "expect": "why? explains the focus pair",
+  "pass": true,
+  "observed": {
+   "label": "Suggested practice · th · 30 s",
+   "why": "SUGGESTED · TH\n\nIn your recent runs, th took longer than your other key pairs: 212 ms against 168 ms, across 46 clean th transitions in 7 different words and 10 runs.\n\nThese blocks lean on sentences containing th, with general sentences mixed in.\n\nA rule of thumb from your own timings, not a diagnosis or a proven training method. It re-checks before every block and may change focus or step back to general. Prefer an even mix? Choose general."
+  }
+ },
+ {
+  "slice": "S1 reasons",
+  "id": "R author fixture s10changed Suggested why?",
+  "expect": "why? explains the focus pair",
+  "pass": true,
+  "observed": {
+   "label": "Suggested practice · er · 30 s",
+   "why": "SUGGESTED · ER\n\nIn your recent runs, er took longer than your other key pairs: 205 ms against 171 ms, across 38 clean er transitions in 5 different words and 12 runs.\n\nThese blocks lean on sentences containing er, with general sentences mixed in.\n\nA rule of thumb from your own timings, not a diagnosis or a proven training method. It re-checks before every block and may change focus or step back to general. Prefer an even mix? Choose general."
+  }
+ },
+ {
+  "slice": "S2 save timing",
+  "id": "T Enter at 0 ms",
+  "expect": "next ready label is test 6; count reaches 5 after the save; focus stays in text; 0 errors",
+  "pass": true,
+  "observed": {
+   "atResult": {
+    "focus": "primary",
+    "label": "Baseline test 5 of 10 · 30 s",
+    "slot": "",
+    "stage": "completed",
+    "primary": "next test ↵",
+    "secondary": "practise",
+    "progress": "4 of 10 tests · 1 waiting to save",
+    "qwerty": true
+   },
+   "ready": {
+    "focus": "typing-input",
+    "label": "Baseline test 6 of 10 · 30 s",
+    "slot": "baseline test 6 of 10 — the clock starts with your first letter",
+    "stage": "idle",
+    "primary": null,
+    "secondary": null,
+    "progress": "4 of 10 tests · 1 waiting to save",
+    "qwerty": true
+   },
+   "settled": {
+    "focus": "why-trigger",
+    "label": "Baseline test 6 of 10 · 30 s",
+    "slot": "baseline test 6 of 10 — the clock starts with your first letter",
+    "stage": "idle",
+    "primary": null,
+    "secondary": null,
+    "progress": "5 of 10 tests",
+    "qwerty": true
+   },
+   "errors": []
+  }
+ },
+ {
+  "slice": "S2 save timing",
+  "id": "T Enter during save (600 of 1500 ms)",
+  "expect": "next ready label is test 6; count reaches 5 after the save; focus stays in text; 0 errors",
+  "pass": true,
+  "observed": {
+   "atResult": {
+    "focus": "primary",
+    "label": "Baseline test 5 of 10 · 30 s",
+    "slot": "",
+    "stage": "completed",
+    "primary": "next test ↵",
+    "secondary": "practise",
+    "progress": "4 of 10 tests · 1 waiting to save",
+    "qwerty": true
+   },
+   "ready": {
+    "focus": "typing-input",
+    "label": "Baseline test 6 of 10 · 30 s",
+    "slot": "baseline test 6 of 10 — the clock starts with your first letter",
+    "stage": "idle",
+    "primary": null,
+    "secondary": null,
+    "progress": "4 of 10 tests · 1 waiting to save",
+    "qwerty": true
+   },
+   "settled": {
+    "focus": "why-trigger",
+    "label": "Baseline test 6 of 10 · 30 s",
+    "slot": "baseline test 6 of 10 — the clock starts with your first letter",
+    "stage": "idle",
+    "primary": null,
+    "secondary": null,
+    "progress": "5 of 10 tests",
+    "qwerty": true
+   },
+   "errors": []
+  }
+ },
+ {
+  "slice": "S2 save timing",
+  "id": "T Enter after save (1800 ms)",
+  "expect": "next ready label is test 6; count reaches 5 after the save; focus stays in text; 0 errors",
+  "pass": true,
+  "observed": {
+   "atResult": {
+    "focus": "primary",
+    "label": "Baseline test 5 of 10 · 30 s",
+    "slot": "",
+    "stage": "completed",
+    "primary": "next test ↵",
+    "secondary": "practise",
+    "progress": "4 of 10 tests · 1 waiting to save",
+    "qwerty": true
+   },
+   "ready": {
+    "focus": "typing-input",
+    "label": "Baseline test 6 of 10 · 30 s",
+    "slot": "baseline test 6 of 10 — the clock starts with your first letter",
+    "stage": "idle",
+    "primary": null,
+    "secondary": null,
+    "progress": "5 of 10 tests",
+    "qwerty": true
+   },
+   "settled": {
+    "focus": "why-trigger",
+    "label": "Baseline test 6 of 10 · 30 s",
+    "slot": "baseline test 6 of 10 — the clock starts with your first letter",
+    "stage": "idle",
+    "primary": null,
+    "secondary": null,
+    "progress": "5 of 10 tests",
+    "qwerty": true
+   },
+   "errors": []
+  }
+ },
+ {
+  "slice": "S2 save timing",
+  "id": "T failed save → next test → retry from slot",
+  "expect": "retry focused on failure; ready slot offers recovery, label 6; retry restores focus to text; count 5",
+  "pass": true,
+  "observed": {
+   "failed": {
+    "focus": "primary",
+    "label": "Baseline test 5 of 10 · 30 s",
+    "slot": "",
+    "stage": "completed",
+    "primary": "retry saving ↵",
+    "secondary": "next test",
+    "progress": "4 of 10 tests · 1 waiting to save",
+    "qwerty": true
+   },
+   "failedText": "BASELINE\n4 of 10 tests · 1 waiting to save\n\nNot saved yet, so it doesn’t count.\n\nRetrying is safe. If you go on, it keeps waiting here to be saved.",
+   "ready": {
+    "focus": "typing-input",
+    "label": "Baseline test 6 of 10 · 30 s",
+    "slot": "Test 5 isn’t saved yet, so it doesn’t count.retry saving",
+    "stage": "idle",
+    "primary": null,
+    "secondary": null,
+    "progress": "4 of 10 tests · 1 waiting to save",
+    "qwerty": true
+   },
+   "after": {
+    "focus": "typing-input",
+    "label": "Baseline test 6 of 10 · 30 s",
+    "slot": "baseline test 6 of 10 — the clock starts with your first letter",
+    "stage": "idle",
+    "primary": null,
+    "secondary": null,
+    "progress": "5 of 10 tests",
+    "qwerty": true
+   },
+   "whyProgress": "5 of 10 tests",
+   "errors": []
+  }
+ },
+ {
+  "slice": "S2 save timing",
+  "id": "T late failure during an active run",
+  "expect": "label, slot and focus frozen during run; after the run test 5 is offered for retry",
+  "pass": true,
+  "observed": {
+   "running": {
+    "focus": "typing-input",
+    "label": "Baseline test 6 of 10 · 30 s",
+    "slot": "",
+    "stage": "running",
+    "primary": null,
+    "secondary": null,
+    "progress": "4 of 10 tests · 1 waiting to save",
+    "qwerty": true
+   },
+   "during": {
+    "focus": "typing-input",
+    "label": "Baseline test 6 of 10 · 30 s",
+    "slot": "",
+    "stage": "running",
+    "primary": null,
+    "secondary": null,
+    "progress": "4 of 10 tests · 1 waiting to save",
+    "qwerty": true
+   },
+   "result6": {
+    "focus": "primary",
+    "label": "Baseline test 6 of 10 · 30 s",
+    "slot": "",
+    "stage": "completed",
+    "primary": "retry saving ↵",
+    "secondary": "next test",
+    "progress": "4 of 10 tests · 2 waiting to save",
+    "qwerty": true
+   },
+   "block6": "Test 5 isn’t saved yet, so it doesn’t count. retry saving\n\nBASELINE\n4 of 10 tests · 2 waiting to save\n\nNot saved yet, so it doesn’t count.\n\nRetrying is safe. If you go on, it keeps waiting here to be saved.",
+   "errors": []
+  }
+ },
+ {
+  "slice": "S2 save timing",
+  "id": "T late success during an active run",
+  "expect": "run frozen; result of test 6 eventually shows 6 of 10",
+  "pass": true,
+  "observed": {
+   "running": {
+    "focus": "typing-input",
+    "label": "Baseline test 6 of 10 · 30 s",
+    "slot": "",
+    "stage": "running",
+    "primary": null,
+    "secondary": null,
+    "progress": "4 of 10 tests · 1 waiting to save",
+    "qwerty": true
+   },
+   "during": {
+    "focus": "typing-input",
+    "label": "Baseline test 6 of 10 · 30 s",
+    "slot": "",
+    "stage": "running",
+    "primary": null,
+    "secondary": null,
+    "progress": "5 of 10 tests",
+    "qwerty": true
+   },
+   "result6": {
+    "focus": "primary",
+    "label": "Baseline test 6 of 10 · 30 s",
+    "slot": "",
+    "stage": "completed",
+    "primary": "next test ↵",
+    "secondary": "practise",
+    "progress": "6 of 10 tests",
+    "qwerty": true
+   },
+   "errors": []
+  }
+ },
+ {
+  "slice": "S2 save timing",
+  "id": "T interrupted → try again",
+  "expect": "not counted, nothing taken away; try test 5 again; 0 errors",
+  "pass": true,
+  "observed": {
+   "res": {
+    "focus": "primary",
+    "label": "Baseline test 5 of 10 · 30 s",
+    "slot": "Focus left the text: this run is flagged and excluded from headline progress. The timer kept running.",
+    "stage": "completed",
+    "primary": "try test 5 again ↵",
+    "secondary": "practise",
+    "progress": "4 of 10 tests",
+    "qwerty": true
+   },
+   "block": "BASELINE\n4 of 10 tests\n\nNot counted: focus left the text during the run. Still 4 of 10; nothing is taken away.",
+   "again": {
+    "focus": "typing-input",
+    "label": "Baseline test 5 of 10 · 30 s",
+    "slot": "baseline test 5 of 10 — the clock starts with your first letter",
+    "stage": "idle",
+    "primary": null,
+    "secondary": null,
+    "progress": "4 of 10 tests",
+    "qwerty": true
+   },
+   "errors": []
+  }
+ },
+ {
+  "slice": "S2 save timing",
+  "id": "T final test failed → Enter retries → completes",
+  "expect": "retry focused, no dead \"#\" link; Enter retries; completion shows summary and try suggested focused",
+  "pass": true,
+  "observed": {
+   "failed": {
+    "focus": "primary",
+    "label": "Baseline test 10 of 10 · 30 s",
+    "slot": "",
+    "stage": "completed",
+    "primary": "retry saving ↵",
+    "secondary": "practise",
+    "progress": "9 of 10 tests · 1 waiting to save",
+    "qwerty": true
+   },
+   "links": [
+    "?page=practice&s=eyJwb2xpY3lJZCI6ImZpeHR1cmUtcG9saWN5IiwidGFyZ2V0IjoxMCwiZXhhY3QiOnRydWUsImV2aWRlbmNlU2NhbkNvbXBsZXRlIjp0cnVlLCJwZW5kaW5nIjowLCJhdXRvbWF0aWNDb2FjaGluZyI6ImVuYWJsZWQiLCJzdW1tYXJ5IjpudWxsLCJjb3VudGVkIjo5LCJzdGF0ZSI6ImluLXByb2dyZXNzIiwicmVhc29uIjoiYmFzZWxpbmUtaW5jb21wbGV0ZSJ9&qwerty=1&kind=general"
+   ],
+   "after": {
+    "focus": "primary",
+    "label": "Baseline test 10 of 10 · 30 s",
+    "slot": "",
+    "stage": "completed",
+    "primary": "try suggested · th ↵",
+    "secondary": "general",
+    "progress": "10 of 10 tests",
+    "qwerty": true
+   },
+   "block": "BASELINE\n10 of 10 tests\n\nBaseline complete.\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nSuggested has a focus: th. In your recent runs, th took longer than your other key pairs: 212 ms against 168 ms, across 46 clean th transitions in 7 different words and 10 runs.\n\nA rule of thumb from your own timings, not a diagnosis.",
+   "errors": []
+  }
+ },
+ {
+  "slice": "S2 summary",
+  "id": "M Progress: figures",
+  "expect": "shows /Last 10 tests · median[\\s\\S]*39\\.0[\\s\\S]*95\\.8%/i",
+  "pass": true,
+  "observed": {
+   "text": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline",
+   "errors": []
+  }
+ },
+ {
+  "slice": "S2 summary",
+  "id": "M Progress: WPM only",
+  "expect": "shows /only speed is shown/",
+  "pass": true,
+  "observed": {
+   "text": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\n\nAccuracy isn’t available for all 10, so only speed is shown.\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline",
+   "errors": []
+  }
+ },
+ {
+  "slice": "S2 summary",
+  "id": "M Progress: eleventh pending",
+  "expect": "shows /Updating after your latest test is saved/",
+  "pass": true,
+  "observed": {
+   "text": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\nUpdating after your latest test is saved.\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline",
+   "errors": []
+  }
+ },
+ {
+  "slice": "S2 summary",
+  "id": "M Progress: milestone proved, selection unproved",
+  "expect": "shows /still being read/",
+  "pass": true,
+  "observed": {
+   "text": "Baseline\nCOUNTED\n10 of 10 tests\n\nLast 10 tests · median: your latest tests are still being read.\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline",
+   "errors": []
+  }
+ },
+ {
+  "slice": "S2 summary",
+  "id": "M Progress: summary pending",
+  "expect": "shows /still being read/",
+  "pass": true,
+  "observed": {
+   "text": "Baseline\nCOUNTED\n10 of 10 tests\n\nLast 10 tests · median: your latest tests are still being read.\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline",
+   "errors": []
+  }
+ },
+ {
+  "slice": "S2 summary",
+  "id": "M Progress: below ten with stale summary object",
+  "expect": "no median and no cached figure",
+  "pass": true,
+  "observed": {
+   "text": "Baseline\nCOUNTED\n9 of 10 tests\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\ntake test 10 →\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline",
+   "errors": []
+  }
+ },
+ {
+  "slice": "S2 summary",
+  "id": "M Progress: unavailable with summary object",
+  "expect": "no median and no cached figure",
+  "pass": true,
+  "observed": {
+   "text": "Baseline\n\nSome saved results couldn’t be checked, so tests aren’t being counted right now. General and pair practice work as usual.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline",
+   "errors": []
+  }
+ },
+ {
+  "slice": "S2 summary",
+  "id": "M Progress: not-complete",
+  "expect": "no median and no cached figure",
+  "pass": true,
+  "observed": {
+   "text": "Baseline\nCOUNTED\n10 of 10 tests\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline",
+   "errors": []
+  }
+ },
+ {
+  "slice": "S2 summary",
+  "id": "M Progress: checking",
+  "expect": "no median and no cached figure",
+  "pass": true,
+  "observed": {
+   "text": "Baseline\n\nChecking saved tests…\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline",
+   "errors": []
+  }
+ },
+ {
+  "slice": "S2 summary",
+  "id": "M reset after ten removes the median",
+  "expect": "no figure after start over; heading focused; status announced",
+  "pass": true,
+  "observed": {
+   "before": "Baseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-seco",
+   "after": "Baseline\nCOUNTED\n0 of 10 tests\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\ntake test 1 →\n\nNew baseline started: 0 of 10. Earlier results are still in your history.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline",
+   "focus": "baseline-heading",
+   "errors": []
+  }
+ },
+ {
+  "slice": "S1 completion",
+  "id": "C final=ready",
+  "expect": "Baseline complete → Last 10 tests · median → focus or one reason; summary smaller than hero; deferred makes no gate claim",
+  "pass": true,
+  "observed": {
+   "text": "BASELINE\n10 of 10 tests\n\nBaseline complete.\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nSuggested has a focus: th. In your recent runs, th took longer than your other key pairs: 212 ms against 168 ms, across 46 clean th transitions in 7 different words and 10 runs.\n\nA rule of thumb from your own timings, not a diagnosis.",
+   "sizes": {
+    "hero": 96,
+    "summary": 32
+   },
+   "primary": "try suggested · th ↵",
+   "errors": []
+  }
+ },
+ {
+  "slice": "S1 completion",
+  "id": "C final=insufficient",
+  "expect": "Baseline complete → Last 10 tests · median → focus or one reason; summary smaller than hero; deferred makes no gate claim",
+  "pass": true,
+  "observed": {
+   "text": "BASELINE\n10 of 10 tests\n\nBaseline complete.\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nNo key pair stands out clearly from the rest.\n\nGeneral practice fits best for now, and pair practice lets you pick a pair yourself. Suggested re-checks after each saved 30-second run.",
+   "sizes": {
+    "hero": 96,
+    "summary": 32
+   },
+   "primary": "practise general ↵",
+   "errors": []
+  }
+ },
+ {
+  "slice": "S1 completion",
+  "id": "C final=sparse",
+  "expect": "Baseline complete → Last 10 tests · median → focus or one reason; summary smaller than hero; deferred makes no gate claim",
+  "pass": true,
+  "observed": {
+   "text": "BASELINE\n10 of 10 tests\n\nBaseline complete.\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n14.2\naccuracy\n81.5%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nNo key pair has come up often enough in finished sentences yet to compare fairly.\n\nGeneral practice fits best for now, and pair practice lets you pick a pair yourself. Suggested re-checks after each saved 30-second run.",
+   "sizes": {
+    "hero": 96,
+    "summary": 32
+   },
+   "primary": "practise general ↵",
+   "errors": []
+  }
+ },
+ {
+  "slice": "S1 completion",
+  "id": "C final=deferred",
+  "expect": "Baseline complete → Last 10 tests · median → focus or one reason; summary smaller than hero; deferred makes no gate claim",
+  "pass": true,
+  "observed": {
+   "text": "BASELINE\n10 of 10 tests\n\nBaseline complete.\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nSuggested practice isn’t switched on in this version. General and pair practice work as usual.",
+   "sizes": {
+    "hero": 96,
+    "summary": 32
+   },
+   "primary": "practise general ↵",
+   "errors": []
+  }
+ },
+ {
+  "slice": "S1 qwerty",
+  "id": "Q declare from hint 1440",
+  "expect": "first visit unchanged (focused text); one Tab reaches the declaration; Enter switches qwerty on, label test 1, focus back in text",
+  "pass": true,
+  "observed": {
+   "before": {
+    "focus": "typing-input",
+    "label": "Assessment · 30 s",
+    "slot": "Baseline tests need QWERTY.my keyboard is qwerty",
+    "stage": "idle",
+    "primary": null,
+    "secondary": null,
+    "progress": "0 of 10 tests",
+    "qwerty": false
+   },
+   "keyRect": {
+    "top": 536,
+    "bottom": 564,
+    "inView": true
+   },
+   "tabbed": {
+    "focus": "my keyboard is qwerty",
+    "label": "Assessment · 30 s",
+    "slot": "Baseline tests need QWERTY.my keyboard is qwerty",
+    "stage": "idle",
+    "primary": null,
+    "secondary": null,
+    "progress": "0 of 10 tests",
+    "qwerty": false
+   },
+   "after": {
+    "focus": "typing-input",
+    "label": "Baseline test 1 of 10 · 30 s",
+    "slot": "baseline test 1 of 10 — the clock starts with your first letter",
+    "stage": "idle",
+    "primary": null,
+    "secondary": null,
+    "progress": "0 of 10 tests",
+    "qwerty": true
+   },
+   "errors": []
+  }
+ },
+ {
+  "slice": "S1 qwerty",
+  "id": "Q declare from hint 320",
+  "expect": "first visit unchanged (focused text); one Tab reaches the declaration; Enter switches qwerty on, label test 1, focus back in text",
+  "pass": true,
+  "observed": {
+   "before": {
+    "focus": "typing-input",
+    "label": "Assessment · 30 s",
+    "slot": "Baseline tests need QWERTY.my keyboard is qwerty",
+    "stage": "idle",
+    "primary": null,
+    "secondary": null,
+    "progress": "0 of 10 tests",
+    "qwerty": false
+   },
+   "keyRect": {
+    "top": 451,
+    "bottom": 479,
+    "inView": true
+   },
+   "tabbed": {
+    "focus": "my keyboard is qwerty",
+    "label": "Assessment · 30 s",
+    "slot": "Baseline tests need QWERTY.my keyboard is qwerty",
+    "stage": "idle",
+    "primary": null,
+    "secondary": null,
+    "progress": "0 of 10 tests",
+    "qwerty": false
+   },
+   "after": {
+    "focus": "typing-input",
+    "label": "Baseline test 1 of 10 · 30 s",
+    "slot": "baseline test 1 of 10 — the clock starts with your first letter",
+    "stage": "idle",
+    "primary": null,
+    "secondary": null,
+    "progress": "0 of 10 tests",
+    "qwerty": true
+   },
+   "errors": []
+  }
+ },
+ {
+  "slice": "S1 qwerty",
+  "id": "Q not-counted result → declare → take test 1",
+  "expect": "not counted explained; declaration on the result; then take test 1 focused; next label test 1",
+  "pass": true,
+  "observed": {
+   "res": {
+    "focus": "primary",
+    "label": "Assessment · 30 s",
+    "slot": "",
+    "stage": "completed",
+    "primary": "practice next ↵",
+    "secondary": "fresh retest",
+    "progress": "0 of 10 tests",
+    "qwerty": false
+   },
+   "block": "Not a baseline test (qwerty off). Baseline tests are 30 seconds on a physical QWERTY keyboard. Still 0 of 10.\n\nmy keyboard is qwerty",
+   "after": {
+    "focus": "primary",
+    "label": "Assessment · 30 s",
+    "slot": "",
+    "stage": "completed",
+    "primary": "take test 1 ↵",
+    "secondary": "practice next",
+    "progress": "0 of 10 tests",
+    "qwerty": true
+   },
+   "block2": "Declared. Your next 30-second test counts. Still 0 of 10.",
+   "next": {
+    "focus": "typing-input",
+    "label": "Baseline test 1 of 10 · 30 s",
+    "slot": "baseline test 1 of 10 — the clock starts with your first letter",
+    "stage": "idle",
+    "primary": null,
+    "secondary": null,
+    "progress": "0 of 10 tests",
+    "qwerty": true
+   },
+   "errors": []
+  }
+ },
+ {
+  "slice": "S1 lower bound",
+  "id": "L at least 7: ready → result → next → Progress",
+  "expect": "never an ordinal from a lower bound",
+  "pass": true,
+  "observed": {
+   "ready": {
+    "focus": "typing-input",
+    "label": "Baseline test · 30 s",
+    "slot": "At least 7 of 10 found; this one counts too.",
+    "stage": "idle",
+    "primary": null,
+    "secondary": null,
+    "progress": "at least 7 of 10 tests",
+    "qwerty": true
+   },
+   "res": "Baseline test · 30 s · complete",
+   "after": {
+    "focus": "primary",
+    "label": "Baseline test · 30 s",
+    "slot": "",
+    "stage": "completed",
+    "primary": "next test ↵",
+    "secondary": "practise",
+    "progress": "at least 8 of 10 tests",
+    "qwerty": true
+   },
+   "next": {
+    "focus": "typing-input",
+    "label": "Baseline test · 30 s",
+    "slot": "At least 8 of 10 found; this one counts too.",
+    "stage": "idle",
+    "primary": null,
+    "secondary": null,
+    "progress": "at least 8 of 10 tests",
+    "qwerty": true
+   },
+   "prog": "Baseline\nCOUNTED\nat least 7 of 10 tests\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\ntake a baseline test →\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline",
+   "errors": []
+  }
+ },
+ {
+  "slice": "S1 progress",
+  "id": "P Progress at 4 of 10",
+  "expect": "one count, provenance, take test 5, no other-context sentence; why? says five minutes of typing; no tally",
+  "pass": true,
+  "observed": {
+   "prog": "Baseline\nCOUNTED\n4 of 10 tests\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\ntake test 5 →\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline",
+   "counts": 1,
+   "why": "BASELINE\n4 of 10 tests\n\nSuggested can look for a focus after 10 baseline tests: 30-second assessments on a physical QWERTY keyboard (the qwerty key on), about five minutes of typing, at your own pace.\n\nEvery finished test counts, mistakes included. A run that stops early or loses focus just doesn’t count; nothing is taken away.\n\nCounted from the tests saved in this browser: deleting one, or starting a new baseline on the progress page, lowers the count.\n\ntake test 5 →",
+   "tally": 0
+  }
+ },
+ {
+  "slice": "S4 finite end",
+  "id": "E plan exhausted before the timer",
+  "expect": "no wrap; ends at the last sentence; actual elapsed label; no figures; no baseline copy; suggested again focused, general secondary",
+  "pass": true,
+  "observed": {
+   "ready": {
+    "focus": "typing-input",
+    "label": "Suggested practice · th · 30 s",
+    "slot": "",
+    "stage": "idle",
+    "primary": null,
+    "secondary": null,
+    "progress": null,
+    "qwerty": true
+   },
+   "lastContext": "— end of this block —",
+   "res": {
+    "stage": "completed",
+    "remaining": "10",
+    "label": "Suggested practice · th · all 3 sentences done at 21 s of 30",
+    "figures": false,
+    "obs": "That’s every sentence in this th block, so it ended before the timer. The next suggested block uses the same small set of sentences.",
+    "all": "SUGGESTED PRACTICE · TH · ALL 3 SENTENCES DONE AT 21 S OF 30\n\nFIGURES OMITTED: UNAVAILABLE UNTIL P1 R2 VALIDATES METRICS FOR A BLOCK THAT ENDS EARLY (FINITE-PLAN-END.MD RULE 6)\n\nThat’s every sentence in this th block, so it ended before the timer. The next suggested block uses the same small set of sentences.\n\nsuggested again ↵\ngeneral\n\nSaving to this browser…\n\nexport\ndetails",
+    "focus": "primary"
+   },
+   "acts": {
+    "focus": "primary",
+    "label": "Suggested practice · th · 30 s",
+    "slot": "",
+    "stage": "completed",
+    "primary": "suggested again ↵",
+    "secondary": "general",
+    "progress": null,
+    "qwerty": true
+   },
+   "errors": []
+  }
+ },
+ {
+  "slice": "S4 finite end",
+  "id": "E Enter on suggested again",
+  "expect": "lands on Suggested · th ready with focus in text",
+  "pass": true,
+  "observed": {
+   "again": {
+    "focus": "typing-input",
+    "label": "Suggested practice · th · 30 s",
+    "slot": "",
+    "stage": "idle",
+    "primary": null,
+    "secondary": null,
+    "progress": null,
+    "qwerty": true
+   }
+  }
+ },
+ {
+  "slice": "S4 finite end",
+  "id": "E timer first",
+  "expect": "ordinary practice result, no new state",
+  "pass": true,
+  "observed": {
+   "label": "Suggested practice · th · 30 s · complete",
+   "figures": true,
+   "errors": []
+  }
+ },
+ {
+  "slice": "S4 finite end",
+  "id": "E focus lost, then plan finished (rule 10)",
+  "expect": "interruption keeps flagged semantics on the result",
+  "pass": true,
+  "observed": {
+   "res": {
+    "label": "Suggested practice · th · all 3 sentences done at 15 s of 30",
+    "flag": "Flagged: this run was interrupted or used unsupported input. It is saved with a label and excluded from headline progress."
+   },
+   "errors": []
+  }
+ },
+ {
+  "slice": "S4 finite end",
+  "id": "E Suggested at 60 s (root delta: pilot is exact 30 s)",
+  "expect": "PENDING author delta 64a53b4: truthful unsupported-duration handling",
+  "pass": false,
+  "observed": {
+   "label": "General practice · 60 s",
+   "slot": "Suggested runs at 30 s only; this block is general.use 30 s"
+  },
+  "pending": true
+ }
+]

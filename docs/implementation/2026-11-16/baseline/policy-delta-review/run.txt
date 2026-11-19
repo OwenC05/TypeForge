@@ -1,0 +1,93 @@
+﻿{
+  "checks": 106,
+  "connected": [
+    {
+      "ms": 249.999999,
+      "passes": false,
+      "target": 29,
+      "reference": 574
+    },
+    {
+      "ms": 250,
+      "passes": true,
+      "target": 28,
+      "reference": 543
+    },
+    {
+      "ms": 250.000001,
+      "passes": true,
+      "target": 28,
+      "reference": 543
+    }
+  ],
+  "certificate": {
+    "pass": true,
+    "length": 501,
+    "firstFailure": null,
+    "words240": 8,
+    "passages480": 11,
+    "promptIds": [
+      "practice-003",
+      "practice-019",
+      "practice-048",
+      "practice-013",
+      "practice-078",
+      "practice-028",
+      "practice-001",
+      "practice-036",
+      "practice-054",
+      "practice-002",
+      "practice-047",
+      "practice-074"
+    ]
+  }
+}
+{
+  "checks": 48,
+  "authorReplayChecks": 106,
+  "laggedTime": {
+    "necessaryTime": 30000.030000000028,
+    "issue": "coach-run-envelope"
+  },
+  "deliveryGate": {
+    "milestone": 10,
+    "timing": true,
+    "certificate": true,
+    "automaticCoachingEnabled": false,
+    "effectiveSuggested": false
+  },
+  "certificates": [
+    {
+      "pair": "he",
+      "length": 501,
+      "first": 7,
+      "words240": 8,
+      "passages480": 11,
+      "failures": []
+    },
+    {
+      "pair": "in",
+      "length": 491,
+      "first": 11,
+      "words240": 9,
+      "passages480": 11,
+      "failures": []
+    },
+    {
+      "pair": "le",
+      "length": 502,
+      "first": 8,
+      "words240": 9,
+      "passages480": 11,
+      "failures": []
+    },
+    {
+      "pair": "th",
+      "length": 480,
+      "first": 10,
+      "words240": 3,
+      "passages480": 12,
+      "failures": []
+    }
+  ]
+}

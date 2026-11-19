@@ -1,0 +1,4 @@
+{
+    "ProcessId":  3796,
+    "CommandLine":  "\"C:\\Users\\Owenc\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.exe\" --no-daemon -c shell_environment_policy.set.ORCA_TERMINAL_HANDLE=\u0027term_d2b1fa7b-3bbe-434e-ba3c-6376dec7605f\u0027 -c shell_environment_policy.set.ORCA_PANE_KEY=\u0027c5a0ee65-8556-45bb-aa60-e0e2adb452ea:c7d8bb85-c5f2-40d0-9da3-30200fe03718\u0027 -c shell_environment_policy.set.ORCA_WORKTREE_ID=\u00270e2790bd-9921-41ea-8b18-8ff2513265a5::C:/Users/Owenc/orca/workspaces/TypeForge/tf-baseline-release\u0027 -c shell_environment_policy.set.ORCA_WORKSPACE_ID=\u00270e2790bd-9921-41ea-8b18-8ff2513265a5::C:/Users/Owenc/orca/workspaces/TypeForge/tf-baseline-release\u0027 -c \"shell_environment_policy.set.ORCA_USER_DATA_PATH=\u0027C:\\Users\\Owenc\\AppData\\Roaming\\orca\u0027\" -c check_for_update_on_startup=false --dangerously-bypass-approvals-and-sandbox -m gpt-6.1-sol -c model_reasoning_effort=medium"
+}

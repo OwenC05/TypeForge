@@ -1,0 +1,218 @@
+{
+  "browser": "157.0.8103.52",
+  "base": "http://127.0.0.1:5188",
+  "clock": "paused/accelerated in mechanics, real unmocked clock in performance cases",
+  "results": [
+    {
+      "name": "native edit undo paste and focus mechanics",
+      "wordDelete": "abc ",
+      "undo": "abc def",
+      "redo": "abc ",
+      "paste": {
+        "value": "abc ",
+        "warning": "This run includes an interruption or unsupported edit. It will be saved with a label and excluded from headline progress."
+      },
+      "replace": "xbc ",
+      "backspace": "bc ",
+      "focus": "restart",
+      "qualityFlags": [
+        "invalid-input",
+        "interrupted"
+      ],
+      "accuracy": null,
+      "eligible": false
+    },
+    {
+      "name": "delete export reopen offline and migration corruption",
+      "offlineSave": {
+        "count": 1,
+        "elapsed": 15000
+      },
+      "exported": "typeforge-9716b562-fb17-4953-aa2f-8ae901a432af.json",
+      "migration": {
+        "rows": 1,
+        "notice": "Some saved evidence could not be read (1 notice). Invalid records are skipped, not deleted. Valid history is retained; export it before clearing browser data.",
+        "database": {
+          "version": 2,
+          "indexes": [
+            "completedAt-id"
+          ]
+        }
+      },
+      "historyExport": "typeforge-history.json",
+      "afterCancel": 2,
+      "remaining": [
+        {
+          "id": "corrupt-visible-id",
+          "completedAt": "2026-11-01T00:00:00.000Z"
+        }
+      ]
+    },
+    {
+      "name": "narrow caret scroll mechanics",
+      "end": {
+        "selectionStart": 180,
+        "selectionEnd": 180,
+        "scroll": 289,
+        "textareaScroll": 0,
+        "markerTop": 634.4375,
+        "markerBottom": 662.4375,
+        "viewportTop": 553.9375,
+        "viewportBottom": 798.9375,
+        "markerInside": true,
+        "documentOverflow": false
+      },
+      "start": {
+        "selectionStart": 0,
+        "selectionEnd": 0,
+        "scroll": 0,
+        "textareaScroll": 0,
+        "markerTop": 577.9375,
+        "markerBottom": 605.9375,
+        "viewportTop": 553.9375,
+        "viewportBottom": 798.9375,
+        "markerInside": true,
+        "documentOverflow": false
+      },
+      "returnEnd": {
+        "selectionStart": 180,
+        "selectionEnd": 180,
+        "scroll": 289,
+        "textareaScroll": 0,
+        "markerTop": 634.4375,
+        "markerBottom": 662.4375,
+        "viewportTop": 553.9375,
+        "viewportBottom": 798.9375,
+        "markerInside": true,
+        "documentOverflow": false
+      }
+    },
+    {
+      "name": "bounded native input frame measurement CPU 1",
+      "throttle": 1,
+      "viewport": "1440x900",
+      "typedCharacters": 43,
+      "method": "Native Playwright sequential input with 20ms delay; capture listener to app-completed bubble listener; next requestAnimationFrame is a scheduling proxy, not physical input/display latency",
+      "inputHandlerMs": {
+        "count": 43,
+        "median": 1.699999988079071,
+        "p95": 3.699999988079071,
+        "max": 7.199999988079071
+      },
+      "inputToNextFrameMs": {
+        "count": 43,
+        "median": 3.5,
+        "p95": 11.800000011920929,
+        "max": 12.5
+      },
+      "longTasksMs": [
+        106
+      ],
+      "resourceBytes": [
+        {
+          "name": "http://127.0.0.1:5188/assets/app-DRnCp6G3.js",
+          "transfer": 36223,
+          "decoded": 103372
+        },
+        {
+          "name": "http://127.0.0.1:5188/assets/app-CiIXzPbM.css",
+          "transfer": 3438,
+          "decoded": 10562
+        },
+        {
+          "name": "http://127.0.0.1:5188/assets/favicon-2cBZDU6Q.svg",
+          "transfer": 586,
+          "decoded": 286
+        }
+      ],
+      "domNodes": 119
+    },
+    {
+      "name": "bounded native input frame measurement CPU 4",
+      "throttle": 4,
+      "viewport": "1440x900",
+      "typedCharacters": 50,
+      "method": "Native Playwright sequential input with 20ms delay; capture listener to app-completed bubble listener; next requestAnimationFrame is a scheduling proxy, not physical input/display latency",
+      "inputHandlerMs": {
+        "count": 50,
+        "median": 21.80000001192093,
+        "p95": 63.900000005960464,
+        "max": 75.90000000596046
+      },
+      "inputToNextFrameMs": {
+        "count": 50,
+        "median": 25.30000001192093,
+        "p95": 75.19999998807907,
+        "max": 76.7000000178814
+      },
+      "longTasksMs": [
+        1385,
+        74,
+        138,
+        99,
+        73,
+        74,
+        93,
+        75,
+        65,
+        56,
+        83,
+        56,
+        78,
+        88,
+        117,
+        147,
+        117,
+        173,
+        57,
+        109,
+        109,
+        73,
+        211,
+        112,
+        98,
+        68,
+        117,
+        92,
+        62,
+        53,
+        74,
+        73,
+        62,
+        88,
+        63,
+        75,
+        59,
+        58,
+        54,
+        50,
+        68,
+        54,
+        82,
+        68,
+        79,
+        67,
+        109
+      ],
+      "resourceBytes": [
+        {
+          "name": "http://127.0.0.1:5188/assets/app-DRnCp6G3.js",
+          "transfer": 36223,
+          "decoded": 103372
+        },
+        {
+          "name": "http://127.0.0.1:5188/assets/app-CiIXzPbM.css",
+          "transfer": 3438,
+          "decoded": 10562
+        },
+        {
+          "name": "http://127.0.0.1:5188/assets/favicon-2cBZDU6Q.svg",
+          "transfer": 586,
+          "decoded": 286
+        }
+      ],
+      "domNodes": 114
+    }
+  ],
+  "errors": []
+}

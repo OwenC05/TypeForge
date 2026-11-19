@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { buildHistory, appendHistory, selectPracticeFocus, selectDrillPrompts, resolveRetest, compatibleSettings, compatible, supportedManualPairs } from '../src/profile.ts';
-import { practicePrompts } from '../src/corpus.ts';
-import { predictSentence } from '../src/model.ts';
-import type { SentenceSummary } from '../src/engine.ts';
+import { assessmentPrompts, practicePrompts, shufflePrompts } from '../src/corpus.ts';
+import { parseModelArtifact, predictSentence } from '../src/model.ts';
+import { TypingEngine, type SentenceSummary } from '../src/engine.ts';
 const sentence: SentenceSummary={promptId:'s',promptText:'aa',response:'aa',submitted:true,eligible:true,diagnosticsAvailable:true,qualityFlags:[],keys:{},pairs:{aa:{count:8,logSum:48},bb:{count:8,logSum:32}}};
 test('history copies eligible summaries and rolls to ten',()=>{
  const list=appendHistory(Array(10).fill(sentence),sentence); assert.equal(list.length,10);
@@ -157,4 +157,87 @@ test('warm no-artifact history supports baseline-only predictions, never a recom
   assert.equal(occurrence.candidateLogMs,undefined);
  }
  assert.equal(predictSentence('aa',buildHistory([]),null).status,'unavailable');
+});
+
+const focusArtifact = parseModelArtifact(JSON.parse(readFileSync(new URL('../src/generated/model.json', import.meta.url), 'utf8')));
+const focusBank = [0, 1, 2].map(i => ({id:String(i),text:'aa bb'}));
+
+function uniformSummary(prompt: {id:string; text:string}, interval: number, multiply = false): SentenceSummary {
+ const pairs: SentenceSummary['pairs'] = {};
+ for (const word of prompt.text.split(' ')) for (let i = 1; i < word.length; i++) {
+  const pair = word.slice(i - 1, i + 1);
+  const stats = pairs[pair] ??= {count:0,logSum:0};
+  stats.count++; stats.logSum += Math.log(interval);
+ }
+ if (multiply) for (const stats of Object.values(pairs)) stats.logSum = stats.count * Math.log(interval);
+ return {...structuredClone(sentence),promptId:prompt.id,promptText:prompt.text,response:prompt.text,pairs};
+}
+
+test('actual engine ten-sentence constant-200-ms history abstains in original and permuted orders',()=>{
+ const engine = new TypingEngine({id:'synthetic-uniform',qwerty:true,inputMode:'flow-v1',durationMs:120000,prompts:assessmentPrompts});
+ let time = 0;
+ for (const prompt of assessmentPrompts.slice(0,10)) for (const text of prompt.text + ' ') {
+  time += 200;
+  assert.equal(engine.edit({start:engine.value.length,end:engine.value.length,text,pressTime:time},time),true);
+ }
+ const summaries = engine.submittedSummaries;
+ assert.equal(summaries.length,10); assert.ok(summaries.every(s=>s.eligible && s.submitted));
+ assert.equal(buildHistory(summaries).count,284);
+ for (const list of [summaries,[...summaries].reverse(),[...summaries.slice(3),...summaries.slice(0,3)]]) {
+  assert.equal(selectPracticeFocus(buildHistory(list),practicePrompts,focusArtifact),null);
+ }
+});
+
+test('seeded uniform histories abstain across sentence, pair-entry and summation orders',()=>{
+ for (const initialSeed of [1,20261115,0xdeadbeef]) {
+  let seed = initialSeed;
+  const random = () => ((seed=(Math.imul(seed,1664525)+1013904223)>>>0)/4294967296);
+  for (let sample=0; sample<64; sample++) for (const interval of [Number.MIN_VALUE,0.25,1,200,5000]) {
+   const summaries = shufflePrompts(assessmentPrompts,random).slice(0,10).map(p=>uniformSummary(p,interval,sample%2===0));
+   const reversed = [...summaries].reverse().map(s=>({...s,pairs:Object.fromEntries(Object.entries(s.pairs).reverse())}));
+   const randomOrder = shufflePrompts(summaries.map(s=>({id:s.promptId,text:s.promptText})),random)
+    .map(p=>summaries.find(s=>s.promptId===p.id)!);
+   for (const list of [summaries,reversed,randomOrder]) {
+    assert.equal(selectPracticeFocus(buildHistory(list),practicePrompts,focusArtifact),null,`seed=${initialSeed}, sample=${sample}, interval=${interval}`);
+   }
+  }
+ }
+});
+
+test('maximum supported ten-sentence accumulation abstains at both log bounds',()=>{
+ for (const interval of [Number.MIN_VALUE,200,5000]) {
+  const summaries = Array.from({length:10},(_,i)=>uniformSummary({id:String(i),text:'a'.repeat(300)},interval));
+  const history = buildHistory(summaries);
+  assert.equal(history.count,2990); assert.equal(history.pairs.aa.count,2990);
+  for (const k of [1,5,20]) {
+   const artifact = {...focusArtifact,baseline:{...focusArtifact.baseline,k}};
+   assert.equal(selectPracticeFocus(history,focusBank,artifact),null);
+  }
+ }
+});
+
+test('numerical boundary is inclusive before occurrence weighting and admits larger differences',()=>{
+ // Independent evaluation of the documented 3308-operation, two-mean bound.
+ const u = Number.EPSILON/2;
+ const gamma = (300+2990+10+8)*u/(1-(300+2990+10+8)*u);
+ const tolerance = 2*gamma*Math.abs(Math.log(Number.MIN_VALUE));
+ const history = {count:16,logSum:0,pairs:{aa:{count:8,logSum:0},bb:{count:8,logSum:0}}};
+ for (const multiplier of [0,0.5,1,2]) {
+  const artifact = {...focusArtifact,populationMeanLogMs:tolerance*multiplier,baseline:{kind:'population' as const,version:'boundary',k:0}};
+  for (const text of ['aa','aa '.repeat(100).trim()]) {
+   const bank = [0,1,2].map(i=>({id:String(i),text}));
+   const focus = selectPracticeFocus(history,bank,artifact);
+   if (multiplier<=1) assert.equal(focus,null);
+   else { assert.equal(focus?.pair,'aa'); assert.equal(focus?.score,tolerance*multiplier*3*(text==='aa'?1:100)); }
+  }
+ }
+ const smallContrast = {count:16,logSum:80,pairs:{aa:{count:8,logSum:40+8e-8},bb:{count:8,logSum:40-8e-8}}};
+ for (const k of [1,5,20]) {
+  const artifact = {...focusArtifact,baseline:{...focusArtifact.baseline,k}};
+  assert.equal(selectPracticeFocus(smallContrast,focusBank,artifact)?.pair,'aa');
+ }
+ assert.equal(selectPracticeFocus(smallContrast,focusBank,null),null);
+ assert.equal(selectPracticeFocus(smallContrast,focusBank,{...focusArtifact,baseline:{kind:'user',version:'user',k:0}}),null);
+ const malformed = structuredClone(focusArtifact); malformed.coefficients[0]=NaN;
+ assert.throws(()=>parseModelArtifact(malformed));
 });

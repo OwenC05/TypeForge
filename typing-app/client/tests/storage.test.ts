@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import type { SessionResult } from '../src/engine.ts';
-import { validateResult, ResultValidationError, saveResult } from '../src/storage.ts';
+import { validateResult, ResultValidationError, saveResult, openDatabase } from '../src/storage.ts';
 
 function result(): SessionResult {
   return {
@@ -162,4 +162,25 @@ test('validation failures are permanent named errors before IndexedDB is opened'
   assert.throws(() => validateResult(invalid), ResultValidationError);
   await assert.rejects(saveResult(invalid), { name: 'ResultValidationError', message: 'Invalid saved result: owner.' });
   assert.doesNotThrow(() => validateResult(result()));
+});
+
+test('upgrade callback contains a synchronous bootstrap failure and rejects the open', async t => {
+  // Narrow open/upgrade doubles test callback containment, not native rollback.
+  const original = Object.getOwnPropertyDescriptor(globalThis, 'indexedDB');
+  const fault = new DOMException('Synthetic metadata add failure', 'QuotaExceededError');
+  let aborted = 0;
+  const store = { indexNames: { contains: () => true }, createIndex: () => {} };
+  const pending: any = {
+    result: { objectStoreNames: { contains: () => true }, createObjectStore: (name: string) =>
+      name === 'coachMetadata' ? { add: () => { throw fault; } } : store },
+    transaction: { objectStore: () => store, abort: () => { aborted++; } },
+  };
+  Object.defineProperty(globalThis, 'indexedDB', { configurable: true, value: { open: () => pending } });
+  t.after(() => {
+    if (original) Object.defineProperty(globalThis, 'indexedDB', original); else Reflect.deleteProperty(globalThis, 'indexedDB');
+  });
+  const opening = openDatabase();
+  assert.doesNotThrow(() => pending.onupgradeneeded());
+  await assert.rejects(opening, error => error === fault);
+  assert.equal(aborted, 1);
 });

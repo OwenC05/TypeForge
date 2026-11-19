@@ -1,0 +1,1707 @@
+{
+  "revision": "747d3e7bc22965eaf8ea2b22df0f0070f01be43c",
+  "head": "87fe85ecb703a255faea046a2294419be7d5dcff",
+  "node": "v24.21.0",
+  "checks": 48,
+  "authorReplayChecks": 106,
+  "inputManifestSha256": "606cc9771cf8b250a1db3741f414264f92cba3f27dd5bda16891a94a039f3208",
+  "evidence": {
+    "laggedTime": {
+      "prompt": {
+        "id": "assessment-005",
+        "text": "please set the empty bottles beside the recycling bin"
+      },
+      "slowPairs": [
+        "pl",
+        "ea",
+        "as",
+        "et",
+        "em",
+        "mp"
+      ],
+      "firstKeydown": 0,
+      "firstInput": 1,
+      "eventTrace": [
+        {
+          "position": 0,
+          "char": "p",
+          "keydownTime": 0,
+          "inputTime": 1
+        },
+        {
+          "position": 1,
+          "char": "l",
+          "keydownTime": 5000,
+          "inputTime": 5000
+        },
+        {
+          "position": 2,
+          "char": "e",
+          "keydownTime": 5000.001,
+          "inputTime": 5000.001
+        },
+        {
+          "position": 3,
+          "char": "a",
+          "keydownTime": 10000.001,
+          "inputTime": 10000.001
+        },
+        {
+          "position": 4,
+          "char": "s",
+          "keydownTime": 15000.001,
+          "inputTime": 15000.001
+        },
+        {
+          "position": 5,
+          "char": "e",
+          "keydownTime": 15000.002,
+          "inputTime": 15000.002
+        },
+        {
+          "position": 6,
+          "char": " ",
+          "keydownTime": 15000.003,
+          "inputTime": 15000.003
+        },
+        {
+          "position": 7,
+          "char": "s",
+          "keydownTime": 15000.004,
+          "inputTime": 15000.004
+        },
+        {
+          "position": 8,
+          "char": "e",
+          "keydownTime": 15000.005000000001,
+          "inputTime": 15000.005000000001
+        },
+        {
+          "position": 9,
+          "char": "t",
+          "keydownTime": 20000.005,
+          "inputTime": 20000.005
+        },
+        {
+          "position": 10,
+          "char": " ",
+          "keydownTime": 20000.006,
+          "inputTime": 20000.006
+        },
+        {
+          "position": 11,
+          "char": "t",
+          "keydownTime": 20000.007,
+          "inputTime": 20000.007
+        },
+        {
+          "position": 12,
+          "char": "h",
+          "keydownTime": 20000.008,
+          "inputTime": 20000.008
+        },
+        {
+          "position": 13,
+          "char": "e",
+          "keydownTime": 20000.009000000002,
+          "inputTime": 20000.009000000002
+        },
+        {
+          "position": 14,
+          "char": " ",
+          "keydownTime": 20000.010000000002,
+          "inputTime": 20000.010000000002
+        },
+        {
+          "position": 15,
+          "char": "e",
+          "keydownTime": 20000.011000000002,
+          "inputTime": 20000.011000000002
+        },
+        {
+          "position": 16,
+          "char": "m",
+          "keydownTime": 25000.011000000002,
+          "inputTime": 25000.011000000002
+        },
+        {
+          "position": 17,
+          "char": "p",
+          "keydownTime": 30000.011000000002,
+          "inputTime": 30000.011000000002
+        },
+        {
+          "position": 18,
+          "char": "t",
+          "keydownTime": 30000.012000000002,
+          "inputTime": 30000.012000000002
+        },
+        {
+          "position": 19,
+          "char": "y",
+          "keydownTime": 30000.013000000003,
+          "inputTime": 30000.013000000003
+        },
+        {
+          "position": 20,
+          "char": " ",
+          "keydownTime": 30000.014000000003,
+          "inputTime": 30000.014000000003
+        },
+        {
+          "position": 21,
+          "char": "b",
+          "keydownTime": 30000.015000000003,
+          "inputTime": 30000.015000000003
+        },
+        {
+          "position": 22,
+          "char": "o",
+          "keydownTime": 30000.016000000003,
+          "inputTime": 30000.016000000003
+        },
+        {
+          "position": 23,
+          "char": "t",
+          "keydownTime": 30000.017000000003,
+          "inputTime": 30000.017000000003
+        },
+        {
+          "position": 24,
+          "char": "t",
+          "keydownTime": 30000.018000000004,
+          "inputTime": 30000.018000000004
+        },
+        {
+          "position": 25,
+          "char": "l",
+          "keydownTime": 30000.019000000004,
+          "inputTime": 30000.019000000004
+        },
+        {
+          "position": 26,
+          "char": "e",
+          "keydownTime": 30000.020000000004,
+          "inputTime": 30000.020000000004
+        },
+        {
+          "position": 27,
+          "char": "s",
+          "keydownTime": 30000.021000000004,
+          "inputTime": 30000.021000000004
+        },
+        {
+          "position": 28,
+          "char": " ",
+          "keydownTime": 30000.022000000004,
+          "inputTime": 30000.022000000004
+        },
+        {
+          "position": 29,
+          "char": "b",
+          "keydownTime": 30000.023000000005,
+          "inputTime": 30000.023000000005
+        },
+        {
+          "position": 30,
+          "char": "e",
+          "keydownTime": 30000.024000000005,
+          "inputTime": 30000.024000000005
+        },
+        {
+          "position": 31,
+          "char": "s",
+          "keydownTime": 30000.025000000005,
+          "inputTime": 30000.025000000005
+        },
+        {
+          "position": 32,
+          "char": "i",
+          "keydownTime": 30000.026000000005,
+          "inputTime": 30000.026000000005
+        },
+        {
+          "position": 33,
+          "char": "d",
+          "keydownTime": 30000.027000000006,
+          "inputTime": 30000.027000000006
+        },
+        {
+          "position": 34,
+          "char": "e",
+          "keydownTime": 30000.028000000006,
+          "inputTime": 30000.028000000006
+        },
+        {
+          "position": 35,
+          "char": " ",
+          "keydownTime": 30000.029000000006,
+          "inputTime": 30000.029000000006
+        },
+        {
+          "position": 36,
+          "char": "t",
+          "keydownTime": 30000.030000000006,
+          "inputTime": 30000.030000000006
+        },
+        {
+          "position": 37,
+          "char": "h",
+          "keydownTime": 30000.031000000006,
+          "inputTime": 30000.031000000006
+        },
+        {
+          "position": 38,
+          "char": "e",
+          "keydownTime": 30000.032000000007,
+          "inputTime": 30000.032000000007
+        },
+        {
+          "position": 39,
+          "char": " ",
+          "keydownTime": 30000.033000000007,
+          "inputTime": 30000.033000000007
+        },
+        {
+          "position": 40,
+          "char": "r",
+          "keydownTime": 30000.034000000007,
+          "inputTime": 30000.034000000007
+        },
+        {
+          "position": 41,
+          "char": "e",
+          "keydownTime": 30000.035000000007,
+          "inputTime": 30000.035000000007
+        },
+        {
+          "position": 42,
+          "char": "c",
+          "keydownTime": 30000.036000000007,
+          "inputTime": 30000.036000000007
+        },
+        {
+          "position": 43,
+          "char": "y",
+          "keydownTime": 30000.037000000008,
+          "inputTime": 30000.037000000008
+        },
+        {
+          "position": 44,
+          "char": "c",
+          "keydownTime": 30000.038000000008,
+          "inputTime": 30000.038000000008
+        },
+        {
+          "position": 45,
+          "char": "l",
+          "keydownTime": 30000.039000000008,
+          "inputTime": 30000.039000000008
+        },
+        {
+          "position": 46,
+          "char": "i",
+          "keydownTime": 30000.040000000008,
+          "inputTime": 30000.040000000008
+        },
+        {
+          "position": 47,
+          "char": "n",
+          "keydownTime": 30000.04100000001,
+          "inputTime": 30000.04100000001
+        },
+        {
+          "position": 48,
+          "char": "g",
+          "keydownTime": 30000.04200000001,
+          "inputTime": 30000.04200000001
+        },
+        {
+          "position": 49,
+          "char": " ",
+          "keydownTime": 30000.04300000001,
+          "inputTime": 30000.04300000001
+        },
+        {
+          "position": 50,
+          "char": "b",
+          "keydownTime": 30000.04400000001,
+          "inputTime": 30000.04400000001
+        },
+        {
+          "position": 51,
+          "char": "i",
+          "keydownTime": 30000.04500000001,
+          "inputTime": 30000.04500000001
+        },
+        {
+          "position": 52,
+          "char": "n",
+          "keydownTime": 30000.04600000001,
+          "inputTime": 30000.04600000001
+        },
+        {
+          "position": 53,
+          "char": " ",
+          "keydownTime": 30000.04700000001,
+          "inputTime": 30000.04700000001,
+          "submission": true
+        }
+      ],
+      "result": {
+        "id": "00000000-0000-4000-8000-000000999001",
+        "owner": "guest",
+        "schemaVersion": 1,
+        "metricVersion": 1,
+        "completedAt": "2026-11-16T11:00:00.000Z",
+        "mode": "assessment",
+        "settings": {
+          "durationMs": 30000,
+          "language": "en",
+          "qwerty": true,
+          "corpusVersion": "1",
+          "inputMode": "flow-v1"
+        },
+        "qualityFlags": [],
+        "eligibleForProgress": true,
+        "metrics": {
+          "elapsedMs": 30000,
+          "correctCharacters": 53,
+          "attemptedCharacters": 53,
+          "correctAttempts": 53,
+          "accuracy": 100,
+          "deletedCharacters": 0,
+          "wpm": 21.2
+        },
+        "sentences": [
+          {
+            "promptId": "assessment-005",
+            "promptText": "please set the empty bottles beside the recycling bin",
+            "response": "please set the empty bottles beside the recycling bin",
+            "submitted": true,
+            "eligible": true,
+            "diagnosticsAvailable": true,
+            "qualityFlags": [],
+            "keys": {
+              "p": {
+                "attempts": 2,
+                "correct": 2,
+                "firstAttempts": 2,
+                "firstErrors": 0
+              },
+              "l": {
+                "attempts": 3,
+                "correct": 3,
+                "firstAttempts": 3,
+                "firstErrors": 0
+              },
+              "e": {
+                "attempts": 10,
+                "correct": 10,
+                "firstAttempts": 10,
+                "firstErrors": 0
+              },
+              "a": {
+                "attempts": 1,
+                "correct": 1,
+                "firstAttempts": 1,
+                "firstErrors": 0
+              },
+              "s": {
+                "attempts": 4,
+                "correct": 4,
+                "firstAttempts": 4,
+                "firstErrors": 0
+              },
+              " ": {
+                "attempts": 8,
+                "correct": 8,
+                "firstAttempts": 8,
+                "firstErrors": 0
+              },
+              "t": {
+                "attempts": 6,
+                "correct": 6,
+                "firstAttempts": 6,
+                "firstErrors": 0
+              },
+              "h": {
+                "attempts": 2,
+                "correct": 2,
+                "firstAttempts": 2,
+                "firstErrors": 0
+              },
+              "m": {
+                "attempts": 1,
+                "correct": 1,
+                "firstAttempts": 1,
+                "firstErrors": 0
+              },
+              "y": {
+                "attempts": 2,
+                "correct": 2,
+                "firstAttempts": 2,
+                "firstErrors": 0
+              },
+              "b": {
+                "attempts": 3,
+                "correct": 3,
+                "firstAttempts": 3,
+                "firstErrors": 0
+              },
+              "o": {
+                "attempts": 1,
+                "correct": 1,
+                "firstAttempts": 1,
+                "firstErrors": 0
+              },
+              "i": {
+                "attempts": 3,
+                "correct": 3,
+                "firstAttempts": 3,
+                "firstErrors": 0
+              },
+              "d": {
+                "attempts": 1,
+                "correct": 1,
+                "firstAttempts": 1,
+                "firstErrors": 0
+              },
+              "r": {
+                "attempts": 1,
+                "correct": 1,
+                "firstAttempts": 1,
+                "firstErrors": 0
+              },
+              "c": {
+                "attempts": 2,
+                "correct": 2,
+                "firstAttempts": 2,
+                "firstErrors": 0
+              },
+              "n": {
+                "attempts": 2,
+                "correct": 2,
+                "firstAttempts": 2,
+                "firstErrors": 0
+              },
+              "g": {
+                "attempts": 1,
+                "correct": 1,
+                "firstAttempts": 1,
+                "firstErrors": 0
+              }
+            },
+            "pairs": {
+              "pl": {
+                "count": 1,
+                "logSum": 8.517193191416238
+              },
+              "le": {
+                "count": 2,
+                "logSum": -13.81551055755682
+              },
+              "ea": {
+                "count": 1,
+                "logSum": 8.517193191416238
+              },
+              "as": {
+                "count": 1,
+                "logSum": 8.517193191416238
+              },
+              "se": {
+                "count": 2,
+                "logSum": -13.81551055755682
+              },
+              "et": {
+                "count": 1,
+                "logSum": 8.517193191416238
+              },
+              "th": {
+                "count": 2,
+                "logSum": -13.81551055755682
+              },
+              "he": {
+                "count": 2,
+                "logSum": -13.81551055755682
+              },
+              "em": {
+                "count": 1,
+                "logSum": 8.517193191416238
+              },
+              "mp": {
+                "count": 1,
+                "logSum": 8.517193191416238
+              },
+              "pt": {
+                "count": 1,
+                "logSum": -6.90775527877841
+              },
+              "ty": {
+                "count": 1,
+                "logSum": -6.90775527877841
+              },
+              "bo": {
+                "count": 1,
+                "logSum": -6.90775527877841
+              },
+              "ot": {
+                "count": 1,
+                "logSum": -6.90775527877841
+              },
+              "tt": {
+                "count": 1,
+                "logSum": -6.90775527877841
+              },
+              "tl": {
+                "count": 1,
+                "logSum": -6.90775527877841
+              },
+              "es": {
+                "count": 2,
+                "logSum": -13.81551055755682
+              },
+              "be": {
+                "count": 1,
+                "logSum": -6.90775527877841
+              },
+              "si": {
+                "count": 1,
+                "logSum": -6.90775527877841
+              },
+              "id": {
+                "count": 1,
+                "logSum": -6.90775527877841
+              },
+              "de": {
+                "count": 1,
+                "logSum": -6.90775527877841
+              },
+              "re": {
+                "count": 1,
+                "logSum": -6.90775527877841
+              },
+              "ec": {
+                "count": 1,
+                "logSum": -6.90775527877841
+              },
+              "cy": {
+                "count": 1,
+                "logSum": -6.90775527877841
+              },
+              "yc": {
+                "count": 1,
+                "logSum": -6.90775527877841
+              },
+              "cl": {
+                "count": 1,
+                "logSum": -6.90775527877841
+              },
+              "li": {
+                "count": 1,
+                "logSum": -6.90775527877841
+              },
+              "in": {
+                "count": 2,
+                "logSum": -13.81551055755682
+              },
+              "ng": {
+                "count": 1,
+                "logSum": -6.90775527877841
+              },
+              "bi": {
+                "count": 1,
+                "logSum": -6.90775527877841
+              }
+            }
+          }
+        ],
+        "chartSamples": [
+          {
+            "elapsedMs": 4999,
+            "wpm": 2.4004800960192036,
+            "accuracy": 100
+          },
+          {
+            "elapsedMs": 9999.001,
+            "wpm": 3.6003596759316254,
+            "accuracy": 100
+          },
+          {
+            "elapsedMs": 14999.001,
+            "wpm": 3.2002131341947373,
+            "accuracy": 100
+          },
+          {
+            "elapsedMs": 19999.005,
+            "wpm": 5.400268663366002,
+            "accuracy": 100
+          },
+          {
+            "elapsedMs": 24999.011000000002,
+            "wpm": 7.680303832819626,
+            "accuracy": 100
+          },
+          {
+            "elapsedMs": 29999.011000000002,
+            "wpm": 6.800224180723824,
+            "accuracy": 100
+          },
+          {
+            "elapsedMs": 30000,
+            "wpm": 21.2,
+            "accuracy": 100
+          }
+        ]
+      },
+      "issue": "coach-run-envelope",
+      "necessaryTime": 30000.030000000028
+    },
+    "deadlineControls": [
+      {
+        "firstLag": 0,
+        "eligibleSentences": 0,
+        "issue": null,
+        "elapsedMs": 30000
+      },
+      {
+        "firstLag": 0.01,
+        "eligibleSentences": 0,
+        "issue": null,
+        "elapsedMs": 30000
+      },
+      {
+        "firstLag": 0.1,
+        "eligibleSentences": 1,
+        "issue": "coach-run-envelope",
+        "elapsedMs": 30000
+      },
+      {
+        "firstLag": 1,
+        "eligibleSentences": 1,
+        "issue": "coach-run-envelope",
+        "elapsedMs": 30000
+      }
+    ],
+    "certificates": [
+      {
+        "pair": "he",
+        "length": 501,
+        "first": 7,
+        "words240": 8,
+        "passages480": 11,
+        "failures": []
+      },
+      {
+        "pair": "in",
+        "length": 491,
+        "first": 11,
+        "words240": 9,
+        "passages480": 11,
+        "failures": []
+      },
+      {
+        "pair": "le",
+        "length": 502,
+        "first": 8,
+        "words240": 9,
+        "passages480": 11,
+        "failures": []
+      },
+      {
+        "pair": "th",
+        "length": 480,
+        "first": 10,
+        "words240": 3,
+        "passages480": 12,
+        "failures": []
+      }
+    ],
+    "deliveryGate": {
+      "milestone": 10,
+      "timing": true,
+      "certificate": true,
+      "automaticCoachingEnabled": false,
+      "effectiveSuggested": false
+    },
+    "exhaustion": {
+      "elapsedBeforeDeadline": 514,
+      "planCharacters": 501,
+      "submitted": 12,
+      "nextPrompt": "practice-003",
+      "state": "running"
+    },
+    "summary": {
+      "ordered": {
+        "sourceIds": [
+          "00000000-0000-4000-8000-000000000002",
+          "00000000-0000-4000-8000-000000000003",
+          "00000000-0000-4000-8000-000000000004",
+          "00000000-0000-4000-8000-000000000005",
+          "00000000-0000-4000-8000-000000000006",
+          "00000000-0000-4000-8000-000000000007",
+          "00000000-0000-4000-8000-000000000008",
+          "00000000-0000-4000-8000-000000000009",
+          "00000000-0000-4000-8000-000000000010",
+          "00000000-0000-4000-8000-000000000011"
+        ],
+        "sourceHashes": [
+          "20ec6edd2d4698d1b15f5b24382e6947ccc681d2bfd0aa635c56d62378b3af25",
+          "130c4e883634dd8a589fdc831640128e71e477265967d6d03e4c6c6ccdd9f4ec",
+          "6ae84669492413a7ea2bb79c2da1dbf510f9575f39b618a23896b47e49df7d25",
+          "d9a36124c5e487d4ac07a2b035fb9a82908db19beb93627da0c6f0bd6dcc052a",
+          "0cc3011dd1891605fe13c055508d18e6368bbc9239aa544097f9a90278bb56d3",
+          "f2a98172acfd68fbd621663c06475d4d97f73c241d2673e26b41bc759b0361ca",
+          "c3fffed9a3819eca428d255bc87dbe4220bc4c555ea6f2d282491eb19e1f7244",
+          "d99efe265fd9d8d83787dc9060926ec9ab2891a0288ea97516cba2cab87a4727",
+          "50d749cbb1c2558897d3176f65d2cb348cac188c8aa750c9b946029dab2252f4",
+          "b1a1c788feb32866ca2b44d576b08cd6b5ea74fa9ad295c13bd9192e7479ce5b"
+        ],
+        "medianWpm": 0,
+        "medianAccuracy": 0,
+        "validAccuracySources": 10
+      },
+      "missingAccuracy": {
+        "sourceIds": [
+          "00000000-0000-4000-8000-000000000002",
+          "00000000-0000-4000-8000-000000000003",
+          "00000000-0000-4000-8000-000000000004",
+          "00000000-0000-4000-8000-000000000005",
+          "00000000-0000-4000-8000-000000000006",
+          "00000000-0000-4000-8000-000000000007",
+          "00000000-0000-4000-8000-000000000008",
+          "00000000-0000-4000-8000-000000000009",
+          "00000000-0000-4000-8000-000000000010",
+          "00000000-0000-4000-8000-000000000011"
+        ],
+        "sourceHashes": [
+          "20ec6edd2d4698d1b15f5b24382e6947ccc681d2bfd0aa635c56d62378b3af25",
+          "130c4e883634dd8a589fdc831640128e71e477265967d6d03e4c6c6ccdd9f4ec",
+          "6ae84669492413a7ea2bb79c2da1dbf510f9575f39b618a23896b47e49df7d25",
+          "d9a36124c5e487d4ac07a2b035fb9a82908db19beb93627da0c6f0bd6dcc052a",
+          "f5f366a18e155f7fd9ff3c3a2a945639f25b704f3c558533467a6a466644cdf0",
+          "f2a98172acfd68fbd621663c06475d4d97f73c241d2673e26b41bc759b0361ca",
+          "c3fffed9a3819eca428d255bc87dbe4220bc4c555ea6f2d282491eb19e1f7244",
+          "d99efe265fd9d8d83787dc9060926ec9ab2891a0288ea97516cba2cab87a4727",
+          "50d749cbb1c2558897d3176f65d2cb348cac188c8aa750c9b946029dab2252f4",
+          "b1a1c788feb32866ca2b44d576b08cd6b5ea74fa9ad295c13bd9192e7479ce5b"
+        ],
+        "medianWpm": 0,
+        "medianAccuracy": null,
+        "validAccuracySources": 9
+      },
+      "cachedTenIncompleteRange": {
+        "counted": 10,
+        "complete": true,
+        "pendingSave": 0,
+        "ids": [
+          "00000000-0000-4000-8000-000000000001",
+          "00000000-0000-4000-8000-000000000002",
+          "00000000-0000-4000-8000-000000000003",
+          "00000000-0000-4000-8000-000000000004",
+          "00000000-0000-4000-8000-000000000005",
+          "00000000-0000-4000-8000-000000000006",
+          "00000000-0000-4000-8000-000000000007",
+          "00000000-0000-4000-8000-000000000008",
+          "00000000-0000-4000-8000-000000000009",
+          "00000000-0000-4000-8000-000000000010"
+        ],
+        "summary": {
+          "sourceIds": [
+            "00000000-0000-4000-8000-000000000001",
+            "00000000-0000-4000-8000-000000000002",
+            "00000000-0000-4000-8000-000000000003",
+            "00000000-0000-4000-8000-000000000004",
+            "00000000-0000-4000-8000-000000000005",
+            "00000000-0000-4000-8000-000000000006",
+            "00000000-0000-4000-8000-000000000007",
+            "00000000-0000-4000-8000-000000000008",
+            "00000000-0000-4000-8000-000000000009",
+            "00000000-0000-4000-8000-000000000010"
+          ],
+          "sourceHashes": [
+            "4c2a293d74ec95eec1d4ee0a2d989ea7f396ae60fa2ce84493b41e8d5b54e473",
+            "20ec6edd2d4698d1b15f5b24382e6947ccc681d2bfd0aa635c56d62378b3af25",
+            "130c4e883634dd8a589fdc831640128e71e477265967d6d03e4c6c6ccdd9f4ec",
+            "6ae84669492413a7ea2bb79c2da1dbf510f9575f39b618a23896b47e49df7d25",
+            "d9a36124c5e487d4ac07a2b035fb9a82908db19beb93627da0c6f0bd6dcc052a",
+            "0cc3011dd1891605fe13c055508d18e6368bbc9239aa544097f9a90278bb56d3",
+            "f2a98172acfd68fbd621663c06475d4d97f73c241d2673e26b41bc759b0361ca",
+            "c3fffed9a3819eca428d255bc87dbe4220bc4c555ea6f2d282491eb19e1f7244",
+            "d99efe265fd9d8d83787dc9060926ec9ab2891a0288ea97516cba2cab87a4727",
+            "50d749cbb1c2558897d3176f65d2cb348cac188c8aa750c9b946029dab2252f4"
+          ],
+          "medianWpm": 0,
+          "medianAccuracy": 0,
+          "validAccuracySources": 10
+        }
+      },
+      "nonzero": {
+        "ten": {
+          "sourceIds": [
+            "00000000-0000-4000-8000-000000800000",
+            "00000000-0000-4000-8000-000000800001",
+            "00000000-0000-4000-8000-000000800002",
+            "00000000-0000-4000-8000-000000800003",
+            "00000000-0000-4000-8000-000000800004",
+            "00000000-0000-4000-8000-000000800005",
+            "00000000-0000-4000-8000-000000800006",
+            "00000000-0000-4000-8000-000000800007",
+            "00000000-0000-4000-8000-000000800008",
+            "00000000-0000-4000-8000-000000800009"
+          ],
+          "sourceHashes": [
+            "c87ba4c886dfdfad332e67a5a3d99d586959b1f5660caf6e1003e2488d646fa5",
+            "a0382279f275d60b8a9880d728fa641fdc51e6b11bf2866a1046ad32a3a491f3",
+            "140c5914989be464395165c6b24b8b77c180652852b190e8440820122f279c01",
+            "5a7cdf7c56f44ff6cff03fa00a0590694cf08e6b7eeadc9cd1cb3fcdbf959645",
+            "a18dd26204da57caf26c02b0fb3580a9ca5319326fc7e592a7e4d12b806602fb",
+            "923af965e958c945b34e80c567b6ff30a0d679efc072f55aee465b32e85822eb",
+            "9ae65de5c0a7396c3f80569843aa05834f6350707b601beae79eafa8c3d09a90",
+            "a6ce6cc6622f4e612fc6e09d75c171fa225e0d02c8475e99ac08f5a8bd3d4c93",
+            "b2abc35fb300e1bf65da54f4bcc206bb6af2c948abd2da1e7acc1be2d71eaaf7",
+            "04ad37fed58bfa9524a6136311a28f8e0cd3a471b50ce5088736d4cae85d3b25"
+          ],
+          "medianWpm": 1.8,
+          "medianAccuracy": 45,
+          "validAccuracySources": 10
+        },
+        "eleventh": {
+          "sourceIds": [
+            "00000000-0000-4000-8000-000000800001",
+            "00000000-0000-4000-8000-000000800002",
+            "00000000-0000-4000-8000-000000800003",
+            "00000000-0000-4000-8000-000000800004",
+            "00000000-0000-4000-8000-000000800005",
+            "00000000-0000-4000-8000-000000800006",
+            "00000000-0000-4000-8000-000000800007",
+            "00000000-0000-4000-8000-000000800008",
+            "00000000-0000-4000-8000-000000800009",
+            "00000000-0000-4000-8000-000000800010"
+          ],
+          "sourceHashes": [
+            "a0382279f275d60b8a9880d728fa641fdc51e6b11bf2866a1046ad32a3a491f3",
+            "140c5914989be464395165c6b24b8b77c180652852b190e8440820122f279c01",
+            "5a7cdf7c56f44ff6cff03fa00a0590694cf08e6b7eeadc9cd1cb3fcdbf959645",
+            "a18dd26204da57caf26c02b0fb3580a9ca5319326fc7e592a7e4d12b806602fb",
+            "923af965e958c945b34e80c567b6ff30a0d679efc072f55aee465b32e85822eb",
+            "9ae65de5c0a7396c3f80569843aa05834f6350707b601beae79eafa8c3d09a90",
+            "a6ce6cc6622f4e612fc6e09d75c171fa225e0d02c8475e99ac08f5a8bd3d4c93",
+            "b2abc35fb300e1bf65da54f4bcc206bb6af2c948abd2da1e7acc1be2d71eaaf7",
+            "04ad37fed58bfa9524a6136311a28f8e0cd3a471b50ce5088736d4cae85d3b25",
+            "73a7a18e74abd758c7db717cb74271e0b3f556e31bc3caeba6696ca9401adf76"
+          ],
+          "medianWpm": 2.2,
+          "medianAccuracy": 55,
+          "validAccuracySources": 10
+        }
+      }
+    },
+    "relationalHalves": {
+      "independent": [
+        {
+          "target": 7,
+          "reference": 217,
+          "runs": 4,
+          "targetLogSum": 38.650226425035726,
+          "referenceLogSum": 1149.7348685409254
+        },
+        {
+          "target": 21,
+          "reference": 354,
+          "runs": 6,
+          "targetLogSum": 115.95067927510715,
+          "referenceLogSum": 1875.6043477579994
+        }
+      ],
+      "actual": [
+        {
+          "target": 7,
+          "reference": 217,
+          "targetLogSum": 38.650226425035726,
+          "referenceLogSum": 1149.7348685409238,
+          "runs": 4,
+          "prompts": 6,
+          "words": 2,
+          "delta": 0.2231435513142106
+        },
+        {
+          "target": 21,
+          "reference": 354,
+          "targetLogSum": 115.95067927510716,
+          "referenceLogSum": 1875.604347758005,
+          "runs": 6,
+          "prompts": 13,
+          "words": 3,
+          "delta": 0.2231435513142097
+        }
+      ],
+      "contributingIds": [
+        "00000000-0000-4000-8000-000000000041",
+        "00000000-0000-4000-8000-000000000001",
+        "00000000-0000-4000-8000-000000000002",
+        "00000000-0000-4000-8000-000000000003",
+        "00000000-0000-4000-8000-000000000004",
+        "00000000-0000-4000-8000-000000000005",
+        "00000000-0000-4000-8000-000000000006",
+        "00000000-0000-4000-8000-000000000007",
+        "00000000-0000-4000-8000-000000000008",
+        "00000000-0000-4000-8000-000000000009",
+        "00000000-0000-4000-8000-000000000010"
+      ]
+    },
+    "dedup": {
+      "supersededText": "the jacket has enough pockets for everything i need",
+      "newestUnknownId": "00000000-0000-4000-8000-000000999090",
+      "excluded": [
+        {
+          "id": "00000000-0000-4000-8000-000000999090",
+          "ordinal": 0,
+          "reason": "coach-prompt-identity"
+        }
+      ]
+    },
+    "filterEndpoints": [
+      {
+        "ms": 4999.999,
+        "count": 36,
+        "issue": null,
+        "sentence": {
+          "promptId": "assessment-005",
+          "promptText": "please set the empty bottles beside the recycling bin",
+          "response": "please set the empty bottles beside the recycling bin",
+          "submitted": true,
+          "eligible": true,
+          "diagnosticsAvailable": true,
+          "qualityFlags": [],
+          "keys": {
+            "p": {
+              "attempts": 2,
+              "correct": 2,
+              "firstAttempts": 2,
+              "firstErrors": 0
+            },
+            "l": {
+              "attempts": 3,
+              "correct": 3,
+              "firstAttempts": 3,
+              "firstErrors": 0
+            },
+            "e": {
+              "attempts": 10,
+              "correct": 10,
+              "firstAttempts": 10,
+              "firstErrors": 0
+            },
+            "a": {
+              "attempts": 1,
+              "correct": 1,
+              "firstAttempts": 1,
+              "firstErrors": 0
+            },
+            "s": {
+              "attempts": 4,
+              "correct": 4,
+              "firstAttempts": 4,
+              "firstErrors": 0
+            },
+            " ": {
+              "attempts": 8,
+              "correct": 8,
+              "firstAttempts": 8,
+              "firstErrors": 0
+            },
+            "t": {
+              "attempts": 6,
+              "correct": 6,
+              "firstAttempts": 6,
+              "firstErrors": 0
+            },
+            "h": {
+              "attempts": 2,
+              "correct": 2,
+              "firstAttempts": 2,
+              "firstErrors": 0
+            },
+            "m": {
+              "attempts": 1,
+              "correct": 1,
+              "firstAttempts": 1,
+              "firstErrors": 0
+            },
+            "y": {
+              "attempts": 2,
+              "correct": 2,
+              "firstAttempts": 2,
+              "firstErrors": 0
+            },
+            "b": {
+              "attempts": 3,
+              "correct": 3,
+              "firstAttempts": 3,
+              "firstErrors": 0
+            },
+            "o": {
+              "attempts": 1,
+              "correct": 1,
+              "firstAttempts": 1,
+              "firstErrors": 0
+            },
+            "i": {
+              "attempts": 3,
+              "correct": 3,
+              "firstAttempts": 3,
+              "firstErrors": 0
+            },
+            "d": {
+              "attempts": 1,
+              "correct": 1,
+              "firstAttempts": 1,
+              "firstErrors": 0
+            },
+            "r": {
+              "attempts": 1,
+              "correct": 1,
+              "firstAttempts": 1,
+              "firstErrors": 0
+            },
+            "c": {
+              "attempts": 2,
+              "correct": 2,
+              "firstAttempts": 2,
+              "firstErrors": 0
+            },
+            "n": {
+              "attempts": 2,
+              "correct": 2,
+              "firstAttempts": 2,
+              "firstErrors": 0
+            },
+            "g": {
+              "attempts": 1,
+              "correct": 1,
+              "firstAttempts": 1,
+              "firstErrors": 0
+            }
+          },
+          "pairs": {
+            "pl": {
+              "count": 1,
+              "logSum": 8.517192991416218
+            },
+            "le": {
+              "count": 2,
+              "logSum": -2.772588722239781
+            },
+            "ea": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "as": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "se": {
+              "count": 2,
+              "logSum": -2.772588722239781
+            },
+            "et": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "th": {
+              "count": 2,
+              "logSum": -2.772588722239781
+            },
+            "he": {
+              "count": 2,
+              "logSum": -2.772588722239781
+            },
+            "em": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "mp": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "pt": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "ty": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "bo": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "ot": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "tt": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "tl": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "es": {
+              "count": 2,
+              "logSum": -2.772588722239781
+            },
+            "be": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "si": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "id": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "de": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "re": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "ec": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "cy": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "yc": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "cl": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "li": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "in": {
+              "count": 2,
+              "logSum": -2.772588722239781
+            },
+            "ng": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "bi": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            }
+          }
+        }
+      },
+      {
+        "ms": 5000,
+        "count": 36,
+        "issue": null,
+        "sentence": {
+          "promptId": "assessment-005",
+          "promptText": "please set the empty bottles beside the recycling bin",
+          "response": "please set the empty bottles beside the recycling bin",
+          "submitted": true,
+          "eligible": true,
+          "diagnosticsAvailable": true,
+          "qualityFlags": [],
+          "keys": {
+            "p": {
+              "attempts": 2,
+              "correct": 2,
+              "firstAttempts": 2,
+              "firstErrors": 0
+            },
+            "l": {
+              "attempts": 3,
+              "correct": 3,
+              "firstAttempts": 3,
+              "firstErrors": 0
+            },
+            "e": {
+              "attempts": 10,
+              "correct": 10,
+              "firstAttempts": 10,
+              "firstErrors": 0
+            },
+            "a": {
+              "attempts": 1,
+              "correct": 1,
+              "firstAttempts": 1,
+              "firstErrors": 0
+            },
+            "s": {
+              "attempts": 4,
+              "correct": 4,
+              "firstAttempts": 4,
+              "firstErrors": 0
+            },
+            " ": {
+              "attempts": 8,
+              "correct": 8,
+              "firstAttempts": 8,
+              "firstErrors": 0
+            },
+            "t": {
+              "attempts": 6,
+              "correct": 6,
+              "firstAttempts": 6,
+              "firstErrors": 0
+            },
+            "h": {
+              "attempts": 2,
+              "correct": 2,
+              "firstAttempts": 2,
+              "firstErrors": 0
+            },
+            "m": {
+              "attempts": 1,
+              "correct": 1,
+              "firstAttempts": 1,
+              "firstErrors": 0
+            },
+            "y": {
+              "attempts": 2,
+              "correct": 2,
+              "firstAttempts": 2,
+              "firstErrors": 0
+            },
+            "b": {
+              "attempts": 3,
+              "correct": 3,
+              "firstAttempts": 3,
+              "firstErrors": 0
+            },
+            "o": {
+              "attempts": 1,
+              "correct": 1,
+              "firstAttempts": 1,
+              "firstErrors": 0
+            },
+            "i": {
+              "attempts": 3,
+              "correct": 3,
+              "firstAttempts": 3,
+              "firstErrors": 0
+            },
+            "d": {
+              "attempts": 1,
+              "correct": 1,
+              "firstAttempts": 1,
+              "firstErrors": 0
+            },
+            "r": {
+              "attempts": 1,
+              "correct": 1,
+              "firstAttempts": 1,
+              "firstErrors": 0
+            },
+            "c": {
+              "attempts": 2,
+              "correct": 2,
+              "firstAttempts": 2,
+              "firstErrors": 0
+            },
+            "n": {
+              "attempts": 2,
+              "correct": 2,
+              "firstAttempts": 2,
+              "firstErrors": 0
+            },
+            "g": {
+              "attempts": 1,
+              "correct": 1,
+              "firstAttempts": 1,
+              "firstErrors": 0
+            }
+          },
+          "pairs": {
+            "pl": {
+              "count": 1,
+              "logSum": 8.517193191416238
+            },
+            "le": {
+              "count": 2,
+              "logSum": -2.772588722239781
+            },
+            "ea": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "as": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "se": {
+              "count": 2,
+              "logSum": -2.772588722239781
+            },
+            "et": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "th": {
+              "count": 2,
+              "logSum": -2.772588722239781
+            },
+            "he": {
+              "count": 2,
+              "logSum": -2.772588722239781
+            },
+            "em": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "mp": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "pt": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "ty": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "bo": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "ot": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "tt": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "tl": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "es": {
+              "count": 2,
+              "logSum": -2.772588722239781
+            },
+            "be": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "si": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "id": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "de": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "re": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "ec": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "cy": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "yc": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "cl": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "li": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "in": {
+              "count": 2,
+              "logSum": -2.772588722239781
+            },
+            "ng": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "bi": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            }
+          }
+        }
+      },
+      {
+        "ms": 5000.001,
+        "count": 35,
+        "issue": null,
+        "sentence": {
+          "promptId": "assessment-005",
+          "promptText": "please set the empty bottles beside the recycling bin",
+          "response": "please set the empty bottles beside the recycling bin",
+          "submitted": true,
+          "eligible": true,
+          "diagnosticsAvailable": true,
+          "qualityFlags": [],
+          "keys": {
+            "p": {
+              "attempts": 2,
+              "correct": 2,
+              "firstAttempts": 2,
+              "firstErrors": 0
+            },
+            "l": {
+              "attempts": 3,
+              "correct": 3,
+              "firstAttempts": 3,
+              "firstErrors": 0
+            },
+            "e": {
+              "attempts": 10,
+              "correct": 10,
+              "firstAttempts": 10,
+              "firstErrors": 0
+            },
+            "a": {
+              "attempts": 1,
+              "correct": 1,
+              "firstAttempts": 1,
+              "firstErrors": 0
+            },
+            "s": {
+              "attempts": 4,
+              "correct": 4,
+              "firstAttempts": 4,
+              "firstErrors": 0
+            },
+            " ": {
+              "attempts": 8,
+              "correct": 8,
+              "firstAttempts": 8,
+              "firstErrors": 0
+            },
+            "t": {
+              "attempts": 6,
+              "correct": 6,
+              "firstAttempts": 6,
+              "firstErrors": 0
+            },
+            "h": {
+              "attempts": 2,
+              "correct": 2,
+              "firstAttempts": 2,
+              "firstErrors": 0
+            },
+            "m": {
+              "attempts": 1,
+              "correct": 1,
+              "firstAttempts": 1,
+              "firstErrors": 0
+            },
+            "y": {
+              "attempts": 2,
+              "correct": 2,
+              "firstAttempts": 2,
+              "firstErrors": 0
+            },
+            "b": {
+              "attempts": 3,
+              "correct": 3,
+              "firstAttempts": 3,
+              "firstErrors": 0
+            },
+            "o": {
+              "attempts": 1,
+              "correct": 1,
+              "firstAttempts": 1,
+              "firstErrors": 0
+            },
+            "i": {
+              "attempts": 3,
+              "correct": 3,
+              "firstAttempts": 3,
+              "firstErrors": 0
+            },
+            "d": {
+              "attempts": 1,
+              "correct": 1,
+              "firstAttempts": 1,
+              "firstErrors": 0
+            },
+            "r": {
+              "attempts": 1,
+              "correct": 1,
+              "firstAttempts": 1,
+              "firstErrors": 0
+            },
+            "c": {
+              "attempts": 2,
+              "correct": 2,
+              "firstAttempts": 2,
+              "firstErrors": 0
+            },
+            "n": {
+              "attempts": 2,
+              "correct": 2,
+              "firstAttempts": 2,
+              "firstErrors": 0
+            },
+            "g": {
+              "attempts": 1,
+              "correct": 1,
+              "firstAttempts": 1,
+              "firstErrors": 0
+            }
+          },
+          "pairs": {
+            "le": {
+              "count": 2,
+              "logSum": -2.772588722239781
+            },
+            "ea": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "as": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "se": {
+              "count": 2,
+              "logSum": -2.772588722239781
+            },
+            "et": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "th": {
+              "count": 2,
+              "logSum": -2.772588722239781
+            },
+            "he": {
+              "count": 2,
+              "logSum": -2.772588722239781
+            },
+            "em": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "mp": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "pt": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "ty": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "bo": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "ot": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "tt": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "tl": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "es": {
+              "count": 2,
+              "logSum": -2.772588722239781
+            },
+            "be": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "si": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "id": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "de": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "re": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "ec": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "cy": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "yc": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "cl": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "li": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "in": {
+              "count": 2,
+              "logSum": -2.772588722239781
+            },
+            "ng": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            },
+            "bi": {
+              "count": 1,
+              "logSum": -1.3862943611198906
+            }
+          }
+        }
+      }
+    ]
+  },
+  "limits": [
+    "Frozen author replay functions are not independent implementation coverage",
+    "New fixture generation and expected outcomes are independent",
+    "No UI, browser latency frequency, IndexedDB race or human benefit tested",
+    "No enabling identity or finite exhaustion adapter implemented"
+  ]
+}

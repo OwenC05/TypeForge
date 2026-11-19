@@ -1,0 +1,8 @@
+d8465fcf1f98a3344b06532fe11ad438112736dd61bd05f2de8863907c396929 *../ux/prototype/copy.ts
+9d44e38e00f6919a996b74be6d40ee1ac96d6651cf5f6f07b47af8c523471b50 *../ux/prototype/fixtures.ts
+a06d1e77553dccf9aacdb34f60d2429a25849ad7a62a54bdc8eb512d88446b9c *../ux/prototype/gallery.ts
+2c16159477ac3693d57f2f717b0e8f872dcf748b0c4e8be8ea24c6c0fd5a0128 *../ux/prototype/proto.ts
+3d425896ba4c1d575dc0faa03ee273b1acae3742deca632b19e7fb37a514f227 *../ux/prototype/baseline.css
+aa6ed307af5568de9695d4e339d56aa3436864b6d9567e8acad6240c8d47461f *../ux/prototype/gallery.html
+728ef377c3ba164133792bf1eb3ec19483ff51e363363ad865c664639252b141 *../ux/prototype/index.html
+685d4c99dcb0a9355258c14ba2589eda00446b88528d57a4358030857b34e526 *../../../../../typing-app/client/src/style.css

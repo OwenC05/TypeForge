@@ -1,0 +1,308 @@
+{
+ "phase": "firstkey",
+ "failure": null,
+ "summary": {
+  "checks": 14,
+  "passed": 8,
+  "failed": [
+   "firstkey/focus: the key starts an honest General block once, focus kept, re-check copy shown",
+   "firstkey/focus: the running sentence is the first displayed General selection, not the th plan",
+   "firstkey/focus: the saved \"General practice\" record carries exactly the displayed General sequence",
+   "firstkey/focus-again: the key starts an honest General block once, focus kept, re-check copy shown",
+   "firstkey/focus-again: the running sentence is the first displayed General selection, not the th plan",
+   "firstkey/focus-again: the saved \"General practice\" record carries exactly the displayed General sequence"
+  ],
+  "knownDefectChecks": []
+ },
+ "checks": [
+  {
+   "id": "isolation/first-key: synthetic interception installed before app storage use",
+   "kind": "harness",
+   "ok": true,
+   "detail": {
+    "name": "typeforge-review-synthetic-fa8f02b4-5a34-4723-b24c-4e6fb5a42884",
+    "redirected": 6,
+    "list": [
+     "typeforge-review-synthetic-fa8f02b4-5a34-4723-b24c-4e6fb5a42884"
+    ]
+   }
+  },
+  {
+   "id": "firstkey: ten typed tests admit Suggested th",
+   "kind": "real",
+   "ok": true,
+   "detail": {
+    "label": "Suggested practice · th · 30 s"
+   }
+  },
+  {
+   "id": "firstkey/focus: setup isolates the first-key path (still the admitted th block, idle, before the key)",
+   "kind": "harness",
+   "ok": true,
+   "detail": {
+    "ready": {
+     "label": "Suggested practice · th · 30 s",
+     "prompt": "we take the short path beside the river"
+    },
+    "how": "window focus on return (C invalidation), no storage change",
+    "before": {
+     "label": "Suggested practice · th · 30 s",
+     "state": "idle",
+     "prompt": "we take the short path beside the river"
+    }
+   }
+  },
+  {
+   "id": "firstkey/focus: the key starts an honest General block once, focus kept, re-check copy shown",
+   "kind": "real",
+   "ok": false,
+   "detail": {
+    "after": {
+     "label": "Suggested practice · th · 30 s",
+     "slot": "",
+     "value": "w",
+     "state": "running",
+     "prompt": "we take the short path beside the river",
+     "focus": "typing-input",
+     "ids": [
+      "practice-002",
+      "practice-072",
+      "practice-053"
+     ]
+    },
+    "sameKey": true
+   }
+  },
+  {
+   "id": "firstkey/focus: the running sentence is the first displayed General selection, not the th plan",
+   "kind": "real",
+   "ok": false,
+   "detail": {
+    "running": "we take the short path beside the river",
+    "metadataFirst": "we take the short path beside the river",
+    "planFirst": "we take the short path beside the river"
+   }
+  },
+  {
+   "id": "layout/24-first-key-focus@1440: no horizontal overflow, clipped key or undefined copy",
+   "kind": "real",
+   "ok": true,
+   "detail": {
+    "overflow": false,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "clipped": [],
+    "slotClip": [],
+    "bad": []
+   }
+  },
+  {
+   "id": "layout/24-first-key-focus@320: no horizontal overflow, clipped key or undefined copy",
+   "kind": "real",
+   "ok": true,
+   "detail": {
+    "overflow": false,
+    "scrollWidth": 320,
+    "clientWidth": 320,
+    "clipped": [],
+    "slotClip": [],
+    "bad": []
+   }
+  },
+  {
+   "id": "firstkey/focus: the saved \"General practice\" record carries exactly the displayed General sequence",
+   "kind": "real",
+   "ok": false,
+   "detail": {
+    "saved": [
+     "practice-002",
+     "practice-072",
+     "practice-053",
+     "practice-003",
+     "practice-036",
+     "practice-054",
+     "practice-034"
+    ],
+    "displayed": [
+     "practice-002",
+     "practice-072",
+     "practice-053",
+     "practice-003",
+     "practice-036",
+     "practice-054",
+     "practice-034"
+    ],
+    "result": "Suggested practice · th · 30 s · complete wpm 105.6 accuracy"
+   }
+  },
+  {
+   "id": "firstkey/focus-again: setup isolates the first-key path (still the admitted th block, idle, before the key)",
+   "kind": "harness",
+   "ok": true,
+   "detail": {
+    "ready": {
+     "label": "Suggested practice · th · 30 s",
+     "prompt": "we take the short path beside the river"
+    },
+    "how": "second independent window-focus invalidation",
+    "before": {
+     "label": "Suggested practice · th · 30 s",
+     "state": "idle",
+     "prompt": "we take the short path beside the river"
+    }
+   }
+  },
+  {
+   "id": "firstkey/focus-again: the key starts an honest General block once, focus kept, re-check copy shown",
+   "kind": "real",
+   "ok": false,
+   "detail": {
+    "after": {
+     "label": "Suggested practice · th · 30 s",
+     "slot": "",
+     "value": "w",
+     "state": "running",
+     "prompt": "we take the short path beside the river",
+     "focus": "typing-input",
+     "ids": [
+      "practice-002",
+      "practice-072",
+      "practice-053"
+     ]
+    },
+    "sameKey": true
+   }
+  },
+  {
+   "id": "firstkey/focus-again: the running sentence is the first displayed General selection, not the th plan",
+   "kind": "real",
+   "ok": false,
+   "detail": {
+    "running": "we take the short path beside the river",
+    "metadataFirst": "we take the short path beside the river",
+    "planFirst": "we take the short path beside the river"
+   }
+  },
+  {
+   "id": "layout/24-first-key-focus-again@1440: no horizontal overflow, clipped key or undefined copy",
+   "kind": "real",
+   "ok": true,
+   "detail": {
+    "overflow": false,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "clipped": [],
+    "slotClip": [],
+    "bad": []
+   }
+  },
+  {
+   "id": "layout/24-first-key-focus-again@320: no horizontal overflow, clipped key or undefined copy",
+   "kind": "real",
+   "ok": true,
+   "detail": {
+    "overflow": false,
+    "scrollWidth": 320,
+    "clientWidth": 320,
+    "clipped": [],
+    "slotClip": [],
+    "bad": []
+   }
+  },
+  {
+   "id": "firstkey/focus-again: the saved \"General practice\" record carries exactly the displayed General sequence",
+   "kind": "real",
+   "ok": false,
+   "detail": {
+    "saved": [
+     "practice-002",
+     "practice-072",
+     "practice-053",
+     "practice-003",
+     "practice-036",
+     "practice-054",
+     "practice-034"
+    ],
+    "displayed": [
+     "practice-002",
+     "practice-072",
+     "practice-053",
+     "practice-003",
+     "practice-036",
+     "practice-054",
+     "practice-034"
+    ],
+    "result": "Suggested practice · th · 30 s · complete wpm 105.6 accuracy"
+   }
+  }
+ ],
+ "observations": [
+  {
+   "id": "firstkey-focus-first-character",
+   "typed": "w",
+   "previousPlanFirst": "w",
+   "newSentenceFirst": "w",
+   "value": "w",
+   "acceptedAsCorrect": true
+  },
+  {
+   "id": "firstkey-focus-again-first-character",
+   "typed": "w",
+   "previousPlanFirst": "w",
+   "newSentenceFirst": "w",
+   "value": "w",
+   "acceptedAsCorrect": true
+  }
+ ],
+ "pageErrors": [],
+ "shots": [
+  {
+   "file": "1440-24-first-key-focus.png",
+   "state": "24-first-key-focus",
+   "width": 1440,
+   "height": 900,
+   "overflow": false,
+   "scrollWidth": 1440,
+   "clientWidth": 1440,
+   "clipped": [],
+   "slotClip": [],
+   "bad": []
+  },
+  {
+   "file": "320-24-first-key-focus.png",
+   "state": "24-first-key-focus",
+   "width": 320,
+   "height": 640,
+   "overflow": false,
+   "scrollWidth": 320,
+   "clientWidth": 320,
+   "clipped": [],
+   "slotClip": [],
+   "bad": []
+  },
+  {
+   "file": "1440-24-first-key-focus-again.png",
+   "state": "24-first-key-focus-again",
+   "width": 1440,
+   "height": 900,
+   "overflow": false,
+   "scrollWidth": 1440,
+   "clientWidth": 1440,
+   "clipped": [],
+   "slotClip": [],
+   "bad": []
+  },
+  {
+   "file": "320-24-first-key-focus-again.png",
+   "state": "24-first-key-focus-again",
+   "width": 320,
+   "height": 640,
+   "overflow": false,
+   "scrollWidth": 320,
+   "clientWidth": 320,
+   "clipped": [],
+   "slotClip": [],
+   "bad": []
+  }
+ ]
+}

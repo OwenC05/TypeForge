@@ -1,0 +1,111 @@
+{
+  "label": "A",
+  "base": "http://127.0.0.1:5293",
+  "runs": [
+    {
+      "width": 1440,
+      "height": 900,
+      "errors": [],
+      "readyActive": "typing-input",
+      "targetPrefix": "i picked a book to read ",
+      "value": "i pickqd a ",
+      "selStart": 11,
+      "selEnd": 11,
+      "fontSize": "26px",
+      "stageTopPct": 27.4,
+      "scrollY": 0,
+      "docOverflowX": false,
+      "liveRegions": [
+        "exercise-warning:polite"
+      ],
+      "ariaHiddenMirror": 6,
+      "afterBackspace": {
+        "value": "i pick",
+        "sel": 6
+      },
+      "afterCtrlBackspace": {
+        "value": "i ",
+        "sel": 2
+      },
+      "whyDuringRun": [
+        {
+          "tag": "BUTTON",
+          "disabled": true,
+          "tabIndex": 0,
+          "visible": true
+        }
+      ],
+      "printableOnBodyChangedInput": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "errors": [],
+      "readyActive": "typing-input",
+      "targetPrefix": "the narrow lane leads st",
+      "value": "the naqrow ",
+      "selStart": 11,
+      "selEnd": 11,
+      "fontSize": "20px",
+      "stageTopPct": 30.4,
+      "scrollY": 0,
+      "docOverflowX": false,
+      "liveRegions": [
+        "exercise-warning:polite"
+      ],
+      "ariaHiddenMirror": 6,
+      "afterBackspace": {
+        "value": "the na",
+        "sel": 6
+      },
+      "afterCtrlBackspace": {
+        "value": "the ",
+        "sel": 4
+      },
+      "whyDuringRun": [
+        {
+          "tag": "BUTTON",
+          "disabled": true,
+          "tabIndex": 0,
+          "visible": true
+        }
+      ],
+      "printableOnBodyChangedInput": false
+    },
+    {
+      "width": 320,
+      "height": 640,
+      "errors": [],
+      "readyActive": "typing-input",
+      "targetPrefix": "a simple map helped us f",
+      "value": "a simpqe ma",
+      "selStart": 11,
+      "selEnd": 11,
+      "fontSize": "18px",
+      "stageTopPct": 39.8,
+      "scrollY": 0,
+      "docOverflowX": false,
+      "liveRegions": [
+        "exercise-warning:polite"
+      ],
+      "ariaHiddenMirror": 6,
+      "afterBackspace": {
+        "value": "a simp",
+        "sel": 6
+      },
+      "afterCtrlBackspace": {
+        "value": "a ",
+        "sel": 2
+      },
+      "whyDuringRun": [
+        {
+          "tag": "BUTTON",
+          "disabled": true,
+          "tabIndex": 0,
+          "visible": true
+        }
+      ],
+      "printableOnBodyChangedInput": false
+    }
+  ]
+}

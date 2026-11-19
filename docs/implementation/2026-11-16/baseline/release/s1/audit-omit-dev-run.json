@@ -1,0 +1,5 @@
+{
+    "exitCode":  0,
+    "command":  "npm audit --package-lock-only --omit=dev --json",
+    "finishedUtc":  "2026-11-16T14:07:20.3299457Z"
+}

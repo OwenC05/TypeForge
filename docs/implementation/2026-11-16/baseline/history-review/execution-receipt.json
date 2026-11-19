@@ -1,0 +1,22 @@
+{
+  "taskId": "task_d9abd8476e9b",
+  "dispatchId": "ctx_405e1c4ab979",
+  "worker": "term_2c47dfc8-d759-44bb-8d14-c4bb112c92da",
+  "coordinator": "term_68fded65-2f85-497d-a32e-38f10342d6df",
+  "observedClient": {
+    "source": "orca terminal show --terminal term_2c47dfc8-d759-44bb-8d14-c4bb112c92da --json",
+    "incarnationId": "8cee4b40-fbba-42a9-9499-d444cacce53a",
+    "agentIdentity": "codex",
+    "preview": "GPT-6.1-Sol high",
+    "branch": "refs/heads/OwenC05/tf-history-review"
+  },
+  "helpers": [],
+  "ownership": "docs/implementation/2026-11-16/baseline/history-review only",
+  "reviewInput": "92803c80e4270dc5018b21b1e552c7feb7f97a2f",
+  "reproductionCommit": "903e47fd775a67cd1c1010845016fa5c567ebc7a",
+  "earlyFindingMessage": "msg_7abec8122acb",
+  "reproductionHandoffMessage": "msg_3bceab8272e3",
+  "reviewVerdict": "request changes: one HIGH byte-work blocker",
+  "taskOutcome": "review completed with expected failure preserved; root routes source repair",
+  "limits": "Client metadata is not backend attestation. No new workflow, serving-provider change, source repair, package change, push, deployment or UX certification. Browser version differs across session dates; receipts preserve each version without a comparison claim."
+}

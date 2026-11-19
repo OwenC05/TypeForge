@@ -1,0 +1,3237 @@
+{
+  "provenance": {
+    "node": "v24.21.0",
+    "corpusVersion": "1",
+    "seed": 20261116,
+    "sourceSha256": {
+      "typing-app/client/src/corpus.ts": "28f37ce212e8704397e0097f22b77b2f9f84978f86f9db767decb5edf505741e",
+      "typing-app/client/src/profile.ts": "3eb148c75f85482675ab00f4577b3a7a450f4ba8268734d5f74c8646bd5d4b9b",
+      "docs/reviews/2026-11-15/learning-evidence/source-probe.json": "d98bda6ab38f3fb5f4e2bbf0d4b373625af1a3a82ded422f7cb947faba64a3db",
+      "docs/reviews/2026-11-15/ml-evidence/probe.json": "454305317959b8498473384a19f9668cafa430f0743070f9900991b7e033068d",
+      ".omx/specs/typeforge-practice-policy-v1.md": "d2613485916aa8a80e30b3f1c929ebb093b29882224f713b7238a883e0348bb3"
+    },
+    "scriptSha256": "13e3e06456fb1016778059807ef9d70ea4743de3404ad326f2043009974951a5"
+  },
+  "definitions": [
+    "Canonical General and planned-prefix characters include internal spaces but exclude synthetic passage separators; lowercase pairs never cross passage boundaries. Legacy joined-bank denominator is reported only for comparison.",
+    "Certificate is exact 4*opportunities*GeneralCharacters >= 5*n*GeneralOccurrences at every integer n20..planLength, with all independent first-target/context/repeat gates. Equality passes; zero corpus support fails.",
+    "Checkpoint density passes are counterexamples only, never an all-prefix certificate. The former 149 checkpoint-pass count is superseded and is not final certificate coverage; no all-pair certificate search is performed.",
+    "Each synthetic scenario is ten 30-second runs: WPM*5/2 insertion slots/run including terminal submission Space. This is a normalized ideal budget, not actual engine-scored WPM or a human-yield estimate.",
+    "Fresh seeded queue per run versus repeated-order stress; unfinished prefixes discarded on restart. Complete counts assume correct unedited compatible sentences and intervals <=5000ms. Errors can reduce eligible timing support to zero.",
+    "8/12/20 plus 3-prompt/3-word/3-run sensitivity is illustrative only. Draft final count/context ceiling uses latest unique prompt text, 20 target/80 other intervals, 4 target-bearing runs, 4 target-bearing prompts and 3 words; it is not a passing timing recommendation.",
+    "No timing effect/stability is generated. Uniform synthetic timing has zero log contrast and must abstain regardless of support/certificate. No learning benefit, confidence or delivered-dose claim follows.",
+    "Fixed ordering for whole-prompt plans reaching minimum240/480 characters only; every position through the actual full final passage is checked. No adaptive sampler, optimization, content edits or production changes. Full words/passages count after complete traversal.",
+    "Planned certificates do not establish actual exposure: before first target completion there may be zero opportunities, n<20 is too short, and n<240 has partial context. Unsupported examples correctly fall back to General/manual."
+  ],
+  "corpus": {
+    "assessment": {
+      "prompts": 40,
+      "uniqueTexts": 40,
+      "characters": 1803,
+      "syntheticJoinedCharacters": 1842,
+      "letters": 1490,
+      "minLength": 37,
+      "maxLength": 53,
+      "wordTokens": 353,
+      "uniqueWords": 218,
+      "repeatedWordTokensBeyondFirst": 135,
+      "wordTypesInMultiplePrompts": 36,
+      "repeatedWords": [
+        {
+          "word": "a",
+          "tokens": 16,
+          "prompts": 16
+        },
+        {
+          "word": "are",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "beside",
+          "tokens": 3,
+          "prompts": 3
+        },
+        {
+          "word": "bowl",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "clean",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "door",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "drawer",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "evening",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "everything",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "few",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "for",
+          "tokens": 6,
+          "prompts": 6
+        },
+        {
+          "word": "fresh",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "has",
+          "tokens": 3,
+          "prompts": 3
+        },
+        {
+          "word": "home",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "i",
+          "tokens": 8,
+          "prompts": 8
+        },
+        {
+          "word": "in",
+          "tokens": 4,
+          "prompts": 4
+        },
+        {
+          "word": "is",
+          "tokens": 3,
+          "prompts": 3
+        },
+        {
+          "word": "keep",
+          "tokens": 3,
+          "prompts": 3
+        },
+        {
+          "word": "list",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "little",
+          "tokens": 3,
+          "prompts": 3
+        },
+        {
+          "word": "lunch",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "more",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "my",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "need",
+          "tokens": 3,
+          "prompts": 3
+        },
+        {
+          "word": "next",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "of",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "on",
+          "tokens": 4,
+          "prompts": 4
+        },
+        {
+          "word": "please",
+          "tokens": 4,
+          "prompts": 4
+        },
+        {
+          "word": "room",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "small",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "the",
+          "tokens": 53,
+          "prompts": 37
+        },
+        {
+          "word": "to",
+          "tokens": 7,
+          "prompts": 7
+        },
+        {
+          "word": "us",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "view",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "we",
+          "tokens": 9,
+          "prompts": 9
+        },
+        {
+          "word": "with",
+          "tokens": 2,
+          "prompts": 2
+        }
+      ]
+    },
+    "practice": {
+      "prompts": 80,
+      "uniqueTexts": 80,
+      "characters": 3427,
+      "syntheticJoinedCharacters": 3506,
+      "letters": 2828,
+      "minLength": 36,
+      "maxLength": 51,
+      "wordTokens": 679,
+      "uniqueWords": 359,
+      "repeatedWordTokensBeyondFirst": 320,
+      "wordTypesInMultiplePrompts": 85,
+      "repeatedWords": [
+        {
+          "word": "a",
+          "tokens": 34,
+          "prompts": 32
+        },
+        {
+          "word": "above",
+          "tokens": 3,
+          "prompts": 3
+        },
+        {
+          "word": "across",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "after",
+          "tokens": 3,
+          "prompts": 3
+        },
+        {
+          "word": "afternoon",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "and",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "another",
+          "tokens": 3,
+          "prompts": 3
+        },
+        {
+          "word": "away",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "before",
+          "tokens": 6,
+          "prompts": 6
+        },
+        {
+          "word": "behind",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "beside",
+          "tokens": 5,
+          "prompts": 5
+        },
+        {
+          "word": "blue",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "bowl",
+          "tokens": 4,
+          "prompts": 4
+        },
+        {
+          "word": "breakfast",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "bright",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "by",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "can",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "chair",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "check",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "clean",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "coat",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "corner",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "day",
+          "tokens": 3,
+          "prompts": 3
+        },
+        {
+          "word": "desk",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "door",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "dry",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "enjoy",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "enough",
+          "tokens": 5,
+          "prompts": 5
+        },
+        {
+          "word": "evening",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "favourite",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "for",
+          "tokens": 9,
+          "prompts": 9
+        },
+        {
+          "word": "found",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "fresh",
+          "tokens": 4,
+          "prompts": 4
+        },
+        {
+          "word": "garden",
+          "tokens": 3,
+          "prompts": 3
+        },
+        {
+          "word": "gentle",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "has",
+          "tokens": 4,
+          "prompts": 4
+        },
+        {
+          "word": "have",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "helps",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "i",
+          "tokens": 13,
+          "prompts": 13
+        },
+        {
+          "word": "if",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "in",
+          "tokens": 8,
+          "prompts": 8
+        },
+        {
+          "word": "is",
+          "tokens": 9,
+          "prompts": 9
+        },
+        {
+          "word": "just",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "leave",
+          "tokens": 4,
+          "prompts": 4
+        },
+        {
+          "word": "left",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "looks",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "lovely",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "me",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "my",
+          "tokens": 6,
+          "prompts": 6
+        },
+        {
+          "word": "near",
+          "tokens": 4,
+          "prompts": 4
+        },
+        {
+          "word": "need",
+          "tokens": 3,
+          "prompts": 3
+        },
+        {
+          "word": "new",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "of",
+          "tokens": 7,
+          "prompts": 7
+        },
+        {
+          "word": "on",
+          "tokens": 6,
+          "prompts": 6
+        },
+        {
+          "word": "our",
+          "tokens": 4,
+          "prompts": 4
+        },
+        {
+          "word": "over",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "path",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "please",
+          "tokens": 5,
+          "prompts": 5
+        },
+        {
+          "word": "put",
+          "tokens": 4,
+          "prompts": 4
+        },
+        {
+          "word": "rain",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "room",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "shelf",
+          "tokens": 3,
+          "prompts": 3
+        },
+        {
+          "word": "short",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "small",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "spare",
+          "tokens": 3,
+          "prompts": 3
+        },
+        {
+          "word": "table",
+          "tokens": 3,
+          "prompts": 3
+        },
+        {
+          "word": "take",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "the",
+          "tokens": 91,
+          "prompts": 66
+        },
+        {
+          "word": "this",
+          "tokens": 4,
+          "prompts": 4
+        },
+        {
+          "word": "through",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "time",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "to",
+          "tokens": 13,
+          "prompts": 13
+        },
+        {
+          "word": "train",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "under",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "us",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "walk",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "wall",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "warm",
+          "tokens": 3,
+          "prompts": 3
+        },
+        {
+          "word": "was",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "water",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "we",
+          "tokens": 18,
+          "prompts": 18
+        },
+        {
+          "word": "will",
+          "tokens": 3,
+          "prompts": 3
+        },
+        {
+          "word": "window",
+          "tokens": 2,
+          "prompts": 2
+        },
+        {
+          "word": "you",
+          "tokens": 4,
+          "prompts": 4
+        },
+        {
+          "word": "your",
+          "tokens": 3,
+          "prompts": 3
+        }
+      ]
+    },
+    "assessmentDistinctPairs": 219,
+    "practiceLegacySupportedPairs": 184,
+    "assessmentPairsLegacyPracticeSupported": 170,
+    "maxEightInTenDistinctAssessmentPrompts": 41,
+    "impossibleThreeWordPairsDespiteLegacySupport": [
+      "ab",
+      "af",
+      "aw",
+      "ew",
+      "hr",
+      "if",
+      "jo",
+      "ks",
+      "lf",
+      "lk",
+      "lu",
+      "my",
+      "pu",
+      "rm",
+      "sk",
+      "sm",
+      "ue",
+      "wl"
+    ]
+  },
+  "priorProbeCrosschecks": {
+    "learningPracticeSupportedPairs": 184,
+    "mlAssessmentDistinctPairs": 219,
+    "mlMaxEightInTen": 41,
+    "legacyCadenceExposure": [
+      {
+        "pair": "th",
+        "targetContainingPassages": 71,
+        "ordinaryTargetPassageFraction": 0.8875,
+        "focusedTargetPassageFraction": 0.6666666666666666,
+        "ordinaryExpectedOccurrencesPerPassage": 1.35,
+        "focusedExpectedOccurrencesPerPassage": 1.0140845070422535,
+        "ordinaryOccurrencesPer100Characters": 3.151444412022177,
+        "focusedOccurrencesPer100Characters": 2.372699311624274
+      },
+      {
+        "pair": "he",
+        "targetContainingPassages": 74,
+        "ordinaryTargetPassageFraction": 0.925,
+        "focusedTargetPassageFraction": 0.6666666666666666,
+        "ordinaryExpectedOccurrencesPerPassage": 1.4,
+        "focusedExpectedOccurrencesPerPassage": 1.009009009009009,
+        "ordinaryOccurrencesPer100Characters": 3.2681645754304056,
+        "focusedOccurrencesPer100Characters": 2.4078254326561326
+      },
+      {
+        "pair": "ag",
+        "targetContainingPassages": 3,
+        "ordinaryTargetPassageFraction": 0.0375,
+        "focusedTargetPassageFraction": 0.6666666666666666,
+        "ordinaryExpectedOccurrencesPerPassage": 0.0375,
+        "focusedExpectedOccurrencesPerPassage": 0.6666666666666666,
+        "ordinaryOccurrencesPer100Characters": 0.08754012255617158,
+        "focusedOccurrencesPer100Characters": 1.5764151909100215
+      }
+    ]
+  },
+  "assessmentScenarios": [
+    {
+      "schedule": "seeded-restarts",
+      "artificialWpm": 10,
+      "slotsPerRun": 25,
+      "minutes": 5,
+      "exposed": 10,
+      "distinctExposed": 10,
+      "complete": 0,
+      "distinctComplete": 0,
+      "repeatedComplete": 0,
+      "partial": 10,
+      "illustrativeSensitivity": [
+        {
+          "minimum": 8,
+          "partialAndCompletePracticeSupported": 0,
+          "completePracticeSupported": 0,
+          "completeThreePromptsWordsRuns": 0,
+          "newestTenCompleteThreePromptsWordsRuns": 0
+        },
+        {
+          "minimum": 12,
+          "partialAndCompletePracticeSupported": 0,
+          "completePracticeSupported": 0,
+          "completeThreePromptsWordsRuns": 0,
+          "newestTenCompleteThreePromptsWordsRuns": 0
+        },
+        {
+          "minimum": 20,
+          "partialAndCompletePracticeSupported": 0,
+          "completePracticeSupported": 0,
+          "completeThreePromptsWordsRuns": 0,
+          "newestTenCompleteThreePromptsWordsRuns": 0
+        }
+      ],
+      "finalCountContextCeiling": {
+        "retainedUniqueCompletePrompts": 0,
+        "passingPairs": [],
+        "excludesEffectStabilityAndExposure": true
+      },
+      "runWitnesses": [
+        [
+          [
+            "assessment-019",
+            25,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-028",
+            25,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-036",
+            25,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-009",
+            25,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-024",
+            25,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-021",
+            25,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-002",
+            25,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-040",
+            25,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-033",
+            25,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-001",
+            25,
+            false
+          ]
+        ]
+      ]
+    },
+    {
+      "schedule": "seeded-restarts",
+      "artificialWpm": 30,
+      "slotsPerRun": 75,
+      "minutes": 5,
+      "exposed": 20,
+      "distinctExposed": 17,
+      "complete": 10,
+      "distinctComplete": 10,
+      "repeatedComplete": 0,
+      "partial": 10,
+      "illustrativeSensitivity": [
+        {
+          "minimum": 8,
+          "partialAndCompletePracticeSupported": 5,
+          "completePracticeSupported": 3,
+          "completeThreePromptsWordsRuns": 2,
+          "newestTenCompleteThreePromptsWordsRuns": 2
+        },
+        {
+          "minimum": 12,
+          "partialAndCompletePracticeSupported": 3,
+          "completePracticeSupported": 2,
+          "completeThreePromptsWordsRuns": 1,
+          "newestTenCompleteThreePromptsWordsRuns": 1
+        },
+        {
+          "minimum": 20,
+          "partialAndCompletePracticeSupported": 2,
+          "completePracticeSupported": 0,
+          "completeThreePromptsWordsRuns": 0,
+          "newestTenCompleteThreePromptsWordsRuns": 0
+        }
+      ],
+      "finalCountContextCeiling": {
+        "retainedUniqueCompletePrompts": 10,
+        "passingPairs": [],
+        "excludesEffectStabilityAndExposure": true
+      },
+      "runWitnesses": [
+        [
+          [
+            "assessment-019",
+            43,
+            true
+          ],
+          [
+            "assessment-039",
+            31,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-028",
+            49,
+            true
+          ],
+          [
+            "assessment-004",
+            25,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-036",
+            43,
+            true
+          ],
+          [
+            "assessment-040",
+            31,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-009",
+            42,
+            true
+          ],
+          [
+            "assessment-016",
+            32,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-024",
+            50,
+            true
+          ],
+          [
+            "assessment-022",
+            24,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-021",
+            44,
+            true
+          ],
+          [
+            "assessment-031",
+            30,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-002",
+            45,
+            true
+          ],
+          [
+            "assessment-027",
+            29,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-040",
+            49,
+            true
+          ],
+          [
+            "assessment-032",
+            25,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-033",
+            42,
+            true
+          ],
+          [
+            "assessment-009",
+            32,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-001",
+            44,
+            true
+          ],
+          [
+            "assessment-016",
+            30,
+            false
+          ]
+        ]
+      ]
+    },
+    {
+      "schedule": "seeded-restarts",
+      "artificialWpm": 60,
+      "slotsPerRun": 150,
+      "minutes": 5,
+      "exposed": 40,
+      "distinctExposed": 25,
+      "complete": 30,
+      "distinctComplete": 20,
+      "repeatedComplete": 10,
+      "partial": 10,
+      "illustrativeSensitivity": [
+        {
+          "minimum": 8,
+          "partialAndCompletePracticeSupported": 35,
+          "completePracticeSupported": 31,
+          "completeThreePromptsWordsRuns": 30,
+          "newestTenCompleteThreePromptsWordsRuns": 0
+        },
+        {
+          "minimum": 12,
+          "partialAndCompletePracticeSupported": 15,
+          "completePracticeSupported": 11,
+          "completeThreePromptsWordsRuns": 10,
+          "newestTenCompleteThreePromptsWordsRuns": 0
+        },
+        {
+          "minimum": 20,
+          "partialAndCompletePracticeSupported": 3,
+          "completePracticeSupported": 3,
+          "completeThreePromptsWordsRuns": 2,
+          "newestTenCompleteThreePromptsWordsRuns": 0
+        }
+      ],
+      "finalCountContextCeiling": {
+        "retainedUniqueCompletePrompts": 20,
+        "passingPairs": [
+          "th"
+        ],
+        "excludesEffectStabilityAndExposure": true
+      },
+      "runWitnesses": [
+        [
+          [
+            "assessment-019",
+            43,
+            true
+          ],
+          [
+            "assessment-039",
+            50,
+            true
+          ],
+          [
+            "assessment-032",
+            42,
+            true
+          ],
+          [
+            "assessment-029",
+            12,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-028",
+            49,
+            true
+          ],
+          [
+            "assessment-004",
+            46,
+            true
+          ],
+          [
+            "assessment-011",
+            41,
+            true
+          ],
+          [
+            "assessment-037",
+            11,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-036",
+            43,
+            true
+          ],
+          [
+            "assessment-040",
+            49,
+            true
+          ],
+          [
+            "assessment-037",
+            48,
+            true
+          ],
+          [
+            "assessment-016",
+            7,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-009",
+            42,
+            true
+          ],
+          [
+            "assessment-016",
+            48,
+            true
+          ],
+          [
+            "assessment-010",
+            42,
+            true
+          ],
+          [
+            "assessment-007",
+            15,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-024",
+            50,
+            true
+          ],
+          [
+            "assessment-022",
+            43,
+            true
+          ],
+          [
+            "assessment-002",
+            45,
+            true
+          ],
+          [
+            "assessment-001",
+            9,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-021",
+            44,
+            true
+          ],
+          [
+            "assessment-031",
+            50,
+            true
+          ],
+          [
+            "assessment-001",
+            44,
+            true
+          ],
+          [
+            "assessment-005",
+            9,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-002",
+            45,
+            true
+          ],
+          [
+            "assessment-027",
+            42,
+            true
+          ],
+          [
+            "assessment-011",
+            41,
+            true
+          ],
+          [
+            "assessment-003",
+            19,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-040",
+            49,
+            true
+          ],
+          [
+            "assessment-032",
+            42,
+            true
+          ],
+          [
+            "assessment-031",
+            50,
+            true
+          ],
+          [
+            "assessment-033",
+            6,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-033",
+            42,
+            true
+          ],
+          [
+            "assessment-009",
+            42,
+            true
+          ],
+          [
+            "assessment-024",
+            50,
+            true
+          ],
+          [
+            "assessment-023",
+            13,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-001",
+            44,
+            true
+          ],
+          [
+            "assessment-016",
+            48,
+            true
+          ],
+          [
+            "assessment-004",
+            46,
+            true
+          ],
+          [
+            "assessment-031",
+            9,
+            false
+          ]
+        ]
+      ]
+    },
+    {
+      "schedule": "repeated-order-stress",
+      "artificialWpm": 10,
+      "slotsPerRun": 25,
+      "minutes": 5,
+      "exposed": 10,
+      "distinctExposed": 1,
+      "complete": 0,
+      "distinctComplete": 0,
+      "repeatedComplete": 0,
+      "partial": 10,
+      "illustrativeSensitivity": [
+        {
+          "minimum": 8,
+          "partialAndCompletePracticeSupported": 15,
+          "completePracticeSupported": 0,
+          "completeThreePromptsWordsRuns": 0,
+          "newestTenCompleteThreePromptsWordsRuns": 0
+        },
+        {
+          "minimum": 12,
+          "partialAndCompletePracticeSupported": 0,
+          "completePracticeSupported": 0,
+          "completeThreePromptsWordsRuns": 0,
+          "newestTenCompleteThreePromptsWordsRuns": 0
+        },
+        {
+          "minimum": 20,
+          "partialAndCompletePracticeSupported": 0,
+          "completePracticeSupported": 0,
+          "completeThreePromptsWordsRuns": 0,
+          "newestTenCompleteThreePromptsWordsRuns": 0
+        }
+      ],
+      "finalCountContextCeiling": {
+        "retainedUniqueCompletePrompts": 0,
+        "passingPairs": [],
+        "excludesEffectStabilityAndExposure": true
+      },
+      "runWitnesses": [
+        [
+          [
+            "assessment-019",
+            25,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            25,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            25,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            25,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            25,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            25,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            25,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            25,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            25,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            25,
+            false
+          ]
+        ]
+      ]
+    },
+    {
+      "schedule": "repeated-order-stress",
+      "artificialWpm": 30,
+      "slotsPerRun": 75,
+      "minutes": 5,
+      "exposed": 20,
+      "distinctExposed": 2,
+      "complete": 10,
+      "distinctComplete": 1,
+      "repeatedComplete": 9,
+      "partial": 10,
+      "illustrativeSensitivity": [
+        {
+          "minimum": 8,
+          "partialAndCompletePracticeSupported": 36,
+          "completePracticeSupported": 24,
+          "completeThreePromptsWordsRuns": 0,
+          "newestTenCompleteThreePromptsWordsRuns": 0
+        },
+        {
+          "minimum": 12,
+          "partialAndCompletePracticeSupported": 4,
+          "completePracticeSupported": 3,
+          "completeThreePromptsWordsRuns": 0,
+          "newestTenCompleteThreePromptsWordsRuns": 0
+        },
+        {
+          "minimum": 20,
+          "partialAndCompletePracticeSupported": 4,
+          "completePracticeSupported": 3,
+          "completeThreePromptsWordsRuns": 0,
+          "newestTenCompleteThreePromptsWordsRuns": 0
+        }
+      ],
+      "finalCountContextCeiling": {
+        "retainedUniqueCompletePrompts": 1,
+        "passingPairs": [],
+        "excludesEffectStabilityAndExposure": true
+      },
+      "runWitnesses": [
+        [
+          [
+            "assessment-019",
+            43,
+            true
+          ],
+          [
+            "assessment-039",
+            31,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            43,
+            true
+          ],
+          [
+            "assessment-039",
+            31,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            43,
+            true
+          ],
+          [
+            "assessment-039",
+            31,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            43,
+            true
+          ],
+          [
+            "assessment-039",
+            31,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            43,
+            true
+          ],
+          [
+            "assessment-039",
+            31,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            43,
+            true
+          ],
+          [
+            "assessment-039",
+            31,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            43,
+            true
+          ],
+          [
+            "assessment-039",
+            31,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            43,
+            true
+          ],
+          [
+            "assessment-039",
+            31,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            43,
+            true
+          ],
+          [
+            "assessment-039",
+            31,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            43,
+            true
+          ],
+          [
+            "assessment-039",
+            31,
+            false
+          ]
+        ]
+      ]
+    },
+    {
+      "schedule": "repeated-order-stress",
+      "artificialWpm": 60,
+      "slotsPerRun": 150,
+      "minutes": 5,
+      "exposed": 40,
+      "distinctExposed": 4,
+      "complete": 30,
+      "distinctComplete": 3,
+      "repeatedComplete": 27,
+      "partial": 10,
+      "illustrativeSensitivity": [
+        {
+          "minimum": 8,
+          "partialAndCompletePracticeSupported": 60,
+          "completePracticeSupported": 57,
+          "completeThreePromptsWordsRuns": 2,
+          "newestTenCompleteThreePromptsWordsRuns": 2
+        },
+        {
+          "minimum": 12,
+          "partialAndCompletePracticeSupported": 13,
+          "completePracticeSupported": 11,
+          "completeThreePromptsWordsRuns": 2,
+          "newestTenCompleteThreePromptsWordsRuns": 0
+        },
+        {
+          "minimum": 20,
+          "partialAndCompletePracticeSupported": 13,
+          "completePracticeSupported": 11,
+          "completeThreePromptsWordsRuns": 2,
+          "newestTenCompleteThreePromptsWordsRuns": 0
+        }
+      ],
+      "finalCountContextCeiling": {
+        "retainedUniqueCompletePrompts": 3,
+        "passingPairs": [],
+        "excludesEffectStabilityAndExposure": true
+      },
+      "runWitnesses": [
+        [
+          [
+            "assessment-019",
+            43,
+            true
+          ],
+          [
+            "assessment-039",
+            50,
+            true
+          ],
+          [
+            "assessment-032",
+            42,
+            true
+          ],
+          [
+            "assessment-029",
+            12,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            43,
+            true
+          ],
+          [
+            "assessment-039",
+            50,
+            true
+          ],
+          [
+            "assessment-032",
+            42,
+            true
+          ],
+          [
+            "assessment-029",
+            12,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            43,
+            true
+          ],
+          [
+            "assessment-039",
+            50,
+            true
+          ],
+          [
+            "assessment-032",
+            42,
+            true
+          ],
+          [
+            "assessment-029",
+            12,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            43,
+            true
+          ],
+          [
+            "assessment-039",
+            50,
+            true
+          ],
+          [
+            "assessment-032",
+            42,
+            true
+          ],
+          [
+            "assessment-029",
+            12,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            43,
+            true
+          ],
+          [
+            "assessment-039",
+            50,
+            true
+          ],
+          [
+            "assessment-032",
+            42,
+            true
+          ],
+          [
+            "assessment-029",
+            12,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            43,
+            true
+          ],
+          [
+            "assessment-039",
+            50,
+            true
+          ],
+          [
+            "assessment-032",
+            42,
+            true
+          ],
+          [
+            "assessment-029",
+            12,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            43,
+            true
+          ],
+          [
+            "assessment-039",
+            50,
+            true
+          ],
+          [
+            "assessment-032",
+            42,
+            true
+          ],
+          [
+            "assessment-029",
+            12,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            43,
+            true
+          ],
+          [
+            "assessment-039",
+            50,
+            true
+          ],
+          [
+            "assessment-032",
+            42,
+            true
+          ],
+          [
+            "assessment-029",
+            12,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            43,
+            true
+          ],
+          [
+            "assessment-039",
+            50,
+            true
+          ],
+          [
+            "assessment-032",
+            42,
+            true
+          ],
+          [
+            "assessment-029",
+            12,
+            false
+          ]
+        ],
+        [
+          [
+            "assessment-019",
+            43,
+            true
+          ],
+          [
+            "assessment-039",
+            50,
+            true
+          ],
+          [
+            "assessment-032",
+            42,
+            true
+          ],
+          [
+            "assessment-029",
+            12,
+            false
+          ]
+        ]
+      ]
+    }
+  ],
+  "boundedPlans": [
+    {
+      "pair": "th",
+      "requestedMinimumLength": 240,
+      "length": 267,
+      "promptIds": [
+        "practice-001",
+        "practice-009",
+        "practice-011",
+        "practice-015",
+        "practice-017",
+        "practice-018"
+      ],
+      "earliestPossibleFirstTarget": 2,
+      "availablePassages": 71,
+      "availableWords": [
+        "another",
+        "bathroom",
+        "beneath",
+        "path",
+        "the",
+        "their",
+        "them",
+        "there",
+        "this",
+        "through",
+        "with"
+      ],
+      "general": {
+        "occurrences": 108,
+        "characters": 3427,
+        "per100Characters": 3.151444412022177,
+        "per100Letters": 3.818953323903819,
+        "legacySyntheticJoinedCharacters": 3506,
+        "legacySyntheticJoinedPer100Characters": 3.080433542498574
+      },
+      "targetOnlyBank": {
+        "per100Characters": 3.5467980295566504,
+        "per100Letters": 4.292527821939586
+      },
+      "checks": {
+        "planLongEnough": true,
+        "fourBankPassages": true,
+        "threeBankWords": true,
+        "firstTargetBy20": true,
+        "everyIntegerPrefixDensity": false,
+        "threeWordsBy240": true,
+        "fourCompletePassagesBy480": true,
+        "noAdjacentRepeat": true,
+        "noRepeatBeforeBankExhaustion": true
+      },
+      "certificatePass": false,
+      "prefixesChecked": 248,
+      "failingPrefixCount": 8,
+      "firstFailingPrefix": {
+        "n": 26,
+        "opportunities": 1,
+        "per100Characters": 3.8461538461538463,
+        "per100Letters": 4.545454545454546,
+        "densityRatio": 1.2204415954415955,
+        "densityPass": false,
+        "words": [
+          "the"
+        ],
+        "fullyTraversedPassages": 0
+      },
+      "minimumDensityRatio": 0.9916087962962963,
+      "checkpoints": [
+        {
+          "n": 20,
+          "opportunities": 1,
+          "per100Characters": 5,
+          "per100Letters": 5.882352941176471,
+          "densityRatio": 1.5865740740740741,
+          "densityPass": true,
+          "words": [
+            "the"
+          ],
+          "fullyTraversedPassages": 0
+        },
+        {
+          "n": 40,
+          "opportunities": 2,
+          "per100Characters": 5,
+          "per100Letters": 5.882352941176471,
+          "densityRatio": 1.5865740740740741,
+          "densityPass": true,
+          "words": [
+            "the"
+          ],
+          "fullyTraversedPassages": 0
+        },
+        {
+          "n": 80,
+          "opportunities": 4,
+          "per100Characters": 5,
+          "per100Letters": 5.970149253731344,
+          "densityRatio": 1.5865740740740741,
+          "densityPass": true,
+          "words": [
+            "the"
+          ],
+          "fullyTraversedPassages": 1
+        },
+        {
+          "n": 120,
+          "opportunities": 5,
+          "per100Characters": 4.166666666666667,
+          "per100Letters": 5,
+          "densityRatio": 1.322145061728395,
+          "densityPass": true,
+          "words": [
+            "the"
+          ],
+          "fullyTraversedPassages": 2
+        },
+        {
+          "n": 240,
+          "opportunities": 11,
+          "per100Characters": 4.583333333333333,
+          "per100Letters": 5.527638190954774,
+          "densityRatio": 1.4543595679012347,
+          "densityPass": true,
+          "words": [
+            "another",
+            "the",
+            "there"
+          ],
+          "fullyTraversedPassages": 5
+        }
+      ]
+    },
+    {
+      "pair": "th",
+      "requestedMinimumLength": 480,
+      "length": 493,
+      "promptIds": [
+        "practice-001",
+        "practice-009",
+        "practice-011",
+        "practice-015",
+        "practice-017",
+        "practice-018",
+        "practice-022",
+        "practice-025",
+        "practice-027",
+        "practice-031",
+        "practice-033"
+      ],
+      "earliestPossibleFirstTarget": 2,
+      "availablePassages": 71,
+      "availableWords": [
+        "another",
+        "bathroom",
+        "beneath",
+        "path",
+        "the",
+        "their",
+        "them",
+        "there",
+        "this",
+        "through",
+        "with"
+      ],
+      "general": {
+        "occurrences": 108,
+        "characters": 3427,
+        "per100Characters": 3.151444412022177,
+        "per100Letters": 3.818953323903819,
+        "legacySyntheticJoinedCharacters": 3506,
+        "legacySyntheticJoinedPer100Characters": 3.080433542498574
+      },
+      "targetOnlyBank": {
+        "per100Characters": 3.5467980295566504,
+        "per100Letters": 4.292527821939586
+      },
+      "checks": {
+        "planLongEnough": true,
+        "fourBankPassages": true,
+        "threeBankWords": true,
+        "firstTargetBy20": true,
+        "everyIntegerPrefixDensity": false,
+        "threeWordsBy240": true,
+        "fourCompletePassagesBy480": true,
+        "noAdjacentRepeat": true,
+        "noRepeatBeforeBankExhaustion": true
+      },
+      "certificatePass": false,
+      "prefixesChecked": 474,
+      "failingPrefixCount": 22,
+      "firstFailingPrefix": {
+        "n": 26,
+        "opportunities": 1,
+        "per100Characters": 3.8461538461538463,
+        "per100Letters": 4.545454545454546,
+        "densityRatio": 1.2204415954415955,
+        "densityPass": false,
+        "words": [
+          "the"
+        ],
+        "fullyTraversedPassages": 0
+      },
+      "minimumDensityRatio": 0.9916087962962963,
+      "checkpoints": [
+        {
+          "n": 20,
+          "opportunities": 1,
+          "per100Characters": 5,
+          "per100Letters": 5.882352941176471,
+          "densityRatio": 1.5865740740740741,
+          "densityPass": true,
+          "words": [
+            "the"
+          ],
+          "fullyTraversedPassages": 0
+        },
+        {
+          "n": 40,
+          "opportunities": 2,
+          "per100Characters": 5,
+          "per100Letters": 5.882352941176471,
+          "densityRatio": 1.5865740740740741,
+          "densityPass": true,
+          "words": [
+            "the"
+          ],
+          "fullyTraversedPassages": 0
+        },
+        {
+          "n": 80,
+          "opportunities": 4,
+          "per100Characters": 5,
+          "per100Letters": 5.970149253731344,
+          "densityRatio": 1.5865740740740741,
+          "densityPass": true,
+          "words": [
+            "the"
+          ],
+          "fullyTraversedPassages": 1
+        },
+        {
+          "n": 120,
+          "opportunities": 5,
+          "per100Characters": 4.166666666666667,
+          "per100Letters": 5,
+          "densityRatio": 1.322145061728395,
+          "densityPass": true,
+          "words": [
+            "the"
+          ],
+          "fullyTraversedPassages": 2
+        },
+        {
+          "n": 240,
+          "opportunities": 11,
+          "per100Characters": 4.583333333333333,
+          "per100Letters": 5.527638190954774,
+          "densityRatio": 1.4543595679012347,
+          "densityPass": true,
+          "words": [
+            "another",
+            "the",
+            "there"
+          ],
+          "fullyTraversedPassages": 5
+        },
+        {
+          "n": 480,
+          "opportunities": 20,
+          "per100Characters": 4.166666666666667,
+          "per100Letters": 5.012531328320802,
+          "densityRatio": 1.322145061728395,
+          "densityPass": true,
+          "words": [
+            "another",
+            "the",
+            "there",
+            "this",
+            "through"
+          ],
+          "fullyTraversedPassages": 10
+        }
+      ]
+    },
+    {
+      "pair": "he",
+      "requestedMinimumLength": 240,
+      "length": 268,
+      "promptIds": [
+        "practice-001",
+        "practice-009",
+        "practice-011",
+        "practice-013",
+        "practice-015",
+        "practice-017"
+      ],
+      "earliestPossibleFirstTarget": 3,
+      "availablePassages": 74,
+      "availableWords": [
+        "another",
+        "check",
+        "helps",
+        "her",
+        "herbs",
+        "kitchen",
+        "matches",
+        "sheets",
+        "shelf",
+        "shelter",
+        "the",
+        "their",
+        "them",
+        "there",
+        "watched",
+        "when"
+      ],
+      "general": {
+        "occurrences": 112,
+        "characters": 3427,
+        "per100Characters": 3.2681645754304056,
+        "per100Letters": 3.9603960396039604,
+        "legacySyntheticJoinedCharacters": 3506,
+        "legacySyntheticJoinedPer100Characters": 3.194523673702225
+      },
+      "targetOnlyBank": {
+        "per100Characters": 3.510971786833856,
+        "per100Letters": 4.247250663632916
+      },
+      "checks": {
+        "planLongEnough": true,
+        "fourBankPassages": true,
+        "threeBankWords": true,
+        "firstTargetBy20": true,
+        "everyIntegerPrefixDensity": false,
+        "threeWordsBy240": true,
+        "fourCompletePassagesBy480": true,
+        "noAdjacentRepeat": true,
+        "noRepeatBeforeBankExhaustion": true
+      },
+      "certificatePass": false,
+      "prefixesChecked": 249,
+      "failingPrefixCount": 9,
+      "firstFailingPrefix": {
+        "n": 25,
+        "opportunities": 1,
+        "per100Characters": 4,
+        "per100Letters": 4.761904761904762,
+        "densityRatio": 1.2239285714285715,
+        "densityPass": false,
+        "words": [
+          "the"
+        ],
+        "fullyTraversedPassages": 0
+      },
+      "minimumDensityRatio": 0.9272186147186147,
+      "checkpoints": [
+        {
+          "n": 20,
+          "opportunities": 1,
+          "per100Characters": 5,
+          "per100Letters": 5.882352941176471,
+          "densityRatio": 1.5299107142857142,
+          "densityPass": true,
+          "words": [
+            "the"
+          ],
+          "fullyTraversedPassages": 0
+        },
+        {
+          "n": 40,
+          "opportunities": 2,
+          "per100Characters": 5,
+          "per100Letters": 5.882352941176471,
+          "densityRatio": 1.5299107142857142,
+          "densityPass": true,
+          "words": [
+            "the"
+          ],
+          "fullyTraversedPassages": 0
+        },
+        {
+          "n": 80,
+          "opportunities": 5,
+          "per100Characters": 6.25,
+          "per100Letters": 7.462686567164179,
+          "densityRatio": 1.9123883928571428,
+          "densityPass": true,
+          "words": [
+            "kitchen",
+            "the"
+          ],
+          "fullyTraversedPassages": 1
+        },
+        {
+          "n": 120,
+          "opportunities": 6,
+          "per100Characters": 5,
+          "per100Letters": 6,
+          "densityRatio": 1.5299107142857142,
+          "densityPass": true,
+          "words": [
+            "kitchen",
+            "the"
+          ],
+          "fullyTraversedPassages": 2
+        },
+        {
+          "n": 240,
+          "opportunities": 13,
+          "per100Characters": 5.416666666666667,
+          "per100Letters": 6.5,
+          "densityRatio": 1.657403273809524,
+          "densityPass": true,
+          "words": [
+            "check",
+            "kitchen",
+            "the",
+            "there"
+          ],
+          "fullyTraversedPassages": 5
+        }
+      ]
+    },
+    {
+      "pair": "he",
+      "requestedMinimumLength": 480,
+      "length": 491,
+      "promptIds": [
+        "practice-001",
+        "practice-009",
+        "practice-011",
+        "practice-013",
+        "practice-015",
+        "practice-017",
+        "practice-018",
+        "practice-022",
+        "practice-025",
+        "practice-027",
+        "practice-031"
+      ],
+      "earliestPossibleFirstTarget": 3,
+      "availablePassages": 74,
+      "availableWords": [
+        "another",
+        "check",
+        "helps",
+        "her",
+        "herbs",
+        "kitchen",
+        "matches",
+        "sheets",
+        "shelf",
+        "shelter",
+        "the",
+        "their",
+        "them",
+        "there",
+        "watched",
+        "when"
+      ],
+      "general": {
+        "occurrences": 112,
+        "characters": 3427,
+        "per100Characters": 3.2681645754304056,
+        "per100Letters": 3.9603960396039604,
+        "legacySyntheticJoinedCharacters": 3506,
+        "legacySyntheticJoinedPer100Characters": 3.194523673702225
+      },
+      "targetOnlyBank": {
+        "per100Characters": 3.510971786833856,
+        "per100Letters": 4.247250663632916
+      },
+      "checks": {
+        "planLongEnough": true,
+        "fourBankPassages": true,
+        "threeBankWords": true,
+        "firstTargetBy20": true,
+        "everyIntegerPrefixDensity": false,
+        "threeWordsBy240": true,
+        "fourCompletePassagesBy480": true,
+        "noAdjacentRepeat": true,
+        "noRepeatBeforeBankExhaustion": true
+      },
+      "certificatePass": false,
+      "prefixesChecked": 472,
+      "failingPrefixCount": 9,
+      "firstFailingPrefix": {
+        "n": 25,
+        "opportunities": 1,
+        "per100Characters": 4,
+        "per100Letters": 4.761904761904762,
+        "densityRatio": 1.2239285714285715,
+        "densityPass": false,
+        "words": [
+          "the"
+        ],
+        "fullyTraversedPassages": 0
+      },
+      "minimumDensityRatio": 0.9272186147186147,
+      "checkpoints": [
+        {
+          "n": 20,
+          "opportunities": 1,
+          "per100Characters": 5,
+          "per100Letters": 5.882352941176471,
+          "densityRatio": 1.5299107142857142,
+          "densityPass": true,
+          "words": [
+            "the"
+          ],
+          "fullyTraversedPassages": 0
+        },
+        {
+          "n": 40,
+          "opportunities": 2,
+          "per100Characters": 5,
+          "per100Letters": 5.882352941176471,
+          "densityRatio": 1.5299107142857142,
+          "densityPass": true,
+          "words": [
+            "the"
+          ],
+          "fullyTraversedPassages": 0
+        },
+        {
+          "n": 80,
+          "opportunities": 5,
+          "per100Characters": 6.25,
+          "per100Letters": 7.462686567164179,
+          "densityRatio": 1.9123883928571428,
+          "densityPass": true,
+          "words": [
+            "kitchen",
+            "the"
+          ],
+          "fullyTraversedPassages": 1
+        },
+        {
+          "n": 120,
+          "opportunities": 6,
+          "per100Characters": 5,
+          "per100Letters": 6,
+          "densityRatio": 1.5299107142857142,
+          "densityPass": true,
+          "words": [
+            "kitchen",
+            "the"
+          ],
+          "fullyTraversedPassages": 2
+        },
+        {
+          "n": 240,
+          "opportunities": 13,
+          "per100Characters": 5.416666666666667,
+          "per100Letters": 6.5,
+          "densityRatio": 1.657403273809524,
+          "densityPass": true,
+          "words": [
+            "check",
+            "kitchen",
+            "the",
+            "there"
+          ],
+          "fullyTraversedPassages": 5
+        },
+        {
+          "n": 480,
+          "opportunities": 21,
+          "per100Characters": 4.375,
+          "per100Letters": 5.25,
+          "densityRatio": 1.338671875,
+          "densityPass": true,
+          "words": [
+            "another",
+            "check",
+            "kitchen",
+            "the",
+            "there"
+          ],
+          "fullyTraversedPassages": 10
+        }
+      ]
+    },
+    {
+      "pair": "ag",
+      "requestedMinimumLength": 240,
+      "length": 252,
+      "promptIds": [
+        "practice-007",
+        "practice-076",
+        "practice-051",
+        "practice-007",
+        "practice-076",
+        "practice-051"
+      ],
+      "earliestPossibleFirstTarget": 24,
+      "availablePassages": 3,
+      "availableWords": [
+        "again",
+        "bag",
+        "village"
+      ],
+      "general": {
+        "occurrences": 3,
+        "characters": 3427,
+        "per100Characters": 0.08754012255617158,
+        "per100Letters": 0.10608203677510608,
+        "legacySyntheticJoinedCharacters": 3506,
+        "legacySyntheticJoinedPer100Characters": 0.08556759840273816
+      },
+      "targetOnlyBank": {
+        "per100Characters": 2.380952380952381,
+        "per100Letters": 2.8846153846153846
+      },
+      "checks": {
+        "planLongEnough": true,
+        "fourBankPassages": false,
+        "threeBankWords": true,
+        "firstTargetBy20": false,
+        "everyIntegerPrefixDensity": false,
+        "threeWordsBy240": true,
+        "fourCompletePassagesBy480": true,
+        "noAdjacentRepeat": true,
+        "noRepeatBeforeBankExhaustion": true
+      },
+      "certificatePass": false,
+      "prefixesChecked": 233,
+      "failingPrefixCount": 4,
+      "firstFailingPrefix": {
+        "n": 20,
+        "opportunities": 0,
+        "per100Characters": 0,
+        "per100Letters": 0,
+        "densityRatio": 0,
+        "densityPass": false,
+        "words": [],
+        "fullyTraversedPassages": 0
+      },
+      "minimumDensityRatio": 0,
+      "checkpoints": [
+        {
+          "n": 20,
+          "opportunities": 0,
+          "per100Characters": 0,
+          "per100Letters": 0,
+          "densityRatio": 0,
+          "densityPass": false,
+          "words": [],
+          "fullyTraversedPassages": 0
+        },
+        {
+          "n": 40,
+          "opportunities": 1,
+          "per100Characters": 2.5,
+          "per100Letters": 3.0303030303030303,
+          "densityRatio": 28.558333333333334,
+          "densityPass": true,
+          "words": [
+            "bag"
+          ],
+          "fullyTraversedPassages": 0
+        },
+        {
+          "n": 80,
+          "opportunities": 2,
+          "per100Characters": 2.5,
+          "per100Letters": 3.076923076923077,
+          "densityRatio": 28.558333333333334,
+          "densityPass": true,
+          "words": [
+            "bag",
+            "village"
+          ],
+          "fullyTraversedPassages": 1
+        },
+        {
+          "n": 120,
+          "opportunities": 2,
+          "per100Characters": 1.6666666666666667,
+          "per100Letters": 2.0202020202020203,
+          "densityRatio": 19.038888888888888,
+          "densityPass": true,
+          "words": [
+            "bag",
+            "village"
+          ],
+          "fullyTraversedPassages": 2
+        },
+        {
+          "n": 240,
+          "opportunities": 5,
+          "per100Characters": 2.0833333333333335,
+          "per100Letters": 2.525252525252525,
+          "densityRatio": 23.79861111111111,
+          "densityPass": true,
+          "words": [
+            "again",
+            "bag",
+            "village"
+          ],
+          "fullyTraversedPassages": 3
+        }
+      ]
+    },
+    {
+      "pair": "ag",
+      "requestedMinimumLength": 480,
+      "length": 504,
+      "promptIds": [
+        "practice-007",
+        "practice-076",
+        "practice-051",
+        "practice-007",
+        "practice-076",
+        "practice-051",
+        "practice-007",
+        "practice-076",
+        "practice-051",
+        "practice-007",
+        "practice-076",
+        "practice-051"
+      ],
+      "earliestPossibleFirstTarget": 24,
+      "availablePassages": 3,
+      "availableWords": [
+        "again",
+        "bag",
+        "village"
+      ],
+      "general": {
+        "occurrences": 3,
+        "characters": 3427,
+        "per100Characters": 0.08754012255617158,
+        "per100Letters": 0.10608203677510608,
+        "legacySyntheticJoinedCharacters": 3506,
+        "legacySyntheticJoinedPer100Characters": 0.08556759840273816
+      },
+      "targetOnlyBank": {
+        "per100Characters": 2.380952380952381,
+        "per100Letters": 2.8846153846153846
+      },
+      "checks": {
+        "planLongEnough": true,
+        "fourBankPassages": false,
+        "threeBankWords": true,
+        "firstTargetBy20": false,
+        "everyIntegerPrefixDensity": false,
+        "threeWordsBy240": true,
+        "fourCompletePassagesBy480": false,
+        "noAdjacentRepeat": true,
+        "noRepeatBeforeBankExhaustion": true
+      },
+      "certificatePass": false,
+      "prefixesChecked": 485,
+      "failingPrefixCount": 4,
+      "firstFailingPrefix": {
+        "n": 20,
+        "opportunities": 0,
+        "per100Characters": 0,
+        "per100Letters": 0,
+        "densityRatio": 0,
+        "densityPass": false,
+        "words": [],
+        "fullyTraversedPassages": 0
+      },
+      "minimumDensityRatio": 0,
+      "checkpoints": [
+        {
+          "n": 20,
+          "opportunities": 0,
+          "per100Characters": 0,
+          "per100Letters": 0,
+          "densityRatio": 0,
+          "densityPass": false,
+          "words": [],
+          "fullyTraversedPassages": 0
+        },
+        {
+          "n": 40,
+          "opportunities": 1,
+          "per100Characters": 2.5,
+          "per100Letters": 3.0303030303030303,
+          "densityRatio": 28.558333333333334,
+          "densityPass": true,
+          "words": [
+            "bag"
+          ],
+          "fullyTraversedPassages": 0
+        },
+        {
+          "n": 80,
+          "opportunities": 2,
+          "per100Characters": 2.5,
+          "per100Letters": 3.076923076923077,
+          "densityRatio": 28.558333333333334,
+          "densityPass": true,
+          "words": [
+            "bag",
+            "village"
+          ],
+          "fullyTraversedPassages": 1
+        },
+        {
+          "n": 120,
+          "opportunities": 2,
+          "per100Characters": 1.6666666666666667,
+          "per100Letters": 2.0202020202020203,
+          "densityRatio": 19.038888888888888,
+          "densityPass": true,
+          "words": [
+            "bag",
+            "village"
+          ],
+          "fullyTraversedPassages": 2
+        },
+        {
+          "n": 240,
+          "opportunities": 5,
+          "per100Characters": 2.0833333333333335,
+          "per100Letters": 2.525252525252525,
+          "densityRatio": 23.79861111111111,
+          "densityPass": true,
+          "words": [
+            "again",
+            "bag",
+            "village"
+          ],
+          "fullyTraversedPassages": 3
+        },
+        {
+          "n": 480,
+          "opportunities": 11,
+          "per100Characters": 2.2916666666666665,
+          "per100Letters": 2.7777777777777777,
+          "densityRatio": 26.178472222222222,
+          "densityPass": true,
+          "words": [
+            "again",
+            "bag",
+            "village"
+          ],
+          "fullyTraversedPassages": 3
+        }
+      ]
+    },
+    {
+      "pair": "au",
+      "requestedMinimumLength": 240,
+      "length": 245,
+      "promptIds": [
+        "practice-073",
+        "practice-073",
+        "practice-073",
+        "practice-073",
+        "practice-073"
+      ],
+      "earliestPossibleFirstTarget": 38,
+      "availablePassages": 1,
+      "availableWords": [
+        "restaurant"
+      ],
+      "general": {
+        "occurrences": 1,
+        "characters": 3427,
+        "per100Characters": 0.029180040852057193,
+        "per100Letters": 0.03536067892503536,
+        "legacySyntheticJoinedCharacters": 3506,
+        "legacySyntheticJoinedPer100Characters": 0.02852253280091272
+      },
+      "targetOnlyBank": {
+        "per100Characters": 2.0408163265306123,
+        "per100Letters": 2.4390243902439024
+      },
+      "checks": {
+        "planLongEnough": true,
+        "fourBankPassages": false,
+        "threeBankWords": false,
+        "firstTargetBy20": false,
+        "everyIntegerPrefixDensity": false,
+        "threeWordsBy240": false,
+        "fourCompletePassagesBy480": true,
+        "noAdjacentRepeat": false,
+        "noRepeatBeforeBankExhaustion": true
+      },
+      "certificatePass": false,
+      "prefixesChecked": 226,
+      "failingPrefixCount": 18,
+      "firstFailingPrefix": {
+        "n": 20,
+        "opportunities": 0,
+        "per100Characters": 0,
+        "per100Letters": 0,
+        "densityRatio": 0,
+        "densityPass": false,
+        "words": [],
+        "fullyTraversedPassages": 0
+      },
+      "minimumDensityRatio": 0,
+      "checkpoints": [
+        {
+          "n": 20,
+          "opportunities": 0,
+          "per100Characters": 0,
+          "per100Letters": 0,
+          "densityRatio": 0,
+          "densityPass": false,
+          "words": [],
+          "fullyTraversedPassages": 0
+        },
+        {
+          "n": 40,
+          "opportunities": 1,
+          "per100Characters": 2.5,
+          "per100Letters": 3.0303030303030303,
+          "densityRatio": 85.675,
+          "densityPass": true,
+          "words": [],
+          "fullyTraversedPassages": 0
+        },
+        {
+          "n": 80,
+          "opportunities": 1,
+          "per100Characters": 1.25,
+          "per100Letters": 1.5151515151515151,
+          "densityRatio": 42.8375,
+          "densityPass": true,
+          "words": [
+            "restaurant"
+          ],
+          "fullyTraversedPassages": 1
+        },
+        {
+          "n": 120,
+          "opportunities": 2,
+          "per100Characters": 1.6666666666666667,
+          "per100Letters": 2,
+          "densityRatio": 57.11666666666667,
+          "densityPass": true,
+          "words": [
+            "restaurant"
+          ],
+          "fullyTraversedPassages": 1
+        },
+        {
+          "n": 240,
+          "opportunities": 5,
+          "per100Characters": 2.0833333333333335,
+          "per100Letters": 2.5,
+          "densityRatio": 71.39583333333333,
+          "densityPass": true,
+          "words": [
+            "restaurant"
+          ],
+          "fullyTraversedPassages": 1
+        }
+      ]
+    },
+    {
+      "pair": "au",
+      "requestedMinimumLength": 480,
+      "length": 490,
+      "promptIds": [
+        "practice-073",
+        "practice-073",
+        "practice-073",
+        "practice-073",
+        "practice-073",
+        "practice-073",
+        "practice-073",
+        "practice-073",
+        "practice-073",
+        "practice-073"
+      ],
+      "earliestPossibleFirstTarget": 38,
+      "availablePassages": 1,
+      "availableWords": [
+        "restaurant"
+      ],
+      "general": {
+        "occurrences": 1,
+        "characters": 3427,
+        "per100Characters": 0.029180040852057193,
+        "per100Letters": 0.03536067892503536,
+        "legacySyntheticJoinedCharacters": 3506,
+        "legacySyntheticJoinedPer100Characters": 0.02852253280091272
+      },
+      "targetOnlyBank": {
+        "per100Characters": 2.0408163265306123,
+        "per100Letters": 2.4390243902439024
+      },
+      "checks": {
+        "planLongEnough": true,
+        "fourBankPassages": false,
+        "threeBankWords": false,
+        "firstTargetBy20": false,
+        "everyIntegerPrefixDensity": false,
+        "threeWordsBy240": false,
+        "fourCompletePassagesBy480": false,
+        "noAdjacentRepeat": false,
+        "noRepeatBeforeBankExhaustion": true
+      },
+      "certificatePass": false,
+      "prefixesChecked": 471,
+      "failingPrefixCount": 18,
+      "firstFailingPrefix": {
+        "n": 20,
+        "opportunities": 0,
+        "per100Characters": 0,
+        "per100Letters": 0,
+        "densityRatio": 0,
+        "densityPass": false,
+        "words": [],
+        "fullyTraversedPassages": 0
+      },
+      "minimumDensityRatio": 0,
+      "checkpoints": [
+        {
+          "n": 20,
+          "opportunities": 0,
+          "per100Characters": 0,
+          "per100Letters": 0,
+          "densityRatio": 0,
+          "densityPass": false,
+          "words": [],
+          "fullyTraversedPassages": 0
+        },
+        {
+          "n": 40,
+          "opportunities": 1,
+          "per100Characters": 2.5,
+          "per100Letters": 3.0303030303030303,
+          "densityRatio": 85.675,
+          "densityPass": true,
+          "words": [],
+          "fullyTraversedPassages": 0
+        },
+        {
+          "n": 80,
+          "opportunities": 1,
+          "per100Characters": 1.25,
+          "per100Letters": 1.5151515151515151,
+          "densityRatio": 42.8375,
+          "densityPass": true,
+          "words": [
+            "restaurant"
+          ],
+          "fullyTraversedPassages": 1
+        },
+        {
+          "n": 120,
+          "opportunities": 2,
+          "per100Characters": 1.6666666666666667,
+          "per100Letters": 2,
+          "densityRatio": 57.11666666666667,
+          "densityPass": true,
+          "words": [
+            "restaurant"
+          ],
+          "fullyTraversedPassages": 1
+        },
+        {
+          "n": 240,
+          "opportunities": 5,
+          "per100Characters": 2.0833333333333335,
+          "per100Letters": 2.5,
+          "densityRatio": 71.39583333333333,
+          "densityPass": true,
+          "words": [
+            "restaurant"
+          ],
+          "fullyTraversedPassages": 1
+        },
+        {
+          "n": 480,
+          "opportunities": 10,
+          "per100Characters": 2.0833333333333335,
+          "per100Letters": 2.493765586034913,
+          "densityRatio": 71.39583333333333,
+          "densityPass": true,
+          "words": [
+            "restaurant"
+          ],
+          "fullyTraversedPassages": 1
+        }
+      ]
+    },
+    {
+      "pair": "zz",
+      "requestedMinimumLength": 240,
+      "length": 0,
+      "promptIds": [],
+      "earliestPossibleFirstTarget": null,
+      "availablePassages": 0,
+      "availableWords": [],
+      "general": {
+        "occurrences": 0,
+        "characters": 3427,
+        "per100Characters": 0,
+        "per100Letters": 0,
+        "legacySyntheticJoinedCharacters": 3506,
+        "legacySyntheticJoinedPer100Characters": 0
+      },
+      "targetOnlyBank": {
+        "per100Characters": 0,
+        "per100Letters": 0
+      },
+      "checks": {
+        "planLongEnough": false,
+        "fourBankPassages": false,
+        "threeBankWords": false,
+        "firstTargetBy20": false,
+        "everyIntegerPrefixDensity": false,
+        "threeWordsBy240": false,
+        "fourCompletePassagesBy480": true,
+        "noAdjacentRepeat": true,
+        "noRepeatBeforeBankExhaustion": true
+      },
+      "certificatePass": false,
+      "prefixesChecked": 0,
+      "failingPrefixCount": 0,
+      "firstFailingPrefix": null,
+      "minimumDensityRatio": null,
+      "checkpoints": []
+    },
+    {
+      "pair": "zz",
+      "requestedMinimumLength": 480,
+      "length": 0,
+      "promptIds": [],
+      "earliestPossibleFirstTarget": null,
+      "availablePassages": 0,
+      "availableWords": [],
+      "general": {
+        "occurrences": 0,
+        "characters": 3427,
+        "per100Characters": 0,
+        "per100Letters": 0,
+        "legacySyntheticJoinedCharacters": 3506,
+        "legacySyntheticJoinedPer100Characters": 0
+      },
+      "targetOnlyBank": {
+        "per100Characters": 0,
+        "per100Letters": 0
+      },
+      "checks": {
+        "planLongEnough": false,
+        "fourBankPassages": false,
+        "threeBankWords": false,
+        "firstTargetBy20": false,
+        "everyIntegerPrefixDensity": false,
+        "threeWordsBy240": false,
+        "fourCompletePassagesBy480": true,
+        "noAdjacentRepeat": true,
+        "noRepeatBeforeBankExhaustion": true
+      },
+      "certificatePass": false,
+      "prefixesChecked": 0,
+      "failingPrefixCount": 0,
+      "firstFailingPrefix": null,
+      "minimumDensityRatio": null,
+      "checkpoints": []
+    },
+    {
+      "pair": "br",
+      "requestedMinimumLength": 240,
+      "length": 256,
+      "promptIds": [
+        "practice-064",
+        "practice-006",
+        "practice-011",
+        "practice-007",
+        "practice-004",
+        "practice-041"
+      ],
+      "earliestPossibleFirstTarget": 4,
+      "availablePassages": 11,
+      "availableWords": [
+        "bread",
+        "break",
+        "breakfast",
+        "breeze",
+        "bridge",
+        "bright",
+        "bring",
+        "brown",
+        "library"
+      ],
+      "general": {
+        "occurrences": 11,
+        "characters": 3427,
+        "per100Characters": 0.3209804493726291,
+        "per100Letters": 0.38896746817538896,
+        "legacySyntheticJoinedCharacters": 3506,
+        "legacySyntheticJoinedPer100Characters": 0.3137478608100399
+      },
+      "targetOnlyBank": {
+        "per100Characters": 2.301255230125523,
+        "per100Letters": 2.763819095477387
+      },
+      "checks": {
+        "planLongEnough": true,
+        "fourBankPassages": true,
+        "threeBankWords": true,
+        "firstTargetBy20": true,
+        "everyIntegerPrefixDensity": true,
+        "threeWordsBy240": true,
+        "fourCompletePassagesBy480": true,
+        "noAdjacentRepeat": true,
+        "noRepeatBeforeBankExhaustion": true
+      },
+      "certificatePass": true,
+      "prefixesChecked": 237,
+      "failingPrefixCount": 0,
+      "firstFailingPrefix": null,
+      "minimumDensityRatio": 6.10873440285205,
+      "checkpoints": [
+        {
+          "n": 20,
+          "opportunities": 1,
+          "per100Characters": 5,
+          "per100Letters": 5.882352941176471,
+          "densityRatio": 15.577272727272728,
+          "densityPass": true,
+          "words": [
+            "bright"
+          ],
+          "fullyTraversedPassages": 0
+        },
+        {
+          "n": 40,
+          "opportunities": 1,
+          "per100Characters": 2.5,
+          "per100Letters": 2.9411764705882355,
+          "densityRatio": 7.788636363636364,
+          "densityPass": true,
+          "words": [
+            "bright"
+          ],
+          "fullyTraversedPassages": 0
+        },
+        {
+          "n": 80,
+          "opportunities": 2,
+          "per100Characters": 2.5,
+          "per100Letters": 2.9411764705882355,
+          "densityRatio": 7.788636363636364,
+          "densityPass": true,
+          "words": [
+            "bread",
+            "bright"
+          ],
+          "fullyTraversedPassages": 1
+        },
+        {
+          "n": 120,
+          "opportunities": 3,
+          "per100Characters": 2.5,
+          "per100Letters": 2.9702970297029703,
+          "densityRatio": 7.788636363636364,
+          "densityPass": true,
+          "words": [
+            "bread",
+            "bright",
+            "library"
+          ],
+          "fullyTraversedPassages": 2
+        },
+        {
+          "n": 240,
+          "opportunities": 6,
+          "per100Characters": 2.5,
+          "per100Letters": 3,
+          "densityRatio": 7.788636363636364,
+          "densityPass": true,
+          "words": [
+            "bread",
+            "breeze",
+            "bright",
+            "bring",
+            "brown",
+            "library"
+          ],
+          "fullyTraversedPassages": 5
+        }
+      ]
+    },
+    {
+      "pair": "br",
+      "requestedMinimumLength": 480,
+      "length": 522,
+      "promptIds": [
+        "practice-064",
+        "practice-006",
+        "practice-011",
+        "practice-007",
+        "practice-004",
+        "practice-041",
+        "practice-071",
+        "practice-008",
+        "practice-030",
+        "practice-049",
+        "practice-053",
+        "practice-064"
+      ],
+      "earliestPossibleFirstTarget": 4,
+      "availablePassages": 11,
+      "availableWords": [
+        "bread",
+        "break",
+        "breakfast",
+        "breeze",
+        "bridge",
+        "bright",
+        "bring",
+        "brown",
+        "library"
+      ],
+      "general": {
+        "occurrences": 11,
+        "characters": 3427,
+        "per100Characters": 0.3209804493726291,
+        "per100Letters": 0.38896746817538896,
+        "legacySyntheticJoinedCharacters": 3506,
+        "legacySyntheticJoinedPer100Characters": 0.3137478608100399
+      },
+      "targetOnlyBank": {
+        "per100Characters": 2.301255230125523,
+        "per100Letters": 2.763819095477387
+      },
+      "checks": {
+        "planLongEnough": true,
+        "fourBankPassages": true,
+        "threeBankWords": true,
+        "firstTargetBy20": true,
+        "everyIntegerPrefixDensity": true,
+        "threeWordsBy240": true,
+        "fourCompletePassagesBy480": true,
+        "noAdjacentRepeat": true,
+        "noRepeatBeforeBankExhaustion": true
+      },
+      "certificatePass": true,
+      "prefixesChecked": 503,
+      "failingPrefixCount": 0,
+      "firstFailingPrefix": null,
+      "minimumDensityRatio": 6.10873440285205,
+      "checkpoints": [
+        {
+          "n": 20,
+          "opportunities": 1,
+          "per100Characters": 5,
+          "per100Letters": 5.882352941176471,
+          "densityRatio": 15.577272727272728,
+          "densityPass": true,
+          "words": [
+            "bright"
+          ],
+          "fullyTraversedPassages": 0
+        },
+        {
+          "n": 40,
+          "opportunities": 1,
+          "per100Characters": 2.5,
+          "per100Letters": 2.9411764705882355,
+          "densityRatio": 7.788636363636364,
+          "densityPass": true,
+          "words": [
+            "bright"
+          ],
+          "fullyTraversedPassages": 0
+        },
+        {
+          "n": 80,
+          "opportunities": 2,
+          "per100Characters": 2.5,
+          "per100Letters": 2.9411764705882355,
+          "densityRatio": 7.788636363636364,
+          "densityPass": true,
+          "words": [
+            "bread",
+            "bright"
+          ],
+          "fullyTraversedPassages": 1
+        },
+        {
+          "n": 120,
+          "opportunities": 3,
+          "per100Characters": 2.5,
+          "per100Letters": 2.9702970297029703,
+          "densityRatio": 7.788636363636364,
+          "densityPass": true,
+          "words": [
+            "bread",
+            "bright",
+            "library"
+          ],
+          "fullyTraversedPassages": 2
+        },
+        {
+          "n": 240,
+          "opportunities": 6,
+          "per100Characters": 2.5,
+          "per100Letters": 3,
+          "densityRatio": 7.788636363636364,
+          "densityPass": true,
+          "words": [
+            "bread",
+            "breeze",
+            "bright",
+            "bring",
+            "brown",
+            "library"
+          ],
+          "fullyTraversedPassages": 5
+        },
+        {
+          "n": 480,
+          "opportunities": 11,
+          "per100Characters": 2.2916666666666665,
+          "per100Letters": 2.756892230576441,
+          "densityRatio": 7.139583333333333,
+          "densityPass": true,
+          "words": [
+            "bread",
+            "break",
+            "breakfast",
+            "breeze",
+            "bridge",
+            "bright",
+            "bring",
+            "brown",
+            "library"
+          ],
+          "fullyTraversedPassages": 11
+        }
+      ]
+    }
+  ]
+}

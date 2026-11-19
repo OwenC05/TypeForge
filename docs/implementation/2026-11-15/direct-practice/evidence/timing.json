@@ -1,0 +1,203 @@
+{
+  "generatedAt": "2026-11-16T12:48:38.516Z",
+  "method": "scripts/timing.mjs: 240 native keystrokes per round (correct typing, Space commits, 40 ms apart), 1440x900 headless system Chrome, real timers; window capture->bubble listeners bracket the app's synchronous keydown/beforeinput/input handlers; requestAnimationFrame after input gives input-to-next-frame. Timer resolution 0.1 ms (no cross-origin isolation).",
+  "conditions": "Run alone in alternating order final, b898dc6, final, b898dc6 on 127.0.0.1:5301 after the independent reviewer reported ALL Node/probe/npm workload inactive (msg_cb85814fe0c6); no other workload from this worker. Single machine, headless, not a physical-device or human-typing measurement; differences under ~0.3 ms are within noise.",
+  "builds": {
+    "final": "1ad38ca (typing-app/client/dist)",
+    "base": "b898dc6 (git archive, same toolchain)"
+  },
+  "runs": [
+    {
+      "label": "final-r1",
+      "generatedAt": "2026-11-16T12:47:10.048Z",
+      "base": "http://127.0.0.1:5301",
+      "build": {
+        "servedFrom": "http://127.0.0.1:5301",
+        "assets": [
+          "app-BQOyU45s.css",
+          "app-Dvv-e4Tc.js",
+          "define-element-B_WeKIXB.js",
+          "env-B-odJnus.js"
+        ]
+      },
+      "chrome": "Chrome/157.0.8103.52",
+      "keystrokes": 240,
+      "seconds": 12,
+      "state": "running",
+      "pageErrors": [],
+      "ms": {
+        "keydown": {
+          "n": 240,
+          "median": 0.1,
+          "p95": 0.2,
+          "max": 0.7,
+          "mean": 0.08
+        },
+        "beforeinput": {
+          "n": 240,
+          "median": 0,
+          "p95": 0.1,
+          "max": 0.7,
+          "mean": 0.027
+        },
+        "input": {
+          "n": 240,
+          "median": 1.1,
+          "p95": 2,
+          "max": 3.4,
+          "mean": 1.198
+        },
+        "frame": {
+          "n": 240,
+          "median": 5.5,
+          "p95": 15.4,
+          "max": 148.7,
+          "mean": 7.462
+        }
+      }
+    },
+    {
+      "label": "base-r1",
+      "generatedAt": "2026-11-16T12:47:39.807Z",
+      "base": "http://127.0.0.1:5301",
+      "build": {
+        "servedFrom": "http://127.0.0.1:5301",
+        "assets": [
+          "app-CiIXzPbM.css",
+          "app-DRnCp6G3.js"
+        ]
+      },
+      "chrome": "Chrome/157.0.8103.52",
+      "keystrokes": 240,
+      "seconds": 13,
+      "state": null,
+      "pageErrors": [],
+      "ms": {
+        "keydown": {
+          "n": 240,
+          "median": 0.2,
+          "p95": 0.5,
+          "max": 0.6,
+          "mean": 0.256
+        },
+        "beforeinput": {
+          "n": 240,
+          "median": 0.1,
+          "p95": 0.3,
+          "max": 0.5,
+          "mean": 0.142
+        },
+        "input": {
+          "n": 240,
+          "median": 1,
+          "p95": 1.9,
+          "max": 3.8,
+          "mean": 1.089
+        },
+        "frame": {
+          "n": 240,
+          "median": 6.9,
+          "p95": 12.8,
+          "max": 98.9,
+          "mean": 7.021
+        }
+      }
+    },
+    {
+      "label": "final-r2",
+      "generatedAt": "2026-11-16T12:47:58.186Z",
+      "base": "http://127.0.0.1:5301",
+      "build": {
+        "servedFrom": "http://127.0.0.1:5301",
+        "assets": [
+          "app-BQOyU45s.css",
+          "app-Dvv-e4Tc.js",
+          "define-element-B_WeKIXB.js",
+          "env-B-odJnus.js"
+        ]
+      },
+      "chrome": "Chrome/157.0.8103.52",
+      "keystrokes": 240,
+      "seconds": 12,
+      "state": "running",
+      "pageErrors": [],
+      "ms": {
+        "keydown": {
+          "n": 240,
+          "median": 0.1,
+          "p95": 0.2,
+          "max": 0.4,
+          "mean": 0.079
+        },
+        "beforeinput": {
+          "n": 240,
+          "median": 0,
+          "p95": 0.1,
+          "max": 0.1,
+          "mean": 0.022
+        },
+        "input": {
+          "n": 240,
+          "median": 1.1,
+          "p95": 2.2,
+          "max": 3.9,
+          "mean": 1.201
+        },
+        "frame": {
+          "n": 240,
+          "median": 6.1,
+          "p95": 13.8,
+          "max": 56.2,
+          "mean": 6.545
+        }
+      }
+    },
+    {
+      "label": "base-r2",
+      "generatedAt": "2026-11-16T12:48:18.013Z",
+      "base": "http://127.0.0.1:5301",
+      "build": {
+        "servedFrom": "http://127.0.0.1:5301",
+        "assets": [
+          "app-CiIXzPbM.css",
+          "app-DRnCp6G3.js"
+        ]
+      },
+      "chrome": "Chrome/157.0.8103.52",
+      "keystrokes": 240,
+      "seconds": 13,
+      "state": null,
+      "pageErrors": [],
+      "ms": {
+        "keydown": {
+          "n": 240,
+          "median": 0.3,
+          "p95": 0.7,
+          "max": 1.5,
+          "mean": 0.315
+        },
+        "beforeinput": {
+          "n": 240,
+          "median": 0.1,
+          "p95": 0.4,
+          "max": 1.4,
+          "mean": 0.17
+        },
+        "input": {
+          "n": 240,
+          "median": 1.2,
+          "p95": 2.2,
+          "max": 10.9,
+          "mean": 1.254
+        },
+        "frame": {
+          "n": 240,
+          "median": 4.9,
+          "p95": 13.4,
+          "max": 81,
+          "mean": 6.253
+        }
+      }
+    }
+  ]
+}

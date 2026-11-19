@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:typeforge:coach-authority-v3",
+  "title": "P1 r2 strict metadata and membership shapes; semantic validation required",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/metadata"
+    },
+    {
+      "$ref": "#/$defs/membership"
+    }
+  ],
+  "$defs": {
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaId",
+        "databaseId",
+        "defaultContextId",
+        "activeEpochId",
+        "legacyEpochId",
+        "legacyCutoffCompletedAt",
+        "sourceRevision"
+      ],
+      "properties": {
+        "schemaId": {
+          "const": "typeforge-coach-metadata-v3"
+        },
+        "databaseId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "defaultContextId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "activeEpochId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "legacyEpochId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "legacyCutoffCompletedAt": {
+          "type": "string",
+          "minLength": 24,
+          "maxLength": 24,
+          "format": "date-time",
+          "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])T([01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d\\.\\d{3}Z$"
+        },
+        "sourceRevision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      }
+    },
+    "membership": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaId",
+        "databaseId",
+        "contextId",
+        "epochId",
+        "capturedAt",
+        "purpose",
+        "sourceKind",
+        "resultId",
+        "resultSha256"
+      ],
+      "properties": {
+        "schemaId": {
+          "const": "typeforge-coach-membership-v2"
+        },
+        "databaseId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "contextId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "epochId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "capturedAt": {
+          "type": "string",
+          "minLength": 24,
+          "maxLength": 24,
+          "format": "date-time",
+          "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])T([01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d\\.\\d{3}Z$"
+        },
+        "purpose": {
+          "enum": [
+            "ordinary",
+            "protected-probe"
+          ]
+        },
+        "sourceKind": {
+          "enum": [
+            "timed-v1",
+            "finite-practice-v1"
+          ]
+        },
+        "resultId": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+        },
+        "resultSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "originalSha256": "9a06967c04e9dcb00288f71ae5e4baac31a1e3fe080ca95a665f619571ef0f3e",
+  "originalCrlf": 809,
+  "runs": [
+    {
+      "encoding": "LF",
+      "sha256": "352467fad24fd27c3be8aba86adce742ba2c50d41db505e102848b96897cfaf9",
+      "crlf": 0
+    },
+    {
+      "encoding": "LF",
+      "name": "check",
+      "command": [
+        "node",
+        "C:/Program Files/nodejs/node_modules/npm/bin/npm-cli.js",
+        "run",
+        "check"
+      ],
+      "exit": 0,
+      "signal": null
+    },
+    {
+      "encoding": "LF",
+      "name": "typecheck",
+      "command": [
+        "node",
+        "C:/Program Files/nodejs/node_modules/npm/bin/npm-cli.js",
+        "run",
+        "typecheck"
+      ],
+      "exit": 0,
+      "signal": null
+    },
+    {
+      "encoding": "LF",
+      "name": "build",
+      "command": [
+        "node",
+        "C:/Program Files/nodejs/node_modules/npm/bin/npm-cli.js",
+        "run",
+        "build"
+      ],
+      "exit": 0,
+      "signal": null
+    },
+    {
+      "encoding": "LF",
+      "name": "restart-assertions",
+      "command": [
+        "node",
+        "--import",
+        "file:///C:/Users/Owenc/orca/workspaces/TypeForge/typeforge-foundation/docs/implementation/2026-11-15/foundation/combined/count-assertions.mjs",
+        "--experimental-strip-types",
+        "--test",
+        "--test-name-pattern",
+        "^(Restart waits for fresh calibration|restarted retest re-resolves exact origin|assessment from URLs never acquire retest lineage)",
+        "tests/app.test.ts"
+      ],
+      "exit": 0,
+      "signal": null
+    },
+    {
+      "encoding": "CRLF",
+      "sha256": "9a06967c04e9dcb00288f71ae5e4baac31a1e3fe080ca95a665f619571ef0f3e",
+      "crlf": 809
+    },
+    {
+      "encoding": "CRLF",
+      "name": "check",
+      "command": [
+        "node",
+        "C:/Program Files/nodejs/node_modules/npm/bin/npm-cli.js",
+        "run",
+        "check"
+      ],
+      "exit": 0,
+      "signal": null
+    },
+    {
+      "encoding": "CRLF",
+      "name": "typecheck",
+      "command": [
+        "node",
+        "C:/Program Files/nodejs/node_modules/npm/bin/npm-cli.js",
+        "run",
+        "typecheck"
+      ],
+      "exit": 0,
+      "signal": null
+    },
+    {
+      "encoding": "CRLF",
+      "name": "build",
+      "command": [
+        "node",
+        "C:/Program Files/nodejs/node_modules/npm/bin/npm-cli.js",
+        "run",
+        "build"
+      ],
+      "exit": 0,
+      "signal": null
+    },
+    {
+      "encoding": "CRLF",
+      "name": "restart-assertions",
+      "command": [
+        "node",
+        "--import",
+        "file:///C:/Users/Owenc/orca/workspaces/TypeForge/typeforge-foundation/docs/implementation/2026-11-15/foundation/combined/count-assertions.mjs",
+        "--experimental-strip-types",
+        "--test",
+        "--test-name-pattern",
+        "^(Restart waits for fresh calibration|restarted retest re-resolves exact origin|assessment from URLs never acquire retest lineage)",
+        "tests/app.test.ts"
+      ],
+      "exit": 0,
+      "signal": null
+    }
+  ],
+  "restoredSha256": "9a06967c04e9dcb00288f71ae5e4baac31a1e3fe080ca95a665f619571ef0f3e",
+  "restoredExactBytes": true
+}

@@ -1,0 +1,153 @@
+[
+  {
+    "t": "2026-11-15T15:02:54.671Z",
+    "step": "click target geometry",
+    "surface": {
+      "x": 209,
+      "y": 544.0625,
+      "width": 1022,
+      "height": 245
+    },
+    "textarea": {
+      "x": 226,
+      "y": 561.0625,
+      "width": 988,
+      "height": 44
+    }
+  },
+  {
+    "t": "2026-11-15T15:02:54.783Z",
+    "step": "click lower blank area of surface",
+    "active": "body"
+  },
+  {
+    "t": "2026-11-15T15:02:54.892Z",
+    "step": "click on active passage line",
+    "active": "textarea#typing-input"
+  },
+  {
+    "t": "2026-11-15T15:02:54.965Z",
+    "step": "screenshot",
+    "file": "p01-focused-idle-caret.png",
+    "url": "http://127.0.0.1:5187/practice.html?mode=practice",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:02:56.460Z",
+    "step": "selection",
+    "s": [
+      7,
+      12
+    ]
+  },
+  {
+    "t": "2026-11-15T15:02:56.653Z",
+    "step": "screenshot",
+    "file": "p02-selection-shift-arrow.png",
+    "url": "http://127.0.0.1:5187/practice.html?mode=practice",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:02:57.197Z",
+    "step": "screenshot",
+    "file": "p03-wrong-letters-mirror.png",
+    "url": "http://127.0.0.1:5187/practice.html?mode=practice",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:02:57.207Z",
+    "step": "wrong letters",
+    "value": "we have bookxyz",
+    "help": "Space advances words; Backspace corrects the current passage. Enter does not advance. Completed passages cannot be edited. Correction at character 13: expected \"e\"."
+  },
+  {
+    "t": "2026-11-15T15:02:57.385Z",
+    "step": "ctrl+backspace",
+    "value": "we have ",
+    "warnVisible": false
+  },
+  {
+    "t": "2026-11-15T15:02:57.560Z",
+    "step": "enter warning geometry",
+    "box": {
+      "x": 209,
+      "y": 976.25,
+      "width": 1022,
+      "height": 44.796875
+    },
+    "inViewport": false,
+    "text": "Enter does not advance. Use Space after the last word; Backspace corrects this passage."
+  },
+  {
+    "t": "2026-11-15T15:02:57.689Z",
+    "step": "escape",
+    "active": "textarea#typing-input"
+  },
+  {
+    "t": "2026-11-15T15:02:58.015Z",
+    "step": "tab during run",
+    "active": "button#restart",
+    "warning": "This run includes an interruption or unsupported edit. It will be saved with a label and excluded from headline progress.",
+    "box": {
+      "x": 209,
+      "y": 976.25,
+      "width": 1022,
+      "height": 44.796875
+    },
+    "state": "Timer running. Keep typing; Space advances the passage."
+  },
+  {
+    "t": "2026-11-15T15:02:58.084Z",
+    "step": "screenshot",
+    "file": "p04-tab-during-run-viewport.png",
+    "url": "http://127.0.0.1:5187/practice.html?mode=practice",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:02:59.113Z",
+    "step": "enter on focused restart",
+    "active": "textarea#typing-input",
+    "remaining": "60",
+    "warnHidden": true
+  },
+  {
+    "t": "2026-11-15T15:03:05.220Z",
+    "step": "after 4 passages scroll",
+    "cursorTop": 623.25,
+    "vpTop": 544.0625,
+    "vpBottom": 789.0625,
+    "scrollTop": 0
+  },
+  {
+    "t": "2026-11-15T15:03:05.275Z",
+    "step": "screenshot",
+    "file": "p05-after-four-passages.png",
+    "url": "http://127.0.0.1:5187/practice.html?mode=practice",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "fullPage": false
+  },
+  {
+    "t": "2026-11-15T15:03:05.486Z",
+    "step": "window blur",
+    "warning": "This run includes an interruption or unsupported edit. It will be saved with a label and excluded from headline progress."
+  }
+]

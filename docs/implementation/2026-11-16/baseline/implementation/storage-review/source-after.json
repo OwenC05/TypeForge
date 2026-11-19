@@ -1,0 +1,252 @@
+[
+  {
+    "path": "typing-app/client/package-lock.json",
+    "gitBlob": "151cf9b3f5022abed2d3783b7fc6991127b11fb3",
+    "sha256": "c54a9f65c71af508465f95d25b45515b4733efde3cbcf62911a78425bbb36cc8"
+  },
+  {
+    "path": "typing-app/client/package.json",
+    "gitBlob": "a92cf80db2aad307634e0883597e4c6e89084f26",
+    "sha256": "38283cf58160d6b51c0258d70a1ec85b120100b04aa577927419b5fec80555f1"
+  },
+  {
+    "path": "typing-app/client/src/app.ts",
+    "gitBlob": "6135d9006dc52aea054b2036300fb881232a90f9",
+    "sha256": "2ffd829110cf9401b0d710e4d1c7c9d754dcf95d499223d6a23a7205433138f3"
+  },
+  {
+    "path": "typing-app/client/src/coach-catalogue.json",
+    "gitBlob": "cf7f0975fde5b702c72d59f786d47f03cfd31ea8",
+    "sha256": "1e821571403a2ba558a84ec696e052a33cfbd21c3eda7a07bebf448be1a4f931"
+  },
+  {
+    "path": "typing-app/client/src/coach-config.json",
+    "gitBlob": "bb30c0092b1619316776c728d285e18ea337f98e",
+    "sha256": "949d5cd20710f69924470a953274063198be2c99fbeacda76877cc4846d3284b"
+  },
+  {
+    "path": "typing-app/client/src/coach-plan.ts",
+    "gitBlob": "8c3c411f56b9732fe2a47ff1bcbf509e71f85107",
+    "sha256": "289a3bde9443d3791257c27556c4d3dd7b2c165edf5cf7dace2a379134d7e3d5"
+  },
+  {
+    "path": "typing-app/client/src/coach-policy.ts",
+    "gitBlob": "a3868390989d6b8e84e370ee125fdfd3c19c0cce",
+    "sha256": "15e96269947005cccf3a1f1debf7928e486d7cb5e22e81f192132d304b36463b"
+  },
+  {
+    "path": "typing-app/client/src/coach-storage.ts",
+    "gitBlob": "ec62e02598b787c69be1891b54e4a63751ba1082",
+    "sha256": "4e35c6f4d7547870417ec9f462476225e8e75eeaae96758096134ab94d156f77"
+  },
+  {
+    "path": "typing-app/client/src/coach-types.ts",
+    "gitBlob": "43f7c070788631e8014ee905dc634d55171cb38a",
+    "sha256": "0d84fa8dcc63ab7c4d8f24c7d29a96a79f40b62b7bd493a9a8641e1e9845cce0"
+  },
+  {
+    "path": "typing-app/client/src/corpus.ts",
+    "gitBlob": "f50180ea88f95d1b0c2a999a3e94f447a2b587fb",
+    "sha256": "28f37ce212e8704397e0097f22b77b2f9f84978f86f9db767decb5edf505741e"
+  },
+  {
+    "path": "typing-app/client/src/engine.ts",
+    "gitBlob": "49191b896c27a5381ca2cbfa6c366221cd5820fe",
+    "sha256": "d62b08eee7c1acc55ba2d31ca914d3db52a93017e27fba55d37f154293a936c9"
+  },
+  {
+    "path": "typing-app/client/src/finite-practice-result.ts",
+    "gitBlob": "a1ea3f4c3d359ad3973ec8f6ba1b03111e88b9c7",
+    "sha256": "fd8200654a792fb3d6cdb86cda02f3701e92bf874aa725ffc7ceb19249a3c7e0"
+  },
+  {
+    "path": "typing-app/client/src/finite-practice.ts",
+    "gitBlob": "727e469d0f24edc8d52e1029aae461988e20dbc0",
+    "sha256": "e10b6accfee3047d875ebbf40e2b1d3707888f6f4448f9f2cdef8944fa06c498"
+  },
+  {
+    "path": "typing-app/client/src/generated/benchmark.json",
+    "gitBlob": "61f1999ed790a812218f672b046a3cf3a5f7028b",
+    "sha256": "eb2fa62020e6edca75f2b21e7ef2079df1e79e35254c9e3e5b1d886d64bbf713"
+  },
+  {
+    "path": "typing-app/client/src/generated/model.json",
+    "gitBlob": "1f8996759cc665ba09bbc8145907dd66ea9b7cfd",
+    "sha256": "d7d960f4c553a84bae92ff36dd4890a1e321ac9967f777708e44c13ea0f64862"
+  },
+  {
+    "path": "typing-app/client/src/model.ts",
+    "gitBlob": "9c9a254f32d43b6129311db5ba22776c0abfecaf",
+    "sha256": "1ad60559fd7187692272eca3e8721ac43606628b317effb0c73ec40d94641e4e"
+  },
+  {
+    "path": "typing-app/client/src/preferences.ts",
+    "gitBlob": "9b0ef83748f1a5f8983cde38c4999671496ea68b",
+    "sha256": "73ffb83b23cde3edd1c79eddb5848e44b959aa497c8c7114f2f46df4a3b69966"
+  },
+  {
+    "path": "typing-app/client/src/profile.ts",
+    "gitBlob": "4278d052ab900aa5b10a05bb9446812d835f35a4",
+    "sha256": "3eb148c75f85482675ab00f4577b3a7a450f4ba8268734d5f74c8646bd5d4b9b"
+  },
+  {
+    "path": "typing-app/client/src/storage.ts",
+    "gitBlob": "a65a6e2a1933ecac25049cc6e5444d59d990d3da",
+    "sha256": "ce7834de8f3ba1f189b0ce0b3f854bb6f33ba1d5127629bea023ee64ff1a844b"
+  },
+  {
+    "path": "typing-app/client/src/style.css",
+    "gitBlob": "1b10cbea2453aad470ca5b4918b1f222309eda89",
+    "sha256": "685d4c99dcb0a9355258c14ba2589eda00446b88528d57a4358030857b34e526"
+  },
+  {
+    "path": "typing-app/client/src/unsaved.ts",
+    "gitBlob": "31f9562482db4080226784de701b5a426b6c668f",
+    "sha256": "3e12efd6236c7276b6da5a02fd49b29c8d309f68f30929e03507ea9fbdfe7fff"
+  },
+  {
+    "path": "typing-app/client/tests/app.test.ts",
+    "gitBlob": "904fb2470be17028f5759c4318f4b1af56085db1",
+    "sha256": "389a05f1a9276252bab2c8191a420da9514f6e97bf9899b8c6980c14420d4f3f"
+  },
+  {
+    "path": "typing-app/client/tests/browser/README.md",
+    "gitBlob": "062267fcf1765766c99b457a68cab79c232dec76",
+    "sha256": "e4584f58ec95eda107b7773dac7bf44634c2485f74d9ba7c74820d8218878a22"
+  },
+  {
+    "path": "typing-app/client/tests/browser/bounded-history.html",
+    "gitBlob": "61b9edd9db34a5bd75076c42dfeef62dc8c1c41f",
+    "sha256": "1af3f948c8beb5f6cb48fa79669088c8c87ec3e1af0167d6e84d6b0a56a90da6"
+  },
+  {
+    "path": "typing-app/client/tests/browser/bounded-history.ts",
+    "gitBlob": "9064da35a7f9b2696f45859fdfa27b57ddc05152",
+    "sha256": "9dd5c44f931e0b0fcf0772d10034443e96927ba5afa118c8f7f0a4226cd9673d"
+  },
+  {
+    "path": "typing-app/client/tests/browser/coach-storage.html",
+    "gitBlob": "b250c980f651921a703de2e245cc24a92643f6e1",
+    "sha256": "1fa09576063351545e4671f429c18e3186c9701d1c58756082887969bce01af5"
+  },
+  {
+    "path": "typing-app/client/tests/browser/coach-storage.ts",
+    "gitBlob": "2cfa6100c0d915964ee74a0e90aba5aebff58d55",
+    "sha256": "ad86b4b6b0c664992bf34d472de7fb76fe63c472fba0fb63d1dcbd42cb5f7a48"
+  },
+  {
+    "path": "typing-app/client/tests/browser/typing-flow.js",
+    "gitBlob": "e4dbfb639384106ec829fd8f17c0cdf62b8d61df",
+    "sha256": "4cd4f57802cc415e06960e1bdc35d8d1ed5e32c2146869163d6604f9d4e58c8b"
+  },
+  {
+    "path": "typing-app/client/tests/browser/ui-sdk-agent.mjs",
+    "gitBlob": "bb0f8766017532d80f9cb8060fd93622e47be691",
+    "sha256": "23dcebaed861f0b2920871cb51475e278705d18388dc7be0d01bac3680759776"
+  },
+  {
+    "path": "typing-app/client/tests/browser/ui-sdk-cost.mjs",
+    "gitBlob": "26ed5a6e33493591ed608b1ae0a9064192449153",
+    "sha256": "93a4dc9b6850f6834d91206f12934fd393f430fd5dfc6c1bb56b11fa7239e38d"
+  },
+  {
+    "path": "typing-app/client/tests/browser/ui-sdk-proof.html",
+    "gitBlob": "a70234e04349d4f149668f07c505c52a7dbe386d",
+    "sha256": "3ff13295766edbccd3cf20bc999d4c989c5bc29c73014c3959d80942409d4b54"
+  },
+  {
+    "path": "typing-app/client/tests/browser/ui-sdk-proof.ts",
+    "gitBlob": "3701615b9a0c64ccad3687fcbe328210911a5d55",
+    "sha256": "dc8c0f8db64ec5cb1ea650998cbdbc98d980583ad50b662634b98ba544e605c1"
+  },
+  {
+    "path": "typing-app/client/tests/coach-plan.test.ts",
+    "gitBlob": "be12fca85558f2cfda15068e0c0c81131f198ad3",
+    "sha256": "d2b73e1ace6f1d7bb6176bce58fa8954249d266e366b8899f8dac74fb0e4b366"
+  },
+  {
+    "path": "typing-app/client/tests/coach-policy.test.ts",
+    "gitBlob": "71576b790645ab5578f49dde0424e8f5ebf79e27",
+    "sha256": "9fc29d25dd5ddc1210392924c1c68d2eb2f83baedc8fadd7518f34ad92de3030"
+  },
+  {
+    "path": "typing-app/client/tests/coach-storage.test.ts",
+    "gitBlob": "04ccef3b118b2a6747eb0f3772879476e032e9e3",
+    "sha256": "6960684b8aff1ceadb689ffadf0cae4465581ee00610ff9b49aaa56f89d96fdb"
+  },
+  {
+    "path": "typing-app/client/tests/continuation.test.ts",
+    "gitBlob": "750bd20827411f05240b82922259f3dfead1a797",
+    "sha256": "615f90fb4101d9f573295cd6825df515fb7261ac4cec7fc114210c2ce989f606"
+  },
+  {
+    "path": "typing-app/client/tests/corpus.test.ts",
+    "gitBlob": "61afdff570a29bd67fc2deb88c938936dd4571f8",
+    "sha256": "f2490726b4545231d70e8f15fe805c699362e75fdaa9a77bb85f003f0cefcb56"
+  },
+  {
+    "path": "typing-app/client/tests/engine.test.ts",
+    "gitBlob": "0b08123fd99824e2e951f0e971c55102f6f18c8c",
+    "sha256": "49df6d59ec03b2a515b1a7fc1d6a09978c4b59c4ca7f447237878b4b1852d0ef"
+  },
+  {
+    "path": "typing-app/client/tests/finite-practice.test.ts",
+    "gitBlob": "6e4aea6dcf355b3665306d50ed3ca46716c2f209",
+    "sha256": "c9fc17716d7135cd96c52af39b7a0143561831d0902e36b2a3845192d361bcd9"
+  },
+  {
+    "path": "typing-app/client/tests/fixtures/legacy-v1.json",
+    "gitBlob": "1025abde6492eee1cda32f4f7bd523e58cdea2f1",
+    "sha256": "7840a9b803fde77ae4c5efa8b88fa9246fb22e7cc3cdae455dd144a4376dc4df"
+  },
+  {
+    "path": "typing-app/client/tests/flow-capacity.test.ts",
+    "gitBlob": "c14805a65c1f2520cf61aed23e9ad8a7d17207f1",
+    "sha256": "a709dc7b50ca00a6e2c19c81c0d84a27cf3ffd6649f0a9f96a74b366073a0524"
+  },
+  {
+    "path": "typing-app/client/tests/history.test.ts",
+    "gitBlob": "2439a44be67bc6bac7388ac66178e026cd088747",
+    "sha256": "5188f8fd56a5546f99a537593764446ab456ba896494c4dc3d9b94e40bc198fb"
+  },
+  {
+    "path": "typing-app/client/tests/legacy.test.ts",
+    "gitBlob": "9d6c4b74edc169d00b53bbad536731cfc2cbe961",
+    "sha256": "675bb020ebfbb7c32e7dd9b65ba06c02e4a66f33f57fbb481cf3bc3502731cd6"
+  },
+  {
+    "path": "typing-app/client/tests/model.test.ts",
+    "gitBlob": "735134a951f1796298c22f38938887f6ceec4f46",
+    "sha256": "97a14549dd78e3e7a8333d8a36c0b48381b676590630241631e03259be7a4671"
+  },
+  {
+    "path": "typing-app/client/tests/preferences.test.ts",
+    "gitBlob": "7ed25983d34e57b573d7192a007c16515057cbf2",
+    "sha256": "626d2eae6e6d22ecd60c17470add9e521a80f756e6d4bfbcee3a33ca4ff734f6"
+  },
+  {
+    "path": "typing-app/client/tests/profile.test.ts",
+    "gitBlob": "7441e719187293735d659bbf242af2192c4f66d1",
+    "sha256": "a2be4ec1a2d152a050a91919062e88c8562789ce4ed7a638b7bcb88ce6b1f9b9"
+  },
+  {
+    "path": "typing-app/client/tests/storage.test.ts",
+    "gitBlob": "bbd756ad23fb38bb2331d6d03afcd01e9d29dd65",
+    "sha256": "ad151d4fd38c61af0bb5d572c7868d969d81e372b5ee4d8c50e8e0c9d05d3e93"
+  },
+  {
+    "path": "typing-app/client/tests/unsaved.test.ts",
+    "gitBlob": "719468cf1ea81e239655493fd97ed4486ec7231b",
+    "sha256": "b04ab723cfeec12ea203e031e40048fde8915a593109a30e57a3b83d862b5e99"
+  },
+  {
+    "path": "typing-app/client/tsconfig.json",
+    "gitBlob": "7b30e01a055b81a611b45c6fc03f0788b7bf4df9",
+    "sha256": "d76f95e5cdacec045924818565747a67317b08cd0e69a1b332a2e1bf0802ccc3"
+  },
+  {
+    "path": "typing-app/client/vite.config.ts",
+    "gitBlob": "ef34704b7f7d94b3be945b61da7cd9ad2b75d65f",
+    "sha256": "0c6e82ff4d646fb064ff1dc50076815b837496b1c692fbc990a69732509426d7"
+  }
+]

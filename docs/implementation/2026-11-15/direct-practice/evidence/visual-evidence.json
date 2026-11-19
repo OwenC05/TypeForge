@@ -1,0 +1,555 @@
+{
+  "schemaVersion": "uizze.visual-evidence.v1",
+  "scope": "TypeForge direct practice \"Paper and ink\" redesign at /: ready, running, error, result, save failure, unsaved-result recovery, held departure, pair list, context-line wrapping (L-1) and 200% zoom. Every capture is from the build app-BNPI8kHH.js / app-ChsJ1aui.css / define-element-B_WeKIXB.js / env-B-odJnus.js.",
+  "platform": "web",
+  "sources": [
+    {
+      "path": "../../../../../typing-app/client/src/style.css",
+      "sha256": "aea2a41c05d83191ceedaae632358f6eb8f9e0bee606e5bb6905dd490e93569c"
+    },
+    {
+      "path": "../../../../../typing-app/client/src/app.ts",
+      "sha256": "2ffd829110cf9401b0d710e4d1c7c9d754dcf95d499223d6a23a7205433138f3"
+    },
+    {
+      "path": "../../../../../typing-app/client/src/unsaved.ts",
+      "sha256": "3e12efd6236c7276b6da5a02fd49b29c8d309f68f30929e03507ea9fbdfe7fff"
+    },
+    {
+      "path": "../../../../../typing-app/client/index.html",
+      "sha256": "73abbfc6591b5097912fddf6745ab5ec5222df18d122a1b27ace4f78fb4f6b78"
+    }
+  ],
+  "comparison": "target",
+  "target": {
+    "path": "../target/target-1440-running.png",
+    "sha256": "418262ddd32675b506b7bfbd9183c7bd40bbecae08ac7aa5313275a4ead976f1",
+    "kind": "image"
+  },
+  "otherTargets": [
+    {
+      "path": "../target/target-1440-result.png",
+      "sha256": "4111fa83f1599e46a01e0ea673decf729efb8ec5f31a949c726ad09d70ca3fb9",
+      "kind": "image"
+    },
+    {
+      "path": "../target/target-390-ready.png",
+      "sha256": "c28dd970c91b2fc6b1ad42adee4866a3605f453e89cc8acae43eabcff2bc092e",
+      "kind": "image"
+    }
+  ],
+  "acceptedDifferences": [
+    "Numerals and passage follow the direction (96 px figures, 32 px passage at 1440), smaller than the generated targets (target inspection T-6).",
+    "Wordmark smaller than in the targets; \"Saved in this browser.\" in sentence case.",
+    "Pair practice is a segmented \"pair\" key plus a separate trigger showing the current pair, so the value is always visible.",
+    "Suggested is drawn dashed when unavailable rather than solid and faded.",
+    "No paper grain (optional per T-9).",
+    "The active passage (the line being typed) wraps with break-all at narrow widths, so it can break mid-word; word-safe wrapping of the editor failed the geometry matrix. The non-editable previous and next lines keep whole words (L-1).",
+    "Clicking an untyped glyph on a line below the typed text moves the native caret to the same column on the last typed line (native textarea hit-testing; no edit)."
+  ],
+  "unresolved": [],
+  "requiredChecks": [
+    {
+      "id": "ready-first-visit",
+      "kind": "visual"
+    },
+    {
+      "id": "running-and-error",
+      "kind": "visual"
+    },
+    {
+      "id": "result-in-place",
+      "kind": "visual"
+    },
+    {
+      "id": "save-failure",
+      "kind": "visual"
+    },
+    {
+      "id": "unsaved-line",
+      "kind": "interaction"
+    },
+    {
+      "id": "held-departure",
+      "kind": "interaction"
+    },
+    {
+      "id": "focus-lost",
+      "kind": "visual"
+    },
+    {
+      "id": "pair-list",
+      "kind": "interaction"
+    },
+    {
+      "id": "context-wrap",
+      "kind": "visual"
+    },
+    {
+      "id": "zoom-200",
+      "kind": "visual"
+    }
+  ],
+  "checks": [
+    {
+      "id": "ready-first-visit",
+      "status": "pass",
+      "state": "Clean first visit to / at 1440, 390 and 320: 30 s General ready with native focus, no gate",
+      "observed": "Matches target-390-ready.png structure: rail of keys with the non-interactive \"s\" unit (T-1), two-row wrap at 390 and 320 (T-8, keys ≥40 px), countdown 30 with GENERAL PRACTICE · 30 S and why?, passage in monospace with the active line near 40% at 390 and 37.7% at 1440. Wordmark smaller than the target; no paper grain (T-9, optional).",
+      "environment": {
+        "kind": "browser",
+        "name": "Chrome 157.0.8103.52 (headless, system install)",
+        "width": 1440,
+        "height": 900
+      },
+      "viewports": [
+        "1440x900",
+        "390x844",
+        "320x640"
+      ],
+      "artifacts": [
+        {
+          "path": "screenshots/1440-01-ready-focused-first-visit.png",
+          "sha256": "e92d66b64ae0c2e7e3b7bdd073f18ea9b53b7be0b674a91918abdbbf5c50cd07",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/390-01-ready-focused-first-visit.png",
+          "sha256": "6830eff894897a41a9a671b99566e77a3346abc3c6d5c6f8a12452eaa795915b",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/320-01-ready-focused-first-visit.png",
+          "sha256": "b6160d4f3a901d6dd9a805db7080b2078b89a1ee55e22ce72617838e5c987f68",
+          "kind": "image"
+        }
+      ]
+    },
+    {
+      "id": "running-and-error",
+      "status": "pass",
+      "state": "Running block and first mismatch at 1440, 390, 320",
+      "observed": "Matches target-1440-running.png: rail hidden with its space kept (T-5), top bar faded, slot as a hairline rule with restart on it (T-4), footer hidden, vermilion expected-glyph tag above the first mismatch with uniform monospace advances (T-3). Numerals and passage follow the direction sizes (96/32 px), smaller than the generated target.",
+      "environment": {
+        "kind": "browser",
+        "name": "Chrome 157.0.8103.52 (headless, system install)",
+        "width": 1440,
+        "height": 900
+      },
+      "viewports": [
+        "1440x900",
+        "390x844",
+        "320x640"
+      ],
+      "artifacts": [
+        {
+          "path": "screenshots/1440-03-running.png",
+          "sha256": "7f62df7904058d1cf2a43e18bf66d176fde3e1998b1bab55e8b62b39933476f1",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/1440-04-running-error.png",
+          "sha256": "cdb59f2ee20cd599d9414c139e710c88f6304a7e6d4f2e38e768e13c42217173",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/390-03-running.png",
+          "sha256": "875a9acaa2f380614c77076b89b7da55b28fed91c7cc9cf884041cb6e8a0b194",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/390-04-running-error.png",
+          "sha256": "f2517242bbf973137c8f6c5d55976520f8720268029cf88555f18c643dfbe873",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/320-03-running.png",
+          "sha256": "72aadd30bc9607fd2818679ce8494f4ed27acadf01621ff9af013a09e1ab2461",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/320-04-running-error.png",
+          "sha256": "49af556f7d71d28a0b48d514520057138f8b989d8dffbbc934d86e5ae2411fdc",
+          "kind": "image"
+        }
+      ]
+    },
+    {
+      "id": "result-in-place",
+      "status": "pass",
+      "state": "Practice result in place, saved, Again focused, today line above",
+      "observed": "Matches target-1440-result.png: one numeral size for both metrics with baseline labels (T-6), rail and result aligned to the content column (T-7), no restart or key hints in the result (T-10). \"Saved in this browser.\" is sentence case (target uppercase).",
+      "environment": {
+        "kind": "browser",
+        "name": "Chrome 157.0.8103.52 (headless, system install)",
+        "width": 1440,
+        "height": 900
+      },
+      "viewports": [
+        "1440x900",
+        "390x844",
+        "320x640"
+      ],
+      "artifacts": [
+        {
+          "path": "screenshots/1440-10-practice-result.png",
+          "sha256": "0feb156dfd057d76bdbdddc648b65c822b50a2970dba0b4396bbf48916b28586",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/390-10-practice-result.png",
+          "sha256": "6b58fcee010162b814cce4daeee67c0063f9cb914ab41fd7706400afbb347228",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/320-10-practice-result.png",
+          "sha256": "5ac3ff9297850edde7784105eda614898808136c4adb89ff8a9a2025e1f93a82",
+          "kind": "image"
+        }
+      ]
+    },
+    {
+      "id": "save-failure",
+      "status": "pass",
+      "state": "Save failed in place, then retried",
+      "observed": "Failed save uses the notice treatment left-aligned with the result (ink sentence, vermilion-deep rule, retry saving and export on one row); after a successful retry the row returns to the quiet saved state. At 390/320 the row is below the captured viewport; a full-page probe confirmed the same layout and no horizontal overflow.",
+      "environment": {
+        "kind": "browser",
+        "name": "Chrome 157.0.8103.52 (headless, system install)",
+        "width": 1440,
+        "height": 900
+      },
+      "viewports": [
+        "1440x900",
+        "390x844",
+        "320x640"
+      ],
+      "artifacts": [
+        {
+          "path": "screenshots/1440-18-save-failure.png",
+          "sha256": "ba30498d9436303b3348997dc9505d73a5945350b51f8ec583b02d038518272a",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/1440-19-save-retried.png",
+          "sha256": "f9e5d4d9f9ffdcb7c981199d6dd82613246f09d3207546e899dc2b1fa267f567",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/390-18-save-failure.png",
+          "sha256": "b2d61b1121fe6ad05057ff09bc875ae5be36431b0c59766852dbe5a80b37cb1f",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/390-19-save-retried.png",
+          "sha256": "83558c56f6ac6ab20bca6d6c3d972c7c28ecdf576079582780bb793c1129e66e",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/320-18-save-failure.png",
+          "sha256": "68beea4d6096a173ffda6689ed8f6cb30cbd4283339ec0d6a28f7bad639c553b",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/320-19-save-retried.png",
+          "sha256": "03dc8f8af23b5988317ef370ee93bcb92c3ced959ccfe7ae5a6d857ac0787f4c",
+          "kind": "image"
+        }
+      ]
+    },
+    {
+      "id": "unsaved-line",
+      "status": "pass",
+      "state": "One and two carried unsaved results, then a run with a hint in the slot",
+      "observed": "The line sits first in the reserved slot without moving the stage, surface or active line (asserted equal to a clean ready block); during a run it shows only the count, inert, and a run hint fits beneath it without scrolling at all three widths.",
+      "environment": {
+        "kind": "browser",
+        "name": "Chrome 157.0.8103.52 (headless, system install)",
+        "width": 1440,
+        "height": 900
+      },
+      "viewports": [
+        "1440x900",
+        "390x844",
+        "320x640"
+      ],
+      "artifacts": [
+        {
+          "path": "screenshots/1440-20-unsaved-1-ready.png",
+          "sha256": "53756eebfec53e5749e0da7d2fb18db90c27ec96cb937aaf6515229c31129fa5",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/1440-21-unsaved-2-ready.png",
+          "sha256": "751961abea0e5b99607d08d66cc5e620bc0d4188c4dade6ea53d654352b94677",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/1440-22-unsaved-2-running-with-hint.png",
+          "sha256": "31b08475d778120e97b3cdd573a371c402a3a3f3a4e13dcb777cf9d463d2b2f6",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/390-20-unsaved-1-ready.png",
+          "sha256": "32ca3a3c1fb4baad51c25352fb401f97c36add081acf49225a0067af71830d79",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/390-21-unsaved-2-ready.png",
+          "sha256": "a8daefc853df55972131d2dabaa1c7cf45506e55e34c20a770fb0d154bf50266",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/390-22-unsaved-2-running-with-hint.png",
+          "sha256": "2733695ff244e1b1bb62da7d705d620869fb4c67431f97f6243f1c37db2b3bdb",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/320-20-unsaved-1-ready.png",
+          "sha256": "93eaec981a8a37db46640ad256fb37ef9300fc9b36e3d4fc0215eaddb4e01a5e",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/320-21-unsaved-2-ready.png",
+          "sha256": "5de2b2565b1689a3e534981f5465e41cb5b2dbcf23610887759a2d4d440c00fa",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/320-22-unsaved-2-running-with-hint.png",
+          "sha256": "4d39f9d2ac924638b5ef75de826f97b95b70a40afc369dd69f5a1d49e70acc6a",
+          "kind": "image"
+        }
+      ],
+      "steps": [
+        "Inject storage failure at IDBObjectStore.add",
+        "Complete a 15 s block; press Enter on focused Again",
+        "Complete a second block; press Enter on Again",
+        "Type three characters; press Enter for the run hint"
+      ]
+    },
+    {
+      "id": "held-departure",
+      "status": "pass",
+      "state": "In-app link held while results are unsaved, during a run and from an assessment result",
+      "observed": "First activation is held (same document and URL): \"N results not saved. Leaving this page loses them.\" with Export focused and \"leave without saving\"; the held line is operable during a run and the slot grows downward only while held (stage, active line and slot top unchanged); returning to the passage cancels the hold.",
+      "environment": {
+        "kind": "browser",
+        "name": "Chrome 157.0.8103.52 (headless, system install)",
+        "width": 1440,
+        "height": 900
+      },
+      "viewports": [
+        "1440x900",
+        "390x844",
+        "320x640"
+      ],
+      "artifacts": [
+        {
+          "path": "screenshots/1440-23-departure-held-running.png",
+          "sha256": "b9f1216bb712ea7ba53752a8180aa4ebd0e1ee27ca5f6fe101e3fe94dddcd968",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/1440-24-departure-held-assessment.png",
+          "sha256": "a3c0a2dfec9e61ce8392b459fe088898cf2a23644a41259ab9d242a6271ade82",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/390-23-departure-held-running.png",
+          "sha256": "170fc9b3c30d62b27202531b87b6c72a881589d2adb5868305418039bbcacb24",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/390-24-departure-held-assessment.png",
+          "sha256": "d97dde2ea2230f5207f6e5b983b1a617dd5f0a24562f34621a5005171c74f09b",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/320-23-departure-held-running.png",
+          "sha256": "de69f44eaa170451ed6e8c6383f9cb6f263b8f96966b11f35d17ad77e871c883",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/320-24-departure-held-assessment.png",
+          "sha256": "1e90daeb47dc1c16fec8693f4d51d4c5e86242afb3445da919d74fd1a57bf6ae",
+          "kind": "image"
+        }
+      ],
+      "steps": [
+        "With two unsaved results, type during a run",
+        "Click the wordmark link",
+        "Observe the held line and focus; click continue typing",
+        "Click the wordmark again; press Enter on Export; click leave without saving",
+        "Assessment: click practice next, then click it again"
+      ]
+    },
+    {
+      "id": "focus-lost",
+      "status": "pass",
+      "state": "Focus lost mid-run: integrity notice and continue-typing key",
+      "observed": "The notice uses the slot with its vermilion-deep rule; the continue-typing key covers the dimmed passage; nothing above the slot moves.",
+      "environment": {
+        "kind": "browser",
+        "name": "Chrome 157.0.8103.52 (headless, system install)",
+        "width": 1440,
+        "height": 900
+      },
+      "viewports": [
+        "1440x900",
+        "390x844",
+        "320x640"
+      ],
+      "artifacts": [
+        {
+          "path": "screenshots/1440-08-focus-lost.png",
+          "sha256": "7a97d43b34259fe8c7ef660e55173d3e0fd7a79eb7ab16e573414de8e035c7c7",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/390-08-focus-lost.png",
+          "sha256": "d670e2160230b20a45d02e9900f9b0a3e365e959a6eecc9f8398aa94d4903b8f",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/320-08-focus-lost.png",
+          "sha256": "d6ef84dc4de8f753a7e394b1b955189c31dfb22678abe28e197fb50a93941f78",
+          "kind": "image"
+        }
+      ]
+    },
+    {
+      "id": "pair-list",
+      "status": "pass",
+      "state": "Pair list open from the pair trigger",
+      "observed": "The pair trigger shows the current value (th) beside the segmented \"pair\" key; the lazy Select opens as a grid of supported pairs with th scrolled into view inside the list, highlighted and focused; the page does not scroll (states.json facts at all three widths).",
+      "environment": {
+        "kind": "browser",
+        "name": "Chrome 157.0.8103.52 (headless, system install)",
+        "width": 1440,
+        "height": 900
+      },
+      "viewports": [
+        "1440x900",
+        "390x844",
+        "320x640"
+      ],
+      "artifacts": [
+        {
+          "path": "screenshots/1440-12-pair-popover.png",
+          "sha256": "c791ebd7395255f8dfbf579659144313759ff3457029c8b775d42f2f780ae0af",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/390-12-pair-popover.png",
+          "sha256": "4d0d7cb16f6a38f743effc29bf9a5e0e85451a5a6c2bed2980cd279684edeb6b",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/320-12-pair-popover.png",
+          "sha256": "b25a5b1c945c77b4871af7940098d5252ebc4fabf1217fc8890dbfa6422f915a",
+          "kind": "image"
+        }
+      ],
+      "steps": [
+        "Return to / with 60 s pair practice remembered",
+        "Click the pair trigger"
+      ]
+    },
+    {
+      "id": "context-wrap",
+      "status": "pass",
+      "state": "L-1: non-editable previous and next lines at ready and after a committed passage with one error, shipped CSS beside the pre-L-1 rule re-applied by a test-only style (same build, seed 3)",
+      "observed": "Shipped: the upcoming and committed lines keep whole words at 390 and 320 (0 split words over the lead's 25 seeds at each width, context-wrap.json; the old rule splits 17/25 and 13/25 upcoming lines, matching the lead review). The committed line keeps its wavy vermilion .missed mark, the active line stays at the same top for every seed, and the active passage still breaks mid-word by contract (break-all).",
+      "environment": {
+        "kind": "browser",
+        "name": "Chrome 157.0.8103.52 (headless, system install)",
+        "width": 1440,
+        "height": 900
+      },
+      "viewports": [
+        "1440x900",
+        "390x844",
+        "320x640"
+      ],
+      "artifacts": [
+        {
+          "path": "screenshots/ctxwrap-390-shipped-ready.png",
+          "sha256": "43582a6ee9eecd8d85aea72419982f25ab7f5b7a07a5b5cacf312cbe2b7ff30c",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/ctxwrap-390-shipped-committed.png",
+          "sha256": "414fd9baa57db077eb27d4b9d1202c3855edcf1188ca387e62c433c0f56c27c6",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/ctxwrap-390-old-rule-ready.png",
+          "sha256": "874197623fbc8a1ce92d8bd0ba72e24e5c44ae83996c5d79f0107446fc025ec1",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/ctxwrap-390-old-rule-committed.png",
+          "sha256": "5b8977df2273536f55efd5872e4b8f741cdd1758d0924996f4f3498c9aad49f1",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/ctxwrap-320-shipped-ready.png",
+          "sha256": "4e39c1452c59324800bb8cbd19f71e9df72100951bbec973f73ce369f488d5ba",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/ctxwrap-320-shipped-committed.png",
+          "sha256": "204febcdf4737f38c7bdc85a429f15f8e22db7b7ed444cc422ca910c89340b40",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/ctxwrap-320-old-rule-ready.png",
+          "sha256": "4e39c1452c59324800bb8cbd19f71e9df72100951bbec973f73ce369f488d5ba",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/ctxwrap-320-old-rule-committed.png",
+          "sha256": "df8f4fd8a1a3718a8e7becf3463267de8bde2ce9de588e76ae361603b5fcbd1c",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/ctxwrap-1440-shipped-committed.png",
+          "sha256": "46fdb1015c16052dff4e6f060a17f96397fe9c8ae6050d48abc9cd07c7a92555",
+          "kind": "image"
+        }
+      ],
+      "steps": [
+        "Open / with the lead's seeded Math.random (seed 3 shown)",
+        "Type the first passage with one wrong glyph mid-word",
+        "Press Space to commit"
+      ]
+    },
+    {
+      "id": "zoom-200",
+      "status": "pass",
+      "state": "Real 200% browser zoom (profile default zoom, devicePixelRatio 2): ready and first mismatch",
+      "observed": "No horizontal overflow, rail fits, focus stays in the passage, the expected-glyph tag is in view. Restart and the slot are below the fold of the short 704×398 CSS window (page scroll).",
+      "environment": {
+        "kind": "browser",
+        "name": "Chrome 157.0.8103.52 (headless, system install)",
+        "width": 704,
+        "height": 398
+      },
+      "viewports": [
+        "704x398 CSS px"
+      ],
+      "artifacts": [
+        {
+          "path": "screenshots/zoom200-01-ready.png",
+          "sha256": "557a2737515d4879c3cd4c47c5c84b6451fe318cc94ed35abda3421a4ab7474f",
+          "kind": "image"
+        },
+        {
+          "path": "screenshots/zoom200-02-first-mismatch.png",
+          "sha256": "9690b2526a52a2915953e844bd5a9744539e28a073c12e30ee6efb9d6c1aeef1",
+          "kind": "image"
+        }
+      ]
+    }
+  ]
+}

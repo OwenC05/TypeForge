@@ -1,0 +1,165 @@
+{
+  "kind": "P1-S1-S3-author-validation",
+  "taskId": "task_5aa95f2fbf88",
+  "dispatchId": "ctx_ec0130f97614",
+  "frozenAuthor": "c6a8a806ec98c6015e3e8819698ff5b19a97ad98",
+  "rootBrief": "0527c88",
+  "independentA2": "eb69f1f8a95f4485d65c6520c953e19d5b006bce",
+  "approvedC2": "8ad96e12cc2f3313bb06a46c40c3206555997c82",
+  "requested": {
+    "agent": "codex",
+    "capability": "capable",
+    "effort": "high",
+    "source": "root task"
+  },
+  "observedLaunchFields": [
+    {
+      "path": "root.result.dispatch.status",
+      "value": "dispatched"
+    },
+    {
+      "path": "root.result.worker.startOptions.launch.requested.model",
+      "value": null
+    },
+    {
+      "path": "root.result.worker.startOptions.launch.requested.effort",
+      "value": null
+    },
+    {
+      "path": "root.result.worker.startOptions.launch.effective.model",
+      "value": null
+    },
+    {
+      "path": "root.result.worker.startOptions.launch.effective.effort",
+      "value": null
+    },
+    {
+      "path": "root.result.projection.provider.model",
+      "value": "gpt-6.1-sol"
+    },
+    {
+      "path": "root.result.terminal.agentIdentity",
+      "value": "codex"
+    },
+    {
+      "path": "root.result.observation.status",
+      "value": "live"
+    },
+    {
+      "path": "root.result.terminalResource.archive.status",
+      "value": null
+    }
+  ],
+  "checks": [
+    {
+      "key": "before",
+      "command": "node docs/implementation/2026-11-16/baseline/policy/authority-seams-check.mjs --before",
+      "exitCode": 0,
+      "output": "{\"beforeReproductions\":6,\"frozen\":\"c6a8a806ec98c6015e3e8819698ff5b19a97ad98\"}\n"
+    },
+    {
+      "key": "after",
+      "command": "node docs/implementation/2026-11-16/baseline/policy/authority-seams-check.mjs",
+      "exitCode": 0,
+      "output": "{\"seamChecks\":45,\"acceptedArtifactsUnchanged\":5}\n"
+    },
+    {
+      "key": "types",
+      "command": "node C:\\Users\\Owenc\\orca\\workspaces\\TypeForge\\typeforge-daily-practice\\typing-app\\client\\node_modules\\typescript\\bin\\tsc --noEmit --strict --target ES2022 --module ESNext --moduleResolution bundler --allowImportingTsExtensions --lib ES2022,DOM docs/implementation/2026-11-16/baseline/policy/interfaces-r2.ts docs/implementation/2026-11-16/baseline/policy/authority-types.test.ts",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "key": "syntax",
+      "command": "node --check docs/implementation/2026-11-16/baseline/policy/authority-seams-check.mjs",
+      "exitCode": 0,
+      "output": ""
+    }
+  ],
+  "typescriptVersion": "7.0.2",
+  "limits": [
+    "Author S1-S3 contract correction; independent A2 delta acceptance remains pending",
+    "Proof/atomic mutation/reload/cross-tab fixtures are in-memory relations, not production or IndexedDB tests",
+    "C2 approved config/catalogue/numeric/producer slice unchanged; no broad audit or full app replay",
+    "TypeScript and object continuity do not establish actual storage proof provenance",
+    "No production/UI/storage/package/dependency/global/account/deployment changes",
+    "Effective effort and backend serving identity not established by reused-terminal fields"
+  ],
+  "checkedAt": "2026-11-18T19:03:37.308Z",
+  "node": "v24.21.0",
+  "baseCommit": "c6a8a806ec98c6015e3e8819698ff5b19a97ad98",
+  "artifacts": [
+    {
+      "path": ".omx/specs/typeforge-practice-policy-v1.md",
+      "bytes": 48919,
+      "sha256": "f7e1edd4a09948597f2392807afde7394ed730c4e1b9c41b52ffbad219369803",
+      "normalizedTextSha256": "f7e1edd4a09948597f2392807afde7394ed730c4e1b9c41b52ffbad219369803"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/README.md",
+      "bytes": 4930,
+      "sha256": "4eb9d38ed7de722e7aa80247a278a8b1f23a0b67154646872ecb3241c9c00e19",
+      "normalizedTextSha256": "4eb9d38ed7de722e7aa80247a278a8b1f23a0b67154646872ecb3241c9c00e19"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/implementation-dag-r2.md",
+      "bytes": 7815,
+      "sha256": "c659409eea9410bb56a33d4ca69e2a4c5682b71ae45d1f7d51013118bc2c43da",
+      "normalizedTextSha256": "c659409eea9410bb56a33d4ca69e2a4c5682b71ae45d1f7d51013118bc2c43da"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/interfaces-r2.ts",
+      "bytes": 12049,
+      "sha256": "a38e7af2e919a696b673dbda36455799660154592f439e0fc3388477f51d9a51",
+      "normalizedTextSha256": "a38e7af2e919a696b673dbda36455799660154592f439e0fc3388477f51d9a51"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/lifecycle-r2.md",
+      "bytes": 22405,
+      "sha256": "03d2824bbbf261f0693cabcac8285a792a3ddfcce181897bd161839555dc45e2",
+      "normalizedTextSha256": "03d2824bbbf261f0693cabcac8285a792a3ddfcce181897bd161839555dc45e2"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/r2-check.mjs",
+      "bytes": 24308,
+      "sha256": "be6262ad5f7990cce5fe5bcf2653890f5ec5e446d1a3d4d532f8144729404d38",
+      "normalizedTextSha256": "be6262ad5f7990cce5fe5bcf2653890f5ec5e446d1a3d4d532f8144729404d38"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/authority-delta.md",
+      "bytes": 8167,
+      "sha256": "ba31f5fa7ec5792ed892fbc86846288f4b1aadf265dc5215530d51676ba3f539",
+      "normalizedTextSha256": "ba31f5fa7ec5792ed892fbc86846288f4b1aadf265dc5215530d51676ba3f539"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/authority-seams-check.mjs",
+      "bytes": 15127,
+      "sha256": "05866227444bc284013f00116b4e6d2698f132bcf56fa2516a1fa0908c327c6b",
+      "normalizedTextSha256": "05866227444bc284013f00116b4e6d2698f132bcf56fa2516a1fa0908c327c6b"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/authority-seams-before.json",
+      "bytes": 1738,
+      "sha256": "4e2dc8cadd437c7133d05f509ca206185539a9cc87e44db809f94138a632c945",
+      "normalizedTextSha256": "4e2dc8cadd437c7133d05f509ca206185539a9cc87e44db809f94138a632c945"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/authority-seams-after.json",
+      "bytes": 9640,
+      "sha256": "47063b19b94fc1e26b5af5dc4fba841acce461b2c374bb6571974a78e84189e9",
+      "normalizedTextSha256": "47063b19b94fc1e26b5af5dc4fba841acce461b2c374bb6571974a78e84189e9"
+    },
+    {
+      "path": "docs/implementation/2026-11-16/baseline/policy/authority-types.test.ts",
+      "bytes": 1182,
+      "sha256": "8098aee8c78699c9776e246065d7976b0ad274ec65549eba92e551242d903b1e",
+      "normalizedTextSha256": "8098aee8c78699c9776e246065d7976b0ad274ec65549eba92e551242d903b1e"
+    }
+  ],
+  "applicationUnchanged": true,
+  "acceptedArtifactDiff": "",
+  "jsonParse": {
+    "passed": true,
+    "files": 3
+  }
+}

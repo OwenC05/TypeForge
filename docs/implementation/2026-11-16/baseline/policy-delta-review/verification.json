@@ -1,0 +1,53 @@
+﻿{
+    "verdict":  "REVISE",
+    "frozenInput":  "747d3e7bc22965eaf8ea2b22df0f0070f01be43c",
+    "rootImport":  "03abfdb2daf5013c59632a31baaf328ab6b68b46",
+    "originalReview":  "87fe85ecb703a255faea046a2294419be7d5dcff",
+    "checkedAt":  "2026-11-18T17:28:19.0016029Z",
+    "node":  "v24.21.0",
+    "command":  "node docs/implementation/2026-11-16/baseline/policy-delta-review/review.mjs",
+    "exitCode":  0,
+    "newExplicitAssertions":  48,
+    "authorAssertionsReplayed":  106,
+    "syntaxExitCode":  0,
+    "frozenImportDiffExitCode":  0,
+    "originalReviewDiffExitCode":  0,
+    "protectedPathsDiffExitCode":  0,
+    "counterexample":  {
+                           "runIssue":  "coach-run-envelope",
+                           "elapsedMs":  30000,
+                           "source":  "actual unchanged TypingEngine",
+                           "aggregateLowerBoundMs":  30000.030000000028,
+                           "sentenceIssue":  null,
+                           "firstInputMs":  1,
+                           "firstKeydownMs":  0
+                       },
+    "artifactSha256":  {
+                           "report.md":  "fb9c5d721f3857b0bc51d90374e6b889ef05d214c04b46efb46ec1b267e23c95",
+                           "review.mjs":  "fee14d40f8cf67760d0c42d46fbdc0ab3083e3e1224134732a59bbb4de064161",
+                           "review-results.json":  "412476c6b692f5830cb07c3a4db30fd435524b8a994d331273d235e5c9608e49",
+                           "input-manifest.json":  "606cc9771cf8b250a1db3741f414264f92cba3f27dd5bda16891a94a039f3208",
+                           "run.txt":  "eb009bef563808d1073f0d19fe98a059f2b6f48da1dbc354d5e6b5695ce3e1c8"
+                       },
+    "task":  "task_9b182b8f1756",
+    "dispatch":  "ctx_5fbf9ca8eedf",
+    "observedReceipt":  "2feb926b-ce7f-475e-8f98-f9a529199bb8",
+    "requested":  {
+                      "agent":  "codex",
+                      "effort":  "high",
+                      "model":  "gpt-6.1-sol"
+                  },
+    "observed":  {
+                     "agent":  "codex",
+                     "effort":  "not independently exposed by reuse launch fields",
+                     "model":  "gpt-6.1-sol",
+                     "backend":  "unverified"
+                 },
+    "limits":  [
+                   "Author replay is not independent production coverage",
+                   "No IndexedDB/browser race or latency-frequency measurement",
+                   "No human reach or benefit measurement",
+                   "No production or policy implementation changes",
+                   "Model/profile regression receipt not rerun in this delta"
+               ]
+}

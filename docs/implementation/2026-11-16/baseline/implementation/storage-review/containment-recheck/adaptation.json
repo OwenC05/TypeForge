@@ -1,0 +1,11 @@
+{
+  "originalProbeSha256": "069561e15edd151465419ff8bd4628a10500185b8a38ee4beaedaa02a8e28b4d",
+  "copiedProbeSha256": "069561e15edd151465419ff8bd4628a10500185b8a38ee4beaedaa02a8e28b4d",
+  "originalRunnerSha256": "39240bba7a7183d1cc22faf9b5ac01e588226ce729534cfaa276bc5e7c22921f",
+  "adaptedRunnerSha256": "3000646c3b1ccfb71e93e55099b8d8fc6b85c7e1e8cc4ffe5e6ff92501c0099f",
+  "changes": [
+    "Probe URL moves into containment-recheck only; origin stays strict5325",
+    "Two-page database names use browser crypto.randomUUID, preserving all assertions",
+    "Add passive unhandledrejection recording without changing original63 assertions"
+  ]
+}

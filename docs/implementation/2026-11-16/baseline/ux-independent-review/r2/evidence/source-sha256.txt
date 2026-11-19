@@ -1,0 +1,30 @@
+# sha256 of review inputs (worktree at merge of root 3807dca; prototype = 3ad71b6)
+5fd7a6aa3223a2e052a514d59b96050de0f5e415e3331dd552434bda65382852 *docs/implementation/2026-11-16/baseline/ux/prototype/baseline.css
+8badc649231cd2d8264d11303832725b4881a532a783582d336392b60bd3b64b *docs/implementation/2026-11-16/baseline/ux/prototype/copy.ts
+56920904a4e4e72e861876a0013d5daf3ee87eb70cb77cb07601dc804935d2e2 *docs/implementation/2026-11-16/baseline/ux/prototype/fixtures.ts
+aa6ed307af5568de9695d4e339d56aa3436864b6d9567e8acad6240c8d47461f *docs/implementation/2026-11-16/baseline/ux/prototype/gallery.html
+a06d1e77553dccf9aacdb34f60d2429a25849ad7a62a54bdc8eb512d88446b9c *docs/implementation/2026-11-16/baseline/ux/prototype/gallery.ts
+728ef377c3ba164133792bf1eb3ec19483ff51e363363ad865c664639252b141 *docs/implementation/2026-11-16/baseline/ux/prototype/index.html
+c3569b71116134145f68dd38321a30bc0bb2c325c35d338f2899fc1279077898 *docs/implementation/2026-11-16/baseline/ux/prototype/proto.ts
+81b0566492179cdab02ae35bb7b747f6fb58a50ca0226a99da5a555a1bcd16ce *docs/implementation/2026-11-16/baseline/ux/prototype/tsconfig.json
+5fac2c6c8c5441612b8f8b6edb2d42fb6138df404154ebd436fc99d58c85e087 *docs/implementation/2026-11-16/baseline/ux/prototype/vite.config.mjs
+685d4c99dcb0a9355258c14ba2589eda00446b88528d57a4358030857b34e526 *typing-app/client/src/style.css
+# git blobs
+style.css 1b10cbea2453aad470ca5b4918b1f222309eda89
+package-lock.json 151cf9b3f5022abed2d3783b7fc6991127b11fb3
+# composed build (Vite 8.3.3, root style 1b10cbea)
+6f3ab7fa7eed379efff9c2cf7e6bbc539d615ae3550f7e648257c29dfd4e62d3 *index.html
+bbc883dd8e3c1a488cff6a5693556e804df43208b80763d7b9a91812fc6b0464 *gallery.html
+d1a8dc13397b1dcfc3ff94cf28897777ca875386b4cb91d0d0a7a03375f3dc38 *assets/fixtures-b3dyuyh8.js
+9718178b9dab70ebeb4abcf7d6aab72966226f309f86b9b924d7ffecf2024367 *assets/fixtures-BPASI-5n.css
+7cc936f2db7df3b237bf737b609c27a1e51b3df1555e494bb9113ba58c3f6e2e *assets/gallery-BQF23Da6.js
+daad75ed4f4e9b06f5b08ce61c26e4bf9f6b3b51bf2018af040f290f532f0339 *assets/index-BSuNlSNP.css
+705eb087d384426752613f032641ed599a9578a73160513b1c45ab91bb066536 *assets/index-BVoscodI.js
+# author replay (Vite 8.3.1, style 41426a7) — separate, scratch only
+b59674e1a46009decf30cb938e2b8003f4fcc40d48dd17203bcf1171498229f7 *index.html
+54abae1d8f026c4c2216a446bdc65ec4f4189473d7dee72d0feab16b9f6715f9 *gallery.html
+d1a8dc13397b1dcfc3ff94cf28897777ca875386b4cb91d0d0a7a03375f3dc38 *assets/fixtures-BR2wM5PK.js
+45558491c9b2704a2eff2223beaa823b3b7512d8f46bac8198cd1f6d47212cfc *assets/fixtures-ChsJ1aui.css
+b43b1115e6b6a6e24f8c7c66cec19c680045318303bf087e55bd0870993f266f *assets/gallery-hPyojQog.js
+5f84f6c8dd3da46826d7c9f6863fd6d1daca872dbbd7abac0eefa2c31933bfff *assets/index-BADpSMsf.js
+daad75ed4f4e9b06f5b08ce61c26e4bf9f6b3b51bf2018af040f290f532f0339 *assets/index-BSuNlSNP.css

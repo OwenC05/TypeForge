@@ -1,0 +1,348 @@
+{
+  "kind": "P1-S1-S3-author-contract-regressions",
+  "frozen": "c6a8a806ec98c6015e3e8819698ff5b19a97ad98",
+  "checks": 45,
+  "cases": [
+    {
+      "name": "S1 explicit Metadata supplied to pure classification",
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "S2 actual nullable final proof supplied before proved outputs",
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "S1 corrected public metadata distinguishes formerly identical inputs",
+      "actual": 3,
+      "expected": 3
+    },
+    {
+      "name": "S1 same source now classifies true false false using explicit input",
+      "actual": [
+        true,
+        false,
+        false
+      ],
+      "expected": [
+        true,
+        false,
+        false
+      ]
+    },
+    {
+      "name": "S1 current membership loss cannot acquire physical legacy",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "S2 pre-proof arithmetic cannot publish proof candidate or median",
+      "actual": {
+        "provedOutputPermitted": false,
+        "proof": null,
+        "candidate": null,
+        "median": null
+      },
+      "expected": {
+        "provedOutputPermitted": false,
+        "proof": null,
+        "candidate": null,
+        "median": null
+      }
+    },
+    {
+      "name": "S2 matching supplied proof permits proof-bearing output",
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "S2 D propagates exact supplied proof rather than minting one",
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "S2 null failed final transaction cannot become proved",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "S2 method proof mismatch cannot publish",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "S2 config proof mismatch cannot publish",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "S2 database proof mismatch cannot publish",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "S2 epoch proof mismatch cannot publish",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "S2 revision proof mismatch cannot publish",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "S2 source hash selection binding cannot be substituted",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "S2 membership selection binding cannot be substituted",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "S2 summary range selection binding cannot be substituted",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "S2 legacy cutoff selection binding cannot be substituted",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "S1 metadata default-context disagreement rejects despite matching source and revision",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "S2 complete range authority must agree even if selection was copied",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "S2 malformed admittedAt cannot be invented by projection",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "S2 same actual proof reaches final local admission",
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "S2 scalar-identical substituted proof is not continuity of actual C proof",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "S2 local started invalidates final admission",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "S2 local generation invalidates final admission",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "S2 local config invalidates final admission",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "S2 local epoch invalidates final admission",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "S2 local database invalidates final admission",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "S3 machine shape retains structurally readable sentinel",
+      "actual": 9007199254740991,
+      "expected": 9007199254740991
+    },
+    {
+      "name": "S3 actual revised author relation admits unchanged MAX-1",
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "S3 actual revised author relation rejects unchanged MAX",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "S3 actual revised author relation rejects either side MAX",
+      "actual": [
+        false,
+        false
+      ],
+      "expected": [
+        false,
+        false
+      ]
+    },
+    {
+      "name": "S3 mutation MAX-1 commits source and MAX together, disabling authority immediately",
+      "actual": [
+        true,
+        2,
+        9007199254740991,
+        false
+      ],
+      "expected": [
+        true,
+        2,
+        9007199254740991,
+        false
+      ]
+    },
+    {
+      "name": "S3 failed transaction preserves both source set and MAX-1",
+      "actual": {
+        "metadata": {
+          "schemaId": "typeforge-coach-metadata-v3",
+          "databaseId": "db",
+          "defaultContextId": "context",
+          "activeEpochId": "epoch",
+          "legacyEpochId": "epoch",
+          "legacyCutoffCompletedAt": "2026-11-16T12:00:00.000Z",
+          "sourceRevision": 9007199254740990
+        },
+        "ids": [
+          "00000000-0000-4000-8000-000000999001"
+        ]
+      },
+      "expected": {
+        "metadata": {
+          "schemaId": "typeforge-coach-metadata-v3",
+          "databaseId": "db",
+          "defaultContextId": "context",
+          "activeEpochId": "epoch",
+          "legacyEpochId": "epoch",
+          "legacyCutoffCompletedAt": "2026-11-16T12:00:00.000Z",
+          "sourceRevision": 9007199254740990
+        },
+        "ids": [
+          "00000000-0000-4000-8000-000000999001"
+        ]
+      }
+    },
+    {
+      "name": "S3 ordinary save at MAX remains possible and non-admitting",
+      "actual": [
+        true,
+        9007199254740991,
+        false,
+        false
+      ],
+      "expected": [
+        true,
+        9007199254740991,
+        false,
+        false
+      ]
+    },
+    {
+      "name": "S3 ordinary delete at MAX remains possible and non-admitting",
+      "actual": [
+        true,
+        9007199254740991,
+        false,
+        false
+      ],
+      "expected": [
+        true,
+        9007199254740991,
+        false,
+        false
+      ]
+    },
+    {
+      "name": "S3 reset at MAX cannot claim a new baseline epoch",
+      "actual": [
+        false,
+        false,
+        "epoch"
+      ],
+      "expected": [
+        false,
+        false,
+        "epoch"
+      ]
+    },
+    {
+      "name": "S3 reset MAX-1 may commit but returns exhausted without usable Authority",
+      "actual": [
+        true,
+        9007199254740991,
+        false
+      ],
+      "expected": [
+        true,
+        9007199254740991,
+        false
+      ]
+    },
+    {
+      "name": "S3 reload/cross-tab observes persistent sentinel, not an ephemeral flag",
+      "actual": [
+        false,
+        false
+      ],
+      "expected": [
+        false,
+        false
+      ]
+    },
+    {
+      "name": "S3 even exact matching MAX metadata/config/selection/final proof cannot admit",
+      "actual": false,
+      "expected": false
+    },
+    {
+      "name": "accepted numeric/config/catalogue/finite artifact unchanged: coach-config.example.json",
+      "actual": "08a35ec8f7ae04deb489bc417cb6ceaf9f5d6def72885111c0df8aaa4beabce0",
+      "expected": "08a35ec8f7ae04deb489bc417cb6ceaf9f5d6def72885111c0df8aaa4beabce0"
+    },
+    {
+      "name": "accepted numeric/config/catalogue/finite artifact unchanged: coach-config.schema.json",
+      "actual": "7dc00e290558d5e924fc4dad7752ded2a0b8abe7244783901b88e02a73aca165",
+      "expected": "7dc00e290558d5e924fc4dad7752ded2a0b8abe7244783901b88e02a73aca165"
+    },
+    {
+      "name": "accepted numeric/config/catalogue/finite artifact unchanged: finite-catalogue.example.json",
+      "actual": "22e11efff85180cf806d7ee34a6f9861e4ad8fe9b2fbb18d3b1f9db2cc2a16be",
+      "expected": "22e11efff85180cf806d7ee34a6f9861e4ad8fe9b2fbb18d3b1f9db2cc2a16be"
+    },
+    {
+      "name": "accepted numeric/config/catalogue/finite artifact unchanged: finite-adapter-r2.md",
+      "actual": "122c23b1b7b86ef18e87b6273c4356a79b5080ad9942baafc96326223a93f23b",
+      "expected": "122c23b1b7b86ef18e87b6273c4356a79b5080ad9942baafc96326223a93f23b"
+    },
+    {
+      "name": "accepted numeric/config/catalogue/finite artifact unchanged: revision-check.mjs",
+      "actual": "7ccf67bafb474f3af5c05457ba5d00591fdaacc08be74af34fe54e0d284eeb3b",
+      "expected": "7ccf67bafb474f3af5c05457ba5d00591fdaacc08be74af34fe54e0d284eeb3b"
+    }
+  ],
+  "events": [
+    "C charged metadata/source/membership reads",
+    "C validates clones and asynchronous source hashes",
+    "C obtains actual final proof under same ledger",
+    "D derives proof-bearing outputs from supplied actual proof"
+  ],
+  "sourceId": "00000000-0000-4000-8000-000000999001",
+  "sourceHash": "ac97a22679c45f14eb8b2a4d462f01ea852537af70459c0a34751ae7902a6355",
+  "limits": [
+    "Author semantic/seam oracles, not production derivePolicy/admitPractice",
+    "Final proof creation in this harness is an explicit in-memory stand-in, not a real transaction",
+    "Atomicity/reload/cross-tab relations are not real IndexedDB or browser tests",
+    "A2 independent acceptance remains required; C2 accepted numeric slice not reopened"
+  ]
+}

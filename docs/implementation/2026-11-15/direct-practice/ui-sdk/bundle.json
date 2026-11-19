@@ -1,0 +1,115 @@
+{
+  "production": {
+    "files": [
+      {
+        "file": "app-CiIXzPbM.css",
+        "raw": 10562,
+        "gzip": 3138
+      },
+      {
+        "file": "app-DRnCp6G3.js",
+        "raw": 103372,
+        "gzip": 35923
+      }
+    ],
+    "js": {
+      "raw": 103372,
+      "gzip": 35923
+    },
+    "css": {
+      "raw": 10562,
+      "gzip": 3138
+    }
+  },
+  "proof": {
+    "files": [
+      {
+        "file": "assets\\announce-CF9Xoi0-.js",
+        "raw": 65,
+        "gzip": 74
+      },
+      {
+        "file": "assets\\announce-OG2sjTD8.js",
+        "raw": 717,
+        "gzip": 452
+      },
+      {
+        "file": "assets\\app-CiIXzPbM.css",
+        "raw": 10562,
+        "gzip": 3138
+      },
+      {
+        "file": "assets\\app-Mshmcbyw.js",
+        "raw": 102702,
+        "gzip": 35576
+      },
+      {
+        "file": "assets\\sheet-presentation-nAumeTLt.js",
+        "raw": 37644,
+        "gzip": 13443
+      },
+      {
+        "file": "assets\\sides-CZxDYlUu.js",
+        "raw": 2517,
+        "gzip": 1251
+      },
+      {
+        "file": "assets\\ui-sdk-proof-B5Q98g2L.js",
+        "raw": 188376,
+        "gzip": 64832
+      }
+    ],
+    "js": {
+      "raw": 332021,
+      "gzip": 115628
+    },
+    "css": {
+      "raw": 10562,
+      "gzip": 3138
+    }
+  },
+  "components": {
+    "files": [
+      {
+        "file": "assets\\dp-sdk-imports-components-BvtlLHbP.js",
+        "raw": 161423,
+        "gzip": 55692
+      },
+      {
+        "file": "assets\\sheet-presentation-Ca_bWuRc.js",
+        "raw": 37659,
+        "gzip": 13436
+      }
+    ],
+    "js": {
+      "raw": 199082,
+      "gzip": 69128
+    },
+    "css": {
+      "raw": 0,
+      "gzip": 0
+    }
+  },
+  "agent": {
+    "files": [
+      {
+        "file": "assets\\dp-sdk-imports-agent-Cx5M2D76.js",
+        "raw": 187419,
+        "gzip": 64704
+      },
+      {
+        "file": "assets\\sheet-presentation-z75f_KOO.js",
+        "raw": 37654,
+        "gzip": 13434
+      }
+    ],
+    "js": {
+      "raw": 225073,
+      "gzip": 78138
+    },
+    "css": {
+      "raw": 0,
+      "gzip": 0
+    }
+  }
+}

@@ -8,7 +8,7 @@ const completedAt = '2026-09-30T12:00:00.000Z';
 function make(prompt = 'cat ', qwerty = true) {
   return new TypingEngine({ id, prompts: [{ id: 'test', text: prompt }], qwerty, corpusVersion: '1' });
 }
-function insert(engine: TypingEngine, text: string, time: number, start = engine.value.length, end = start) {
+function insert(engine: TypingEngine<boolean>, text: string, time: number, start = engine.value.length, end = start) {
   return engine.edit({ start, end, text, pressTime: time }, time);
 }
 function complete(engine: TypingEngine, start = 100) {
@@ -269,4 +269,33 @@ test('response safety stop preserves accepted text and freezes diagnostics until
   assert.equal(engine.result(completedAt), null);
   engine.restart('fresh');
   assert.equal(engine.stoppedSnapshot(), null);
+});
+
+test('finite lifecycle ends atomically, holds the final prompt and freezes terminal edits and time', () => {
+  const engine = new TypingEngine({ id, prompts: [{ id: 'one', text: 'ab' }],
+    inputMode: 'flow-v1', durationMs: 30000, qwerty: true, finite: true });
+  assert.equal(engine.nextPrompt, null);
+  insert(engine, 'a', 100); insert(engine, 'b', 101); insert(engine, ' ', 102);
+  assert.equal(engine.state, 'plan-exhausted');
+  assert.deepEqual(engine.prompt, { id: 'one', text: 'ab' });
+  const final = engine.snapshot(102);
+  assert.equal(final.metrics.correctCharacters, 2);
+  assert.equal(final.elapsedMs, 2);
+  assert.equal(engine.result(completedAt), null);
+  assert.equal(insert(engine, 'x', 103), false);
+  engine.interrupt(104); engine.abort(105);
+  assert.deepEqual(engine.tick(999999), final);
+  assert.throws(() => engine.restart('fresh'), /snapshot/i);
+});
+
+test('finite final boundary remains deadline-first at minus epsilon, exact and plus epsilon', () => {
+  for (const offset of [-0.001, 0, 0.001]) {
+    const engine = new TypingEngine({ id, prompts: [{ id: 'one', text: 'ab' }],
+      inputMode: 'flow-v1', durationMs: 30000, qwerty: true, finite: true });
+    insert(engine, 'a', 100); insert(engine, 'b', 101);
+    assert.equal(insert(engine, ' ', 30100 + offset), offset < 0);
+    assert.equal(engine.state, offset < 0 ? 'plan-exhausted' : 'completed');
+    assert.equal(engine.submittedSummaries.length, offset < 0 ? 1 : 0);
+    if (offset >= 0) validateResult(engine.result(completedAt));
+  }
 });

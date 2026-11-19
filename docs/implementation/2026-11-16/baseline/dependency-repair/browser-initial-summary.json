@@ -1,0 +1,26 @@
+{
+    "capturedFrom":  "Observed first-run tool output; full original report preserved separately in browser-first-probe.json",
+    "commandExit":  1,
+    "runs":  [
+                 {
+                     "failedCheck":  "keyboard reaches manual pair control",
+                     "channel":  "chrome",
+                     "failedChecks":  1,
+                     "regressionFailed":  0,
+                     "focusedChecks":  15,
+                     "pageErrors":  0,
+                     "version":  "157.0.8103.52",
+                     "regressionPassed":  46
+                 },
+                 {
+                     "failedCheck":  "keyboard reaches manual pair control",
+                     "channel":  "msedge",
+                     "failedChecks":  1,
+                     "regressionFailed":  0,
+                     "focusedChecks":  15,
+                     "pageErrors":  0,
+                     "version":  "157.0.4341.60",
+                     "regressionPassed":  46
+                 }
+             ]
+}

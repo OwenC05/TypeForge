@@ -1,0 +1,27 @@
+{
+    "acceptedFullReplayContextsClosed":  10,
+    "cacheCleanupMethod":  "Verified literal cache path, removed exactly two generated files and then the two empty directories without recursive deletion",
+    "successfulSuiteSyntheticDatabasesRemoved":  22,
+    "defaultToolPage":  "about:blank left untouched; only explicitly created test contexts/pages were closed",
+    "processAbsent":  true,
+    "successfulSuitePagesClosed":  24,
+    "cachePath":  "C:\\Users\\Owenc\\orca\\workspaces\\TypeForge\\tf-coach-storage\\docs\\implementation\\2026-11-16\\baseline\\implementation\\storage\\containment-follow-up\\.vite-cache",
+    "excludedHarnessContextsClosed":  6,
+    "acceptedRedContextsClosed":  6,
+    "helper":  {
+                   "pid":  39348,
+                   "execSessionId":  41218,
+                   "commandLine":  "\"C:\\Program Files\\nodejs\\node.exe\" typing-app/client/node_modules/vite/bin/vite.js --config docs/implementation/2026-11-16/baseline/implementation/storage/containment-follow-up/server.config.mjs --host 127.0.0.1 --port 5321 --strictPort",
+                   "workingDirectory":  "C:\\Users\\Owenc\\orca\\workspaces\\TypeForge\\tf-coach-storage",
+                   "creationDate":  "\/Date(1795043116546)\/",
+                   "executable":  "C:\\Program Files\\nodejs\\node.exe",
+                   "port":  5321,
+                   "identityCheckedBeforeStop":  true
+               },
+    "excludedHarnessCleanup":  "Five native DB removals verified; first context navigated before cleanup evaluation and its ephemeral context was closed",
+    "cacheAbsent":  true,
+    "excludedHarnessPagesClosed":  6,
+    "verifiedAt":  "2026-11-18T23:25:26.7421323Z",
+    "portFree":  true,
+    "acceptedFocusedGreenContextsClosed":  6
+}

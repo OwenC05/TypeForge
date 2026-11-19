@@ -1,0 +1,19 @@
+{
+ "source": "orca orchestration worker-show --dispatch ctx_9cf5982c12df --json --full (extracted fields only)",
+ "observedAt": "2026-11-18",
+ "task": "task_0148263eda79",
+ "dispatch": "ctx_9cf5982c12df",
+ "run": "run_1aeb00550f39",
+ "thisDispatch": {
+  "launch.requested": { "agent": null, "model": null, "effort": null },
+  "launch.effective": { "agent": "claude", "model": null, "effort": null },
+  "projection.provider": { "id": "claude", "model": "claude-opus-5-5" },
+  "terminal.agentIdentity": "claude",
+  "terminalResource.originDispatchId": "ctx_f5e22117b85e",
+  "note": "Resumed the existing reviewer terminal; no new requested/effective model or effort is recorded for this dispatch."
+ },
+ "originLaunchOfThisTerminal": { "dispatch": "ctx_f5e22117b85e", "requested": { "agent": "claude", "model": "claude-opus-5-5", "effort": "high" }, "effective": { "agent": "claude", "model": "claude-opus-5-5", "effort": "high" } },
+ "runtimeSelfReport": "Session declares model ID claude-opus-5-5; effort is not exposed in-session, so 'high' rests on the origin launch record of this same terminal.",
+ "helpers": "none",
+ "previewHelper": { "pid": 14340, "executable": "C:\Program Files\nodejs\node.exe", "command": "vite.js preview --config ux-independent-review/r2/runner/vite.r2.config.mjs (vite from typeforge-daily-practice client, 8.3.3)", "port": "127.0.0.1:5318 strictPort", "stopped": true, "5318AfterStop": "free", "5301Owner": 28552 }
+}

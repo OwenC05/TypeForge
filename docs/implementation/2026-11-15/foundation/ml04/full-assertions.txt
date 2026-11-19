@@ -1,0 +1,686 @@
+TAP version 13
+# (node:22612) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: unsupported calibration never reads history; supported sparse pages retain newest ten chronologically
+ok 1 - unsupported calibration never reads history; supported sparse pages retain newest ten chronologically
+  ---
+  duration_ms: 78.0981
+  type: 'test'
+  ...
+# Subtest: Restart waits for fresh calibration and focus before enabling replacement input
+not ok 2 - Restart waits for fresh calibration and focus before enabling replacement input
+  ---
+  duration_ms: 14.9468
+  type: 'test'
+  location: 'C:\\Users\\Owenc\\orca\\workspaces\\TypeForge\\typeforge-foundation-ml04\\typing-app\\client\\tests\\app.test.ts:35:1'
+  failureType: 'testCodeFailure'
+  error: "Expected ',', got ';'"
+  code: 'ERR_INVALID_TYPESCRIPT_SYNTAX'
+  name: 'SyntaxError'
+  stack: |-
+    parseTypeScript (node:internal/modules/typescript:72:36)
+    processTypeScriptCode (node:internal/modules/typescript:146:42)
+    stripTypeScriptTypes (node:internal/modules/typescript:123:10)
+    TestContext.<anonymous> (file:///C:/Users/Owenc/orca/workspaces/TypeForge/typeforge-foundation-ml04/typing-app/client/tests/app.test.ts:50:28)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+  ...
+# Subtest: comparison rendering never exposes overflow, underflow or grouped nonfinite milliseconds
+ok 3 - comparison rendering never exposes overflow, underflow or grouped nonfinite milliseconds
+  ---
+  duration_ms: 7.3397
+  type: 'test'
+  ...
+# Subtest: restarted retest re-resolves exact origin; deleted, incompatible or unreadable origin becomes ordinary assessment
+not ok 4 - restarted retest re-resolves exact origin; deleted, incompatible or unreadable origin becomes ordinary assessment
+  ---
+  duration_ms: 6.987
+  type: 'test'
+  location: 'C:\\Users\\Owenc\\orca\\workspaces\\TypeForge\\typeforge-foundation-ml04\\typing-app\\client\\tests\\app.test.ts:78:1'
+  failureType: 'testCodeFailure'
+  error: "Expected ',', got ';'"
+  code: 'ERR_INVALID_TYPESCRIPT_SYNTAX'
+  name: 'SyntaxError'
+  stack: |-
+    parseTypeScript (node:internal/modules/typescript:72:36)
+    processTypeScriptCode (node:internal/modules/typescript:146:42)
+    stripTypeScriptTypes (node:internal/modules/typescript:123:10)
+    TestContext.<anonymous> (file:///C:/Users/Owenc/orca/workspaces/TypeForge/typeforge-foundation-ml04/typing-app/client/tests/app.test.ts:95:29)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: flow input installs next predictions only after accepted value and eligible assessment history
+ok 5 - flow input installs next predictions only after accepted value and eligible assessment history
+  ---
+  duration_ms: 8.2833
+  type: 'test'
+  ...
+# Subtest: late native input restores retained text without another engine edit or prediction
+ok 6 - late native input restores retained text without another engine edit or prediction
+  ---
+  duration_ms: 7.6346
+  type: 'test'
+  ...
+# Subtest: stopped input permits Tab, selection and copying while terminal edit guards retain accepted text
+ok 7 - stopped input permits Tab, selection and copying while terminal edit guards retain accepted text
+  ---
+  duration_ms: 4.6941
+  type: 'test'
+  ...
+# Subtest: flagged safety-stop warning remains truthful after repeated paint and keyboard interaction
+ok 8 - flagged safety-stop warning remains truthful after repeated paint and keyboard interaction
+  ---
+  duration_ms: 7.4673
+  type: 'test'
+  ...
+# Subtest: Enter is a no-op and clears stale edit metadata without calling submit
+ok 9 - Enter is a no-op and clears stale edit metadata without calling submit
+  ---
+  duration_ms: 25.2648
+  type: 'test'
+  ...
+# Subtest: correction hint exposes the first expected character without changing the response mirror
+ok 10 - correction hint exposes the first expected character without changing the response mirror
+  ---
+  duration_ms: 36.1267
+  type: 'test'
+  ...
+# Subtest: duration query accepts only supported seconds, defaults safely and inherits origin
+ok 11 - duration query accepts only supported seconds, defaults safely and inherits origin
+  ---
+  duration_ms: 5.2998
+  type: 'test'
+  ...
+# Subtest: calibration uses actual duration and mode while retaining earlier eligible sentences in flagged runs
+ok 12 - calibration uses actual duration and mode while retaining earlier eligible sentences in flagged runs
+  ---
+  duration_ms: 4.8437
+  type: 'test'
+  ...
+# Subtest: save retries are single-flight and late save success/failure cannot navigate or mutate disposed pages
+ok 13 - save retries are single-flight and late save success/failure cannot navigate or mutate disposed pages
+  ---
+  duration_ms: 15.7736
+  type: 'test'
+  ...
+# Subtest: save failure distinguishes permanent validation rejection from retryable browser storage errors
+ok 14 - save failure distinguishes permanent validation rejection from retryable browser storage errors
+  ---
+  duration_ms: 9.0718
+  type: 'test'
+  ...
+# Subtest: permanently rejected completion keeps export enabled and never navigates
+ok 15 - permanently rejected completion keeps export enabled and never navigates
+  ---
+  duration_ms: 9.9805
+  type: 'test'
+  ...
+# Subtest: practice query supports general, evidence-backed recommendation and catalogue-only manual pairs
+ok 16 - practice query supports general, evidence-backed recommendation and catalogue-only manual pairs
+  ---
+  duration_ms: 8.2435
+  type: 'test'
+  ...
+# Subtest: direct recommended/manual practice selects shared drills and persists only the matching identity
+ok 17 - direct recommended/manual practice selects shared drills and persists only the matching identity
+  ---
+  duration_ms: 14.7484
+  type: 'test'
+  ...
+# Subtest: keyboard query is explicit, inherits only when absent and fails safely with feedback
+ok 18 - keyboard query is explicit, inherits only when absent and fails safely with feedback
+  ---
+  duration_ms: 2.9648
+  type: 'test'
+  ...
+# Subtest: optional corrupt or deleted origins retain current results, export/delete and settings-preserving fallback links
+ok 19 - optional corrupt or deleted origins retain current results, export/delete and settings-preserving fallback links
+  ---
+  duration_ms: 24.548
+  type: 'test'
+  ...
+# Subtest: assessment from URLs never acquire retest lineage on restart; explicit practice/retest origins retain their contracts
+not ok 20 - assessment from URLs never acquire retest lineage on restart; explicit practice/retest origins retain their contracts
+  ---
+  duration_ms: 8.499
+  type: 'test'
+  location: 'C:\\Users\\Owenc\\orca\\workspaces\\TypeForge\\typeforge-foundation-ml04\\typing-app\\client\\tests\\app.test.ts:348:1'
+  failureType: 'testCodeFailure'
+  error: "Expected ',', got ';'"
+  code: 'ERR_INVALID_TYPESCRIPT_SYNTAX'
+  name: 'SyntaxError'
+  stack: |-
+    parseTypeScript (node:internal/modules/typescript:72:36)
+    processTypeScriptCode (node:internal/modules/typescript:146:42)
+    stripTypeScriptTypes (node:internal/modules/typescript:123:10)
+    TestContext.<anonymous> (file:///C:/Users/Owenc/orca/workspaces/TypeForge/typeforge-foundation-ml04/typing-app/client/tests/app.test.ts:367:33)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# ML04_ASSERTIONS {"file":"C:\\\\Users\\\\Owenc\\\\orca\\\\workspaces\\\\TypeForge\\\\typeforge-foundation-ml04\\\\typing-app\\\\client\\\\tests\\\\app.test.ts","attempted":178,"passed":178,"failed":0}
+# Subtest: versioned banks contain unique original sentence text and stable IDs
+ok 21 - versioned banks contain unique original sentence text and stable IDs
+  ---
+  duration_ms: 7.6754
+  type: 'test'
+  ...
+# Subtest: selection shuffles deterministically without replacement or bank mutation
+ok 22 - selection shuffles deterministically without replacement or bank mutation
+  ---
+  duration_ms: 6.794
+  type: 'test'
+  ...
+# Subtest: fresh retests exclude prior passages and report an exhausted bank honestly
+ok 23 - fresh retests exclude prior passages and report an exhausted bank honestly
+  ---
+  duration_ms: 0.9319
+  type: 'test'
+  ...
+# Subtest: shared shuffle defensively copies custom practice banks
+ok 24 - shared shuffle defensively copies custom practice banks
+  ---
+  duration_ms: 0.6863
+  type: 'test'
+  ...
+# ML04_ASSERTIONS {"file":"C:\\\\Users\\\\Owenc\\\\orca\\\\workspaces\\\\TypeForge\\\\typeforge-foundation-ml04\\\\typing-app\\\\client\\\\tests\\\\corpus.test.ts","attempted":384,"passed":384,"failed":0}
+# Subtest: corrected errors retain attempts; incomplete final text contributes positional WPM
+ok 25 - corrected errors retain attempts; incomplete final text contributes positional WPM
+  ---
+  duration_ms: 12.0634
+  type: 'test'
+  ...
+# Subtest: native middle insertion and selection replacement do not invent shifted attempts
+ok 26 - native middle insertion and selection replacement do not invent shifted attempts
+  ---
+  duration_ms: 3.4947
+  type: 'test'
+  ...
+# Subtest: all wrong input has zero accuracy; deadline rejects edits and late Enter
+ok 27 - all wrong input has zero accuracy; deadline rejects edits and late Enter
+  ---
+  duration_ms: 1.8921
+  type: 'test'
+  ...
+# Subtest: only correct submitted first passes retain within-word timing; later interruptions stay local
+ok 28 - only correct submitted first passes retain within-word timing; later interruptions stay local
+  ---
+  duration_ms: 2.5121
+  type: 'test'
+  ...
+# Subtest: repeat, missing timestamps, corrections and undeclared layouts exclude timing
+ok 29 - repeat, missing timestamps, corrections and undeclared layouts exclude timing
+  ---
+  duration_ms: 3.3818
+  type: 'test'
+  ...
+# Subtest: long gaps are excluded without shortening duration or bridging word boundaries
+ok 30 - long gaps are excluded without shortening duration or bridging word boundaries
+  ---
+  duration_ms: 1.3423
+  type: 'test'
+  ...
+# Subtest: untracked/composed bulk input is visible but invalid; limits reject oversized edits
+ok 31 - untracked/composed bulk input is visible but invalid; limits reject oversized edits
+  ---
+  duration_ms: 1.8636
+  type: 'test'
+  ...
+# Subtest: abort/restart discard prior state; result snapshots are immutable copies
+ok 32 - abort/restart discard prior state; result snapshots are immutable copies
+  ---
+  duration_ms: 2.6789
+  type: 'test'
+  ...
+# Subtest: delayed callbacks do not backfill chart samples, and regular samples fit persistence bounds
+ok 33 - delayed callbacks do not backfill chart samples, and regular samples fit persistence bounds
+  ---
+  duration_ms: 1.7403
+  type: 'test'
+  ...
+# Subtest: freezes exhaustive simultaneous predictions and retains only matched intervals
+ok 34 - freezes exhaustive simultaneous predictions and retains only matched intervals
+  ---
+  duration_ms: 3.7315
+  type: 'test'
+  ...
+# Subtest: prediction seam rejects incomplete, duplicate, wrong-index and post-edit input
+ok 35 - prediction seam rejects incomplete, duplicate, wrong-index and post-edit input
+  ---
+  duration_ms: 2.5531
+  type: 'test'
+  ...
+# Subtest: ineligible and unfinished sentences discard both predictions, next sentence can freeze afresh
+ok 36 - ineligible and unfinished sentences discard both predictions, next sentence can freeze afresh
+  ---
+  duration_ms: 6.2393
+  type: 'test'
+  ...
+# Subtest: practice and retest lineage is independent of optional practice focus and survives result assembly
+ok 37 - practice and retest lineage is independent of optional practice focus and survives result assembly
+  ---
+  duration_ms: 2.4583
+  type: 'test'
+  ...
+# Subtest: focus options and submitted prediction identities are defensive snapshots
+ok 38 - focus options and submitted prediction identities are defensive snapshots
+  ---
+  duration_ms: 3.8089
+  type: 'test'
+  ...
+# Subtest: flow commits error-tolerant final spaces without counting the delimiter
+ok 39 - flow commits error-tolerant final spaces without counting the delimiter
+  ---
+  duration_ms: 2.0343
+  type: 'test'
+  ...
+# Subtest: flow interior edits and composition cannot commit; a later end separator can
+ok 40 - flow interior edits and composition cannot commit; a later end separator can
+  ---
+  duration_ms: 1.3518
+  type: 'test'
+  ...
+# Subtest: all durations use deadline-first flow scoring and preserve final partials
+ok 41 - all durations use deadline-first flow scoring and preserve final partials
+  ---
+  duration_ms: 1.8067
+  type: 'test'
+  ...
+# Subtest: response safety stop preserves accepted text and freezes diagnostics until restart
+ok 42 - response safety stop preserves accepted text and freezes diagnostics until restart
+  ---
+  duration_ms: 2.3999
+  type: 'test'
+  ...
+# ML04_ASSERTIONS {"file":"C:\\\\Users\\\\Owenc\\\\orca\\\\workspaces\\\\TypeForge\\\\typeforge-foundation-ml04\\\\typing-app\\\\client\\\\tests\\\\engine.test.ts","attempted":119,"passed":119,"failed":0}
+# Subtest: 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: 200 short commits
+ok 43 - 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: 200 short commits
+  ---
+  duration_ms: 326.7305
+  type: 'test'
+  ...
+# {"fixture":"200 short commits","bytes":545079,"commits":200,"summaries":200,"attempts":3000}
+# Subtest: 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: shuffled assessment
+ok 44 - 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: shuffled assessment
+  ---
+  duration_ms: 144.7067
+  type: 'test'
+  ...
+# {"fixture":"shuffled assessment","bytes":420531,"commits":66,"summaries":67,"attempts":3000}
+# Subtest: 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: shuffled practice
+ok 45 - 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: shuffled practice
+  ---
+  duration_ms: 141.164
+  type: 'test'
+  ...
+# {"fixture":"shuffled practice","bytes":428759,"commits":70,"summaries":71,"attempts":3000}
+# Subtest: 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: targeted drill
+ok 46 - 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: targeted drill
+  ---
+  duration_ms: 146.9414
+  type: 'test'
+  ...
+# {"fixture":"targeted drill","bytes":427313,"commits":70,"summaries":71,"attempts":3000}
+# Subtest: 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: shortest assessment
+ok 47 - 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: shortest assessment
+  ---
+  duration_ms: 113.7462
+  type: 'test'
+  ...
+# {"fixture":"shortest assessment","bytes":372518,"commits":81,"summaries":82,"attempts":3000}
+# Subtest: 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: shortest practice
+ok 48 - 120s 300 WPM envelope preserves exhaustive shipped-model diagnostics: shortest practice
+  ---
+  duration_ms: 110.8674
+  type: 'test'
+  ...
+# {"fixture":"shortest practice","bytes":392303,"commits":83,"summaries":84,"attempts":3000}
+# Subtest: 120s corrected 6000-attempt envelope retains 3000 characters without truncation
+ok 49 - 120s corrected 6000-attempt envelope retains 3000 characters without truncation
+  ---
+  duration_ms: 99.0056
+  type: 'test'
+  ...
+# {"bytes":95621,"commits":66,"summaries":67,"attempts":6000}
+# Subtest: a valid retest with one fresh prompt cycles only that remaining prompt within the envelope
+ok 50 - a valid retest with one fresh prompt cycles only that remaining prompt within the envelope
+  ---
+  duration_ms: 138.1593
+  type: 'test'
+  ...
+# {"bytes":401835,"commits":61,"summaries":62,"attempts":3000}
+# Subtest: overfull word count created by interior edit advances on a subsequent appended separator
+ok 51 - overfull word count created by interior edit advances on a subsequent appended separator
+  ---
+  duration_ms: 1.6687
+  type: 'test'
+  ...
+# Subtest: earlier eligible passages still calibrate when the later assessment passage is interrupted
+ok 52 - earlier eligible passages still calibrate when the later assessment passage is interrupted
+  ---
+  duration_ms: 2.4132
+  type: 'test'
+  ...
+# Subtest: capacity constants preserve the explicit bounded contract
+ok 53 - capacity constants preserve the explicit bounded contract
+  ---
+  duration_ms: 0.2562
+  type: 'test'
+  ...
+# Subtest: response limit freezes accepted partial data, never a completed result
+ok 54 - response limit freezes accepted partial data, never a completed result
+  ---
+  duration_ms: 4.447
+  type: 'test'
+  ...
+# Subtest: attempt limit freezes accepted partial data, never a completed result
+ok 55 - attempt limit freezes accepted partial data, never a completed result
+  ---
+  duration_ms: 10.8766
+  type: 'test'
+  ...
+# Subtest: sentence limit freezes accepted partial data, never a completed result
+ok 56 - sentence limit freezes accepted partial data, never a completed result
+  ---
+  duration_ms: 39.7662
+  type: 'test'
+  ...
+# Subtest: shipped prediction diagnostics stop before a 9000-character result exceeds 1 MiB
+ok 57 - shipped prediction diagnostics stop before a 9000-character result exceeds 1 MiB
+  ---
+  duration_ms: 326.9584
+  type: 'test'
+  ...
+# {"accepted":7488,"commits":165,"diagnosticBytes":1043434}
+# Subtest: an oversized final partial stops at the deadline, keeps escaped bytes and restarts cleanly
+ok 58 - an oversized final partial stops at the deadline, keeps escaped bytes and restarts cleanly
+  ---
+  duration_ms: 283.9686
+  type: 'test'
+  ...
+# {"finalPartialDiagnosticBytes":1052226}
+# ML04_ASSERTIONS {"file":"C:\\\\Users\\\\Owenc\\\\orca\\\\workspaces\\\\TypeForge\\\\typeforge-foundation-ml04\\\\typing-app\\\\client\\\\tests\\\\flow-capacity.test.ts","attempted":79156,"passed":79156,"failed":0}
+# (node:31864) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: legacy v1 JSON loads, validates and exports unchanged without optional extensions
+ok 59 - legacy v1 JSON loads, validates and exports unchanged without optional extensions
+  ---
+  duration_ms: 13.6104
+  type: 'test'
+  ...
+# Subtest: a submitted correction keeps attempt accuracy but cannot regain timing eligibility
+ok 60 - a submitted correction keeps attempt accuracy but cannot regain timing eligibility
+  ---
+  duration_ms: 6.4084
+  type: 'test'
+  ...
+# Subtest: a partial final word adds positional WPM without adding timing observations
+ok 61 - a partial final word adds positional WPM without adding timing observations
+  ---
+  duration_ms: 5.2859
+  type: 'test'
+  ...
+# Subtest: interruption invalidates only the affected sentence while preserving earlier eligible evidence
+ok 62 - interruption invalidates only the affected sentence while preserving earlier eligible evidence
+  ---
+  duration_ms: 5.439
+  type: 'test'
+  ...
+# Subtest: a pre-deadline press committed at the exact deadline cannot change the frozen result
+ok 63 - a pre-deadline press committed at the exact deadline cannot change the frozen result
+  ---
+  duration_ms: 1.7286
+  type: 'test'
+  ...
+# Subtest: completed results defensively copy nested evidence, settings and charts on every read
+ok 64 - completed results defensively copy nested evidence, settings and charts on every read
+  ---
+  duration_ms: 1.8533
+  type: 'test'
+  ...
+# Subtest: legacy TypingDrill redirects only to practice chooser and preserves query intent for destination validation
+ok 65 - legacy TypingDrill redirects only to practice chooser and preserves query intent for destination validation
+  ---
+  duration_ms: 9.9403
+  type: 'test'
+  ...
+# Subtest: legacy invalid settings reach destination parsers and their visible fallback messages
+ok 66 - legacy invalid settings reach destination parsers and their visible fallback messages
+  ---
+  duration_ms: 35.5807
+  type: 'test'
+  ...
+# ML04_ASSERTIONS {"file":"C:\\\\Users\\\\Owenc\\\\orca\\\\workspaces\\\\TypeForge\\\\typeforge-foundation-ml04\\\\typing-app\\\\client\\\\tests\\\\legacy.test.ts","attempted":133,"passed":133,"failed":0}
+# Subtest: features respect maximal words, lowercase pairs and cold-history fallback
+ok 67 - features respect maximal words, lowercase pairs and cold-history fallback
+  ---
+  duration_ms: 6.4186
+  type: 'test'
+  ...
+# Subtest: missing artifact never invents population, uses explicitly labelled observed-user fallback
+ok 68 - missing artifact never invents population, uses explicitly labelled observed-user fallback
+  ---
+  duration_ms: 3.9272
+  type: 'test'
+  ...
+# Subtest: strict artifact validation rejects shape/version/task and nonfinite arrays, keeps a defensive copy
+ok 69 - strict artifact validation rejects shape/version/task and nonfinite arrays, keeps a defensive copy
+  ---
+  duration_ms: 7.7802
+  type: 'test'
+  ...
+# Subtest: candidate overflow drops candidate for entire sentence without replacing with baseline
+ok 70 - candidate overflow drops candidate for entire sentence without replacing with baseline
+  ---
+  duration_ms: 9.7259
+  type: 'test'
+  ...
+# Subtest: all candidate and baseline occurrences are prepared before a history mutation
+ok 71 - all candidate and baseline occurrences are prepared before a history mutation
+  ---
+  duration_ms: 6.369
+  type: 'test'
+  ...
+# Subtest: actual exported model agrees with original Python estimator, features and baseline on golden fixtures
+ok 72 - actual exported model agrees with original Python estimator, features and baseline on golden fixtures
+  ---
+  duration_ms: 9.125
+  type: 'test'
+  ...
+# Subtest: shared eligible Python event stream yields identical engine observations, history and matched predictions
+ok 73 - shared eligible Python event stream yields identical engine observations, history and matched predictions
+  ---
+  duration_ms: 9.1919
+  type: 'test'
+  ...
+# ML04_ASSERTIONS {"file":"C:\\\\Users\\\\Owenc\\\\orca\\\\workspaces\\\\TypeForge\\\\typeforge-foundation-ml04\\\\typing-app\\\\client\\\\tests\\\\model.test.ts","attempted":6219,"passed":6219,"failed":0}
+# Subtest: history copies eligible summaries and rolls to ten
+ok 74 - history copies eligible summaries and rolls to ten
+  ---
+  duration_ms: 5.3987
+  type: 'test'
+  ...
+# Subtest: baseline-only focus requires evidence and bank support, with two target then general cadence
+ok 75 - baseline-only focus requires evidence and bank support, with two target then general cadence
+  ---
+  duration_ms: 7.2975
+  type: 'test'
+  ...
+# Subtest: missing origin is explicitly a new assessment
+ok 76 - missing origin is explicitly a new assessment
+  ---
+  duration_ms: 0.4922
+  type: 'test'
+  ...
+# Subtest: history excludes practice and incompatible runs but keeps earlier eligible evidence in interrupted assessment
+ok 77 - history excludes practice and incompatible runs but keeps earlier eligible evidence in interrupted assessment
+  ---
+  duration_ms: 1.9403
+  type: 'test'
+  ...
+# Subtest: retest resolves exact origin, excludes partial prompts, fails on deleted/incompatible/exhausted origin
+ok 78 - retest resolves exact origin, excludes partial prompts, fails on deleted/incompatible/exhausted origin
+  ---
+  duration_ms: 7.6396
+  type: 'test'
+  ...
+# Subtest: selected smoothed baseline score, evidence threshold and alphabetical tie are exact
+ok 79 - selected smoothed baseline score, evidence threshold and alphabetical tie are exact
+  ---
+  duration_ms: 32.9643
+  type: 'test'
+  ...
+# Subtest: completion ties use stable IDs and within-run order, deletion changes only new snapshots
+ok 80 - completion ties use stable IDs and within-run order, deletion changes only new snapshots
+  ---
+  duration_ms: 1.7113
+  type: 'test'
+  ...
+# Subtest: settings compatibility isolates every duration and flow from unchanged legacy records
+ok 81 - settings compatibility isolates every duration and flow from unchanged legacy records
+  ---
+  duration_ms: 1.3516
+  type: 'test'
+  ...
+# Subtest: history and retest share mode, duration, layout, corpus and version compatibility
+ok 82 - history and retest share mode, duration, layout, corpus and version compatibility
+  ---
+  duration_ms: 1.1086
+  type: 'test'
+  ...
+# Subtest: flow history retains only eligible submitted sentences after later interruption
+ok 83 - flow history retains only eligible submitted sentences after later interruption
+  ---
+  duration_ms: 1.0135
+  type: 'test'
+  ...
+# Subtest: legacy origin falls back for flow retest, while flow excludes every active partial ID
+ok 84 - legacy origin falls back for flow retest, while flow excludes every active partial ID
+  ---
+  duration_ms: 0.784
+  type: 'test'
+  ...
+# Subtest: manual catalogue requires three distinct passages, not occurrences or cross-word pairs
+ok 85 - manual catalogue requires three distinct passages, not occurrences or cross-word pairs
+  ---
+  duration_ms: 9.2987
+  type: 'test'
+  ...
+# Subtest: manual and recommended drills share finite cadence and adjacent-repeat avoidance
+ok 86 - manual and recommended drills share finite cadence and adjacent-repeat avoidance
+  ---
+  duration_ms: 1.2658
+  type: 'test'
+  ...
+# Subtest: warm no-artifact history supports baseline-only predictions, never a recommendation
+ok 87 - warm no-artifact history supports baseline-only predictions, never a recommendation
+  ---
+  duration_ms: 0.5992
+  type: 'test'
+  ...
+# Subtest: actual engine ten-sentence constant-200-ms history abstains in original and permuted orders
+ok 88 - actual engine ten-sentence constant-200-ms history abstains in original and permuted orders
+  ---
+  duration_ms: 29.3581
+  type: 'test'
+  ...
+# Subtest: seeded uniform histories abstain across sentence, pair-entry and summation orders
+ok 89 - seeded uniform histories abstain across sentence, pair-entry and summation orders
+  ---
+  duration_ms: 4612.5162
+  type: 'test'
+  ...
+# Subtest: maximum supported ten-sentence accumulation abstains at both log bounds
+ok 90 - maximum supported ten-sentence accumulation abstains at both log bounds
+  ---
+  duration_ms: 3.1925
+  type: 'test'
+  ...
+# Subtest: numerical boundary is inclusive before occurrence weighting and admits larger differences
+ok 91 - numerical boundary is inclusive before occurrence weighting and admits larger differences
+  ---
+  duration_ms: 3.1613
+  type: 'test'
+  ...
+# ML04_ASSERTIONS {"file":"C:\\\\Users\\\\Owenc\\\\orca\\\\workspaces\\\\TypeForge\\\\typeforge-foundation-ml04\\\\typing-app\\\\client\\\\tests\\\\profile.test.ts","attempted":4327,"passed":4327,"failed":0}
+# Subtest: accepts bounded guest results including sub-millisecond timing and unknown accuracy
+ok 92 - accepts bounded guest results including sub-millisecond timing and unknown accuracy
+  ---
+  duration_ms: 7.5742
+  type: 'test'
+  ...
+# Subtest: rejects corrupt shapes, unsupported versions, impossible counts and unsafe chart data
+ok 93 - rejects corrupt shapes, unsupported versions, impossible counts and unsafe chart data
+  ---
+  duration_ms: 3.8204
+  type: 'test'
+  ...
+# Subtest: rejects an otherwise bounded record larger than the 1 MiB persistence limit
+ok 94 - rejects an otherwise bounded record larger than the 1 MiB persistence limit
+  ---
+  duration_ms: 66.1934
+  type: 'test'
+  ...
+# Subtest: strict v1 extensions retain independent lineage and matched simultaneous predictions
+ok 95 - strict v1 extensions retain independent lineage and matched simultaneous predictions
+  ---
+  duration_ms: 3.3646
+  type: 'test'
+  ...
+# Subtest: rejects unknown extension keys, wrong identities and selectively retained predictions
+ok 96 - rejects unknown extension keys, wrong identities and selectively retained predictions
+  ---
+  duration_ms: 3.0931
+  type: 'test'
+  ...
+# Subtest: UUID self-reference cannot bypass lineage validation with uppercase spelling
+ok 97 - UUID self-reference cannot bypass lineage validation with uppercase spelling
+  ---
+  duration_ms: 0.8248
+  type: 'test'
+  ...
+# Subtest: prediction means must exponentiate to finite positive milliseconds without clamping
+ok 98 - prediction means must exponentiate to finite positive milliseconds without clamping
+  ---
+  duration_ms: 1.7474
+  type: 'test'
+  ...
+# Subtest: flow duration arithmetic is strict while legacy remains 60 seconds only
+ok 99 - flow duration arithmetic is strict while legacy remains 60 seconds only
+  ---
+  duration_ms: 1.2479
+  type: 'test'
+  ...
+# Subtest: manual drills round trip independently of evidence-backed recommendations
+ok 100 - manual drills round trip independently of evidence-backed recommendations
+  ---
+  duration_ms: 1.2494
+  type: 'test'
+  ...
+# Subtest: validation failures are permanent named errors before IndexedDB is opened
+ok 101 - validation failures are permanent named errors before IndexedDB is opened
+  ---
+  duration_ms: 1.1429
+  type: 'test'
+  ...
+# ML04_ASSERTIONS {"file":"C:\\\\Users\\\\Owenc\\\\orca\\\\workspaces\\\\TypeForge\\\\typeforge-foundation-ml04\\\\typing-app\\\\client\\\\tests\\\\storage.test.ts","attempted":64,"passed":64,"failed":0}
+1..101
+# tests 101
+# suites 0
+# pass 98
+# fail 3
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5335.3115

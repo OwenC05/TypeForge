@@ -1,0 +1,547 @@
+{
+ "summary": {
+  "phase": "race",
+  "base": "http://127.0.0.1:5324",
+  "browser": "157.0.8103.79",
+  "total": 39,
+  "passed": 35,
+  "failed": [
+   "P1a/reset: a known invalidation never lets the first key start the stale finite plan",
+   "P1a/focus: a known invalidation never lets the first key start the stale finite plan",
+   "P1b settle/idle: the older snapshot never installs after invalidation and a newer generation",
+   "P1b restart: the snapshot admitted before the reset never installs; honest General with its reason"
+  ]
+ },
+ "checks": [
+  {
+   "id": "P1a/reset: the admitted Suggested th block is ready before the race",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "label": "Suggested practice · th · 30 s",
+    "ids": "practice-002 practice-072 practice-053 practice-003 practice-036 practice-054 practice-034 practice-047 practice-074 practice-077 practice-058 practice-062"
+   }
+  },
+  {
+   "id": "P1a/reset: the reset committed through C",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {}
+  },
+  {
+   "id": "P1a/reset: a known invalidation never lets the first key start the stale finite plan",
+   "source": "real-seeded",
+   "pass": false,
+   "observed": {
+    "label": "Suggested practice · th · 30 s",
+    "state": "running",
+    "value": "t",
+    "typed": 1,
+    "ids": "practice-002 practice-072 practice-053 practice-003 practice-036 practice-054 practice-034 practice-047 practice-074 practice-077 practice-058 practice-062",
+    "focus": "typing-input",
+    "slot": ""
+   }
+  },
+  {
+   "id": "P1a/reset: the first key is accepted exactly once and focus stays in the text",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "label": "Suggested practice · th · 30 s",
+    "state": "running",
+    "value": "t",
+    "typed": 1,
+    "ids": "practice-002 practice-072 practice-053 practice-003 practice-036 practice-054 practice-034 practice-047 practice-074 practice-077 practice-058 practice-062",
+    "focus": "typing-input",
+    "slot": ""
+   }
+  },
+  {
+   "id": "layout race-first-key-reset @1440: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout race-first-key-reset @390: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout race-first-key-reset @320: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "P1a/reset: the re-preparation never replaces the running block",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "label": "Suggested practice · th · 30 s",
+    "state": "running",
+    "value": "t",
+    "ids": "practice-002 practice-072 practice-053 practice-003 practice-036 practice-054 practice-034 practice-047 practice-074 practice-077 practice-058 practice-062"
+   }
+  },
+  {
+   "id": "isolation race-first-key-reset: only the UUID synthetic database exists",
+   "source": "real",
+   "pass": true,
+   "observed": {
+    "names": [
+     "typeforge-ui-synthetic-76bbfaf5-bb5f-4d17-963c-4866f0fbfa58"
+    ]
+   }
+  },
+  {
+   "id": "P1a/focus: the admitted Suggested th block is ready before the race",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "label": "Suggested practice · th · 30 s",
+    "ids": "practice-002 practice-072 practice-053 practice-003 practice-036 practice-054 practice-034 practice-047 practice-074 practice-077 practice-058 practice-062"
+   }
+  },
+  {
+   "id": "P1a/focus: a known invalidation never lets the first key start the stale finite plan",
+   "source": "real-seeded",
+   "pass": false,
+   "observed": {
+    "label": "Suggested practice · th · 30 s",
+    "state": "running",
+    "value": "t",
+    "typed": 1,
+    "ids": "practice-002 practice-072 practice-053 practice-003 practice-036 practice-054 practice-034 practice-047 practice-074 practice-077 practice-058 practice-062",
+    "focus": "typing-input",
+    "slot": ""
+   }
+  },
+  {
+   "id": "P1a/focus: the first key is accepted exactly once and focus stays in the text",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "label": "Suggested practice · th · 30 s",
+    "state": "running",
+    "value": "t",
+    "typed": 1,
+    "ids": "practice-002 practice-072 practice-053 practice-003 practice-036 practice-054 practice-034 practice-047 practice-074 practice-077 practice-058 practice-062",
+    "focus": "typing-input",
+    "slot": ""
+   }
+  },
+  {
+   "id": "layout race-first-key-focus @1440: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout race-first-key-focus @390: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout race-first-key-focus @320: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "P1a/focus: the re-preparation never replaces the running block",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "label": "Suggested practice · th · 30 s",
+    "state": "running",
+    "value": "t",
+    "ids": "practice-002 practice-072 practice-053 practice-003 practice-036 practice-054 practice-034 practice-047 practice-074 practice-077 practice-058 practice-062"
+   }
+  },
+  {
+   "id": "isolation race-first-key-focus: only the UUID synthetic database exists",
+   "source": "real",
+   "pass": true,
+   "observed": {
+    "names": [
+     "typeforge-ui-synthetic-e1f5c60a-1aac-43e9-a94d-11db833f2609"
+    ]
+   }
+  },
+  {
+   "id": "P1b settle/idle: the reset committed through C while the runtime import is held",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "label": "General practice · 30 s",
+    "ids": "practice-062 practice-072 practice-005 practice-022 practice-059 practice-044 practice-036 practice-010 practice-018 practice-021 practice-027 practice-020 practice-004 practice-032 practice-053 practice-024 practice-067 practice-055 practice-007 practice-074 practice-057 practice-039 practice-050 practice-043 practice-061 practice-080 practice-026 practice-037 practice-033 practice-028 practice-079 practice-047 practice-064 practice-054 practice-008 practice-029 practice-070 practice-034 practice-073 practice-031 practice-065 practice-060 practice-038 practice-011 practice-017 practice-077 practice-048 practice-049 practice-035 practice-052 practice-030 practice-071 practice-058 practice-016 practice-056 practice-012 practice-078 practice-002 practice-001 practice-068 practice-025 practice-013 practice-051 practice-006 practice-040 practice-014 practice-076 practice-042 practice-003 practice-009 practice-019 practice-075 practice-023 practice-069 practice-015 practice-046 practice-041 practice-045 practice-066 practice-063"
+   }
+  },
+  {
+   "id": "P1b settle/idle: the older snapshot never installs after invalidation and a newer generation",
+   "source": "real-seeded",
+   "pass": false,
+   "observed": {
+    "before": {
+     "label": "General practice · 30 s",
+     "ids": "practice-062 practice-072 practice-005 practice-022 practice-059 practice-044 practice-036 practice-010 practice-018 practice-021 practice-027 practice-020 practice-004 practice-032 practice-053 practice-024 practice-067 practice-055 practice-007 practice-074 practice-057 practice-039 practice-050 practice-043 practice-061 practice-080 practice-026 practice-037 practice-033 practice-028 practice-079 practice-047 practice-064 practice-054 practice-008 practice-029 practice-070 practice-034 practice-073 practice-031 practice-065 practice-060 practice-038 practice-011 practice-017 practice-077 practice-048 practice-049 practice-035 practice-052 practice-030 practice-071 practice-058 practice-016 practice-056 practice-012 practice-078 practice-002 practice-001 practice-068 practice-025 practice-013 practice-051 practice-006 practice-040 practice-014 practice-076 practice-042 practice-003 practice-009 practice-019 practice-075 practice-023 practice-069 practice-015 practice-046 practice-041 practice-045 practice-066 practice-063"
+    },
+    "after": {
+     "label": "Suggested practice · th · 30 s",
+     "ids": "practice-002 practice-072 practice-053 practice-003 practice-036 practice-054 practice-034 practice-047 practice-074 practice-077 practice-058 practice-062",
+     "state": "idle",
+     "value": "",
+     "typed": 0,
+     "status": "Not yet available: 0 of 10 baseline tests."
+    }
+   }
+  },
+  {
+   "id": "layout race-settle-idle @1440: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout race-settle-idle @390: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout race-settle-idle @320: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "isolation race-settle-idle: only the UUID synthetic database exists",
+   "source": "real",
+   "pass": true,
+   "observed": {
+    "names": [
+     "typeforge-ui-synthetic-1f2f304b-82b9-494f-900d-1f04cf19ea1d"
+    ]
+   }
+  },
+  {
+   "id": "P1b settle/first-key: the reset committed through C while the runtime import is held",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "label": "General practice · 30 s",
+    "ids": "practice-038 practice-028 practice-069 practice-039 practice-061 practice-072 practice-043 practice-074 practice-036 practice-001 practice-040 practice-013 practice-005 practice-021 practice-055 practice-004 practice-009 practice-049 practice-073 practice-011 practice-017 practice-050 practice-041 practice-064 practice-010 practice-059 practice-014 practice-070 practice-024 practice-026 practice-042 practice-079 practice-066 practice-080 practice-053 practice-016 practice-012 practice-044 practice-077 practice-056 practice-047 practice-045 practice-063 practice-002 practice-052 practice-035 practice-071 practice-031 practice-025 practice-078 practice-062 practice-033 practice-060 practice-023 practice-032 practice-054 practice-034 practice-048 practice-006 practice-058 practice-018 practice-003 practice-008 practice-020 practice-037 practice-007 practice-075 practice-051 practice-027 practice-046 practice-022 practice-057 practice-029 practice-015 practice-030 practice-068 practice-076 practice-065 practice-019 practice-067"
+   }
+  },
+  {
+   "id": "P1b settle/first-key: a block started during the gap stays intact (General, one key, running)",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "before": {
+     "label": "General practice · 30 s",
+     "ids": "practice-038 practice-028 practice-069 practice-039 practice-061 practice-072 practice-043 practice-074 practice-036 practice-001 practice-040 practice-013 practice-005 practice-021 practice-055 practice-004 practice-009 practice-049 practice-073 practice-011 practice-017 practice-050 practice-041 practice-064 practice-010 practice-059 practice-014 practice-070 practice-024 practice-026 practice-042 practice-079 practice-066 practice-080 practice-053 practice-016 practice-012 practice-044 practice-077 practice-056 practice-047 practice-045 practice-063 practice-002 practice-052 practice-035 practice-071 practice-031 practice-025 practice-078 practice-062 practice-033 practice-060 practice-023 practice-032 practice-054 practice-034 practice-048 practice-006 practice-058 practice-018 practice-003 practice-008 practice-020 practice-037 practice-007 practice-075 practice-051 practice-027 practice-046 practice-022 practice-057 practice-029 practice-015 practice-030 practice-068 practice-076 practice-065 practice-019 practice-067"
+    },
+    "after": {
+     "label": "General practice · 30 s",
+     "ids": "practice-038 practice-028 practice-069 practice-039 practice-061 practice-072 practice-043 practice-074 practice-036 practice-001 practice-040 practice-013 practice-005 practice-021 practice-055 practice-004 practice-009 practice-049 practice-073 practice-011 practice-017 practice-050 practice-041 practice-064 practice-010 practice-059 practice-014 practice-070 practice-024 practice-026 practice-042 practice-079 practice-066 practice-080 practice-053 practice-016 practice-012 practice-044 practice-077 practice-056 practice-047 practice-045 practice-063 practice-002 practice-052 practice-035 practice-071 practice-031 practice-025 practice-078 practice-062 practice-033 practice-060 practice-023 practice-032 practice-054 practice-034 practice-048 practice-006 practice-058 practice-018 practice-003 practice-008 practice-020 practice-037 practice-007 practice-075 practice-051 practice-027 practice-046 practice-022 practice-057 practice-029 practice-015 practice-030 practice-068 practice-076 practice-065 practice-019 practice-067",
+     "state": "running",
+     "value": "t",
+     "typed": 1,
+     "status": "Available: th."
+    }
+   }
+  },
+  {
+   "id": "layout race-settle-first-key @1440: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout race-settle-first-key @390: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout race-settle-first-key @320: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "isolation race-settle-first-key: only the UUID synthetic database exists",
+   "source": "real",
+   "pass": true,
+   "observed": {
+    "names": [
+     "typeforge-ui-synthetic-07f94b10-85e0-482c-80dd-a8d94ab3c853"
+    ]
+   }
+  },
+  {
+   "id": "P1b restart: the reset committed through C while restarting",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "value": "",
+    "disabled": true
+   }
+  },
+  {
+   "id": "P1b restart: the snapshot admitted before the reset never installs; honest General with its reason",
+   "source": "real-seeded",
+   "pass": false,
+   "observed": {
+    "during": {
+     "value": "",
+     "disabled": true
+    },
+    "after": {
+     "label": "Suggested practice · th · 30 s",
+     "slot": "",
+     "value": "",
+     "focus": "suggested-item",
+     "status": "Available: th."
+    }
+   }
+  },
+  {
+   "id": "P1b restart: no key landed while input was held; the next key starts exactly once",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "during": {
+     "value": "",
+     "disabled": true
+    },
+    "after": {
+     "label": "Suggested practice · th · 30 s",
+     "slot": "",
+     "value": "",
+     "focus": "suggested-item",
+     "status": "Available: th."
+    }
+   }
+  },
+  {
+   "id": "P1b restart: first key after the restart starts the General block once",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "state": "running"
+   }
+  },
+  {
+   "id": "layout race-restart @1440: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout race-restart @390: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "layout race-restart @320: no horizontal overflow, no clipped slot key, no undefined/NaN",
+   "source": "real-seeded",
+   "pass": true,
+   "observed": {
+    "overflow": 0,
+    "clipped": []
+   }
+  },
+  {
+   "id": "isolation race-restart: only the UUID synthetic database exists",
+   "source": "real",
+   "pass": true,
+   "observed": {
+    "names": [
+     "typeforge-ui-synthetic-97b5b794-c71b-486b-9ebe-e179f35327b5"
+    ]
+   }
+  },
+  {
+   "id": "helper cleanup: own server exited and port 5324 closed",
+   "source": "race",
+   "pass": true,
+   "observed": {
+    "serverExited": true,
+    "portClosed": true,
+    "finished": "2026-11-18T22:58:33.353Z"
+   }
+  },
+  {
+   "id": "no page errors or console errors",
+   "source": "race",
+   "pass": true,
+   "observed": []
+  }
+ ],
+ "shots": [
+  {
+   "file": "race-first-key-reset-1440.png",
+   "source": "real-seeded",
+   "width": 1440
+  },
+  {
+   "file": "race-first-key-reset-390.png",
+   "source": "real-seeded",
+   "width": 390
+  },
+  {
+   "file": "race-first-key-reset-320.png",
+   "source": "real-seeded",
+   "width": 320
+  },
+  {
+   "file": "race-first-key-focus-1440.png",
+   "source": "real-seeded",
+   "width": 1440
+  },
+  {
+   "file": "race-first-key-focus-390.png",
+   "source": "real-seeded",
+   "width": 390
+  },
+  {
+   "file": "race-first-key-focus-320.png",
+   "source": "real-seeded",
+   "width": 320
+  },
+  {
+   "file": "race-settle-idle-1440.png",
+   "source": "real-seeded",
+   "width": 1440
+  },
+  {
+   "file": "race-settle-idle-390.png",
+   "source": "real-seeded",
+   "width": 390
+  },
+  {
+   "file": "race-settle-idle-320.png",
+   "source": "real-seeded",
+   "width": 320
+  },
+  {
+   "file": "race-settle-first-key-1440.png",
+   "source": "real-seeded",
+   "width": 1440
+  },
+  {
+   "file": "race-settle-first-key-390.png",
+   "source": "real-seeded",
+   "width": 390
+  },
+  {
+   "file": "race-settle-first-key-320.png",
+   "source": "real-seeded",
+   "width": 320
+  },
+  {
+   "file": "race-restart-1440.png",
+   "source": "real-seeded",
+   "width": 1440
+  },
+  {
+   "file": "race-restart-390.png",
+   "source": "real-seeded",
+   "width": 390
+  },
+  {
+   "file": "race-restart-320.png",
+   "source": "real-seeded",
+   "width": 320
+  }
+ ],
+ "errors": [],
+ "receipts": {
+  "phase": "race",
+  "port": 5324,
+  "node": "C:\\Program Files\\nodejs\\node.exe",
+  "started": "2026-11-18T22:58:19.507Z",
+  "server": {
+   "pid": 36444,
+   "executable": "C:\\Program Files\\nodejs\\node.exe",
+   "args": [
+    "node_modules/vite/bin/vite.js",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "5324",
+    "--strictPort"
+   ],
+   "cwd": "C:\\Users\\Owenc\\orca\\workspaces\\TypeForge\\tf-coach-ui\\typing-app\\client",
+   "windowsHide": true,
+   "shell": false,
+   "exitCode": null
+  },
+  "browser": {
+   "executable": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+   "version": "157.0.8103.79",
+   "headless": true,
+   "launchedBy": "playwright-core launch (temporary profile)"
+  },
+  "cleanup": {
+   "serverExited": true,
+   "portClosed": true,
+   "finished": "2026-11-18T22:58:33.353Z"
+  },
+  "databases": [
+   "typeforge-ui-synthetic-76bbfaf5-bb5f-4d17-963c-4866f0fbfa58",
+   "typeforge-ui-synthetic-e1f5c60a-1aac-43e9-a94d-11db833f2609",
+   "typeforge-ui-synthetic-1f2f304b-82b9-494f-900d-1f04cf19ea1d",
+   "typeforge-ui-synthetic-07f94b10-85e0-482c-80dd-a8d94ab3c853",
+   "typeforge-ui-synthetic-97b5b794-c71b-486b-9ebe-e179f35327b5"
+  ]
+ }
+}

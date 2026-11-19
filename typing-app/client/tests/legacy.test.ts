@@ -159,9 +159,12 @@ test('legacy invalid settings reach destination parsers and their visible fallba
   const html = readFileSync(new URL('../TypingDrill.html', import.meta.url), 'utf8');
   const script = html.match(/<script>([\s\S]*?)<\/script>/)![1]!;
   const source = readFileSync(new URL('../src/app.ts', import.meta.url), 'utf8');
-  const parsers = source.slice(source.indexOf('function parseDuration('), source.indexOf('function recommendationReason('));
+  // Boundary migration (F): the old selector's reason helper is gone; the parsers end where calibration begins, and the
+  // slot's warning() ends where its level state is declared. The visible fallback contract is unchanged.
+  const parsers = source.slice(source.indexOf('function parseDuration('), source.indexOf('async function calibration('));
   const focusLine = source.split('\n').find(line => line.includes("$('#focus-state').textContent ="))!;
-  const warningCode = source.slice(source.indexOf('  function warning('), source.indexOf('  function paint('));
+  const warningCode = source.slice(source.indexOf('  function warning('), source.indexOf('  let slotLevel = 0;'));
+  assert.ok(parsers.includes('function parsePracticeChoice(') && warningCode.includes('function warning('), 'nonempty ordered slices');
   const warningStart = source.indexOf('  const configurationWarning =');
   const warningEnd = source.indexOf('\n}', warningStart);
   for (const query of [
@@ -187,13 +190,13 @@ test('legacy invalid settings reach destination parsers and their visible fallba
     const code = `${parsers}
       const parsedDuration = parseDuration(params.get('duration'));
       const parsedQwerty = parseQwerty(params.get('qwerty'));
-      const practiceChoice = parsePracticeChoice(params.get('practice'), params.get('pair'), ['at', 'th'], null, 'No history');
+      const practiceChoice = parsePracticeChoice(params.get('practice'), params.get('pair'), ['at', 'th']);
       ${focusLine}
       ${warningCode}
       ${source.slice(warningStart, warningEnd)}
       ({parsedDuration, parsedQwerty, practiceChoice});`;
     const result = runInNewContext(stripTypeScriptTypes(code), {
-      SUPPORTED_DURATIONS: [15000, 30000, 60000, 120000], params,
+      SUPPORTED_DURATIONS: [15000, 30000, 60000, 120000], params, slotLevel: 0, hintMark: '',
       $: (selector: string) => nodes[selector], lineageMessage: '', mode: 'practice', focus: null,
     });
     assert.equal(result.practiceChoice.kind, 'general');

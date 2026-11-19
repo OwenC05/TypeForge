@@ -1,0 +1,29 @@
+{
+  "taskId": "task_2e5a011bd2cf",
+  "dispatchId": "ctx_5d497a7b14ff",
+  "worker": "term_2c47dfc8-d759-44bb-8d14-c4bb112c92da",
+  "coordinator": "term_68fded65-2f85-497d-a32e-38f10342d6df",
+  "sourceCommit": "3e3142587e3650ab36db27b6025e8490cb104d9d",
+  "contractEvidenceCommit": "5161dbaa5397b02e678ef4d1be7fe0a8cd8f8cbd",
+  "originalReviewPreserved": "b66ed8f884bee5d253d1b345f483f932beb8b671",
+  "originalReproductionPreserved": "903e47fd775a67cd1c1010845016fa5c567ebc7a",
+  "verdict": "APPROVE bounded low-level R1 repair only",
+  "observedClient": {
+    "agentIdentity": "codex",
+    "preview": "GPT-6.1-Sol high",
+    "incarnationId": "8cee4b40-fbba-42a9-9499-d444cacce53a",
+    "source": "live orca terminal show receipt; not backend attestation"
+  },
+  "checks": {
+    "independentPrefixAndLegacyAssertions": 390,
+    "independentRealIndexedDBAssertions": 92,
+    "freshReplayedRepairAssertions": 354,
+    "freshReplayedExistingAssertions": 298,
+    "fullNodeTests": 140,
+    "typecheck": "passed",
+    "viteBuild": "passed",
+    "lint": "not configured"
+  },
+  "helpers": [],
+  "limits": "No root integration, source repairs, consumer implementation, UI/architecture certification, deployment, account/global changes or performance guarantee. Owned ignored runtime snapshot and existing-dependency junction only."
+}

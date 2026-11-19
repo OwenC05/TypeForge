@@ -1,0 +1,10 @@
+{
+  "sourcePin": "2832ceef907a02ca7a9487bfe7eb6b398218d911",
+  "briefHead": "4e990c344f243455bccea923f6c04d1b3383f2e6",
+  "pinnedFiles": 50,
+  "beforeAfterEqual": true,
+  "typeMirrorEqualExceptEngineImport": true,
+  "sourceDiffFromPin": [],
+  "node": "v24.21.0",
+  "scopeDiff": "?? docs/implementation/2026-11-16/baseline/implementation/storage-review/"
+}

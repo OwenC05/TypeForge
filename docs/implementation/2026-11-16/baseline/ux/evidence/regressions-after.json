@@ -1,0 +1,1061 @@
+{
+ "summary": {
+  "base": "http://127.0.0.1:5312",
+  "ranAt": "2026-11-18T19:00:28.738Z",
+  "total": 85,
+  "passed": 85,
+  "failed": []
+ },
+ "checks": [
+  {
+   "id": "REG-1 coaching-deferred press: honest, no undefined, no gate claim",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "text": "Suggested isn’t switched on in this version. General works as usual.  Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-1 coaching-deferred why: honest, no undefined, no gate claim",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "text": "baseline10 of 10 testsBaseline complete. Suggested practice isn’t switched on in this version. General and pair practice work as usual.\n    \n    English · lowercase · short sentencesThe timer keeps running if you leave the text. Interrupted runs stay in history, outside headline progress. Suggested ",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-1b disabled config before ten: no unlock advertised",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "text": "Suggested isn’t switched on in this version. General works as usual. Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-2a final result labels summary \"Last 10 tests · median\"",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "block": "BASELINE\n10 of 10 tests\n\nBaseline complete.\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nNo key pair stands out clearly from the rest.\n\nGeneral practice fits best for now, and pair practice",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-2b Progress keeps the summary with date range and update note",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "text": "t_\ntypeforge\npractice\nassessment\nprogress\nlab\n\nPROGRESS\n\nWhat you have done so far.\nBaseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; the",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-2c milestone proved, newest-ten selection unproved: no median shown",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "text": "t_\ntypeforge\npractice\nassessment\nprogress\nlab\n\nPROGRESS\n\nWhat you have done so far.\nBaseline\nCOUNTED\n10 of 10 tests\n\nLast 10 tests · median: your latest tests are still being read.\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline\n\nActivity, assessment tren",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-2d null accuracy: WPM only plus note",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "text": "t_\ntypeforge\npractice\nassessment\nprogress\nlab\n\nPROGRESS\n\nWhat you have done so far.\nBaseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\n\nAccuracy isn’t available for all 10, so only speed is shown.\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a new baseline if someone else used this browser or you changed keyboard",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-2e below ten after deletion: no cached median",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "text": "t_\ntypeforge\npractice\nassessment\nprogress\nlab\n\nPROGRESS\n\nWhat you have done so far.\nBaseline\nCOUNTED\n9 of 10 tests\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\ntake test 10 →\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline\n\nActivity, assessment trend and the session list are unchanged (not prototyp",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-2f after reset: no median",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "text": "t_\ntypeforge\npractice\nassessment\nprogress\nlab\n\nPROGRESS\n\nWhat you have done so far.\nBaseline\nCOUNTED\n0 of 10 tests\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\ntake test 1 →\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline\n\nActivity, assessment trend and the session list are unchanged (not prototype",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-3a assessment hint offers explicit qwerty declaration; first key still starts",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "present": true,
+    "switchBefore": false,
+    "after": {
+     "label": "Baseline test 1 of 10 · 30 s",
+     "focus": "typing-input",
+     "switchOn": true,
+     "visible": true,
+     "stage": "running"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-3b not-counted (qwerty off) result offers the same declaration key",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "has": 1,
+    "block": "Not a baseline test (qwerty off). Baseline tests are 30 seconds on a physical QWERTY keyboard. Still 0 of 10.\n\nmy keyboard is qwerty",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-3c first visit unchanged: no declaration prompt, qwerty off, textarea focused",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "focus": "typing-input",
+    "declare": 0,
+    "qOn": false,
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-4a incomplete proof: no ordinal in label or hint",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "label": "Baseline test · 30 s",
+    "hint": "At least 7 of 10 found; this one counts too.",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-4b incomplete proof: why?/actions carry no ordinal",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "text": "\n    baselineat least 7 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments on a physical QWERTY keyboard (the qwerty key on), about five minutes of typing, at your own pace.\n      Every finished test counts, mistakes included. A run that stops early or lo",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-5a Enter at 0 ms, save then succeeds",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "early": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input"
+    },
+    "late": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input",
+     "slot": "baseline test 6 of 10 — the clock starts with your first letter",
+     "why": "\n    baseline5 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments on a physical QWERTY keyboard (the qwerty key on)",
+     "stage": "idle"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-5b Enter at 200 ms (during save), succeeds",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "early": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input"
+    },
+    "late": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input",
+     "slot": "baseline test 6 of 10 — the clock starts with your first letter",
+     "why": "\n    baseline5 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments on a physical QWERTY keyboard (the qwerty key on)",
+     "stage": "idle"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-5c Enter at 800 ms (after save)",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "early": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input"
+    },
+    "late": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input",
+     "slot": "baseline test 6 of 10 — the clock starts with your first letter",
+     "why": "\n    baseline5 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments on a physical QWERTY keyboard (the qwerty key on)",
+     "stage": "idle"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-5d Enter at 0 ms, save then fails",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "early": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input"
+    },
+    "late": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input",
+     "slot": "Test 5 isn’t saved yet, so it doesn’t count.retry saving",
+     "why": "\n    baseline4 of 10 tests · 1 waiting to save\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments on a physical QWERTY keyboard",
+     "stage": "idle"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-5e delayed failure during an active run: run, label, focus untouched; recovery offered after",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "during0": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "value": "the"
+    },
+    "during": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input",
+     "stage": "running",
+     "slot": "",
+     "value": "the"
+    },
+    "result": {
+     "label": "Baseline test 6 of 10 · 30 s · complete",
+     "block": "BASELINE TEST 6 OF 10 · 30 S · COMPLETE\nwpm\n41.6\naccuracy\n96.2%\n\nSIMULATED FIXTURE FIGURES\n\nMost first-attempt misses: “e” (3 of 52). An observation, not a diagnosis.\n\nTest 5 isn’t saved yet, so it doesn’t count. retry saving\n\nBASELINE\n4 of 10 tests · 2 waiting to save\n\nSaving…\n\nnext test ↵\npractise\nor stop here; progress is kept\n\nSaving to this browser…\n\nexport\ndetails"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-5f retry saving from the ready slot succeeds; count 5, label stays 6, focus back to text",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "had": 1,
+    "after": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input",
+     "slot": "baseline test 6 of 10 — the clock starts with your first letter",
+     "why": "\n    baseline5 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments on a phys"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-5g interrupted -> try test 5 again: no page error, label 5",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "after": {
+     "label": "Baseline test 5 of 10 · 30 s",
+     "focus": "typing-input"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-6a test 5 save failed",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "focusId": "primary",
+    "focusText": "retry saving ↵",
+    "inView": true,
+    "scrollY": 0,
+    "blockText": "BASELINE\n4 of 10 tests · 1 waiting to save\n\nNot saved yet, so it doesn’t count.\n\nRetrying is safe. If you go on, it keeps waiting here to be saved.",
+    "blockTop": 436.59375,
+    "deadLinks": 0,
+    "secondary": "next test",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-6b test 10 save failed",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "focusId": "primary",
+    "focusText": "retry saving ↵",
+    "inView": true,
+    "scrollY": 0,
+    "blockText": "BASELINE\n9 of 10 tests · 1 waiting to save\n\nNot saved yet, so it doesn’t count.\n\nRetrying is safe. If you go on, it keeps waiting here to be saved.",
+    "blockTop": 436.59375,
+    "deadLinks": 0,
+    "secondary": "practise",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-7 tally removed; locked key still described",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "tally": 0,
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-8a Progress: no other-context sentence, count once, take test 5 action",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "counts": 1,
+    "action": 1,
+    "text": "t_\ntypeforge\npractice\nassessment\nprogress\nlab\n\nPROGRESS\n\nWhat you have done so far.\nBaseline\nCOUNTED\n4 of 10 tests\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\ntake test 5 →\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-8b why?: \"about five minutes of typing\"",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "text": "\n    baseline4 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments on a physical QWERTY keyboard (the qwerty key on), about five minutes of typing, at your own pace.\n      Every finished test counts, mistakes include",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-8c Progress action has no ordinal when proof is incomplete",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "action": "take a baseline test →",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-9 finite plan (30 s pilot, delta r2.1): ends at last sentence, never wraps, never \"30 s · complete\"",
+   "width": 1440,
+   "pass": true,
+   "observed": {
+    "plan": 3,
+    "stage": "completed",
+    "label": "Suggested practice · th · all 3 sentences done at 10 s of 30",
+    "prompt": "they think that this is the path ",
+    "block": "SUGGESTED PRACTICE · TH · ALL 3 SENTENCES DONE AT 10 S OF 30\n\nFIGURES OMITTED: UNAVAILABLE UNTIL P1 R2 VALIDATES METRICS FOR A BLOCK THAT ENDS EARLY (FINITE-PLAN-END.MD RULE 6)\n\nThat’s every sentence in this th block, so it ended before the timer. The next suggested block uses the same small set of ",
+    "typed": 3,
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-1 coaching-deferred press: honest, no undefined, no gate claim",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "text": "Suggested isn’t switched on in this version. General works as usual.  Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-1 coaching-deferred why: honest, no undefined, no gate claim",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "text": "baseline10 of 10 testsBaseline complete. Suggested practice isn’t switched on in this version. General and pair practice work as usual.\n    \n    English · lowercase · short sentencesThe timer keeps running if you leave the text. Interrupted runs stay in history, outside headline progress. Suggested ",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-1b disabled config before ten: no unlock advertised",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "text": "Suggested isn’t switched on in this version. General works as usual. Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-1c every reason x press/why renders a sentence (exhaustive, unknown reason safe)",
+   "width": 390,
+   "pass": true,
+   "observed": []
+  },
+  {
+   "id": "REG-2a final result labels summary \"Last 10 tests · median\"",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "block": "BASELINE\n10 of 10 tests\n\nBaseline complete.\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nNo key pair stands out clearly from the rest.\n\nGeneral practice fits best for now, and pair practice",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-2b Progress keeps the summary with date range and update note",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "text": "t_\ntypeforge\nmenu\n\nPROGRESS\n\nWhat you have done so far.\nBaseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward ",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-2c milestone proved, newest-ten selection unproved: no median shown",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "text": "t_\ntypeforge\nmenu\n\nPROGRESS\n\nWhat you have done so far.\nBaseline\nCOUNTED\n10 of 10 tests\n\nLast 10 tests · median: your latest tests are still being read.\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline\n\nActivity, assessment trend and the session list are u",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-2d null accuracy: WPM only plus note",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "text": "t_\ntypeforge\nmenu\n\nPROGRESS\n\nWhat you have done so far.\nBaseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\n\nAccuracy isn’t available for all 10, so only speed is shown.\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay i",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-2e below ten after deletion: no cached median",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "text": "t_\ntypeforge\nmenu\n\nPROGRESS\n\nWhat you have done so far.\nBaseline\nCOUNTED\n9 of 10 tests\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\ntake test 10 →\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline\n\nActivity, assessment trend and the session list are unchanged (not prototyped).\n\nRESULTS STAY IN THIS B",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-2f after reset: no median",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "text": "t_\ntypeforge\nmenu\n\nPROGRESS\n\nWhat you have done so far.\nBaseline\nCOUNTED\n0 of 10 tests\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\ntake test 1 →\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline\n\nActivity, assessment trend and the session list are unchanged (not prototyped).\n\nRESULTS STAY IN THIS BR",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-3a assessment hint offers explicit qwerty declaration; first key still starts",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "present": true,
+    "switchBefore": false,
+    "after": {
+     "label": "Baseline test 1 of 10 · 30 s",
+     "focus": "typing-input",
+     "switchOn": true,
+     "visible": true,
+     "stage": "running"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-3b not-counted (qwerty off) result offers the same declaration key",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "has": 1,
+    "block": "Not a baseline test (qwerty off). Baseline tests are 30 seconds on a physical QWERTY keyboard. Still 0 of 10.\n\nmy keyboard is qwerty",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-3c first visit unchanged: no declaration prompt, qwerty off, textarea focused",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "focus": "typing-input",
+    "declare": 0,
+    "qOn": false,
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-4a incomplete proof: no ordinal in label or hint",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "label": "Baseline test · 30 s",
+    "hint": "At least 7 of 10 found; this one counts too.",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-4b incomplete proof: why?/actions carry no ordinal",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "text": "\n    baselineat least 7 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments on a physical QWERTY keyboard (the qwerty key on), about five minutes of typing, at your own pace.\n      Every finished test counts, mistakes included. A run that stops early or lo",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-5a Enter at 0 ms, save then succeeds",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "early": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input"
+    },
+    "late": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input",
+     "slot": "baseline test 6 of 10 — the clock starts with your first letter",
+     "why": "\n    baseline5 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments on a physical QWERTY keyboard (the qwerty key on)",
+     "stage": "idle"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-5b Enter at 200 ms (during save), succeeds",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "early": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input"
+    },
+    "late": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input",
+     "slot": "baseline test 6 of 10 — the clock starts with your first letter",
+     "why": "\n    baseline5 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments on a physical QWERTY keyboard (the qwerty key on)",
+     "stage": "idle"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-5c Enter at 800 ms (after save)",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "early": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input"
+    },
+    "late": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input",
+     "slot": "baseline test 6 of 10 — the clock starts with your first letter",
+     "why": "\n    baseline5 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments on a physical QWERTY keyboard (the qwerty key on)",
+     "stage": "idle"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-5d Enter at 0 ms, save then fails",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "early": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input"
+    },
+    "late": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input",
+     "slot": "Test 5 isn’t saved yet, so it doesn’t count.retry saving",
+     "why": "\n    baseline4 of 10 tests · 1 waiting to save\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments on a physical QWERTY keyboard",
+     "stage": "idle"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-5e delayed failure during an active run: run, label, focus untouched; recovery offered after",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "during0": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "value": "the"
+    },
+    "during": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input",
+     "stage": "running",
+     "slot": "",
+     "value": "the"
+    },
+    "result": {
+     "label": "Baseline test 6 of 10 · 30 s · complete",
+     "block": "BASELINE TEST 6 OF 10 · 30 S · COMPLETE\nwpm\n41.6\naccuracy\n96.2%\n\nSIMULATED FIXTURE FIGURES\n\nMost first-attempt misses: “e” (3 of 52). An observation, not a diagnosis.\n\nTest 5 isn’t saved yet, so it doesn’t count. retry saving\n\nBASELINE\n4 of 10 tests · 2 waiting to save\n\nSaving…\n\nnext test ↵\npractise\nor stop here; progress is kept\n\nSaving to this browser…\n\nexport\ndetails"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-5f retry saving from the ready slot succeeds; count 5, label stays 6, focus back to text",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "had": 1,
+    "after": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input",
+     "slot": "baseline test 6 of 10 — the clock starts with your first letter",
+     "why": "\n    baseline5 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments on a phys"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-5g interrupted -> try test 5 again: no page error, label 5",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "after": {
+     "label": "Baseline test 5 of 10 · 30 s",
+     "focus": "typing-input"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-6a test 5 save failed",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "focusId": "primary",
+    "focusText": "retry saving ↵",
+    "inView": true,
+    "scrollY": 0,
+    "blockText": "BASELINE\n4 of 10 tests · 1 waiting to save\n\nNot saved yet, so it doesn’t count.\n\nRetrying is safe. If you go on, it keeps waiting here to be saved.",
+    "blockTop": 490.09375,
+    "deadLinks": 0,
+    "secondary": "next test",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-6b test 10 save failed",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "focusId": "primary",
+    "focusText": "retry saving ↵",
+    "inView": true,
+    "scrollY": 0,
+    "blockText": "BASELINE\n9 of 10 tests · 1 waiting to save\n\nNot saved yet, so it doesn’t count.\n\nRetrying is safe. If you go on, it keeps waiting here to be saved.",
+    "blockTop": 490.09375,
+    "deadLinks": 0,
+    "secondary": "practise",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-7 tally removed; locked key still described",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "tally": 0,
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-8a Progress: no other-context sentence, count once, take test 5 action",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "counts": 1,
+    "action": 1,
+    "text": "t_\ntypeforge\nmenu\n\nPROGRESS\n\nWhat you have done so far.\nBaseline\nCOUNTED\n4 of 10 tests\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\ntake test 5 →\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline\n\nActi",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-8b why?: \"about five minutes of typing\"",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "text": "\n    baseline4 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments on a physical QWERTY keyboard (the qwerty key on), about five minutes of typing, at your own pace.\n      Every finished test counts, mistakes include",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-8c Progress action has no ordinal when proof is incomplete",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "action": "take a baseline test →",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-9 finite plan (30 s pilot, delta r2.1): ends at last sentence, never wraps, never \"30 s · complete\"",
+   "width": 390,
+   "pass": true,
+   "observed": {
+    "plan": 3,
+    "stage": "completed",
+    "label": "Suggested practice · th · all 3 sentences done at 10 s of 30",
+    "prompt": "they think that this is the path ",
+    "block": "SUGGESTED PRACTICE · TH · ALL 3 SENTENCES DONE AT 10 S OF 30\n\nFIGURES OMITTED: UNAVAILABLE UNTIL P1 R2 VALIDATES METRICS FOR A BLOCK THAT ENDS EARLY (FINITE-PLAN-END.MD RULE 6)\n\nThat’s every sentence in this th block, so it ended before the timer. The next suggested block uses the same small set of ",
+    "typed": 3,
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-1 coaching-deferred press: honest, no undefined, no gate claim",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "text": "Suggested isn’t switched on in this version. General works as usual.  Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-1 coaching-deferred why: honest, no undefined, no gate claim",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "text": "baseline10 of 10 testsBaseline complete. Suggested practice isn’t switched on in this version. General and pair practice work as usual.\n    \n    English · lowercase · short sentencesThe timer keeps running if you leave the text. Interrupted runs stay in history, outside headline progress. Suggested ",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-1b disabled config before ten: no unlock advertised",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "text": "Suggested isn’t switched on in this version. General works as usual. Suggested practice isn’t switched on in this version. General and pair practice work as usual.",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-2a final result labels summary \"Last 10 tests · median\"",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "block": "BASELINE\n10 of 10 tests\n\nBaseline complete.\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nNo key pair stands out clearly from the rest.\n\nGeneral practice fits best for now, and pair practice",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-2b Progress keeps the summary with date range and update note",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "text": "t_\ntypeforge\nmenu\n\nPROGRESS\n\nWhat you have done so far.\nBaseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\naccuracy\n95.8%\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward ",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-2c milestone proved, newest-ten selection unproved: no median shown",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "text": "t_\ntypeforge\nmenu\n\nPROGRESS\n\nWhat you have done so far.\nBaseline\nCOUNTED\n10 of 10 tests\n\nLast 10 tests · median: your latest tests are still being read.\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline\n\nActivity, assessment trend and the session list are u",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-2d null accuracy: WPM only plus note",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "text": "t_\ntypeforge\nmenu\n\nPROGRESS\n\nWhat you have done so far.\nBaseline\nCOUNTED\n10 of 10 tests\n\nLAST 10 TESTS · MEDIAN\n\nwpm\n39.0\n\nAccuracy isn’t available for all 10, so only speed is shown.\n\n9 Nov – 18 Nov. Updates as you take more 30-second tests. Practice doesn’t change it.\n\nSIMULATED FIXTURE\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay i",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-2e below ten after deletion: no cached median",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "text": "t_\ntypeforge\nmenu\n\nPROGRESS\n\nWhat you have done so far.\nBaseline\nCOUNTED\n9 of 10 tests\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\ntake test 10 →\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline\n\nActivity, assessment trend and the session list are unchanged (not prototyped).\n\nRESULTS STAY IN THIS B",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-2f after reset: no median",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "text": "t_\ntypeforge\nmenu\n\nPROGRESS\n\nWhat you have done so far.\nBaseline\nCOUNTED\n0 of 10 tests\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\ntake test 1 →\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline\n\nActivity, assessment trend and the session list are unchanged (not prototyped).\n\nRESULTS STAY IN THIS BR",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-3a assessment hint offers explicit qwerty declaration; first key still starts",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "present": true,
+    "switchBefore": false,
+    "after": {
+     "label": "Baseline test 1 of 10 · 30 s",
+     "focus": "typing-input",
+     "switchOn": true,
+     "visible": true,
+     "stage": "running"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-3b not-counted (qwerty off) result offers the same declaration key",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "has": 1,
+    "block": "Not a baseline test (qwerty off). Baseline tests are 30 seconds on a physical QWERTY keyboard. Still 0 of 10.\n\nmy keyboard is qwerty",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-3c first visit unchanged: no declaration prompt, qwerty off, textarea focused",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "focus": "typing-input",
+    "declare": 0,
+    "qOn": false,
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-4a incomplete proof: no ordinal in label or hint",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "label": "Baseline test · 30 s",
+    "hint": "At least 7 of 10 found; this one counts too.",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-4b incomplete proof: why?/actions carry no ordinal",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "text": "\n    baselineat least 7 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments on a physical QWERTY keyboard (the qwerty key on), about five minutes of typing, at your own pace.\n      Every finished test counts, mistakes included. A run that stops early or lo",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-5a Enter at 0 ms, save then succeeds",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "early": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input"
+    },
+    "late": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input",
+     "slot": "baseline test 6 of 10 — the clock starts with your first letter",
+     "why": "\n    baseline5 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments on a physical QWERTY keyboard (the qwerty key on)",
+     "stage": "idle"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-5b Enter at 200 ms (during save), succeeds",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "early": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input"
+    },
+    "late": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input",
+     "slot": "baseline test 6 of 10 — the clock starts with your first letter",
+     "why": "\n    baseline5 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments on a physical QWERTY keyboard (the qwerty key on)",
+     "stage": "idle"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-5c Enter at 800 ms (after save)",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "early": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input"
+    },
+    "late": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input",
+     "slot": "baseline test 6 of 10 — the clock starts with your first letter",
+     "why": "\n    baseline5 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments on a physical QWERTY keyboard (the qwerty key on)",
+     "stage": "idle"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-5d Enter at 0 ms, save then fails",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "early": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input"
+    },
+    "late": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input",
+     "slot": "Test 5 isn’t saved yet, so it doesn’t count.retry saving",
+     "why": "\n    baseline4 of 10 tests · 1 waiting to save\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments on a physical QWERTY keyboard",
+     "stage": "idle"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-5e delayed failure during an active run: run, label, focus untouched; recovery offered after",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "during0": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "value": "the"
+    },
+    "during": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input",
+     "stage": "running",
+     "slot": "",
+     "value": "the"
+    },
+    "result": {
+     "label": "Baseline test 6 of 10 · 30 s · complete",
+     "block": "BASELINE TEST 6 OF 10 · 30 S · COMPLETE\nwpm\n41.6\naccuracy\n96.2%\n\nSIMULATED FIXTURE FIGURES\n\nMost first-attempt misses: “e” (3 of 52). An observation, not a diagnosis.\n\nTest 5 isn’t saved yet, so it doesn’t count. retry saving\n\nBASELINE\n4 of 10 tests · 2 waiting to save\n\nSaving…\n\nnext test ↵\npractise\nor stop here; progress is kept\n\nSaving to this browser…\n\nexport\ndetails"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-5f retry saving from the ready slot succeeds; count 5, label stays 6, focus back to text",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "had": 1,
+    "after": {
+     "label": "Baseline test 6 of 10 · 30 s",
+     "focus": "typing-input",
+     "slot": "baseline test 6 of 10 — the clock starts with your first letter",
+     "why": "\n    baseline5 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments on a phys"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-5g interrupted -> try test 5 again: no page error, label 5",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "after": {
+     "label": "Baseline test 5 of 10 · 30 s",
+     "focus": "typing-input"
+    },
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-6a test 5 save failed",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "focusId": "primary",
+    "focusText": "retry saving ↵",
+    "inView": true,
+    "scrollY": 413,
+    "blockText": "BASELINE\n4 of 10 tests · 1 waiting to save\n\nNot saved yet, so it doesn’t count.\n\nRetrying is safe. If you go on, it keeps waiting here to be saved.",
+    "blockTop": 80.59375,
+    "deadLinks": 0,
+    "secondary": "next test",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-6b test 10 save failed",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "focusId": "primary",
+    "focusText": "retry saving ↵",
+    "inView": true,
+    "scrollY": 413,
+    "blockText": "BASELINE\n9 of 10 tests · 1 waiting to save\n\nNot saved yet, so it doesn’t count.\n\nRetrying is safe. If you go on, it keeps waiting here to be saved.",
+    "blockTop": 80.59375,
+    "deadLinks": 0,
+    "secondary": "practise",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-7 tally removed; locked key still described",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "tally": 0,
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-8a Progress: no other-context sentence, count once, take test 5 action",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "counts": 1,
+    "action": 1,
+    "text": "t_\ntypeforge\nmenu\n\nPROGRESS\n\nWhat you have done so far.\nBaseline\nCOUNTED\n4 of 10 tests\n\nFrom 30-second assessments saved in this browser with the qwerty key on. Practice blocks don’t count.\n\ntake test 5 →\n\nStart a new baseline if someone else used this browser or you changed keyboards. Your saved results stay in your history; they just stop counting toward the baseline.\n\nstart a new baseline\n\nActi",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-8b why?: \"about five minutes of typing\"",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "text": "\n    baseline4 of 10 tests\n      Suggested can look for a focus after 10 baseline tests: 30-second assessments on a physical QWERTY keyboard (the qwerty key on), about five minutes of typing, at your own pace.\n      Every finished test counts, mistakes include",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-8c Progress action has no ordinal when proof is incomplete",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "action": "take a baseline test →",
+    "errors": []
+   }
+  },
+  {
+   "id": "REG-9 finite plan (30 s pilot, delta r2.1): ends at last sentence, never wraps, never \"30 s · complete\"",
+   "width": 320,
+   "pass": true,
+   "observed": {
+    "plan": 3,
+    "stage": "completed",
+    "label": "Suggested practice · th · all 3 sentences done at 10 s of 30",
+    "prompt": "they think that this is the path ",
+    "block": "SUGGESTED PRACTICE · TH · ALL 3 SENTENCES DONE AT 10 S OF 30\n\nFIGURES OMITTED: UNAVAILABLE UNTIL P1 R2 VALIDATES METRICS FOR A BLOCK THAT ENDS EARLY (FINITE-PLAN-END.MD RULE 6)\n\nThat’s every sentence in this th block, so it ended before the timer. The next suggested block uses the same small set of ",
+    "typed": 3,
+    "errors": []
+   }
+  }
+ ]
+}

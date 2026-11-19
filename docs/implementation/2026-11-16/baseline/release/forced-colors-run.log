@@ -1,0 +1,20 @@
+[
+  {
+    "channel": "chrome",
+    "version": "157.0.8103.52",
+    "focus": {
+      "id": "restart",
+      "outline": "rgb(55, 0, 110) solid 2px"
+    },
+    "coverVisible": true
+  },
+  {
+    "channel": "msedge",
+    "version": "157.0.4341.60",
+    "focus": {
+      "id": "restart",
+      "outline": "rgb(55, 0, 110) solid 2px"
+    },
+    "coverVisible": true
+  }
+]

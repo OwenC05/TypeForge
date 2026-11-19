@@ -10,7 +10,7 @@ export const MAX_ATTEMPTS = 16384;
 export const MAX_RESULT_BYTES = 1024 * 1024;
 const serializedBytes = (value: unknown): number => new TextEncoder().encode(JSON.stringify(value)).length;
 
-export type RunState = 'idle' | 'running' | 'completed' | 'aborted' | 'stopped';
+export type RunState = 'idle' | 'running' | 'completed' | 'plan-exhausted' | 'aborted' | 'stopped';
 export type RunFlag = 'interrupted' | 'invalid-input';
 export type SentenceFlag = RunFlag | 'incorrect' | 'edited' | 'repeat' |
   'missing-timing' | 'malformed-timing' | 'unsupported-layout' | 'unfinished';
@@ -77,6 +77,7 @@ export interface SessionResult {
   chartSamples: ChartSample[];
 }
 export interface EngineOptions {
+  finite?: boolean;
   inputMode?: 'flow-v1';
   durationMs?: DurationMs;
   manualDrill?: ManualDrill;
@@ -113,7 +114,7 @@ const matches = (value: string, target: string): number =>
   [...value].reduce((total, char, index) => total + Number(char === target[index]), 0);
 
 /** Pure session state. Every timestamp uses the caller's monotonic clock. */
-export class TypingEngine {
+export class TypingEngine<Finite extends boolean = false> {
   private options: EngineOptions;
   private prompts: Prompt[];
   private runState: RunState = 'idle';
@@ -143,7 +144,7 @@ export class TypingEngine {
   private assembled: SessionResult | null = null;
   private stopped: StoppedSnapshot | null = null;
 
-  constructor(options: EngineOptions) {
+  constructor(options: EngineOptions & { finite?: Finite }) {
     if (!options.id || options.prompts.length === 0 || options.prompts.some(prompt =>
       !prompt.id || !prompt.text.trim() || prompt.text.length > MAX_PROMPT_LENGTH ||
       !/^[a-z ]+$/.test(prompt.text))) {
@@ -161,7 +162,12 @@ export class TypingEngine {
     this.prompts = options.prompts.map(prompt => ({ ...prompt }));
   }
 
-  get nextPrompt(): Prompt { return { ...this.prompts[(this.submitted.length + 1) % this.prompts.length]! }; }
+  get nextPrompt(): Finite extends true ? Prompt | null : Prompt {
+    const index = this.submitted.length + 1;
+    const next = this.options.finite && index >= this.prompts.length ? null
+      : { ...this.prompts[index % this.prompts.length]! };
+    return next as Finite extends true ? Prompt | null : Prompt;
+  }
   private get durationMs(): DurationMs { return this.options.durationMs ?? DURATION_MS; }
   private settings(): SessionResult['settings'] {
     return { durationMs: this.durationMs, language: 'en', qwerty: this.options.qwerty ?? false,
@@ -199,11 +205,12 @@ export class TypingEngine {
   }
 
   private currentPrompt(): Prompt {
-    return this.prompts[this.submitted.length % this.prompts.length]!;
+    return this.prompts[this.options.finite ? Math.min(this.submitted.length, this.prompts.length - 1)
+      : this.submitted.length % this.prompts.length]!;
   }
 
   private metrics(): Metrics {
-    const correctCharacters = this.retained + matches(this.response, this.currentPrompt().text);
+    const correctCharacters = this.retained + (this.response ? matches(this.response, this.currentPrompt().text) : 0);
     return {
       elapsedMs: this.elapsed,
       correctCharacters,
@@ -406,6 +413,12 @@ export class TypingEngine {
     this.keys = {};
     this.pairs = {};
     this.previousPress = null;
+    if (this.options.finite && this.submitted.length === this.prompts.length) {
+      this.runState = 'plan-exhausted';
+      // A pre-action sample at this instant must reflect the committed final response.
+      if (this.chart.at(-1)?.elapsedMs === this.elapsed) this.chart.pop();
+      this.sample(true);
+    }
     return true;
   }
 
@@ -421,6 +434,7 @@ export class TypingEngine {
   }
 
   restart(id: string): void {
+    if (this.options.finite) throw new RangeError('Finite restart requires a new adapter ID and admitted snapshot.');
     if (!id || id === this.options.id) throw new RangeError('Restart requires a fresh session ID.');
     this.options = { ...this.options, id };
     this.runState = 'idle';
@@ -489,5 +503,12 @@ export class TypingEngine {
         [...this.submitted, ...(active ? [active] : [])]);
     }
     return structuredClone(this.assembled);
+  }
+
+  /** Actual finite-end data only; never a timed SessionResult. */
+  finiteResult(): Pick<SessionResult, 'id' | 'settings' | 'metrics' | 'qualityFlags' | 'sentences' | 'chartSamples'> | null {
+    if (this.runState !== 'plan-exhausted') return null;
+    return structuredClone({ id: this.options.id, settings: this.settings(), metrics: this.metrics(),
+      qualityFlags: [...this.flags], sentences: this.submitted, chartSamples: this.chart });
   }
 }

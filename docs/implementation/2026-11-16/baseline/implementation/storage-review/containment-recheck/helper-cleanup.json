@@ -1,0 +1,21 @@
+{
+    "pid":  69676,
+    "executable":  "C:\\Program Files\\nodejs\\node.exe",
+    "commandLine":  "\"C:\\Program Files\\nodejs\\node.exe\" typing-app/client/node_modules/vite/bin/vite.js --config docs/implementation/2026-11-16/baseline/implementation/storage-review/containment-recheck/helper.config.mjs --host 127.0.0.1 --port 5325 --strictPort ",
+    "cwd":  "C:\\Users\\Owenc\\orca\\workspaces\\TypeForge\\tf-coach-storage-review",
+    "host":  "127.0.0.1",
+    "port":  5325,
+    "identityCheckedBeforeStop":  true,
+    "finalPassingContextsClosed":  13,
+    "finalPassingPagesClosed":  15,
+    "finalPassingSyntheticDatabasesRemoved":  13,
+    "excludedAttemptContextsClosed":  10,
+    "excludedAttemptPagesClosed":  12,
+    "excludedAttemptExplicitDatabaseCleanups":  9,
+    "excludedFirstContextCleanup":  "Evaluation lost to navigation; fresh ephemeral browser context closed, no explicit named cleanup receipt",
+    "processAbsent":  true,
+    "portFree":  true,
+    "probeCacheAbsent":  true,
+    "repositoryCacheAbsent":  true,
+    "defaultToolPageClosed":  true
+}

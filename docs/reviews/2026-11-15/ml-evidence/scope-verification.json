@@ -1,0 +1,13 @@
+{
+  "base": "de69444a6201da96281ca9ad88088904477775a2",
+  "headAtFinalCheck": "fd5c97b826ac65f9a8acd883d28737434274ee27",
+  "applicationMlAndCiDiffFromBase": "empty",
+  "evidenceJsonParsed": true,
+  "modifiedByLane": [
+    "docs/reviews/2026-11-15/ml-review.md",
+    "docs/reviews/2026-11-15/ml-evidence/"
+  ],
+  "noFrontendBuildOrServer": true,
+  "noDependencyInstallOrDatasetAcquisition": true,
+  "noBackgroundHelperStarted": true
+}

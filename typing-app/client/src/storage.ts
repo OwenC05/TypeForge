@@ -9,10 +9,15 @@ import {
   MAX_RESULT_BYTES,
   type SessionResult,
 } from './engine.ts';
+import { saveSource, getSavedSource, deleteSource } from './coach-storage.ts';
 
 const DATABASE = 'typeforge';
-const STORE = 'results';
-const ORDER_INDEX = 'completedAt-id';
+export const STORE = 'results';
+export const CURRENT_STORE = 'currentResults';
+export const MEMBERSHIP_STORE = 'coachMembership';
+export const METADATA_STORE = 'coachMetadata';
+export const SOURCE_STORES = [STORE, CURRENT_STORE, MEMBERSHIP_STORE, METADATA_STORE];
+export const ORDER_INDEX = 'completedAt-id';
 const MAX_CHARACTERS = MAX_SENTENCES * MAX_PROMPT_LENGTH;
 const RUN_FLAGS = ['interrupted', 'invalid-input'];
 const SENTENCE_FLAGS = [
@@ -71,8 +76,7 @@ function resultId(value: unknown): void {
   check(typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value), 'id');
 }
 
-/** Reject unsupported or corrupt records before they reach a view or profile. */
-export function validateResult(value: unknown): asserts value is SessionResult {
+export function validateResultShape(value: unknown): asserts value is SessionResult {
   const root = record(value, 'record');
   const result = record(value, 'record', [
     'id', 'owner', 'schemaVersion', 'metricVersion', 'completedAt', 'mode',
@@ -208,31 +212,56 @@ export function validateResult(value: unknown): asserts value is SessionResult {
     accuracy(sample.accuracy, `${path}.accuracy`);
   }
   check(previousTime === durationMs, 'chartSamples final time');
+}
 
+/** Reject unsupported or corrupt records before they reach a view or profile. */
+export function validateResult(value: unknown): asserts value is SessionResult {
+  validateResultShape(value);
   // Every property above is a bounded JSON value; extra fields are rejected.
   check(new TextEncoder().encode(JSON.stringify(value)).length <= MAX_RESULT_BYTES, 'record exceeds 1 MiB');
 }
 
-function openDatabase(): Promise<IDBDatabase> {
+export function openDatabase(signal?: AbortSignal): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
+    if (signal?.aborted) { reject(signal.reason); return; }
     if (!globalThis.indexedDB) {
       reject(new Error('Local storage is unavailable in this browser.'));
       return;
     }
-    const request = indexedDB.open(DATABASE, 2);
+    const request = indexedDB.open(DATABASE, 3);
     let blocked = false;
+    const cleanup = () => signal?.removeEventListener('abort', abort);
+    const abort = () => { blocked = true; cleanup(); reject(signal?.reason); };
+    signal?.addEventListener('abort', abort, { once: true });
     request.onupgradeneeded = () => {
-      const store = request.result.objectStoreNames.contains(STORE)
-        ? request.transaction!.objectStore(STORE)
-        : request.result.createObjectStore(STORE, { keyPath: 'id' });
-      if (!store.indexNames.contains(ORDER_INDEX)) store.createIndex(ORDER_INDEX, ['completedAt', 'id']);
+      try {
+        if (blocked || signal?.aborted) { request.transaction!.abort(); return; }
+        const store = request.result.objectStoreNames.contains(STORE)
+          ? request.transaction!.objectStore(STORE)
+          : request.result.createObjectStore(STORE, { keyPath: 'id' });
+        if (!store.indexNames.contains(ORDER_INDEX)) store.createIndex(ORDER_INDEX, ['completedAt', 'id']);
+        const current = request.result.createObjectStore(CURRENT_STORE, { keyPath: 'id' });
+        current.createIndex(ORDER_INDEX, ['completedAt', 'id']);
+        request.result.createObjectStore(MEMBERSHIP_STORE, { keyPath: 'resultId' });
+        const metadata = request.result.createObjectStore(METADATA_STORE);
+        const epoch = crypto.randomUUID();
+        metadata.add({ schemaId: 'typeforge-coach-metadata-v3', databaseId: crypto.randomUUID(),
+          defaultContextId: crypto.randomUUID(), activeEpochId: epoch, legacyEpochId: epoch,
+          legacyCutoffCompletedAt: new Date().toISOString(), sourceRevision: 0 }, 'authority');
+      } catch (error) {
+        blocked = true; cleanup();
+        try { request.transaction?.abort(); } catch { /* Already aborted/inactive. */ }
+        reject(error);
+      }
     };
-    request.onerror = () => reject(request.error ?? new Error('Could not open local results.'));
+    request.onerror = () => { cleanup(); reject(request.error ?? new Error('Could not open local results.')); };
     request.onblocked = () => {
       blocked = true;
+      cleanup();
       reject(new Error('Close other TypeForge tabs, then retry saving or loading results.'));
     };
     request.onsuccess = () => {
+      cleanup();
       const database = request.result;
       database.onversionchange = () => database.close();
       if (blocked) database.close();
@@ -241,37 +270,16 @@ function openDatabase(): Promise<IDBDatabase> {
   });
 }
 
-async function request<T>(mode: IDBTransactionMode, operation: (store: IDBObjectStore) => IDBRequest<T>): Promise<T> {
-  const database = await openDatabase();
-  return new Promise((resolve, reject) => {
-    let transaction: IDBTransaction | undefined;
-    try {
-      transaction = database.transaction(STORE, mode);
-      const pending = operation(transaction.objectStore(STORE));
-      transaction.oncomplete = () => {
-        database.close();
-        resolve(pending.result);
-      };
-      transaction.onabort = () => {
-        database.close();
-        reject(transaction?.error ?? pending.error ?? new Error('Local results transaction was aborted.'));
-      };
-    } catch (error) {
-      transaction?.abort();
-      database.close();
-      reject(error);
-    }
-  });
-}
-
 export async function saveResult(result: SessionResult): Promise<void> {
   validateResult(result);
-  await request('readwrite', (store) => store.add(result));
+  const saved = await saveSource(result, null);
+  if (saved.state !== 'saved') throw new Error('Local result was not saved; retain it for retry or export.');
 }
 
 export async function getResult(id: string): Promise<SessionResult | undefined> {
-  const result: unknown = await request('readonly', (store) => store.get(id));
+  const result: unknown = await getSavedSource(id);
   if (result === undefined) return undefined;
+  if (typeof result === 'object' && result !== null && 'schemaId' in result) return undefined;
   validateResult(result);
   return result;
 }
@@ -281,11 +289,23 @@ let storageDiagnostics: string[] = [];
 export function getStorageDiagnostics(): readonly string[] { return [...storageDiagnostics]; }
 
 export async function listResults(): Promise<SessionResult[]> {
-  const values: unknown[] = await request('readonly', (store) => store.getAll());
+  const database = await openDatabase();
+  const values = await new Promise<unknown[]>((resolve, reject) => {
+    const tx = database.transaction([STORE, CURRENT_STORE], 'readonly');
+    const legacy = tx.objectStore(STORE).getAll(), current = tx.objectStore(CURRENT_STORE).getAll();
+    tx.oncomplete = () => { database.close(); resolve([...legacy.result, ...current.result]); };
+    tx.onabort = () => { database.close(); reject(tx.error); };
+  });
   storageDiagnostics = [];
   const results: SessionResult[] = [];
+  const ids = new Set<string>(), collisions = new Set<string>();
   for (const value of values) {
-    try { validateResult(value); results.push(value); }
+    const id = value && typeof value === 'object' && 'id' in value ? value.id : undefined;
+    if (typeof id === 'string') { if (ids.has(id)) collisions.add(id); ids.add(id); }
+  }
+  for (const value of values) {
+    if (value && typeof value === 'object' && 'schemaId' in value) continue;
+    try { validateResult(value); if (collisions.has(value.id)) throw new Error('Cross-partition source collision.'); results.push(value); }
     catch (error) { storageDiagnostics.push(error instanceof Error ? error.message : 'Unsupported local result.'); }
   }
   return results.sort((a, b) => b.completedAt.localeCompare(a.completedAt) || b.id.localeCompare(a.id));
@@ -299,31 +319,34 @@ export async function listResultsPage(before: {completedAt: string; id: string} 
     const results: SessionResult[] = [];
     let invalidCount = 0;
     let firstInvalidReason = '';
-    const transaction = database.transaction(STORE, 'readonly');
-    const range = before ? IDBKeyRange.upperBound([before.completedAt, before.id], true) : null;
-    const store = transaction.objectStore(STORE);
-    const index = store.index(ORDER_INDEX);
+    const transaction = database.transaction([STORE, CURRENT_STORE], 'readonly');
     // Records lacking indexable dates/IDs cannot appear in an index cursor.
     // Count them explicitly so corruption is not hidden by the index itself.
     if (!before) {
-      const allCount = store.count();
-      const indexedCount = index.count();
-      indexedCount.onsuccess = () => {
-        const omitted = allCount.result - indexedCount.result;
-        if (omitted > 0) storageDiagnostics.push(`${omitted} local record(s) have unindexable history fields and remain stored for recovery.`);
-      };
+      for (const name of [STORE, CURRENT_STORE]) {
+        const store = transaction.objectStore(name), index = store.index(ORDER_INDEX);
+        const allCount = store.count(), indexedCount = index.count();
+        indexedCount.onsuccess = () => {
+          const omitted = allCount.result - indexedCount.result;
+          if (omitted > 0) storageDiagnostics.push(`${omitted} local record(s) have unindexable history fields and remain stored for recovery.`);
+        };
+      }
     }
-    const cursor = index.openCursor(range, 'prev');
-    cursor.onsuccess = () => {
-      const entry = cursor.result;
-      if (!entry) return;
-      try { const value: unknown = entry.value; validateResult(value); results.push(value); }
+    visitMergedKeys(transaction, { legacy: { before: before ? [before.completedAt, before.id] : null, exhausted: false },
+      current: { before: before ? [before.completedAt, before.id] : null, exhausted: false } }, (entry, partition, next) => {
+      const pending = transaction.objectStore(partition === 'legacy' ? STORE : CURRENT_STORE).get(entry.primaryKey);
+      const counterpart = transaction.objectStore(partition === 'legacy' ? CURRENT_STORE : STORE).getKey(entry.primaryKey);
+      counterpart.onsuccess = () => {
+      const value: unknown = pending.result;
+      if (value && typeof value === 'object' && 'schemaId' in value) { next(); return; }
+      try { validateResult(value); if (counterpart.result !== undefined) throw new Error('Cross-partition source collision.'); results.push(value); }
       catch (error) {
         invalidCount++;
         firstInvalidReason ||= error instanceof Error ? error.message : 'Unsupported local result.';
       }
-      if (results.length < limit) entry.continue();
-    };
+      if (results.length < limit) next();
+      };
+    }, () => {});
     transaction.oncomplete = () => {
       database.close();
       if (invalidCount) storageDiagnostics.push(`${invalidCount} unsupported/corrupt local record(s) were skipped and remain stored. ${firstInvalidReason}`);
@@ -331,11 +354,307 @@ export async function listResultsPage(before: {completedAt: string; id: string} 
     };
     transaction.onabort = () => {
       database.close();
-      reject(transaction.error ?? cursor.error ?? new Error('Could not read local history page.'));
+      reject(transaction.error ?? new Error('Could not read local history page.'));
     };
   });
 }
 
+/** Two native key-only cursors; values are fetched only for the selected key.
+ * The caller owns budgets and calls next only after processing that source.
+ */
+export function visitMergedKeys(tx: IDBTransaction,
+  states: { legacy: { before: IDBValidKey | null; exhausted: boolean }; current: { before: IDBValidKey | null; exhausted: boolean } },
+  visit: (entry: IDBCursor, partition: 'legacy' | 'current', next: () => void) => void,
+  exhausted: () => void, keyRequest: () => boolean = () => true,
+  keySettled: (duration: number) => void = () => {}): void {
+  const entries: { legacy: IDBCursor | null | undefined; current: IDBCursor | null | undefined } = { legacy: undefined, current: undefined };
+  const started = { legacy: 0, current: 0 };
+  let stopped = false;
+  const choose = () => {
+    if (stopped || entries.legacy === undefined || entries.current === undefined) return;
+    if (!entries.legacy && !entries.current) { exhausted(); return; }
+    const partition = !entries.current || entries.legacy && indexedDB.cmp(entries.legacy.key, entries.current.key) >= 0 ? 'legacy' : 'current';
+    const entry = entries[partition]!;
+    visit(entry, partition, () => {
+      if (!keyRequest()) { stopped = true; return; }
+      entries[partition] = undefined;
+      started[partition] = performance.now();
+      entry.continue();
+    });
+  };
+  for (const partition of ['legacy', 'current'] as const) {
+    if (states[partition].exhausted) { entries[partition] = null; choose(); continue; }
+    if (!keyRequest()) { stopped = true; return; }
+    const before = states[partition].before;
+    started[partition] = performance.now();
+    const request = tx.objectStore(partition === 'legacy' ? STORE : CURRENT_STORE).index(ORDER_INDEX)
+      .openKeyCursor(before === null ? null : IDBKeyRange.upperBound(before, true), 'prev');
+    request.onsuccess = () => {
+      keySettled(performance.now() - started[partition]);
+      entries[partition] = request.result;
+      if (!request.result) states[partition].exhausted = true;
+      choose();
+    };
+    request.onerror = () => keySettled(performance.now() - started[partition]);
+  }
+}
+
 export async function deleteResult(id: string): Promise<void> {
-  await request('readwrite', (store) => store.delete(id));
+  await deleteSource(id);
+}
+
+export const HISTORY_SLICE_ROWS = 25;
+export const HISTORY_SLICE_BYTES = 4 * MAX_RESULT_BYTES;
+export const HISTORY_SCAN_ROWS = 500;
+export const HISTORY_SCAN_BYTES = 16 * MAX_RESULT_BYTES;
+const HISTORY_WORK_MS = 8;
+
+export interface HistoryOptions {
+  /** Opaque index key, including indexable corrupt keys; resume unchanged. */
+  before?: IDBValidKey | null;
+  rowLimit?: number;
+  byteLimit?: number;
+  signal?: AbortSignal;
+  /** Pure, synchronous cohort filter; excluded rows still consume budgets. */
+  compatible?: (result: SessionResult) => boolean;
+}
+
+export interface HistoryRead {
+  results: SessionResult[];
+  cursor: IDBValidKey | null;
+  /** Indexed traversal exhausted; exclusions remain explicit below. */
+  complete: boolean;
+  reason: 'exhausted' | 'row-budget' | 'byte-budget' | 'record-limit' | 'yield' | 'aborted' | 'failed';
+  examinedRows: number;
+  /** JSON UTF-8 bytes traversed; a record-limit can leave a bounded prefix only. */
+  examinedBytes: number;
+  diagnostics: {
+    invalidRows: number;
+    incompatibleRows: number;
+    unindexableRows: number | null;
+    oversizedRows: number;
+    /** Exact oversized size is unknown because traversal stops before allocating it. */
+    oversizedSerializedBytes: number | null;
+    oversizedByteLowerBound: number;
+    unserializableRows: number;
+    firstInvalidReason: string | null;
+    error: string | null;
+  };
+  costs: { maxOperationMs: number; maxOperationOvershootMs: number; slices: number; yields: number };
+}
+
+function historyLimits(options: HistoryOptions, rows: number, bytes: number): [number, number] {
+  const rowLimit = options.rowLimit ?? rows;
+  const byteLimit = options.byteLimit ?? bytes;
+  if (!Number.isInteger(rowLimit) || rowLimit < 1 || rowLimit > rows) {
+    throw new RangeError(`History row limit must be between 1 and ${rows}.`);
+  }
+  if (!Number.isInteger(byteLimit) || byteLimit < MAX_RESULT_BYTES || byteLimit > bytes) {
+    throw new RangeError(`History byte limit must be between ${MAX_RESULT_BYTES} and ${bytes}.`);
+  }
+  return [rowLimit, byteLimit];
+}
+
+function emptyHistory(before: IDBValidKey | null = null): HistoryRead {
+  return {
+    results: [], cursor: before, complete: false, reason: 'failed', examinedRows: 0, examinedBytes: 0,
+    diagnostics: {
+      invalidRows: 0, incompatibleRows: 0, unindexableRows: null, oversizedRows: 0,
+      oversizedSerializedBytes: 0, oversizedByteLowerBound: 0, unserializableRows: 0, firstInvalidReason: null, error: null,
+    },
+    costs: { maxOperationMs: 0, maxOperationOvershootMs: 0, slices: 0, yields: 0 },
+  };
+}
+
+/** Measure a JSON prefix without allocating a whole string/UTF-8 buffer. Only
+ * plain JSON trees are needed: other IDB clone types cannot pass result shape
+ * validation. Depth 32 exceeds the valid schema; cycles/deeper trees stop too.
+ */
+export function historyJsonBytes(value: unknown, ceiling = MAX_RESULT_BYTES): { bytes: number; oversized: boolean; error: string | null } {
+  let bytes = 0;
+  let oversized = false;
+  const ancestors = new Set<object>();
+  const add = (amount: number) => {
+    if (amount > ceiling - bytes) { bytes = ceiling; oversized = true; return false; }
+    bytes += amount;
+    return true;
+  };
+  const quoted = (text: string): boolean => {
+    if (!add(1)) return false;
+    for (let i = 0; i < text.length; i++) {
+      const code = text.charCodeAt(i);
+      let width: number;
+      if (code === 34 || code === 92 || code === 8 || code === 9 || code === 10 || code === 12 || code === 13) width = 2;
+      else if (code < 32) width = 6;
+      else if (code < 128) width = 1;
+      else if (code < 2048) width = 2;
+      else if (code >= 0xd800 && code <= 0xdbff && text.charCodeAt(i + 1) >= 0xdc00 && text.charCodeAt(i + 1) <= 0xdfff) { width = 4; i++; }
+      else if (code >= 0xd800 && code <= 0xdfff) width = 6; // JSON escapes lone surrogates.
+      else width = 3;
+      if (!add(width)) return false;
+    }
+    return add(1);
+  };
+  const visit = (item: unknown, depth: number): boolean => {
+    if (item === null) return add(4);
+    if (typeof item === 'string') return quoted(item);
+    if (typeof item === 'boolean') return add(item ? 4 : 5);
+    if (typeof item === 'number') return add(Number.isFinite(item) ? String(item).length : 4);
+    if (typeof item !== 'object') throw new Error('Local record contains a non-JSON value.');
+    if (depth > 32 || ancestors.has(item)) throw new Error('Local record is cyclic or exceeds JSON depth 32.');
+    if (!Array.isArray(item) && Object.getPrototypeOf(item) !== Object.prototype && Object.getPrototypeOf(item) !== null) {
+      throw new Error('Local record contains a non-JSON object.');
+    }
+    ancestors.add(item);
+    try {
+      if (!add(1)) return false;
+      if (Array.isArray(item)) {
+        for (let i = 0; i < item.length; i++) {
+          if (i && !add(1)) return false;
+          // Native JSON represents sparse/undefined array slots as null.
+          if (!visit(item[i] === undefined ? null : item[i], depth + 1)) return false;
+        }
+      } else {
+        let first = true;
+        // Avoid creating a second unbounded array of corrupt property names.
+        for (const key in item) {
+          if (!Object.hasOwn(item, key)) continue;
+          if (!first && !add(1)) return false;
+          first = false;
+          if (!quoted(key) || !add(1) || !visit((item as Record<string, unknown>)[key], depth + 1)) return false;
+        }
+      }
+      return add(1);
+    } finally { ancestors.delete(item); }
+  };
+  try { visit(value, 0); return { bytes, oversized, error: null }; }
+  catch (error) { return { bytes, oversized: false, error: error instanceof Error ? error.message : String(error) }; }
+}
+
+/** Additive bounded optional-data reader; legacy assessment/export APIs retain their meaning. */
+export async function readHistorySlice(options: HistoryOptions = {}): Promise<HistoryRead> {
+  const [rowLimit, byteLimit] = historyLimits(options, HISTORY_SLICE_ROWS, HISTORY_SLICE_BYTES);
+  const output = emptyHistory(options.before);
+  const { diagnostics, costs } = output;
+  let database: IDBDatabase | undefined;
+  try {
+    database = await openDatabase(options.signal);
+    if (options.signal?.aborted) throw options.signal.reason;
+    await new Promise<void>((resolve, reject) => {
+      const transaction = database!.transaction([STORE, CURRENT_STORE], 'readonly');
+      let failed = false;
+      let recordLimited = false;
+      const abort = () => transaction.abort();
+      const cleanup = () => options.signal?.removeEventListener('abort', abort);
+      transaction.oncomplete = () => { cleanup(); resolve(); };
+      transaction.onabort = () => { cleanup(); reject(transaction.error ?? new Error('Local history read aborted.')); };
+      const fail = (error: unknown) => { failed = true; cleanup(); transaction.abort(); reject(error); };
+      options.signal?.addEventListener('abort', abort, { once: true });
+      let unindexable = 0, counted = 0;
+      for (const name of [STORE, CURRENT_STORE]) {
+        const store = transaction.objectStore(name), index = store.index(ORDER_INDEX);
+        const allCount = store.count(), indexedCount = index.count();
+        indexedCount.onsuccess = () => { unindexable += allCount.result - indexedCount.result;
+          if (++counted === 2) diagnostics.unindexableRows = unindexable; };
+      }
+      // Key-only lookahead establishes exhaustion without examining another value.
+      let workMs = 0;
+      costs.slices = 1;
+      visitMergedKeys(transaction, { legacy: { before: options.before ?? null, exhausted: false },
+        current: { before: options.before ?? null, exhausted: false } }, (entry, partition, next) => {
+        if (output.examinedRows >= rowLimit) { output.reason = 'row-budget'; return; }
+        // Reserve one maximum-size record BEFORE materializing it. This may underfill
+        // by <1 MiB, but never skips a valid row or rereads a deferred value.
+        if (byteLimit - output.examinedBytes < MAX_RESULT_BYTES) { output.reason = 'byte-budget'; return; }
+        if (workMs >= HISTORY_WORK_MS) { output.reason = 'yield'; return; }
+        const valueRequest = transaction.objectStore(partition === 'legacy' ? STORE : CURRENT_STORE).get(entry.primaryKey);
+        const counterpart = transaction.objectStore(partition === 'legacy' ? CURRENT_STORE : STORE).getKey(entry.primaryKey);
+        counterpart.onsuccess = () => {
+          const started = performance.now();
+          try {
+            const value: unknown = valueRequest.result;
+            output.examinedRows++;
+            output.cursor = entry.key;
+            const measured = historyJsonBytes(value);
+            output.examinedBytes += measured.bytes;
+            if (measured.error || measured.oversized) {
+              diagnostics.invalidRows++;
+              if (measured.oversized) {
+                diagnostics.oversizedRows++;
+                diagnostics.oversizedSerializedBytes = null;
+                diagnostics.oversizedByteLowerBound += MAX_RESULT_BYTES + 1;
+              } else diagnostics.unserializableRows++;
+              diagnostics.firstInvalidReason ??= measured.error ?? 'Local record exceeds 1 MiB; exact size was not serialized and the record remains stored.';
+              output.reason = 'record-limit';
+              recordLimited = true; // Never repeat a native oversized/unsupported materialization automatically.
+              return;
+            }
+            // Finite sources are a separate envelope, never timed validation input.
+            if (value && typeof value === 'object' && 'schemaId' in value) return;
+            try { validateResultShape(value); }
+            catch (error) {
+              diagnostics.invalidRows++;
+              diagnostics.firstInvalidReason ??= error instanceof Error ? error.message : String(error);
+              return;
+            }
+            if (counterpart.result !== undefined) {
+              diagnostics.invalidRows++; diagnostics.firstInvalidReason ??= 'Cross-partition source collision.'; return;
+            }
+            if (options.compatible && !options.compatible(value)) diagnostics.incompatibleRows++;
+            else output.results.push(value);
+          } catch (error) { fail(error); return; }
+          finally {
+            const elapsed = performance.now() - started;
+            workMs += elapsed;
+            costs.maxOperationMs = Math.max(costs.maxOperationMs, elapsed);
+            costs.maxOperationOvershootMs = Math.max(0, costs.maxOperationMs - HISTORY_WORK_MS);
+            // Abort may be requested from a compatibility predicate.
+            if (!failed && !recordLimited && !options.signal?.aborted) {
+              try { next(); } catch (error) { fail(error); }
+            }
+          }
+        };
+      }, () => { output.complete = true; output.reason = 'exhausted'; });
+    });
+  } catch (error) {
+    output.complete = false;
+    output.reason = options.signal?.aborted ? 'aborted' : 'failed';
+    diagnostics.error = error instanceof Error ? error.message : String(error);
+  } finally { database?.close(); }
+  return output;
+}
+
+/** At most one bounded automatic lookup; explicit continuation starts another lookup. */
+export async function scanHistory(options: HistoryOptions = {}): Promise<HistoryRead> {
+  const [rowLimit, byteLimit] = historyLimits(options, HISTORY_SCAN_ROWS, HISTORY_SCAN_BYTES);
+  const output = emptyHistory(options.before);
+  while (true) {
+    const slice = await readHistorySlice({
+      ...options, before: output.cursor,
+      rowLimit: Math.min(HISTORY_SLICE_ROWS, rowLimit - output.examinedRows),
+      byteLimit: Math.min(HISTORY_SLICE_BYTES, byteLimit - output.examinedBytes),
+    });
+    output.results.push(...slice.results);
+    output.cursor = slice.cursor;
+    output.complete = slice.complete;
+    output.reason = slice.reason;
+    output.examinedRows += slice.examinedRows;
+    output.examinedBytes += slice.examinedBytes;
+    for (const field of ['invalidRows', 'incompatibleRows', 'oversizedRows', 'oversizedByteLowerBound', 'unserializableRows'] as const) {
+      output.diagnostics[field] += slice.diagnostics[field];
+    }
+    output.diagnostics.oversizedSerializedBytes = output.diagnostics.oversizedSerializedBytes === null || slice.diagnostics.oversizedSerializedBytes === null
+      ? null : output.diagnostics.oversizedSerializedBytes + slice.diagnostics.oversizedSerializedBytes;
+    if (slice.diagnostics.unindexableRows !== null) output.diagnostics.unindexableRows = slice.diagnostics.unindexableRows;
+    output.diagnostics.firstInvalidReason ??= slice.diagnostics.firstInvalidReason;
+    output.diagnostics.error = slice.diagnostics.error;
+    output.costs.slices += slice.costs.slices;
+    output.costs.maxOperationMs = Math.max(output.costs.maxOperationMs, slice.costs.maxOperationMs);
+    output.costs.maxOperationOvershootMs = Math.max(output.costs.maxOperationOvershootMs, slice.costs.maxOperationOvershootMs);
+    if (slice.complete || slice.reason === 'record-limit' || slice.reason === 'aborted' || slice.reason === 'failed') return output;
+    if (output.examinedRows >= rowLimit) { output.reason = 'row-budget'; return output; }
+    if (byteLimit - output.examinedBytes < MAX_RESULT_BYTES) { output.reason = 'byte-budget'; return output; }
+    output.costs.yields++;
+    await new Promise<void>(resolve => setTimeout(resolve, 0));
+  }
 }

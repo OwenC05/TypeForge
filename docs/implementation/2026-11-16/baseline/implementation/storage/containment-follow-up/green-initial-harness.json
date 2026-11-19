@@ -1,0 +1,248 @@
+{
+  "excludedFromAcceptance": true,
+  "reason": "First independent-upgrade context navigated during Vite update; no assertion was weakened; repeat uses the same runner and fresh contexts",
+  "browser": "157.0.8103.79",
+  "freshContexts": 6,
+  "ownedPagesClosed": 6,
+  "assertions": 39,
+  "failedAssertions": 0,
+  "externalPageErrorCount": 0,
+  "results": [
+    {
+      "group": "independent-probe-replay",
+      "which": "upgrade-add-throw",
+      "externalPageErrors": [],
+      "cleanup": {
+        "error": "Error: page.evaluate: TypeError: Cannot read properties of undefined (reading 'cleanup')\n    at eval (eval at evaluate (:368:30), <anonymous>:1:20)\n    at UtilityScript.evaluate (<anonymous>:370:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+      },
+      "harnessError": "Error: page.evaluate: Execution context was destroyed, most likely because of a navigation."
+    },
+    {
+      "group": "independent-probe-replay",
+      "which": "delete-sync-throw",
+      "result": {
+        "which": "delete-sync-throw",
+        "database": "typeforge-c-independent-52910407-fde5-4212-880e-084bf24efa97",
+        "assertions": 5,
+        "failures": [],
+        "pageErrors": [],
+        "details": {
+          "rejected": "UnknownError: Independent delete failure",
+          "events": [],
+          "sourceRetained": true
+        },
+        "opens": [
+          {
+            "type": "open",
+            "requested": "typeforge",
+            "actual": "typeforge-c-independent-52910407-fde5-4212-880e-084bf24efa97",
+            "version": 3
+          },
+          {
+            "type": "open",
+            "requested": "typeforge",
+            "actual": "typeforge-c-independent-52910407-fde5-4212-880e-084bf24efa97",
+            "version": 3
+          },
+          {
+            "type": "open",
+            "requested": "typeforge",
+            "actual": "typeforge-c-independent-52910407-fde5-4212-880e-084bf24efa97",
+            "version": 3
+          },
+          {
+            "type": "open",
+            "requested": "typeforge",
+            "actual": "typeforge-c-independent-52910407-fde5-4212-880e-084bf24efa97",
+            "version": 3
+          },
+          {
+            "type": "open",
+            "requested": "typeforge",
+            "actual": "typeforge-c-independent-52910407-fde5-4212-880e-084bf24efa97",
+            "version": 3
+          }
+        ]
+      },
+      "externalPageErrors": [],
+      "cleanup": {
+        "database": "typeforge-c-independent-52910407-fde5-4212-880e-084bf24efa97",
+        "remaining": [],
+        "removed": true
+      }
+    },
+    {
+      "group": "independent-probe-replay",
+      "which": "mixed-ledger-failed-member",
+      "result": {
+        "which": "mixed-ledger-failed-member",
+        "database": "typeforge-c-independent-5a5dc93e-19fd-4e2c-a1b3-f1fd2911099a",
+        "assertions": 6,
+        "failures": [],
+        "pageErrors": [],
+        "details": {
+          "physical": [
+            {
+              "store": "coachMetadata",
+              "key": "authority"
+            },
+            {
+              "store": "currentResults",
+              "key": "00000000-0000-4000-8000-000000000002"
+            },
+            {
+              "store": "results",
+              "key": "00000000-0000-4000-8000-000000000002"
+            },
+            {
+              "store": "coachMembership",
+              "key": "00000000-0000-4000-8000-000000000002"
+            }
+          ],
+          "work": {
+            "examinedRows": 4,
+            "examinedBytes": 10609,
+            "slices": 1,
+            "keyRequests": 2,
+            "countRequests": 4,
+            "maxOperationMs": 0.699999988079071,
+            "oversizedSerializedBytes": 0,
+            "oversizedByteLowerBound": 0,
+            "unindexableLegacy": 0,
+            "unindexableCurrent": 0
+          },
+          "stop": "failure"
+        },
+        "opens": [
+          {
+            "type": "open",
+            "requested": "typeforge",
+            "actual": "typeforge-c-independent-5a5dc93e-19fd-4e2c-a1b3-f1fd2911099a",
+            "version": 3
+          },
+          {
+            "type": "open",
+            "requested": "typeforge",
+            "actual": "typeforge-c-independent-5a5dc93e-19fd-4e2c-a1b3-f1fd2911099a",
+            "version": 3
+          },
+          {
+            "type": "open",
+            "requested": "typeforge",
+            "actual": "typeforge-c-independent-5a5dc93e-19fd-4e2c-a1b3-f1fd2911099a",
+            "version": 3
+          }
+        ]
+      },
+      "externalPageErrors": [],
+      "cleanup": {
+        "database": "typeforge-c-independent-5a5dc93e-19fd-4e2c-a1b3-f1fd2911099a",
+        "remaining": [],
+        "removed": true
+      }
+    },
+    {
+      "group": "author-regression",
+      "which": "upgrade",
+      "result": {
+        "which": "upgrade",
+        "assertions": 9,
+        "failures": [],
+        "errors": [],
+        "unhandled": [],
+        "details": {
+          "rejection": "QuotaExceededError: C1 synchronous bootstrap add",
+          "versionAfterFailure": 2
+        },
+        "cleanup": {
+          "database": "typeforge-coach-tab-synthetic-7b81dd74-c84f-42e5-a445-3821b4fc1886",
+          "remaining": []
+        },
+        "passed": true
+      },
+      "externalPageErrors": [],
+      "cleanup": {
+        "database": "typeforge-coach-tab-synthetic-7b81dd74-c84f-42e5-a445-3821b4fc1886",
+        "remaining": []
+      }
+    },
+    {
+      "group": "author-regression",
+      "which": "delete",
+      "result": {
+        "which": "delete",
+        "assertions": 10,
+        "failures": [],
+        "errors": [],
+        "unhandled": [],
+        "details": {
+          "rejection": "UnknownError: C1 synchronous current delete",
+          "revisionBefore": 1
+        },
+        "cleanup": {
+          "database": "typeforge-coach-tab-synthetic-6b96385e-7b51-4547-94ab-308b4e5a7eff",
+          "remaining": []
+        },
+        "passed": true
+      },
+      "externalPageErrors": [],
+      "cleanup": {
+        "database": "typeforge-coach-tab-synthetic-6b96385e-7b51-4547-94ab-308b4e5a7eff",
+        "remaining": []
+      }
+    },
+    {
+      "group": "author-regression",
+      "which": "membership",
+      "result": {
+        "which": "membership",
+        "assertions": 9,
+        "failures": [],
+        "errors": [],
+        "unhandled": [],
+        "details": {
+          "physical": [
+            "coachMetadata",
+            "currentResults",
+            "results",
+            "coachMembership"
+          ],
+          "work": {
+            "examinedRows": 4,
+            "examinedBytes": 10609,
+            "slices": 1,
+            "keyRequests": 2,
+            "countRequests": 4,
+            "maxOperationMs": 0.699999988079071,
+            "oversizedSerializedBytes": 0,
+            "oversizedByteLowerBound": 0,
+            "unindexableLegacy": 0,
+            "unindexableCurrent": 0
+          },
+          "retryWork": {
+            "examinedRows": 7,
+            "examinedBytes": 21011,
+            "slices": 1,
+            "keyRequests": 4,
+            "countRequests": 4,
+            "maxOperationMs": 3.900000035762787,
+            "oversizedSerializedBytes": 0,
+            "oversizedByteLowerBound": 0,
+            "unindexableLegacy": 0,
+            "unindexableCurrent": 0
+          }
+        },
+        "cleanup": {
+          "database": "typeforge-coach-tab-synthetic-e199c944-0dcb-4d50-9c71-7f21d7b1ef53",
+          "remaining": []
+        },
+        "passed": true
+      },
+      "externalPageErrors": [],
+      "cleanup": {
+        "database": "typeforge-coach-tab-synthetic-e199c944-0dcb-4d50-9c71-7f21d7b1ef53",
+        "remaining": []
+      }
+    }
+  ]
+}

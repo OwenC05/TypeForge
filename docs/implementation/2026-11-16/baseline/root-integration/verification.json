@@ -1,0 +1,49 @@
+{
+  "at": "2026-11-16T14:49:14.664Z",
+  "sourceIntegration": "0f29ceb89f624b60a1cb1f813222b667a6610b26",
+  "browserRecordedCommit": "8c35d2f232be6390e9efcaceff618d042f57ab62",
+  "check": {
+    "exit": 0,
+    "tests": 132,
+    "passed": 132,
+    "failed": 0,
+    "typecheck": true,
+    "build": "Vite 8.3.3"
+  },
+  "cleanInstall": {
+    "exit": 0,
+    "auditTotal": 0
+  },
+  "browsers": [
+    {
+      "channel": "chrome",
+      "version": "157.0.8103.52",
+      "native": 46,
+      "focused": 15,
+      "failed": 0,
+      "errors": []
+    },
+    {
+      "channel": "msedge",
+      "version": "157.0.4341.60",
+      "native": 46,
+      "focused": 15,
+      "failed": 0,
+      "errors": []
+    }
+  ],
+  "cssMatchesAcceptedClaude": true,
+  "preview": {
+    "base": "http://127.0.0.1:5301",
+    "pid": 28552
+  },
+  "limitations": [
+    "Both browser products use Chromium",
+    "No physical high-contrast theme or assistive technology validation",
+    "Baseline UI and adaptive policy not implemented"
+  ],
+  "inspectionCorrections": [
+    "PowerShell-authored evidence required BOM-aware UTF-8/UTF-16 decoding",
+    "Initial omit-dev audit ran at repository root and returned ENOLOCK; corrected client-cwd audit returned zero. No lockfile was generated."
+  ]
+}

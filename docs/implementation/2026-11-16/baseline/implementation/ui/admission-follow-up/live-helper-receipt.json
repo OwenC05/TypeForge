@@ -1,0 +1,39 @@
+{
+ "phase": "live",
+ "port": 5324,
+ "node": "C:\\Program Files\\nodejs\\node.exe",
+ "started": "2026-11-18T23:08:59.398Z",
+ "server": {
+  "pid": 2160,
+  "executable": "C:\\Program Files\\nodejs\\node.exe",
+  "args": [
+   "node_modules/vite/bin/vite.js",
+   "--host",
+   "127.0.0.1",
+   "--port",
+   "5324",
+   "--strictPort"
+  ],
+  "cwd": "C:\\Users\\Owenc\\orca\\workspaces\\TypeForge\\tf-coach-ui\\typing-app\\client",
+  "windowsHide": true,
+  "shell": false,
+  "exitCode": null
+ },
+ "browser": {
+  "executable": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+  "version": "157.0.8103.79",
+  "headless": true,
+  "launchedBy": "playwright-core launch (temporary profile)"
+ },
+ "cleanup": {
+  "serverExited": true,
+  "portClosed": true,
+  "finished": "2026-11-18T23:09:49.810Z"
+ },
+ "databases": [
+  "typeforge-ui-synthetic-3e0b919c-bddc-4526-ad80-ba221d1d3160",
+  "typeforge-ui-synthetic-bb1d57e2-f1fd-42d9-923f-3e242cbe8197",
+  "typeforge-ui-synthetic-0c59edc9-0e89-4ebd-8472-0976054a662a",
+  "typeforge-ui-synthetic-3fe41d16-78b6-48e2-aa94-7d14be74d15a"
+ ]
+}

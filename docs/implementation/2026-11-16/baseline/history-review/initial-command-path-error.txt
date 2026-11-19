@@ -1,0 +1,6 @@
+node : Could not find 'typing-app/client/tests/history.test.ts'
+At line:2 char:104
++ ... | Out-Null; node --experimental-strip-types --test typing-app/client/ ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Could not find ...istory.test.ts':String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError

@@ -1,0 +1,141 @@
+{
+  "kind": "P1-amendment-validation-receipt",
+  "createdAt": "2026-11-17T14:12:06.618Z",
+  "taskId": "task_3510c537f041",
+  "dispatchId": "ctx_b9d3ff5b8c7a",
+  "terminal": "term_5a84172b0afa766c8cab70d0158bb4bc",
+  "requested": {
+    "agent": "codex",
+    "model": "gpt-6.1-sol",
+    "effort": "high"
+  },
+  "observedLaunchFields": [
+    {
+      "path": "root.result.projection.provider.model",
+      "value": "gpt-6.1-sol"
+    },
+    {
+      "path": "root.result.terminal.agentIdentity",
+      "value": "codex"
+    }
+  ],
+  "observedAncestors": [
+    {
+      "pid": 7080,
+      "modelFlag": "",
+      "effortFlag": ""
+    }
+  ],
+  "launchLimit": "Live projection exposes model gpt-6.1-sol; effort flag is not exposed in this app-server ancestor/filtered receipt, so high is requested, not independently verified; no backend identity claim",
+  "base": "e4847548380cd50cde911645314dc023737068ad",
+  "frozenC2": "87fe85ecb703a255faea046a2294419be7d5dcff",
+  "frozenClaude": [
+    "dd37652",
+    "fa9eca1"
+  ],
+  "frozenC2Verdict": "REVISE, unchanged",
+  "pending": [
+    "A2",
+    "H3",
+    "independent delta review",
+    "actual-Claude reconciliation"
+  ],
+  "checks": {
+    "relational": 106,
+    "legacyScalarSchemaSmoke": 148,
+    "unchangedModelProfile": {
+      "passed": 25,
+      "failed": 0
+    },
+    "localMarkdownLinks": 7,
+    "productionDiffEmpty": true
+  },
+  "configId": "730f46e589c8682b09494ef54e0d53d5b15686f3adf763092e57cd86a743593d",
+  "catalogueId": "17de69ffe905a28e8e00ad65d1494a003b080bcd2a894a81fea5c28351594a25",
+  "fileHashes": {
+    ".omx/specs/typeforge-practice-policy-v1.md": {
+      "rawSha256": "b3063e1cd697c3236fd4ca4bd7f3a8f916816f9264cda8f61dd4782180b875ca",
+      "lfTextSha256": "b3063e1cd697c3236fd4ca4bd7f3a8f916816f9264cda8f61dd4782180b875ca"
+    },
+    "docs/implementation/2026-11-16/baseline/policy/README.md": {
+      "rawSha256": "e5f0ee1e58ef3234c54d7e5738590bfda3f1e902a2a2211f2c95a9312756face",
+      "lfTextSha256": "e5f0ee1e58ef3234c54d7e5738590bfda3f1e902a2a2211f2c95a9312756face"
+    },
+    "docs/implementation/2026-11-16/baseline/policy/amendment-r1.md": {
+      "rawSha256": "6672a8485d104a35114873b75a9a24b89c1a4cf89cd191589b0c913f00663242",
+      "lfTextSha256": "6672a8485d104a35114873b75a9a24b89c1a4cf89cd191589b0c913f00663242"
+    },
+    "docs/implementation/2026-11-16/baseline/policy/coach-config.example.json": {
+      "rawSha256": "8b0647c8e996e8c75fd348f6e99cf31eb539d2124b8b06099714912e15f14dab",
+      "lfTextSha256": "8b0647c8e996e8c75fd348f6e99cf31eb539d2124b8b06099714912e15f14dab"
+    },
+    "docs/implementation/2026-11-16/baseline/policy/coach-config.schema.json": {
+      "rawSha256": "100c715b91dc5ad829df7261a4cea6ff8563f9ba55c7240aadd983f2d50f1fff",
+      "lfTextSha256": "100c715b91dc5ad829df7261a4cea6ff8563f9ba55c7240aadd983f2d50f1fff"
+    },
+    "docs/implementation/2026-11-16/baseline/policy/coach-sidecar.schema.json": {
+      "rawSha256": "dd9794954527d8088837c6c7c49ee6c5755a81d3638c0e997a56c7acd9540356",
+      "lfTextSha256": "dd9794954527d8088837c6c7c49ee6c5755a81d3638c0e997a56c7acd9540356"
+    },
+    "docs/implementation/2026-11-16/baseline/policy/sidecar-examples.json": {
+      "rawSha256": "61071385947f5c91e3f745f489244463c65fe8bb19a8c1e255e11626ab382d4a",
+      "lfTextSha256": "61071385947f5c91e3f745f489244463c65fe8bb19a8c1e255e11626ab382d4a"
+    },
+    "docs/implementation/2026-11-16/baseline/policy/finite-catalogue.example.json": {
+      "rawSha256": "44c0e777f6a5aa68b26e01ebbc33a4f2437d881a68eaa43af0c02fe8a85b6fa3",
+      "lfTextSha256": "44c0e777f6a5aa68b26e01ebbc33a4f2437d881a68eaa43af0c02fe8a85b6fa3"
+    },
+    "docs/implementation/2026-11-16/baseline/policy/revision-check.mjs": {
+      "rawSha256": "713ba49bb4779ca1d4ff2f868559b373afe9e6711b018681304246f783591a3c",
+      "lfTextSha256": "713ba49bb4779ca1d4ff2f868559b373afe9e6711b018681304246f783591a3c"
+    },
+    "docs/implementation/2026-11-16/baseline/policy/revision-check.json": {
+      "rawSha256": "96b139fd019d77d20ddf76f75b3336276bef35eb4ece7c4a67604d9bc31dadc7",
+      "lfTextSha256": "96b139fd019d77d20ddf76f75b3336276bef35eb4ece7c4a67604d9bc31dadc7"
+    },
+    "docs/implementation/2026-11-16/baseline/policy/check-contract.mjs": {
+      "rawSha256": "9cedbb1bd75fd7557dfba6c9ee10db069070f7fe32cc82b15dd9f35dae252a59",
+      "lfTextSha256": "9cedbb1bd75fd7557dfba6c9ee10db069070f7fe32cc82b15dd9f35dae252a59"
+    },
+    "docs/implementation/2026-11-16/baseline/policy/contract-check.json": {
+      "rawSha256": "215cfba19bf24deb0e451dc1c5521aa580c97d900944dbc684a2af4f4bdcfdaf",
+      "lfTextSha256": "215cfba19bf24deb0e451dc1c5521aa580c97d900944dbc684a2af4f4bdcfdaf"
+    },
+    "docs/implementation/2026-11-16/baseline/policy/revision-profile-model-tests.txt": {
+      "rawSha256": "0d4d39670bae4f03e630d39f9d12beace0a5a265512fb1673fdb970a468d0246",
+      "lfTextSha256": "0d4d39670bae4f03e630d39f9d12beace0a5a265512fb1673fdb970a468d0246"
+    },
+    "docs/implementation/2026-11-16/baseline/policy/revision-runtime-client.json": {
+      "rawSha256": "199105ee29d901033182ef29c766d8a010482fb0045c60e746b2e4c71364d796",
+      "lfTextSha256": "fa7436c45c5ce2354a85cc826464a8a252bb2c581d491c6f3a0ff91441798867"
+    },
+    "docs/implementation/2026-11-16/baseline/policy/revision-launch-fields.json": {
+      "rawSha256": "fa75c3d6747108b69157ec8eef1f0b8e3e221025349762259c411bd8100a507d",
+      "lfTextSha256": "ccf10ff217d2345cc440008b87a19b65f1084c2da640ea3214e4b2b720496d6d"
+    },
+    "typing-app/client/src/engine.ts": {
+      "rawSha256": "2e44aea3b11474574294bf724bdb594f111bab548e202c989cabc5b6cf840607",
+      "lfTextSha256": "eeb0bc14b09c1ea9c89b8487a709d8402cac79600c869281ae184ab5d2cc3a1a"
+    },
+    "typing-app/client/src/storage.ts": {
+      "rawSha256": "55959285552fc239e1d986eacb96ef6685aa3ca0e09cb5d303f9b074164bc47c",
+      "lfTextSha256": "af23ff43b1af81f31544f1cd73b1103a606923c5cf493523b2a067a175c296f4"
+    },
+    "typing-app/client/src/profile.ts": {
+      "rawSha256": "3eb148c75f85482675ab00f4577b3a7a450f4ba8268734d5f74c8646bd5d4b9b",
+      "lfTextSha256": "8f39607f15216af1f3e9f2809c8732f6f28f35ea7cd5309822ddd7609f1eb7cb"
+    },
+    "typing-app/client/src/corpus.ts": {
+      "rawSha256": "28f37ce212e8704397e0097f22b77b2f9f84978f86f9db767decb5edf505741e",
+      "lfTextSha256": "06b1be5965d501300f05ecdad0555406c30dbe4c5608c4830c7eedf055e76964"
+    }
+  },
+  "limitations": [
+    "No actual IndexedDB transaction/race test",
+    "No live app/model-loading matrix",
+    "Actual exposure unknown",
+    "No human yield, adherence, target-quality or learning evidence",
+    "No helper/provider substitution",
+    "Coaching disabled in first-increment recommendation"
+  ]
+}

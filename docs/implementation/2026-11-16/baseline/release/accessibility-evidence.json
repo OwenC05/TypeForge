@@ -1,0 +1,136 @@
+[
+  {
+    "channel": "chrome",
+    "version": "157.0.8103.52",
+    "checks": [
+      {
+        "name": "neutral Enter recovers native focus",
+        "pass": true
+      },
+      {
+        "name": "why disclosure expands without stealing focus",
+        "pass": true
+      },
+      {
+        "name": "why disclosure keyboard closes",
+        "pass": true
+      },
+      {
+        "name": "narrow Menu named and exposed",
+        "pass": true
+      },
+      {
+        "name": "narrow Menu keyboard opens",
+        "pass": true
+      },
+      {
+        "name": "narrow Menu Tab reaches practice link",
+        "pass": true
+      },
+      {
+        "name": "narrow Menu keyboard closes",
+        "pass": true
+      },
+      {
+        "name": "skip link bypasses navigation on next Tab",
+        "pass": true
+      },
+      {
+        "name": "narrow running Tab reaches restart",
+        "pass": true
+      },
+      {
+        "name": "forced-colors keyboard restart has outline",
+        "pass": true
+      },
+      {
+        "name": "blocked preferences still allow first-key General",
+        "pass": true
+      }
+    ],
+    "skipFocus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "afterSkipTab": {
+      "tag": "UI-SEGMENTED-CONTROL-ITEM",
+      "id": "",
+      "text": "30",
+      "insideMain": true,
+      "hash": "#main"
+    },
+    "restartFocus": {
+      "focus": true,
+      "outlineStyle": "solid",
+      "outlineWidth": "2px",
+      "outlineColor": "rgb(55, 0, 110)"
+    }
+  },
+  {
+    "channel": "msedge",
+    "version": "157.0.4341.60",
+    "checks": [
+      {
+        "name": "neutral Enter recovers native focus",
+        "pass": true
+      },
+      {
+        "name": "why disclosure expands without stealing focus",
+        "pass": true
+      },
+      {
+        "name": "why disclosure keyboard closes",
+        "pass": true
+      },
+      {
+        "name": "narrow Menu named and exposed",
+        "pass": true
+      },
+      {
+        "name": "narrow Menu keyboard opens",
+        "pass": true
+      },
+      {
+        "name": "narrow Menu Tab reaches practice link",
+        "pass": true
+      },
+      {
+        "name": "narrow Menu keyboard closes",
+        "pass": true
+      },
+      {
+        "name": "skip link bypasses navigation on next Tab",
+        "pass": true
+      },
+      {
+        "name": "narrow running Tab reaches restart",
+        "pass": true
+      },
+      {
+        "name": "forced-colors keyboard restart has outline",
+        "pass": true
+      },
+      {
+        "name": "blocked preferences still allow first-key General",
+        "pass": true
+      }
+    ],
+    "skipFocus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "afterSkipTab": {
+      "tag": "UI-SEGMENTED-CONTROL-ITEM",
+      "id": "",
+      "text": "30",
+      "insideMain": true,
+      "hash": "#main"
+    },
+    "restartFocus": {
+      "focus": true,
+      "outlineStyle": "solid",
+      "outlineWidth": "2px",
+      "outlineColor": "rgb(55, 0, 110)"
+    }
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "### Error\nError: Probe timeout; phases=H3:import,H3:oversize,H3:oversize evidence {\"slice\":{\"examinedRows\":4,\"examinedBytes\":4194304,\"complete\":false,\"reason\":\"byte-budget\",\"cursor\":[\"2026-11-16T00:00:00.000Z\",\"00000000-0000-4000-8000-000000000014\"],\"results\":0,\"diagnostics\":{\"invalidRows\":4,\"incompatibleRows\":0,\"unindexableRows\":0,\"oversizedRows\":4,\"oversizedSerializedBytes\":8388608,\"unserializableRows\":0,\"firstInvalidReason\":\"Local record exceeds 1 MiB and remains stored.\",\"error\":null},\"costs\":{\"maxOperationMs\":0,\"maxOperationOvershootMs\":0,\"slices\":1,\"yields\":0}},\"scan\":{\"examinedRows\":16,\"examinedBytes\":16777216,\"complete\":false,\"reason\":\"byte-budget\",\"cursor\":[\"2026-11-16T00:00:00.000Z\",\"00000000-0000-4000-8000-000000000002\"],\"results\":0,\"diagnostics\":{\"invalidRows\":16,\"incompatibleRows\":0,\"unindexableRows\":0,\"oversizedRows\":16,\"oversizedSerializedBytes\":33554432,\"unserializableRows\":0,\"firstInvalidReason\":\"Local record exceeds 1 MiB and remains stored.\",\"error\":null},\"costs\":{\"maxOperationMs\":0,\"maxOperationOvershootMs\":0,\"slices\":4,\"yields\":3}},\"realClock\":{\"examinedRows\":16,\"examinedBytes\":16777216,\"complete\":false,\"reason\":\"byte-budget\",\"cursor\":[\"2026-11-16T00:00:00.000Z\",\"00000000-0000-4000-8000-000000000002\"],\"results\":0,\"diagnostics\":{\"invalidRows\":16,\"incompatibleRows\":0,\"unindexableRows\":0,\"oversizedRows\":16,\"oversizedSerializedBytes\":33554432,\"unserializableRows\":0,\"firstInvalidReason\":\"Local record exceeds 1 MiB and remains stored.\",\"error\":null},\"costs\":{\"maxOperationMs\":10.599999964237213,\"maxOperationOvershootMs\":2.599999964237213,\"slices\":14,\"yields\":13}}},H3:oversize verified,H3:cyclic seed done"
+    }
+  ],
+  "isError": true
+}

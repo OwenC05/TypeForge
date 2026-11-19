@@ -1,0 +1,81 @@
+{
+  "schemaId": "typeforge-finite-catalogue-v1",
+  "sourceFrozenC2": "87fe85ecb703a255faea046a2294419be7d5dcff",
+  "corpusVersion": "1",
+  "scope": "prospective-coaching-pilot-not-first-release",
+  "templates": [
+    {
+      "pair": "he",
+      "promptIds": [
+        "practice-003",
+        "practice-019",
+        "practice-048",
+        "practice-013",
+        "practice-078",
+        "practice-028",
+        "practice-001",
+        "practice-036",
+        "practice-054",
+        "practice-002",
+        "practice-047",
+        "practice-074"
+      ],
+      "planHash": "5b9de1b99a4d96d47d5f697b230c42121620df9c17883b6dfa544fd03e34f073"
+    },
+    {
+      "pair": "in",
+      "promptIds": [
+        "practice-007",
+        "practice-012",
+        "practice-058",
+        "practice-079",
+        "practice-042",
+        "practice-022",
+        "practice-045",
+        "practice-032",
+        "practice-037",
+        "practice-039",
+        "practice-054",
+        "practice-047"
+      ],
+      "planHash": "2452ab2e1e718b676765d84c4d1d3e3c10e7d24d40a4f0650dc48eed30322d6d"
+    },
+    {
+      "pair": "le",
+      "promptIds": [
+        "practice-041",
+        "practice-063",
+        "practice-075",
+        "practice-015",
+        "practice-027",
+        "practice-028",
+        "practice-003",
+        "practice-010",
+        "practice-026",
+        "practice-056",
+        "practice-034",
+        "practice-007"
+      ],
+      "planHash": "70afd1606988c116c72ff631234113814c3e87047be61d79c37ab2a61334bb1f"
+    },
+    {
+      "pair": "th",
+      "promptIds": [
+        "practice-002",
+        "practice-072",
+        "practice-053",
+        "practice-003",
+        "practice-036",
+        "practice-054",
+        "practice-034",
+        "practice-047",
+        "practice-074",
+        "practice-077",
+        "practice-058",
+        "practice-062"
+      ],
+      "planHash": "efd1a6b016506ba48deeda016f6c71b9f5e84473e2c4f4cf0b1efe01f85aa2ee"
+    }
+  ],
+  "bankHash": "b73528f56537020c915dcf5e3a6a4e970e438ebc3210758f093901d92ef736b1"
+}

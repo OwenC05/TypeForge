@@ -1,0 +1,6 @@
+﻿{
+  "checks": 60,
+  "failures": [],
+  "emptyKeysAccepted": true,
+  "revision": "1d80934f44874441c18d00199879da872b1c92af"
+}

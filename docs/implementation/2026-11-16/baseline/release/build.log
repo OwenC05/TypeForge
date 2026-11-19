@@ -1,0 +1,36 @@
+
+> typeforge@0.1.0 build
+> npm run typecheck && vite build
+
+
+> typeforge@0.1.0 typecheck
+> tsc --noEmit
+
+vite v8.3.1 building client environment for production...
+transforming...
+✓ 171 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/assets/favicon-2cBZDU6Q.svg              0.28 kB │ gzip:  0.20 kB
+dist/LandingPage.html                         0.40 kB │ gzip:  0.28 kB
+dist/LeaderBoard.html                         0.40 kB │ gzip:  0.28 kB
+dist/SignIn.html                              0.40 kB │ gzip:  0.28 kB
+dist/DetailedResults.html                     0.41 kB │ gzip:  0.28 kB
+dist/ResultsPage.html                         0.41 kB │ gzip:  0.28 kB
+dist/ProgressDashboard.html                   0.41 kB │ gzip:  0.28 kB
+dist/TypingTest.html                          0.41 kB │ gzip:  0.28 kB
+dist/TypingDrill.html                         0.83 kB │ gzip:  0.44 kB
+dist/practice.html                            0.86 kB │ gzip:  0.47 kB
+dist/results.html                             0.87 kB │ gzip:  0.47 kB
+dist/progress.html                            0.87 kB │ gzip:  0.48 kB
+dist/lab.html                                 1.01 kB │ gzip:  0.52 kB
+dist/index.html                               1.02 kB │ gzip:  0.54 kB
+dist/assets/app-ChsJ1aui.css                 20.41 kB │ gzip:  5.26 kB
+dist/assets/sides-CecCr77z.js                 0.09 kB │ gzip:  0.10 kB
+dist/assets/env-B-odJnus.js                   2.42 kB │ gzip:  1.21 kB
+dist/assets/sheet-presentation-BQEATMwe.js   37.66 kB │ gzip: 13.54 kB
+dist/assets/define-element-B_WeKIXB.js       49.27 kB │ gzip: 17.95 kB
+dist/assets/select-D9fpQqgK.js               87.73 kB │ gzip: 31.56 kB
+dist/assets/app-BNPI8kHH.js                 141.87 kB │ gzip: 48.71 kB
+
+✓ built in 2.13s

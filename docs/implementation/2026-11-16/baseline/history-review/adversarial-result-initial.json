@@ -1,0 +1,195 @@
+{
+  "assertions": 25,
+  "oversizeSlice": {
+    "examinedRows": 4,
+    "examinedBytes": 4194304,
+    "complete": false,
+    "reason": "byte-budget",
+    "cursor": [
+      "2026-11-16T00:00:00.000Z",
+      "00000000-0000-4000-8000-000000000014"
+    ],
+    "results": 0,
+    "diagnostics": {
+      "invalidRows": 4,
+      "incompatibleRows": 0,
+      "unindexableRows": 0,
+      "oversizedRows": 4,
+      "oversizedSerializedBytes": 8388608,
+      "unserializableRows": 0,
+      "firstInvalidReason": "Local record exceeds 1 MiB and remains stored.",
+      "error": null
+    },
+    "costs": {
+      "maxOperationMs": 0,
+      "maxOperationOvershootMs": 0,
+      "slices": 1,
+      "yields": 0
+    }
+  },
+  "oversizeScan": {
+    "examinedRows": 16,
+    "examinedBytes": 16777216,
+    "complete": false,
+    "reason": "byte-budget",
+    "cursor": [
+      "2026-11-16T00:00:00.000Z",
+      "00000000-0000-4000-8000-000000000002"
+    ],
+    "results": 0,
+    "diagnostics": {
+      "invalidRows": 16,
+      "incompatibleRows": 0,
+      "unindexableRows": 0,
+      "oversizedRows": 16,
+      "oversizedSerializedBytes": 33554432,
+      "unserializableRows": 0,
+      "firstInvalidReason": "Local record exceeds 1 MiB and remains stored.",
+      "error": null
+    },
+    "costs": {
+      "maxOperationMs": 0,
+      "maxOperationOvershootMs": 0,
+      "slices": 4,
+      "yields": 3
+    }
+  },
+  "oversizeRealClock": {
+    "examinedRows": 16,
+    "examinedBytes": 16777216,
+    "complete": false,
+    "reason": "byte-budget",
+    "cursor": [
+      "2026-11-16T00:00:00.000Z",
+      "00000000-0000-4000-8000-000000000002"
+    ],
+    "results": 0,
+    "diagnostics": {
+      "invalidRows": 16,
+      "incompatibleRows": 0,
+      "unindexableRows": 0,
+      "oversizedRows": 16,
+      "oversizedSerializedBytes": 33554432,
+      "unserializableRows": 0,
+      "firstInvalidReason": "Local record exceeds 1 MiB and remains stored.",
+      "error": null
+    },
+    "costs": {
+      "maxOperationMs": 14.800000011920929,
+      "maxOperationOvershootMs": 6.800000011920929,
+      "slices": 16,
+      "yields": 15
+    }
+  },
+  "cyclicSlice": {
+    "examinedRows": 25,
+    "examinedBytes": 0,
+    "complete": false,
+    "reason": "row-budget",
+    "cursor": [
+      "2026-11-16T00:00:00.000Z",
+      "00000000-0000-4000-8000-000000000006"
+    ],
+    "results": 0,
+    "diagnostics": {
+      "invalidRows": 25,
+      "incompatibleRows": 0,
+      "unindexableRows": 0,
+      "oversizedRows": 0,
+      "oversizedSerializedBytes": 0,
+      "unserializableRows": 25,
+      "firstInvalidReason": "Converting circular structure to JSON\n    --> starting at object with constructor 'Object'\n    --- property 'self' closes the circle",
+      "error": null
+    },
+    "costs": {
+      "maxOperationMs": 0,
+      "maxOperationOvershootMs": 0,
+      "slices": 1,
+      "yields": 0
+    }
+  },
+  "cyclicScan": {
+    "examinedRows": 30,
+    "examinedBytes": 0,
+    "complete": true,
+    "reason": "exhausted",
+    "cursor": [
+      "2026-11-16T00:00:00.000Z",
+      "00000000-0000-4000-8000-000000000001"
+    ],
+    "results": 0,
+    "diagnostics": {
+      "invalidRows": 30,
+      "incompatibleRows": 0,
+      "unindexableRows": 0,
+      "oversizedRows": 0,
+      "oversizedSerializedBytes": 0,
+      "unserializableRows": 30,
+      "firstInvalidReason": "Converting circular structure to JSON\n    --> starting at object with constructor 'Object'\n    --- property 'self' closes the circle",
+      "error": null
+    },
+    "costs": {
+      "maxOperationMs": 0,
+      "maxOperationOvershootMs": 0,
+      "slices": 2,
+      "yields": 1
+    }
+  },
+  "nativeKeys": [
+    "[object Array]",
+    "[object ArrayBuffer]",
+    "[object Date]"
+  ],
+  "failedPredicateListenerBalance": {
+    "adds": 2,
+    "removes": 3
+  },
+  "blocked": {
+    "examinedRows": 0,
+    "examinedBytes": 0,
+    "complete": false,
+    "reason": "failed",
+    "cursor": null,
+    "results": 0,
+    "diagnostics": {
+      "invalidRows": 0,
+      "incompatibleRows": 0,
+      "unindexableRows": null,
+      "oversizedRows": 0,
+      "oversizedSerializedBytes": 0,
+      "unserializableRows": 0,
+      "firstInvalidReason": null,
+      "error": "Close other TypeForge tabs, then retry saving or loading results."
+    },
+    "costs": {
+      "maxOperationMs": 0,
+      "maxOperationOvershootMs": 0,
+      "slices": 0,
+      "yields": 0
+    }
+  },
+  "expectedContractFailures": [
+    "actual oversized serialized payload exceeds 4/16 MiB despite capped charged counter",
+    "unserializable payloads consume zero charged bytes, requiring a conservative work rule"
+  ],
+  "fixtureDatabaseDeleted": true,
+  "clockPolicy": "Fixed clock isolates deterministic byte/row work; ordinary-clock oversized scan also reproduced. No timed-performance claim.",
+  "errors": [],
+  "phases": [
+    "H3:import",
+    "H3:oversize",
+    "H3:oversize evidence {\"slice\":{\"examinedRows\":4,\"examinedBytes\":4194304,\"complete\":false,\"reason\":\"byte-budget\",\"cursor\":[\"2026-11-16T00:00:00.000Z\",\"00000000-0000-4000-8000-000000000014\"],\"results\":0,\"diagnostics\":{\"invalidRows\":4,\"incompatibleRows\":0,\"unindexableRows\":0,\"oversizedRows\":4,\"oversizedSerializedBytes\":8388608,\"unserializableRows\":0,\"firstInvalidReason\":\"Local record exceeds 1 MiB and remains stored.\",\"error\":null},\"costs\":{\"maxOperationMs\":0,\"maxOperationOvershootMs\":0,\"slices\":1,\"yields\":0}},\"scan\":{\"examinedRows\":16,\"examinedBytes\":16777216,\"complete\":false,\"reason\":\"byte-budget\",\"cursor\":[\"2026-11-16T00:00:00.000Z\",\"00000000-0000-4000-8000-000000000002\"],\"results\":0,\"diagnostics\":{\"invalidRows\":16,\"incompatibleRows\":0,\"unindexableRows\":0,\"oversizedRows\":16,\"oversizedSerializedBytes\":33554432,\"unserializableRows\":0,\"firstInvalidReason\":\"Local record exceeds 1 MiB and remains stored.\",\"error\":null},\"costs\":{\"maxOperationMs\":0,\"maxOperationOvershootMs\":0,\"slices\":4,\"yields\":3}},\"realClock\":{\"examinedRows\":16,\"examinedBytes\":16777216,\"complete\":false,\"reason\":\"byte-budget\",\"cursor\":[\"2026-11-16T00:00:00.000Z\",\"00000000-0000-4000-8000-000000000002\"],\"results\":0,\"diagnostics\":{\"invalidRows\":16,\"incompatibleRows\":0,\"unindexableRows\":0,\"oversizedRows\":16,\"oversizedSerializedBytes\":33554432,\"unserializableRows\":0,\"firstInvalidReason\":\"Local record exceeds 1 MiB and remains stored.\",\"error\":null},\"costs\":{\"maxOperationMs\":14.800000011920929,\"maxOperationOvershootMs\":6.800000011920929,\"slices\":16,\"yields\":15}}}",
+    "H3:oversize verified",
+    "H3:cyclic seed done",
+    "H3:cyclic slice done",
+    "H3:cyclic scan done",
+    "H3:cyclic verified",
+    "H3:normal verified",
+    "H3:native keys verified",
+    "H3:predicate verified",
+    "H3:initial delete done",
+    "H3:blocked verified"
+  ],
+  "browserVersion": "157.0.8103.52",
+  "isolation": "fresh nonpersistent context with empty storageState; dedicated strict loopback port 5317"
+}

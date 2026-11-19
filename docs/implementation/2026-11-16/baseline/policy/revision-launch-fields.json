@@ -1,0 +1,10 @@
+[
+    {
+        "path":  "root.result.projection.provider.model",
+        "value":  "gpt-6.1-sol"
+    },
+    {
+        "path":  "root.result.terminal.agentIdentity",
+        "value":  "codex"
+    }
+]

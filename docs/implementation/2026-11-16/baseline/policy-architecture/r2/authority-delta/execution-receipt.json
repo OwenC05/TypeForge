@@ -1,0 +1,29 @@
+{
+    "taskId":  "task_f61d31f26ef3",
+    "dispatchId":  "ctx_9cc0f3443707",
+    "requestedInTask":  "capable Codex/high",
+    "observedProvider":  {
+                             "id":  "codex",
+                             "model":  "gpt-6.1-sol"
+                         },
+    "launchFields":  {
+                         "requested":  {
+                                           "agent":  null,
+                                           "model":  null,
+                                           "effort":  null
+                                       },
+                         "effective":  {
+                                           "agent":  "codex",
+                                           "model":  null,
+                                           "effort":  null
+                                       }
+                     },
+    "terminalHandle":  "term_4eb49204-5ed4-453e-a731-cf004d3a88f9",
+    "observedTerminalModelEffortLine":  "GPT-6.1-Sol high · OwenC05/tf-policy-architecture · Context 51% left · 8.11M in · 62.2K out · weekly 12% left",
+    "observation":  {
+                        "status":  "live",
+                        "exactWorker":  true,
+                        "agentWait":  null
+                    },
+    "caveat":  "Provider projection and terminal display are observed receipts; reused-terminal launch model/effort remain null and backend identity is unverified."
+}

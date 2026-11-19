@@ -1,0 +1,755 @@
+{
+  "assertions": 50,
+  "failed": 0,
+  "port": 5302,
+  "serverPid": 53640,
+  "browser": "157.0.8103.79",
+  "results": [
+    {
+      "name": "Every agent entry is named",
+      "ok": true
+    },
+    {
+      "name": "Snapshot exposes Duration in seconds",
+      "ok": true
+    },
+    {
+      "name": "Snapshot exposes Practice",
+      "ok": true
+    },
+    {
+      "name": "Snapshot exposes Physical QWERTY keyboard",
+      "ok": true
+    },
+    {
+      "name": "Native timed editor is not an agent component",
+      "ok": true
+    },
+    {
+      "name": "Duration choices are discovered from the rail",
+      "ok": true,
+      "details": [
+        {
+          "value": "15",
+          "label": "15"
+        },
+        {
+          "value": "30",
+          "label": "30"
+        },
+        {
+          "value": "60",
+          "label": "60"
+        },
+        {
+          "value": "120",
+          "label": "120"
+        }
+      ]
+    },
+    {
+      "name": "Agent sets duration 15; stage re-prepares idle",
+      "ok": true,
+      "details": {
+        "duration": "15",
+        "kind": "general",
+        "pair": null,
+        "qwerty": false,
+        "remaining": "15",
+        "label": "General practice · 15 s",
+        "run": "idle",
+        "status": "Agent set duration to 15.",
+        "value": "",
+        "editorEvents": 0,
+        "prompts": "practice-050 practice-066 practice-078 practice-040 practice-020 practice-030 practice-038 practice-018 practice-077 practice-025 practice-032 practice-063 practice-021 practice-057 practice-041 practice-044 practice-067 practice-027 practice-079 practice-024 practice-075 practice-056 practice-035 practice-052 practice-002 practice-037 practice-013 practice-010 practice-045 practice-028 practice-055 practice-051 practice-058 practice-005 practice-017 practice-004 practice-015 practice-048 practice-007 practice-011 practice-071 practice-053 practice-046 practice-014 practice-059 practice-022 practice-039 practice-047 practice-029 practice-064 practice-009 practice-069 practice-073 practice-072 practice-065 practice-008 practice-074 practice-062 practice-070 practice-031 practice-043 practice-026 practice-001 practice-006 practice-003 practice-019 practice-034 practice-068 practice-049 practice-016 practice-080 practice-054 practice-060 practice-033 practice-076 practice-061 practice-012 practice-042 practice-036 practice-023"
+      }
+    },
+    {
+      "name": "Accepted change keeps agent source (15)",
+      "ok": true,
+      "details": "Agent set duration to 15."
+    },
+    {
+      "name": "Agent sets duration 30; stage re-prepares idle",
+      "ok": true,
+      "details": {
+        "duration": "30",
+        "kind": "general",
+        "pair": null,
+        "qwerty": false,
+        "remaining": "30",
+        "label": "General practice · 30 s",
+        "run": "idle",
+        "status": "Agent set duration to 30.",
+        "value": "",
+        "editorEvents": 0,
+        "prompts": "practice-066 practice-024 practice-016 practice-076 practice-005 practice-021 practice-015 practice-073 practice-013 practice-069 practice-030 practice-010 practice-026 practice-038 practice-065 practice-014 practice-042 practice-067 practice-078 practice-068 practice-052 practice-025 practice-032 practice-027 practice-006 practice-041 practice-034 practice-045 practice-074 practice-057 practice-060 practice-062 practice-059 practice-058 practice-036 practice-048 practice-018 practice-050 practice-049 practice-053 practice-043 practice-004 practice-051 practice-023 practice-011 practice-019 practice-056 practice-012 practice-008 practice-029 practice-047 practice-061 practice-044 practice-033 practice-070 practice-055 practice-072 practice-017 practice-031 practice-035 practice-046 practice-003 practice-002 practice-063 practice-077 practice-022 practice-020 practice-001 practice-040 practice-064 practice-039 practice-054 practice-075 practice-037 practice-071 practice-028 practice-007 practice-079 practice-009 practice-080"
+      }
+    },
+    {
+      "name": "Accepted change keeps agent source (30)",
+      "ok": true,
+      "details": "Agent set duration to 30."
+    },
+    {
+      "name": "Agent sets duration 60; stage re-prepares idle",
+      "ok": true,
+      "details": {
+        "duration": "60",
+        "kind": "general",
+        "pair": null,
+        "qwerty": false,
+        "remaining": "60",
+        "label": "General practice · 60 s",
+        "run": "idle",
+        "status": "Agent set duration to 60.",
+        "value": "",
+        "editorEvents": 0,
+        "prompts": "practice-009 practice-070 practice-080 practice-078 practice-034 practice-008 practice-041 practice-065 practice-067 practice-038 practice-023 practice-006 practice-074 practice-027 practice-079 practice-026 practice-017 practice-045 practice-020 practice-064 practice-029 practice-058 practice-051 practice-036 practice-068 practice-011 practice-039 practice-060 practice-075 practice-004 practice-016 practice-001 practice-047 practice-050 practice-013 practice-077 practice-021 practice-053 practice-043 practice-061 practice-028 practice-024 practice-025 practice-015 practice-033 practice-046 practice-019 practice-056 practice-072 practice-071 practice-007 practice-044 practice-014 practice-066 practice-035 practice-069 practice-040 practice-054 practice-059 practice-049 practice-052 practice-062 practice-076 practice-002 practice-042 practice-063 practice-037 practice-031 practice-030 practice-057 practice-048 practice-055 practice-018 practice-010 practice-012 practice-005 practice-073 practice-032 practice-022 practice-003"
+      }
+    },
+    {
+      "name": "Accepted change keeps agent source (60)",
+      "ok": true,
+      "details": "Agent set duration to 60."
+    },
+    {
+      "name": "Agent sets duration 120; stage re-prepares idle",
+      "ok": true,
+      "details": {
+        "duration": "120",
+        "kind": "general",
+        "pair": null,
+        "qwerty": false,
+        "remaining": "120",
+        "label": "General practice · 120 s",
+        "run": "idle",
+        "status": "Agent set duration to 120.",
+        "value": "",
+        "editorEvents": 0,
+        "prompts": "practice-012 practice-074 practice-018 practice-067 practice-060 practice-051 practice-032 practice-056 practice-072 practice-045 practice-077 practice-065 practice-054 practice-017 practice-007 practice-027 practice-022 practice-020 practice-021 practice-006 practice-036 practice-013 practice-009 practice-071 practice-050 practice-025 practice-005 practice-037 practice-076 practice-046 practice-061 practice-023 practice-064 practice-039 practice-028 practice-052 practice-044 practice-041 practice-035 practice-002 practice-003 practice-075 practice-079 practice-016 practice-014 practice-058 practice-015 practice-070 practice-040 practice-043 practice-059 practice-062 practice-055 practice-011 practice-080 practice-026 practice-038 practice-001 practice-057 practice-049 practice-048 practice-030 practice-068 practice-008 practice-031 practice-073 practice-034 practice-033 practice-047 practice-069 practice-042 practice-019 practice-063 practice-053 practice-010 practice-078 practice-004 practice-024 practice-029 practice-066"
+      }
+    },
+    {
+      "name": "Accepted change keeps agent source (120)",
+      "ok": true,
+      "details": "Agent set duration to 120."
+    },
+    {
+      "name": "Suggested is listed among practice choices",
+      "ok": true
+    },
+    {
+      "name": "Unavailable Suggested is refused",
+      "ok": true,
+      "details": {
+        "ok": false,
+        "error": {
+          "step": 0,
+          "message": "\"suggested\" in Practice (c3) is disabled now."
+        },
+        "steps": [],
+        "appeared": [],
+        "values": {
+          "c2 Duration in seconds": "15",
+          "c3 Practice": "general",
+          "c4 Physical QWERTY keyboard": false
+        }
+      }
+    },
+    {
+      "name": "Practice kind stays General after refused Suggested",
+      "ok": true
+    },
+    {
+      "name": "Agent chooses pair practice",
+      "ok": true
+    },
+    {
+      "name": "Agent discovers supported pairs after the list loads on demand",
+      "ok": true,
+      "details": 50
+    },
+    {
+      "name": "Agent chooses pair ac",
+      "ok": true
+    },
+    {
+      "name": "Pair practice block re-prepared with the chosen pair",
+      "ok": true,
+      "details": {
+        "duration": "15",
+        "kind": "manual",
+        "pair": "ac",
+        "qwerty": false,
+        "remaining": "15",
+        "label": "Pair practice · ac · 15 s",
+        "run": "idle",
+        "status": "Agent set pair to ac.",
+        "value": "",
+        "editorEvents": 0,
+        "prompts": "practice-029 practice-035 practice-022 practice-017 practice-024 practice-026 practice-005 practice-065 practice-002 practice-001 practice-011 practice-051 practice-062 practice-029 practice-037 practice-035 practice-017 practice-063 practice-024 practice-005 practice-066 practice-065 practice-001 practice-057 practice-011 practice-062 practice-014 practice-029 practice-035 practice-079 practice-017 practice-024 practice-067 practice-005 practice-065 practice-064 practice-001 practice-011 practice-045 practice-062 practice-029 practice-048 practice-035 practice-017 practice-016 practice-024 practice-005 practice-023 practice-065 practice-001 practice-061 practice-011 practice-062 practice-070 practice-029 practice-035 practice-068 practice-017 practice-024 practice-042 practice-005 practice-065 practice-046 practice-001 practice-011 practice-019 practice-062 practice-029 practice-076 practice-035 practice-017 practice-004 practice-024 practice-005 practice-007 practice-065 practice-001 practice-020 practice-011 practice-062 practice-058 practice-029 practice-035 practice-021 practice-017 practice-024 practice-073 practice-005 practice-065 practice-060 practice-001 practice-011 practice-072 practice-062 practice-029 practice-049 practice-035 practice-017 practice-015 practice-024 practice-005 practice-040 practice-065 practice-001 practice-009 practice-011 practice-062 practice-025 practice-029 practice-035 practice-075 practice-017 practice-024 practice-080 practice-005 practice-065 practice-054 practice-001 practice-011 practice-041"
+      }
+    },
+    {
+      "name": "Agent declares QWERTY",
+      "ok": true
+    },
+    {
+      "name": "Real keyboard declaration changed",
+      "ok": true
+    },
+    {
+      "name": "Unsupported agent duration refused",
+      "ok": true,
+      "details": {
+        "step": 0,
+        "message": "No item \"999\" in Duration in seconds (c2). Its items: 15, 30, 60, 120."
+      }
+    },
+    {
+      "name": "Wrong boolean type refused",
+      "ok": true
+    },
+    {
+      "name": "Agent choices are remembered like a person’s",
+      "ok": true,
+      "details": {
+        "version": 1,
+        "practice": {
+          "durationSeconds": 15,
+          "qwerty": true,
+          "kind": "manual",
+          "pair": "ac"
+        },
+        "assessment": {}
+      }
+    },
+    {
+      "name": "ID cannot target native editor",
+      "ok": true
+    },
+    {
+      "name": "Accessible label cannot target native editor",
+      "ok": true
+    },
+    {
+      "name": "Agent writes insert no text, fire no editor events and start no timing",
+      "ok": true,
+      "details": {
+        "duration": "15",
+        "kind": "manual",
+        "pair": "ac",
+        "qwerty": true,
+        "remaining": "15",
+        "label": "Pair practice · ac · 15 s",
+        "run": "idle",
+        "status": "Agent set qwerty to true.",
+        "value": "",
+        "editorEvents": 0,
+        "prompts": "practice-035 practice-011 practice-006 practice-005 practice-062 practice-019 practice-065 practice-001 practice-042 practice-029 practice-017 practice-078 practice-024 practice-035 practice-070 practice-011 practice-005 practice-008 practice-062 practice-065 practice-009 practice-001 practice-029 practice-058 practice-017 practice-024 practice-069 practice-035 practice-011 practice-073 practice-005 practice-062 practice-022 practice-065 practice-001 practice-046 practice-029 practice-017 practice-004 practice-024 practice-035 practice-056 practice-011 practice-005 practice-028 practice-062 practice-065 practice-050 practice-001 practice-029 practice-003 practice-017 practice-024 practice-002 practice-035 practice-011 practice-064 practice-005 practice-062 practice-013 practice-065 practice-001 practice-027 practice-029 practice-017 practice-015 practice-024 practice-035 practice-031 practice-011 practice-005 practice-053 practice-062 practice-065 practice-041 practice-001 practice-029 practice-049 practice-017 practice-024 practice-079 practice-035 practice-011 practice-066 practice-005 practice-062 practice-068 practice-065 practice-001 practice-036 practice-029 practice-017 practice-020 practice-024 practice-035 practice-080 practice-011 practice-005 practice-075 practice-062 practice-065 practice-061 practice-001 practice-029 practice-072 practice-017 practice-024 practice-067 practice-035 practice-011 practice-076 practice-005 practice-062 practice-014 practice-065 practice-001 practice-007 practice-029 practice-017 practice-010"
+      }
+    },
+    {
+      "name": "Arrow key changes duration with keyboard source",
+      "ok": true,
+      "details": "Keyboard set duration to 30."
+    },
+    {
+      "name": "Focus stays on the rail after a keyboard change (no theft to the editor)",
+      "ok": true
+    },
+    {
+      "name": "Space toggles the switch with keyboard source",
+      "ok": true,
+      "details": "Keyboard set qwerty to false."
+    },
+    {
+      "name": "Pair list opens from keyboard",
+      "ok": true
+    },
+    {
+      "name": "Escape closes the pair list and returns focus",
+      "ok": true
+    },
+    {
+      "name": "First native insertion starts the block once",
+      "ok": true,
+      "details": {
+        "duration": "30",
+        "kind": "manual",
+        "pair": "ac",
+        "qwerty": false,
+        "remaining": "30",
+        "label": "Pair practice · ac · 30 s",
+        "run": "running",
+        "status": "Keyboard set qwerty to false.",
+        "value": "a",
+        "editorEvents": 3,
+        "prompts": "practice-011 practice-001 practice-027 practice-065 practice-029 practice-059 practice-062 practice-024 practice-033 practice-017 practice-005 practice-054 practice-035 practice-011 practice-019 practice-001 practice-065 practice-072 practice-029 practice-062 practice-007 practice-024 practice-017 practice-055 practice-005 practice-035 practice-022 practice-011 practice-001 practice-064 practice-065 practice-029 practice-060 practice-062 practice-024 practice-050 practice-017 practice-005 practice-045 practice-035 practice-011 practice-078 practice-001 practice-065 practice-043 practice-029 practice-062 practice-039 practice-024 practice-017 practice-077 practice-005 practice-035 practice-016 practice-011 practice-001 practice-018 practice-065 practice-029 practice-008 practice-062 practice-024 practice-080 practice-017 practice-005 practice-070 practice-035 practice-011 practice-028 practice-001 practice-065 practice-053 practice-029 practice-062 practice-076 practice-024 practice-017 practice-038 practice-005 practice-035 practice-031 practice-011 practice-001 practice-002 practice-065 practice-029 practice-014 practice-062 practice-024 practice-075 practice-017 practice-005 practice-073 practice-035 practice-011 practice-012 practice-001 practice-065 practice-020 practice-029 practice-062 practice-056 practice-024 practice-017 practice-042 practice-005 practice-035 practice-051 practice-011 practice-001 practice-049 practice-065 practice-029 practice-036 practice-062 practice-024 practice-015 practice-017 practice-005 practice-079"
+      }
+    },
+    {
+      "name": "Agent denied during running block: Duration in seconds",
+      "ok": true,
+      "details": {
+        "step": 0,
+        "message": "The app refused setValue on c2."
+      }
+    },
+    {
+      "name": "Agent denied during running block: Practice",
+      "ok": true,
+      "details": {
+        "step": 0,
+        "message": "The app refused setValue on c3."
+      }
+    },
+    {
+      "name": "Agent denied during running block: Pair",
+      "ok": true,
+      "details": {
+        "step": 0,
+        "message": "The app refused setValue on c7."
+      }
+    },
+    {
+      "name": "Agent denied during running block: Physical QWERTY keyboard",
+      "ok": true,
+      "details": {
+        "step": 0,
+        "message": "The app refused setChecked on c4."
+      }
+    },
+    {
+      "name": "App guard refuses direct API change with a source-aware reason",
+      "ok": true,
+      "details": [
+        false,
+        "30",
+        "Programmatic change to duration refused: a block is running. Finish it or restart first."
+      ]
+    },
+    {
+      "name": "Refused writes preserve native text, prompts and timing",
+      "ok": true,
+      "details": {
+        "duration": "30",
+        "kind": "manual",
+        "pair": "ac",
+        "qwerty": false,
+        "remaining": "30",
+        "label": "Pair practice · ac · 30 s",
+        "run": "running",
+        "status": "Programmatic change to duration refused: a block is running. Finish it or restart first.",
+        "value": "a",
+        "editorEvents": 3,
+        "prompts": "practice-011 practice-001 practice-027 practice-065 practice-029 practice-059 practice-062 practice-024 practice-033 practice-017 practice-005 practice-054 practice-035 practice-011 practice-019 practice-001 practice-065 practice-072 practice-029 practice-062 practice-007 practice-024 practice-017 practice-055 practice-005 practice-035 practice-022 practice-011 practice-001 practice-064 practice-065 practice-029 practice-060 practice-062 practice-024 practice-050 practice-017 practice-005 practice-045 practice-035 practice-011 practice-078 practice-001 practice-065 practice-043 practice-029 practice-062 practice-039 practice-024 practice-017 practice-077 practice-005 practice-035 practice-016 practice-011 practice-001 practice-018 practice-065 practice-029 practice-008 practice-062 practice-024 practice-080 practice-017 practice-005 practice-070 practice-035 practice-011 practice-028 practice-001 practice-065 practice-053 practice-029 practice-062 practice-076 practice-024 practice-017 practice-038 practice-005 practice-035 practice-031 practice-011 practice-001 practice-002 practice-065 practice-029 practice-014 practice-062 practice-024 practice-075 practice-017 practice-005 practice-073 practice-035 practice-011 practice-012 practice-001 practice-065 practice-020 practice-029 practice-062 practice-056 practice-024 practice-017 practice-042 practice-005 practice-035 practice-051 practice-011 practice-001 practice-049 practice-065 practice-029 practice-036 practice-062 practice-024 practice-015 practice-017 practice-005 practice-079"
+      }
+    },
+    {
+      "name": "Saved metrics count exactly one native insertion, zero agent keystrokes",
+      "ok": true,
+      "details": {
+        "elapsedMs": 30000,
+        "correctCharacters": 0,
+        "attemptedCharacters": 1,
+        "correctAttempts": 0,
+        "accuracy": 0,
+        "deletedCharacters": 0,
+        "wpm": 0
+      }
+    },
+    {
+      "name": "Saved duration, elapsed and pair are genuine engine values",
+      "ok": true
+    },
+    {
+      "name": "Agent may change settings from the result",
+      "ok": true
+    },
+    {
+      "name": "Result-state change prepares a new 15 s block",
+      "ok": true,
+      "details": {
+        "duration": "15",
+        "kind": "manual",
+        "pair": "ac",
+        "qwerty": false,
+        "remaining": "15",
+        "label": "Pair practice · ac · 15 s",
+        "run": "idle",
+        "status": "Agent set duration to 15.",
+        "value": "",
+        "editorEvents": 3,
+        "prompts": "practice-011 practice-029 practice-002 practice-024 practice-001 practice-066 practice-005 practice-017 practice-071 practice-035 practice-065 practice-037 practice-062 practice-011 practice-060 practice-029 practice-024 practice-079 practice-001 practice-005 practice-018 practice-017 practice-035 practice-074 practice-065 practice-062 practice-056 practice-011 practice-029 practice-075 practice-024 practice-001 practice-013 practice-005 practice-017 practice-004 practice-035 practice-065 practice-023 practice-062 practice-011 practice-034 practice-029 practice-024 practice-052 practice-001 practice-005 practice-041 practice-017 practice-035 practice-007 practice-065 practice-062 practice-038 practice-011 practice-029 practice-020 practice-024 practice-001 practice-043 practice-005 practice-017 practice-003 practice-035 practice-065 practice-058 practice-062 practice-011 practice-067 practice-029 practice-024 practice-046 practice-001 practice-005 practice-077 practice-017 practice-035 practice-032 practice-065 practice-062 practice-014 practice-011 practice-029 practice-070 practice-024 practice-001 practice-044 practice-005 practice-017 practice-055 practice-035 practice-065 practice-051 practice-062 practice-011 practice-049 practice-029 practice-024 practice-036 practice-001 practice-005 practice-006 practice-017 practice-035 practice-040 practice-065 practice-062 practice-008 practice-011 practice-029 practice-030 practice-024 practice-001 practice-019 practice-005 practice-017 practice-063 practice-035 practice-065 practice-054"
+      }
+    },
+    {
+      "name": "With the bridge open, the running block still keeps its settings",
+      "ok": true,
+      "details": {
+        "before": "15",
+        "after": "15",
+        "ok": true
+      }
+    },
+    {
+      "name": "Bridge open: a cancelled change reports no step change and the unchanged value",
+      "ok": true,
+      "details": {
+        "ok": true,
+        "steps": [
+          {
+            "step": 0,
+            "ref": "c2",
+            "result": false
+          }
+        ],
+        "reportedDuration": "15"
+      }
+    },
+    {
+      "name": "Bridge open: the app announces the agent-sourced refusal",
+      "ok": true,
+      "details": {
+        "status": "Agent change to duration refused: a block is running. Finish it or restart first."
+      }
+    },
+    {
+      "name": "Only the one real key reached the editor (keydown, beforeinput, input)",
+      "ok": true,
+      "details": 3
+    },
+    {
+      "name": "No page errors: ",
+      "ok": true
+    }
+  ],
+  "observed": {
+    "initialSnapshot": [
+      {
+        "ref": "c2",
+        "component": "segmented-control",
+        "actions": [
+          "setValue"
+        ],
+        "label": "Duration in seconds",
+        "value": "30",
+        "items": [
+          {
+            "value": "15",
+            "label": "15"
+          },
+          {
+            "value": "30",
+            "label": "30"
+          },
+          {
+            "value": "60",
+            "label": "60"
+          },
+          {
+            "value": "120",
+            "label": "120"
+          }
+        ]
+      },
+      {
+        "ref": "c3",
+        "component": "segmented-control",
+        "actions": [
+          "setValue"
+        ],
+        "label": "Practice",
+        "value": "general",
+        "items": [
+          {
+            "value": "general",
+            "label": "general"
+          },
+          {
+            "value": "manual",
+            "label": "pair"
+          },
+          {
+            "value": "recommended",
+            "label": "suggested"
+          }
+        ]
+      },
+      {
+        "ref": "c4",
+        "component": "switch",
+        "actions": [
+          "setChecked"
+        ],
+        "label": "Physical QWERTY keyboard",
+        "checked": false,
+        "value": "on"
+      },
+      {
+        "ref": "c5",
+        "component": "collapsible",
+        "actions": [
+          "setOpen",
+          "press"
+        ],
+        "label": "why?",
+        "open": false
+      }
+    ],
+    "pairQuery": [
+      {
+        "ref": "c7",
+        "component": "select",
+        "actions": [
+          "setOpen",
+          "setValue",
+          "clear",
+          "setQuery"
+        ],
+        "label": "Pair",
+        "open": false,
+        "value": "th",
+        "query": "",
+        "items": [
+          {
+            "value": "ab",
+            "label": "ab"
+          },
+          {
+            "value": "ac",
+            "label": "ac"
+          },
+          {
+            "value": "ad",
+            "label": "ad"
+          },
+          {
+            "value": "af",
+            "label": "af"
+          },
+          {
+            "value": "ag",
+            "label": "ag"
+          },
+          {
+            "value": "ai",
+            "label": "ai"
+          },
+          {
+            "value": "ak",
+            "label": "ak"
+          },
+          {
+            "value": "al",
+            "label": "al"
+          },
+          {
+            "value": "am",
+            "label": "am"
+          },
+          {
+            "value": "an",
+            "label": "an"
+          },
+          {
+            "value": "ap",
+            "label": "ap"
+          },
+          {
+            "value": "ar",
+            "label": "ar"
+          },
+          {
+            "value": "as",
+            "label": "as"
+          },
+          {
+            "value": "at",
+            "label": "at"
+          },
+          {
+            "value": "av",
+            "label": "av"
+          },
+          {
+            "value": "aw",
+            "label": "aw"
+          },
+          {
+            "value": "ay",
+            "label": "ay"
+          },
+          {
+            "value": "ba",
+            "label": "ba"
+          },
+          {
+            "value": "be",
+            "label": "be"
+          },
+          {
+            "value": "bl",
+            "label": "bl"
+          },
+          {
+            "value": "bo",
+            "label": "bo"
+          },
+          {
+            "value": "br",
+            "label": "br"
+          },
+          {
+            "value": "bu",
+            "label": "bu"
+          },
+          {
+            "value": "ca",
+            "label": "ca"
+          },
+          {
+            "value": "ce",
+            "label": "ce"
+          },
+          {
+            "value": "ch",
+            "label": "ch"
+          },
+          {
+            "value": "ck",
+            "label": "ck"
+          },
+          {
+            "value": "cl",
+            "label": "cl"
+          },
+          {
+            "value": "co",
+            "label": "co"
+          },
+          {
+            "value": "cu",
+            "label": "cu"
+          },
+          {
+            "value": "da",
+            "label": "da"
+          },
+          {
+            "value": "dd",
+            "label": "dd"
+          },
+          {
+            "value": "de",
+            "label": "de"
+          },
+          {
+            "value": "do",
+            "label": "do"
+          },
+          {
+            "value": "dr",
+            "label": "dr"
+          },
+          {
+            "value": "ds",
+            "label": "ds"
+          },
+          {
+            "value": "ea",
+            "label": "ea"
+          },
+          {
+            "value": "ec",
+            "label": "ec"
+          },
+          {
+            "value": "ed",
+            "label": "ed"
+          },
+          {
+            "value": "ee",
+            "label": "ee"
+          },
+          {
+            "value": "ef",
+            "label": "ef"
+          },
+          {
+            "value": "ei",
+            "label": "ei"
+          },
+          {
+            "value": "el",
+            "label": "el"
+          },
+          {
+            "value": "em",
+            "label": "em"
+          },
+          {
+            "value": "en",
+            "label": "en"
+          },
+          {
+            "value": "ep",
+            "label": "ep"
+          },
+          {
+            "value": "er",
+            "label": "er"
+          },
+          {
+            "value": "es",
+            "label": "es"
+          },
+          {
+            "value": "et",
+            "label": "et"
+          },
+          {
+            "value": "ew",
+            "label": "ew"
+          }
+        ],
+        "more": 134
+      }
+    ],
+    "bridgeOpenAttempt": {
+      "attempt": {
+        "ok": true,
+        "steps": [
+          {
+            "step": 0,
+            "ref": "c2",
+            "result": false
+          }
+        ],
+        "appeared": [],
+        "values": {
+          "c2 Duration in seconds": "15",
+          "c3 Practice": "manual",
+          "c4 Physical QWERTY keyboard": false,
+          "c6 Pair": "ac"
+        }
+      },
+      "after": {
+        "duration": "15",
+        "kind": "manual",
+        "pair": "ac",
+        "qwerty": false,
+        "remaining": "15",
+        "label": "Pair practice · ac · 15 s",
+        "run": "running",
+        "status": "Agent change to duration refused: a block is running. Finish it or restart first.",
+        "value": "b",
+        "editorEvents": 3,
+        "prompts": "practice-029 practice-024 practice-049 practice-005 practice-035 practice-045 practice-017 practice-062 practice-070 practice-011 practice-065 practice-041 practice-001 practice-029 practice-002 practice-024 practice-005 practice-003 practice-035 practice-017 practice-040 practice-062 practice-011 practice-075 practice-065 practice-001 practice-006 practice-029 practice-024 practice-068 practice-005 practice-035 practice-010 practice-017 practice-062 practice-076 practice-011 practice-065 practice-063 practice-001 practice-029 practice-004 practice-024 practice-005 practice-069 practice-035 practice-017 practice-072 practice-062 practice-011 practice-007 practice-065 practice-001 practice-071 practice-029 practice-024 practice-050 practice-005 practice-035 practice-009 practice-017 practice-062 practice-080 practice-011 practice-065 practice-016 practice-001 practice-029 practice-034 practice-024 practice-005 practice-030 practice-035 practice-017 practice-057 practice-062 practice-011 practice-043 practice-065 practice-001 practice-033 practice-029 practice-024 practice-051 practice-005 practice-035 practice-074 practice-017 practice-062 practice-008 practice-011 practice-065 practice-015 practice-001 practice-029 practice-079 practice-024 practice-005 practice-067 practice-035 practice-017 practice-046 practice-062 practice-011 practice-026 practice-065 practice-001 practice-055 practice-029 practice-024 practice-012 practice-005 practice-035 practice-027 practice-017 practice-062 practice-048 practice-011 practice-065 practice-014"
+      }
+    }
+  },
+  "errors": []
+}
