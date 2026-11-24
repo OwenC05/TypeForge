@@ -39,24 +39,25 @@
     ]}
   },
   {
-    "name": "uppercase-and-punctuation",
-    "target": "aBcd,eFgh!",
-    "final": "aBcd,eFgh!",
+    "name": "uppercase-punctuation-and-code-point-offsets",
+    "target": "aBcd,🙂eFgh!",
+    "final": "aBcd,🙂eFgh!",
     "events": [
       {"t":0,"kind":"insert","text":"a"},
       {"t":100,"kind":"insert","text":"B"},
       {"t":200,"kind":"insert","text":"c"},
       {"t":300,"kind":"insert","text":"d"},
       {"t":400,"kind":"insert","text":","},
-      {"t":500,"kind":"insert","text":"e"},
-      {"t":600,"kind":"insert","text":"F"},
-      {"t":700,"kind":"insert","text":"g"},
-      {"t":800,"kind":"insert","text":"h"},
-      {"t":900,"kind":"insert","text":"!"}
+      {"t":500,"kind":"insert","text":"🙂"},
+      {"t":600,"kind":"insert","text":"e"},
+      {"t":700,"kind":"insert","text":"F"},
+      {"t":800,"kind":"insert","text":"g"},
+      {"t":900,"kind":"insert","text":"h"},
+      {"t":1000,"kind":"insert","text":"!"}
     ],
     "expected": {"reason":null,"intervals":[
       {"pair":"cd","fromIndex":2,"toIndex":3,"ms":100},
-      {"pair":"gh","fromIndex":7,"toIndex":8,"ms":100}
+      {"pair":"gh","fromIndex":8,"toIndex":9,"ms":100}
     ]}
   },
   {
