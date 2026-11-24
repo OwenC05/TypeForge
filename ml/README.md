@@ -42,6 +42,28 @@ Member hashes cover the original bytes. Structured hashes cover UTF-8 JSON with 
 keys and compact separators. The exported benchmark contains aggregate results only.
 The exact interpreter build and artifact hashes are in the [reproduction report](REFACTOR-REPORT.md).
 
+## Full-archive coach dataset
+
+Run from the checkout in WSL with the pinned interpreter. The historical cache supplies its acquisition manifest and the source WPM metadata.
+
+```sh
+TF_SOURCE=/mnt/c/Users/Owenc/Documents/GitHub/TypeForge
+TF_ARCHIVE=/home/owenc/typeforge-data/aalto-136m
+OPENBLAS_NUM_THREADS=1 "$TF_SOURCE/.venv/bin/python" -m ml.pipeline dataset-v2 \
+  --data-dir "$TF_ARCHIVE" --prior-data-dir "$TF_SOURCE/ml/data"
+```
+
+`$TF_ARCHIVE/dataset-v2/{train,validation}.npz` contains the following aligned NumPy columns. Load with `np.load(path, allow_pickle=False)`. All indices are zero-based.
+
+| Rows | Columns |
+| --- | --- |
+| Interval | `interval_typist`, `interval_trial_order`, `interval_pair` (aa=0 through zz=675), `interval_position` (second letter in target), `interval_log_ms` (float64 natural log of press-to-press ms). |
+| Trial | `trial_typist`, `trial_order` (minimum press time, then lexical source section ID), `trial_sentence` indexes `sentences`, `trial_reason` indexes `reason_labels`. Label 0 is the empty string for A2's null reason. |
+| Typist | `typist_index` indexes the split's A8 `ids.txt`, `typist_trials_replayed`, `typist_trials_eligible` (null reason, including clean trials with zero pairs), `typist_avg_wpm_15` (source WPM for reporting bands only). |
+
+`validation-corrected.npz` has the same interval columns for A2's nine-stroke window on each side. Its trial keys join to `validation.npz`.
+`meta.json` records the rule, commit, input and output digests, exclusions and historical cross-check. Rerunning at the same commit replays both partitions and compares all four files byte for byte.
+
 ## Source and acquisition
 
 [Aalto 136M keystrokes](https://userinterfaces.aalto.fi/136Mkeystrokes/) / [source ZIP](https://userinterfaces.aalto.fi/136Mkeystrokes/data/Keystrokes.zip), **non-commercial use with attribution**. Cite the source project and its paper, *Observations on Typing from 136 Million Keystrokes*, Dhakal, Feit, Kristensson and Oulasvirta (CHI 2018). Data terms differ from the recording-code license.
