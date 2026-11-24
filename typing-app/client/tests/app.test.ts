@@ -648,9 +648,9 @@ test('the first edit belongs to the visible prompt and cannot score against a re
   }
 });
 
-test('an awaited runtime import never publishes an older snapshot over a newer generation or storage change',async()=>{
+test('an awaited runtime import respects newer preparation, invalidation and a first-key fallback to General',async()=>{
  const code=`${sliceBetween('  const unsubscribe = subscribeStorageInvalidation(','\n\n  // ---- Presentation')}\n${sliceBetween('  async function settleReadyBlock(','\n  function installBlock(')}`;
- for(const race of ['none','invalidation','generation'] as const){
+ for(const race of ['none','invalidation','generation','first-key-fallback'] as const){
   const snapshot={plan:{pair:'th',planHash:'h'}};const epochs=new WeakMap([[snapshot,0]]);let release!:(v:unknown)=>void;const installed:unknown[]=[];
   const context:any={disposed:false,restarting:false,coachFresh:true,prepAbort:null,prepGeneration:4,invalidationQueued:false,invalidations:0,engine:{state:'idle'},
    subscribeStorageInvalidation:(cb:()=>void)=>{context.invalidate=cb;return ()=>{};},setTimeout:()=>{},prepareCoach:()=>{},
@@ -659,9 +659,13 @@ test('an awaited runtime import never publishes an older snapshot over a newer g
    admittedBlock:()=>({finite:true}),installBlock:(_b:unknown,s:unknown)=>installed.push(s),coachUi,lastAdmittedPair:null,changeNote:'',fellBack:false,practiceKind:null};
   const settle=runInNewContext(`${stripTypeScriptTypes(code)}
 ; settleReadyBlock`,context);
+  if(race==='first-key-fallback')context.admitted={plan:{pair:'in',planHash:'previous'}};
   const pending=settle(snapshot);
   if(race==='invalidation')context.invalidate();
   if(race==='generation')context.prepGeneration++;
+  if(race==='first-key-fallback'){
+   context.admitted=null;context.suggestedChosen=()=>false; // General is visible and still waiting for its first edit.
+  }
   release({});await pending;
   assert.deepEqual(installed,race==='none'?[snapshot]:[],race);
  }
