@@ -4,22 +4,43 @@ This is a real-data, offline, non-commercial portfolio experiment, not evidence 
 
 ## Reproduce
 
-Python 3.14 was used; exact scientific dependencies are pinned in `requirements.txt`.
+Run from the repository root with Python 3.14. The scientific packages are pinned in
+`ml/requirements.txt`. The published config also records the interpreter build string.
 
 ```sh
 python3 -m venv .venv
 .venv/bin/python -m pip install -r ml/requirements.txt
 .venv/bin/python -m unittest discover -s ml/tests -v
+
 .venv/bin/python -m ml.pipeline acquire --participants 2000 --seed 42 --max-bytes 268435456
 .venv/bin/python -m ml.pipeline audit
+export OPENBLAS_NUM_THREADS=16  # The published training hashes depend on this thread count.
 .venv/bin/python -m ml.pipeline train
+```
+
+Training freezes the validation choices in `ml/experiment.json`. Run the following steps
+explicitly to reproduce the published test evaluation and browser artifacts.
+
+```sh
 .venv/bin/python -m ml.pipeline evaluate --split test
 .venv/bin/python -m ml.pipeline export
 ```
 
-Windows uses `.venv/Scripts/python.exe`. If system Python lacks `ensurepip`, install its matching venv package before creating the environment. `acquire --source /path/to/Keystrokes.zip` supports a separately downloaded local archive. Local/archive results have different source manifests; do not mix a source change with existing frozen evaluation. Source acquisition is not part of CI.
+On Windows the interpreter is `.venv/Scripts/python.exe`. If Python lacks `ensurepip`,
+install its matching venv package before creating the environment. For a local ZIP, add
+`--source /path/to/Keystrokes.zip` to `acquire`. The source path is part of the manifest.
+Use a separate data directory for a different source. CI runs the offline tests.
 
-`ml/data/` (ignored) contains raw TSVs, participant-level derived rows, checksum manifest, audit, frozen config, private observation-key manifest and evaluation. Structured-object hashes use SHA256 of UTF-8 JSON with recursively sorted keys and compact separators; source-member hashes use original bytes. The generated JSON report contains aggregate results only; `fixtures/parity.json` contains explicitly synthetic inference tests only. No raw participant IDs, prompts or user keystrokes ship in the app.
+All stages use `ml/data/` by default. Set `TYPEFORGE_DATA_DIR=/path/to/copy` in the
+environment for a whole run, or pass `--data-dir /path/to/copy` to a single command.
+The flag takes precedence and works before or after the command name. This directory
+holds the raw TSVs, manifest, derived rows, audit, frozen config, private evaluation
+keys, evaluation and stage timings. The published registration, browser JSON and
+synthetic `ml/fixtures/parity.json` are written to their usual repository paths.
+
+Member hashes cover the original bytes. Structured hashes cover UTF-8 JSON with sorted
+keys and compact separators. The exported benchmark contains aggregate results only.
+The exact interpreter build and artifact hashes are in the [reproduction report](REFACTOR-REPORT.md).
 
 ## Source and acquisition
 
