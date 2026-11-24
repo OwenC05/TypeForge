@@ -1,4 +1,0 @@
-# Preserve raw captured console bytes, including terminal line endings/spacing.
-/node-tests.txt -text -diff
-/python-tests.txt -text -diff
-/probe-output.txt -text -diff

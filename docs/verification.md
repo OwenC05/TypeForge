@@ -45,7 +45,7 @@ The 30 September local-first slice had passing checks and a genuine trained arti
 
 ## Reproduce the offline checks
 
-After the [frontend setup](../README.md#run-locally) and [Python environment setup](../ml/README.md#reproduce), run from the repository root:
+After the [frontend setup](product.md#run-locally) and [Python environment setup](../ml/README.md#reproduce), run from the repository root:
 
 ```sh
 node --experimental-strip-types --test --test-isolation=none typing-app/client/tests/*.test.ts
@@ -54,7 +54,7 @@ npm --prefix typing-app/client run typecheck
 .venv/bin/python -m unittest discover -s ml/tests -v
 ```
 
-Windows uses `.venv/Scripts/python.exe`. Run the production build/preview commands in the frontend README for browser checks. Full genuine acquisition → audit → training → evaluation → export commands and scientific constraints are in the [ML reproduction guide](../ml/README.md); they are not CI jobs.
+Windows uses `.venv/Scripts/python.exe`. Run the [production build/preview commands](product.md#run-locally) for browser checks. Full genuine acquisition → audit → training → evaluation → export commands and scientific constraints are in the [ML reproduction guide](../ml/README.md); they are not CI jobs.
 
 | Evidence | Recorded result |
 | --- | --- |
@@ -100,7 +100,7 @@ Those review-repair groups contained **10 restart, 7 storage, 12 focus, 16 journ
 
 To repeat the historical Enter checks, use the 30 September revision. For the current local flow revision, serve its production build in a fresh browser profile, select a duration, advance several passages with Space, reopen the saved result, and exercise General/Recommended/Manual practice and compatible fresh retest. Check native edits, duration/bucket labels, blur/restart, export/delete and offline completion after loading at desktop/narrow/200% zoom. Fault injection, controlled-clock deadlines and v1 database seeding require an automation harness; this checklist does not extend the scoped current coverage recorded above.
 
-The original automation scripts and raw outputs live under **local, ignored** `.omx/ultragoal/evidence/browser/`; they use the Playwright MCP `browser_run_code_unsafe` tool and are not a standalone published npm test suite. Local `REPORT.md` and `REVIEW-REPAIR-REPORT.md` explain execution and preserve initial failures as well as successful reruns. This public document summarizes those results; it does not imply the ignored logs ship with the repository. [Home](screenshots/home-desktop.png), [practice](screenshots/practice-desktop.png) and [ML Lab](screenshots/ml-lab-desktop.png) screenshots remain historical 30 September captures, not rolling-flow screenshots.
+The original automation scripts and raw outputs live under **local, ignored** `.omx/ultragoal/evidence/browser/`; they use the Playwright MCP `browser_run_code_unsafe` tool and are not a standalone published npm test suite. Local `REPORT.md` and `REVIEW-REPAIR-REPORT.md` explain execution and preserve initial failures as well as successful reruns. This public document summarizes those results; it does not imply the ignored logs ship with the repository. [Home](https://github.com/OwenC05/TypeForge/blob/9b2a6605b3e9aa7c0c0e93d3c8b52bee7d0918d7/docs/screenshots/home-desktop.png), [practice](https://github.com/OwenC05/TypeForge/blob/9b2a6605b3e9aa7c0c0e93d3c8b52bee7d0918d7/docs/screenshots/practice-desktop.png) and [ML Lab](https://github.com/OwenC05/TypeForge/blob/9b2a6605b3e9aa7c0c0e93d3c8b52bee7d0918d7/docs/screenshots/ml-lab-desktop.png) screenshots remain historical 30 September captures, not rolling-flow screenshots.
 
 ## Genuine data and frozen result — 30 September 2026
 

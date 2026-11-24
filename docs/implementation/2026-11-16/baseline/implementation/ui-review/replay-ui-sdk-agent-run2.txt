@@ -1,9 +1,0 @@
-﻿{
- "assertions": 50,
- "failed": 0,
- "serverPid": 51936,
- "bridgeOpen": {
-  "ok": true,
-  "status": "Agent change to duration refused: a block is running. Finish it or restart first."
- }
-}

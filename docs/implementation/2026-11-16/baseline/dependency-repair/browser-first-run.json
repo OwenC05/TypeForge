@@ -1,4 +1,0 @@
-{
-    "exit":  1,
-    "command":  "node browser-check.cjs"
-}
