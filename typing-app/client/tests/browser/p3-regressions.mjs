@@ -194,3 +194,18 @@ test('an older result with explicit focus retains its recommended tag', async t 
   const page = await openPractice(t, [legacy], `/results.html?id=${legacy.id}`);
   assert.equal(await page.locator('.page-heading .tag').textContent(), 'RECOMMENDED PRACTICE');
 });
+
+test('Progress keeps the counted tests readable when its optional widget fails to load', async t => {
+  const page = await openPractice(t, [], '/fixture');
+  let requested = false;
+  await page.route(/\/assets\/progress-[^/]+\.js$/, route => {
+    requested = true;
+    return route.fulfill({ contentType: 'text/javascript', body: 'throw new Error("Progress widget unavailable")' });
+  });
+  await page.goto(base + '/progress.html');
+  const value = page.locator('ui-progress.baseline-progress ui-progress-value');
+  await value.waitFor({ state: 'attached' });
+  await page.waitForLoadState('networkidle');
+  assert.ok(requested, 'the optional widget request reached the fault');
+  assert.equal(await value.textContent(), '0 of 10 tests');
+});
