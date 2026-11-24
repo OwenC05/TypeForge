@@ -1045,19 +1045,23 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     if (restarting || disposed) { input.value = ''; return; }
     const inputEvent = event as InputEvent;
     const now = performance.now();
-    let snapshot = engine.tick(now);
+    const snapshot = engine.tick(now);
     if (ended(snapshot.state)) {
       input.value = snapshot.value;
       paint(now);
       return;
     }
-    // Saved tests changed after this Suggested plan was admitted and C has not admitted it again yet: the plan
-    // must not start. This first key starts an honest General block instead (accepted once, focus kept).
+    // This edit was made against the visible Suggested sentence. Show General with a clean
+    // textarea and let its first real insertion start the timer and scoring.
     if (snapshot.state === 'idle' && !frozen && isFiniteBlock(engine) && !admissionCurrent(admitted)) {
+      suggestedRequested = false;
+      if (practiceKind) practiceKind.value = 'general';
       changeNote = ''; fellBack = false;
+      before = null; key = null;
+      input.value = '';
       installBlock(null, null);
       hint(coachUi.recheckFallback);
-      snapshot = engine.tick(now);
+      return;
     }
     const previous = before ?? { value: snapshot.value, start: key?.start ?? 0, end: key?.end ?? 0, type: key ? 'insertText' : '', data: key?.key ?? null };
     const edit = reconstructEdit(previous, input.value);
