@@ -2,26 +2,25 @@
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { once } from 'node:events';
-import { existsSync, mkdirSync, readFileSync } from 'node:fs';
+import { mkdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { createInterface } from 'node:readline';
 import { after, before, test } from 'node:test';
-import { pathToFileURL } from 'node:url';
 import { stripVTControlCharacters } from 'node:util';
+import { launchBrowser } from './browser-engine.mjs';
 import { assessmentPrompts } from '../../src/corpus.ts';
 import { TypingEngine } from '../../src/engine.ts';
 
-const base = 'http://127.0.0.1:5341';
+const port = Number(process.env.BROWSER_PORT ?? 5341);
+const base = `http://127.0.0.1:${port}`;
 const suggested = '/index.html?mode=practice&practice=recommended&duration=30&qwerty=1';
-const screenshots = '.playwright-mcp/artifacts/p3/screens';
+const screenshots = path.join(process.env.COACH_OUT ?? '.playwright-mcp/artifacts/p3', 'screens');
 const now = Date.UTC(2026, 10, 24, 12);
 let server, serverExit, browser;
 
 before(async () => {
-  assert.ok(process.env.PLAYWRIGHT_MODULE, 'Set PLAYWRIGHT_MODULE to playwright-core/index.mjs');
-  const { chromium } = await import(pathToFileURL(path.resolve(process.env.PLAYWRIGHT_MODULE)).href);
   mkdirSync(screenshots, { recursive: true });
-  server = spawn(process.execPath, ['node_modules/vite/bin/vite.js', 'preview', '--host', '127.0.0.1', '--port', '5341', '--strictPort'],
+  server = spawn(process.execPath, ['node_modules/vite/bin/vite.js', 'preview', '--host', '127.0.0.1', '--port', String(port), '--strictPort'],
     { windowsHide: true, stdio: ['ignore', 'pipe', 'inherit'] });
   serverExit = once(server, 'exit');
   let ready = false;
@@ -29,8 +28,7 @@ before(async () => {
     if (stripVTControlCharacters(line).includes(`${base}/`)) { ready = true; break; }
   }
   assert.ok(ready, 'our strict-port preview must start before opening the app');
-  const chrome = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
-  browser = await chromium.launch({ executablePath: existsSync(chrome) ? chrome : undefined });
+  ({ browser } = await launchBrowser());
 });
 after(async () => {
   try { await browser?.close(); }
@@ -195,4 +193,45 @@ test('an older result with explicit focus retains its recommended tag', async t 
   legacy.practiceFocus = { pair: 'th', evidenceCount: 8, source: 'baseline', baselineVersion: 'v1', score: 1 };
   const page = await openPractice(t, [legacy], `/results.html?id=${legacy.id}`);
   assert.equal(await page.locator('.page-heading .tag').textContent(), 'RECOMMENDED PRACTICE');
+});
+
+test('Progress keeps the counted tests readable when its optional widget fails to load', async t => {
+  const page = await openPractice(t, [], '/fixture');
+  let requested = false;
+  await page.route(/\/assets\/progress-[^/]+\.js$/, route => {
+    requested = true;
+    return route.fulfill({ contentType: 'text/javascript', body: 'throw new Error("Progress widget unavailable")' });
+  });
+  await page.goto(base + '/progress.html');
+  const value = page.locator('ui-progress.baseline-progress ui-progress-value');
+  await value.waitFor({ state: 'attached' });
+  await page.waitForLoadState('networkidle');
+  assert.ok(requested, 'the optional widget request reached the fault');
+  assert.equal(await value.textContent(), '0 of 10 tests');
+});
+
+test('a focus change as the coach read finishes leaves the first key usable', async t => {
+  const page = await openPractice(t, [], '/fixture');
+  await page.addInitScript(() => {
+    const count = IDBObjectStore.prototype.count;
+    IDBObjectStore.prototype.count = function (...args) {
+      const tx = this.transaction;
+      if (this.name === 'results' && tx.mode === 'readonly' && tx.objectStoreNames.contains('coachMembership')) {
+        IDBObjectStore.prototype.count = count;
+        // A completed transaction can no longer be aborted. Deliver the focus
+        // invalidation before the app's completion handler detaches its listener.
+        tx.addEventListener('complete', () => {
+          window.dispatchEvent(new Event('focus'));
+          window.focusDuringCoachRead = true;
+        }, { capture: true, once: true });
+      }
+      return count.apply(this, args);
+    };
+  });
+  await page.goto(base + '/practice.html');
+  await page.waitForFunction(() => window.focusDuringCoachRead);
+  const letter = (await promptText(page))[0];
+  await page.locator('#typing-input').press(letter);
+  assert.equal(await state(page), 'running');
+  assert.equal(await page.locator('#typing-input').inputValue(), letter);
 });

@@ -423,7 +423,13 @@ async function sourcePage(input: { cursor: MergedCursor | null; ledger: Ledger; 
     const raw: Array<{ value: unknown; member: unknown; partition: 'legacy' | 'current'; other: unknown }> = [];
     await new Promise<void>((resolve, reject) => {
       const tx = database!.transaction(SOURCE_STORES, 'readonly');
-      const abort = () => tx.abort(); signal?.addEventListener('abort', abort, { once: true });
+      const abort = () => {
+        // The read can finish before its completion event removes this listener.
+        try { tx.abort(); } catch (error) {
+          if (!(error instanceof DOMException && error.name === 'InvalidStateError')) throw error;
+        }
+      };
+      signal?.addEventListener('abort', abort, { once: true });
       const cleanup = () => signal?.removeEventListener('abort', abort);
       tx.oncomplete = () => { cleanup(); resolve(); };
       tx.onabort = () => { cleanup(); reject(tx.error ?? new Error('Source slice aborted.')); };

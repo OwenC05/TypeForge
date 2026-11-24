@@ -18,12 +18,10 @@ import { randomUUID } from 'node:crypto';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import net from 'node:net';
 import path from 'node:path';
-import { pathToFileURL } from 'node:url';
+import { launchBrowser } from './browser-engine.mjs';
 
-assert.ok(process.env.PLAYWRIGHT_MODULE, 'Set PLAYWRIGHT_MODULE to playwright-core/index.mjs');
 assert.ok(process.env.COACH_OUT, 'Set COACH_OUT to the evidence directory');
-const { chromium } = await import(pathToFileURL(path.resolve(process.env.PLAYWRIGHT_MODULE)).href);
-const PORT = 5324; // the strict loopback port leased to this task; never another
+const PORT = Number(process.env.BROWSER_PORT ?? 5324);
 const BASE = `http://127.0.0.1:${PORT}`;
 const PHASE = process.env.COACH_PHASE ?? 'real';
 const OUT = path.resolve(process.env.COACH_OUT);
@@ -55,8 +53,7 @@ for (let attempt = 0; !serverOutput.replace(/\u001b\[[0-9;]*m/g, '').includes(`$
   assert.ok(!serverExited && attempt < 200, `own strict-port server did not start: ${serverOutput}`);
   await new Promise(resolve => setTimeout(resolve, 100));
 }
-const browser = await chromium.launch({ executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe', headless: true });
-receipts.browser = { executable: 'C:/Program Files/Google/Chrome/Application/chrome.exe', version: browser.version(), headless: true, launchedBy: 'playwright-core launch (temporary profile)' };
+let browser;
 
 // ---------- Fresh isolated contexts with a synthetic database ----------
 function installSyntheticDatabase(name) {
@@ -539,7 +536,7 @@ async function injectedFlows() {
 async function typingFlow() {
   const page = await (await browser.newContext()).newPage();
   const run = (0, eval)(readFileSync(new URL('./typing-flow.js', import.meta.url), 'utf8'));
-  const report = await run(page);
+  const report = await run(page, BASE);
   writeFileSync(path.join(OUT, 'typing-flow.json'), JSON.stringify(report, null, 1));
   for (const result of report.results) check(`typing-flow: ${result.name}`, 'real', result.status === 'PASS', result.details);
   check('typing-flow: no page errors', 'real', report.errors.length === 0, report.errors);
@@ -904,6 +901,9 @@ async function fallbackFlows() {
 }
 
 try {
+  const launched = await launchBrowser();
+  browser = launched.browser;
+  receipts.browser = { engine: launched.engine, executable: launched.executable, version: browser.version(), headless: true, launchedBy: 'playwright-core launch (temporary profile)' };
   if (PHASE === 'real') await realFlows();
   else if (PHASE === 'typing-flow') await typingFlow();
   else if (PHASE === 'fixtures') await buildFixtures();
@@ -914,13 +914,13 @@ try {
 } catch (error) {
   check(`execution (${PHASE})`, PHASE, false, { error: String(error?.stack ?? error).slice(0, 1500) });
 } finally {
-  await browser.close().catch(() => {});
+  await browser?.close().catch(() => {});
   if (!serverExited) { const exited = new Promise(resolve => server.once('exit', resolve)); server.kill(); await exited; }
   receipts.cleanup = { serverExited: true, portClosed: !(await portOpen()), finished: new Date().toISOString() };
   receipts.databases = [...databases];
-  check('helper cleanup: own server exited and port 5324 closed', PHASE, receipts.cleanup.portClosed, receipts.cleanup);
+  check(`helper cleanup: own server exited and port ${PORT} closed`, PHASE, receipts.cleanup.portClosed, receipts.cleanup);
   check('no page errors or console errors', PHASE, errors.length === 0, errors.slice(0, 20));
-  const summary = { phase: PHASE, base: BASE, browser: receipts.browser.version, total: checks.length, passed: checks.filter(c => c.pass).length, failed: checks.filter(c => !c.pass).map(c => c.id) };
+  const summary = { phase: PHASE, base: BASE, browser: receipts.browser?.version, total: checks.length, passed: checks.filter(c => c.pass).length, failed: checks.filter(c => !c.pass).map(c => c.id) };
   writeFileSync(path.join(OUT, `${PHASE}-flows.json`), JSON.stringify({ summary, checks, shots, errors, receipts }, null, 1));
   writeFileSync(path.join(OUT, `${PHASE}-helper-receipt.json`), JSON.stringify(receipts, null, 1));
   console.log(JSON.stringify(summary, null, 1));
