@@ -2,8 +2,16 @@
 
 Explicitly invoked production-build and dev-server browser checks. They are
 **not** part of `npm test` or automatic CI and add no application dependency.
-All of them use this task's strict loopback port **5324**, fresh isolated
-browser contexts, and a UUID synthetic IndexedDB name: before any app code
+The coach and typing-flow runner defaults to strict loopback port **5324**.
+The P3 runner defaults to **5341**. Set `BROWSER_PORT` to run either on an
+assigned port. Both accept `BROWSER_ENGINE=chromium|firefox|webkit` and
+default to Chromium with the installed Chrome on Windows. For Firefox and
+WebKit, install the corresponding binaries with the CLI from the same
+`playwright-core` package as `PLAYWRIGHT_MODULE`. Give each engine its own
+`COACH_OUT` directory for screenshots and receipts.
+
+The checks use fresh isolated browser contexts and a UUID synthetic IndexedDB
+name. Before any app code
 runs, `indexedDB.open('typeforge')` is redirected to
 `typeforge-ui-synthetic-<uuid>`, any other name and `deleteDatabase` are
 refused, and each check verifies the interception before relying on storage.
