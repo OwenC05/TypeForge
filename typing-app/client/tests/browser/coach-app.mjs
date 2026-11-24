@@ -636,18 +636,25 @@ async function raceFlows() {
     const { w, p } = await seededWorld(`race-first-key-${trigger}`, a, SUGGESTED);
     const ready = { label: await label(p), ids: await ids(p) };
     check(`P1a/${trigger}: the admitted Suggested th block is ready before the race`, 'real-seeded', ready.label === 'Suggested practice · th · 30 s', ready);
+    const suggestedKey = await q(p, '#prompt > span:first-child');
     if (trigger === 'reset') check('P1a/reset: the reset committed through C', 'real-seeded', await resetThroughC(p) === true, {});
     else await p.evaluate(() => window.dispatchEvent(new Event('focus'))); // C invalidates on focus; nothing changed
     await p.locator('#typing-input').focus();
-    await p.keyboard.press('t');
+    await p.keyboard.press(suggestedKey);
     const first = { label: await label(p), state: await state(p), value: await p.inputValue('#typing-input'), typed: await typedCount(p), ids: await ids(p), focus: await active(p), slot: await slot(p) };
     check(`P1a/${trigger}: a known invalidation never lets the first key start the stale finite plan`, 'real-seeded',
-      first.label === 'General practice · 30 s' && first.ids !== ready.ids && first.state === 'running', first);
-    check(`P1a/${trigger}: the first key is accepted exactly once and focus stays in the text`, 'real-seeded', first.value === 't' && first.typed === 1 && first.focus === 'typing-input', first);
+      first.label === 'General practice · 30 s' && first.ids !== ready.ids && first.state === 'idle', first);
+    check(`P1a/${trigger}: the Suggested key leaves General empty and focused`, 'real-seeded',
+      first.value === '' && first.typed === 0 && first.focus === 'typing-input', { suggestedKey, first });
+    const generalKey = await q(p, '#prompt > span:first-child');
+    await p.keyboard.press(generalKey);
+    const started = { state: await state(p), value: await p.inputValue('#typing-input'), typed: await typedCount(p), correct: await p.locator('#prompt .correct').count() };
+    check(`P1a/${trigger}: the next key starts General and scores the displayed letter once`, 'real-seeded',
+      started.state === 'running' && started.value === generalKey && started.typed === 1 && started.correct === 1, { generalKey, started });
     await capture(p, `race-first-key-${trigger}`, 'real-seeded');
     await settle(p, 15);
     const after = { label: await label(p), state: await state(p), value: await p.inputValue('#typing-input'), ids: await ids(p) };
-    check(`P1a/${trigger}: the re-preparation never replaces the running block`, 'real-seeded', after.label === first.label && after.ids === first.ids && after.state === 'running' && after.value === 't', after);
+    check(`P1a/${trigger}: the re-preparation never replaces the running block`, 'real-seeded', after.label === first.label && after.ids === first.ids && after.state === 'running' && after.value === generalKey, after);
     await verifyIsolation(w, p);
     await w.context.close();
   }
@@ -858,25 +865,39 @@ async function fallbackFlows() {
     if (path === 'settle') await settle(p, 15);
     const before = await savedSources(p);
     await p.locator('#typing-input').focus();
+    let generalKey = 't';
     if (path === 'settle') {
       const back = { label: await label(p), ...(await promptIdentity(p)) };
       check('fallback/settle: the stepped-back General block paints the first General prompt it lists, not the th plan sequence', 'real-seeded',
         back.label === 'General practice · 30 s' && back.meta[0] !== thIds[0] && back.displayed === back.metaFirstText && back.displayedIds.includes(back.meta[0]), { thIds, back });
+    } else {
+      await p.keyboard.press(suggested.displayed[0]);
+      const back = { label: await label(p), state: await state(p), value: await p.inputValue('#typing-input'), typed: await typedCount(p), focus: await active(p) };
+      check('fallback/first-key: the Suggested letter leaves General idle with an empty focused textarea', 'real-seeded',
+        back.label === 'General practice · 30 s' && back.state === 'idle' && back.value === '' && back.typed === 0 && back.focus === 'typing-input', back);
+      generalKey = await q(p, '#prompt > span:first-child');
     }
-    await p.keyboard.press('t');
+    await p.keyboard.press(generalKey);
+    const keyDescription = path === 'first-key' ? 'the next General key' : 'the first key';
     const started = { label: await label(p), state: await state(p), value: await p.inputValue('#typing-input'), typed: await typedCount(p), focus: await active(p), ...(await promptIdentity(p)) };
-    check(`fallback/${path}: the running General block paints its listed first prompt; the first key landed once`, 'real-seeded',
-      started.label === 'General practice · 30 s' && started.state === 'running' && started.value === 't' && started.typed === 1 && started.focus === 'typing-input' &&
+    check(`fallback/${path}: the running General block paints its listed first prompt; ${keyDescription} landed once`, 'real-seeded',
+      started.label === 'General practice · 30 s' && started.state === 'running' && started.value === generalKey && started.typed === 1 && started.focus === 'typing-input' &&
       started.meta[0] !== thIds[0] && started.displayed === started.metaFirstText && started.displayedIds.includes(started.meta[0]), { thIds, started });
     await capture(p, `fallback-${path}-running`, 'real-seeded');
-    // Let the block reach its deadline with only the first key typed; C saves the timed record.
+    // Let the block reach its deadline with one accepted General key; C saves the timed record.
     await p.clock.runFor(30500); await waitSaved(p); await settle(p, 8);
     const record = await newRecord(p, before);
     const sentenceIds = (record.sentences ?? []).map(s => s.promptId);
     const observed = { thIds, meta: started.meta, sentenceIds, first: record.sentences?.[0] ? { promptId: record.sentences[0].promptId, promptText: record.sentences[0].promptText, response: record.sentences[0].response } : null, mode: record.mode, resultLabel: await q(p, '.result-label'), count: record.count };
-    check(`fallback/${path}: the persisted record names the same General sequence it showed, not the th plan; the first key is recorded once`, 'real-seeded',
+    check(`fallback/${path}: the persisted record names the same General sequence it showed, not the th plan; ${keyDescription} is recorded once`, 'real-seeded',
       sentenceIds.length > 0 && sentenceIds.join(' ') === started.meta.slice(0, sentenceIds.length).join(' ') && sentenceIds.join(' ') !== thIds.slice(0, sentenceIds.length).join(' ') &&
-      observed.first?.promptText === started.metaFirstText && observed.first?.response === 't' && observed.mode === 'practice' && /^General practice · /.test(observed.resultLabel ?? ''), observed);
+      observed.first?.promptText === started.metaFirstText && observed.first?.response === generalKey && observed.mode === 'practice' && /^General practice · /.test(observed.resultLabel ?? ''), observed);
+    if (path === 'first-key') {
+      const key = record.sentences?.[0]?.keys?.[generalKey];
+      check('fallback/first-key: the saved General letter has one correct attempt and zero first-attempt errors', 'real-seeded',
+        record.metrics?.attemptedCharacters === 1 && record.metrics?.correctAttempts === 1 && key?.firstAttempts === 1 && key.firstErrors === 0,
+        { generalKey, metrics: record.metrics, key });
+    }
     await verifyIsolation(w, p);
     await w.context.close();
   }

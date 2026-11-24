@@ -51,4 +51,4 @@ foreach ($phase in 'typing-flow', 'real') {
 }
 ```
 
-The coordinator's screenshots are in `.playwright-mcp/artifacts/p3/screens/` in this worktree under the names `suggested-before-key.png`, `general-after-invalidation.png` and `timer-ended-suggested-result.png`. The historical optional `race` and `fallback` scripts still describe the former first-key-start interaction. The P3 regression exercises the new scoring contract.
+The coordinator's screenshots are in `.playwright-mcp/artifacts/p3/screens/` in this worktree under the names `suggested-before-key.png`, `general-after-invalidation.png` and `timer-ended-suggested-result.png`. The Chromium follow-up on port 5341 passed 5/5 fixture checks, 41/41 race checks, 21/21 fallback checks and 120/120 real checks. Its receipts are in `.playwright-mcp/artifacts/p3-followup/`.
