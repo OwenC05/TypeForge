@@ -19,6 +19,8 @@ Goal: give the model a real job, "what is expected for a typist at your speed", 
 - D7 Design: Codex workers implement UI against `DESIGN.md`; the Claude coordinator makes the design calls and reviews screenshots (Owen's rule that design judgements come from real Claude).
 - D8 Python runs in WSL with Python 3.14 to match CI. No DVC: Owen rejected it on 24 November because it does nothing for profiling typists or choosing practice, and the pipeline's hashed inputs and frozen config already give the reproducibility it would add. Infrastructure must earn its place through the model or the user.
 
+- D9 Lean (Owen, 24 November: "keep the project lean, we shouldnt build anything we dont need to unless it adds value to typeforge"). Build only what improves how TypeForge profiles a typist, chooses practice, tests whether practice helps, or fixes a defect users hit. Applied the same day: DVC dropped; A6 stopped (it would have monitored a model that drives nothing; monitoring is built once, inside the new coach); A5 lost its process page and roadmap doc; A7 lost the consent and recruitment documents and gained a single-person design; A3 builds the smallest banks that meet the targets; the ladder lost gradient-boosted trees; the coach lost shadow mode; the heatmap is dropped unless the coach UI needs it; write-ups shrink to a short model card.
+
 ## The model (shared design for phase B; workers refine, coordinator approves)
 
 - Unit: clean within-word lowercase letter-pair interval, keydown to keydown, log milliseconds, eligibility v2.
@@ -27,7 +29,7 @@ Goal: give the model a real job, "what is expected for a typist at your speed", 
 - Personal gap: `d_up`, prior N(0, tau_p^2), residual variance sigma_p^2; closed-form posterior after n observations, updatable after every sentence.
 - Coach score: expected time lost per 1,000 typed characters, `f_p * E[interval] * (exp(d_hat) - 1)`, with `f_p` the pair's frequency in general English text; suggest only when the posterior probability of a real gap clears a threshold fixed in advance.
 - Browser artifact: a per-pair table (`a_p, b_p, tau_p, sigma_p, f_p`), `s_bar`, version and provenance.
-- Ladder compared identically: L0 population pair mean; L1 own average (the current rule's family); L2 pair by speed; L3 current Ridge; L4 gradient-boosted trees; L5 partial pooling (L2 plus shrunken personal gap).
+- Ladder compared identically: L0 population pair mean; L1 own average (the current rule's family); L2 pair by speed; L3 current Ridge (already built); L5 partial pooling (L2 plus shrunken personal gap). No gradient-boosted trees: they cannot ship as a table the browser updates after every sentence, so they would exist only to be compared.
 - Evaluation, pre-registered before a fresh test set is opened: within each held-out typist, fit on the earlier half and score the later half. Metrics: participant-macro MAE; weakest-pair recovery (precision at 3, Spearman); suggestion stability across halves; coverage of nominal 80% ranges; coach yield. Results by speed band, including 100+ WPM. The winner must beat L1 on the pre-registered primary metric by a margin fixed in advance. The 2,000-participant subset's test split is never reused for selection; the fresh test set comes from the full archive and excludes all 2,000 previously acquired participants.
 
 ## Task graph
@@ -40,17 +42,17 @@ Phase A (now, parallel):
 | A2 | Eligibility v2: post-error bias analysis, exact rule spec, shared conformance fixtures, Python reference | `ml/analysis/**`, `ml/specs/**`, `ml/eligibility_v2.py`, its test, `ml/fixtures/eligibility-v2.json` | none |
 | A3 | Practice and assessment banks v2 from an openly licensed corpus; pair frequencies | `ml/corpus/**`, new bank JSON under `src/generated/` | none |
 | A4 | Fix the two P3 UI issues (red/green) | client source and tests named in brief | none |
-| A5 | Archive receipts, `docs/process/`, one-screen README, fresh screenshots, `docs/roadmap.md` | `README.md`, `docs/**` except `docs/pilot/**` | none |
-| A6 | "Model on your typing" monitoring panel in the ML Lab | `src/monitoring.ts`, Lab region of `app.ts`, `lab.html`, appended CSS | none |
-| A7 | Pilot: pre-registration draft, power simulation, consent, recruitment, protocol | `docs/pilot/**`, `ml/pilot/**` | none |
+| A5 | Archive receipts, one-screen README with at most two fresh screenshots, long content moved to `docs/product.md` (trimmed under D9) | `README.md`, `docs/**` except `docs/pilot/**` | none |
+| A6 | Stopped under D9 before it started; monitoring moves into C1 | none | none |
+| A7 | Pilot: pre-registration draft with a multi-person and a single-person (n-of-1) design, power simulation; consent and recruitment deferred until Owen picks a design | `docs/pilot/**`, `ml/pilot/**` | none |
 | A8 | Full archive: download, verify, inventory, streaming ingest, fresh locked split | `ml/full_archive/**`; data outside git | none |
 | A9 | Firefox and WebKit verification of the production build | browser harness, local compat fixes | A4 |
 
 Phase B (after the inputs land): B1 eligibility v2 in the Python package (A1, A2); B2 eligibility v2 in the browser engine with metric version 2 (A2, A4); B3 full archive in the package and DVC (A1, A8); B4 model ladder and coach replay on train/validation, with a pre-registration of the fresh-test evaluation (B1, B3); B5 independent review of B4's pre-registration and code; B6 fresh-test unlock, final evaluation and browser table export (B5); B7 bank v2 integration in the app (A3).
 
-Phase C: C1 model-driven coach in the browser, run in shadow beside the current rule before switching (B6 or a provisional table, B2, B7); C2 keyboard heatmap of personal gaps; C3 Python/TypeScript parity fixtures for coach decisions.
+Phase C: C1 model-driven coach in the browser (B6, B2, B7). It replaces the current rule once B6 shows it is better, and the old rule's code is removed; no shadow mode, because a local-first app has no telemetry to compare them with. C1 includes monitoring, built once for the model the coach uses: the coach falls back to General practice when the model's expectations do not fit this user's own recent typing, and the Lab shows one short readout of that check. The top personal gaps are shown as plain text; a keyboard heatmap only if that proves unclear. C2 Python/TypeScript parity fixtures for coach decisions.
 
-Phase D: D1 in-app pilot support (C1, A7); D2 model card, research note, case-study draft for the Portfolio workstream (never edit Portfolio from here), walkthrough script; D3 final README refresh, full verification, PR prepared for Owen.
+Phase D: D1 in-app pilot support, only as much as the design Owen picks needs (C1, A7); D2 a short model card in `ml/README.md` (the research note, walkthrough and portfolio case study belong to the Portfolio workstream, not this repository); D3 final README refresh, full verification, PR prepared for Owen.
 
 ## Gates
 
