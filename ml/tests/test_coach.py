@@ -147,6 +147,7 @@ class ReplayTests(unittest.TestCase):
             self.assertEqual(result["bands"]["all"]["scored_cells"], 10)
             self.assertEqual(result["bands"]["all"]["gain_D2"]["mean"], 0)
             self.assertGreater(result["bands"]["all"]["gain_L1_L5"]["mean"], 0.02)
+            self.assertTrue(result["primary_lower_bound_exceeds_margin"])
 
     def test_frozen_ridge_equals_dense_export_on_early_word_contexts_with_history_cap(self):
         ridge, _ = coach_inputs()
@@ -234,6 +235,7 @@ class ReplayTests(unittest.TestCase):
         self.assertEqual(bands["120+"]["mae_L3"]["typists"], 1)
         self.assertEqual(bands["120+"]["scored_cells"], 1)
         self.assertIsNone(bands["120+"]["hit"]["mean"])
+        self.assertFalse(results["primary_lower_bound_exceeds_margin"])  # one qualified typist
         clean_only = score_split(model, model, ridge, freq, data)["bands"]["all"]
         self.assertEqual(clean_only["mae_L5"], bands["all"]["mae_L5"])
         self.assertNotIn("mae_D2", clean_only)

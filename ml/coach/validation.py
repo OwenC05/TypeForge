@@ -44,8 +44,10 @@ def coach_inputs():
 def fit_training(path):
     with np.load(path, allow_pickle=False) as data:
         wpm = data["typist_avg_wpm_15"]
-        blocks = training_cells(data["interval_typist"], data["interval_pair"],
-                                data["interval_log_ms"], len(wpm))
+        who = data["interval_typist"]
+        interval_counts = np.bincount(who, minlength=len(wpm))
+        blocks = training_cells(who, data["interval_pair"], data["interval_log_ms"], len(wpm))
+        del who
         eligible = data["typist_trials_eligible"]
     model = fit(blocks, len(wpm))
     below = wpm < FAST_CUT
@@ -62,6 +64,9 @@ def fit_training(path):
         "assigned": len(wpm), "with_clean_sentence": int((eligible > 0).sum()),
         "clean_sentences": int(eligible.sum()), "maximum_assigned_wpm": float(np.nanmax(wpm)),
         "assigned_at_or_above_cut": int((wpm >= FAST_CUT).sum()),
+        "support_typists": int((interval_counts >= 20).sum()),
+        "maximum_wpm_with_20_intervals": float(np.nanmax(wpm[interval_counts >= 20])),
+        "fast_typists_with_intervals": int(((wpm >= FAST_CUT) & (interval_counts > 0)).sum()),
         "center_low_high_log_ms": [model.speed.center, model.speed.low, model.speed.high],
         "cut_center_low_high_log_ms": [speed.center, speed.low, speed.high],
         "model_sha256": hashlib.sha256(frozen.tobytes()).hexdigest(),

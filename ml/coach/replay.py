@@ -9,7 +9,7 @@ from scipy.stats import rankdata
 
 from ml.config import HISTORY_SENTENCES
 from ml.parse import occurrences
-from .model import FAST_CUT, GAP, MIN_COUNT, PAIRS, RANGE_Z, suggestion, update
+from .model import FAST_CUT, GAP, MARGIN, MIN_COUNT, PAIRS, RANGE_Z, suggestion, update
 
 RUNGS = ("L0", "L1", "L2", "L3", "L5")
 BANDS = ((-np.inf, 40), (40, 80), (80, 100), (100, 120), (120, np.inf))
@@ -137,6 +137,7 @@ def replay_person(model, limited, ridge, frequency, clean, corrected, clean_tria
     row["coverage80"] = (np.abs(actual - predicted["L5"]) <= half_range).mean()
     row["gain_L1_L5"] = row["mae_L1"] - row["mae_L5"]
     row["gain_L2_L5"] = row["mae_L2"] - row["mae_L5"]
+    row["gain_L3_L5"] = row["mae_L3"] - row["mae_L5"]
     # The shipped contrast also uses a raw personal target-pair mean.
     row["mae_own_pair"] = np.abs(sums[cells] / n[cells] - actual).mean()
     if corrected is not None:
@@ -177,7 +178,7 @@ def summarize(rows, wpm, include_corrected):
     columns = {name: column(name) for name in (
         *(f"{metric}_{rung}" for metric in ("mae", "p3", "rho") for rung in RUNGS),
         "coverage80", "yield", "hit", "stability", "outside_support", "gain_L1_L5", "gain_L2_L5",
-        "mae_own_pair",
+        "gain_L3_L5", "mae_own_pair",
     )}
     if include_corrected:
         columns.update({name: column(name) for name in ("mae_D2", "gain_D2", "D2_yield", "D2_hit")})
@@ -205,4 +206,12 @@ def summarize(rows, wpm, include_corrected):
             **{key: estimate(column(key)[keep]) for key in (
                 "mae_L2", "cut_L2", "cut_cost_L2", "mae_L5", "cut_L5", "cut_cost_L5")},
         }
-    return {"bands": bands, "speed_cut": cut_results}
+    gain_interval = bands["all"]["gain_L1_L5"]["ci95"]
+    clears_margin = gain_interval is not None and gain_interval[0] > MARGIN
+    scored_wpm = wpm[(cells > 0) & np.isfinite(wpm)]
+    return {
+        "primary_margin_log_ms": MARGIN,
+        "primary_lower_bound_exceeds_margin": clears_margin,
+        "maximum_scored_wpm": float(scored_wpm.max()) if len(scored_wpm) else None,
+        "bands": bands, "speed_cut": cut_results,
+    }
