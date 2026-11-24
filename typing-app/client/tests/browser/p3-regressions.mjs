@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { once } from 'node:events';
-import { existsSync, mkdirSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { createInterface } from 'node:readline';
 import { after, before, test } from 'node:test';
@@ -160,4 +160,39 @@ test('a native key for the invalidated sentence never becomes a General first-at
   assert.equal(result.metrics.attemptedCharacters, 1);
   assert.equal(result.metrics.accuracy, 100);
   assert.deepEqual(result.sentences[0].keys[replacement[0]], { attempts: 1, correct: 1, firstAttempts: 1, firstErrors: 0 });
+});
+
+const timedCases = [
+  { name: 'General', url: '/index.html?practice=general&duration=30', stage: 'General practice', tag: 'PRACTICE' },
+  { name: 'timer-ended Suggested', url: suggested, stage: 'Suggested practice · th', tag: 'PRACTICE' },
+  { name: 'manual', url: '/index.html?practice=manual&pair=th&duration=30', stage: 'Pair practice · th', tag: 'MANUAL PAIR th' },
+  { name: 'assessment', url: '/practice.html?duration=30&qwerty=0', stage: 'Assessment', tag: 'ASSESSMENT' },
+];
+for (const { name, url, stage, tag } of timedCases) {
+  test(`${name} full result displays ${tag}`, async t => {
+    const page = await openPractice(t, url === suggested ? baseline() : [], url);
+    await page.locator('#block-identity').filter({ hasText: stage }).waitFor();
+    const target = await promptText(page);
+    await page.locator('#typing-input').press(target[0]);
+    await page.clock.fastForward(30100);
+    const result = await savedRecord(page);
+    assert.equal(result.schemaVersion, 1);
+    assert.equal(result.mode, name === 'assessment' ? 'assessment' : 'practice');
+    assert.equal(result.metrics.elapsedMs, 30000);
+    assert.equal(result.sentences[0].promptText, target);
+    assert.equal(Object.hasOwn(result, 'practiceFocus'), false);
+    assert.equal(Object.hasOwn(result, 'manualDrill'), name === 'manual');
+    const href = await page.locator('#full-result').getAttribute('href');
+    await page.goto(new URL(href, base).href);
+    assert.equal(await page.locator('.page-heading .tag').textContent(), tag);
+    if (url === suggested) await page.screenshot({ path: `${screenshots}/timer-ended-suggested-result.png` });
+  });
+}
+
+test('an older result with explicit focus retains its recommended tag', async t => {
+  const legacy = JSON.parse(readFileSync(new URL('../fixtures/legacy-v1.json', import.meta.url), 'utf8'));
+  legacy.mode = 'practice';
+  legacy.practiceFocus = { pair: 'th', evidenceCount: 8, source: 'baseline', baselineVersion: 'v1', score: 1 };
+  const page = await openPractice(t, [legacy], `/results.html?id=${legacy.id}`);
+  assert.equal(await page.locator('.page-heading .tag').textContent(), 'RECOMMENDED PRACTICE');
 });

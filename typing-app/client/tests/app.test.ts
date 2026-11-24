@@ -588,6 +588,23 @@ test('a locked Suggested fallback clears the request and the selected view toget
 // F admission follow-up (task_338af3c3e8c3). Corrected invariants; root's probe observed the opposite on 026cb69.
 const sliceBetween=(start:string,end:string)=>{const b=source.indexOf(start),e=source.indexOf(end,b+start.length);assert.ok(b>=0&&e>b,`ordered nonempty boundaries: ${start}`);return source.slice(b,e);};
 
+test('timed result headings use only the mode and explicit stored practice metadata', () => {
+  const template = sliceBetween('  shell(`<div class="page-heading"><div><p class="eyebrow">${result.settings.durationMs', "\n  $('#result-date')");
+  const render = runInNewContext(`(result, metricCards, shell) => { const originId = null; ${template} }`);
+  const focus = { pair: 'th', evidenceCount: 8, source: 'baseline', baselineVersion: 'v1', score: 1 } as const;
+  const cases: [Partial<SessionResult>, string][] = [
+    [{ mode: 'assessment' }, 'ASSESSMENT'],
+    [{ mode: 'practice', manualDrill: { pair: 'th', source: 'manual' } }, 'MANUAL PAIR th'],
+    [{ mode: 'practice', practiceFocus: focus }, 'RECOMMENDED PRACTICE'],
+    [{ mode: 'practice' }, 'PRACTICE'],
+  ];
+  for (const [metadata, expected] of cases) {
+    let html = '';
+    render({ ...fixture(), ...metadata }, () => '', (value: string) => { html = value; });
+    assert.equal(html.match(/<span class="tag">([^<]+)<\/span>/)?.[1], expected);
+  }
+});
+
 test('the first edit belongs to the visible prompt and cannot score against a replacement', () => {
   const handler = sliceBetween('  const acceptInput = ', "\n  input.addEventListener('input', acceptInput);");
   const reconstruct = sliceBetween('function reconstructEdit(', '\nconst esc = ');
