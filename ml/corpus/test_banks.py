@@ -22,27 +22,24 @@ def independent_counts(texts):
     return Counter(p for text in texts for p in re.findall(r"(?=([a-z]{2}))", text))
 
 
-class BankTests(unittest.TestCase):
+class CommittedBankTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.source = b.source_rows()
-        cls.old = re.findall(r"text: '([a-z ]+)'", b.pinned_input("corpus.ts"))
-        cls.pool, _ = b.filtered_pool(cls.source, cls.old)
         cls.assessment = read(b.OUTPUT / "assessment-bank-v2.json")["sentences"]
         cls.practice = read(b.OUTPUT / "practice-bank-v2.json")["sentences"]
         cls.frequencies = read(b.HERE / "pair_frequencies.json")
 
-    def test_source_identity_and_disjoint_banks(self):
-        used = set(self.old)
-        ids = set()
+    def test_counts_lengths_and_disjoint_banks(self):
+        old = re.findall(r"id: '([^']+)', text: '([a-z ]+)'", (b.CLIENT / "corpus.ts").read_text(encoding="utf-8"))
+        self.assertEqual(len(old), 120)
+        ids = {key for key, _ in old}
+        used = {text for _, text in old}
+        self.assertEqual((len(self.assessment), len(self.practice)), (600, 292))
         for prompt in self.practice + self.assessment:
             key, text = prompt["id"], prompt["text"]
             self.assertRegex(key, r"^tatoeba-[1-9][0-9]*$")
-            source_id = int(key.removeprefix("tatoeba-"))
-            self.assertEqual(self.source[source_id].rstrip(".?!").lower(), text)
-            self.assertTrue(all(w.islower() for w in self.source[source_id].split()[1:]))
             self.assertRegex(text, r"^[a-z]+(?: [a-z]+)+$")
-            self.assertTrue(30 <= len(text) <= 70)
+            self.assertTrue(30 <= len(text) <= 68, key)
             self.assertNotIn(text, used)
             self.assertNotIn(key, ids)
             used.add(text)
@@ -51,6 +48,43 @@ class BankTests(unittest.TestCase):
             bank = read(b.OUTPUT / f"{kind}-bank-v2.json")
             self.assertEqual((bank["version"], bank["source"], bank["licence"], bank["sha256"]),
                              ("2", b.SOURCE_URL, "CC0-1.0", b.SOURCE_SHA256))
+
+    def test_all_100_picker_pairs_have_dense_passages(self):
+        ranked = sorted(self.frequencies["pairs"], key=lambda pair: (-self.frequencies["pairs"][pair]["count"], pair))
+        candidates = self.frequencies["candidate_pairs"]
+        self.assertEqual(candidates, ranked[:100])
+        self.assertEqual(read(b.OUTPUT / "manual-pairs-v2.json"), candidates)
+        chars = sum(len(prompt["text"]) for prompt in self.assessment)
+        assessed = independent_counts(prompt["text"] for prompt in self.assessment)
+        practice = [(len(p["text"]), independent_counts([p["text"]])) for p in self.practice]
+        for pair in candidates:
+            dense = sum(hits[pair] > 0 and hits[pair] * chars >= 2 * assessed[pair] * length
+                        for length, hits in practice)
+            self.assertGreaterEqual(dense, b.MIN_DENSE, pair)
+
+
+SOURCE_EXPORT = b.CACHE / b.SOURCE_URL.rsplit("/", 1)[1]
+
+
+@unittest.skipUnless(SOURCE_EXPORT.is_file(), "pinned CC0 source export is not cached")
+class SourceBankTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        try:
+            cls.source = b.source_rows()
+        except SystemExit as error:
+            raise AssertionError(str(error)) from error
+        cls.old = re.findall(r"text: '([a-z ]+)'", b.pinned_input("corpus.ts"))
+        cls.pool, _ = b.filtered_pool(cls.source, cls.old)
+        cls.assessment = read(b.OUTPUT / "assessment-bank-v2.json")["sentences"]
+
+    def test_source_identity(self):
+        practice = read(b.OUTPUT / "practice-bank-v2.json")["sentences"]
+        for prompt in self.assessment + practice:
+            source_id = int(prompt["id"].removeprefix("tatoeba-"))
+            source = self.source[source_id]
+            self.assertEqual(source.rstrip(".?!").lower(), prompt["text"])
+            self.assertTrue(all(w.islower() for w in source.split()[1:]))
 
     def test_uniform_assessment_precedes_pair_selection(self):
         draw = random.Random(20261124).sample(sorted(self.pool), 600)
@@ -65,9 +99,10 @@ class BankTests(unittest.TestCase):
             with patch.object(b, "CACHE", Path(temp)):
                 with self.assertRaisesRegex(SystemExit, "differs from the pin"):
                     b.source_rows()
-            with patch.object(b, "CLIENT", Path(temp)):
-                for name in b.PINNED_INPUTS:
-                    self.assertEqual(b.pinned_input(name), (b.CACHE / name).read_text(encoding="utf-8"))
+            for name in b.PINNED_INPUTS:
+                expected = b.pinned_input(name)
+                with patch.object(b, "CLIENT", Path(temp)):
+                    self.assertEqual(b.pinned_input(name), expected)
 
     def test_no_lexical_neighbours_in_pool_or_v1(self):
         prior_grams = []
@@ -89,7 +124,7 @@ class BankTests(unittest.TestCase):
             prior_grams.append(grams)
 
     def test_all_pair_frequencies_and_candidate_cutoff(self):
-        f = self.frequencies
+        f = read(b.HERE / "pair_frequencies.json")
         counts = independent_counts(self.pool.values())
         chars = sum(len(t) for t in self.pool.values())
         self.assertEqual(f["source_sha256"], b.SOURCE_SHA256)
@@ -103,14 +138,18 @@ class BankTests(unittest.TestCase):
                       if sum(counts[p] for p in ranked[:i]) * 10 >= counts.total() * 9)
         self.assertEqual(f["candidate_pairs"], ranked[:min(100, cutoff)])
 
+
+class WitnessTests(unittest.TestCase):
+    @unittest.skipUnless((b.CACHE / "plan-witnesses.json").is_file(), "offline plan witnesses are not cached")
     def test_every_dense_sentence_and_plan_prefix(self):
         rules = json.loads(b.pinned_input("coach-config.json"))["exposure"]
         plans = read(b.CACHE / "plan-witnesses.json")
-        self.assertEqual(set(plans), set(self.frequencies["candidate_pairs"]))
-        general = {p["id"]: p["text"] for p in self.practice}
+        self.assertEqual(set(plans), set(read(b.HERE / "pair_frequencies.json")["candidate_pairs"]))
+        general = {p["id"]: p["text"] for p in read(b.OUTPUT / "practice-bank-v2.json")["sentences"]}
         g_chars = sum(map(len, general.values()))
-        a_chars = sum(len(p["text"]) for p in self.assessment)
-        assessed = independent_counts(p["text"] for p in self.assessment)
+        assessment = read(b.OUTPUT / "assessment-bank-v2.json")["sentences"]
+        a_chars = sum(len(p["text"]) for p in assessment)
+        assessed = independent_counts(p["text"] for p in assessment)
         opportunities = independent_counts(general.values())
         counts = {k: independent_counts([text]) for k, text in general.items()}
         ratio = Fraction(str(rules["minimumRatio"]))
