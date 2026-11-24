@@ -39,12 +39,19 @@ def main(argv: Sequence[str] | None = None) -> None:
     acquisition.add_argument("--source", default=SOURCE)
     for command in ("audit", "train", "export"):
         stages.add_parser(command, parents=[directory])
+    dataset = stages.add_parser("dataset-v2", parents=[directory])
+    dataset.add_argument("--prior-data-dir", required=True, type=Path,
+                         help="read-only historical acquisition containing the manifest and source WPM metadata")
     evaluation = stages.add_parser("evaluate", parents=[directory])
     evaluation.add_argument("--split", choices=["test"], required=True)
     args = parser.parse_args(argv)
     data_dir = data_directory(getattr(args, "data_dir", None))
     start = time.monotonic()
-    if args.command == "acquire":
+    if args.command == "dataset-v2":
+        from .dataset_v2 import build_dataset_v2
+
+        build_dataset_v2(data_dir, args.prior_data_dir)
+    elif args.command == "acquire":
         acquire(
             data_dir,
             participants=args.participants,
@@ -63,8 +70,9 @@ def main(argv: Sequence[str] | None = None) -> None:
     else:
         export(data_dir)
     duration = time.monotonic() - start
-    timings_path = data_dir / "timings.json"
-    timings = read_json(timings_path) if timings_path.exists() else {}
-    timings[args.command] = round(duration, 3)
-    write_json(timings_path, timings)
+    if args.command != "dataset-v2":
+        timings_path = data_dir / "timings.json"
+        timings = read_json(timings_path) if timings_path.exists() else {}
+        timings[args.command] = round(duration, 3)
+        write_json(timings_path, timings)
     print(f"{args.command} completed in {duration:.1f}s", flush=True)
