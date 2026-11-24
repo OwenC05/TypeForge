@@ -694,9 +694,8 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     if (snapshot && suggestedChosen() && pilot()) {
       if (previous && previous.plan.planHash === snapshot.plan.planHash) { admitted = snapshot; return; }
       const runtime = await finiteRuntime();
-      // The person started typing (the current block stands), or a newer preparation or storage change
-      // arrived during the import: an older snapshot never installs over newer state.
-      if (disposed || !untouched() || generation !== prepGeneration || !admissionCurrent(snapshot)) return;
+      // A first-key fallback can leave General idle while this import is pending.
+      if (disposed || !untouched() || !suggestedChosen() || generation !== prepGeneration || !admissionCurrent(snapshot)) return;
       const block = admittedBlock(runtime, snapshot);
       if (!block) return;
       changeNote = coachUi.changeHint(lastAdmittedPair, coach);
