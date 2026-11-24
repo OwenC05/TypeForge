@@ -134,7 +134,9 @@ def replay_person(model, limited, ridge, frequency, clean, corrected, clean_tria
     reference = coaching_outcomes(matched_reference(pick, n, sums, frequency),
                                   matched_reference(next_pick, m, targets, frequency), m, later_gap)
     row.update({f"reference_{name}": value for name, value in reference.items()})
-    row["paired_confirmed_gain"] = row["confirmed_per_assigned"] - reference["confirmed_per_assigned"]
+    row["paired_confirmed_gain"] = (
+        row["confirmed_per_assigned"] - reference["confirmed_per_assigned"]
+    )
     if n.sum():
         row["outside_support"] = int(not (model.speed.low <= before.speed <= model.speed.high))
     if corrected is not None:
