@@ -3,7 +3,8 @@ import '@ui-sdk/web/segmented-control';
 import '@ui-sdk/web/switch';
 import '@ui-sdk/web/collapsible';
 import type { UiChangeEvent, UiCollapsibleElement, UiSegmentedControlElement, UiSelectElement, UiSwitchElement } from '@ui-sdk/web';
-import { CORPUS_VERSION, selectPrompts, practicePrompts, assessmentPrompts } from './corpus.ts';
+import { CORPUS_VERSION, selectPrompts } from './corpus.ts';
+import { assessmentPrompts, manualPairs, selectAssessmentPrompts, selectPairPrompts } from './corpus-v2.ts';
 import { TypingEngine, type SessionResult, type SentenceSummary, type EngineSnapshot, type RunState, type Prompt, type Edit, type StoppedSnapshot, SUPPORTED_DURATIONS, type DurationMs } from './engine.ts';
 import { getResult, listResults, deleteResult, listResultsPage, getStorageDiagnostics } from './storage.ts';
 import { captureContext, saveSource, getSavedSource, exportSavedSources, preparePractice, admitPreparedPractice, subscribeStorageInvalidation,
@@ -14,7 +15,7 @@ import { UnsavedResults, unsavedLine, newSaveRecord, applyOutcome, exportDocumen
 import * as coachUi from './coach-ui.ts';
 
 import { parseModelArtifact, predictSentence, type ModelArtifact } from './model.ts';
-import { selectHistory, buildHistory, appendHistory, selectDrillPrompts, resolveRetest, compatible, compatibleSettings, supportedManualPairs } from './profile.ts';
+import { selectHistory, buildHistory, appendHistory, resolveRetest, compatible, compatibleSettings } from './profile.ts';
 
 // The coach's plan and finite runtime load on demand: General practice never waits for them.
 const coachPlan = () => import('./coach-plan.ts');
@@ -250,14 +251,14 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
   let history: SentenceSummary[] = [];
   let historyKey = `${declaredQwerty}|${durationMs}`;
   let evidencePending = declaredQwerty;
-  const manualPairs = supportedManualPairs(practicePrompts);
   let practiceChoice = parsePracticeChoice(params.get('practice'), params.get('pair'), manualPairs);
   const choosePrompts = () => {
-    if (mode !== 'practice') return selectPrompts(mode, excluded);
-    return selectDrillPrompts(practiceChoice.kind === 'manual' ? {pair: practiceChoice.pair!} : null, practicePrompts);
+    if (mode === 'assessment') return selectAssessmentPrompts(excluded);
+    if (practiceChoice.kind === 'manual') return selectPairPrompts(practiceChoice.pair!);
+    return selectPrompts('practice');
   };
   let prompts = choosePrompts();
-  const initialPair = practiceChoice.pair ?? (manualPairs.includes('th') ? 'th' : manualPairs[0]!);
+  const initialPair = practiceChoice.pair ?? 'th';
   // Suggested starts locked: the coach is checked after first paint, so a requested Suggested shows General first.
   shell(`<h1 class="sr-only">${mode === 'practice' ? 'Practice' : 'Assessment'}</h1>
   <div class="column">
@@ -358,11 +359,12 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
       prepared.set(engine, {sentenceIndex: snapshot.sentenceIndex, preparation});
     }
     $('#prediction-state').textContent = !timed ? 'Timing predictions are not used in suggested blocks.' : !qwerty.checked ? 'Timing predictions require a declared physical QWERTY keyboard.' : preparation?.status === 'candidate-and-baseline' ? 'Experimental model + historical baseline · predictions frozen before each sentence.' : `${preparation?.status === 'baseline-only' ? 'Historical baseline only' : 'Predictions unavailable'}: ${preparation?.reason ?? 'No supported observations yet.'}`;
-    $('#focus-state').textContent = [lineageMessage, practiceChoice.reason, mode === 'practice' && practiceChoice.kind === 'manual' ? `Manual pair: ${practiceChoice.pair} · chosen by you, not a diagnosed weakness. Two focused sentences, then one general sentence.` : mode === 'assessment' ? 'Keep typing; a space after the last word brings the next passage.' : ''].filter(Boolean).join(' ');
+    $('#focus-state').textContent = [lineageMessage, practiceChoice.reason, mode === 'practice' && practiceChoice.kind === 'manual' ? `You chose the pair ${practiceChoice.pair}. Every sentence in this block contains it.` : mode === 'assessment' ? 'Keep typing; a space after the last word brings the next passage.' : ''].filter(Boolean).join(' ');
     // Observed facts only: the current choice, never an invented target.
     const label = `${frozen?.label ?? blockIdentity()} · ${durationMs / 1000} s`;
     if ($('#block-identity').textContent !== label) $('#block-identity').textContent = label;
     if ($('#remaining').textContent !== String(Math.ceil(snapshot.remainingMs / 1000))) $('#remaining').textContent = String(Math.ceil(snapshot.remainingMs / 1000));
+    stage.dataset.bankVersion = mode === 'assessment' || practiceChoice.kind === 'manual' ? '2' : '1';
     stage.dataset.promptIds = prompts.map(prompt => prompt.id).join(' ');
   }
   const input = $<HTMLTextAreaElement>('#typing-input');

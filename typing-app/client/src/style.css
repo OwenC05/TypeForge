@@ -120,6 +120,8 @@ body[data-run=completed] .today { display: block; }
 /* The native textarea and its mirror share exact glyph geometry; the surface height is fixed and
    follows the caret with internal scroll, so nothing below it ever moves while typing. */
 .surface-wrap { position: relative; }
+/* Reserve room for the longer v2 passage and its wrapped preview without moving the active line. */
+.stage[data-bank-version="2"] { --surface-lines: 5; }
 .typing-surface { position: relative; margin-top: 28px; height: calc(var(--passage) * var(--passage-line) * var(--surface-lines)); overflow: hidden auto; overflow-anchor: none; scrollbar-width: none; }
 .typing-surface::-webkit-scrollbar { display: none; }
 /* Column snapping (prototype B): per-glyph mirror boxes and the textarea text run wrap at the same
@@ -292,6 +294,7 @@ summary { cursor: pointer; padding-block: 8px; }
 /* ---------- Narrow layouts ---------- */
 @media (max-width: 760px) {
   :root { --gutter: 16px; --passage: 20px; --surface-lines: 6; --countdown: 48px; --figure: 64px; --key-height: 40px; --slot-height: 66px; }
+  .stage[data-bank-version="2"] { --surface-lines: 7.25; }
   .slot::before { width: 112px; }
   .site-nav { display: none; }
   .nav-menu { display: block; }
@@ -321,6 +324,7 @@ summary { cursor: pointer; padding-block: 8px; }
 }
 @media (max-width: 360px) {
   :root { --passage: 18px; --figure: 56px; --countdown: 44px; }
+  .pair-list { grid-template-columns: repeat(5, 48px); }
   .key, ui-segmented-control-item { padding: 0 8px; min-width: 40px; font-size: 15px; }
   ui-segmented-control.keys { gap: 4px; }
   .rail { gap: 10px 6px; }

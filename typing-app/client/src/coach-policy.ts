@@ -1,4 +1,5 @@
-import { assessmentPrompts, practicePrompts } from './corpus.ts';
+import { practicePrompts } from './corpus.ts';
+import { findSavedPrompt } from './corpus-v2.ts';
 import { validateResult } from './storage.ts';
 import { CONFIG_ID, COACH_CONFIG, canonicalJson, hashCanonical, deepFreeze,
   pairOccurrences, resolveCertifiedPlan, validateCoachConfig, validateCertifiedPlan } from './coach-plan.ts';
@@ -184,9 +185,8 @@ function safeCount(xs: readonly number[]): number {
   requireValue(xs.every(x => Number.isSafeInteger(x) && x >= 0) && Number.isSafeInteger(count), 'aggregate count');
   return count;
 }
-const bankFor = (r: SourceRead) => r.source.mode === 'assessment' ? assessmentPrompts : practicePrompts;
 function admissibleSentence(read: SourceRead, s: SentenceSummary): boolean {
-  const prompt = bankFor(read).find(p => p.id === s.promptId);
+  const prompt = findSavedPrompt(read.source.mode, s.promptId);
   if (!prompt || prompt.text !== s.promptText || !s.eligible || !s.submitted || !s.diagnosticsAvailable ||
     s.response !== prompt.text || s.qualityFlags.length) return false;
   const keys = new Map<string, number>();
@@ -217,7 +217,7 @@ function retained(window: readonly SourceRead[]): Retained[] {
       badRuns.add(read.ref.id);
     // No elapsed-time envelope: keydown intervals and first-input timer have distinct origins.
     sentences.forEach((sentence, ordinal) => {
-      if (sentence.eligible && sentence.submitted) latest.set(bankFor(read).find(p => p.id === sentence.promptId)?.text ?? sentence.promptText,
+      if (sentence.eligible && sentence.submitted) latest.set(findSavedPrompt(read.source.mode, sentence.promptId)?.text ?? sentence.promptText,
         { read, sentence, ordinal });
     });
   }
