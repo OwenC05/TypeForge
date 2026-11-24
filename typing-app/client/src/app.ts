@@ -1486,7 +1486,7 @@ async function results() {
     catch { /* Optional origin cannot prevent exporting the valid current result. */ }
   }
   const retest = resolveRetest(origin ?? null, settings(result.settings.qwerty, result.settings.durationMs), assessmentPrompts);
-  shell(`<div class="page-heading"><div><p class="eyebrow">${result.settings.durationMs / 1000} seconds, well spent</p><h1>A clearer picture of your typing.</h1><p class="small" id="result-date"></p></div><span class="tag">${result.mode === 'assessment' ? 'ASSESSMENT' : result.manualDrill ? `MANUAL PAIR ${result.manualDrill.pair}` : result.practiceFocus ? 'RECOMMENDED PRACTICE' : 'GENERAL PRACTICE'}</span></div>
+  shell(`<div class="page-heading"><div><p class="eyebrow">${result.settings.durationMs / 1000} seconds, well spent</p><h1>A clearer picture of your typing.</h1><p class="small" id="result-date"></p></div><span class="tag">${result.mode === 'assessment' ? 'ASSESSMENT' : result.manualDrill ? `MANUAL PAIR ${result.manualDrill.pair}` : result.practiceFocus ? 'RECOMMENDED PRACTICE' : 'PRACTICE'}</span></div>
     ${result.eligibleForProgress ? '' : '<p class="notice">This run includes interrupted or unsupported input. It is saved here and excluded from headline progress.</p>'}
     ${metricCards(result)}
     <section class="panel coach"><p class="eyebrow">Your next session</p><h2 id="coach-title"></h2><p id="coach-explanation" class="small"></p><a class="button" id="next-action" href="./practice.html?mode=practice">Start practice</a></section>
