@@ -346,8 +346,13 @@ test('invalid runtime config cannot use a legacy selector or model fallback',()=
 });
 
 test('reviewed lagged keydown/input trace is admitted without an aggregate-to-elapsed rejection',()=>{
-  const receipt=JSON.parse(readFileSync(new URL('../../../docs/implementation/2026-11-16/baseline/policy-delta-review/review-results.json',import.meta.url),'utf8'));
-  const trace=receipt.evidence.laggedTime as { prompt:Prompt; eventTrace:{position:number;char:string;keydownTime:number;inputTime:number}[]; result:SessionResult; necessaryTime:number };
+  // Reviewed trace from docs/implementation/2026-11-16/baseline/policy-delta-review/review-results.json on archive/process-receipts-2026-11 at 6ce7e02999c668454459da42ad5d832b5f13f9bf.
+  const trace = JSON.parse(readFileSync(new URL('./fixtures/lagged-keydown-input.json', import.meta.url), 'utf8')) as {
+    prompt: Prompt;
+    eventTrace: { position: number; char: string; keydownTime: number; inputTime: number }[];
+    result: SessionResult;
+    necessaryTime: number;
+  };
   const engine=new TypingEngine({id:trace.result.id,prompts:[trace.prompt],inputMode:'flow-v1',durationMs:30000,
     qwerty:true,corpusVersion:'1',mode:'assessment'});
   for(const e of trace.eventTrace)engine.edit({start:e.position,end:e.position,text:e.char,pressTime:e.keydownTime},e.inputTime);

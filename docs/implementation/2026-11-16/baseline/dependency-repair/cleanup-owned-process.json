@@ -1,6 +1,0 @@
-{
-    "ProcessId":  59372,
-    "ExecutablePath":  "C:\\Program Files\\nodejs\\node.exe",
-    "CommandLine":  "\"C:\\Program Files\\nodejs\\node.exe\" typing-app/client/node_modules/vite/bin/vite.js preview typing-app/client --host 127.0.0.1 --port 5316 --strictPort ",
-    "CreationDate":  "\/Date(1794839554158)\/"
-}

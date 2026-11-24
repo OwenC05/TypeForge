@@ -1,9 +1,0 @@
-{
-    "pid":  40404,
-    "exactIdentityMatched":  true,
-    "remaining5317Listeners":  0,
-    "contexts":  "closed in finally",
-    "root5301AndClaude5312":  "untouched",
-    "ignoredSnapshot":  "retained under owned directory; dependency junction points to existing locked node_modules",
-    "stoppedAt":  "2026-11-18T17:55:10.8777772Z"
-}

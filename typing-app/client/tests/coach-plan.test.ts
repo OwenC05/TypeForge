@@ -13,7 +13,8 @@ const canonical = (v: unknown): string => v === null || typeof v !== 'object' ? 
 const hash = (v: unknown) => createHash('sha256').update(canonical(v)).digest('hex');
 
 test('exact promoted config/catalogue and corpus identities; synchronous SHA agrees with Node', () => {
-  const original = JSON.parse(readFileSync(new URL('../../../docs/implementation/2026-11-16/baseline/policy/coach-config.example.json', import.meta.url), 'utf8'));
+  // Approved config from docs/implementation/2026-11-16/baseline/policy/coach-config.example.json on archive/process-receipts-2026-11 at 6ce7e02999c668454459da42ad5d832b5f13f9bf.
+  const original = JSON.parse(readFileSync(new URL('./fixtures/approved-coach-config.json', import.meta.url), 'utf8'));
   const catalogue = JSON.parse(readFileSync(new URL('../src/coach-catalogue.json', import.meta.url), 'utf8'));
   assert.deepEqual(COACH_CONFIG, original);
   assert.equal(hash(original), CONFIG_ID);

@@ -1,5 +1,0 @@
-{
-    "ProcessId":  2504,
-    "ParentProcessId":  31276,
-    "CommandLine":  "\"C:\\Users\\Owenc\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.exe\" --no-daemon -c shell_environment_policy.set.ORCA_TERMINAL_HANDLE=\u0027term_bdea906e507035d1d02081fb8d067fd4\u0027 -c shell_environment_policy.set.ORCA_PANE_KEY=\u002721b280ec-62a0-4d27-8571-39e8496b8bdc:6a5f3d16-ee41-4b82-b48c-95632da767a2\u0027 -c shell_environment_policy.set.ORCA_WORKTREE_ID=\u00270e2790bd-9921-41ea-8b18-8ff2513265a5::C:/Users/Owenc/orca/workspaces/TypeForge/typeforge-foundation-e1\u0027 -c shell_environment_policy.set.ORCA_WORKSPACE_ID=\u00270e2790bd-9921-41ea-8b18-8ff2513265a5::C:/Users/Owenc/orca/workspaces/TypeForge/typeforge-foundation-e1\u0027 -c \"shell_environment_policy.set.ORCA_USER_DATA_PATH=\u0027C:\\Users\\Owenc\\AppData\\Roaming\\orca\u0027\" resume 01a1e034-0958-74a2-ae27-1c3172fc8c7d"
-}

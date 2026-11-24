@@ -1,6 +1,0 @@
-{
-    "pattern":  "__open-in-editor|/@vite/client|source-map-js|SourceMapConsumer",
-    "scope":  "typing-app/client/dist",
-    "exitCode":  1,
-    "note":  "Zero matches supports static applicability only; not an exploit test"
-}

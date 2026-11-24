@@ -1,5 +1,7 @@
 # TypeForge implementation plan
 
+This September 2026 plan is kept for history. [Current priorities](README.md#next)
+
 Status: local-first recruiter-facing slice implemented, locally verified and independently reviewed, 30 September 2026: code review APPROVE; architecture CLEAR; no unresolved findings in this scope. The engineering portions of milestones 2–4 are verified alongside milestone 1: genuine benchmark/model, browser inference, explainable baseline practice and fresh-retest evidence. This is not public-release approval or completion of the broader platform. The static engineering demo is live on Vercel; accounts/cloud sync, consented TypeForge transfer evaluation and full public-release certification remain open. See [README.md](README.md), [ML documentation](ml/README.md) and the [verification record](docs/verification.md) for commands and boundaries.
 
 ### Current local evidence (not final release approval)

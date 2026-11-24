@@ -1,4 +1,0 @@
-{
-    "exit":  0,
-    "command":  "npm audit --json (retry after ECONNRESET)"
-}

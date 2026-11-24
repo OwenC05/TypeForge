@@ -1,3 +1,0 @@
-# Preserve the downloaded asset bytes used by the SHA256 parity receipt.
-/live-app-*.js -text
-/live-app-*.css -text
