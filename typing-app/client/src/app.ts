@@ -199,7 +199,7 @@ interface RunIdentity { label: string; baseline: boolean; test: number | null; c
 /** Semantic progress (ui-progress); its visible value is the exact sentence, never a percentage. */
 function baselineProgress(coach: coachUi.BaselineView, label = 'baseline') {
   if (coach.counted === null) return '';
-  void progressElement();
+  void progressElement().catch(() => { /* The count remains readable without the widget. */ });
   const pending = coach.pending > 0 && coach.counted < coachUi.TARGET;
   const value = Math.min(coach.counted, coachUi.TARGET);
   return `<ui-progress class="baseline-progress" value="${value}" max="${coachUi.TARGET}" ${pending ? 'data-pending' : ''} style="--counted:${value}">
@@ -207,7 +207,10 @@ function baselineProgress(coach: coachUi.BaselineView, label = 'baseline') {
 }
 function formatBaselineProgress(coach: coachUi.BaselineView) {
   const text = `${coachUi.countText(coach)} tests${coach.pending && (coach.counted ?? 0) < coachUi.TARGET ? ` · ${coach.pending} waiting to save` : ''}`;
-  document.querySelectorAll<HTMLElement & { format?: unknown }>('ui-progress.baseline-progress').forEach(element => { element.format = () => text; });
+  document.querySelectorAll<HTMLElement & { format?: unknown }>('ui-progress.baseline-progress').forEach(element => {
+    element.querySelector('ui-progress-value')!.textContent = text;
+    element.format = () => text;
+  });
 }
 /** "Last 10 tests · median": figures, a plain still-reading line, or nothing. Never a cached or partial median. */
 function summaryBlock(coach: coachUi.BaselineView, compact = false) {
