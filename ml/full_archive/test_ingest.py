@@ -68,6 +68,15 @@ class IngestTests(unittest.TestCase):
         reversed_columns = source_rows([r[::-1] for r in rows], a.COLUMNS[::-1])
         trial = a.parse_participant(b"\xef\xbb\xbf" + reversed_columns + b"\n", "synthetic")["section"]
         self.assertEqual(a.eligibility(trial), ("eligible_trial", 2))
+        down_only = source_rows([r[:6] + r[7:] for r in rows], a.COLUMNS[:6] + a.COLUMNS[7:])
+        trial = a.parse_participant(down_only, "synthetic")["section"]
+        self.assertTrue(all(math.isnan(r[2]) for r in trial.strokes))
+        self.assertEqual(a.eligibility(trial), ("eligible_trial", 2))
+        self.assertEqual(a.parse_participant(b"empty-file-header\n", "synthetic"), {})
+        with self.assertRaisesRegex(a.BadMember, "malformed_tsv_participant"):
+            a.parse_participant(b"\nrow\n", "synthetic")
+        metadata = source_rows([["synthetic"]], ["PARTICIPANT_ID"])
+        self.assertEqual(a.read_metadata(metadata, {"synthetic"})["synthetic"], ("missing", "missing", None))
         with self.assertRaisesRegex(ValueError, "member mismatch"):
             a.parse_participant(source_rows(rows), "other")
         self.assertEqual(a.physical_rows(b"header\rrow\r\nrow\nrow"), 3)

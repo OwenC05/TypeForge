@@ -58,20 +58,23 @@ class BadMember(ValueError):
     """An exclusion applied to the entire participant."""
 
 
-def tsv(stream, columns):
+def tsv(stream, columns, defaults):
     """Same BOM, newlines, quoting, blank records and row-width checks as pipeline.tsv."""
     with io.TextIOWrapper(stream, encoding="utf-8-sig", newline="") as text:
         reader = csv.reader(text, delimiter="\t", quoting=csv.QUOTE_NONE)
         header = next(reader, [])
-        if not header:
-            return
-        select = None if tuple(header) == columns else itemgetter(*(header.index(c) for c in columns))
+        direct = tuple(header) == columns
         for row in reader:
             if not row:
                 continue
             if len(row) != len(header):
                 raise BadMember("malformed_tsv_participant")
-            yield select(row) if select else row
+            if direct:
+                yield row
+            else:
+                # DictReader uses the last occurrence of a duplicate field.
+                fields = defaults | dict(zip(header, row))
+                yield tuple(fields[name] for name in columns)
 
 
 @dataclass
@@ -86,7 +89,7 @@ def parse_participant(raw, pid):
     # Materialize one participant before numeric validation, as in pipeline.audit.
     # A bad row rejects the whole file, even when it follows a valid trial.
     try:
-        rows = list(tsv(io.BytesIO(raw), COLUMNS))
+        rows = list(tsv(io.BytesIO(raw), COLUMNS, {"RELEASE_TIME": ""}))
     except UnicodeDecodeError as exc:
         raise BadMember("invalid_utf8_participant") from exc
     trials = {}
@@ -137,7 +140,8 @@ def eligibility(trial):
 def read_metadata(raw, dev_ids):
     result = {}
     columns = ("PARTICIPANT_ID", "LAYOUT", "KEYBOARD_TYPE", "AVG_WPM_15")
-    for pid, layout, keyboard, wpm in tsv(io.BytesIO(raw), columns):
+    defaults = {"LAYOUT": "missing", "KEYBOARD_TYPE": "missing", "AVG_WPM_15": ""}
+    for pid, layout, keyboard, wpm in tsv(io.BytesIO(raw), columns, defaults):
         speed = None
         if pid in dev_ids:
             try:
