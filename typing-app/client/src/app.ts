@@ -694,9 +694,8 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     if (snapshot && suggestedChosen() && pilot()) {
       if (previous && previous.plan.planHash === snapshot.plan.planHash) { admitted = snapshot; return; }
       const runtime = await finiteRuntime();
-      // The person started typing (the current block stands), or a newer preparation or storage change
-      // arrived during the import: an older snapshot never installs over newer state.
-      if (disposed || !untouched() || generation !== prepGeneration || !admissionCurrent(snapshot)) return;
+      // A first-key fallback can leave General idle while this import is pending.
+      if (disposed || !untouched() || !suggestedChosen() || generation !== prepGeneration || !admissionCurrent(snapshot)) return;
       const block = admittedBlock(runtime, snapshot);
       if (!block) return;
       changeNote = coachUi.changeHint(lastAdmittedPair, coach);
@@ -1045,19 +1044,23 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     if (restarting || disposed) { input.value = ''; return; }
     const inputEvent = event as InputEvent;
     const now = performance.now();
-    let snapshot = engine.tick(now);
+    const snapshot = engine.tick(now);
     if (ended(snapshot.state)) {
       input.value = snapshot.value;
       paint(now);
       return;
     }
-    // Saved tests changed after this Suggested plan was admitted and C has not admitted it again yet: the plan
-    // must not start. This first key starts an honest General block instead (accepted once, focus kept).
+    // This edit was made against the visible Suggested sentence. Show General with a clean
+    // textarea and let its first real insertion start the timer and scoring.
     if (snapshot.state === 'idle' && !frozen && isFiniteBlock(engine) && !admissionCurrent(admitted)) {
+      suggestedRequested = false;
+      if (practiceKind) practiceKind.value = 'general';
       changeNote = ''; fellBack = false;
+      before = null; key = null;
+      input.value = '';
       installBlock(null, null);
       hint(coachUi.recheckFallback);
-      snapshot = engine.tick(now);
+      return;
     }
     const previous = before ?? { value: snapshot.value, start: key?.start ?? 0, end: key?.end ?? 0, type: key ? 'insertText' : '', data: key?.key ?? null };
     const edit = reconstructEdit(previous, input.value);
@@ -1482,7 +1485,7 @@ async function results() {
     catch { /* Optional origin cannot prevent exporting the valid current result. */ }
   }
   const retest = resolveRetest(origin ?? null, settings(result.settings.qwerty, result.settings.durationMs), assessmentPrompts);
-  shell(`<div class="page-heading"><div><p class="eyebrow">${result.settings.durationMs / 1000} seconds, well spent</p><h1>A clearer picture of your typing.</h1><p class="small" id="result-date"></p></div><span class="tag">${result.mode === 'assessment' ? 'ASSESSMENT' : result.manualDrill ? `MANUAL PAIR ${result.manualDrill.pair}` : result.practiceFocus ? 'RECOMMENDED PRACTICE' : 'GENERAL PRACTICE'}</span></div>
+  shell(`<div class="page-heading"><div><p class="eyebrow">${result.settings.durationMs / 1000} seconds, well spent</p><h1>A clearer picture of your typing.</h1><p class="small" id="result-date"></p></div><span class="tag">${result.mode === 'assessment' ? 'ASSESSMENT' : result.manualDrill ? `MANUAL PAIR ${result.manualDrill.pair}` : result.practiceFocus ? 'RECOMMENDED PRACTICE' : 'PRACTICE'}</span></div>
     ${result.eligibleForProgress ? '' : '<p class="notice">This run includes interrupted or unsupported input. It is saved here and excluded from headline progress.</p>'}
     ${metricCards(result)}
     <section class="panel coach"><p class="eyebrow">Your next session</p><h2 id="coach-title"></h2><p id="coach-explanation" class="small"></p><a class="button" id="next-action" href="./practice.html?mode=practice">Start practice</a></section>
