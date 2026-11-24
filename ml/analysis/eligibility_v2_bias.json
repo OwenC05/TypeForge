@@ -1,0 +1,1453 @@
+{
+  "inputs": {
+    "seed": 42,
+    "train": 1400,
+    "validation": 300,
+    "testFilesOpened": 0,
+    "devKeystrokeFilesRead": 1634,
+    "manifestSha256": "09c09772aad022efdb1c88427db22f46de4b39149e6cb930b5581453f14d5c86",
+    "metadataSha256": "3ba22e2c23dbcbb5645197b9dd68c17e9ef68a1be7170e1bc1f0cd869a68ac6d",
+    "devMemberListSha256": "bb0119ba7be029e0ea3ca55c1cf7c28ac99488fa5e9e14d6d1b9a57c60db3a03",
+    "skippedParticipants": {
+      "unsupported_layout_or_keyboard": 66,
+      "unreadable": 20
+    },
+    "trialReplay": {
+      "nonclean": 9993,
+      "clean": 4981,
+      "final-mismatch": 4148,
+      "unsupported-edit": 2626,
+      "untracked-input": 2449,
+      "invalid-time": 12,
+      "invalid-trial": 1
+    },
+    "v1IntervalsRejectedBySourceAudit": {
+      "unsupported-edit": 60,
+      "untracked-input": 12
+    }
+  },
+  "bootstrapReplicates": 2000,
+  "referenceCoverage": {
+    "extraIntervalsBeforeWindows": 182079,
+    "matchedToCleanPair": 43307,
+    "typistsWithMatch": 1170
+  },
+  "effects": {
+    "clean": {
+      "all": {
+        "typists": 966,
+        "intervals": 35430,
+        "pct": -0.121,
+        "ci95": [
+          -0.399,
+          0.162
+        ]
+      },
+      "<40": {
+        "typists": 248,
+        "intervals": 6163,
+        "pct": -0.012,
+        "ci95": [
+          -0.616,
+          0.592
+        ]
+      },
+      "40-80": {
+        "typists": 603,
+        "intervals": 22651,
+        "pct": -0.128,
+        "ci95": [
+          -0.489,
+          0.24
+        ]
+      },
+      "80-120": {
+        "typists": 113,
+        "intervals": 6407,
+        "pct": -0.339,
+        "ci95": [
+          -0.991,
+          0.334
+        ]
+      },
+      "120+": {
+        "typists": 2,
+        "intervals": 209,
+        "pct": 0.562,
+        "ci95": [
+          0.368,
+          0.756
+        ]
+      }
+    },
+    "wrong": {
+      "all": {
+        "typists": 755,
+        "intervals": 1368,
+        "pct": 27.388,
+        "ci95": [
+          22.536,
+          32.939
+        ]
+      },
+      "<40": {
+        "typists": 221,
+        "intervals": 470,
+        "pct": 20.252,
+        "ci95": [
+          11.14,
+          30.55
+        ]
+      },
+      "40-80": {
+        "typists": 468,
+        "intervals": 802,
+        "pct": 29.178,
+        "ci95": [
+          22.699,
+          35.867
+        ]
+      },
+      "80-120": {
+        "typists": 65,
+        "intervals": 95,
+        "pct": 40.675,
+        "ci95": [
+          22.372,
+          60.115
+        ]
+      },
+      "120+": {
+        "typists": 1,
+        "intervals": 1,
+        "pct": null,
+        "ci95": null
+      }
+    },
+    "post/1": {
+      "all": {
+        "typists": 767,
+        "intervals": 1511,
+        "pct": 5.968,
+        "ci95": [
+          2.493,
+          9.648
+        ]
+      },
+      "<40": {
+        "typists": 231,
+        "intervals": 474,
+        "pct": 1.004,
+        "ci95": [
+          -5.67,
+          7.988
+        ]
+      },
+      "40-80": {
+        "typists": 469,
+        "intervals": 919,
+        "pct": 7.577,
+        "ci95": [
+          3.27,
+          12.127
+        ]
+      },
+      "80-120": {
+        "typists": 66,
+        "intervals": 117,
+        "pct": 11.474,
+        "ci95": [
+          -0.892,
+          26.64
+        ]
+      },
+      "120+": {
+        "typists": 1,
+        "intervals": 1,
+        "pct": null,
+        "ci95": null
+      }
+    },
+    "post/2": {
+      "all": {
+        "typists": 762,
+        "intervals": 1453,
+        "pct": 6.066,
+        "ci95": [
+          2.804,
+          9.505
+        ]
+      },
+      "<40": {
+        "typists": 213,
+        "intervals": 414,
+        "pct": 2.413,
+        "ci95": [
+          -4.433,
+          9.333
+        ]
+      },
+      "40-80": {
+        "typists": 477,
+        "intervals": 906,
+        "pct": 7.621,
+        "ci95": [
+          3.735,
+          11.837
+        ]
+      },
+      "80-120": {
+        "typists": 71,
+        "intervals": 131,
+        "pct": 7.178,
+        "ci95": [
+          -2.947,
+          18.263
+        ]
+      },
+      "120+": {
+        "typists": 1,
+        "intervals": 2,
+        "pct": null,
+        "ci95": null
+      }
+    },
+    "post/3": {
+      "all": {
+        "typists": 759,
+        "intervals": 1386,
+        "pct": 0.389,
+        "ci95": [
+          -2.741,
+          3.391
+        ]
+      },
+      "<40": {
+        "typists": 212,
+        "intervals": 389,
+        "pct": -0.603,
+        "ci95": [
+          -6.458,
+          5.984
+        ]
+      },
+      "40-80": {
+        "typists": 467,
+        "intervals": 850,
+        "pct": 1.248,
+        "ci95": [
+          -2.532,
+          4.985
+        ]
+      },
+      "80-120": {
+        "typists": 79,
+        "intervals": 146,
+        "pct": -2.074,
+        "ci95": [
+          -10.664,
+          7.263
+        ]
+      },
+      "120+": {
+        "typists": 1,
+        "intervals": 1,
+        "pct": null,
+        "ci95": null
+      }
+    },
+    "post/4": {
+      "all": {
+        "typists": 752,
+        "intervals": 1316,
+        "pct": 2.406,
+        "ci95": [
+          -0.78,
+          6.071
+        ]
+      },
+      "<40": {
+        "typists": 212,
+        "intervals": 369,
+        "pct": 0.555,
+        "ci95": [
+          -6.313,
+          8.19
+        ]
+      },
+      "40-80": {
+        "typists": 466,
+        "intervals": 813,
+        "pct": 3.097,
+        "ci95": [
+          -0.688,
+          7.307
+        ]
+      },
+      "80-120": {
+        "typists": 72,
+        "intervals": 132,
+        "pct": 2.781,
+        "ci95": [
+          -6.673,
+          14.995
+        ]
+      },
+      "120+": {
+        "typists": 2,
+        "intervals": 2,
+        "pct": 29.314,
+        "ci95": [
+          16.667,
+          43.333
+        ]
+      }
+    },
+    "post/5-9": {
+      "all": {
+        "typists": 1066,
+        "intervals": 5630,
+        "pct": -0.047,
+        "ci95": [
+          -1.821,
+          1.765
+        ]
+      },
+      "<40": {
+        "typists": 314,
+        "intervals": 1636,
+        "pct": -2.348,
+        "ci95": [
+          -5.648,
+          0.96
+        ]
+      },
+      "40-80": {
+        "typists": 651,
+        "intervals": 3486,
+        "pct": 1.092,
+        "ci95": [
+          -1.381,
+          3.707
+        ]
+      },
+      "80-120": {
+        "typists": 100,
+        "intervals": 505,
+        "pct": -0.222,
+        "ci95": [
+          -4.786,
+          4.737
+        ]
+      },
+      "120+": {
+        "typists": 1,
+        "intervals": 3,
+        "pct": null,
+        "ci95": null
+      }
+    },
+    "post/10+": {
+      "all": {
+        "typists": 1095,
+        "intervals": 13817,
+        "pct": 1.976,
+        "ci95": [
+          0.654,
+          3.348
+        ]
+      },
+      "<40": {
+        "typists": 324,
+        "intervals": 3638,
+        "pct": 3.4,
+        "ci95": [
+          0.434,
+          6.303
+        ]
+      },
+      "40-80": {
+        "typists": 665,
+        "intervals": 8657,
+        "pct": 1.577,
+        "ci95": [
+          -0.13,
+          3.157
+        ]
+      },
+      "80-120": {
+        "typists": 105,
+        "intervals": 1504,
+        "pct": 0.3,
+        "ci95": [
+          -3.379,
+          4.259
+        ]
+      },
+      "120+": {
+        "typists": 1,
+        "intervals": 18,
+        "pct": null,
+        "ci95": null
+      }
+    },
+    "error/1": {
+      "all": {
+        "typists": 800,
+        "intervals": 1512,
+        "pct": 0.148,
+        "ci95": [
+          -2.87,
+          3.234
+        ]
+      },
+      "<40": {
+        "typists": 245,
+        "intervals": 508,
+        "pct": 0.241,
+        "ci95": [
+          -5.555,
+          6.491
+        ]
+      },
+      "40-80": {
+        "typists": 489,
+        "intervals": 896,
+        "pct": -0.507,
+        "ci95": [
+          -4.119,
+          3.151
+        ]
+      },
+      "80-120": {
+        "typists": 66,
+        "intervals": 108,
+        "pct": 4.777,
+        "ci95": [
+          -6.397,
+          16.734
+        ]
+      },
+      "120+": {
+        "typists": 0,
+        "intervals": 0,
+        "pct": null,
+        "ci95": null
+      }
+    },
+    "error/2": {
+      "all": {
+        "typists": 879,
+        "intervals": 1789,
+        "pct": -0.791,
+        "ci95": [
+          -3.303,
+          1.881
+        ]
+      },
+      "<40": {
+        "typists": 257,
+        "intervals": 528,
+        "pct": -0.301,
+        "ci95": [
+          -5.699,
+          5.502
+        ]
+      },
+      "40-80": {
+        "typists": 532,
+        "intervals": 1098,
+        "pct": -1.281,
+        "ci95": [
+          -4.632,
+          2.188
+        ]
+      },
+      "80-120": {
+        "typists": 89,
+        "intervals": 162,
+        "pct": 0.331,
+        "ci95": [
+          -6.707,
+          7.992
+        ]
+      },
+      "120+": {
+        "typists": 1,
+        "intervals": 1,
+        "pct": null,
+        "ci95": null
+      }
+    },
+    "error/3": {
+      "all": {
+        "typists": 830,
+        "intervals": 1649,
+        "pct": 2.479,
+        "ci95": [
+          -0.501,
+          5.639
+        ]
+      },
+      "<40": {
+        "typists": 243,
+        "intervals": 499,
+        "pct": 2.817,
+        "ci95": [
+          -2.828,
+          9.175
+        ]
+      },
+      "40-80": {
+        "typists": 514,
+        "intervals": 1015,
+        "pct": 2.094,
+        "ci95": [
+          -1.611,
+          5.939
+        ]
+      },
+      "80-120": {
+        "typists": 72,
+        "intervals": 133,
+        "pct": 3.518,
+        "ci95": [
+          -7.764,
+          17.045
+        ]
+      },
+      "120+": {
+        "typists": 1,
+        "intervals": 2,
+        "pct": null,
+        "ci95": null
+      }
+    },
+    "error/4": {
+      "all": {
+        "typists": 792,
+        "intervals": 1448,
+        "pct": 0.337,
+        "ci95": [
+          -2.86,
+          3.482
+        ]
+      },
+      "<40": {
+        "typists": 224,
+        "intervals": 423,
+        "pct": -0.134,
+        "ci95": [
+          -6.183,
+          6.433
+        ]
+      },
+      "40-80": {
+        "typists": 498,
+        "intervals": 908,
+        "pct": -0.936,
+        "ci95": [
+          -4.56,
+          2.678
+        ]
+      },
+      "80-120": {
+        "typists": 68,
+        "intervals": 115,
+        "pct": 12.131,
+        "ci95": [
+          2.143,
+          22.724
+        ]
+      },
+      "120+": {
+        "typists": 2,
+        "intervals": 2,
+        "pct": -6.362,
+        "ci95": [
+          -10.843,
+          -1.655
+        ]
+      }
+    },
+    "error/5-9": {
+      "all": {
+        "typists": 1111,
+        "intervals": 6497,
+        "pct": 1.868,
+        "ci95": [
+          0.154,
+          3.565
+        ]
+      },
+      "<40": {
+        "typists": 322,
+        "intervals": 1844,
+        "pct": 4.122,
+        "ci95": [
+          0.83,
+          7.822
+        ]
+      },
+      "40-80": {
+        "typists": 673,
+        "intervals": 4030,
+        "pct": 1.118,
+        "ci95": [
+          -0.975,
+          3.14
+        ]
+      },
+      "80-120": {
+        "typists": 114,
+        "intervals": 619,
+        "pct": 0.486,
+        "ci95": [
+          -4.46,
+          5.478
+        ]
+      },
+      "120+": {
+        "typists": 2,
+        "intervals": 4,
+        "pct": -21.206,
+        "ci95": [
+          -35.841,
+          -3.233
+        ]
+      }
+    },
+    "error/10+": {
+      "all": {
+        "typists": 1136,
+        "intervals": 15930,
+        "pct": 0.444,
+        "ci95": [
+          -0.846,
+          1.744
+        ]
+      },
+      "<40": {
+        "typists": 334,
+        "intervals": 3935,
+        "pct": -1.704,
+        "ci95": [
+          -4.643,
+          1.156
+        ]
+      },
+      "40-80": {
+        "typists": 685,
+        "intervals": 10355,
+        "pct": 1.144,
+        "ci95": [
+          -0.294,
+          2.575
+        ]
+      },
+      "80-120": {
+        "typists": 115,
+        "intervals": 1611,
+        "pct": 2.606,
+        "ci95": [
+          -1.237,
+          5.96
+        ]
+      },
+      "120+": {
+        "typists": 2,
+        "intervals": 29,
+        "pct": 0.961,
+        "ci95": [
+          -22.518,
+          31.554
+        ]
+      }
+    },
+    "delete/1": {
+      "all": {
+        "typists": 45,
+        "intervals": 45,
+        "pct": 16.592,
+        "ci95": [
+          -6.013,
+          48.216
+        ]
+      },
+      "<40": {
+        "typists": 11,
+        "intervals": 11,
+        "pct": -2.696,
+        "ci95": [
+          -45.237,
+          64.411
+        ]
+      },
+      "40-80": {
+        "typists": 32,
+        "intervals": 32,
+        "pct": 29.623,
+        "ci95": [
+          2.5,
+          72.879
+        ]
+      },
+      "80-120": {
+        "typists": 2,
+        "intervals": 2,
+        "pct": -42.136,
+        "ci95": [
+          -68.75,
+          7.143
+        ]
+      },
+      "120+": {
+        "typists": 0,
+        "intervals": 0,
+        "pct": null,
+        "ci95": null
+      }
+    },
+    "delete/2": {
+      "all": {
+        "typists": 54,
+        "intervals": 59,
+        "pct": 6.502,
+        "ci95": [
+          -10.606,
+          27.059
+        ]
+      },
+      "<40": {
+        "typists": 14,
+        "intervals": 15,
+        "pct": 4.542,
+        "ci95": [
+          -30.638,
+          58.572
+        ]
+      },
+      "40-80": {
+        "typists": 35,
+        "intervals": 39,
+        "pct": 15.223,
+        "ci95": [
+          -2.823,
+          38.116
+        ]
+      },
+      "80-120": {
+        "typists": 5,
+        "intervals": 5,
+        "pct": -35.336,
+        "ci95": [
+          -69.398,
+          17.148
+        ]
+      },
+      "120+": {
+        "typists": 0,
+        "intervals": 0,
+        "pct": null,
+        "ci95": null
+      }
+    },
+    "delete/3": {
+      "all": {
+        "typists": 43,
+        "intervals": 45,
+        "pct": 14.078,
+        "ci95": [
+          -4.648,
+          39.946
+        ]
+      },
+      "<40": {
+        "typists": 12,
+        "intervals": 12,
+        "pct": 27.503,
+        "ci95": [
+          -13.905,
+          116.145
+        ]
+      },
+      "40-80": {
+        "typists": 27,
+        "intervals": 29,
+        "pct": 10.518,
+        "ci95": [
+          -12.211,
+          39.113
+        ]
+      },
+      "80-120": {
+        "typists": 4,
+        "intervals": 4,
+        "pct": 1.202,
+        "ci95": [
+          -23.186,
+          57.811
+        ]
+      },
+      "120+": {
+        "typists": 0,
+        "intervals": 0,
+        "pct": null,
+        "ci95": null
+      }
+    },
+    "delete/4": {
+      "all": {
+        "typists": 46,
+        "intervals": 49,
+        "pct": 7.255,
+        "ci95": [
+          -8.486,
+          25.747
+        ]
+      },
+      "<40": {
+        "typists": 9,
+        "intervals": 10,
+        "pct": 24.66,
+        "ci95": [
+          1.298,
+          66.142
+        ]
+      },
+      "40-80": {
+        "typists": 34,
+        "intervals": 36,
+        "pct": 2.105,
+        "ci95": [
+          -15.606,
+          24.854
+        ]
+      },
+      "80-120": {
+        "typists": 3,
+        "intervals": 3,
+        "pct": 19.321,
+        "ci95": [
+          13.924,
+          28.382
+        ]
+      },
+      "120+": {
+        "typists": 0,
+        "intervals": 0,
+        "pct": null,
+        "ci95": null
+      }
+    },
+    "delete/5-9": {
+      "all": {
+        "typists": 110,
+        "intervals": 176,
+        "pct": -0.455,
+        "ci95": [
+          -9.492,
+          9.078
+        ]
+      },
+      "<40": {
+        "typists": 25,
+        "intervals": 38,
+        "pct": 0.223,
+        "ci95": [
+          -28.501,
+          33.712
+        ]
+      },
+      "40-80": {
+        "typists": 77,
+        "intervals": 127,
+        "pct": -0.926,
+        "ci95": [
+          -8.113,
+          6.934
+        ]
+      },
+      "80-120": {
+        "typists": 8,
+        "intervals": 11,
+        "pct": 2.007,
+        "ci95": [
+          -29.622,
+          44.198
+        ]
+      },
+      "120+": {
+        "typists": 0,
+        "intervals": 0,
+        "pct": null,
+        "ci95": null
+      }
+    },
+    "delete/10+": {
+      "all": {
+        "typists": 135,
+        "intervals": 438,
+        "pct": -0.891,
+        "ci95": [
+          -6.998,
+          5.759
+        ]
+      },
+      "<40": {
+        "typists": 38,
+        "intervals": 125,
+        "pct": -6.382,
+        "ci95": [
+          -20.382,
+          7.046
+        ]
+      },
+      "40-80": {
+        "typists": 88,
+        "intervals": 292,
+        "pct": 1.137,
+        "ci95": [
+          -5.21,
+          8.527
+        ]
+      },
+      "80-120": {
+        "typists": 9,
+        "intervals": 21,
+        "pct": 3.424,
+        "ci95": [
+          -14.029,
+          31.261
+        ]
+      },
+      "120+": {
+        "typists": 0,
+        "intervals": 0,
+        "pct": null,
+        "ci95": null
+      }
+    }
+  },
+  "windowSearch": {
+    "windowsPerSide": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      9
+    ],
+    "tolerancePct": 2,
+    "tested": 36,
+    "passedPooled": 11,
+    "passedAll": 0,
+    "selectedPostPre": null,
+    "pooledCandidates": [
+      {
+        "post": 0,
+        "pre": 0,
+        "effect": {
+          "typists": 1170,
+          "intervals": 43307,
+          "pct": 1.154,
+          "ci95": [
+            0.343,
+            1.957
+          ]
+        },
+        "failedStrata": [
+          "<40",
+          "40-80",
+          "80-120",
+          "120+",
+          "post/2",
+          "post/3",
+          "post/4",
+          "post/10+",
+          "pre/1",
+          "pre/2",
+          "pre/3",
+          "pre/4",
+          "pre/5-9",
+          "pre/none"
+        ]
+      },
+      {
+        "post": 1,
+        "pre": 0,
+        "effect": {
+          "typists": 1170,
+          "intervals": 43307,
+          "pct": 1.154,
+          "ci95": [
+            0.343,
+            1.957
+          ]
+        },
+        "failedStrata": [
+          "<40",
+          "40-80",
+          "80-120",
+          "120+",
+          "post/2",
+          "post/3",
+          "post/4",
+          "post/10+",
+          "pre/1",
+          "pre/2",
+          "pre/3",
+          "pre/4",
+          "pre/5-9",
+          "pre/none"
+        ]
+      },
+      {
+        "post": 2,
+        "pre": 0,
+        "effect": {
+          "typists": 1170,
+          "intervals": 42500,
+          "pct": 1.113,
+          "ci95": [
+            0.293,
+            1.907
+          ]
+        },
+        "failedStrata": [
+          "<40",
+          "40-80",
+          "80-120",
+          "120+",
+          "post/3",
+          "post/4",
+          "post/10+",
+          "pre/1",
+          "pre/2",
+          "pre/3",
+          "pre/4",
+          "pre/5-9",
+          "pre/none"
+        ]
+      },
+      {
+        "post": 2,
+        "pre": 9,
+        "effect": {
+          "typists": 1165,
+          "intervals": 29931,
+          "pct": 0.91,
+          "ci95": [
+            -0.077,
+            1.927
+          ]
+        },
+        "failedStrata": [
+          "<40",
+          "40-80",
+          "80-120",
+          "120+",
+          "post/3",
+          "post/4",
+          "post/5-9",
+          "post/10+",
+          "pre/none"
+        ]
+      },
+      {
+        "post": 3,
+        "pre": 0,
+        "effect": {
+          "typists": 1170,
+          "intervals": 41388,
+          "pct": 1.079,
+          "ci95": [
+            0.277,
+            1.885
+          ]
+        },
+        "failedStrata": [
+          "<40",
+          "40-80",
+          "80-120",
+          "120+",
+          "post/4",
+          "post/10+",
+          "pre/1",
+          "pre/2",
+          "pre/3",
+          "pre/4",
+          "pre/5-9",
+          "pre/none"
+        ]
+      },
+      {
+        "post": 3,
+        "pre": 9,
+        "effect": {
+          "typists": 1165,
+          "intervals": 29055,
+          "pct": 0.879,
+          "ci95": [
+            -0.117,
+            1.882
+          ]
+        },
+        "failedStrata": [
+          "<40",
+          "40-80",
+          "80-120",
+          "120+",
+          "post/4",
+          "post/5-9",
+          "post/10+",
+          "pre/none"
+        ]
+      },
+      {
+        "post": 4,
+        "pre": 0,
+        "effect": {
+          "typists": 1170,
+          "intervals": 40210,
+          "pct": 0.987,
+          "ci95": [
+            0.19,
+            1.802
+          ]
+        },
+        "failedStrata": [
+          "<40",
+          "40-80",
+          "80-120",
+          "120+",
+          "post/10+",
+          "pre/1",
+          "pre/2",
+          "pre/3",
+          "pre/4",
+          "pre/5-9",
+          "pre/none"
+        ]
+      },
+      {
+        "post": 4,
+        "pre": 1,
+        "effect": {
+          "typists": 1170,
+          "intervals": 38803,
+          "pct": 1.094,
+          "ci95": [
+            0.253,
+            1.931
+          ]
+        },
+        "failedStrata": [
+          "<40",
+          "40-80",
+          "80-120",
+          "120+",
+          "post/10+",
+          "post/none",
+          "pre/2",
+          "pre/3",
+          "pre/4",
+          "pre/5-9",
+          "pre/none"
+        ]
+      },
+      {
+        "post": 4,
+        "pre": 3,
+        "effect": {
+          "typists": 1169,
+          "intervals": 35579,
+          "pct": 1.059,
+          "ci95": [
+            0.127,
+            1.931
+          ]
+        },
+        "failedStrata": [
+          "<40",
+          "40-80",
+          "80-120",
+          "120+",
+          "post/5-9",
+          "post/10+",
+          "pre/4",
+          "pre/5-9",
+          "pre/none"
+        ]
+      },
+      {
+        "post": 4,
+        "pre": 4,
+        "effect": {
+          "typists": 1169,
+          "intervals": 34222,
+          "pct": 1.007,
+          "ci95": [
+            0.067,
+            1.899
+          ]
+        },
+        "failedStrata": [
+          "<40",
+          "40-80",
+          "80-120",
+          "120+",
+          "post/5-9",
+          "post/10+",
+          "pre/5-9",
+          "pre/none"
+        ]
+      },
+      {
+        "post": 4,
+        "pre": 9,
+        "effect": {
+          "typists": 1165,
+          "intervals": 28110,
+          "pct": 0.755,
+          "ci95": [
+            -0.232,
+            1.778
+          ]
+        },
+        "failedStrata": [
+          "<40",
+          "40-80",
+          "80-120",
+          "120+",
+          "post/5-9",
+          "post/10+",
+          "pre/none"
+        ]
+      }
+    ],
+    "nineEachSide": {
+      "extraIntervals": 95524,
+      "effects": {
+        "all": {
+          "typists": 1160,
+          "intervals": 23772,
+          "pct": 1.03,
+          "ci95": [
+            -0.14,
+            2.153
+          ]
+        },
+        "<40": {
+          "typists": 339,
+          "intervals": 5741,
+          "pct": -0.083,
+          "ci95": [
+            -2.741,
+            2.394
+          ]
+        },
+        "40-80": {
+          "typists": 700,
+          "intervals": 15275,
+          "pct": 1.241,
+          "ci95": [
+            -0.017,
+            2.475
+          ]
+        },
+        "80-120": {
+          "typists": 119,
+          "intervals": 2709,
+          "pct": 2.938,
+          "ci95": [
+            -0.334,
+            6.079
+          ]
+        },
+        "120+": {
+          "typists": 2,
+          "intervals": 47,
+          "pct": 4.316,
+          "ci95": [
+            -17.282,
+            31.554
+          ]
+        },
+        "post/10+": {
+          "typists": 1060,
+          "intervals": 11288,
+          "pct": 1.954,
+          "ci95": [
+            0.434,
+            3.552
+          ]
+        },
+        "post/none": {
+          "typists": 1097,
+          "intervals": 12484,
+          "pct": 0.129,
+          "ci95": [
+            -1.302,
+            1.609
+          ]
+        },
+        "pre/10+": {
+          "typists": 1124,
+          "intervals": 13863,
+          "pct": 0.296,
+          "ci95": [
+            -1.057,
+            1.703
+          ]
+        },
+        "pre/none": {
+          "typists": 1003,
+          "intervals": 9909,
+          "pct": 2.144,
+          "ci95": [
+            0.683,
+            3.685
+          ]
+        }
+      }
+    }
+  },
+  "yield": {
+    "all": {
+      "typists": 1292,
+      "v1": {
+        "intervals": 100978,
+        "any": 1179,
+        "median": 65.0,
+        "atLeast200": 63
+      },
+      "probeRaw": {
+        "intervals": 297093,
+        "any": 1292,
+        "median": 239.0,
+        "atLeast200": 887
+      },
+      "probeOnePost": {
+        "intervals": 289087,
+        "any": 1292,
+        "median": 233.0,
+        "atLeast200": 853
+      },
+      "v2": {
+        "intervals": 100906,
+        "any": 1177,
+        "median": 65.0,
+        "atLeast200": 63
+      }
+    },
+    "<40": {
+      "typists": 413,
+      "v1": {
+        "intervals": 22132,
+        "any": 345,
+        "median": 39.0,
+        "atLeast200": 7
+      },
+      "probeRaw": {
+        "intervals": 86998,
+        "any": 413,
+        "median": 218.0,
+        "atLeast200": 242
+      },
+      "probeOnePost": {
+        "intervals": 83954,
+        "any": 413,
+        "median": 210.0,
+        "atLeast200": 226
+      },
+      "v2": {
+        "intervals": 22089,
+        "any": 344,
+        "median": 39.0,
+        "atLeast200": 7
+      }
+    },
+    "40-80": {
+      "typists": 751,
+      "v1": {
+        "intervals": 62987,
+        "any": 712,
+        "median": 71.0,
+        "atLeast200": 37
+      },
+      "probeRaw": {
+        "intervals": 179436,
+        "any": 751,
+        "median": 249.0,
+        "atLeast200": 553
+      },
+      "probeOnePost": {
+        "intervals": 174928,
+        "any": 751,
+        "median": 242.0,
+        "atLeast200": 535
+      },
+      "v2": {
+        "intervals": 62958,
+        "any": 711,
+        "median": 71.0,
+        "atLeast200": 37
+      }
+    },
+    "80-120": {
+      "typists": 126,
+      "v1": {
+        "intervals": 15445,
+        "any": 120,
+        "median": 126.0,
+        "atLeast200": 18
+      },
+      "probeRaw": {
+        "intervals": 30114,
+        "any": 126,
+        "median": 239.0,
+        "atLeast200": 91
+      },
+      "probeOnePost": {
+        "intervals": 29663,
+        "any": 126,
+        "median": 237.0,
+        "atLeast200": 91
+      },
+      "v2": {
+        "intervals": 15445,
+        "any": 120,
+        "median": 126.0,
+        "atLeast200": 18
+      }
+    },
+    "120+": {
+      "typists": 2,
+      "v1": {
+        "intervals": 414,
+        "any": 2,
+        "median": 207.0,
+        "atLeast200": 1
+      },
+      "probeRaw": {
+        "intervals": 545,
+        "any": 2,
+        "median": 272.5,
+        "atLeast200": 1
+      },
+      "probeOnePost": {
+        "intervals": 542,
+        "any": 2,
+        "median": 271.0,
+        "atLeast200": 1
+      },
+      "v2": {
+        "intervals": 414,
+        "any": 2,
+        "median": 207.0,
+        "atLeast200": 1
+      }
+    }
+  }
+}

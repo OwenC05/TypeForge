@@ -1,0 +1,562 @@
+{"metricVersion": 2, "cases": [
+  {
+    "name": "fractional-keydown-interval",
+    "target": "go",
+    "final": "go",
+    "events": [
+      {"t":8,"kind":"insert","text":"g"},
+      {"t":105.5,"kind":"insert","text":"o"}
+    ],
+    "expected": {"reason":null,"intervals":[
+      {"pair":"go","fromIndex":0,"toIndex":1,"ms":97.5}
+    ]}
+  },
+  {
+    "name": "single-letter",
+    "target": "i",
+    "final": "i",
+    "events": [
+      {"t":0,"kind":"insert","text":"i"}
+    ],
+    "expected": {"reason":null,"intervals":[
+    ]}
+  },
+  {
+    "name": "separate-words-and-spaces",
+    "target": "go  up",
+    "final": "go  up",
+    "events": [
+      {"t":0,"kind":"insert","text":"g"},
+      {"t":100,"kind":"insert","text":"o"},
+      {"t":200,"kind":"insert","text":" "},
+      {"t":300,"kind":"insert","text":" "},
+      {"t":400,"kind":"insert","text":"u"},
+      {"t":500,"kind":"insert","text":"p"}
+    ],
+    "expected": {"reason":null,"intervals":[
+      {"pair":"go","fromIndex":0,"toIndex":1,"ms":100},
+      {"pair":"up","fromIndex":4,"toIndex":5,"ms":100}
+    ]}
+  },
+  {
+    "name": "uppercase-punctuation-and-code-point-offsets",
+    "target": "aBcd,🙂eFgh!",
+    "final": "aBcd,🙂eFgh!",
+    "events": [
+      {"t":0,"kind":"insert","text":"a"},
+      {"t":100,"kind":"insert","text":"B"},
+      {"t":200,"kind":"insert","text":"c"},
+      {"t":300,"kind":"insert","text":"d"},
+      {"t":400,"kind":"insert","text":","},
+      {"t":500,"kind":"insert","text":"🙂"},
+      {"t":600,"kind":"insert","text":"e"},
+      {"t":700,"kind":"insert","text":"F"},
+      {"t":800,"kind":"insert","text":"g"},
+      {"t":900,"kind":"insert","text":"h"},
+      {"t":1000,"kind":"insert","text":"!"}
+    ],
+    "expected": {"reason":null,"intervals":[
+      {"pair":"cd","fromIndex":2,"toIndex":3,"ms":100},
+      {"pair":"gh","fromIndex":8,"toIndex":9,"ms":100}
+    ]}
+  },
+  {
+    "name": "straight-and-curly-apostrophes",
+    "target": "can't we’re",
+    "final": "can't we’re",
+    "events": [
+      {"t":0,"kind":"insert","text":"c"},
+      {"t":100,"kind":"insert","text":"a"},
+      {"t":200,"kind":"insert","text":"n"},
+      {"t":300,"kind":"insert","text":"'"},
+      {"t":400,"kind":"insert","text":"t"},
+      {"t":500,"kind":"insert","text":" "},
+      {"t":600,"kind":"insert","text":"w"},
+      {"t":700,"kind":"insert","text":"e"},
+      {"t":800,"kind":"insert","text":"’"},
+      {"t":900,"kind":"insert","text":"r"},
+      {"t":1000,"kind":"insert","text":"e"}
+    ],
+    "expected": {"reason":null,"intervals":[
+      {"pair":"ca","fromIndex":0,"toIndex":1,"ms":100},
+      {"pair":"an","fromIndex":1,"toIndex":2,"ms":100},
+      {"pair":"we","fromIndex":6,"toIndex":7,"ms":100},
+      {"pair":"re","fromIndex":9,"toIndex":10,"ms":100}
+    ]}
+  },
+  {
+    "name": "separately-pressed-double-letter",
+    "target": "book",
+    "final": "book",
+    "events": [
+      {"t":0,"kind":"insert","text":"b"},
+      {"t":100,"kind":"insert","text":"o"},
+      {"t":200,"kind":"insert","text":"o"},
+      {"t":300,"kind":"insert","text":"k"}
+    ],
+    "expected": {"reason":null,"intervals":[
+      {"pair":"bo","fromIndex":0,"toIndex":1,"ms":100},
+      {"pair":"oo","fromIndex":1,"toIndex":2,"ms":100},
+      {"pair":"ok","fromIndex":2,"toIndex":3,"ms":100}
+    ]}
+  },
+  {
+    "name": "pause-at-limit-and-over",
+    "target": "abcd",
+    "final": "abcd",
+    "events": [
+      {"t":0,"kind":"insert","text":"a"},
+      {"t":5000,"kind":"insert","text":"b"},
+      {"t":10001,"kind":"insert","text":"c"},
+      {"t":10001.5,"kind":"insert","text":"d"}
+    ],
+    "expected": {"reason":null,"intervals":[
+      {"pair":"ab","fromIndex":0,"toIndex":1,"ms":5000},
+      {"pair":"cd","fromIndex":2,"toIndex":3,"ms":0.5}
+    ]}
+  },
+  {
+    "name": "tied-physical-presses",
+    "target": "abc",
+    "final": "abc",
+    "events": [
+      {"t":0,"kind":"insert","text":"a"},
+      {"t":100,"kind":"insert","text":"b"},
+      {"t":100,"kind":"insert","text":"c"}
+    ],
+    "expected": {"reason":"invalid-time","intervals":[
+    ]}
+  },
+  {
+    "name": "clock-runs-backward",
+    "target": "abc",
+    "final": "abc",
+    "events": [
+      {"t":0,"kind":"insert","text":"a"},
+      {"t":100,"kind":"insert","text":"b"},
+      {"t":97,"kind":"insert","text":"c"}
+    ],
+    "expected": {"reason":"invalid-time","intervals":[
+    ]}
+  },
+  {
+    "name": "shift-alone-is-transparent",
+    "target": "abCde",
+    "final": "abCde",
+    "events": [
+      {"t":0,"kind":"insert","text":"a"},
+      {"t":100,"kind":"shift"},
+      {"t":100,"kind":"insert","text":"b"},
+      {"t":200,"kind":"insert","text":"C"},
+      {"t":300,"kind":"insert","text":"d"},
+      {"t":400,"kind":"insert","text":"e"}
+    ],
+    "expected": {"reason":null,"intervals":[
+      {"pair":"ab","fromIndex":0,"toIndex":1,"ms":100},
+      {"pair":"de","fromIndex":3,"toIndex":4,"ms":100}
+    ]}
+  },
+  {
+    "name": "hardware-autorepeat",
+    "target": "book",
+    "final": "book",
+    "events": [
+      {"t":0,"kind":"insert","text":"b"},
+      {"t":100,"kind":"insert","text":"o"},
+      {"t":200,"kind":"insert","text":"o","repeat":true},
+      {"t":300,"kind":"insert","text":"k"}
+    ],
+    "expected": {"reason":"repeat","intervals":[
+    ]}
+  },
+  {
+    "name": "corrected-wrong-key",
+    "target": "maple",
+    "final": "maple",
+    "events": [
+      {"t":0,"kind":"insert","text":"m"},
+      {"t":100,"kind":"insert","text":"x"},
+      {"t":200,"kind":"deleteBackward"},
+      {"t":300,"kind":"insert","text":"a"},
+      {"t":400,"kind":"insert","text":"p"},
+      {"t":500,"kind":"insert","text":"l"},
+      {"t":600,"kind":"insert","text":"e"}
+    ],
+    "expected": {"reason":"clean-copy-required","intervals":[
+    ]}
+  },
+  {
+    "name": "erase-and-retype-correct-letters",
+    "target": "blue",
+    "final": "blue",
+    "events": [
+      {"t":0,"kind":"insert","text":"b"},
+      {"t":100,"kind":"insert","text":"l"},
+      {"t":200,"kind":"insert","text":"u"},
+      {"t":300,"kind":"deleteBackward"},
+      {"t":400,"kind":"deleteBackward"},
+      {"t":500,"kind":"insert","text":"l"},
+      {"t":600,"kind":"insert","text":"u"},
+      {"t":700,"kind":"insert","text":"e"}
+    ],
+    "expected": {"reason":"clean-copy-required","intervals":[
+    ]}
+  },
+  {
+    "name": "backspace-on-empty-buffer",
+    "target": "sun",
+    "final": "sun",
+    "events": [
+      {"t":0,"kind":"deleteBackward"},
+      {"t":100,"kind":"insert","text":"s"},
+      {"t":200,"kind":"insert","text":"u"},
+      {"t":300,"kind":"insert","text":"n"}
+    ],
+    "expected": {"reason":"clean-copy-required","intervals":[
+    ]}
+  },
+  {
+    "name": "submitted-wrong-final",
+    "target": "frame",
+    "final": "frume",
+    "events": [
+      {"t":0,"kind":"insert","text":"f"},
+      {"t":100,"kind":"insert","text":"r"},
+      {"t":200,"kind":"insert","text":"u"},
+      {"t":300,"kind":"insert","text":"m"},
+      {"t":400,"kind":"insert","text":"e"}
+    ],
+    "expected": {"reason":"clean-copy-required","intervals":[
+    ]}
+  },
+  {
+    "name": "submitted-short-correct-prefix",
+    "target": "round",
+    "final": "rou",
+    "events": [
+      {"t":0,"kind":"insert","text":"r"},
+      {"t":100,"kind":"insert","text":"o"},
+      {"t":200,"kind":"insert","text":"u"}
+    ],
+    "expected": {"reason":"clean-copy-required","intervals":[
+    ]}
+  },
+  {
+    "name": "replay-conflicts-with-final",
+    "target": "sat",
+    "final": "sa",
+    "events": [
+      {"t":0,"kind":"insert","text":"s"},
+      {"t":100,"kind":"insert","text":"a"},
+      {"t":200,"kind":"insert","text":"t"}
+    ],
+    "expected": {"reason":"final-mismatch","intervals":[
+    ]}
+  },
+  {
+    "name": "native-word-deletion",
+    "target": "soft rain",
+    "final": "soft rain",
+    "events": [
+      {"t":0,"kind":"insert","text":"s"},
+      {"t":100,"kind":"insert","text":"o"},
+      {"t":200,"kind":"insert","text":"f"},
+      {"t":300,"kind":"insert","text":"t"},
+      {"t":400,"kind":"insert","text":" "},
+      {"t":500,"kind":"insert","text":"r"},
+      {"t":600,"kind":"insert","text":"e"},
+      {"t":700,"kind":"insert","text":"d"},
+      {"t":800,"kind":"deleteWordBackward","start":5,"end":8},
+      {"t":900,"kind":"insert","text":"r"},
+      {"t":1000,"kind":"insert","text":"a"},
+      {"t":1100,"kind":"insert","text":"i"},
+      {"t":1200,"kind":"insert","text":"n"}
+    ],
+    "expected": {"reason":"unsupported-edit","intervals":[
+    ]}
+  },
+  {
+    "name": "selection-replaced-with-equal-text",
+    "target": "bell",
+    "final": "bell",
+    "events": [
+      {"t":0,"kind":"insert","text":"b"},
+      {"t":100,"kind":"insert","text":"e"},
+      {"t":200,"kind":"insert","text":"l"},
+      {"t":300,"kind":"insert","text":"l"},
+      {"t":400,"kind":"replaceSelection","start":2,"end":3,"text":"l"}
+    ],
+    "expected": {"reason":"unsupported-edit","intervals":[
+    ]}
+  },
+  {
+    "name": "cursor-moved-away-and-back",
+    "target": "read",
+    "final": "read",
+    "events": [
+      {"t":0,"kind":"insert","text":"r"},
+      {"t":100,"kind":"insert","text":"e"},
+      {"t":120,"kind":"moveCursor","start":1,"end":1},
+      {"t":140,"kind":"moveCursor","start":2,"end":2},
+      {"t":200,"kind":"insert","text":"a"},
+      {"t":300,"kind":"insert","text":"d"}
+    ],
+    "expected": {"reason":"unsupported-edit","intervals":[
+    ]}
+  },
+  {
+    "name": "forward-delete",
+    "target": "sand",
+    "final": "sand",
+    "events": [
+      {"t":0,"kind":"insert","text":"s"},
+      {"t":100,"kind":"insert","text":"a"},
+      {"t":200,"kind":"insert","text":"n"},
+      {"t":300,"kind":"insert","text":"d"},
+      {"t":400,"kind":"deleteForward","start":4,"end":4}
+    ],
+    "expected": {"reason":"unsupported-edit","intervals":[
+    ]}
+  },
+  {
+    "name": "non-shift-modifier",
+    "target": "map",
+    "final": "map",
+    "events": [
+      {"t":0,"kind":"insert","text":"m"},
+      {"t":50,"kind":"modifier"},
+      {"t":100,"kind":"insert","text":"a"},
+      {"t":200,"kind":"insert","text":"p"}
+    ],
+    "expected": {"reason":"unsupported-edit","intervals":[
+    ]}
+  },
+  {
+    "name": "bulk-or-pasted-insert",
+    "target": "area",
+    "final": "area",
+    "events": [
+      {"t":0,"kind":"insert","text":"a"},
+      {"t":100,"kind":"insert","text":"r"},
+      {"t":200,"kind":"insert","text":"ea"}
+    ],
+    "expected": {"reason":"untracked-input","intervals":[
+    ]}
+  },
+  {
+    "name": "composition-commit",
+    "target": "cat",
+    "final": "cat",
+    "events": [
+      {"t":0,"kind":"insert","text":"c"},
+      {"t":100,"kind":"insert","text":"a"},
+      {"t":200,"kind":"untracked","text":"t"}
+    ],
+    "expected": {"reason":"untracked-input","intervals":[
+    ]}
+  },
+  {
+    "name": "unfinished-on-timeout",
+    "target": "song",
+    "final": "song",
+    "submitted": false,
+    "events": [
+      {"t":0,"kind":"insert","text":"s"},
+      {"t":100,"kind":"insert","text":"o"},
+      {"t":200,"kind":"insert","text":"n"},
+      {"t":300,"kind":"insert","text":"g"}
+    ],
+    "expected": {"reason":"unfinished","intervals":[
+    ]}
+  },
+  {
+    "name": "qwerty-unconfirmed",
+    "target": "rain",
+    "final": "rain",
+    "qwerty": false,
+    "events": [
+      {"t":0,"kind":"insert","text":"r"},
+      {"t":100,"kind":"insert","text":"a"},
+      {"t":200,"kind":"insert","text":"i"},
+      {"t":300,"kind":"insert","text":"n"}
+    ],
+    "expected": {"reason":"unsupported-layout","intervals":[
+    ]}
+  },
+  {
+    "name": "missing-physical-key-time",
+    "target": "ear",
+    "final": "ear",
+    "events": [
+      {"t":0,"kind":"insert","text":"e"},
+      {"t":100,"kind":"insert","text":"a"},
+      {"kind":"insert","text":"r"}
+    ],
+    "expected": {"reason":"invalid-time","intervals":[
+    ]}
+  },
+  {
+    "name": "long-clean-sentence",
+    "target": "warm rain taps the little roof",
+    "final": "warm rain taps the little roof",
+    "events": [
+      {"t":0,"kind":"insert","text":"w"},
+      {"t":100,"kind":"insert","text":"a"},
+      {"t":200,"kind":"insert","text":"r"},
+      {"t":300,"kind":"insert","text":"m"},
+      {"t":400,"kind":"insert","text":" "},
+      {"t":500,"kind":"insert","text":"r"},
+      {"t":600,"kind":"insert","text":"a"},
+      {"t":700,"kind":"insert","text":"i"},
+      {"t":800,"kind":"insert","text":"n"},
+      {"t":900,"kind":"insert","text":" "},
+      {"t":1000,"kind":"insert","text":"t"},
+      {"t":1100,"kind":"insert","text":"a"},
+      {"t":1200,"kind":"insert","text":"p"},
+      {"t":1300,"kind":"insert","text":"s"},
+      {"t":1400,"kind":"insert","text":" "},
+      {"t":1500,"kind":"insert","text":"t"},
+      {"t":1600,"kind":"insert","text":"h"},
+      {"t":1700,"kind":"insert","text":"e"},
+      {"t":1800,"kind":"insert","text":" "},
+      {"t":1900,"kind":"insert","text":"l"},
+      {"t":2000,"kind":"insert","text":"i"},
+      {"t":2100,"kind":"insert","text":"t"},
+      {"t":2200,"kind":"insert","text":"t"},
+      {"t":2300,"kind":"insert","text":"l"},
+      {"t":2400,"kind":"insert","text":"e"},
+      {"t":2500,"kind":"insert","text":" "},
+      {"t":2600,"kind":"insert","text":"r"},
+      {"t":2700,"kind":"insert","text":"o"},
+      {"t":2800,"kind":"insert","text":"o"},
+      {"t":2900,"kind":"insert","text":"f"}
+    ],
+    "expected": {"reason":null,"intervals":[
+      {"pair":"wa","fromIndex":0,"toIndex":1,"ms":100},
+      {"pair":"ar","fromIndex":1,"toIndex":2,"ms":100},
+      {"pair":"rm","fromIndex":2,"toIndex":3,"ms":100},
+      {"pair":"ra","fromIndex":5,"toIndex":6,"ms":100},
+      {"pair":"ai","fromIndex":6,"toIndex":7,"ms":100},
+      {"pair":"in","fromIndex":7,"toIndex":8,"ms":100},
+      {"pair":"ta","fromIndex":10,"toIndex":11,"ms":100},
+      {"pair":"ap","fromIndex":11,"toIndex":12,"ms":100},
+      {"pair":"ps","fromIndex":12,"toIndex":13,"ms":100},
+      {"pair":"th","fromIndex":15,"toIndex":16,"ms":100},
+      {"pair":"he","fromIndex":16,"toIndex":17,"ms":100},
+      {"pair":"li","fromIndex":19,"toIndex":20,"ms":100},
+      {"pair":"it","fromIndex":20,"toIndex":21,"ms":100},
+      {"pair":"tt","fromIndex":21,"toIndex":22,"ms":100},
+      {"pair":"tl","fromIndex":22,"toIndex":23,"ms":100},
+      {"pair":"le","fromIndex":23,"toIndex":24,"ms":100},
+      {"pair":"ro","fromIndex":26,"toIndex":27,"ms":100},
+      {"pair":"oo","fromIndex":27,"toIndex":28,"ms":100},
+      {"pair":"of","fromIndex":28,"toIndex":29,"ms":100}
+    ]}
+  },
+  {
+    "name": "long-corrected-sentence",
+    "target": "the quiet fox rests near the gate",
+    "final": "the quiet fox rests near the gate",
+    "events": [
+      {"t":0,"kind":"insert","text":"t"},
+      {"t":100,"kind":"insert","text":"h"},
+      {"t":200,"kind":"insert","text":"e"},
+      {"t":300,"kind":"insert","text":" "},
+      {"t":400,"kind":"insert","text":"q"},
+      {"t":500,"kind":"insert","text":"u"},
+      {"t":600,"kind":"insert","text":"i"},
+      {"t":700,"kind":"insert","text":"e"},
+      {"t":800,"kind":"insert","text":"t"},
+      {"t":900,"kind":"insert","text":" "},
+      {"t":1000,"kind":"insert","text":"f"},
+      {"t":1100,"kind":"insert","text":"o"},
+      {"t":1200,"kind":"insert","text":"x"},
+      {"t":1300,"kind":"insert","text":" "},
+      {"t":1400,"kind":"insert","text":"t"},
+      {"t":1500,"kind":"deleteBackward"},
+      {"t":1600,"kind":"insert","text":"r"},
+      {"t":1700,"kind":"insert","text":"e"},
+      {"t":1800,"kind":"insert","text":"s"},
+      {"t":1900,"kind":"insert","text":"t"},
+      {"t":2000,"kind":"insert","text":"s"},
+      {"t":2100,"kind":"insert","text":" "},
+      {"t":2200,"kind":"insert","text":"n"},
+      {"t":2300,"kind":"insert","text":"e"},
+      {"t":2400,"kind":"insert","text":"a"},
+      {"t":2500,"kind":"insert","text":"r"},
+      {"t":2600,"kind":"insert","text":" "},
+      {"t":2700,"kind":"insert","text":"t"},
+      {"t":2800,"kind":"insert","text":"h"},
+      {"t":2900,"kind":"insert","text":"e"},
+      {"t":3000,"kind":"insert","text":" "},
+      {"t":3100,"kind":"insert","text":"g"},
+      {"t":3200,"kind":"insert","text":"a"},
+      {"t":3300,"kind":"insert","text":"t"},
+      {"t":3400,"kind":"insert","text":"e"}
+    ],
+    "expected": {"reason":"clean-copy-required","intervals":[
+    ]}
+  },
+  {
+    "name": "long-sentence-with-extra-key",
+    "target": "a steady hand finds every key",
+    "final": "a steady hand finds every keys",
+    "events": [
+      {"t":0,"kind":"insert","text":"a"},
+      {"t":100,"kind":"insert","text":" "},
+      {"t":200,"kind":"insert","text":"s"},
+      {"t":300,"kind":"insert","text":"t"},
+      {"t":400,"kind":"insert","text":"e"},
+      {"t":500,"kind":"insert","text":"a"},
+      {"t":600,"kind":"insert","text":"d"},
+      {"t":700,"kind":"insert","text":"y"},
+      {"t":800,"kind":"insert","text":" "},
+      {"t":900,"kind":"insert","text":"h"},
+      {"t":1000,"kind":"insert","text":"a"},
+      {"t":1100,"kind":"insert","text":"n"},
+      {"t":1200,"kind":"insert","text":"d"},
+      {"t":1300,"kind":"insert","text":" "},
+      {"t":1400,"kind":"insert","text":"f"},
+      {"t":1500,"kind":"insert","text":"i"},
+      {"t":1600,"kind":"insert","text":"n"},
+      {"t":1700,"kind":"insert","text":"d"},
+      {"t":1800,"kind":"insert","text":"s"},
+      {"t":1900,"kind":"insert","text":" "},
+      {"t":2000,"kind":"insert","text":"e"},
+      {"t":2100,"kind":"insert","text":"v"},
+      {"t":2200,"kind":"insert","text":"e"},
+      {"t":2300,"kind":"insert","text":"r"},
+      {"t":2400,"kind":"insert","text":"y"},
+      {"t":2500,"kind":"insert","text":" "},
+      {"t":2600,"kind":"insert","text":"k"},
+      {"t":2700,"kind":"insert","text":"e"},
+      {"t":2800,"kind":"insert","text":"y"},
+      {"t":2900,"kind":"insert","text":"s"}
+    ],
+    "expected": {"reason":"clean-copy-required","intervals":[
+    ]}
+  },
+  {
+    "name": "empty-target",
+    "target": "",
+    "final": "",
+    "events": [
+    ],
+    "expected": {"reason":"invalid-trial","intervals":[
+    ]}
+  },
+  {
+    "name": "interrupted-then-resumed",
+    "target": "wind",
+    "final": "wind",
+    "events": [
+      {"t":0,"kind":"insert","text":"w"},
+      {"t":100,"kind":"insert","text":"i"},
+      {"t":150,"kind":"untracked"},
+      {"t":200,"kind":"insert","text":"n"},
+      {"t":300,"kind":"insert","text":"d"}
+    ],
+    "expected": {"reason":"untracked-input","intervals":[
+    ]}
+  }
+]}
