@@ -209,3 +209,29 @@ test('Progress keeps the counted tests readable when its optional widget fails t
   assert.ok(requested, 'the optional widget request reached the fault');
   assert.equal(await value.textContent(), '0 of 10 tests');
 });
+
+test('a focus change as the coach read finishes leaves the first key usable', async t => {
+  const page = await openPractice(t, [], '/fixture');
+  await page.addInitScript(() => {
+    const count = IDBObjectStore.prototype.count;
+    IDBObjectStore.prototype.count = function (...args) {
+      const tx = this.transaction;
+      if (this.name === 'results' && tx.mode === 'readonly' && tx.objectStoreNames.contains('coachMembership')) {
+        IDBObjectStore.prototype.count = count;
+        // A completed transaction can no longer be aborted. Deliver the focus
+        // invalidation before the app's completion handler detaches its listener.
+        tx.addEventListener('complete', () => {
+          window.dispatchEvent(new Event('focus'));
+          window.focusDuringCoachRead = true;
+        }, { capture: true, once: true });
+      }
+      return count.apply(this, args);
+    };
+  });
+  await page.goto(base + '/practice.html');
+  await page.waitForFunction(() => window.focusDuringCoachRead);
+  const letter = (await promptText(page))[0];
+  await page.locator('#typing-input').press(letter);
+  assert.equal(await state(page), 'running');
+  assert.equal(await page.locator('#typing-input').inputValue(), letter);
+});
