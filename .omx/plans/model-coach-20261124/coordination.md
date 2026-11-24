@@ -2,17 +2,20 @@
 
 Run `run_0e7c9914d0b7`. Integration branch `feature/daily-practice`, fast-forwarded to `origin/main` (`9b2a660`), plan commit `6ce7e02`. Every worker: Codex `gpt-6.2-astra`, effort `max` (as Owen asked), Orca child worktree based on `6ce7e02`.
 
-| Task | Orca task | Dispatch | Worktree | Port | Start receipt |
+| Task | Orca task | Dispatch | Worktree | Port | Status |
 | --- | --- | --- | --- | --- | --- |
-| A1 ML package and DVC | task_a31573af295b | ctx_29f9c1290eec | tf-ml-package | none | ready |
-| A2 Eligibility v2 | task_8ad8a0ad1416 | ctx_f01ea5522e93 | tf-eligibility-v2 | none | outcome_unknown (start not yet observed; do not resend) |
-| A3 Banks v2 | task_21e3896acb82 | ctx_7d2ef6c21875 | tf-corpus-v2 | none | ready |
-| A4 P3 fixes | task_e4aa32b4ad6c | ctx_c715b5f40c42 | tf-p3-fixes | 5341 | ready |
-| A5 Docs and archive | task_ea9056268472 | ctx_97d6b3cf822b | tf-docs-archive | 5342 | outcome_unknown (start not yet observed; do not resend) |
-| A6 Lab monitoring | task_c9541edd1a94 | ctx_147176221fa3 | tf-lab-monitoring | 5343 | stopped under D9 before starting |
-| A7 Pilot design | task_40d788fa6bad | ctx_4568829433ef | tf-pilot-design | none | ready |
-| A8 Full archive | task_fcab7828747b | ctx_2a767ea5a907 | tf-full-archive | none | ready |
-| A9 Cross-browser | task_aa1e5a4caecd | not started | (after A4 is integrated) | 5344 | waits on A4 |
+| A1 ML package | task_a31573af295b | ctx_29f9c1290eec | tf-ml-package | none | merged `4647361`, released |
+| A2 Eligibility v2 | task_8ad8a0ad1416 | ctx_f01ea5522e93 | tf-eligibility-v2 | none | merged `dd8f511`, released |
+| A3 Banks v2 | task_21e3896acb82 | ctx_7d2ef6c21875 | tf-corpus-v2 | none | merged `e368808`, released |
+| A4 P3 fixes | task_e4aa32b4ad6c (+ follow-up task_d4038d3a8a2d) | ctx_c715b5f40c42, ctx_e4392aed43d8 | tf-p3-fixes | 5341 | merged `38ef2e7` and `48e605c`, released |
+| A5 Docs and archive | task_ea9056268472 | ctx_97d6b3cf822b | tf-docs-archive | 5342 | merged `45d287b`, released |
+| A6 Lab monitoring | task_c9541edd1a94 | ctx_147176221fa3 | tf-lab-monitoring | 5343 | stopped under D9, released |
+| A7 Pilot design | task_40d788fa6bad | ctx_4568829433ef | tf-pilot-design | none | merged `0a90c53`, released |
+| A8 Full archive | task_fcab7828747b | ctx_2a767ea5a907 | tf-full-archive | none | merged `60637d1`, released |
+| A9 Cross-browser | task_aa1e5a4caecd | ctx_8a087a9119cb | tf-cross-browser | 5344 | running from `38ef2e7` |
+| B3 Datasets | task_42fe9e205137 | ctx_fe1a1418d232 | tf-dataset-v2 | none | running from `245c9fb` |
+| B4 Coach model | task_29999e85584d | ctx_d6b50b445b79 | tf-coach-model | none | running from `245c9fb`; send B3's paths and hashes when B3 finishes |
+| B7 Banks in app | not created | | | 5345 | starts after A9 merges |
 
 ## Integration order
 
@@ -31,3 +34,4 @@ A4 first (A9 depends on it), then A6 (both touch `app.ts`), A1, A2, A3, A7, A8 i
 - 24 Nov: A2 kept the clean-copy rule (D2 revised), which the browser engine already applies (`engine.ts`: any wrong character flags `incorrect`, any Backspace or non-tail edit flags `edited`, and either discards the sentence's pairs). B1 merged into B3, B2 dropped, engine parity moved to C2 (D11). A8's coverage ends near 150 WPM, against Owen's 190 (D10).
 - 24 Nov: `ml/corpus/test_banks.py` raises `SystemExit` without the cached source export, aborting the runner instead of skipping; fix assigned to B7. B7 starts after A9 merges, because both edit `tests/browser/coach-app.mjs` and B7 is off the critical path.
 - 24 Nov: released A1, A2, A3, A4, A5, A6, A7 and A8 workers. Phase A worktrees remain on disk until Owen's review.
+- 24 Nov: B3 and B4 started from `245c9fb`. Both sat at a blank prompt with zero tokens again. Resent as self-contained messages (B3 `msg_4d23be258f91`, B4 `msg_16f91e376a93`). B4 picked its message up; B3 needed a typed nudge (`orca terminal send ... --enter`) before it read its mail. Both working.
