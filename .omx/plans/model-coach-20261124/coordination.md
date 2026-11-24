@@ -13,8 +13,8 @@ Run `run_0e7c9914d0b7`. Integration branch `feature/daily-practice`, fast-forwar
 | A7 Pilot design | task_40d788fa6bad | ctx_4568829433ef | tf-pilot-design | none | merged `0a90c53`, released |
 | A8 Full archive | task_fcab7828747b | ctx_2a767ea5a907 | tf-full-archive | none | merged `60637d1`, released |
 | A9 Cross-browser | task_aa1e5a4caecd | ctx_8a087a9119cb | tf-cross-browser | 5344 | running from `38ef2e7` |
-| B3 Datasets | task_42fe9e205137 | ctx_fe1a1418d232 | tf-dataset-v2 | none | running from `245c9fb` |
-| B4 Coach model | task_29999e85584d | ctx_d6b50b445b79 | tf-coach-model | none | running from `245c9fb`; send B3's paths and hashes when B3 finishes |
+| B3 Datasets | task_42fe9e205137 | ctx_fe1a1418d232 | tf-dataset-v2 | none | merged `adde405`, released |
+| B4 Coach model | task_29999e85584d | ctx_d6b50b445b79 | tf-coach-model | none | running from `245c9fb`; B3 paths and hashes sent (`msg_a49c3eea1153`) |
 | B7 Banks in app | not created | | | 5345 | starts after A9 merges |
 
 ## Integration order
@@ -35,3 +35,4 @@ A4 first (A9 depends on it), then A6 (both touch `app.ts`), A1, A2, A3, A7, A8 i
 - 24 Nov: `ml/corpus/test_banks.py` raises `SystemExit` without the cached source export, aborting the runner instead of skipping; fix assigned to B7. B7 starts after A9 merges, because both edit `tests/browser/coach-app.mjs` and B7 is off the critical path.
 - 24 Nov: released A1, A2, A3, A4, A5, A6, A7 and A8 workers. Phase A worktrees remain on disk until Owen's review.
 - 24 Nov: B3 and B4 started from `245c9fb`. Both sat at a blank prompt with zero tokens again. Resent as self-contained messages (B3 `msg_4d23be258f91`, B4 `msg_16f91e376a93`). B4 picked its message up; B3 needed a typed nudge (`orca terminal send ... --enter`) before it read its mail. Both working.
+- 24 Nov: B3 merged (`adde405`) after review: only train and validation shards are read; two builds byte-identical; the 1,700 historical typists reproduce 100,906 intervals; 44/44 Python tests. Train 7.95M intervals over 93,478 typists (median 42), validation 0.98M over 11,500; fastest typist with a clean interval 152.6 WPM; 120+ WPM band has 120 train and 17 validation typists. Paths and SHA256s sent to B4 (`msg_a49c3eea1153`); B3 released.
