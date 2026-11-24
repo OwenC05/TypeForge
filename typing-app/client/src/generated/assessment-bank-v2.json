@@ -1,0 +1,2408 @@
+{
+  "version": "2",
+  "source": "https://downloads.tatoeba.org/exports/per_language/eng/eng_sentences_CC0.tsv.bz2",
+  "licence": "CC0-1.0",
+  "sha256": "c2e2edd063a31cbbc8e416a4858225e934bbb0afff485031821e59f230ccf1ca",
+  "sentences": [
+    {
+      "id": "tatoeba-2804844",
+      "text": "we squelched across the muddy field"
+    },
+    {
+      "id": "tatoeba-4752118",
+      "text": "the chickens have come home to roost"
+    },
+    {
+      "id": "tatoeba-6121968",
+      "text": "i thought the brass section was a little off"
+    },
+    {
+      "id": "tatoeba-6900474",
+      "text": "i could fall asleep in this chair"
+    },
+    {
+      "id": "tatoeba-7108649",
+      "text": "who would have thought that we would make it"
+    },
+    {
+      "id": "tatoeba-7545457",
+      "text": "it is difficult to separate the wheat from the chaff"
+    },
+    {
+      "id": "tatoeba-7632877",
+      "text": "you saw yourself in the mirror"
+    },
+    {
+      "id": "tatoeba-7742013",
+      "text": "it feels good to come to the aid of somebody"
+    },
+    {
+      "id": "tatoeba-7848684",
+      "text": "nobody can make an omelette without breaking eggs"
+    },
+    {
+      "id": "tatoeba-7880684",
+      "text": "i am happy to receive corrections"
+    },
+    {
+      "id": "tatoeba-7880688",
+      "text": "please feel free to correct my mistakes"
+    },
+    {
+      "id": "tatoeba-7948691",
+      "text": "would you guys like to share an orange"
+    },
+    {
+      "id": "tatoeba-7948703",
+      "text": "would you like to share an orange with me"
+    },
+    {
+      "id": "tatoeba-7975576",
+      "text": "and then everyone stood up and clapped"
+    },
+    {
+      "id": "tatoeba-7987815",
+      "text": "we have a lot of moorhens in our pond"
+    },
+    {
+      "id": "tatoeba-8260535",
+      "text": "you cannot cover a house with a single tile"
+    },
+    {
+      "id": "tatoeba-8286325",
+      "text": "white cake glaze is made by mixing powdered sugar and boiling water"
+    },
+    {
+      "id": "tatoeba-8289410",
+      "text": "smash the boiled pumpkin pieces then add some salt and spices"
+    },
+    {
+      "id": "tatoeba-8298800",
+      "text": "i have been here since yesterday"
+    },
+    {
+      "id": "tatoeba-8415581",
+      "text": "why would you want a pet turtle"
+    },
+    {
+      "id": "tatoeba-8424583",
+      "text": "my grandmother loved football and baseball"
+    },
+    {
+      "id": "tatoeba-8433409",
+      "text": "i wish you a year of peace and happiness"
+    },
+    {
+      "id": "tatoeba-8567766",
+      "text": "most shoe soles nowadays are made from foam"
+    },
+    {
+      "id": "tatoeba-8612871",
+      "text": "what grocery stores are nearby"
+    },
+    {
+      "id": "tatoeba-8612873",
+      "text": "are there any grocery stores near me"
+    },
+    {
+      "id": "tatoeba-8630766",
+      "text": "all functions considered in this chapter are real"
+    },
+    {
+      "id": "tatoeba-8632550",
+      "text": "the swallows are migratory birds which arrive in autumn"
+    },
+    {
+      "id": "tatoeba-8672603",
+      "text": "put on slippers while waiting for shoes"
+    },
+    {
+      "id": "tatoeba-8724554",
+      "text": "lentils are a good substitute for ground beef"
+    },
+    {
+      "id": "tatoeba-8732341",
+      "text": "the conference is to be held next year"
+    },
+    {
+      "id": "tatoeba-8737583",
+      "text": "he had been there before breakfast"
+    },
+    {
+      "id": "tatoeba-8790577",
+      "text": "i remember you saying something about this"
+    },
+    {
+      "id": "tatoeba-8791263",
+      "text": "maybe see if you can do it in a little bit"
+    },
+    {
+      "id": "tatoeba-8791286",
+      "text": "that would make me feel better about where things are now"
+    },
+    {
+      "id": "tatoeba-8791334",
+      "text": "i see it as being like a book club"
+    },
+    {
+      "id": "tatoeba-8800465",
+      "text": "one of the kittens fell asleep in my lap"
+    },
+    {
+      "id": "tatoeba-8805544",
+      "text": "i woke up at midnight after sleeping for four hours"
+    },
+    {
+      "id": "tatoeba-8805566",
+      "text": "i missed the opportunity to get to know her better"
+    },
+    {
+      "id": "tatoeba-8822600",
+      "text": "the mouse dreams of catching the cat"
+    },
+    {
+      "id": "tatoeba-8847554",
+      "text": "there is a lot that is happening right now"
+    },
+    {
+      "id": "tatoeba-8849711",
+      "text": "press the right arrow key to continue"
+    },
+    {
+      "id": "tatoeba-8849713",
+      "text": "my keyboard is missing a left arrow key"
+    },
+    {
+      "id": "tatoeba-8853234",
+      "text": "i just had to get that clarified"
+    },
+    {
+      "id": "tatoeba-8853237",
+      "text": "i just wanted to be helpful in as many ways as possible"
+    },
+    {
+      "id": "tatoeba-8878957",
+      "text": "my partner grills the best mushrooms"
+    },
+    {
+      "id": "tatoeba-8895474",
+      "text": "the recipe calls for basmati rice"
+    },
+    {
+      "id": "tatoeba-8903065",
+      "text": "we should get started on that basement"
+    },
+    {
+      "id": "tatoeba-8910017",
+      "text": "have you had a glass of water recently"
+    },
+    {
+      "id": "tatoeba-8911137",
+      "text": "the kitten seems to be feeling better this morning"
+    },
+    {
+      "id": "tatoeba-8911489",
+      "text": "i definitely want to read that"
+    },
+    {
+      "id": "tatoeba-8962525",
+      "text": "the apple never falls far from the tree"
+    },
+    {
+      "id": "tatoeba-8988051",
+      "text": "i think you did talk about this"
+    },
+    {
+      "id": "tatoeba-8991702",
+      "text": "these are all important letters to read"
+    },
+    {
+      "id": "tatoeba-8994355",
+      "text": "these kittens are just too precious"
+    },
+    {
+      "id": "tatoeba-9003984",
+      "text": "i placed my cup on the place mat in front of me"
+    },
+    {
+      "id": "tatoeba-9004038",
+      "text": "please could you write your forename in the space provided"
+    },
+    {
+      "id": "tatoeba-9009197",
+      "text": "i still have such a long way to go"
+    },
+    {
+      "id": "tatoeba-9034799",
+      "text": "the system is working exactly the way it was designed"
+    },
+    {
+      "id": "tatoeba-9086066",
+      "text": "i met a longtime friend that way"
+    },
+    {
+      "id": "tatoeba-9092354",
+      "text": "no one ever has the perfect words"
+    },
+    {
+      "id": "tatoeba-9158885",
+      "text": "i put too much flour in the cookie dough"
+    },
+    {
+      "id": "tatoeba-9193333",
+      "text": "they continued to meet on a regular basis"
+    },
+    {
+      "id": "tatoeba-9286057",
+      "text": "i kept watch in the hollow of the rock"
+    },
+    {
+      "id": "tatoeba-9289003",
+      "text": "too little salt is better than too much"
+    },
+    {
+      "id": "tatoeba-9360845",
+      "text": "i woke up with cat whiskers in my face"
+    },
+    {
+      "id": "tatoeba-9373254",
+      "text": "thank you for your thoughtful and compassionate response"
+    },
+    {
+      "id": "tatoeba-9387323",
+      "text": "i also noticed that and found it funny"
+    },
+    {
+      "id": "tatoeba-9414186",
+      "text": "someone left their phone on the table"
+    },
+    {
+      "id": "tatoeba-9414247",
+      "text": "we should try to meet another time"
+    },
+    {
+      "id": "tatoeba-9418830",
+      "text": "how many grams are there in a pound"
+    },
+    {
+      "id": "tatoeba-9439069",
+      "text": "i still talk to him fairly regularly"
+    },
+    {
+      "id": "tatoeba-9510628",
+      "text": "we thought about that for hours"
+    },
+    {
+      "id": "tatoeba-9516489",
+      "text": "what does his husband look like"
+    },
+    {
+      "id": "tatoeba-9518129",
+      "text": "does this look like confidence"
+    },
+    {
+      "id": "tatoeba-9594030",
+      "text": "are strawberries good for dogs"
+    },
+    {
+      "id": "tatoeba-9678775",
+      "text": "i feel this way around the same time every year"
+    },
+    {
+      "id": "tatoeba-9680217",
+      "text": "i have a stronger support network now"
+    },
+    {
+      "id": "tatoeba-9681750",
+      "text": "when does a kitten become a cat"
+    },
+    {
+      "id": "tatoeba-9701817",
+      "text": "the dog is playing with the cat"
+    },
+    {
+      "id": "tatoeba-9711725",
+      "text": "why do cats knock things off of surfaces"
+    },
+    {
+      "id": "tatoeba-9712474",
+      "text": "is salsa a type of fruit salad"
+    },
+    {
+      "id": "tatoeba-9734589",
+      "text": "not all problems are straightforward"
+    },
+    {
+      "id": "tatoeba-9735410",
+      "text": "my cat likes stepping on my foot"
+    },
+    {
+      "id": "tatoeba-9805641",
+      "text": "why are you looking for a new job"
+    },
+    {
+      "id": "tatoeba-9805642",
+      "text": "would you work holidays and weekends"
+    },
+    {
+      "id": "tatoeba-9805663",
+      "text": "what gets you up in the morning"
+    },
+    {
+      "id": "tatoeba-9805699",
+      "text": "do you prefer to work alone or on a team"
+    },
+    {
+      "id": "tatoeba-9805739",
+      "text": "what is a book that everyone needs to read and why"
+    },
+    {
+      "id": "tatoeba-9805779",
+      "text": "what did you want to be when you were small"
+    },
+    {
+      "id": "tatoeba-9805788",
+      "text": "what two radio stations do you listen to in the car the most"
+    },
+    {
+      "id": "tatoeba-9805824",
+      "text": "what form of public transportation do you prefer"
+    },
+    {
+      "id": "tatoeba-9805852",
+      "text": "who would you want to play you in a movie of your life"
+    },
+    {
+      "id": "tatoeba-9834458",
+      "text": "i was in awe of the artistry on display"
+    },
+    {
+      "id": "tatoeba-9937655",
+      "text": "i could never really get into jazz"
+    },
+    {
+      "id": "tatoeba-9937695",
+      "text": "the song has an interesting melodic line"
+    },
+    {
+      "id": "tatoeba-9938755",
+      "text": "i dropped a piece of tofu and my cat ate it"
+    },
+    {
+      "id": "tatoeba-9939099",
+      "text": "was that yesterday or the day before"
+    },
+    {
+      "id": "tatoeba-9942151",
+      "text": "geese were honking loudly as they flew overhead"
+    },
+    {
+      "id": "tatoeba-9955162",
+      "text": "did your parents have a camcorder"
+    },
+    {
+      "id": "tatoeba-9962800",
+      "text": "be sure to restate the question in your answer"
+    },
+    {
+      "id": "tatoeba-9992914",
+      "text": "does this bread seem stale to you"
+    },
+    {
+      "id": "tatoeba-10005492",
+      "text": "did you spill something on my book"
+    },
+    {
+      "id": "tatoeba-10016622",
+      "text": "i forgot the combination to my locker"
+    },
+    {
+      "id": "tatoeba-10017754",
+      "text": "make sure to thaw the chicken out before cooking"
+    },
+    {
+      "id": "tatoeba-10028719",
+      "text": "try to notice something new every time"
+    },
+    {
+      "id": "tatoeba-10054444",
+      "text": "i forgot the password to my old email account"
+    },
+    {
+      "id": "tatoeba-10070373",
+      "text": "i have trouble knowing for sure"
+    },
+    {
+      "id": "tatoeba-10072870",
+      "text": "he started to make his own again"
+    },
+    {
+      "id": "tatoeba-10077684",
+      "text": "that was a really long time ago"
+    },
+    {
+      "id": "tatoeba-10081391",
+      "text": "what are the steps you need to take to get from here to there"
+    },
+    {
+      "id": "tatoeba-10082552",
+      "text": "do you know where he goes to school"
+    },
+    {
+      "id": "tatoeba-10093084",
+      "text": "have you ever had this problem before"
+    },
+    {
+      "id": "tatoeba-10093115",
+      "text": "you need to register for the event in advance"
+    },
+    {
+      "id": "tatoeba-10093173",
+      "text": "how different are the two languages"
+    },
+    {
+      "id": "tatoeba-10094783",
+      "text": "you can have a snack in the meantime"
+    },
+    {
+      "id": "tatoeba-10094919",
+      "text": "you can leave whenever you want"
+    },
+    {
+      "id": "tatoeba-10096839",
+      "text": "you might not have heard about this"
+    },
+    {
+      "id": "tatoeba-10101918",
+      "text": "i guess we should go over the details at some point"
+    },
+    {
+      "id": "tatoeba-10107375",
+      "text": "would you like a chocolate chip cookie"
+    },
+    {
+      "id": "tatoeba-10107456",
+      "text": "why did you change your avatar"
+    },
+    {
+      "id": "tatoeba-10107540",
+      "text": "what brand of laundry detergent do you usually buy"
+    },
+    {
+      "id": "tatoeba-10107599",
+      "text": "i started taking fencing classes"
+    },
+    {
+      "id": "tatoeba-10108821",
+      "text": "the people are very friendly here"
+    },
+    {
+      "id": "tatoeba-10108852",
+      "text": "all of these factors are important"
+    },
+    {
+      "id": "tatoeba-10108853",
+      "text": "people here depend on public transportation"
+    },
+    {
+      "id": "tatoeba-10109817",
+      "text": "can you send me your meatloaf recipe"
+    },
+    {
+      "id": "tatoeba-10110299",
+      "text": "did you take notes during class"
+    },
+    {
+      "id": "tatoeba-10110304",
+      "text": "i prefer to take notes on my computer"
+    },
+    {
+      "id": "tatoeba-10110325",
+      "text": "the questions on the practice test were easier"
+    },
+    {
+      "id": "tatoeba-10110458",
+      "text": "please check your internet connection"
+    },
+    {
+      "id": "tatoeba-10110462",
+      "text": "i downloaded the file to my computer"
+    },
+    {
+      "id": "tatoeba-10110465",
+      "text": "i bought an external hard drive"
+    },
+    {
+      "id": "tatoeba-10110895",
+      "text": "he spilled a cup of coffee on his computer"
+    },
+    {
+      "id": "tatoeba-10110900",
+      "text": "i bought these jeans last week at your store"
+    },
+    {
+      "id": "tatoeba-10110903",
+      "text": "we can send you a new pair of jeans"
+    },
+    {
+      "id": "tatoeba-10110904",
+      "text": "can you send us an email detailing the problem"
+    },
+    {
+      "id": "tatoeba-10112457",
+      "text": "i need some time to think it over"
+    },
+    {
+      "id": "tatoeba-10114070",
+      "text": "this sentence is too difficult to translate"
+    },
+    {
+      "id": "tatoeba-10114080",
+      "text": "could you bring me a cup of water"
+    },
+    {
+      "id": "tatoeba-10114094",
+      "text": "make sure the windows are rolled up"
+    },
+    {
+      "id": "tatoeba-10116182",
+      "text": "can you help me install this program"
+    },
+    {
+      "id": "tatoeba-10116188",
+      "text": "would you like to join our mailing list"
+    },
+    {
+      "id": "tatoeba-10116237",
+      "text": "i knew exactly what he was going to say"
+    },
+    {
+      "id": "tatoeba-10116948",
+      "text": "that sort of thing is very common here"
+    },
+    {
+      "id": "tatoeba-10116961",
+      "text": "you should arrive at least five minutes early"
+    },
+    {
+      "id": "tatoeba-10119432",
+      "text": "you need to ask for permission"
+    },
+    {
+      "id": "tatoeba-10126308",
+      "text": "you can see the filament inside the light bulb"
+    },
+    {
+      "id": "tatoeba-10134477",
+      "text": "can you drop me off at my house"
+    },
+    {
+      "id": "tatoeba-10139361",
+      "text": "do you want to do something tonight"
+    },
+    {
+      "id": "tatoeba-10142079",
+      "text": "your shoes are by the front door"
+    },
+    {
+      "id": "tatoeba-10142182",
+      "text": "does the car have power steering"
+    },
+    {
+      "id": "tatoeba-10143811",
+      "text": "i can see you put a lot of thought into this present"
+    },
+    {
+      "id": "tatoeba-10143874",
+      "text": "you should wait until you feel better"
+    },
+    {
+      "id": "tatoeba-10147179",
+      "text": "people were running in different directions"
+    },
+    {
+      "id": "tatoeba-10147196",
+      "text": "did you see who took my backpack"
+    },
+    {
+      "id": "tatoeba-10147206",
+      "text": "maybe you left it on your desk"
+    },
+    {
+      "id": "tatoeba-10147454",
+      "text": "what do you use this thing for"
+    },
+    {
+      "id": "tatoeba-10147457",
+      "text": "it took forever to put together"
+    },
+    {
+      "id": "tatoeba-10152105",
+      "text": "i dropped the pen on the ground"
+    },
+    {
+      "id": "tatoeba-10153084",
+      "text": "i never even open those emails"
+    },
+    {
+      "id": "tatoeba-10157117",
+      "text": "i went to the post office to send a package"
+    },
+    {
+      "id": "tatoeba-10157118",
+      "text": "i went to the post office to buy some stamps"
+    },
+    {
+      "id": "tatoeba-10158533",
+      "text": "there might be an issue with the connection"
+    },
+    {
+      "id": "tatoeba-10159598",
+      "text": "the book has some interesting illustrations"
+    },
+    {
+      "id": "tatoeba-10159604",
+      "text": "whoever drew this is really talented"
+    },
+    {
+      "id": "tatoeba-10159612",
+      "text": "i asked them to turn down the music"
+    },
+    {
+      "id": "tatoeba-10159678",
+      "text": "that happened to a friend of mine"
+    },
+    {
+      "id": "tatoeba-10161781",
+      "text": "we will need to replace the front bumper"
+    },
+    {
+      "id": "tatoeba-10161787",
+      "text": "we gave a quick overview of our findings"
+    },
+    {
+      "id": "tatoeba-10164886",
+      "text": "that goes beyond the scope of this course"
+    },
+    {
+      "id": "tatoeba-10164890",
+      "text": "i like to highlight important quotes while reading"
+    },
+    {
+      "id": "tatoeba-10164901",
+      "text": "this store sells everything in bulk"
+    },
+    {
+      "id": "tatoeba-10173014",
+      "text": "our children are the apple of our eye"
+    },
+    {
+      "id": "tatoeba-10190545",
+      "text": "have you ever studied anthropology"
+    },
+    {
+      "id": "tatoeba-10205665",
+      "text": "are you finished with your plate"
+    },
+    {
+      "id": "tatoeba-10205678",
+      "text": "the cats have been getting into the basement"
+    },
+    {
+      "id": "tatoeba-10244531",
+      "text": "look at that little hummingbird"
+    },
+    {
+      "id": "tatoeba-10247767",
+      "text": "the form has to be filled out using either blue or black ink"
+    },
+    {
+      "id": "tatoeba-10254509",
+      "text": "i really dream of such a tree in my garden"
+    },
+    {
+      "id": "tatoeba-10269303",
+      "text": "try rewriting this in the third person"
+    },
+    {
+      "id": "tatoeba-10284720",
+      "text": "dancing is all about feeling the rhythm"
+    },
+    {
+      "id": "tatoeba-10288787",
+      "text": "i think the batteries need to be replaced"
+    },
+    {
+      "id": "tatoeba-10288827",
+      "text": "i really need your help on this one"
+    },
+    {
+      "id": "tatoeba-10288829",
+      "text": "i could really use a helping hand"
+    },
+    {
+      "id": "tatoeba-10291578",
+      "text": "i can get a better price for it"
+    },
+    {
+      "id": "tatoeba-10314794",
+      "text": "can you start from the beginning"
+    },
+    {
+      "id": "tatoeba-10320596",
+      "text": "my calls keep going to voicemail"
+    },
+    {
+      "id": "tatoeba-10322434",
+      "text": "this vegetable medley is really good"
+    },
+    {
+      "id": "tatoeba-10349821",
+      "text": "does the paper need to be double spaced"
+    },
+    {
+      "id": "tatoeba-10349822",
+      "text": "i underlined the most important words"
+    },
+    {
+      "id": "tatoeba-10349834",
+      "text": "how much is all that going to cost"
+    },
+    {
+      "id": "tatoeba-10359369",
+      "text": "sometimes literal translations are perfectly apt"
+    },
+    {
+      "id": "tatoeba-10361286",
+      "text": "i might make more of an effort to learn it"
+    },
+    {
+      "id": "tatoeba-10361295",
+      "text": "i have a lot of free time to use this site"
+    },
+    {
+      "id": "tatoeba-10367068",
+      "text": "most of us have a hard time grasping how far away the moon is"
+    },
+    {
+      "id": "tatoeba-10367069",
+      "text": "armadillos are related to anteaters and sloths"
+    },
+    {
+      "id": "tatoeba-10460393",
+      "text": "the expiry date is printed under the bottle cap"
+    },
+    {
+      "id": "tatoeba-10472260",
+      "text": "please tell me how you managed to do this"
+    },
+    {
+      "id": "tatoeba-10478542",
+      "text": "how many holes are there in a straw"
+    },
+    {
+      "id": "tatoeba-10481366",
+      "text": "do you know what they plan to do if they win"
+    },
+    {
+      "id": "tatoeba-10501177",
+      "text": "can you help me change out the litter"
+    },
+    {
+      "id": "tatoeba-10511060",
+      "text": "i think skunks are actually really cute"
+    },
+    {
+      "id": "tatoeba-10522556",
+      "text": "she ably handled the situation"
+    },
+    {
+      "id": "tatoeba-10540044",
+      "text": "none of the pieces fit together"
+    },
+    {
+      "id": "tatoeba-10540727",
+      "text": "you have the kind of mind for that"
+    },
+    {
+      "id": "tatoeba-10541515",
+      "text": "how many candles are we lighting tonight"
+    },
+    {
+      "id": "tatoeba-10545352",
+      "text": "do you need anything from the grocery store"
+    },
+    {
+      "id": "tatoeba-10545927",
+      "text": "can we stop at the next rest stop"
+    },
+    {
+      "id": "tatoeba-10549860",
+      "text": "a pet monkey would be a lot of work"
+    },
+    {
+      "id": "tatoeba-10564969",
+      "text": "the two buildings were pretty close together"
+    },
+    {
+      "id": "tatoeba-10640164",
+      "text": "i just remembered we have vegan nuggets"
+    },
+    {
+      "id": "tatoeba-10646997",
+      "text": "do dogs and cats really not get along"
+    },
+    {
+      "id": "tatoeba-10652328",
+      "text": "there is no easy answer to this question"
+    },
+    {
+      "id": "tatoeba-10710230",
+      "text": "i was thinking of adding that the other day"
+    },
+    {
+      "id": "tatoeba-10719774",
+      "text": "did you figure out what was wrong"
+    },
+    {
+      "id": "tatoeba-10721982",
+      "text": "the seeds can be added to porridge or soup"
+    },
+    {
+      "id": "tatoeba-10722162",
+      "text": "she decided to embark on a new challenge to further her career"
+    },
+    {
+      "id": "tatoeba-10729511",
+      "text": "put the books back where you found them"
+    },
+    {
+      "id": "tatoeba-10762605",
+      "text": "your gutters need to be replaced"
+    },
+    {
+      "id": "tatoeba-10762626",
+      "text": "i already turned my computer off"
+    },
+    {
+      "id": "tatoeba-10765107",
+      "text": "fold and unfold along each of the lines to make a crease"
+    },
+    {
+      "id": "tatoeba-10776201",
+      "text": "are they also going to be there"
+    },
+    {
+      "id": "tatoeba-10789701",
+      "text": "velvet fabric is often seen as a sign of luxury"
+    },
+    {
+      "id": "tatoeba-10795653",
+      "text": "the cashier scanned the barcode"
+    },
+    {
+      "id": "tatoeba-10799272",
+      "text": "we stopped to take some pictures"
+    },
+    {
+      "id": "tatoeba-10817623",
+      "text": "i really have to take this call"
+    },
+    {
+      "id": "tatoeba-10826533",
+      "text": "do you have any other names you go by"
+    },
+    {
+      "id": "tatoeba-10830104",
+      "text": "do you need to be tall to be good at basketball"
+    },
+    {
+      "id": "tatoeba-10841815",
+      "text": "i found an old pair of bell bottom jeans in the attic"
+    },
+    {
+      "id": "tatoeba-10930666",
+      "text": "you need a map to orient yourself"
+    },
+    {
+      "id": "tatoeba-10931066",
+      "text": "where did you leave your shirt"
+    },
+    {
+      "id": "tatoeba-11018580",
+      "text": "there used to be a garden here"
+    },
+    {
+      "id": "tatoeba-11021167",
+      "text": "which one of us is making dinner tonight"
+    },
+    {
+      "id": "tatoeba-11021345",
+      "text": "this part of the state is gorgeous"
+    },
+    {
+      "id": "tatoeba-11036525",
+      "text": "i never thought of it quite like that"
+    },
+    {
+      "id": "tatoeba-11067423",
+      "text": "he added a few more of his own"
+    },
+    {
+      "id": "tatoeba-11068886",
+      "text": "do you have any final thoughts"
+    },
+    {
+      "id": "tatoeba-11074270",
+      "text": "a mockingbird sang in the other room"
+    },
+    {
+      "id": "tatoeba-11077609",
+      "text": "the octopus was using a discarded scallop shell as shelter"
+    },
+    {
+      "id": "tatoeba-11080982",
+      "text": "i understand the book arrived by mail"
+    },
+    {
+      "id": "tatoeba-11081024",
+      "text": "we have milkweed growing in our backyard"
+    },
+    {
+      "id": "tatoeba-11091135",
+      "text": "one of our cats is getting old"
+    },
+    {
+      "id": "tatoeba-11099825",
+      "text": "do you want to wrap this up soon"
+    },
+    {
+      "id": "tatoeba-11112549",
+      "text": "i can call them for you if you want"
+    },
+    {
+      "id": "tatoeba-11168390",
+      "text": "i would like to extend to all of you my heartfelt thanks"
+    },
+    {
+      "id": "tatoeba-11169922",
+      "text": "i got into astronomy because of my partner"
+    },
+    {
+      "id": "tatoeba-11194530",
+      "text": "they ate their food in one sitting"
+    },
+    {
+      "id": "tatoeba-11211315",
+      "text": "how would a space elevator be maintained"
+    },
+    {
+      "id": "tatoeba-11213564",
+      "text": "wild animals belong in the wild"
+    },
+    {
+      "id": "tatoeba-11217334",
+      "text": "playing cricket requires a bat and a ball"
+    },
+    {
+      "id": "tatoeba-11217623",
+      "text": "the midnight showing is sold out"
+    },
+    {
+      "id": "tatoeba-11217722",
+      "text": "i suggest you go to bed earlier"
+    },
+    {
+      "id": "tatoeba-11218492",
+      "text": "the easiest way to get to the island is by taking a ferry"
+    },
+    {
+      "id": "tatoeba-11236501",
+      "text": "we both really want you to be there"
+    },
+    {
+      "id": "tatoeba-11237559",
+      "text": "we can work out the details as we go"
+    },
+    {
+      "id": "tatoeba-11238478",
+      "text": "why do dogs bark so much more than wolves do"
+    },
+    {
+      "id": "tatoeba-11241907",
+      "text": "lions greet members of their pride by bunting"
+    },
+    {
+      "id": "tatoeba-11245614",
+      "text": "i know the guy who owns that place"
+    },
+    {
+      "id": "tatoeba-11245627",
+      "text": "would you be interested in this project"
+    },
+    {
+      "id": "tatoeba-11257352",
+      "text": "what are you doing outside barefoot in such freezing weather"
+    },
+    {
+      "id": "tatoeba-11262120",
+      "text": "this must be that new restaurant everyone was talking about"
+    },
+    {
+      "id": "tatoeba-11262908",
+      "text": "the birds are quite talkative today"
+    },
+    {
+      "id": "tatoeba-11264196",
+      "text": "neither of us has been there before"
+    },
+    {
+      "id": "tatoeba-11264661",
+      "text": "that song has been covered a lot"
+    },
+    {
+      "id": "tatoeba-11265872",
+      "text": "have you seen any coyotes around here"
+    },
+    {
+      "id": "tatoeba-11266561",
+      "text": "how does this tie into everything else"
+    },
+    {
+      "id": "tatoeba-11294403",
+      "text": "i need some book recommendations"
+    },
+    {
+      "id": "tatoeba-11309260",
+      "text": "the cheetah is very closely related to the domestic cat"
+    },
+    {
+      "id": "tatoeba-11315185",
+      "text": "thanks for telling me right away"
+    },
+    {
+      "id": "tatoeba-11315186",
+      "text": "i can help you with that assignment"
+    },
+    {
+      "id": "tatoeba-11335299",
+      "text": "conveyor belts take the eggs directly to the packing area"
+    },
+    {
+      "id": "tatoeba-11469326",
+      "text": "could you hold this open for me"
+    },
+    {
+      "id": "tatoeba-11487634",
+      "text": "cats are very tactile creatures"
+    },
+    {
+      "id": "tatoeba-11495155",
+      "text": "you can use any ingredient that can be skewered on a stick"
+    },
+    {
+      "id": "tatoeba-11500982",
+      "text": "i have chosen it because it is both interesting and instructive"
+    },
+    {
+      "id": "tatoeba-11502897",
+      "text": "starlings can imitate human speech"
+    },
+    {
+      "id": "tatoeba-11515510",
+      "text": "a duck has just given birth to twelve little ducklings"
+    },
+    {
+      "id": "tatoeba-11524649",
+      "text": "you might want to look that word up"
+    },
+    {
+      "id": "tatoeba-11555227",
+      "text": "have you ever wondered if the stories are true"
+    },
+    {
+      "id": "tatoeba-11555232",
+      "text": "i can give you the address if you want"
+    },
+    {
+      "id": "tatoeba-11557410",
+      "text": "i must have taken a wrong turn"
+    },
+    {
+      "id": "tatoeba-11558860",
+      "text": "we did the best we could for them"
+    },
+    {
+      "id": "tatoeba-11570766",
+      "text": "strawberry shortcake is easy to make vegan"
+    },
+    {
+      "id": "tatoeba-11570769",
+      "text": "strawberry shortcake is delicious"
+    },
+    {
+      "id": "tatoeba-11570787",
+      "text": "can you show me how to make coffee cake"
+    },
+    {
+      "id": "tatoeba-11573839",
+      "text": "part of your order has been shipped"
+    },
+    {
+      "id": "tatoeba-11591198",
+      "text": "i only have three videos on my channel"
+    },
+    {
+      "id": "tatoeba-11591201",
+      "text": "we only have three days to get it all done"
+    },
+    {
+      "id": "tatoeba-11591663",
+      "text": "we can use the sun to tell time"
+    },
+    {
+      "id": "tatoeba-11607369",
+      "text": "i won the game a long time ago"
+    },
+    {
+      "id": "tatoeba-11658211",
+      "text": "regular maintenance should keep the machine in good working order"
+    },
+    {
+      "id": "tatoeba-11682601",
+      "text": "butterflies are fluttering all over the place"
+    },
+    {
+      "id": "tatoeba-11685417",
+      "text": "i already know the answer to that"
+    },
+    {
+      "id": "tatoeba-11688329",
+      "text": "everybody knows everybody around here"
+    },
+    {
+      "id": "tatoeba-11692656",
+      "text": "you seem to have more work than usual today"
+    },
+    {
+      "id": "tatoeba-11692665",
+      "text": "thanks for teaching me to parallel park"
+    },
+    {
+      "id": "tatoeba-11692666",
+      "text": "we should take care of each other"
+    },
+    {
+      "id": "tatoeba-11694755",
+      "text": "my mother was one of thirteen children"
+    },
+    {
+      "id": "tatoeba-11717656",
+      "text": "the elephants crossed the river together"
+    },
+    {
+      "id": "tatoeba-11717703",
+      "text": "i want to be friends with an elephant"
+    },
+    {
+      "id": "tatoeba-11740683",
+      "text": "my parents used to watch that show"
+    },
+    {
+      "id": "tatoeba-11745472",
+      "text": "my life has changed for the better"
+    },
+    {
+      "id": "tatoeba-11751685",
+      "text": "the band played a mix of covers and original songs"
+    },
+    {
+      "id": "tatoeba-11751708",
+      "text": "did you complete your homework"
+    },
+    {
+      "id": "tatoeba-11751713",
+      "text": "did you have any questions about the homework"
+    },
+    {
+      "id": "tatoeba-11787562",
+      "text": "my boss still needs to sign off on the plan"
+    },
+    {
+      "id": "tatoeba-11789465",
+      "text": "it brings nothing new to the table"
+    },
+    {
+      "id": "tatoeba-11817672",
+      "text": "make sure to bring snacks and plenty of water"
+    },
+    {
+      "id": "tatoeba-11832194",
+      "text": "can you show me how to use microfilm"
+    },
+    {
+      "id": "tatoeba-11855957",
+      "text": "the air conditioning works now"
+    },
+    {
+      "id": "tatoeba-11884589",
+      "text": "i discovered my love of coffee there"
+    },
+    {
+      "id": "tatoeba-11885113",
+      "text": "i stock items and take inventory"
+    },
+    {
+      "id": "tatoeba-11890090",
+      "text": "how do you spell your first name"
+    },
+    {
+      "id": "tatoeba-11920940",
+      "text": "a hedgehog is born without spines"
+    },
+    {
+      "id": "tatoeba-11923154",
+      "text": "the spider hung on a thread and danced"
+    },
+    {
+      "id": "tatoeba-11925842",
+      "text": "of course my glasses were next to your bed"
+    },
+    {
+      "id": "tatoeba-11930134",
+      "text": "we had three cats and then we got three more"
+    },
+    {
+      "id": "tatoeba-11937040",
+      "text": "i think cats know how cute they are"
+    },
+    {
+      "id": "tatoeba-11944612",
+      "text": "did you say thirty or thirteen"
+    },
+    {
+      "id": "tatoeba-11977185",
+      "text": "i usually just hold down the shift key instead of pressing caps lock"
+    },
+    {
+      "id": "tatoeba-11979590",
+      "text": "it does what it says on the tin"
+    },
+    {
+      "id": "tatoeba-11980596",
+      "text": "i think this trail leads to the waterfall"
+    },
+    {
+      "id": "tatoeba-11983531",
+      "text": "we could always make a day trip there"
+    },
+    {
+      "id": "tatoeba-11988231",
+      "text": "did you come up with that yourself"
+    },
+    {
+      "id": "tatoeba-11989538",
+      "text": "head to a remote area and look up at the sky after midnight"
+    },
+    {
+      "id": "tatoeba-11992015",
+      "text": "want to watch the musical episode again"
+    },
+    {
+      "id": "tatoeba-12001994",
+      "text": "this is a private conversation"
+    },
+    {
+      "id": "tatoeba-12016164",
+      "text": "where are all the blue markers"
+    },
+    {
+      "id": "tatoeba-12027494",
+      "text": "you can do something else if you want"
+    },
+    {
+      "id": "tatoeba-12029088",
+      "text": "i should get a job walking dogs"
+    },
+    {
+      "id": "tatoeba-12029385",
+      "text": "haddock are closely related to cod"
+    },
+    {
+      "id": "tatoeba-12031396",
+      "text": "what is your current place of residence"
+    },
+    {
+      "id": "tatoeba-12031410",
+      "text": "the whole class broke into song"
+    },
+    {
+      "id": "tatoeba-12056966",
+      "text": "i bought bread from that stand over there"
+    },
+    {
+      "id": "tatoeba-12060402",
+      "text": "i thought long and hard about what you said"
+    },
+    {
+      "id": "tatoeba-12060488",
+      "text": "the two of us were inseparable"
+    },
+    {
+      "id": "tatoeba-12060556",
+      "text": "cats tend to do things like that"
+    },
+    {
+      "id": "tatoeba-12065575",
+      "text": "the package was delivered on time"
+    },
+    {
+      "id": "tatoeba-12071393",
+      "text": "humans and cats have very different sleeping patterns"
+    },
+    {
+      "id": "tatoeba-12082579",
+      "text": "i can understand the narrator really well"
+    },
+    {
+      "id": "tatoeba-12082932",
+      "text": "i had a good laugh at that one"
+    },
+    {
+      "id": "tatoeba-12093779",
+      "text": "was that really your first time"
+    },
+    {
+      "id": "tatoeba-12095498",
+      "text": "tabby cats exhibit the typical fur pattern of their wild ancestor"
+    },
+    {
+      "id": "tatoeba-12110955",
+      "text": "we were in the same friend group"
+    },
+    {
+      "id": "tatoeba-12129563",
+      "text": "what would success look like to you"
+    },
+    {
+      "id": "tatoeba-12140197",
+      "text": "do you have any skills or talents"
+    },
+    {
+      "id": "tatoeba-12152150",
+      "text": "the cash register cannot be opened without a purchase"
+    },
+    {
+      "id": "tatoeba-12164191",
+      "text": "how much would it cost to replace the head gasket on this car"
+    },
+    {
+      "id": "tatoeba-12180705",
+      "text": "we need to clear the debris off the road"
+    },
+    {
+      "id": "tatoeba-12193070",
+      "text": "would you like a molasses cookie"
+    },
+    {
+      "id": "tatoeba-12193313",
+      "text": "i need to pick these worms up and put them back in the dirt"
+    },
+    {
+      "id": "tatoeba-12196593",
+      "text": "do you want to listen to something"
+    },
+    {
+      "id": "tatoeba-12197525",
+      "text": "there is no charge for this service"
+    },
+    {
+      "id": "tatoeba-12197746",
+      "text": "you can always call or text me"
+    },
+    {
+      "id": "tatoeba-12210189",
+      "text": "i want to pay you for your work"
+    },
+    {
+      "id": "tatoeba-12219168",
+      "text": "what does it mean when cats make a question mark with their tails"
+    },
+    {
+      "id": "tatoeba-12247027",
+      "text": "that place has the best vegan pizza"
+    },
+    {
+      "id": "tatoeba-12248989",
+      "text": "does that vending machine take cash"
+    },
+    {
+      "id": "tatoeba-12290101",
+      "text": "the lyricist changed his mind over the years"
+    },
+    {
+      "id": "tatoeba-12301839",
+      "text": "i expect to be done with training this week"
+    },
+    {
+      "id": "tatoeba-12308109",
+      "text": "when is your new book going to be published"
+    },
+    {
+      "id": "tatoeba-12308111",
+      "text": "what magazine was this published in"
+    },
+    {
+      "id": "tatoeba-12309051",
+      "text": "a player on the opposing team jumped up and spiked the ball"
+    },
+    {
+      "id": "tatoeba-12318330",
+      "text": "i never skip the theme song to this show"
+    },
+    {
+      "id": "tatoeba-12325226",
+      "text": "these are really comfortable shoes"
+    },
+    {
+      "id": "tatoeba-12328047",
+      "text": "i need to start wearing scarves again"
+    },
+    {
+      "id": "tatoeba-12334556",
+      "text": "i need to learn the new version"
+    },
+    {
+      "id": "tatoeba-12338108",
+      "text": "do you want to overwrite the previous saved data"
+    },
+    {
+      "id": "tatoeba-12340625",
+      "text": "a set of quality pool cues can be pretty expensive"
+    },
+    {
+      "id": "tatoeba-12344103",
+      "text": "could you please pass the hot sauce"
+    },
+    {
+      "id": "tatoeba-12346371",
+      "text": "that golden retriever is still a puppy"
+    },
+    {
+      "id": "tatoeba-12346922",
+      "text": "i used to work stocking shelves at a grocery store"
+    },
+    {
+      "id": "tatoeba-12348670",
+      "text": "she borrowed a thick tome on the theory of time travel"
+    },
+    {
+      "id": "tatoeba-12368866",
+      "text": "there are three more books after that"
+    },
+    {
+      "id": "tatoeba-12378927",
+      "text": "you can use a program to compress the file"
+    },
+    {
+      "id": "tatoeba-12380782",
+      "text": "can you start out by telling us a little bit about yourself"
+    },
+    {
+      "id": "tatoeba-12380812",
+      "text": "he was called to fix a broken light fixture"
+    },
+    {
+      "id": "tatoeba-12381096",
+      "text": "the speech was met with thunderous applause"
+    },
+    {
+      "id": "tatoeba-12381112",
+      "text": "i would like to nominate myself"
+    },
+    {
+      "id": "tatoeba-12382958",
+      "text": "how far can you throw this javelin"
+    },
+    {
+      "id": "tatoeba-12399109",
+      "text": "there was an old windmill on the property"
+    },
+    {
+      "id": "tatoeba-12399123",
+      "text": "the streets were made of cobblestone"
+    },
+    {
+      "id": "tatoeba-12399152",
+      "text": "a paper clip can be used to hold two pieces of paper together"
+    },
+    {
+      "id": "tatoeba-12401873",
+      "text": "the song of cicadas is comforting"
+    },
+    {
+      "id": "tatoeba-12406053",
+      "text": "the lion let out a thunderous roar"
+    },
+    {
+      "id": "tatoeba-12406188",
+      "text": "i will not be attending the gala"
+    },
+    {
+      "id": "tatoeba-12412112",
+      "text": "can you print this shipping label"
+    },
+    {
+      "id": "tatoeba-12421881",
+      "text": "we pulled the lyrics line by line out of a hat"
+    },
+    {
+      "id": "tatoeba-12432139",
+      "text": "writing a haiku is easier than writing a sonnet"
+    },
+    {
+      "id": "tatoeba-12435291",
+      "text": "i think birds are the most lovely creatures on the planet"
+    },
+    {
+      "id": "tatoeba-12435317",
+      "text": "you have to get there within three hours"
+    },
+    {
+      "id": "tatoeba-12435324",
+      "text": "it has been an ongoing conversation"
+    },
+    {
+      "id": "tatoeba-12435642",
+      "text": "can you pick me up a bag of pretzels"
+    },
+    {
+      "id": "tatoeba-12457191",
+      "text": "i thought it was a much older movie"
+    },
+    {
+      "id": "tatoeba-12457215",
+      "text": "we just crossed the second bridge"
+    },
+    {
+      "id": "tatoeba-12467605",
+      "text": "i was talking about two different people"
+    },
+    {
+      "id": "tatoeba-12467700",
+      "text": "a shark swam past the porthole"
+    },
+    {
+      "id": "tatoeba-12486825",
+      "text": "i love watching videos of volcanoes"
+    },
+    {
+      "id": "tatoeba-12488756",
+      "text": "starlings are an introduced species here"
+    },
+    {
+      "id": "tatoeba-12488807",
+      "text": "there are only three people in the pool"
+    },
+    {
+      "id": "tatoeba-12759573",
+      "text": "the stars shine brightly in the vastness of space"
+    },
+    {
+      "id": "tatoeba-12759574",
+      "text": "astronauts train for years to prepare for their space missions"
+    },
+    {
+      "id": "tatoeba-12759580",
+      "text": "telescopes allow us to see far beyond our world"
+    },
+    {
+      "id": "tatoeba-12759602",
+      "text": "astronomers study the stars to understand the universe better"
+    },
+    {
+      "id": "tatoeba-12759605",
+      "text": "comets are icy bodies that develop glowing tails when near the sun"
+    },
+    {
+      "id": "tatoeba-12759619",
+      "text": "the vacuum of space has no air and no pressure"
+    },
+    {
+      "id": "tatoeba-12759624",
+      "text": "there are billions of galaxies scattered throughout the universe"
+    },
+    {
+      "id": "tatoeba-12759631",
+      "text": "astronauts eat specially prepared food during their missions"
+    },
+    {
+      "id": "tatoeba-12759633",
+      "text": "space probes send back data from the far reaches of the solar system"
+    },
+    {
+      "id": "tatoeba-12764602",
+      "text": "the sunset over the ocean was absolutely breathtaking"
+    },
+    {
+      "id": "tatoeba-12764631",
+      "text": "the view from the mountain top was breathtaking"
+    },
+    {
+      "id": "tatoeba-12764637",
+      "text": "they took a sunset cruise along the coastline"
+    },
+    {
+      "id": "tatoeba-12764638",
+      "text": "the tropical breeze made the evening even more pleasant"
+    },
+    {
+      "id": "tatoeba-12764661",
+      "text": "the mountain trails were challenging but rewarding"
+    },
+    {
+      "id": "tatoeba-12764669",
+      "text": "the island had some of the most beautiful beaches they had ever seen"
+    },
+    {
+      "id": "tatoeba-12764705",
+      "text": "they watched dolphins swimming near the shore"
+    },
+    {
+      "id": "tatoeba-12764729",
+      "text": "the sun was setting over the ocean as they walked back"
+    },
+    {
+      "id": "tatoeba-12764749",
+      "text": "the ocean breeze kept them cool under the hot sun"
+    },
+    {
+      "id": "tatoeba-12764757",
+      "text": "they woke up early to watch the sunrise over the mountains"
+    },
+    {
+      "id": "tatoeba-12764777",
+      "text": "they hiked through the jungle to reach a secret lagoon"
+    },
+    {
+      "id": "tatoeba-12764780",
+      "text": "the resort had a private beach for guests to enjoy"
+    },
+    {
+      "id": "tatoeba-12764785",
+      "text": "they went on a guided tour of the volcanic island"
+    },
+    {
+      "id": "tatoeba-12764788",
+      "text": "the view from the top of the mountain was unforgettable"
+    },
+    {
+      "id": "tatoeba-12764796",
+      "text": "the sound of the waves was so calming"
+    },
+    {
+      "id": "tatoeba-12764818",
+      "text": "the mountain view was like something out of a postcard"
+    },
+    {
+      "id": "tatoeba-12764830",
+      "text": "the sound of the ocean waves helped them sleep at night"
+    },
+    {
+      "id": "tatoeba-12764843",
+      "text": "the tropical sunsets were the perfect end to each day"
+    },
+    {
+      "id": "tatoeba-12764851",
+      "text": "they watched as the sun set behind the mountains"
+    },
+    {
+      "id": "tatoeba-12764864",
+      "text": "they enjoyed a quiet evening by the beach bonfire"
+    },
+    {
+      "id": "tatoeba-12764869",
+      "text": "the tropical rain made the jungle even more beautiful"
+    },
+    {
+      "id": "tatoeba-12764902",
+      "text": "she taught the lesson with patience and care"
+    },
+    {
+      "id": "tatoeba-12765068",
+      "text": "the game turned into a serious competition between them"
+    },
+    {
+      "id": "tatoeba-12765106",
+      "text": "the space mission was an urgent matter for the crew"
+    },
+    {
+      "id": "tatoeba-12765133",
+      "text": "the space explorers discovered a new planet in the galaxy"
+    },
+    {
+      "id": "tatoeba-12765153",
+      "text": "the space journey was the most exciting experience of their lives"
+    },
+    {
+      "id": "tatoeba-12765165",
+      "text": "the mission to the stars required years of preparation"
+    },
+    {
+      "id": "tatoeba-12765215",
+      "text": "the space explorers made a historic landing on a new planet"
+    },
+    {
+      "id": "tatoeba-12765412",
+      "text": "are you going to the market today"
+    },
+    {
+      "id": "tatoeba-12765433",
+      "text": "is the market open this weekend"
+    },
+    {
+      "id": "tatoeba-12765482",
+      "text": "are the shops crowded during the weekend"
+    },
+    {
+      "id": "tatoeba-12765504",
+      "text": "did they finish the shopping already"
+    },
+    {
+      "id": "tatoeba-12765559",
+      "text": "did the market run out of supplies again"
+    },
+    {
+      "id": "tatoeba-12765630",
+      "text": "did they find everything they needed at the market"
+    },
+    {
+      "id": "tatoeba-12765962",
+      "text": "is the market cheaper than last week"
+    },
+    {
+      "id": "tatoeba-12765968",
+      "text": "will the market be open during the holiday"
+    },
+    {
+      "id": "tatoeba-12765984",
+      "text": "can they find all the supplies at the market"
+    },
+    {
+      "id": "tatoeba-12766734",
+      "text": "could life exist in another galaxy"
+    },
+    {
+      "id": "tatoeba-12767865",
+      "text": "the garden thrives with care and attention"
+    },
+    {
+      "id": "tatoeba-12768082",
+      "text": "he finished the project just in time"
+    },
+    {
+      "id": "tatoeba-12768145",
+      "text": "what time is the meeting tomorrow"
+    },
+    {
+      "id": "tatoeba-12768158",
+      "text": "what if we take a different approach"
+    },
+    {
+      "id": "tatoeba-12768181",
+      "text": "where do you want to travel next"
+    },
+    {
+      "id": "tatoeba-12768191",
+      "text": "they watched the sunset in silence"
+    },
+    {
+      "id": "tatoeba-12768201",
+      "text": "will you join us for dinner later"
+    },
+    {
+      "id": "tatoeba-12768213",
+      "text": "the sky darkened as the storm approached"
+    },
+    {
+      "id": "tatoeba-12768230",
+      "text": "the stars filled the night sky"
+    },
+    {
+      "id": "tatoeba-12768256",
+      "text": "are you ready for the next step"
+    },
+    {
+      "id": "tatoeba-12768258",
+      "text": "the stars seemed closer than ever"
+    },
+    {
+      "id": "tatoeba-12768262",
+      "text": "they reached the summit at dawn"
+    },
+    {
+      "id": "tatoeba-12768348",
+      "text": "how do you unwind after a busy day"
+    },
+    {
+      "id": "tatoeba-12768422",
+      "text": "the wind whispered through the trees"
+    },
+    {
+      "id": "tatoeba-12768426",
+      "text": "they danced until the sun rose"
+    },
+    {
+      "id": "tatoeba-12768431",
+      "text": "the room was filled with silence"
+    },
+    {
+      "id": "tatoeba-12768444",
+      "text": "the moonlight lit the path ahead"
+    },
+    {
+      "id": "tatoeba-12768449",
+      "text": "the city lights flickered in the distance"
+    },
+    {
+      "id": "tatoeba-12768463",
+      "text": "the river flowed gently under the bridge"
+    },
+    {
+      "id": "tatoeba-12768477",
+      "text": "the train whistle echoed across the field"
+    },
+    {
+      "id": "tatoeba-12768478",
+      "text": "a single leaf floated to the ground"
+    },
+    {
+      "id": "tatoeba-12768482",
+      "text": "the rain started to pour down hard"
+    },
+    {
+      "id": "tatoeba-12768490",
+      "text": "the ground was covered in fallen leaves"
+    },
+    {
+      "id": "tatoeba-12768495",
+      "text": "she wrapped the scarf tighter around her neck"
+    },
+    {
+      "id": "tatoeba-12768512",
+      "text": "the sun peeked through the clouds"
+    },
+    {
+      "id": "tatoeba-12768526",
+      "text": "the stars reflected in the calm water"
+    },
+    {
+      "id": "tatoeba-12768538",
+      "text": "the wind swept across the open field"
+    },
+    {
+      "id": "tatoeba-12768542",
+      "text": "the leaves swirled in the autumn breeze"
+    },
+    {
+      "id": "tatoeba-12768544",
+      "text": "the room smelled of fresh flowers"
+    },
+    {
+      "id": "tatoeba-12768546",
+      "text": "she placed her hand on the window glass"
+    },
+    {
+      "id": "tatoeba-12768548",
+      "text": "the birds sang in the early morning light"
+    },
+    {
+      "id": "tatoeba-12768553",
+      "text": "he caught the ball just in time"
+    },
+    {
+      "id": "tatoeba-12768559",
+      "text": "the sky was painted in hues of pink and orange"
+    },
+    {
+      "id": "tatoeba-12768560",
+      "text": "he tossed the coin into the fountain"
+    },
+    {
+      "id": "tatoeba-12768564",
+      "text": "the phone buzzed in his pocket"
+    },
+    {
+      "id": "tatoeba-12768575",
+      "text": "he tapped his foot to the rhythm"
+    },
+    {
+      "id": "tatoeba-12769141",
+      "text": "the river carves its way through stone"
+    },
+    {
+      "id": "tatoeba-12770694",
+      "text": "why does the river flow so gently"
+    },
+    {
+      "id": "tatoeba-12770715",
+      "text": "why does the rain feel so peaceful"
+    },
+    {
+      "id": "tatoeba-12770719",
+      "text": "can you see the light breaking through"
+    },
+    {
+      "id": "tatoeba-12770780",
+      "text": "do the stars remind you of home"
+    },
+    {
+      "id": "tatoeba-12770926",
+      "text": "she danced as if no one watched"
+    },
+    {
+      "id": "tatoeba-12771358",
+      "text": "no sooner had they begun than the storm hit"
+    },
+    {
+      "id": "tatoeba-12772566",
+      "text": "how long had they been waiting"
+    },
+    {
+      "id": "tatoeba-12772726",
+      "text": "no sooner had they left than the storm began"
+    },
+    {
+      "id": "tatoeba-12773187",
+      "text": "no sooner had the rain started than they arrived"
+    },
+    {
+      "id": "tatoeba-12773270",
+      "text": "could this be the solution we need"
+    },
+    {
+      "id": "tatoeba-12773376",
+      "text": "could you imagine a better outcome"
+    },
+    {
+      "id": "tatoeba-12773453",
+      "text": "let them make their own choices"
+    },
+    {
+      "id": "tatoeba-12773481",
+      "text": "shall we continue or reconsider the plan"
+    },
+    {
+      "id": "tatoeba-12773486",
+      "text": "what else do we need to consider"
+    },
+    {
+      "id": "tatoeba-12773557",
+      "text": "let her decide when the time is right"
+    },
+    {
+      "id": "tatoeba-12773575",
+      "text": "shall we take the next step now"
+    },
+    {
+      "id": "tatoeba-12773616",
+      "text": "what will happen next remains a mystery"
+    },
+    {
+      "id": "tatoeba-12773640",
+      "text": "shall we discuss the next steps now"
+    },
+    {
+      "id": "tatoeba-12773674",
+      "text": "what do you think happens next"
+    },
+    {
+      "id": "tatoeba-12773735",
+      "text": "let them take their time to decide"
+    },
+    {
+      "id": "tatoeba-12774735",
+      "text": "they reached a peaceful solution"
+    },
+    {
+      "id": "tatoeba-12774817",
+      "text": "they reached a fair compromise"
+    },
+    {
+      "id": "tatoeba-12774887",
+      "text": "the winds are picking up speed"
+    },
+    {
+      "id": "tatoeba-12774926",
+      "text": "they explored the ocean depths"
+    },
+    {
+      "id": "tatoeba-12774941",
+      "text": "how long can they stay underwater"
+    },
+    {
+      "id": "tatoeba-12774983",
+      "text": "he imagined life on distant planets"
+    },
+    {
+      "id": "tatoeba-12774998",
+      "text": "they prepared for the spacewalk"
+    },
+    {
+      "id": "tatoeba-12775030",
+      "text": "he looked for life on other planets"
+    },
+    {
+      "id": "tatoeba-12775033",
+      "text": "he built tools for exploring the deep"
+    },
+    {
+      "id": "tatoeba-12775044",
+      "text": "she searched for life under the sea"
+    },
+    {
+      "id": "tatoeba-12775049",
+      "text": "they made plans for the future"
+    },
+    {
+      "id": "tatoeba-12775092",
+      "text": "he mastered the technique quickly"
+    },
+    {
+      "id": "tatoeba-12775112",
+      "text": "she shares her knowledge freely"
+    },
+    {
+      "id": "tatoeba-12775128",
+      "text": "they set new goals for themselves"
+    },
+    {
+      "id": "tatoeba-12775140",
+      "text": "they celebrate their victories together"
+    },
+    {
+      "id": "tatoeba-12775151",
+      "text": "she encourages others to keep going"
+    },
+    {
+      "id": "tatoeba-12775159",
+      "text": "he learns from everyone he meets"
+    },
+    {
+      "id": "tatoeba-12775220",
+      "text": "they are always coming up with ideas"
+    },
+    {
+      "id": "tatoeba-12775228",
+      "text": "he enjoys experimenting with new ideas"
+    },
+    {
+      "id": "tatoeba-12775242",
+      "text": "he tipped his hat to the stranger"
+    },
+    {
+      "id": "tatoeba-12775266",
+      "text": "they galloped across the plains"
+    },
+    {
+      "id": "tatoeba-12775285",
+      "text": "the campfire crackled in the night"
+    },
+    {
+      "id": "tatoeba-12775297",
+      "text": "she fixed her gaze on the horizon"
+    },
+    {
+      "id": "tatoeba-12775316",
+      "text": "the horses drank from the river"
+    },
+    {
+      "id": "tatoeba-12775325",
+      "text": "they reached the canyon just before sunset"
+    },
+    {
+      "id": "tatoeba-12775347",
+      "text": "he inspected his saddle for damage"
+    },
+    {
+      "id": "tatoeba-12775357",
+      "text": "they decided to wait until dark"
+    },
+    {
+      "id": "tatoeba-12775705",
+      "text": "he rode to the top of the hill"
+    },
+    {
+      "id": "tatoeba-12775715",
+      "text": "he saw dust rising in the distance"
+    },
+    {
+      "id": "tatoeba-12775732",
+      "text": "she heard the rattle of the snake"
+    },
+    {
+      "id": "tatoeba-12775754",
+      "text": "he listened to the wind through the canyon"
+    },
+    {
+      "id": "tatoeba-12775762",
+      "text": "she saw the lights of the town ahead"
+    },
+    {
+      "id": "tatoeba-12775764",
+      "text": "they followed the river downstream"
+    },
+    {
+      "id": "tatoeba-12775771",
+      "text": "they rode into town just after dark"
+    },
+    {
+      "id": "tatoeba-12775773",
+      "text": "they watched the sun dip below the horizon"
+    },
+    {
+      "id": "tatoeba-12775781",
+      "text": "she watched the storm roll in from the distance"
+    },
+    {
+      "id": "tatoeba-12775824",
+      "text": "the banquet was a grand affair"
+    },
+    {
+      "id": "tatoeba-12775847",
+      "text": "she held the fan delicately between her fingers"
+    },
+    {
+      "id": "tatoeba-12775848",
+      "text": "the garden party was a splendid success"
+    },
+    {
+      "id": "tatoeba-12775864",
+      "text": "she placed the tiara carefully upon her head"
+    },
+    {
+      "id": "tatoeba-12775880",
+      "text": "the garden was adorned with roses for the occasion"
+    },
+    {
+      "id": "tatoeba-12775894",
+      "text": "the ballroom was filled with the scent of roses"
+    },
+    {
+      "id": "tatoeba-12775986",
+      "text": "the grand staircase was lined with red velvet"
+    },
+    {
+      "id": "tatoeba-12776118",
+      "text": "he finds inspiration in nature"
+    },
+    {
+      "id": "tatoeba-12776609",
+      "text": "are you free for dinner tomorrow"
+    },
+    {
+      "id": "tatoeba-12776620",
+      "text": "she tilted her head and smiled back"
+    },
+    {
+      "id": "tatoeba-12776650",
+      "text": "how about dinner tomorrow night"
+    },
+    {
+      "id": "tatoeba-12776672",
+      "text": "do you have time to chat more later"
+    },
+    {
+      "id": "tatoeba-12776692",
+      "text": "she laughed at his clever remarks"
+    },
+    {
+      "id": "tatoeba-12776900",
+      "text": "they discuss the impact of technology"
+    },
+    {
+      "id": "tatoeba-12776907",
+      "text": "they prepare a presentation for the team"
+    },
+    {
+      "id": "tatoeba-12776909",
+      "text": "she takes notes during the meeting"
+    },
+    {
+      "id": "tatoeba-12776910",
+      "text": "do they need more office supplies"
+    },
+    {
+      "id": "tatoeba-12776913",
+      "text": "are you reviewing the documents"
+    },
+    {
+      "id": "tatoeba-12776917",
+      "text": "is the printer working properly"
+    },
+    {
+      "id": "tatoeba-12776931",
+      "text": "he schedules meetings for the week"
+    },
+    {
+      "id": "tatoeba-12776932",
+      "text": "she takes a break to clear her mind"
+    },
+    {
+      "id": "tatoeba-12777192",
+      "text": "are they rehearsing for the concert"
+    },
+    {
+      "id": "tatoeba-12777193",
+      "text": "she sings with a beautiful voice"
+    },
+    {
+      "id": "tatoeba-12777194",
+      "text": "they collaborated on a new album"
+    },
+    {
+      "id": "tatoeba-12777196",
+      "text": "he teaches music theory to beginners"
+    },
+    {
+      "id": "tatoeba-12777201",
+      "text": "she explores different genres of music"
+    },
+    {
+      "id": "tatoeba-12777204",
+      "text": "he creates melodies on his keyboard"
+    },
+    {
+      "id": "tatoeba-12777205",
+      "text": "she records her songs in the studio"
+    },
+    {
+      "id": "tatoeba-12777212",
+      "text": "he composed the score for the film"
+    },
+    {
+      "id": "tatoeba-12777216",
+      "text": "he dreams of becoming a composer"
+    },
+    {
+      "id": "tatoeba-12777218",
+      "text": "they released their first album last year"
+    },
+    {
+      "id": "tatoeba-12777226",
+      "text": "they love experimenting with new instruments"
+    },
+    {
+      "id": "tatoeba-12777228",
+      "text": "he composed a symphony last month"
+    },
+    {
+      "id": "tatoeba-12777232",
+      "text": "he produces beats for local artists"
+    },
+    {
+      "id": "tatoeba-12777242",
+      "text": "they collaborate with musicians around the world"
+    },
+    {
+      "id": "tatoeba-12777243",
+      "text": "do you follow the latest music trends"
+    },
+    {
+      "id": "tatoeba-12777250",
+      "text": "she teaches music composition online"
+    },
+    {
+      "id": "tatoeba-12777251",
+      "text": "they love the sound of acoustic guitars"
+    },
+    {
+      "id": "tatoeba-12777259",
+      "text": "she learns new instruments quickly"
+    },
+    {
+      "id": "tatoeba-12777261",
+      "text": "do you listen to music while you work"
+    },
+    {
+      "id": "tatoeba-12777274",
+      "text": "he teaches songwriting workshops"
+    },
+    {
+      "id": "tatoeba-12777280",
+      "text": "she writes ballads about life and love"
+    },
+    {
+      "id": "tatoeba-12777283",
+      "text": "he plans to record an instrumental album"
+    },
+    {
+      "id": "tatoeba-12777290",
+      "text": "they blend different musical traditions"
+    },
+    {
+      "id": "tatoeba-12777291",
+      "text": "do you collaborate with other musicians"
+    },
+    {
+      "id": "tatoeba-12777295",
+      "text": "do you play music at social gatherings"
+    },
+    {
+      "id": "tatoeba-12777297",
+      "text": "she teaches guitar to beginners"
+    },
+    {
+      "id": "tatoeba-12777301",
+      "text": "she writes poetry in her free time"
+    },
+    {
+      "id": "tatoeba-12777303",
+      "text": "are you working on an art piece"
+    },
+    {
+      "id": "tatoeba-12777304",
+      "text": "he sculpts abstract figures from clay"
+    },
+    {
+      "id": "tatoeba-12777305",
+      "text": "she designs fashion for local shows"
+    },
+    {
+      "id": "tatoeba-12777309",
+      "text": "she experiments with photography"
+    },
+    {
+      "id": "tatoeba-12777310",
+      "text": "they explore digital art techniques"
+    },
+    {
+      "id": "tatoeba-12777311",
+      "text": "are you part of an artist collective"
+    },
+    {
+      "id": "tatoeba-12777313",
+      "text": "she decorates murals for public spaces"
+    },
+    {
+      "id": "tatoeba-12777316",
+      "text": "he paints murals for schools and parks"
+    },
+    {
+      "id": "tatoeba-12777318",
+      "text": "they blend traditional and modern art forms"
+    },
+    {
+      "id": "tatoeba-12777329",
+      "text": "he plans to open a gallery for emerging artists"
+    },
+    {
+      "id": "tatoeba-12777351",
+      "text": "she writes articles about contemporary art"
+    },
+    {
+      "id": "tatoeba-12777374",
+      "text": "he carves wooden sculptures in his studio"
+    }
+  ]
+}
