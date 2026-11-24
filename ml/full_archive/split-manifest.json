@@ -1,0 +1,26 @@
+{
+  "archiveSha256": "5fb217e0e1273017a6789c5c7ebcc00eed624f2f6426c284da2077a88e270420",
+  "listFormat": "UTF-8 source IDs sorted lexically, one per LF-terminated line",
+  "priorManifestFileSha256": "09c09772aad022efdb1c88427db22f46de4b39149e6cb930b5581453f14d5c86",
+  "priorParticipants": 2000,
+  "priorSeed": 42,
+  "rule": "Exclude prior IDs. Sort remaining IDs by SHA256 of UTF-8 fresh-2026-11:split:{pid}, ties by lexical ID. First floor(n/10) test, next floor(n/10) validation, rest train. Add prior train/validation to train. Keep prior test in legacy_test, using the original seed:split:{pid} hash rank and floor(0.85*n) cutoff.",
+  "splits": {
+    "legacy_test": {
+      "participants": 300,
+      "sha256": "88450e2e94ca9d1eb33dcc6dadea42d661381afabb252f431e92cc0102dedab7"
+    },
+    "test": {
+      "participants": 16659,
+      "sha256": "08bea7236ee36461e239e6190e02ff9c893b067733ed8ae7078c3bf6a6f69699"
+    },
+    "train": {
+      "participants": 134975,
+      "sha256": "c0e55bb0837f4fd4af2bede744f16128b19c270ceb538047166515577e3c53db"
+    },
+    "validation": {
+      "participants": 16659,
+      "sha256": "bf8b847824a3ec8f21b4982bb7bd3c4207fb5393f4b98e769237a381df1dff48"
+    }
+  }
+}
