@@ -64,19 +64,54 @@ class ExportTests(unittest.TestCase):
     def test_public_json_keys_and_feature_order(self) -> None:
         model = json.loads((pipeline.GENERATED / "model.json").read_text())
         benchmark = json.loads((pipeline.GENERATED / "benchmark.json").read_text())
-        self.assertEqual(set(model), {
-            "artifactVersion", "baseline", "coefficients", "featureNames", "featureVersion",
-            "intercept", "modelVersion", "populationMeanLogMs", "provenance",
-            "residualLogQuantiles", "status", "task",
-        })
-        self.assertEqual(set(benchmark), {
-            "audit", "environment", "evaluation", "hashes", "limitations", "modelVersion",
-            "reportVersion", "reproduction", "selectedAlpha", "selectedBaseline", "source",
-            "splitDesign", "stageTimingsSeconds", "status", "validationBaselines",
-            "validationModels",
-        })
+        self.assertEqual(
+            set(model),
+            {
+                "artifactVersion",
+                "baseline",
+                "coefficients",
+                "featureNames",
+                "featureVersion",
+                "intercept",
+                "modelVersion",
+                "populationMeanLogMs",
+                "provenance",
+                "residualLogQuantiles",
+                "status",
+                "task",
+            },
+        )
+        self.assertEqual(
+            set(benchmark),
+            {
+                "audit",
+                "environment",
+                "evaluation",
+                "hashes",
+                "limitations",
+                "modelVersion",
+                "reportVersion",
+                "reproduction",
+                "selectedAlpha",
+                "selectedBaseline",
+                "source",
+                "splitDesign",
+                "stageTimingsSeconds",
+                "status",
+                "validationBaselines",
+                "validationModels",
+            },
+        )
         self.assertEqual(model["featureNames"][:2], ["pair_aa", "pair_ab"])
-        self.assertEqual(model["featureNames"][675:], [
-            "pair_zz", "word_length", "pair_position", "user_mean_log_ms", "user_log_count",
-            "pair_mean_log_ms", "pair_log_count",
-        ])
+        self.assertEqual(
+            model["featureNames"][675:],
+            [
+                "pair_zz",
+                "word_length",
+                "pair_position",
+                "user_mean_log_ms",
+                "user_log_count",
+                "pair_mean_log_ms",
+                "pair_log_count",
+            ],
+        )
