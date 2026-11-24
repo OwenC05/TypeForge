@@ -53,9 +53,11 @@ Starts its own hidden Vite dev server on `SDK_PORT` (default 5324,
   th. Sets A and B together (B is ten General runs with in slow) admit in.
 - `race` (dev server, needs `fixtures`): sources seeded through C's own
   `captureContext` + `saveSource`, never a status or admission override. It
-  covers a reset through C or a focus invalidation followed by a native first
-  key while the re-preparation is still queued under the paused clock. It also
-  holds the `/src/finite-practice.ts` import (a browser route) across a reset
+  covers a reset through C or a focus invalidation while re-preparation is
+  queued under the paused clock. Typing the displayed Suggested letter leaves
+  General idle with an empty, focused textarea. Typing the first General letter
+  then starts the timer and records one correct attempt. The phase also holds
+  the `/src/finite-practice.ts` import (a browser route) across a reset
   and a newer generation in the settle and restart paths.
 - `live` (dev server, needs `fixtures`): saves held at C's source hash. It
   covers Enter at 0 ms and 200 ms while a save is pending, a failure settling
@@ -66,7 +68,8 @@ Starts its own hidden Vite dev server on `SDK_PORT` (default 5324,
   fallbacks, the settle step-back after a reset through C and the first key
   after a known invalidation. Prompt identity is read from three places: the
   passage the engine paints, the persisted record's sentence `promptId`s, and
-  the stage metadata. It also checks that the first key lands exactly once.
+  the stage metadata. On first-key fallback, the saved result contains one
+  correct attempt for the General letter and zero first-attempt errors.
 
 Each phase writes `<phase>-flows.json` (every check, labelled `real`,
 `real-fault` or `injected`), a helper receipt (PID, executable, arguments, port
