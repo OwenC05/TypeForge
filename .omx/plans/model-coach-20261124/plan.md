@@ -17,7 +17,7 @@ Goal: give the model a real job, "what is expected for a typist at your speed", 
 - D5 Deployment: Vercel builds production from GitHub `main` (README, "Public demo deployment"). PR #1 merged on 19 November, so production is current. Nothing is pushed, merged or deployed without Owen's approval.
 - D6 Lightweight records: one coordination file, one short report per task, no raw-log receipts in git.
 - D7 Design: Codex workers implement UI against `DESIGN.md`; the Claude coordinator makes the design calls and reviews screenshots (Owen's rule that design judgements come from real Claude).
-- D8 Python runs in WSL with Python 3.14 to match CI. DVC orchestrates the ML pipeline (pinned separately so CI stays light).
+- D8 Python runs in WSL with Python 3.14 to match CI. No DVC: Owen rejected it on 24 November because it does nothing for profiling typists or choosing practice, and the pipeline's hashed inputs and frozen config already give the reproducibility it would add. Infrastructure must earn its place through the model or the user.
 
 ## The model (shared design for phase B; workers refine, coordinator approves)
 
@@ -36,7 +36,7 @@ Phase A (now, parallel):
 
 | ID | Task | Owns | Depends on |
 | --- | --- | --- | --- |
-| A1 | ML package: split `ml/pipeline.py` into tested modules, DVC stages, data-dir parameter; byte-identical outputs | `ml/**` except reserved dirs; root DVC files | none |
+| A1 | ML package: split `ml/pipeline.py` into tested modules with a data-dir parameter, so the modelling work builds on it; byte-identical outputs (DVC dropped 24 Nov) | `ml/**` except reserved dirs | none |
 | A2 | Eligibility v2: post-error bias analysis, exact rule spec, shared conformance fixtures, Python reference | `ml/analysis/**`, `ml/specs/**`, `ml/eligibility_v2.py`, its test, `ml/fixtures/eligibility-v2.json` | none |
 | A3 | Practice and assessment banks v2 from an openly licensed corpus; pair frequencies | `ml/corpus/**`, new bank JSON under `src/generated/` | none |
 | A4 | Fix the two P3 UI issues (red/green) | client source and tests named in brief | none |

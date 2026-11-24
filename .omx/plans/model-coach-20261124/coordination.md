@@ -21,3 +21,4 @@ A4 first (A9 depends on it), then A6 (both touch `app.ts`), A1, A2, A3, A7, A8 i
 ## Log
 
 - 24 Nov: run, tasks and eight workers started.
+- 24 Nov: Owen questioned DVC. Dropped from A1 (`msg_2ff62e4f119c` to `ctx_29f9c1290eec`): no DVC files or references; the module split, data-dir parameter, tests and byte-identity proof stay. The A1 brief file keeps its original text as the dispatched record; this message supersedes its DVC items.
