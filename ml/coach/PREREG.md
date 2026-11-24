@@ -39,7 +39,7 @@ Use WSL Python 3.14.4, NumPy 2.5.3 and SciPy 1.18.1 with `OPENBLAS_NUM_THREADS=1
 
 ## Identity and execution
 
-The scoring code is `bcc6fa61bdf5d62f50fd67460a4fc808ed6451e3`. Run `ml.coach.validation.fit_training` on the pinned train file, `coach_inputs()` on the pinned corpus and Ridge, and `score_split(model, limited, ridge, frequency, fresh_clean_npz)` once under B6. B6 records the fresh derived-file SHA256 before scoring. Hashes below are SHA256. Version-controlled text uses Git LF bytes.
+The scoring code is `f9fe277e179d8acc97e0e44742156b8d5579ae8e`. Evaluation decisions were recorded in `89335e4` before validation. B3's data builder is `c5dcd6258251fb05fdf85b570a7b678335b89e4d`. Run `ml.coach.validation.fit_training` on the pinned train file, `coach_inputs()` on the pinned corpus and Ridge, and `score_split(model, limited, ridge, frequency, fresh_clean_npz)` once under B6. B6 records the fresh derived-file SHA256 before scoring. Hashes below are SHA256. Version-controlled text uses Git LF bytes.
 
 | Input | Digest |
 | --- | --- |
@@ -48,7 +48,12 @@ The scoring code is `bcc6fa61bdf5d62f50fd67460a4fc808ed6451e3`. Run `ml.coach.va
 | Train assignment | `c0e55bb0837f4fd4af2bede744f16128b19c270ceb538047166515577e3c53db` |
 | Validation assignment | `bf8b847824a3ec8f21b4982bb7bd3c4207fb5393f4b98e769237a381df1dff48` |
 | Fresh assignment, from A8's published manifest | `08bea7236ee36461e239e6190e02ff9c893b067733ed8ae7078c3bf6a6f69699` |
+| B3 `meta.json` | `c840a716251a6f8cb435774ddb04a4ebbf4b9a3b28e91fb69cbeb2b14aa3da80` |
+| B3 `train.npz` | `4ee076d14840e8ef9d5f8c69e2a35b20618567a44316e84df2003a28b4cc7b16` |
+| B3 `validation.npz` | `1924228510dbf4a84c93f2d097bddd2e7503b3455c8a7762d350bea4f5dbed94` |
+| B3 `validation-corrected.npz` | `2f6bba780a28549f2993c48b774c0b0c967f51b4bc7c70ed79e32017e8b39dd3` |
 | A3 pair frequencies | `73053fe706308e95a04052ba8fe19dfaecb00079104f46af9cd2b6a31c9d1327` |
 | Frozen Ridge | `7ffce48105ac2dc9c9915d01f9277a7f4b7cfeca6d0377ce8d44a8d70536a836` |
+| Fitted full model | `c813005bd99f23fc88b9370490eb8dffa1792c57d5151d23b07047477fe85158` |
 
-Development protocol recorded before B3 delivery. Final registration requires B3's verified data hashes, fitted-table digest and numeric support endpoints.
+The fitted-model digest uses concatenated little-endian float64 values beginning with center, low and high, followed by the arrays of L0 pair means, anchors, slopes, gap variances and residual variances. Array order is `aa` through `zz`. B6 verifies the digest and input hashes before scoring. The full center is 4.991806588457015 and the support is [4.3868277835121745, 5.9303363670890565] log ms. The below-100 fit has center 5.00703192871013 and support [4.431611285801627, 5.933951603104741].
