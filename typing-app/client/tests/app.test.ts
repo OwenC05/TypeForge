@@ -588,24 +588,47 @@ test('a locked Suggested fallback clears the request and the selected view toget
 // F admission follow-up (task_338af3c3e8c3). Corrected invariants; root's probe observed the opposite on 026cb69.
 const sliceBetween=(start:string,end:string)=>{const b=source.indexOf(start),e=source.indexOf(end,b+start.length);assert.ok(b>=0&&e>b,`ordered nonempty boundaries: ${start}`);return source.slice(b,e);};
 
-test('a known invalidation stops an admitted finite block from starting: the first key starts General once',()=>{
- const begin=source.indexOf('  const acceptInput = ')+'  const acceptInput = '.length;
- const handler=source.slice(begin,source.indexOf("\n  input.addEventListener('input', acceptInput);",begin)).trim().replace(/;$/,'');
- for(const current of [false,true]){
-  const log:string[]=[];
-  const engineOf=(kind:string)=>{let state='idle';return {kind,get state(){return state;},tick:()=>({state,sentenceIndex:0,value:''}),snapshot:()=>({state,sentenceIndex:0,value:state==='idle'?'':'t'}),
-   edit:(edit:{text:string})=>{log.push(`edit-${kind}:${edit.text}`);state='running';},submittedSummaries:[]};};
-  const finite=engineOf('finite');const admitted={plan:{pair:'th'}};
-  const context:any={restarting:false,disposed:false,input:{value:'t'},performance:{now:()=>5},ended,frozen:null,composing:false,mode:'practice',
-   before:{value:'',start:0,end:0,type:'insertText',data:'t'},key:{key:'t',time:5,repeat:false},reconstructEdit:()=>({start:0,end:0,text:'t',tracked:true}),
-   engine:finite,admitted,isFiniteBlock:(e:unknown)=>e===finite,admissionCurrent:(s:unknown)=>current&&s===admitted,qwerty:{checked:true},coachUi,changeNote:'old',fellBack:true,
-   makeEngine:()=>engineOf('general'),installBlock:(block:unknown,snapshot:unknown)=>{log.push('install-general');context.engine=block??context.makeEngine();context.admitted=snapshot;},
-   hint:(text:string)=>log.push(`hint:${text}`),freezeRun:()=>{log.push(`freeze-${context.engine.kind}`);context.frozen={};},prepare:()=>{},paint:()=>{}};
-  runInNewContext(stripTypeScriptTypes(`(${handler})`),context)({isComposing:false});
-  assert.deepEqual(log,current?['edit-finite:t','freeze-finite']:['install-general',`hint:${coachUi.recheckFallback}`,'edit-general:t','freeze-general'],
-   current?'a current admission starts its plan':'stale: General is installed before the key, which is applied exactly once');
-  assert.equal(context.admitted,current?admitted:null);
- }
+test('the first edit belongs to the visible prompt and cannot score against a replacement', () => {
+  const handler = sliceBetween('  const acceptInput = ', "\n  input.addEventListener('input', acceptInput);");
+  const reconstruct = sliceBetween('function reconstructEdit(', '\nconst esc = ');
+  for (const current of [true, false]) {
+    const plan = resolveCertifiedPlan('th')!;
+    const options = { id: 'first-key', mode: 'practice', durationMs: 30000, inputMode: 'flow-v1', qwerty: true } as const;
+    const finite = new TypingEngine({ ...options, prompts: plan.prompts, finite: true });
+    const general = new TypingEngine({ ...options, prompts: [practicePrompts[0]!] });
+    const oldKey = finite.prompt.text[0]!, newKey = general.prompt.text[0]!;
+    assert.notEqual(oldKey, newKey, 'the previously visible first letter would be an error on General');
+    let now = 0, starts = 0;
+    const host: any = { engine: finite, admitted: { plan }, restarting: false, disposed: false, frozen: null,
+      composing: false, input: { value: '' }, before: null, key: null, performance: { now: () => now }, ended,
+      isFiniteBlock: (block: unknown) => block === finite, admissionCurrent: () => current, mode: 'practice',
+      suggestedRequested: true, practiceKind: { value: 'recommended' }, changeNote: '', fellBack: false, coachUi,
+      installBlock: () => { host.engine = general; host.admitted = null; },
+      freezeRun: () => { starts++; host.frozen = {}; }, hint() {}, paint() {},
+    };
+    const accept = runInNewContext(stripTypeScriptTypes(`${reconstruct}\n${handler}\nacceptInput`), host);
+    const insert = (char: string) => {
+      now += 100;
+      const value = host.input.value, end = value.length;
+      host.before = { value, start: end, end, type: 'insertText', data: char };
+      host.key = { key: char, time: now, repeat: false };
+      host.input.value += char;
+      accept({ isComposing: false });
+    };
+    insert(oldKey);
+    if (!current) {
+      assert.equal(host.engine, general);
+      assert.equal(finite.state, 'idle');
+      assert.equal(general.snapshot(now).metrics.attemptedCharacters, 0, 'no attempt for the unseen sentence');
+      assert.equal(host.input.value, '');
+      assert.equal(starts, 0);
+      insert(newKey);
+    }
+    assert.equal(host.engine, current ? finite : general);
+    assert.equal(starts, 1);
+    assert.equal(host.input.value, current ? oldKey : newKey);
+    assert.equal(host.engine.snapshot(now).metrics.accuracy, 100);
+  }
 });
 
 test('an awaited runtime import never publishes an older snapshot over a newer generation or storage change',async()=>{
