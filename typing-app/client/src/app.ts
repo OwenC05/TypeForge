@@ -365,6 +365,7 @@ async function practice(requested: URLSearchParams = new URLSearchParams(locatio
     if ($('#block-identity').textContent !== label) $('#block-identity').textContent = label;
     if ($('#remaining').textContent !== String(Math.ceil(snapshot.remainingMs / 1000))) $('#remaining').textContent = String(Math.ceil(snapshot.remainingMs / 1000));
     stage.dataset.bankVersion = mode === 'assessment' || practiceChoice.kind === 'manual' ? '2' : '1';
+    stage.dataset.longPair = String(practiceChoice.kind === 'manual' && prompts.some(prompt => prompt.text.length > 49));
     stage.dataset.promptIds = prompts.map(prompt => prompt.id).join(' ');
   }
   const input = $<HTMLTextAreaElement>('#typing-input');
