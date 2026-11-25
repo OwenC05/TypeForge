@@ -1,10 +1,22 @@
-# TypeForge timing experiment
+# TypeForge timing models
 
-This is a real-data, offline, non-commercial portfolio experiment, not evidence that drills improve typing. Public-data predictions remain **experimental**. The frozen validation-selected historical baseline—not Ridge—selects practice targets.
+TypeForge fits two timing models offline on public Aalto keystrokes and runs them in the browser. L5 chooses a pair for Suggested practice. Ridge and its historical baseline predict individual keystroke intervals for the comparison on saved results.
+
+## L5 practice coach
+
+L5 estimates the expected time for each letter pair at a typist’s speed, adjusted for the mix of pairs they typed. It then estimates a personal gap for each pair. Sparse observations shrink the gap toward zero.
+
+Of 134,975 training assignments in the full Aalto 136M archive, 93,478 typists supplied a clean sentence. The model fit used 7,950,952 intervals from exact, unedited copies on full-size and laptop QWERTY keyboards. An eligible interval is the time between successive key presses for adjacent lowercase letters within a word. It must be positive and at most 5,000 ms.
+
+The registered fresh test held out 16,659 typists and excluded the 2,000 from the earlier Ridge experiment. Predictions used the first half of each typist’s trials to estimate mean log timing in the second half. A pair needed two observations in each half. Across 4,240 scored typists and 13,906 qualifying typist–pair combinations, mean absolute error was **0.204 log ms** for L5 and **0.288** for the typist’s own earlier average. The paired 95% participant-bootstrap interval for the reduction was **0.079–0.088 log ms**. The registration required at least 800 scored typists and a lower endpoint above 0.020 log ms.
+
+The fit check counts how often a pair’s observed mean falls inside its predicted 80% range, using up to 20 recently checked sentences. From eight checked sentences, coverage below 70% returns Suggested to General. The threshold came from the second percentile of 803 validation typists with enough checks (70.38%, rounded down). It stopped suggestions for 15 of those 803.
+
+L5 can choose pairs for TypeForge and for a prospective practice trial. Its training speed range is about 32–150 WPM. Beyond it, L5 uses the nearest supported pair pattern and the typist’s observed pace. Few fast typists qualified for scoring. Whether training the suggested pairs improves typing on fresh text awaits the trial. [Registration](coach/PREREG.md) · [Independent review](coach/REVIEW.md) · [Results and fit calibration](coach/REPORT.md)
 
 ## Reproduce
 
-Run from the repository root with Python 3.14. The scientific packages are pinned in
+To reproduce the Ridge experiment, run from the repository root with Python 3.14. The scientific packages are pinned in
 `ml/requirements.txt`. The published config also records the interpreter build string.
 
 ```sh
@@ -88,4 +100,4 @@ The primary estimand is test participants / nonreserved prompts / warm history p
 
 `fixtures/parity.json` uses `{synthetic,modelVersion,cases:[{prompt,history,occurrences:[{position,pair,features,predictedLogMs,predictedMs}]}]}`. Expected fixture predictions are captured from the original fitted estimator/scaler before coefficient folding, then export independently checks their agreement. `transitionFixture` provides an increasing synthetic event stream, retained observations and expected advanced history. Browser/Python tolerance is relative 1e-6. Cold and warm mixed-case/apostrophe inputs cover fallback and word-position semantics. No inference library or remote prediction API is required.
 
-Public-data success does not establish TypeForge transfer, instrument equivalence, causal coaching efficacy or hiring outcomes. Accounts, independent consented pilot and release/browser/physical-device gates remain separate work.
+The Ridge benchmark measures prediction error on Aalto typing. Differences in browser instrumentation and text can affect how well those estimates transfer to TypeForge.

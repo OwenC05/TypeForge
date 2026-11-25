@@ -1,26 +1,22 @@
 # TypeForge
 
-TypeForge opens straight into typing practice and can suggest letter pairs after ten qualifying 30-second QWERTY assessments. Timing predictions run locally, and your typing history stays in this browser. **[Try the live demo](https://typeforge-alpha.vercel.app)**
+TypeForge opens straight into typing practice. Suggested names a letter pair your saved typing shows is slower than expected at your speed. It runs General practice if the evidence is thin, the model fits your recent typing poorly, or you haven’t declared a physical QWERTY keyboard. Your history and predictions stay in this browser. **[Try the live demo](https://typeforge-alpha.vercel.app)**
 
-<a href="docs/screenshots/practice-desktop.png"><img src="docs/screenshots/practice-desktop.png" width="320" alt="General practice mid-run, with completed words and the next letters to type"></a> <a href="docs/screenshots/ml-lab-desktop.png"><img src="docs/screenshots/ml-lab-desktop.png" width="320" alt="ML Lab showing held-out timing errors for Ridge and the historical baseline"></a>
+<a href="docs/screenshots/practice-desktop.png"><img src="docs/screenshots/practice-desktop.png" width="320" alt="General practice mid-run, with completed words and the next letters to type"></a> <a href="docs/screenshots/ml-lab-desktop.png"><img src="docs/screenshots/ml-lab-desktop.png" width="320" alt="ML Lab showing a typist’s pair speed, recent fit and largest timing gaps"></a>
 
 ### How it works
 
 ```mermaid
 flowchart LR
-    A[Aalto keystrokes] -->|Python pipeline| M[JSON model] -->|Browser inference| F[Frozen predictions]
-    F --> C[Compare]
-    T[Type a sentence] --> O[Observe timing] --> C
-    O --> P[Choose practice] --> T
+    A[Aalto keystrokes] -->|Fit in Python| M[L5 pair timings by speed]
+    M --> C[Compare in the browser]
+    T[Saved assessments and General practice] --> C
+    C --> P[Suggest a pair or run General]
 ```
 
-**Public-data timing prediction · 30 September 2026.** Mean absolute error per typist was **61.30 ms for Ridge** vs **67.55 ms for the baseline** (151 held-out typists, 9,595 intervals). Typing gains remain unmeasured.
+**Ridge · 30 September 2026.** For 9,595 individual intervals from 151 held-out typists, mean absolute error per typist was **61.30 ms** for Ridge and **67.55 ms** for the historical baseline.
 
-### Next
-
-- Estimate expected letter-pair timing for a typist at your speed.
-- Choose practice for pairs where you consistently take longer than expected.
-- Test whether targeted practice helps on fresh text.
+**L5 coach · later pair timing.** Of 16,659 held-out typists, 4,240 had repeated pairs to score. Mean absolute error was **0.204 log ms** for L5 against **0.288** for the typist’s own earlier average. The paired 95% interval for the reduction was **0.079–0.088 log ms**. Whether practising these pairs helps on fresh text remains open for the planned trial. [Fresh test results](ml/coach/REPORT.md#fresh-test)
 
 **Quick start** · With Node.js 24+ in `typing-app/client`, run `npm ci` and then `npm run dev`.<br>
-[Product details](docs/product.md) · [ML experiment and reproduction](ml/README.md) · [Verification](docs/verification.md)
+[Product details](docs/product.md) · [Models and reproduction](ml/README.md) · [Verification](docs/verification.md)

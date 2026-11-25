@@ -1,5 +1,15 @@
 # Local verification
 
+On **25 November 2026**, a clean `npm ci` and `npm run check` on `8e92a86` passed TypeScript checking and the production build. Of 209 client tests, 202 passed and seven eligibility fixtures were skipped because the browser input model cannot represent those cases. The pinned WSL Python suite passed all 71 tests.
+
+| Windows production preview | Suggested coach | Native typing flow | P3 regressions |
+| --- | ---: | ---: | ---: |
+| Chrome 157.0.8103.80 (Chromium) | 34/34 | 46/46 assertions, 49/49 including harness checks | 11/11 |
+| Firefox 156.0 | 34/34 | — | 10 passed, 1 skipped |
+| Playwright WebKit 26.6 | 34/34 | — | 10 passed, 1 skipped |
+
+The coach checks type General, Suggested and manual Pair blocks. They verify that drills leave the Lab readout unchanged and that both a suggestion and a poor-fit fallback survive a reload. P3 covers the database upgrade and saved-history regressions. The skipped P3 case checks Chromium’s handling of an empty Backspace and end-of-text Delete. Native typing flow ran on Chromium only. [Production browser commands](../typing-app/client/tests/browser/README.md)
+
 ## Pre-push repair checks — 5 October 2026
 
 The user requested repairs and a push to `main`. Publishing does not waive the retained screen-reader/AT, OS IME, Firefox/Safari, physical-device or browser-UI zoom release gates. This section supersedes earlier local approval for the reviewed revision; historical evidence below remains dated.
@@ -29,7 +39,7 @@ Status: **verified local implementation / RELEASE GATES PENDING**. On 4 October 
 
 The fresh `resumed-cli-verification.txt` run reproduced `app-DL-4yx8D.js` and the previously reviewed `app.ts` SHA256. The 107 scoped browser assertions and 21 Python tests in the table are retained earlier evidence, **not** fresh reruns. Local evidence lives under `.omx/ultragoal/evidence/typing-flow/`; the scope decision and fresh CLI log do not certify manual platforms or deployment.
 
-Capacity fixtures include 200 short-passage commits, real shuffled banks/drills, shortest passages, corrected input up to 6,000 attempts and a retest with one fresh passage remaining. Exceptional cap overflow must produce a frozen partial diagnostic, not a completed result or assessment trend entry. Manual practice uses separate user-choice metadata; Recommended retains its observation/support/positive-score thresholds. With no model, Recommended stays unavailable even when warm compatible history supports baseline-only predictions.
+Capacity fixtures include 200 short-passage commits, real shuffled banks/drills, shortest passages, corrected input up to 6,000 attempts and a retest with one fresh passage remaining. Exceptional cap overflow must produce a frozen partial diagnostic, not a completed result or assessment trend entry. The October suite also checked manual-choice metadata and the former Recommended mode’s observation, support and score thresholds.
 
 Local, ignored `.omx/ultragoal/evidence/typing-flow/REPORT.md` records the independent browser checks, script filenames, raw JSON and reproduction through the available Playwright `browser_run_code_unsafe` tool. It is not a committed, standalone E2E suite. Core tests cover native editing/focus/selection, Space transitions, composition/repeat diagnostics, response-cap diagnostic export, save failure/retry and narrow/CSS-zoom display. Recommended/Manual journeys verify the shared cadence, metadata, settings and compatible fresh-retest lineage. The real-clock run saved a 15,000ms result/chart endpoint after three native commits and a partial passage. Recommendation history is an engine-generated fixture, not a physical assessment or benchmark observation.
 
@@ -48,9 +58,7 @@ The 30 September local-first slice had passing checks and a genuine trained arti
 After the [frontend setup](product.md#run-locally) and [Python environment setup](../ml/README.md#reproduce), run from the repository root:
 
 ```sh
-node --experimental-strip-types --test --test-isolation=none typing-app/client/tests/*.test.ts
-npm --prefix typing-app/client run test
-npm --prefix typing-app/client run typecheck
+npm --prefix typing-app/client run check
 .venv/bin/python -m unittest discover -s ml/tests -v
 ```
 
@@ -98,7 +106,7 @@ Scoped automation used **Chromium 155.0.8059.12**, a production preview and isol
 
 Those review-repair groups contained **10 restart, 7 storage, 12 focus, 16 journey, 30 core and 18 artifact/storage passing assertions**, plus the real-clock Enter regression. The earlier final-Lab group recorded 12 passes. Groups overlap; their sum is **not** a count of independent scenarios. Browser QA found and preserved the initial monotonic-clock Enter failure and, later, a stale deleted-origin Restart failure; repairs passed fresh regressions. Initial review findings and failed raw runs remain recorded rather than relabelled as passes.
 
-To repeat the historical Enter checks, use the 30 September revision. For the current local flow revision, serve its production build in a fresh browser profile, select a duration, advance several passages with Space, reopen the saved result, and exercise General/Recommended/Manual practice and compatible fresh retest. Check native edits, duration/bucket labels, blur/restart, export/delete and offline completion after loading at desktop/narrow/200% zoom. Fault injection, controlled-clock deadlines and v1 database seeding require an automation harness; this checklist does not extend the scoped current coverage recorded above.
+To repeat the historical Enter checks, use the 30 September revision. For the current production build, run the coach, native typing and P3 suites. They use isolated browser profiles and an accelerated clock. [Browser runner instructions](../typing-app/client/tests/browser/README.md)
 
 The original automation scripts and raw outputs live under **local, ignored** `.omx/ultragoal/evidence/browser/`; they use the Playwright MCP `browser_run_code_unsafe` tool and are not a standalone published npm test suite. Local `REPORT.md` and `REVIEW-REPAIR-REPORT.md` explain execution and preserve initial failures as well as successful reruns. This public document summarizes those results; it does not imply the ignored logs ship with the repository. [Home](https://github.com/OwenC05/TypeForge/blob/9b2a6605b3e9aa7c0c0e93d3c8b52bee7d0918d7/docs/screenshots/home-desktop.png), [practice](https://github.com/OwenC05/TypeForge/blob/9b2a6605b3e9aa7c0c0e93d3c8b52bee7d0918d7/docs/screenshots/practice-desktop.png) and [ML Lab](https://github.com/OwenC05/TypeForge/blob/9b2a6605b3e9aa7c0c0e93d3c8b52bee7d0918d7/docs/screenshots/ml-lab-desktop.png) screenshots remain historical 30 September captures, not rolling-flow screenshots.
 
@@ -123,15 +131,15 @@ Actual file-byte SHA256 differs from canonical JSON hashing:
 - [model.json](../typing-app/client/src/generated/model.json): `7ffce48105ac2dc9c9915d01f9277a7f4b7cfeca6d0377ce8d44a8d70536a836`
 - [benchmark.json](../typing-app/client/src/generated/benchmark.json): `3774d21303ec1c56b4467a333d4a759e64b521417dc2d4e44e04f3793e7bcef3`
 
-Raw/participant-level data stays ignored. The Aalto source requires **non-commercial use with attribution**; see the [source and license notes](../ml/README.md#source-and-acquisition). Public instrumentation lacks browser focus/composition/repeat flags; conservative correct-copy selection is not proof of equivalent measurement. These results establish neither TypeForge transfer nor causal typing improvement. The historical baseline remains the coach.
+Raw/participant-level data stays ignored. The Aalto source requires **non-commercial use with attribution**; see the [source and license notes](../ml/README.md#source-and-acquisition). Public instrumentation lacks browser focus/composition/repeat flags; conservative correct-copy selection is not proof of equivalent measurement. These results establish neither TypeForge transfer nor causal typing improvement. The September version used the historical baseline to choose practice targets.
 
 ## Remaining gates and compatibility
 
-- Firefox, Safari, physical-keyboard/mobile-IME testing, screen-reader interaction and human usability remain untested. CSS zoom is a layout proxy, not browser-chrome zoom certification. No complete accessibility/contrast audit or universal timing-precision claim follows.
-- The 30 September responsive result/progress automation used empty states; separate populated result/progress visual inspection passed, but a populated five-assessment trend did not receive equivalent visual certification. Historical artifact/report coverage used exact isolated response mutations, not separately built artifact-free apps; incompatible/exhausted and legacy-origin coverage was limited. The current flow revision needs its own journey evidence rather than inheriting those passes.
+- The November suites cover Chrome, Firefox and Playwright WebKit on Windows. Safari, physical devices, OS input methods, screen-reader interaction and human usability still need separate testing.
+- The 30 September responsive result/progress automation used empty states; separate populated result/progress visual inspection passed, but a populated five-assessment trend did not receive equivalent visual certification. Historical artifact/report coverage used exact isolated response mutations, not separately built artifact-free apps; incompatible/exhausted and legacy-origin coverage was limited.
 - Storage checks cover the tested upgrade/pagination boundary, not arbitrarily large databases or eviction durability.
-- Accounts/private cloud sync, the independently consented 15–20-person transfer pilot and full public-release certification remain subsequent milestones. Static demo hosting is live; it does not certify an account backend or account isolation.
-- IndexedDB upgrades to database version 2 without rewriting old records. Old database-v1 apps cannot reopen that database and may reject extended records. **Export before downgrading.** Result schemaVersion and metricVersion remain 1.
+- The practice trial still awaits a design decision. [Draft trial protocol](pilot/preregistration.md)
+- P3 exercises the IndexedDB version 2→3 upgrade. Existing records stay in place and eligible assessment and General timings count as coach evidence. Earlier Suggested blocks remain readable and exportable. **Export before downgrading** to an app that opens an older database version.
 
 New optional `settings.inputMode: 'flow-v1'` and separate manual-choice metadata retain schemaVersion/metricVersion 1. Absence of inputMode keeps the original Enter/60s contract; it is not rewritten into flow. Current comparisons require matching interaction, duration, keyboard declaration, language, corpus and metric/schema versions. Practice does not feed assessment calibration or headline trends; incompatible legacy retests become explained new assessments.
 
