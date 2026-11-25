@@ -1,114 +1,108 @@
 # TypeForge coaching model validation
 
-**Select L5 for independent fresh-test review.** On 4,195 held-out validation typists, adding a shrunken personal gap to the pair-by-speed expectation gave the lowest error of the five rungs. Its paired improvement over the typist's own average was **0.0841 log ms** (95% interval 0.0799–0.0883). The protocol requires the fresh lower bound to exceed 0.020. These results come entirely from development data. [Frozen registration](PREREG.md)
+**L5 predicted later pair timing more accurately than the typist’s own earlier average.** Across 4,195 of 16,659 validation typists and 14,065 qualifying typist-pair cells, the paired reduction in mean absolute error was **0.0841 log ms** (95% participant-bootstrap interval 0.0799–0.0883). The fresh decision requires at least 800 scored typists and a lower bound above 0.020. A pass licenses using L5 to choose pairs in TypeForge and in a prospective practice trial. Only such a trial can establish whether practice improves typing or whether L5 chooses better practice pairs than the current rule. [Frozen registration](PREREG.md)
 
-## Prediction on later clean trials
+## Timing and ranking
 
-B3 supplied 7,950,952 clean training intervals and 984,094 clean validation intervals. We split each typist at the midpoint of all chronological trials, including rejections. A cell needed two clean observations of the same pair on each side. Each cell contributes equally within a typist, and each qualifying typist contributes equally to mean absolute error (MAE). Brackets give 95% percentile intervals from 2,000 participant bootstrap draws.
+Train supplied 7,950,952 clean intervals across 134,975 assignments. Validation supplied 984,094 across 16,659. Each prediction used the first half of that typist’s chronological trials. A pair needed two clean observations in each half. Each typist’s mean absolute error (MAE) weights their qualifying pairs equally, and the overall MAE weights typists equally. Brackets give 95% intervals from 2,000 participant-bootstrap draws.
 
-L0 uses the train pair mean, L1 the typist's earlier mean, L2 the pair-by-speed fit, and L5 the personal posterior. L3 applies the unmodified published Ridge to the pair's earlier word contexts with history frozen at the cutoff. The paired L5 gains over L2 and L3 were 0.0206 [0.0184, 0.0229] and 0.0190 [0.0169, 0.0210] log ms. Using the raw earlier mean of each personal pair gave MAE 0.2448 [0.2395, 0.2505]. All estimates and denominator counts are available at full precision. [Aggregate results](validation.json)
+L0 uses the train pair mean, L1 the typist’s earlier mean and L2 the pair-by-speed expectation. L3 applies the published Ridge to the earlier word contexts. L5 adds a shrunken personal gap to L2. All five columns show later-mean MAE in log ms on the same cells.
 
-| Source WPM | Assigned / scored typists | Cells | L0 | L1 | L2 | L3 | L5 |
+| Source WPM | Scored / assigned | Cells | L0 | L1 | L2 | L3 | L5 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| All | 16,659 / 4,195 | 14,065 | 0.347 [0.340, 0.354] | 0.290 [0.285, 0.295] | 0.227 [0.223, 0.231] | 0.225 [0.221, 0.229] | 0.206 [0.202, 0.210] |
-| <40 | 5,630 / 842 | 2,381 | 0.503 [0.484, 0.522] | 0.301 [0.289, 0.314] | 0.238 [0.227, 0.249] | 0.244 [0.233, 0.255] | 0.220 [0.209, 0.231] |
-| 40–<80 | 9,520 / 2,573 | 8,521 | 0.273 [0.267, 0.280] | 0.295 [0.289, 0.301] | 0.226 [0.221, 0.232] | 0.221 [0.215, 0.226] | 0.204 [0.199, 0.210] |
-| 80–<100 | 1,275 / 637 | 2,467 | 0.401 [0.387, 0.415] | 0.268 [0.257, 0.281] | 0.218 [0.208, 0.229] | 0.219 [0.209, 0.230] | 0.199 [0.189, 0.210] |
-| 100–<120 | 216 / 133 | 641 | 0.500 [0.472, 0.528] | 0.236 [0.216, 0.257] | 0.208 [0.190, 0.228] | 0.220 [0.203, 0.237] | 0.189 [0.171, 0.209] |
-| 120+ | 18 / 10 | 55 | 0.666 [0.584, 0.743] | 0.243 [0.202, 0.293] | 0.208 [0.162, 0.269] | 0.214 [0.159, 0.274] | 0.196 [0.150, 0.248] |
+| All | 4,195 / 16,659 | 14,065 | 0.347 [0.340, 0.354] | 0.290 [0.285, 0.295] | 0.227 [0.223, 0.231] | 0.225 [0.221, 0.229] | 0.206 [0.202, 0.210] |
+| <40 | 842 / 5,630 | 2,381 | 0.503 [0.484, 0.522] | 0.301 [0.289, 0.314] | 0.238 [0.227, 0.249] | 0.244 [0.233, 0.255] | 0.220 [0.209, 0.231] |
+| 40–<80 | 2,573 / 9,520 | 8,521 | 0.273 [0.267, 0.280] | 0.295 [0.289, 0.301] | 0.226 [0.221, 0.232] | 0.221 [0.215, 0.226] | 0.204 [0.199, 0.210] |
+| 80–<100 | 637 / 1,275 | 2,467 | 0.401 [0.387, 0.415] | 0.268 [0.257, 0.281] | 0.218 [0.208, 0.229] | 0.219 [0.209, 0.230] | 0.199 [0.189, 0.210] |
+| 100–<120 | 133 / 216 | 641 | 0.500 [0.472, 0.528] | 0.236 [0.216, 0.257] | 0.208 [0.190, 0.228] | 0.220 [0.203, 0.237] | 0.189 [0.171, 0.209] |
+| 120+ | 10 / 18 | 55 | 0.666 [0.584, 0.743] | 0.243 [0.202, 0.293] | 0.208 [0.162, 0.269] | 0.214 [0.159, 0.274] | 0.196 [0.150, 0.248] |
 
-## Recovering the weakest pairs
+Precision at three measures overlap with the three largest observed later personal gaps. Spearman measures rank agreement. Both require at least four common pairs. L5’s nominal 80% range predicts the later mean log interval per cell. The remaining rung rankings, subgroup intervals and per-metric denominators are in the aggregate file. [Validation results](validation.json)
 
-Precision at three measures overlap with the later three largest **personal gaps** after allowing for the typist's pace and the difficulty of each pair. At least four common pairs are required. L2 assigns a zero personal gap everywhere, so its tie-adjusted precision gives an uninformative ordering as a reference.
+| Source WPM | Ranked typists / cells | Precision at three | Spearman | Range typists / cells | 80% coverage (%) |
+| --- | --- | --- | --- | --- | --- |
+| All | 1,428 / 9,325 | 0.661 [0.648, 0.673] | 0.365 [0.342, 0.388] | 4,195 / 14,065 | 82.3 [81.4, 83.2] |
+| <40 | 223 / 1,365 | 0.685 [0.652, 0.716] | 0.386 [0.321, 0.446] | 842 / 2,381 | 80.1 [78.0, 82.2] |
+| 40–<80 | 854 / 5,548 | 0.667 [0.652, 0.683] | 0.369 [0.341, 0.399] | 2,573 / 8,521 | 82.5 [81.4, 83.6] |
+| 80–<100 | 270 / 1,835 | 0.641 [0.611, 0.668] | 0.342 [0.286, 0.396] | 637 / 2,467 | 84.9 [82.9, 86.7] |
+| 100–<120 | 75 / 533 | 0.600 [0.538, 0.658] | 0.352 [0.255, 0.446] | 133 / 641 | 80.7 [75.8, 85.0] |
+| 120+ | 6 / 44 | 0.556 [0.278, 0.778] | 0.227 [-0.079, 0.536] | 10 / 55 | 85.1 [70.8, 95.8] |
 
-| Source WPM | Typists / cells | L0 | L1 | L2 | L3 | L5 |
+## Coaching replay
+
+L5 picks one bank pair when its posterior probability of a personal gap above 10% exceeds 95%. The matched reference acts in each half where L5 issues. It subtracts the mean log interval of all other clean intervals from each bank pair’s raw mean log interval, then picks the largest difference. A pair needs two observations and a nonempty complement. Both rules use the same 100-pair bank. A hit requires two later observations and a later gap above 10%. B5 found that 0/16,659 validation typists reached the shipped rule’s minimum of 20 earlier target observations.
+
+| Source WPM | Assigned / issued per rule | L5 adjudicable / hits / unknown | Reference adjudicable / hits / unknown | Same pair L5 / reference | Either / both halves per rule | Paired gain (pp) |
 | --- | --- | --- | --- | --- | --- | --- |
-| All | 1,428 / 9,325 | 0.529 [0.516, 0.543] | 0.531 [0.516, 0.545] | 0.529 [0.520, 0.539] | 0.602 [0.589, 0.615] | 0.661 [0.648, 0.673] |
-| <40 | 223 / 1,365 | 0.537 [0.504, 0.568] | 0.564 [0.531, 0.595] | 0.554 [0.532, 0.577] | 0.607 [0.572, 0.641] | 0.685 [0.652, 0.716] |
-| 40–<80 | 854 / 5,548 | 0.533 [0.516, 0.551] | 0.519 [0.501, 0.538] | 0.531 [0.519, 0.543] | 0.614 [0.598, 0.630] | 0.667 [0.652, 0.683] |
-| 80–<100 | 270 / 1,835 | 0.521 [0.489, 0.553] | 0.533 [0.502, 0.565] | 0.516 [0.495, 0.538] | 0.579 [0.546, 0.611] | 0.641 [0.611, 0.668] |
-| 100–<120 | 75 / 533 | 0.493 [0.422, 0.560] | 0.556 [0.489, 0.622] | 0.493 [0.452, 0.532] | 0.542 [0.476, 0.609] | 0.600 [0.538, 0.658] |
-| 120+ | 6 / 44 | 0.556 [0.444, 0.667] | 0.500 [0.278, 0.667] | 0.464 [0.345, 0.592] | 0.556 [0.444, 0.667] | 0.556 [0.278, 0.778] |
+| All | 16,659 / 478 | 100 / 76 / 378 | 72 / 46 / 406 | 13 / 6 | 1,007 / 61 | 0.180 [0.114, 0.258] |
+| <40 | 5,630 / 137 | 20 / 13 / 117 | 16 / 9 / 121 | 1 / 1 | 301 / 14 | 0.071 [0.000, 0.160] |
+| 40–<80 | 9,520 / 249 | 58 / 43 / 191 | 46 / 30 / 203 | 7 / 3 | 548 / 29 | 0.137 [0.063, 0.221] |
+| 80–<100 | 1,275 / 72 | 16 / 14 / 56 | 7 / 4 / 65 | 3 / 1 | 133 / 14 | 0.784 [0.235, 1.333] |
+| 100–<120 | 216 / 20 | 6 / 6 / 14 | 3 / 3 / 17 | 2 / 1 | 25 / 4 | 1.389 [0.000, 3.241] |
+| 120+ | 18 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 | 0 / 0 | 0.000 [0.000, 0.000] |
 
-Spearman rank correlation uses the same typists and cells shown above. L2's constant ranks give an undefined correlation in every band.
+“Either” and “both” count people who received a suggestion in the indicated halves. “Unknown” counts early suggestions with too few later observations. The paired gain is the L5 minus reference difference in confirmed hits per assigned typist, in percentage points. Overall that was **30 extra confirmed hits per 16,659 assigned**, or **+0.1801 percentage points** (95% participant bootstrap +0.1141 to +0.2581). Across all 478 suggestions per rule, L5’s 378 unknowns permit 76–454 hits (15.9–95.0%). The reference’s 406 unknowns permit 46–452 hits (9.6–94.6%). The ranking comparison is descriptive.
 
-| Source WPM | L0 | L1 | L3 | L5 |
+| Rule and outcome | Count / denominator | Rate (%) | Bootstrap 95% (%) | Exact 95% (%) |
 | --- | --- | --- | --- | --- |
-| All | -0.001 [-0.026, 0.023] | 0.011 [-0.012, 0.037] | 0.226 [0.203, 0.249] | 0.365 [0.342, 0.388] |
-| <40 | -0.028 [-0.088, 0.030] | 0.044 [-0.017, 0.104] | 0.241 [0.179, 0.303] | 0.386 [0.321, 0.446] |
-| 40–<80 | 0.008 [-0.025, 0.039] | -0.018 [-0.049, 0.013] | 0.246 [0.215, 0.276] | 0.369 [0.341, 0.399] |
-| 80–<100 | -0.004 [-0.058, 0.051] | 0.023 [-0.030, 0.075] | 0.183 [0.132, 0.234] | 0.342 [0.286, 0.396] |
-| 100–<120 | -0.024 [-0.118, 0.064] | 0.197 [0.091, 0.309] | 0.115 [0.012, 0.212] | 0.352 [0.255, 0.446] |
-| 120+ | 0.285 [0.114, 0.457] | 0.143 [-0.069, 0.347] | 0.141 [-0.164, 0.402] | 0.227 [-0.079, 0.536] |
+| Both · bank pair observed twice | 8,352/16,659 | 50.14 | [49.39, 50.87] | [49.37, 50.90] |
+| Both · issued per assigned | 478/16,659 | 2.87 | [2.61, 3.13] | [2.62, 3.13] |
+| L5 · hit per adjudicable | 76/100 | 76.00 | [67.00, 84.00] | [66.43, 83.98] |
+| Reference · hit per adjudicable | 46/72 | 63.89 | [52.78, 75.00] | [51.71, 74.88] |
+| L5 · confirmed per assigned | 76/16,659 | 0.46 | [0.36, 0.56] | [0.36, 0.57] |
+| Reference · confirmed per assigned | 46/16,659 | 0.28 | [0.20, 0.36] | [0.20, 0.37] |
+| L5 · same per either half | 13/1,007 | 1.29 | [0.60, 1.99] | [0.69, 2.20] |
+| Reference · same per either half | 6/1,007 | 0.60 | [0.20, 1.09] | [0.22, 1.29] |
+| L5 · same per both halves | 13/61 | 21.31 | [11.48, 32.79] | [11.86, 33.68] |
+| Reference · same per both halves | 6/61 | 9.84 | [3.28, 18.03] | [3.70, 20.19] |
 
-## Coaching decisions and prediction ranges
+In the 100–<120 WPM band L5 had 6 hits from 6 adjudicable choices. The bootstrap gave 100–100% and the two-sided Clopper–Pearson interval gave 54.1–100%. At 120+ WPM neither rule issued an early suggestion among 18 assignments. The aggregate file gives both intervals for each binary rate in every band and sentence-count group. [Validation results](validation.json)
 
-L5 suggests the practiceable pair with the greatest expected lost time after its posterior probability of a gap above 10% clears 95%. For 378 of the 478 early suggestions, fewer than two later clean observations were available. Of the 100 checkable suggestions, 76 met the later gap criterion. The pointwise posterior probability concerns a latent gap. The confirmation rate concerns an observed mean from a second, short history.
+| Earlier clean sentences | Issued / assigned | Yield (%) | Bootstrap 95% (%) | Exact 95% (%) |
+| --- | --- | --- | --- | --- |
+| 0 | 0/6,918 | 0.00 | [0.00, 0.00] | [0.00, 0.05] |
+| 1 | 23/3,204 | 0.72 | [0.44, 1.00] | [0.46, 1.08] |
+| 2 | 97/2,758 | 3.52 | [2.83, 4.24] | [2.86, 4.27] |
+| 3–4 | 234/3,069 | 7.62 | [6.65, 8.63] | [6.71, 8.62] |
+| 5+ | 124/710 | 17.46 | [14.65, 20.42] | [14.74, 20.46] |
 
-Stability counts agreement among everyone who received a suggestion in either half. Only 61 people received suggestions in both halves, and 13 of those received the same pair. The nominal 80% range covers the later **mean log interval** on the primary scoring cells. A dash marks an empty denominator. A degenerate bootstrap interval, such as six hits in six observations, reflects the observed sample's lack of variation.
+Training had 392,795 clean sentences among 93,478 typists with a clean sentence (4.20 each), or 2.91 per typist across all 134,975 assignments. Only 4,195/16,659 validation typists had a qualifying pair, and 8,096/14,065 cells had just two later observations. Longer app histories can give the coach more evidence. How frequently it issues suggestions and whether they persist across days still need longitudinal observation.
 
-| Source WPM | Yield % | Issued / checkable / hits | Hit % | Same / either half | Stability % | 80% coverage % |
+## Speed support and corrected sentences
+
+The central 98% of pair-mix-adjusted speeds spanned 80.4–376.3 ms among 83,710 training typists with at least 20 intervals. Outside this range the model holds the pair pattern at the boundary and continues the user’s observed overall pace. In validation, 11/14 typists at 120+ WPM with an earlier interval were outside support (95% bootstrap 57.1–100%, exact 49.2–95.3%).
+
+D10 withheld the 1,544 training typists with clean intervals at 100+ WPM from the speed fit. Costs are paired restricted minus full MAE in log ms, with the same variance estimates and evaluation cells.
+
+| Source WPM | Scored / assigned | Cells | L2 full / restricted | L2 cost | L5 full / restricted | L5 cost |
 | --- | --- | --- | --- | --- | --- | --- |
-| All | 2.9 [2.6, 3.1] | 478 / 100 / 76 | 76.0 [67.0, 84.0] | 13 / 1,007 | 1.3 [0.6, 2.0] | 82.3 [81.4, 83.2] |
-| <40 | 2.4 [2.0, 2.8] | 137 / 20 / 13 | 65.0 [45.0, 85.0] | 1 / 301 | 0.3 [0.0, 1.0] | 80.1 [78.0, 82.2] |
-| 40–<80 | 2.6 [2.3, 2.9] | 249 / 58 / 43 | 74.1 [62.1, 86.2] | 7 / 548 | 1.3 [0.4, 2.4] | 82.5 [81.4, 83.6] |
-| 80–<100 | 5.6 [4.4, 7.0] | 72 / 16 / 14 | 87.5 [68.8, 100.0] | 3 / 133 | 2.3 [0.0, 5.3] | 84.9 [82.9, 86.7] |
-| 100–<120 | 9.3 [5.6, 13.4] | 20 / 6 / 6 | 100.0 [100.0, 100.0] | 2 / 25 | 8.0 [0.0, 20.0] | 80.7 [75.8, 85.0] |
-| 120+ | 0.0 [0.0, 0.0] | 0 / 0 / 0 | — | 0 / 0 | — | 85.1 [70.8, 95.8] |
+| 100+ | 143 / 234 | 696 | 0.2084 / 0.2104 | 0.0020 [0.0012, 0.0029] | 0.1897 / 0.1907 | 0.0011 [0.0006, 0.0016] |
+| 100–<120 | 133 / 216 | 641 | 0.2084 / 0.2106 | 0.0022 [0.0014, 0.0031] | 0.1892 / 0.1903 | 0.0012 [0.0006, 0.0017] |
+| 120+ | 10 / 18 | 55 | 0.2078 / 0.2073 | -0.0005 [-0.0029, 0.0019] | 0.1962 / 0.1957 | -0.0005 [-0.0023, 0.0011] |
 
-Yield by number of earlier clean sentences is shown as a percentage with a 95% interval and the group size in parentheses. A single typist gives a point estimate only.
+The fastest training typist among 134,975 assignments was at 152.6 WPM. The fastest of the 4,195 scored validation typists was at 147.2. Only 10/18 assigned typists at 120+ contributed to error and 6/18 to ranking. Nobody approached 190 WPM. At that speed the boundary pattern is an extrapolation, and its accuracy needs observations from faster users.
 
-| Source WPM | 0 | 1 | 2 | 3–4 | 5+ |
+D2 added B3’s eligible corrected-sentence intervals to the earlier history. Both variants use the same later clean targets. The gain of 0.0036 log ms among 4,195 scored typists fell below the 0.020 margin for changing eligibility. The fresh registration uses clean-copy histories. Each rate below gives its count and denominator, then the participant-bootstrap and exact binomial intervals.
+
+| Source WPM | Scored typists / cells | Augmented MAE | Clean minus augmented | Issued / assigned · bootstrap / exact (%) | Hits / adjudicable · bootstrap / exact (%) |
 | --- | --- | --- | --- | --- | --- |
-| All | 0.0 [0.0, 0.0] (6,918) | 0.7 [0.4, 1.0] (3,204) | 3.5 [2.8, 4.2] (2,758) | 7.6 [6.6, 8.6] (3,069) | 17.5 [14.6, 20.4] (710) |
-| <40 | 0.0 [0.0, 0.0] (3,070) | 0.8 [0.4, 1.4] (1,091) | 4.3 [3.0, 5.8] (740) | 11.5 [8.9, 14.0] (627) | 23.5 [15.7, 32.4] (102) |
-| 40–<80 | 0.0 [0.0, 0.0] (3,517) | 0.7 [0.3, 1.1] (1,944) | 3.3 [2.4, 4.1] (1,722) | 6.3 [5.3, 7.4] (1,909) | 13.8 [10.7, 17.1] (428) |
-| 80–<100 | 0.0 [0.0, 0.0] (288) | 0.6 [0.0, 1.9] (155) | 3.2 [1.2, 5.5] (253) | 8.1 [5.6, 10.8] (444) | 20.0 [14.1, 26.7] (135) |
-| 100–<120 | 0.0 [0.0, 0.0] (39) | 0.0 [0.0, 0.0] (13) | 2.6 [0.0, 7.7] (39) | 6.0 [1.2, 12.0] (83) | 33.3 [19.0, 47.6] (42) |
-| 120+ | 0.0 [0.0, 0.0] (4) | 0.0 (1) | 0.0 [0.0, 0.0] (4) | 0.0 [0.0, 0.0] (6) | 0.0 [0.0, 0.0] (3) |
+| All | 4,195 / 14,065 | 0.202 [0.199, 0.207] | 0.0036 [0.0025, 0.0047] | 1,298/16,659 · [7.4, 8.2] / [7.4, 8.2] | 178/241 · [68.5, 79.7] / [67.8, 79.3] |
+| <40 | 842 / 2,381 | 0.217 [0.206, 0.228] | 0.0033 [0.0003, 0.0062] | 425/5,630 · [6.9, 8.3] / [6.9, 8.3] | 40/64 · [50.0, 75.0] / [49.5, 74.3] |
+| 40–<80 | 2,573 / 8,521 | 0.200 [0.195, 0.206] | 0.0037 [0.0024, 0.0052] | 712/9,520 · [7.0, 8.0] / [7.0, 8.0] | 98/133 · [66.1, 81.2] / [65.3, 80.9] |
+| 80–<100 | 637 / 2,467 | 0.196 [0.186, 0.207] | 0.0027 [0.0003, 0.0050] | 130/1,275 · [8.5, 12.0] / [8.6, 12.0] | 28/31 · [80.6, 100.0] / [74.2, 98.0] |
+| 100–<120 | 133 / 641 | 0.183 [0.166, 0.203] | 0.0058 [0.0020, 0.0098] | 30/216 · [9.3, 18.5] / [9.6, 19.2] | 11/12 · [75.0, 100.0] / [61.5, 99.8] |
+| 120+ | 10 / 55 | 0.190 [0.141, 0.243] | 0.0065 [0.0003, 0.0135] | 1/18 · [0.0, 16.7] / [0.1, 27.3] | 1/1 · — / [2.5, 100.0] |
 
-There were 392,795 clean training sentences among 93,478 typists with a clean sentence, or 4.20 each. Across all 134,975 assignments the average was 2.91. In validation, only 25.2% of assigned typists had a repeated pair in both halves. The error estimates describe those repeatable pairs and disproportionately cover typists with longer clean histories. Longer app histories can accumulate more repeated pairs, but the yield and stability for daily use need longitudinal measurement. Whether targeted practice improves typing requires a practice trial.
+## B6 validation dry run
 
-## Speed support and the D10 stress test
+Driver and scorer revision `493aee5d20c9a1bb80c826623f96f489a09dc170` rebuilt the clean validation NPZ byte for byte. All 15 arrays, every non-D2 metric and the fitted digest matched. All 914 previously recorded scalar or null values in the validation JSON reproduced exactly, including D2. The dry run used the pinned B3 builder read-only from its sibling worktree because this branch predates B3 integration. B6 uses the integrated checkout. To reproduce the dry run there, use the registered command with `validation` and a new output filename. [Command and input identities](PREREG.md#identity-and-execution)
 
-The central 98% of pair-mix-adjusted training speeds among 83,710 typists with at least 20 intervals spanned **80.4–376.3 ms** on the exponentiated log scale. Beyond either end the pair pattern stays at the boundary and the typist's own level continues. Of the 14 typists at 120+ WPM with an earlier interval, 11 were outside support. The runtime rule uses the user's intervals. Source WPM supplies only these bands and the experimental cutoff.
+| Verified artifact | SHA256 |
+| --- | --- |
+| Rebuilt clean validation NPZ | `1924228510dbf4a84c93f2d097bddd2e7503b3455c8a7762d350bea4f5dbed94` |
+| Fitted full model | `c813005bd99f23fc88b9370490eb8dffa1792c57d5151d23b07047477fe85158` |
+| Validation driver output | `96ffdd2cf07dcc690c4bad0292e1489353177fcab0bfd1782cb98c83f8e6fb5f` |
+| Aggregate validation JSON including D2 (Git LF) | `ef88838cd24c4edde0eecb9967239cee9b94847b6dddc2766d250b18687f88b0` |
+| Amended registration at `bd8b32a7f253114bbcd167d32538c4e64501aa73` (Git LF) | `8acabf31d6eefef24341550d1eef5ab2e95125d82d8f084b3925fedaa266f5ae` |
 
-Withholding the 100+ group from the speed fit removed 1,544 training typists with clean intervals. The paired cost below is restricted-fit MAE minus full-fit MAE on identical later cells. The full-fit noise and gap variances are shared.
-
-| Source WPM | Scored typists / cells | L2 full / restricted | L2 cost | L5 full / restricted | L5 cost |
-| --- | --- | --- | --- | --- | --- |
-| 100+ | 143 / 696 | 0.2084 / 0.2104 | 0.0020 [0.0012, 0.0029] | 0.1897 / 0.1907 | 0.0011 [0.0006, 0.0016] |
-| 100–<120 | 133 / 641 | 0.2084 / 0.2106 | 0.0022 [0.0014, 0.0031] | 0.1892 / 0.1903 | 0.0012 [0.0006, 0.0017] |
-| 120+ | 10 / 55 | 0.2078 / 0.2073 | -0.0005 [-0.0029, 0.0019] | 0.1962 / 0.1957 | -0.0005 [-0.0023, 0.0011] |
-
-The fastest clean training typist was at 152.6 WPM and the fastest scored validation typist at 147.2. Only ten 120+ typists contributed to MAE and six to the rankings. Their paired L5 gain over L1 was 0.0465 [0.0064, 0.0792], with a lower endpoint below the 0.020 margin. No participant approached 190 WPM. At that speed the boundary pattern is an extrapolation. The conditional prediction range omits uncertainty about that pattern, so its accuracy needs checking against the user's subsequent clean typing.
-
-## D2 secondary comparison
-
-Adding the earlier corrected-sentence intervals admitted by B3's nine-stroke window lowered MAE on the same later clean cells by 0.0036 log ms. The gain fell below the 0.020 criterion for considering an eligibility change. The augmented coach issued 1,298 suggestions, and 241 were checkable. Different recommendation sets contribute to the two hit rates. The fresh registration retains clean-copy histories.
-
-| Source WPM | Augmented MAE | Paired gain over clean | Yield % | Issued / checkable / hits | Hit % |
-| --- | --- | --- | --- | --- | --- |
-| All | 0.202 [0.199, 0.207] | 0.0036 [0.0025, 0.0047] | 7.8 [7.4, 8.2] | 1,298 / 241 / 178 | 73.9 [68.5, 79.7] |
-| <40 | 0.217 [0.206, 0.228] | 0.0033 [0.0003, 0.0062] | 7.5 [6.9, 8.3] | 425 / 64 / 40 | 62.5 [50.0, 75.0] |
-| 40–<80 | 0.200 [0.195, 0.206] | 0.0037 [0.0024, 0.0052] | 7.5 [7.0, 8.0] | 712 / 133 / 98 | 73.7 [66.1, 81.2] |
-| 80–<100 | 0.196 [0.186, 0.207] | 0.0027 [0.0003, 0.0050] | 10.2 [8.5, 12.0] | 130 / 31 / 28 | 90.3 [80.6, 100.0] |
-| 100–<120 | 0.183 [0.166, 0.203] | 0.0058 [0.0020, 0.0098] | 13.9 [9.3, 18.5] | 30 / 12 / 11 | 91.7 [75.0, 100.0] |
-| 120+ | 0.190 [0.141, 0.243] | 0.0065 [0.0003, 0.0135] | 5.6 [0.0, 16.7] | 1 / 1 / 1 | 100.0 |
-
-## Reproduction and handoff
-
-Branch `OwenC05/tf-coach-model`. The implementation and scorer are pinned to `f9fe277e179d8acc97e0e44742156b8d5579ae8e`. The registration and validation JSON are committed at `015e9d0`. Resolve the final report revision with `git log -1 --format=%H -- ml/coach/REPORT.md`.
-
-The registration SHA256 is **`b02c11bae561d7a6fef0f071e73b1c04969e534d545014a6ad1f2be772edcfde`** over Git LF bytes. The aggregate JSON SHA256 is `61c68ea50899e483f686b51caab1201e67f22e23f4e085e969c4b645a10da733`. The registration lists the four verified B3 input hashes, both published feature inputs and the exact fitted-parameter digest. [Input and parameter identities](PREREG.md#identity-and-execution)
-
-```sh
-export OPENBLAS_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1
-coach_python=/mnt/c/Users/Owenc/Documents/GitHub/TypeForge/.venv/bin/python
-coach_data=/home/owenc/typeforge-data/aalto-136m/dataset-v2
-coach_meta=c840a716251a6f8cb435774ddb04a4ebbf4b9a3b28e91fb69cbeb2b14aa3da80
-"$coach_python" -m ml.coach.validation "$coach_data" "$coach_meta" ml/coach/validation.json
-"$coach_python" -m unittest discover -s ml/tests
-```
-
-The suite passed 53/53, including 11 coach tests. A second single-thread fit and replay reproduced every aggregate and the fitted-model digest exactly. An independent vectorized calculation reproduced the scoring masks, L1 and L5 MAE, issued suggestions and hits in all six groups. Pyright reported zero errors and warnings with basic types and unused-code checks. A later optional `tabnanny` command timed out at WSL startup (0x8007274c). Native checks passed for tabs, trailing whitespace and the 100-column limit. B5's independent review is the next gate for B6.
+`wsl -e env OPENBLAS_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 /mnt/c/Users/Owenc/Documents/GitHub/TypeForge/.venv/bin/python -m unittest discover -s ml/tests` passed 61/61 tests, including 19 coach tests. The final repeat passed after one WSL startup timeout (0x8007274c). A synthetic integration run through B3’s builder scored 2/2 fabricated typists and 4 cells and returned `fail_insufficient_data`. The fresh and legacy sets stayed sealed for B5’s re-check.
