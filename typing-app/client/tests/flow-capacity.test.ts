@@ -3,8 +3,9 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { TypingEngine, MAX_ATTEMPTS, MAX_SENTENCES, MAX_RESPONSE_LENGTH, type Prompt } from '../src/engine.ts';
 import { assessmentPrompts, practicePrompts, selectPrompts } from '../src/corpus.ts';
+import { assessmentPrompts as assessmentV2, selectAssessmentPrompts, selectPairPrompts } from '../src/corpus-v2.ts';
 import { parseModelArtifact, predictSentence } from '../src/model.ts';
-import { appendHistory, buildHistory, resolveRetest, selectDrillPrompts, selectHistory, type PracticeFocus, type HistorySnapshot } from '../src/profile.ts';
+import { appendHistory, buildHistory, resolveRetest, selectHistory, type HistorySnapshot } from '../src/profile.ts';
 import { validateResult } from '../src/storage.ts';
 
 const id = '00000000-0000-4000-8000-000000000081';
@@ -53,13 +54,12 @@ function envelope(prompts: readonly Prompt[], corrections = false, mode: 'assess
   assert.deepEqual(parsed, result);
   return { bytes, commits, summaries: result.sentences.length, attempts: result.metrics.attemptedCharacters };
 }
-const focus: PracticeFocus = { pair: 'th', evidenceCount: 8, source: 'baseline', baselineVersion: 'capacity-fixture', score: 1 };
 const banks: [string, readonly Prompt[], 'assessment' | 'practice'][] = [
   ['200 short commits', [{ id: 'short', text: 'abc def ghi jkl' }], 'assessment'],
-  ['shuffled assessment', selectPrompts('assessment', [], () => 0.37), 'assessment'],
+  ['shuffled assessment', selectAssessmentPrompts([], () => 0.37), 'assessment'],
   ['shuffled practice', selectPrompts('practice', [], () => 0.37), 'practice'],
-  ['targeted drill', selectDrillPrompts(focus, practicePrompts), 'practice'],
-  ['shortest assessment', [assessmentPrompts.reduce((a, b) => a.text.length < b.text.length ? a : b)], 'assessment'],
+  ['targeted drill', selectPairPrompts('th', () => 0.37), 'practice'],
+  ['shortest assessment', [assessmentV2.reduce((a, b) => a.text.length < b.text.length ? a : b)], 'assessment'],
   ['shortest practice', [practicePrompts.reduce((a, b) => a.text.length < b.text.length ? a : b)], 'practice'],
 ];
 for (const [name, bank, mode] of banks) {
@@ -70,7 +70,7 @@ for (const [name, bank, mode] of banks) {
   });
 }
 test('120s corrected 6000-attempt envelope retains 3000 characters without truncation', t => {
-  t.diagnostic(JSON.stringify(envelope(selectPrompts('assessment', [], () => 0.37), true)));
+  t.diagnostic(JSON.stringify(envelope(selectAssessmentPrompts([], () => 0.37), true)));
 });
 test('a valid retest with one fresh prompt cycles only that remaining prompt within the envelope', t => {
   const originEngine = make(assessmentPrompts.slice(0, -1)), input = driver(originEngine);

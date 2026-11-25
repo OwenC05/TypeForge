@@ -1,6 +1,6 @@
 # TypeForge English sentence banks v2
 
-600 uniformly sampled assessment sentences and 292 targeted practice sentences cover all 100 candidate pairs. Each pair has 33–106 dense passages and three disjoint plans. The two files total 92,032 bytes, or 22,087 bytes (21.6 KiB) when served separately with gzip level 9.
+Assessments draw from 600 sentences. Pair practice covers 100 pairs with 406 sentences, giving each pair 37–125 dense passages and three disjoint plans. The assessment and practice files total 99,850 bytes, or 23,064 bytes (22.5 KiB) when compressed separately with gzip level 9.
 
 ## Source and reproduction
 
@@ -9,8 +9,6 @@ Tatoeba publishes an English subset dedicated to CC0 1.0 Universal alongside its
 Simple English Wikipedia generally requires attribution and share-alike for text adaptations. Project Gutenberg’s public-domain determinations cover the US and international reuse calls for checking each work. Tatoeba’s sentence-level CC0 export provides a single source of short contemporary English sentences. [Wikimedia reuse terms, §7](https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use/en#7._Licensing_of_Content) · [Gutenberg permissions](https://www.gutenberg.org/policy/permission.html)
 
 Snapshot published 2026-11-21 06:31:37 UTC, downloaded 2026-11-24 15:33:41 UTC. The compressed export is 1,288,689 bytes with SHA-256 `c2e2edd063a31cbbc8e416a4858225e934bbb0afff485031821e59f230ccf1ca`. The weekly URL rotates. The builder reads `ml/corpus/.cache/eng_sentences_CC0.tsv.bz2`. A second hash-verified copy on the build host survives worktree cleanup at `%LOCALAPPDATA%/TypeForge/corpus/<sha256>/eng_sentences_CC0.tsv.bz2`. [Download URL](https://downloads.tatoeba.org/exports/per_language/eng/eng_sentences_CC0.tsv.bz2)
-
-From the repository root in WSL, run `python3.14 ml/corpus/build_banks.py`. Python 3.14.4 uses only the standard library and the cached source. It pins the v1 `corpus.ts` and `coach-config.json` at base `6ce7e02999c668454459da42ad5d832b5f13f9bf`, and caches LF-normalised copies for rebuilding after B7.
 
 ## Filtering and lengths
 
@@ -36,160 +34,166 @@ The fixed [editorial selection](everyday-ids.txt) admits 1,348 original IDs on w
 | Practice v1 | 80 | 36 | 38 | 43 | 47 | 51 |
 | Assessment v1 | 40 | 37 | 41 | 44.5 | 50 | 53 |
 | Filtered pool | 1,334 | 30 | 31 | 36 | 52 | 69 |
-| Assessment v2 | 600 | 30 | 31 | 37 | 53 | 68 |
-| Practice v2 | 292 | 30 | 34 | 42 | 57 | 68 |
+| Assessment v2 | 600 | 30 | 31 | 35 | 43 | 49 |
+| Practice v2 | 406 | 30 | 32 | 37 | 46 | 51 |
 
 ## Pair coverage
 
-Assessment draws 600 IDs by `Random(20261124).sample(sorted(pool), 600)` before any pair ranking. The [frequency table](pair_frequencies.json) uses the entire filtered pool. It records 676 pairs, including zeroes, in 51,889 characters with 33,003 overlapping within-word occurrences. For expected time lost per 1,000 characters, use `1000 * per_character`. This estimates the edited English register used here.
+The 49-character display cap leaves 1,170 of the 1,334 filtered sentences. Assessment samples 600 uniformly without replacement from their sorted source IDs using Python’s `Random(20261124)`, before pair selection. The frequency table still uses the full pool of 51,889 characters and 33,003 overlapping within-word occurrences across 676 pairs. Its top 100 pairs cover 25,453 occurrences (77.12%). Reaching 90% takes 161 pairs. Multiply a pair’s per-character rate by 1,000 for its expected occurrences per 1,000 typed characters. [Frequency table](pair_frequencies.json)
 
-The top 100 pairs account for 25,453 occurrences (77.12%). Reaching 90% would take 161 pairs. For each candidate, **cutoff** is twice its assessment occurrences per 1,000 typed characters. **Dense** counts distinct practice sentences meeting that cutoff. **Weakest** is the smallest prefix density ratio to uniform General practice across all three witnesses. The build uses exact integer comparisons. Display values are rounded.
+Three disjoint plans need at least 1,440 characters per target. After the assessment draw, all remaining sentences up to 49 characters containing `ec` total 1,415 characters. For `ie` they total 1,430. Each gets one additional sentence, the shortest available for that pair. The builder and the app restrict it to that drill.
 
-All 300 witnesses use dense sentences. The first pair ends at characters 2–20, three distinct target words finish by character 240, and at least four passages finish by character 480. Plans contain 480–539 characters. All 145,005 prefixes from character 20 to the final character passed 1.25× General, with a minimum of 1.2686×. Spaces within prompts count and there is no separator between prompts. Every candidate met both targets.
+| Pair | Source ID | Characters | Sentence |
+| --- | --- | ---: | --- |
+| ec | `tatoeba-9935723` | 51 | some birds migrate to roost during specific seasons |
+| ie | `tatoeba-12764794` | 50 | they found a quiet spot to have lunch on the beach |
 
-The build reuses passages across different targets and forbids reuse across a single target’s three plans. It tries single-passage deletions until this deterministic planner can remove no more. The global minimum over every possible ordering is unknown. Ordered witness IDs are regenerated at `ml/corpus/.cache/plan-witnesses.json`.
+The cutoff is twice the assessment rate per 1,000 typed characters. Dense counts distinct eligible practice sentences meeting the cutoff. The last column gives the lowest prefix density across each pair’s three plans, divided by its density across the full v2 practice bank. The live General mode uses the 80-sentence v1 bank. The builder compares exact integer counts and the table shows rounded values.
 
-| Pair | Cutoff / 1,000 | Dense | Weakest × General |
+In the 300 plans the first pair ends at characters 2–20. Each plan contains three distinct target words by character 240 and four complete passages by character 480. Plans contain 480–526 characters. All 144,025 prefixes from character 20 met the 1.25× threshold. The lowest ratio was 1.3619×. Spaces count within prompts and consecutive prompts contribute no extra separator.
+
+A passage can serve multiple targets. Each target’s three plans use distinct passage IDs. The planner tries single-passage deletions until none preserves all of its constraints. It writes ordered witnesses to `ml/corpus/.cache/plan-witnesses.json`. Manual drills shuffle eligible dense passages. The prefix figures describe the ordered witnesses.
+
+| Pair | Cutoff / 1,000 | Dense | Weakest × v2 practice |
 | --- | ---: | ---: | ---: |
-| th | 56.64 | 37 | 1.539 |
-| he | 53.51 | 40 | 1.556 |
-| in | 28.92 | 47 | 1.325 |
-| ou | 25.86 | 67 | 1.798 |
-| re | 28.41 | 37 | 2.058 |
-| er | 25.61 | 60 | 1.369 |
-| an | 19.93 | 79 | 1.345 |
-| to | 19.16 | 68 | 1.948 |
-| at | 16.45 | 96 | 1.294 |
-| on | 15.60 | 106 | 1.317 |
-| ng | 16.28 | 87 | 1.343 |
-| ar | 17.38 | 80 | 1.269 |
-| or | 15.52 | 76 | 1.818 |
-| ha | 14.92 | 84 | 1.377 |
-| ed | 15.52 | 74 | 2.109 |
-| yo | 14.08 | 66 | 1.873 |
-| st | 14.50 | 89 | 1.611 |
-| es | 13.40 | 80 | 2.222 |
-| te | 13.99 | 76 | 1.304 |
-| is | 12.55 | 77 | 1.530 |
-| ve | 13.06 | 67 | 1.643 |
-| en | 13.06 | 78 | 1.304 |
-| ea | 12.04 | 64 | 1.956 |
-| nd | 10.85 | 78 | 1.500 |
-| ne | 11.28 | 50 | 1.825 |
-| hi | 10.18 | 62 | 1.727 |
-| le | 10.68 | 63 | 1.895 |
-| it | 9.41 | 73 | 1.756 |
-| nt | 9.84 | 60 | 1.615 |
-| me | 9.41 | 51 | 2.360 |
-| ti | 9.92 | 68 | 1.672 |
-| al | 10.18 | 51 | 2.143 |
-| se | 9.75 | 50 | 2.124 |
-| as | 10.18 | 58 | 2.109 |
-| ca | 9.84 | 48 | 2.971 |
-| ro | 8.99 | 58 | 3.228 |
-| ee | 9.67 | 39 | 3.386 |
-| ll | 8.90 | 62 | 2.190 |
-| co | 8.14 | 55 | 1.767 |
-| of | 8.82 | 46 | 3.164 |
-| be | 8.06 | 57 | 2.109 |
-| wa | 8.31 | 47 | 2.487 |
-| ho | 8.23 | 54 | 2.062 |
-| ta | 8.48 | 52 | 2.139 |
-| et | 8.99 | 42 | 3.595 |
-| la | 7.04 | 56 | 1.856 |
-| fo | 6.78 | 47 | 2.102 |
-| ur | 6.87 | 43 | 3.825 |
-| de | 6.95 | 45 | 2.288 |
-| ke | 8.06 | 36 | 5.085 |
-| om | 6.61 | 53 | 1.972 |
-| li | 7.46 | 49 | 3.015 |
-| ri | 6.78 | 43 | 2.443 |
-| ow | 6.36 | 47 | 2.564 |
-| ch | 6.70 | 41 | 3.216 |
-| do | 6.19 | 34 | 4.817 |
-| ce | 7.21 | 38 | 3.495 |
-| sh | 7.12 | 40 | 2.976 |
-| we | 6.36 | 39 | 2.483 |
-| el | 6.78 | 42 | 3.451 |
-| ac | 6.87 | 42 | 2.855 |
-| un | 5.85 | 37 | 3.082 |
-| ey | 5.60 | 40 | 3.551 |
-| lo | 6.11 | 44 | 2.391 |
-| pe | 5.77 | 47 | 2.539 |
-| ma | 5.51 | 41 | 2.554 |
-| ra | 5.43 | 44 | 2.753 |
-| oo | 5.51 | 36 | 3.236 |
-| ic | 5.43 | 40 | 3.239 |
-| us | 5.94 | 34 | 3.736 |
-| di | 5.60 | 37 | 3.093 |
-| wh | 5.26 | 35 | 3.422 |
-| wi | 4.58 | 48 | 2.912 |
-| ld | 5.34 | 36 | 3.789 |
-| ns | 5.60 | 36 | 3.390 |
-| so | 4.49 | 42 | 2.612 |
-| ut | 5.09 | 34 | 5.187 |
-| ul | 4.83 | 39 | 3.599 |
-| pl | 4.92 | 33 | 3.240 |
-| ad | 5.00 | 33 | 4.187 |
-| il | 5.34 | 34 | 3.559 |
-| si | 4.49 | 43 | 2.636 |
-| wo | 4.66 | 34 | 3.967 |
-| ot | 4.07 | 39 | 3.955 |
-| ec | 4.32 | 35 | 3.832 |
-| pa | 4.41 | 35 | 3.755 |
-| ay | 3.56 | 36 | 4.159 |
-| gh | 4.66 | 35 | 2.910 |
-| ai | 4.66 | 35 | 3.330 |
-| rs | 4.32 | 34 | 4.045 |
-| ge | 4.58 | 33 | 2.964 |
-| ts | 3.48 | 44 | 2.110 |
-| av | 3.99 | 33 | 4.515 |
-| no | 3.99 | 34 | 4.288 |
-| ig | 3.48 | 36 | 3.011 |
-| rt | 4.24 | 36 | 4.468 |
-| ie | 4.16 | 36 | 3.645 |
-| io | 4.32 | 34 | 4.237 |
-| fe | 3.14 | 34 | 4.520 |
-| ly | 4.24 | 35 | 3.206 |
+| th | 56.46 | 53 | 1.583 |
+| he | 52.78 | 66 | 1.967 |
+| in | 27.08 | 107 | 1.684 |
+| ou | 28.37 | 87 | 2.185 |
+| re | 25.98 | 100 | 1.442 |
+| er | 25.15 | 113 | 1.838 |
+| an | 19.07 | 124 | 1.547 |
+| to | 17.41 | 120 | 1.529 |
+| at | 17.50 | 124 | 1.580 |
+| on | 17.59 | 119 | 1.362 |
+| ng | 14.74 | 102 | 1.452 |
+| ar | 13.91 | 125 | 1.461 |
+| or | 17.13 | 95 | 1.558 |
+| ha | 16.21 | 112 | 1.390 |
+| ed | 15.84 | 104 | 1.976 |
+| yo | 16.49 | 86 | 2.100 |
+| st | 13.63 | 90 | 2.282 |
+| es | 13.36 | 108 | 1.680 |
+| te | 14.09 | 95 | 1.540 |
+| is | 12.43 | 82 | 1.798 |
+| ve | 14.09 | 84 | 1.972 |
+| en | 12.53 | 89 | 1.897 |
+| ea | 11.79 | 84 | 2.179 |
+| nd | 11.15 | 83 | 1.964 |
+| ne | 11.33 | 81 | 2.442 |
+| hi | 10.50 | 79 | 2.769 |
+| le | 10.59 | 92 | 1.684 |
+| it | 11.24 | 75 | 2.371 |
+| nt | 8.66 | 80 | 2.307 |
+| me | 9.21 | 67 | 2.625 |
+| ti | 9.21 | 85 | 1.976 |
+| al | 9.86 | 69 | 2.807 |
+| se | 10.22 | 64 | 3.047 |
+| as | 8.75 | 68 | 2.805 |
+| ca | 8.66 | 68 | 2.552 |
+| ro | 9.03 | 56 | 3.556 |
+| ee | 8.75 | 70 | 2.883 |
+| ll | 9.76 | 67 | 2.885 |
+| co | 10.04 | 64 | 3.057 |
+| of | 8.20 | 59 | 3.251 |
+| be | 7.55 | 61 | 3.030 |
+| wa | 7.55 | 65 | 2.850 |
+| ho | 8.66 | 62 | 3.348 |
+| ta | 7.92 | 59 | 3.483 |
+| et | 7.18 | 57 | 2.818 |
+| la | 7.65 | 55 | 3.609 |
+| fo | 8.11 | 50 | 3.492 |
+| ur | 7.46 | 55 | 3.063 |
+| de | 7.65 | 55 | 3.044 |
+| ke | 7.74 | 47 | 4.125 |
+| om | 7.55 | 47 | 3.823 |
+| li | 7.46 | 49 | 4.184 |
+| ri | 6.91 | 53 | 2.950 |
+| ow | 6.72 | 59 | 3.583 |
+| ch | 7.09 | 48 | 3.862 |
+| do | 7.46 | 53 | 3.724 |
+| ce | 6.91 | 44 | 3.795 |
+| sh | 6.91 | 53 | 4.048 |
+| we | 7.37 | 44 | 3.870 |
+| el | 7.09 | 48 | 4.765 |
+| ac | 6.36 | 40 | 4.630 |
+| un | 5.90 | 38 | 5.134 |
+| ey | 6.26 | 48 | 3.673 |
+| lo | 6.36 | 41 | 5.413 |
+| pe | 6.17 | 42 | 4.304 |
+| ma | 5.53 | 41 | 4.461 |
+| ra | 6.08 | 41 | 4.540 |
+| oo | 6.17 | 38 | 4.684 |
+| ic | 5.99 | 40 | 4.522 |
+| us | 6.63 | 40 | 5.053 |
+| di | 4.33 | 51 | 3.740 |
+| wh | 5.16 | 40 | 4.801 |
+| wi | 5.62 | 40 | 4.962 |
+| ld | 4.51 | 42 | 7.187 |
+| ns | 5.43 | 39 | 4.948 |
+| so | 4.79 | 39 | 4.516 |
+| ut | 4.79 | 39 | 4.572 |
+| ul | 4.51 | 41 | 5.806 |
+| pl | 4.97 | 39 | 5.396 |
+| ad | 4.70 | 38 | 4.518 |
+| il | 5.25 | 40 | 4.064 |
+| si | 4.33 | 45 | 3.883 |
+| wo | 4.24 | 40 | 4.174 |
+| ot | 5.34 | 40 | 4.357 |
+| ec | 5.53 | 38 | 5.396 |
+| pa | 2.95 | 40 | 4.466 |
+| ay | 4.51 | 39 | 5.053 |
+| gh | 3.96 | 41 | 4.701 |
+| ai | 4.24 | 39 | 4.315 |
+| rs | 4.33 | 39 | 4.986 |
+| ge | 3.87 | 39 | 4.315 |
+| ts | 3.13 | 40 | 4.414 |
+| av | 4.42 | 39 | 4.518 |
+| no | 3.96 | 41 | 5.989 |
+| ig | 3.13 | 41 | 3.795 |
+| rt | 4.24 | 39 | 6.245 |
+| ie | 3.87 | 37 | 6.034 |
+| io | 3.87 | 38 | 4.689 |
+| fe | 3.87 | 38 | 5.050 |
+| ly | 3.68 | 39 | 4.408 |
 
 ## Random tone samples
 
-Twenty draws per bank, without replacement, from files sorted by source ID. Assessment sample seed 20261125. Practice sample seed 20261126.
+Twenty draws per bank, without replacement, from files sorted by numeric source ID. Assessment sample seed 20261125. Practice sample seed 20261126.
 
 | Assessment | Practice |
 | --- | --- |
-| i am happy to receive corrections | he always asks insightful questions |
-| we could always make a day trip there | he watches the stars with quiet wonder |
-| the moonlight lit the path ahead | why do they turn the lights on in the cinema during the credits |
-| they collaborate with musicians around the world | is there anything you wished would come back into fashion |
-| the midnight showing is sold out | you never stop learning about dinosaurs |
-| i missed the opportunity to get to know her better | i think the second paragraph should be the opening one |
-| she heard the rattle of the snake | it would cost more to repair this than to get a new one |
-| there are billions of galaxies scattered throughout the universe | what can you infer from these observations |
-| can you start from the beginning | this enormous longhorn beetle is found around mango and fig trees |
-| no sooner had they left than the storm began | the mountain cabin had a stunning view of the valley below |
-| did you take notes during class | tourists can go on a guided tour inside the windmill |
-| did you have any questions about the homework | he found the right shoe for his foot |
-| please could you write your forename in the space provided | she dreams of starting her own record label |
-| did you say thirty or thirteen | this picture could use some retouching |
-| my partner grills the best mushrooms | she writes music reviews for a magazine |
-| all functions considered in this chapter are real | she creates digital portraits for clients |
-| butterflies are fluttering all over the place | they found a beach with soft white sand and clear blue water |
-| do you listen to music while you work | the beach was so quiet they could hear the waves clearly |
-| i think the batteries need to be replaced | gravity is what keeps planets in orbit around stars |
-| would you work holidays and weekends | explorers may one day travel beyond our solar system to other stars |
+| and then everyone stood up and clapped | you can see the whole city skyline from here |
+| can permanent marker stains be removed | coyotes are sometimes called prairie wolves |
+| can you see the stars through the clouds | i just had another lesson last night |
+| they love the sound of acoustic guitars | he imagined life on distant planets |
+| the cat was meowing incessantly | she held the fan delicately between her fingers |
+| did you copy and paste this from somewhere | i feel this way around the same time every year |
+| they heard the howl of coyotes | i woke up with a cat sleeping next to my feet |
+| the waves were perfect for surfing that day | elephants are among the most intelligent animals |
+| i think the batteries need to be replaced | the train whistle echoed through the canyon |
+| they constructed a new submarine | i could really use a helping hand |
+| our teacher had us work in groups | they studied the depths of the ocean |
+| the weather is supposed to be nice | they prepared for underwater research |
+| they continued to meet on a regular basis | i prefer afternoons or evenings |
+| it ended up being more complicated than that | the cat let out a plaintive meow |
+| these are all important letters to read | did you come up with that yourself |
+| i think that can be the case with a lot of things | i watched all three seasons in one night |
+| we should take care of each other | do you know what they plan to do if they win |
+| do you prefer live music over recordings | the rain tapped on the roof softly |
+| i really dream of such a tree in my garden | he photographs the beauty of city life |
+| what form of public transportation do you prefer | how much fruit is grown domestically |
 
-## Verification and handoff
+## Reproduction checks
 
-Two offline builds used independent WSL Python processes with `PYTHONHASHSEED=17` and `91`. The second ran from `/tmp`. The bank files, frequencies and plan witnesses matched the first run byte for byte.
+Run `python3.14 ml/corpus/build_banks.py` from the repository root in WSL. It uses the pinned source, the standard library and LF-normalised copies of the v1 corpus and coach config from `6ce7e02999c668454459da42ad5d832b5f13f9bf`. Two offline Python 3.14.4 builds used `PYTHONHASHSEED=17` and `91`. The second ran in a fresh temporary directory. All five outputs matched byte for byte.
 
-| Output | Gzip bytes | SHA-256, first run | SHA-256, second run |
-| --- | ---: | --- | --- |
-| Assessment | 14,118 | `9cf62b31ce6e106b6f3bee3dd5508d95e9a3d938401a3f3a84814905efd25859` | `9cf62b31ce6e106b6f3bee3dd5508d95e9a3d938401a3f3a84814905efd25859` |
-| Practice | 7,969 | `007ff291df1c521cde82473ed5af59e658bb826894f1662ac6533f8aeea4b7d0` | `007ff291df1c521cde82473ed5af59e658bb826894f1662ac6533f8aeea4b7d0` |
+| Output | SHA-256 |
+| --- | --- |
+| `assessment-bank-v2.json` (59,057 bytes, 13,359 gzip) | `b3425cbb22dcf1348f7a585c9ce0856b74428c0e1b49b18acff602313827bb39` |
+| `practice-bank-v2.json` (40,793 bytes, 9,705 gzip) | `7d81862fbd48c471706098d30a203215915e632cb74f70f6fdbeeefcbacbba4f` |
+| `manual-pairs-v2.json` | `8fcf4c67204212266dbec29e4a57a63f8f457cdec9eea2cc785c7916f40333d2` |
+| `pair_frequencies.json` | `73053fe706308e95a04052ba8fe19dfaecb00079104f46af9cd2b6a31c9d1327` |
+| `plan-witnesses.json` | `c14dc6fe5ed5aff8d0ff6bbe2d352224fb22d9db91142272562976b54f705342` |
 
-`python3.14 -m unittest discover -s ml/corpus -v` passed 6/6 offline audits. The client’s `pairOccurrences` also independently verified the 300 ordered plans against its current exposure configuration. The existing `/mnt/c/Users/Owenc/Documents/GitHub/TypeForge/.venv/bin/python -m unittest discover -s ml/tests -v` suite passed 21/21. From `typing-app/client`, `npm ci --no-audit --no-fund` and `npm run check` passed all 235 Node tests, TypeScript and the Vite build.
-
-Branch `OwenC05/tf-corpus-v2`. Bank implementation and checks `0196a7c678114ec370a23e1e9b7f2ba8b5e3df20`. Resolve the committed report revision with `git log -1 --format=%H -- ml/corpus/REPORT.md`. The local dispatch receipt at `.cache/delivery.txt` records the literal final SHA.
-
-B7 owns browser integration. The coordinator can review the tone sample before enabling v2. These checks measure planned typing opportunities. Typing benefit and delivered exposure require pilot data.
+Run `python3.14 -m unittest discover -s ml/corpus -v` from the repository root. All nine audits run with the source and witnesses cached. With an empty cache, two tests still check the committed counts, character lengths, unique and disjoint IDs, both exceptions, the frequency pin and density coverage for all 100 pairs. Six source audits and the witness audit then skip.

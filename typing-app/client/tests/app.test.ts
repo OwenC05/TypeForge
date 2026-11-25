@@ -8,7 +8,8 @@ import type { SessionResult, SentenceSummary } from '../src/engine.ts';
 import { newSaveRecord, applyOutcome, isFiniteSource } from '../src/unsaved.ts';
 import * as coachUi from '../src/coach-ui.ts';
 import { TypingEngine } from '../src/engine.ts';
-import { CORPUS_VERSION, practicePrompts } from '../src/corpus.ts';
+import { CORPUS_VERSION, practicePrompts, selectPrompts } from '../src/corpus.ts';
+import { findSavedPrompt, manualPairs, selectAssessmentPrompts, selectPairPrompts } from '../src/corpus-v2.ts';
 import { selectDrillPrompts } from '../src/profile.ts';
 import { resolveCertifiedPlan } from '../src/coach-plan.ts';
 
@@ -447,29 +448,37 @@ test('practice query supports general, a Suggested request and catalogue-only ma
 });
 
 
-// Old: a direct recommended URL selected the old selector's drill and persisted practiceFocus. New invariant: the request
-// builds an ordinary General engine (no focus, no drill) until a certified plan is admitted; manual is unchanged.
-test('direct Suggested request builds ordinary General until admission; manual keeps its shared drill identity',()=>{
- const helpers=practiceContext();
- const start=source.indexOf('  const manualPairs = supportedManualPairs(');
- const end=source.indexOf('  shell(',start);
- const makeStart=source.indexOf('  const makeEngine = ');
- const makeEnd=source.indexOf('  let engine: Block = ',makeStart);
- for(const kind of ['general','recommended','manual']){
-  let drillPair:string|undefined;let configuration:any;
-  const context:any={...helpers,mode:'practice',params:new URLSearchParams(`practice=${kind}&pair=at`),history:[],sourceAssessmentId:undefined,
-   supportedManualPairs:()=>['at','th'],practicePrompts:[],artifact:null,declaredQwerty:true,
-   selectDrillPrompts:(identity:any)=>{drillPair=identity?.pair;return [{id:'practice',text:'cat'}];},
-   crypto:{randomUUID:()=> 'new-run'},durationMs:30000,CORPUS_VERSION:'original-v1',
-   TypingEngine:class{constructor(value:any){configuration=value;}},
-  };
-  const run=runInNewContext(`${stripTypeScriptTypes(source.slice(start,end)+source.slice(makeStart,makeEnd))}; makeEngine`,context);
-  run(true);assert.equal(configuration.durationMs,30000);assert.equal(configuration.inputMode,'flow-v1');
-  assert.equal(configuration.sourceAssessmentId,undefined);
-  if(kind==='recommended'){assert.equal(drillPair,undefined);assert.equal(configuration.practiceFocus,undefined);assert.equal(configuration.manualDrill,undefined);}
-  if(kind==='manual'){assert.equal(drillPair,'at');assert.equal(configuration.practiceFocus,undefined);assert.equal(configuration.manualDrill.pair,'at');assert.equal(configuration.manualDrill.source,'manual');}
-  if(kind==='general'){assert.equal(drillPair,undefined);assert.equal(configuration.practiceFocus,undefined);assert.equal(configuration.manualDrill,undefined);}
- }
+test('the initial engine uses its selected bank and a Suggested request starts on General before admission', () => {
+  const start = source.indexOf('  let practiceChoice = parsePracticeChoice(');
+  const end = source.indexOf('  shell(', start);
+  const makeStart = source.indexOf('  const makeEngine = ');
+  const makeEnd = source.indexOf('  let engine: Block = ', makeStart);
+  const setup = stripTypeScriptTypes(source.slice(start, end) + source.slice(makeStart, makeEnd));
+  for (const [mode, kind, expected] of [
+    ['practice', 'general', practicePrompts],
+    ['practice', 'recommended', practicePrompts],
+    ['practice', 'manual', selectPairPrompts('at')],
+    ['assessment', null, selectAssessmentPrompts([])],
+  ] as const) {
+    type Options = ConstructorParameters<typeof TypingEngine>[0];
+    let configuration!: Options;
+    const makeEngine = runInNewContext(`${setup}; makeEngine`, {
+      ...practiceContext(), mode, params: new URLSearchParams(kind ? { practice: kind, pair: 'at' } : {}),
+      manualPairs, selectAssessmentPrompts, selectPairPrompts, selectPrompts, excluded: [], sourceAssessmentId: undefined,
+      crypto: { randomUUID: () => 'new-run' }, durationMs: 30000, CORPUS_VERSION,
+      TypingEngine: class { constructor(options: Options) { configuration = options; } },
+    });
+    makeEngine(true);
+    assert.equal(configuration.durationMs, 30000);
+    assert.equal(configuration.inputMode, 'flow-v1');
+    assert.equal(configuration.corpusVersion, CORPUS_VERSION);
+    assert.equal(configuration.sourceAssessmentId, undefined);
+    assert.equal(configuration.practiceFocus, undefined);
+    assert.equal(configuration.manualDrill?.pair, kind === 'manual' ? 'at' : undefined);
+    assert.equal(configuration.manualDrill?.source, kind === 'manual' ? 'manual' : undefined);
+    assert.deepEqual(new Set(configuration.prompts.map(p => p.id)), new Set(expected.map(p => p.id)));
+    for (const prompt of configuration.prompts) assert.equal(findSavedPrompt(mode, prompt.id)?.text, prompt.text);
+  }
 });
 
 

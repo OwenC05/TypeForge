@@ -195,6 +195,41 @@ test('an older result with explicit focus retains its recommended tag', async t 
   assert.equal(await page.locator('.page-heading .tag').textContent(), 'RECOMMENDED PRACTICE');
 });
 
+test('a retest of all 40 v1 passages keeps its origin and the next retest excludes typed v2 passages', async t => {
+  const engine = new TypingEngine({ id: crypto.randomUUID(), prompts: assessmentPrompts, mode: 'assessment',
+    durationMs: 120000, inputMode: 'flow-v1', qwerty: false, corpusVersion: '1' });
+  let time = 0;
+  for (const prompt of assessmentPrompts) {
+    for (const char of prompt.text + ' ') {
+      const position = engine.value.length;
+      time += 40;
+      engine.edit({ start: position, end: position, text: char, pressTime: time }, time);
+    }
+  }
+  engine.tick(120040);
+  const origin = engine.result(new Date(now - 120000).toISOString());
+  assert.equal(new Set(origin.sentences.map(s => s.promptId)).size, 40);
+  const page = await openPractice(t, [origin], `/results.html?id=${origin.id}`);
+  await page.getByRole('link', { name: 'Retest with fresh passages' }).click();
+  await page.locator('#typing-input').waitFor();
+  assert.equal(new URL(page.url()).searchParams.get('retest'), origin.id);
+  const listed = () => page.locator('#stage').getAttribute('data-prompt-ids').then(ids => ids.split(' '));
+  const first = await listed();
+  assert.equal(new Set(first).size, 600);
+  assert.ok(first.every(id => /^tatoeba-\d+$/.test(id)));
+  const input = page.locator('#typing-input');
+  await input.pressSequentially(await promptText(page) + ' ');
+  await input.press((await promptText(page))[0]);
+  await page.clock.fastForward(120100);
+  const saved = await savedRecord(page);
+  assert.equal(saved.sourceAssessmentId, origin.id);
+  assert.deepEqual(saved.sentences.map(s => [s.promptId, s.submitted]), [[first[0], true], [first[1], false]]);
+  await page.locator('#retest-next').click();
+  await page.locator('#typing-input').waitFor();
+  assert.equal(new URL(page.url()).searchParams.get('retest'), saved.id);
+  assert.deepEqual(new Set(await listed()), new Set(first.slice(2)));
+});
+
 test('Progress keeps the counted tests readable when its optional widget fails to load', async t => {
   const page = await openPractice(t, [], '/fixture');
   let requested = false;

@@ -20,8 +20,13 @@ OUTPUT = CLIENT / "generated"
 SOURCE_URL = "https://downloads.tatoeba.org/exports/per_language/eng/eng_sentences_CC0.tsv.bz2"
 SOURCE_SHA256 = "c2e2edd063a31cbbc8e416a4858225e934bbb0afff485031821e59f230ccf1ca"
 SOURCE_BYTES = 1_288_689
+FREQUENCIES_SHA256 = "73053fe706308e95a04052ba8fe19dfaecb00079104f46af9cd2b6a31c9d1327"
 SEED = 20261124
 ASSESSMENT_SIZE = 600
+MAX_PASSAGE_LENGTH = 49
+# The 49-character pool leaves only 1,415 characters for ec and 1,430 for ie.
+# These are the shortest extra sentences for their respective 3 × 480-character plans.
+PRACTICE_EXCEPTIONS = {9935723: "ec", 12764794: "ie"}
 PLAN_COUNT = 3
 MIN_DENSE = 16
 PINNED_INPUTS = {
@@ -250,6 +255,8 @@ def practice_bank(pool, assessment, candidates, rules):
             continue
         counts, length = pair_counts([text])
         for pair, n in counts.items():
+            if key in PRACTICE_EXCEPTIONS and PRACTICE_EXCEPTIONS[key] != pair:
+                continue
             if pair in choices and n * assessment_chars >= 2 * assessed[pair] * length:
                 choices[pair].append(key)
 
@@ -271,6 +278,15 @@ def practice_bank(pool, assessment, candidates, rules):
             eligible = [k for k in choices[pair] if k in bank]
             rate = ratio * Fraction(general[pair], chars)
             plans = find_plans(pair, eligible, pool, rate, rules)
+            # Near the three-plan character floor a greedy ordering can spend too much on
+            # the first two plans. Try other fixed orders before needing longer text.
+            if (len(plans) < PLAN_COUNT and pair in PRACTICE_EXCEPTIONS.values()
+                    and sum(len(pool[k]) for k in eligible) >= PLAN_COUNT * rules["minimumPlanCharacters"]):
+                random_order = random.Random(SEED)
+                for _ in range(16):
+                    plans = find_plans(pair, random_order.sample(eligible, len(eligible)), pool, rate, rules)
+                    if len(plans) == PLAN_COUNT:
+                        break
             if stop_on_gap and (len(eligible) < minimum or len(plans) < PLAN_COUNT):
                 return None
             result[pair] = plans
@@ -301,8 +317,10 @@ def json_bytes(value):
 
 def write_bank(kind, bank):
     prompts = [{"id": f"tatoeba-{k}", "text": text} for k, text in sorted(bank.items())]
-    raw = json_bytes({"version": "2", "source": SOURCE_URL, "licence": "CC0-1.0",
-                      "sha256": SOURCE_SHA256, "sentences": prompts})
+    data = {"version": "2", "source": SOURCE_URL, "licence": "CC0-1.0", "sha256": SOURCE_SHA256, "sentences": prompts}
+    if kind == "practice":
+        data["pairOnly"] = {f"tatoeba-{k}": pair for k, pair in PRACTICE_EXCEPTIONS.items() if k in bank}
+    raw = json_bytes(data)
     path = OUTPUT / f"{kind}-bank-v2.json"
     path.write_bytes(raw)
     print(f"{path.name}: {len(bank)} sentences, {len(raw)} bytes, "
@@ -314,11 +332,16 @@ def main():
     originals = re.findall(r"text: '([a-z ]+)'", pinned_input("corpus.ts"))
     rules = json.loads(pinned_input("coach-config.json"))["exposure"]
     pool, rejected = filtered_pool(rows, originals)
-    # Sample directly from the deduplicated pool, before ranking or counting pairs.
-    assessment = {k: pool[k] for k in random.Random(SEED).sample(sorted(pool), ASSESSMENT_SIZE)}
+    # Only display selection has a length cap. The registered frequencies use the full pool.
+    selectable = {k: text for k, text in pool.items() if len(text) <= MAX_PASSAGE_LENGTH}
+    assessment = {k: selectable[k] for k in random.Random(SEED).sample(sorted(selectable), ASSESSMENT_SIZE)}
     counts, chars = pair_counts(pool.values())
     candidates = candidate_pairs(counts)
-    practice, plans, dense = practice_bank(pool, assessment, candidates, rules)
+    practice_pool = {**selectable, **{k: pool[k] for k in PRACTICE_EXCEPTIONS}}
+    practice, plans, dense = practice_bank(practice_pool, assessment, candidates, rules)
+    gaps = [p for p in candidates if len(plans[p]) != PLAN_COUNT or dense[p] < max(MIN_DENSE, rules["minimumBankPassages"])]
+    if gaps:
+        raise ValueError(f"Insufficient dense passages or disjoint plans for: {', '.join(gaps)}")
     frequencies = {
         "source": SOURCE_URL, "source_sha256": SOURCE_SHA256,
         "population": "full filtered English CC0 pool before sampling",
@@ -327,7 +350,11 @@ def main():
         "pairs": {a + b: {"count": counts[a + b], "per_character": counts[a + b] / chars}
                   for a in ascii_lowercase for b in ascii_lowercase},
     }
-    (HERE / "pair_frequencies.json").write_bytes(json_bytes(frequencies))
+    raw_frequencies = json_bytes(frequencies)
+    if hashlib.sha256(raw_frequencies).hexdigest() != FREQUENCIES_SHA256:
+        raise ValueError("Pair frequencies differ from the fresh-test registration.")
+    (HERE / "pair_frequencies.json").write_bytes(raw_frequencies)
+    (OUTPUT / "manual-pairs-v2.json").write_bytes(json_bytes(candidates))
     write_bank("assessment", assessment)
     write_bank("practice", practice)
     # Small, recoverable witnesses for the coordinator and subsequent integration.

@@ -125,6 +125,10 @@ body[data-run=completed] .today { display: block; }
 /* Column snapping (prototype B): per-glyph mirror boxes and the textarea text run wrap at the same
    index when the width is whole columns plus half a column of slack. */
 .active-passage { position: relative; font: 400 var(--passage)/var(--passage-line) var(--mono); width: calc(round(down, 100% - .5ch, 1ch) + .5ch); }
+/* The two extended pair drills fit 51 DejaVu Sans Mono glyphs in the 960px column. */
+@media (min-width: 992px) {
+  .stage[data-long-pair=true] .active-passage { --passage: 30px; }
+}
 .typing-surface .prompt, .typing-surface .typing-input {
   font-family: var(--mono); font-weight: 400; letter-spacing: 0; white-space: pre-wrap; word-break: break-all; overflow-wrap: anywhere; tab-size: 1; font-kerning: none; font-variant-ligatures: none;
 }
@@ -303,6 +307,8 @@ summary { cursor: pointer; padding-block: 8px; }
   .stage { margin-top: 16px; padding-top: 20px; }
   .run-line { border-bottom: 1px solid var(--rule); padding-bottom: 16px; }
   .typing-surface { margin-top: 8px; }
+  /* A preserved trailing space can hang one glyph beyond its snapped line. */
+  .stage[data-bank-version="2"] .typing-surface { font: 400 var(--passage) var(--mono); padding-inline-end: 1ch; }
   .block-label { font-size: 13px; letter-spacing: .12em; }
   .passage-context { color: var(--graphite); }
   .wide-only { display: none; }
@@ -327,6 +333,10 @@ summary { cursor: pointer; padding-block: 8px; }
   .run-line { gap: 16px; }
   .block-label { font-size: 11px; letter-spacing: .04em; }
   .result-figures dd { letter-spacing: -.05em; }
+}
+/* Six columns need 322px plus the popup's 8px collision margin on either side. */
+@media (width < 338px) {
+  .pair-list { grid-template-columns: repeat(5, 48px); }
 }
 /* Forced colours strip the ink background that marks a checked key; use system colours instead. */
 @media (forced-colors: active) {
