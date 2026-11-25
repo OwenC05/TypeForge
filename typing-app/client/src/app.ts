@@ -1125,7 +1125,7 @@ async function results() {
   storageNotice(getStorageDiagnostics());
   const next = $<HTMLAnchorElement>('#next-action');
   if (result.mode === 'assessment') {
-    // Suggested explains its own focus on the practice page from the current baseline; this page never re-selects one.
+    // Suggested explains its own focus on the practice page from saved typing; this page never re-selects one.
     $('#coach-title').textContent = 'Keep practising.';
     $('#coach-explanation').textContent = 'General and pair practice work as usual. Suggested compares your saved letter-pair timings with expectations at your speed.';
     next.textContent = 'Start practice';

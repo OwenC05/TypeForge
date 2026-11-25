@@ -362,7 +362,7 @@
     "Correct-copy filtering introduces selection bias; errors are audited separately.",
     "English physical QWERTY cohort; no cross-layout/mobile claim.",
     "Seen-text means nonreserved prompt partition; actual training overlap is separately reported.",
-    "No independent TypeForge transfer validation; historical baseline remains the coach.",
+    "No independent TypeForge transfer validation; these Ridge predictions do not choose practice pairs.",
     "Timing prediction accuracy does not establish typing-training efficacy.",
     "Residual bounds describe individual transitions, not pair-average confidence or expected practice improvement."
   ],
