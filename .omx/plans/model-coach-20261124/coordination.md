@@ -20,7 +20,7 @@ Run `run_0e7c9914d0b7`. Integration branch `feature/daily-practice`, fast-forwar
 | B6 Fresh test | task_19f360de9685 | ctx_c5537bb4ee88 | tf-fresh-test | none | PASS; merged `9817d02`; released |
 | C1a Coach model in browser | task_8623714a5833 | ctx_43b8a35c56d3 | tf-coach-browser | none | merged `3e7cdcc` (report dropped `b407182`); released |
 | C1b Coach in the app | task_03ad76eb648c | ctx_910d5440cbd9 | tf-coach-app | 5346 | survey approved with changes (`msg_b3c77dbe9f3a`); building |
-| C1c Fit-check calibration | task_8ff87f1e628b | ctx_729ffefb22e7 | tf-fit-check | none | running from `3e978de` |
+| C1c Fit-check calibration | task_8ff87f1e628b | ctx_729ffefb22e7 | tf-fit-check | none | merged `0acb9d5`; released |
 
 ## Integration order
 
@@ -87,3 +87,10 @@ A4 first (A9 depends on it), then A6 (both touch `app.ts`), A1, A2, A3, A7, A8 i
     - At 390 the label no longer wraps onto a line starting with "·".
   - **Out of scope (C1b lists it as a risk).** At narrow widths the active line breaks inside words, so a reading pause can land inside a letter pair. This predates C1b.
   - **Rule 9.** Chromium fires `beforeinput` for both no-op deletions, but neither reaches `engine.edit`, so the engine stays as it is.
+- 25 Nov: C1c done (`msg_6e99c1ecd068`, `a9633df`), reviewed and merged (`0acb9d5`).
+  - **Code.** `sentence_checks` follows the brief: the first sentence is unchecked, the state comes from earlier clean sentences, `prediction` = expected + gap, and a check is inside when `|mean − prediction| ≤ RANGE_Z·sqrt(variance + sigma2/m)`. It read only pinned train and validation.
+  - **Coverage.** Pooled coverage was 84.07% (585,221 of 696,076 checks, 9,851 typists).
+  - **T = 0.70.** It is the 2nd percentile of coverage among the 803 typists with at least 8 checked sentences (P2 70.38%). It gates 15 of them (1.87%): 12 under 40 WPM, 3 at 40–80, none at 80+.
+  - **Fast typists fit well.** Coverage was 86% at 100+ WPM, but only 7 typists at 120+ have at least 8 sentences, so Owen's fit is still unmeasured.
+  - **Checks.** WSL was down again for the post-merge Python run. The merged `ml/` tree is byte-identical to C1c's tested branch (71/71), and client code is unchanged since the last client check.
+  - **Next.** Sent C1b the confirmed T, the fixture merge and the parity test (`msg_9e8e8aa9ab14`, queued until its turn ends). Released C1c.
