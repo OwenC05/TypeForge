@@ -34,6 +34,21 @@ Derived clean `test.npz` SHA256 `f31d5a0999dfb99d6b048119e892db117341922a4f04e6c
 OPENBLAS_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 /mnt/c/Users/Owenc/Documents/GitHub/TypeForge/.venv/bin/python -m ml.coach.b6 fresh /home/owenc/typeforge-data/aalto-136m /mnt/c/Users/Owenc/Documents/GitHub/TypeForge/ml/data/raw/metadata_participants.txt /home/owenc/typeforge-data/aalto-136m/coach-fresh-results.json
 ```
 
+## Fit check
+
+After the first clean sentence, L5 uses earlier clean sentences to check each observed pair once against its 80% range, counting `abs(logSum/m − (expected + gap)) ≤ RANGE_Z × sqrt(variance + sigma²/m)` as inside for `m` intervals. The browser pools checks over the latest 20 checked sentences and stops suggestions once at least eight have been checked and coverage falls below **T = 0.70**, the validation 2nd percentile rounded down to a whole percent.
+
+| Source WPM | Typists with checks / assigned | Checked sentences | Inside / checks (pooled coverage) | Typists with ≥8 | P1 / P2 / P5 / P10 / P50 (%) | Below T, n (%) | At or below T, n (%) |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| All | 9,851 / 16,659 | 37,003 | 585,221 / 696,076 (84.07%) | 803 | 66.96 / 70.38 / 77.72 / 80.17 / 87.32 | 15 (1.87%) | 16 (1.99%) |
+| <40 | 2,543 / 5,630 | 7,948 | 116,406 / 146,343 (79.54%) | 99 | 56.72 / 60.10 / 64.60 / 69.48 / 82.71 | 12 (12.12%) | 13 (13.13%) |
+| 40–<80 | 6,102 / 9,520 | 22,823 | 364,348 / 428,463 (85.04%) | 486 | 72.31 / 75.73 / 79.54 / 81.42 / 87.93 | 3 (0.62%) | 3 (0.62%) |
+| 80–<100 | 1,015 / 1,275 | 5,087 | 85,008 / 98,648 (86.17%) | 165 | 77.82 / 79.21 / 81.45 / 82.35 / 87.33 | 0 (0.00%) | 0 (0.00%) |
+| 100–<120 | 177 / 216 | 1,055 | 17,868 / 20,776 (86.00%) | 46 | 77.87 / 79.51 / 80.38 / 80.77 / 87.15 | 0 (0.00%) | 0 (0.00%) |
+| 120+ | 14 / 18 | 90 | 1,591 / 1,846 (86.19%) | 7 | 81.67 / 81.72 / 81.87 / 82.13 / 86.34 | 0 (0.00%) | 0 (0.00%) |
+
+Run `OPENBLAS_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 /mnt/c/Users/Owenc/Documents/GitHub/TypeForge/.venv/bin/python -m ml.coach.fit_check /home/owenc/typeforge-data/aalto-136m/dataset-v2` from the repository root in WSL.
+
 ## Validation
 
 **L5 predicted later pair timing more accurately than the typist’s own earlier average.** Across 4,195 of 16,659 validation typists and 14,065 qualifying typist-pair cells, the paired reduction in mean absolute error was **0.0841 log ms** (95% participant-bootstrap interval 0.0799–0.0883). The fresh decision requires at least 800 scored typists and a lower bound above 0.020. A pass licenses using L5 to choose pairs in TypeForge and in a prospective practice trial. Only such a trial can establish whether practice improves typing or whether L5 chooses better practice pairs than the current rule. [Frozen registration](PREREG.md)
