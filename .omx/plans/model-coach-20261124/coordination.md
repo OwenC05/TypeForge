@@ -19,7 +19,7 @@ Run `run_0e7c9914d0b7`. Integration branch `feature/daily-practice`, fast-forwar
 | B7 Banks in app | task_be02b4a60a14 (+ cap task_42b924e407f4) | ctx_ab049b665909, ctx_6e791ca0a4b1 | tf-banks-v2 | 5345 | merged `fcac88f`, released |
 | B6 Fresh test | task_19f360de9685 | ctx_c5537bb4ee88 | tf-fresh-test | none | PASS; merged `9817d02`; released |
 | C1a Coach model in browser | task_8623714a5833 | ctx_43b8a35c56d3 | tf-coach-browser | none | merged `3e7cdcc` (report dropped `b407182`); released |
-| C1b Coach in the app | task_03ad76eb648c | ctx_910d5440cbd9 | tf-coach-app | 5346 | survey approved with changes (`msg_b3c77dbe9f3a`); building |
+| C1b Coach in the app | task_03ad76eb648c | ctx_910d5440cbd9 | tf-coach-app | 5346 | merged `aa86bb6` (`d099b52`); kept open; follow-up `ctx_c5a3bb457b5e` (Lab note below 8 sentences) |
 | C1c Fit-check calibration | task_8ff87f1e628b | ctx_729ffefb22e7 | tf-fit-check | none | merged `0acb9d5`; released |
 
 ## Integration order
@@ -94,3 +94,17 @@ A4 first (A9 depends on it), then A6 (both touch `app.ts`), A1, A2, A3, A7, A8 i
   - **Fast typists fit well.** Coverage was 86% at 100+ WPM, but only 7 typists at 120+ have at least 8 sentences, so Owen's fit is still unmeasured.
   - **Checks.** WSL was down again for the post-merge Python run. The merged `ml/` tree is byte-identical to C1c's tested branch (71/71), and client code is unchanged since the last client check.
   - **Next.** Sent C1b the confirmed T, the fixture merge and the parity test (`msg_9e8e8aa9ab14`, queued until its turn ends). Released C1c.
+- 25 Nov: C1b done (`msg_798296288918`, `d099b52`). I reviewed it and merged it (`aa86bb6`).
+  - **Shape of the change.** It is one commit on top of `0acb9d5`, touching only `typing-app/client/**`: 913 lines added and 7,143 deleted.
+  - **Engine and corpus.** These changes only remove the finite-plan paths. Eligibility and pair recording are untouched.
+  - **Schema.** It accepts `practiceFocus {pair, source: 'model'}` alongside the old baseline shape.
+  - **`coach.ts` (89 lines) matches D13.**
+    - Evidence is QWERTY results only. Any flagged result is skipped, `practiceFocus` and `manualDrill` are excluded, and pairs must have the `{count, logSum}` shape.
+    - Decisions use the last 200 sentences.
+    - The fit check covers the 20 latest sentences that have pairs. Each is predicted from up to 200 strictly earlier sentences, with a strict `< 0.70` cut-off once 8 have been checked.
+    - The Lab lists only positive gaps with at least 2 timings.
+  - **Reads.** `listResultsPage` reads both result partitions in merged order and skips finite records (`schemaId`).
+  - **Screenshots.** All requested changes are present: the pair in bold, the label wrap fixed, a line for no saved timings, the QWERTY-required state, "inside the model's 80% ranges", "Letter-pair speed", the source note, and "why?" with the extrapolation note.
+  - **My checks on integration.** `npm run check`: 208 tests, 201 passed, 7 skipped, build OK. Chromium coach real phase 34/34 (port 5361). P3 11/11 (port 5362).
+  - **Follow-up sent** (`ctx_c5a3bb457b5e`). Below 8 checked sentences the Lab fit line reads as if the check were active, so it should say the check starts at 8 sentences.
+  - **Still open, not in C1b's scope.** Below about 400 px the active line breaks inside words (break-all predates C1b), so a reading pause lands inside a letter pair. This affects evidence from narrow windows. It's a candidate follow-up for Owen to decide.
