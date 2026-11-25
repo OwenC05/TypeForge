@@ -9,7 +9,10 @@ from unittest.mock import patch
 import numpy as np
 
 from ml.coach.model import GAP, PAIRS, Model, Speed, fit, suggestion, training_cells, update
-from ml.coach.replay import Intervals, estimate, rank_scores, replay_person, ridge_means
+from ml.coach.replay import (
+    Intervals, binary_estimate, coaching_outcomes, estimate, matched_reference, rank_scores,
+    replay_person, ridge_means, summarize,
+)
 from ml.coach.validation import coach_inputs, file_hash, score_split, validate
 from ml.features import features
 from ml.parse import occurrences
@@ -112,6 +115,50 @@ class ModelTests(unittest.TestCase):
 
 
 class ReplayTests(unittest.TestCase):
+    def test_matched_reference_uses_the_complement_and_breaks_ties_alphabetically(self):
+        n = np.array([20, 2, 10, 1])
+        sums = n * [5.6, 5.9, 4.0, 12.0]
+        bank = np.array([1, 1, 0, 1])
+        self.assertIsNone(matched_reference(None, n, sums, bank))
+        self.assertEqual(matched_reference(1, n, sums, bank), 0)
+        self.assertEqual(matched_reference(1, np.array([2, 2]), np.array([8, 8]), bank[:2]), 0)
+        self.assertIsNone(matched_reference(0, np.array([2, 0]), np.array([8, 0]), bank[:2]))
+
+    def test_choice_denominators_unknown_bounds_and_paired_confirmations(self):
+        n, gaps = np.array([2, 1, 3]), np.array([0.3, 0.4, -0.1])
+        rows = []
+        for pick, later, matched, matched_later in (
+            (0, 0, 1, 0), (1, None, 0, None), (0, 1, 2, 2), (None, None, None, None),
+        ):
+            l5 = coaching_outcomes(pick, later, n, gaps)
+            ref = coaching_outcomes(matched, matched_later, n, gaps)
+            rows.append({"early_sentences": 2, "cells": 0, **l5,
+                         **{"reference_" + k: v for k, v in ref.items()},
+                         "paired_confirmed_gain": l5["confirmed_per_assigned"]
+                                                  - ref["confirmed_per_assigned"]})
+        group = summarize(rows, np.full(4, 50), False)["bands"]["all"]
+        expected = {"assigned": 4, "issued": 3, "adjudicable": 2, "hits": 2, "unknown": 1,
+                    "same_pair": 1, "both_halves": 2, "either_half": 3,
+                    "all_issued_hit_bounds": [2/3, 1.0]}
+        self.assertEqual(group["choice_counts"]["L5"], expected)
+        self.assertEqual(group["choice_counts"]["matched_reference"],
+                         {**expected, "hits": 1, "all_issued_hit_bounds": [1/3, 2/3]})
+        self.assertEqual(group["paired_confirmed_gain"], estimate(np.array([1, -1, 1, 0])))
+
+    def test_exact_binary_intervals_and_information_floor(self):
+        self.assertIsNone(binary_estimate(np.array([np.nan]))["exact_ci95"])
+        one = binary_estimate(np.array([0]))
+        self.assertIsNone(one["ci95"])
+        np.testing.assert_allclose(one["exact_ci95"], [0, 0.975])
+        np.testing.assert_allclose(binary_estimate(np.ones(6))["exact_ci95"],
+                                   [0.025 ** (1/6), 1])
+        for size, delta, decision in ((799, 0.03, "fail_insufficient_data"),
+                                      (800, 0.02, "fail_margin"), (800, 0.03, "pass")):
+            rows = [{"early_sentences": 0, "cells": 1, "yield": 0, "gain_L1_L5": delta}] * size
+            results = summarize(rows, np.full(size, np.nan), False)
+            self.assertEqual(results["primary_decision"], decision)
+            self.assertEqual(results["primary_lower_bound_exceeds_margin"], decision == "pass")
+
     def test_entire_validation_entry_point_on_synthetic_hashed_files(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
@@ -147,7 +194,8 @@ class ReplayTests(unittest.TestCase):
             self.assertEqual(result["bands"]["all"]["scored_cells"], 10)
             self.assertEqual(result["bands"]["all"]["gain_D2"]["mean"], 0)
             self.assertGreater(result["bands"]["all"]["gain_L1_L5"]["mean"], 0.02)
-            self.assertTrue(result["primary_lower_bound_exceeds_margin"])
+            self.assertFalse(result["primary_lower_bound_exceeds_margin"])
+            self.assertEqual(result["primary_decision"], "fail_insufficient_data")
 
     def test_frozen_ridge_equals_dense_export_on_early_word_contexts_with_history_cap(self):
         ridge, _ = coach_inputs()

@@ -5,7 +5,7 @@ from functools import lru_cache
 from typing import Any
 
 import numpy as np
-from scipy.stats import rankdata
+from scipy.stats import binomtest, rankdata
 
 from ml.config import HISTORY_SENTENCES
 from ml.parse import occurrences
@@ -18,6 +18,7 @@ SENTENCES = ((0, 1), (1, 2), (2, 3), (3, 5), (5, np.inf))
 SENTENCE_NAMES = ("0", "1", "2", "3–4", "5+")
 REPLICATES = 2000
 SEED = 20261124
+MIN_SCORED_TYPISTS = 800
 
 
 @dataclass
@@ -86,6 +87,31 @@ def rank_scores(predicted, actual):
     return precision, np.dot(x, y) / np.sqrt(np.dot(x, x) * np.dot(y, y))
 
 
+def matched_reference(l5_pick, counts, sums, frequency):
+    """At L5 issuance, rank bank pairs by their raw mean minus their clean complement."""
+    if l5_pick is None:
+        return None
+    other_n = counts.sum() - counts
+    choices = np.flatnonzero((frequency > 0) & (counts >= MIN_COUNT) & (other_n > 0))
+    if not len(choices):
+        return None
+    contrast = sums[choices] / counts[choices] - (sums.sum() - sums[choices]) / other_n[choices]
+    return int(choices[np.argmax(contrast)])
+
+
+def coaching_outcomes(pick, next_pick, later_n, later_gap):
+    """Preserve unknown hits and both stability denominators in each typist's record."""
+    row = {"yield": int(pick is not None), "confirmed_per_assigned": 0}
+    if pick is not None and later_n[pick] >= MIN_COUNT:
+        row["hit"] = int(later_gap[pick] > GAP)
+        row["confirmed_per_assigned"] = row["hit"]
+    if pick is not None or next_pick is not None:
+        row["stability"] = int(pick == next_pick)
+    if pick is not None and next_pick is not None:
+        row["stability_both"] = int(pick == next_pick)
+    return row
+
+
 def replay_person(model, limited, ridge, frequency, clean, corrected, clean_trials, prompts, wpm):
     """Trial order is zero-based and includes rejected trials. Only outcomes use the later half."""
     cut = len(clean_trials) // 2
@@ -100,14 +126,19 @@ def replay_person(model, limited, ridge, frequency, clean, corrected, clean_tria
     later_gap = observed - after.expected
     cells = (n >= MIN_COUNT) & (m >= MIN_COUNT)
     count = int(cells.sum())
-    row: dict[str, float] = {"early_sentences": int(clean_trials[:cut].sum()), "cells": count,
-                             "yield": int(pick is not None)}
+    row: dict[str, float] = {
+        "early_sentences": int(clean_trials[:cut].sum()), "cells": count,
+        "candidate_available": int(np.any((frequency > 0) & (n >= MIN_COUNT))),
+        **coaching_outcomes(pick, next_pick, m, later_gap),
+    }
+    reference = coaching_outcomes(matched_reference(pick, n, sums, frequency),
+                                  matched_reference(next_pick, m, targets, frequency), m, later_gap)
+    row.update({f"reference_{name}": value for name, value in reference.items()})
+    row["paired_confirmed_gain"] = (
+        row["confirmed_per_assigned"] - reference["confirmed_per_assigned"]
+    )
     if n.sum():
         row["outside_support"] = int(not (model.speed.low <= before.speed <= model.speed.high))
-    if pick is not None or next_pick is not None:
-        row["stability"] = int(pick == next_pick)
-    if pick is not None and m[pick] >= MIN_COUNT:
-        row["hit"] = int(later_gap[pick] > GAP)
     if corrected is not None:
         extra_n, extra_sum = corrected.take(corrected.order < cut).totals()
         augmented = update(model, n + extra_n, sums + extra_sum)
@@ -169,34 +200,67 @@ def estimate(values):
             "ci95": np.quantile(means, [0.025, 0.975]).tolist()}
 
 
+def binary_estimate(values):
+    result = estimate(values)
+    n, hits = result["typists"], int(np.nansum(values))
+    exact = binomtest(hits, n).proportion_ci(confidence_level=0.95, method="exact") if n else None
+    return {**result, "successes": hits, "exact_ci95": list(exact) if exact is not None else None}
+
+
+def choice_counts(metrics, prefix):
+    assigned = metrics[prefix + "yield"]["typists"]
+    issued = metrics[prefix + "yield"]["successes"]
+    hits = metrics[prefix + "hit"]["successes"]
+    adjudicable = metrics[prefix + "hit"]["typists"]
+    unknown = issued - adjudicable
+    return {
+        "assigned": assigned, "issued": issued, "adjudicable": adjudicable, "hits": hits,
+        "unknown": unknown, "same_pair": metrics[prefix + "stability"]["successes"],
+        "either_half": metrics[prefix + "stability"]["typists"],
+        "both_halves": metrics[prefix + "stability_both"]["typists"],
+        "all_issued_hit_bounds": [hits / issued, (hits + unknown) / issued] if issued else None,
+    }
+
+
 def summarize(rows, wpm, include_corrected):
     """Publish aggregate metrics only. No identifiers or individual results leave replay."""
     def column(name):
         return np.array([row.get(name, np.nan) for row in rows])
 
     cells, early, issued = column("cells"), column("early_sentences"), column("yield")
+    binary_names = [
+        "candidate_available", "outside_support",
+        *(prefix + key for prefix in ("", "reference_")
+          for key in ("yield", "hit", "confirmed_per_assigned", "stability", "stability_both")),
+    ]
+    if include_corrected:
+        binary_names.extend(("D2_yield", "D2_hit"))
+    binary = {key: column(key) for key in binary_names}
     columns = {name: column(name) for name in (
         *(f"{metric}_{rung}" for metric in ("mae", "p3", "rho") for rung in RUNGS),
-        "coverage80", "yield", "hit", "stability", "outside_support", "gain_L1_L5", "gain_L2_L5",
-        "gain_L3_L5", "mae_own_pair",
+        "coverage80", "gain_L1_L5", "gain_L2_L5", "gain_L3_L5", "mae_own_pair",
+        "paired_confirmed_gain",
     )}
     if include_corrected:
-        columns.update({name: column(name) for name in ("mae_D2", "gain_D2", "D2_yield", "D2_hit")})
+        columns.update({name: column(name) for name in ("mae_D2", "gain_D2")})
     groups = {"all": np.ones(len(wpm), dtype=bool)}
     groups.update({name: (wpm >= lo) & (wpm < hi) for name, (lo, hi) in zip(BAND_NAMES, BANDS)})
     bands = {}
     for name, keep in groups.items():
         metrics: dict[str, Any] = {key: estimate(values[keep]) for key, values in columns.items()}
+        metrics.update({key: binary_estimate(values[keep]) for key, values in binary.items()})
         metrics.update({
             "assigned": int(keep.sum()), "scored_cells": int(cells[keep].sum()),
             "rank_cells": int(cells[keep & (cells >= 4)].sum()), "issued": int(issued[keep].sum()),
+            "choice_counts": {"L5": choice_counts(metrics, ""),
+                              "matched_reference": choice_counts(metrics, "reference_")},
             "yield_by_early_clean_sentences": {
-                label: estimate(issued[keep & (early >= lo) & (early < hi)])
+                label: binary_estimate(issued[keep & (early >= lo) & (early < hi)])
                 for label, (lo, hi) in zip(SENTENCE_NAMES, SENTENCES)
             },
         })
         if include_corrected:
-            metrics["D2_issued"] = int(columns["D2_yield"][keep].sum())
+            metrics["D2_issued"] = metrics["D2_yield"]["successes"]
         bands[name] = metrics
     cut_results = {}
     for name, keep in {"100+": wpm >= FAST_CUT, "100–<120": (wpm >= FAST_CUT) & (wpm < 120),
@@ -206,11 +270,17 @@ def summarize(rows, wpm, include_corrected):
             **{key: estimate(column(key)[keep]) for key in (
                 "mae_L2", "cut_L2", "cut_cost_L2", "mae_L5", "cut_L5", "cut_cost_L5")},
         }
-    gain_interval = bands["all"]["gain_L1_L5"]["ci95"]
-    clears_margin = gain_interval is not None and gain_interval[0] > MARGIN
+    gain = bands["all"]["gain_L1_L5"]
+    enough = gain["typists"] >= MIN_SCORED_TYPISTS
+    clears_margin = enough and gain["ci95"] is not None and gain["ci95"][0] > MARGIN
+    decision = "pass" if clears_margin else "fail_margin"
+    if not enough:
+        decision = "fail_insufficient_data"
     scored_wpm = wpm[(cells > 0) & np.isfinite(wpm)]
     return {
         "primary_margin_log_ms": MARGIN,
+        "primary_min_scored_typists": MIN_SCORED_TYPISTS,
+        "primary_decision": decision,
         "primary_lower_bound_exceeds_margin": clears_margin,
         "maximum_scored_wpm": float(scored_wpm.max()) if len(scored_wpm) else None,
         "bands": bands, "speed_cut": cut_results,
