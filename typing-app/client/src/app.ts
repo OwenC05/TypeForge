@@ -23,7 +23,7 @@ const finiteRuntime = () => import('./finite-practice.ts');
 const progressElement = () => import('@ui-sdk/web/progress');
 
 // Optional bundled evidence: a missing artifact must not disable ordinary typing.
-const generated = import.meta.glob('./generated/*.json', { eager: true, import: 'default' });
+const generated = import.meta.glob(['./generated/model.json', './generated/benchmark.json'], { eager: true, import: 'default' });
 let artifact: ModelArtifact | null = null;
 try { artifact = parseModelArtifact(generated['./generated/model.json']); } catch { /* honest no-model state */ }
 const settings = (qwerty: boolean, durationMs: DurationMs = 60000): SessionResult['settings'] => ({durationMs, inputMode: 'flow-v1', language: 'en', qwerty, corpusVersion: CORPUS_VERSION});
