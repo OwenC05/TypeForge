@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { findSavedPrompt, manualPairs, selectAssessmentPrompts, selectPairPrompts } from '../src/corpus-v2.ts';
+import { manualPairs, selectAssessmentPrompts, selectPairPrompts } from '../src/corpus-v2.ts';
 import assessmentV2 from '../src/generated/assessment-bank-v2.json' with { type: 'json' };
 import practiceV2 from '../src/generated/practice-bank-v2.json' with { type: 'json' };
 import { resolveRetest } from '../src/profile.ts';
@@ -66,17 +66,9 @@ test('shared shuffle defensively copies custom practice banks', async () => {
   shuffled[0].text='changed';assert.equal(bank[1].text,'bb');
 });
 
-test('each stored ID resolves to its original text and mode across all four banks', () => {
-  for (const [mode, bank] of [
-    ['assessment', [...assessmentPrompts, ...assessmentV2.sentences]],
-    ['practice', [...practicePrompts, ...practiceV2.sentences]],
-  ] as const) {
-    for (const prompt of bank) {
-      assert.deepEqual(findSavedPrompt(mode, prompt.id), prompt);
-      assert.equal(findSavedPrompt(mode === 'practice' ? 'assessment' : 'practice', prompt.id), undefined);
-    }
-  }
-  assert.equal(findSavedPrompt('assessment', 'tatoeba-unknown'), undefined);
+test('v1 and v2 passage IDs stay unique across both modes', () => {
+  const bank = [...assessmentPrompts, ...practicePrompts, ...assessmentV2.sentences, ...practiceV2.sentences];
+  assert.equal(new Set(bank.map(p => p.id)).size, bank.length);
 });
 
 test('retests keep a v1 or v2 origin, exclude its partial passage and use fresh v2 IDs', () => {

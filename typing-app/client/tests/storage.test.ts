@@ -167,12 +167,11 @@ test('validation failures are permanent named errors before IndexedDB is opened'
 test('upgrade callback contains a synchronous bootstrap failure and rejects the open', async t => {
   // Narrow open/upgrade doubles test callback containment, not native rollback.
   const original = Object.getOwnPropertyDescriptor(globalThis, 'indexedDB');
-  const fault = new DOMException('Synthetic metadata add failure', 'QuotaExceededError');
+  const fault = new DOMException('Synthetic store creation failure', 'QuotaExceededError');
   let aborted = 0;
   const store = { indexNames: { contains: () => true }, createIndex: () => {} };
   const pending: any = {
-    result: { objectStoreNames: { contains: () => true }, createObjectStore: (name: string) =>
-      name === 'coachMetadata' ? { add: () => { throw fault; } } : store },
+    result: { objectStoreNames: { contains: () => true }, createObjectStore: () => { throw fault; } },
     transaction: { objectStore: () => store, abort: () => { aborted++; } },
   };
   Object.defineProperty(globalThis, 'indexedDB', { configurable: true, value: { open: () => pending } });

@@ -1,7 +1,7 @@
 import assessmentBank from './generated/assessment-bank-v2.json' with { type: 'json' };
 import practiceBank from './generated/practice-bank-v2.json' with { type: 'json' };
 import candidatePairs from './generated/manual-pairs-v2.json' with { type: 'json' };
-import { assessmentPrompts as assessmentV1, practicePrompts as practiceV1, shufflePrompts, type Prompt } from './corpus.ts';
+import { shufflePrompts, type Prompt } from './corpus.ts';
 
 export const assessmentPrompts = assessmentBank.sentences;
 // Ship just the 100 candidate_pairs from ml/corpus/pair_frequencies.json in the standalone client.
@@ -31,14 +31,4 @@ export function selectPairPrompts(pair: string, random = Math.random): Prompt[] 
     return hits > 0 && hits * assessmentCharacters >= 2 * assessed * text.length;
   });
   return shufflePrompts(dense, random);
-}
-
-// The timed settings and coach certificates stay compatible. Each stored prompt ID names one text.
-const savedPrompts = {
-  assessment: new Map([...assessmentV1, ...assessmentPrompts].map(prompt => [prompt.id, prompt])),
-  practice: new Map([...practiceV1, ...practiceBank.sentences].map(prompt => [prompt.id, prompt])),
-};
-
-export function findSavedPrompt(mode: 'assessment' | 'practice', id: string): Prompt | undefined {
-  return savedPrompts[mode].get(id);
 }
