@@ -17,8 +17,10 @@ Run `run_0e7c9914d0b7`. Integration branch `feature/daily-practice`, fast-forwar
 | B4 Coach model | task_29999e85584d (+ amendments task_9fcea6edb22a) | ctx_d6b50b445b79, ctx_5c99c705d037 | tf-coach-model | none | merged `f0c03e4`; amendments merged `2932a6a`; released |
 | B5 Review | task_b2ac7dccfa91 (+ re-check task_abfa65f91ab6) | ctx_fabcc23c2631, ctx_305a74c624df (duplicate), ctx_323a6ba3fd5d | tf-coach-review | none | merged `6727295`; re-check APPROVE merged `613b4c6`; released |
 | B7 Banks in app | task_be02b4a60a14 (+ cap task_42b924e407f4) | ctx_ab049b665909, ctx_6e791ca0a4b1 | tf-banks-v2 | 5345 | merged `fcac88f`, released |
-| B6 Fresh test | task_19f360de9685 | ctx_c5537bb4ee88 | tf-fresh-test | none | running from `613b4c6` (one pinned run) |
-| C1a Coach model in browser | task_8623714a5833 | ctx_43b8a35c56d3 | tf-coach-browser | none | done at `8a348d8`, reviewed; merge waits for B6; released |
+| B6 Fresh test | task_19f360de9685 | ctx_c5537bb4ee88 | tf-fresh-test | none | PASS; merged `9817d02`; released |
+| C1a Coach model in browser | task_8623714a5833 | ctx_43b8a35c56d3 | tf-coach-browser | none | merged `3e7cdcc` (report dropped `b407182`); released |
+| C1b Coach in the app | pending | pending | tf-coach-app | 5346 | starting |
+| C1c Fit-check calibration | pending | pending | tf-fit-check | none | starting |
 
 ## Integration order
 
@@ -55,3 +57,13 @@ A4 first (A9 depends on it), then A6 (both touch `app.ts`), A1, A2, A3, A7, A8 i
 - 25 Nov: B6 blocked before running (`msg_4b50961881eb`). Both WSL launches failed with `Wsl/Service/0x8007274c` before Python started, so the registered command ran zero times and the fresh set is unopened. The worktree check had passed: clean, registration hash matched, `493aee5` an ancestor. My own `wsl -e true` timed out the same way, though `wsl --list --running` shows Ubuntu up. Many `wsl.exe` sessions from 24 Nov are still open. A background probe is retrying for about 12 minutes. I will not run `wsl --shutdown` without Owen's agreement, because it would close every WSL session on the machine. B6 stays idle until WSL answers.
 - 25 Nov: C1a done (`8a348d8`) and reviewed. The browser table (52,510 bytes, identical across two exports) carries the fitted digest `c813005b...`; its center and support match PREREG. `coach-model.ts` mirrors `update` and `suggestion` line for line. Parity: 20/20 decisions and 98/98 ranges match Python. The eligibility parity has 23 matched cases, 2 explicit known differences (a C1b decision) and 7 skipped as outside the engine interface. `app.ts` change: only the approved glob narrowing; General no longer bundles the table. Checks: client 288 passed and 7 skipped; Python 66/66. Its report sits in `artifacts/C1a.md`, which git does not ignore, so it was committed; I will drop it at merge so the branch keeps no worker reports. As said to Owen, the merge waits for B6. Released.
 - 25 Nov: WSL is intermittent, not down. The probe failed seven times, then succeeded at 12:32:24, and my next check timed out again. The long-lived WSL sessions belong to Owen's agentmemory servers (started by Claude Code on 24 Nov) and to an unknown `/bin/bash` script under `/home/owenc` running since 14:00 on 24 Nov. None are my workers' leftovers, so I terminated nothing and did not restart WSL. B6 was told to go (`msg_f9cdcec6fa7a`) with up to 10 launch attempts 30 s apart, since a startup timeout never reaches Python. Once Python starts it must finish; a crash before the results JSON exists means report and wait, never rerun. Owen has been asked whether WSL may be restarted if this fails.
+- 25 Nov: B6 passed (`msg_e592ab109185`, branch `ee22e2a`). It made one registered run, and 4,240 of 16,659 typists were scored. L1 minus L5 MAE was 0.08346 log ms (95% interval 0.07916 to 0.08775); the gate needed at least 800 typists and a lower bound above 0.020. L5's MAE was 0.2042, against 0.2877 for L1, 0.2258 for L2 and 0.2219 for Ridge. 80% coverage was 82.5%. On the descriptive coaching measure, L5 hit 79/111 and the matched reference 60/92. The fastest scored typist was 130 WPM.
+  - `fresh.json` holds aggregates only. Every 5+ digit run is a hash or a decimal fraction, and the keys hold no IDs.
+  - Merged `9817d02`. C1a was merged after it (`3e7cdcc`), and its committed `artifacts/C1a.md` was removed (`b407182`).
+  - Checks after the merges: client 295 tests (288 passed, 7 skipped); Python 66/66 OK. B6 was released.
+- 25 Nov: checked the facts C1b's brief depends on.
+  - L5's 100 nonzero-frequency pairs are exactly `generated/manual-pairs-v2.json`'s 100, so every suggestion has a Pair-mode bank.
+  - Training kept only QWERTY typists on full-size and laptop keyboards (`ml/dataset.py:101`), so C1b uses only results saved with `settings.qwerty` true.
+  - IndexedDB `typeforge` is at version 3. The old coach's stores (`coachMembership`, `coachMetadata`) stay, unused.
+  - Pair mode and old Suggested blocks are marked by `manualDrill` and `practiceFocus`, so the drill exclusion is a filter.
+  - The `T` threshold is calibrated per D13; C1c also writes a parity fixture that C1b gets once C1c is done.
