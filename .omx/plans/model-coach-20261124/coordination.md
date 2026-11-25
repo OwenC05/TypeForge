@@ -19,7 +19,8 @@ Run `run_0e7c9914d0b7`. Integration branch `feature/daily-practice`, fast-forwar
 | B7 Banks in app | task_be02b4a60a14 (+ cap task_42b924e407f4) | ctx_ab049b665909, ctx_6e791ca0a4b1 | tf-banks-v2 | 5345 | merged `fcac88f`, released |
 | B6 Fresh test | task_19f360de9685 | ctx_c5537bb4ee88 | tf-fresh-test | none | PASS; merged `9817d02`; released |
 | C1a Coach model in browser | task_8623714a5833 | ctx_43b8a35c56d3 | tf-coach-browser | none | merged `3e7cdcc` (report dropped `b407182`); released |
-| C1b Coach in the app | task_03ad76eb648c | ctx_910d5440cbd9 | tf-coach-app | 5346 | merged `aa86bb6` (`d099b52`); kept open; follow-up `ctx_c5a3bb457b5e` (Lab note below 8 sentences) |
+| C1b Coach in the app | task_03ad76eb648c | ctx_910d5440cbd9 | tf-coach-app | 5346 | merged `aa86bb6` (`d099b52`) and follow-up `8cfc98a` (`9c216f4`); released |
+| D Docs, verification, PR draft | pending | pending | tf-final | 5347 | starting |
 | C1c Fit-check calibration | task_8ff87f1e628b | ctx_729ffefb22e7 | tf-fit-check | none | merged `0acb9d5`; released |
 
 ## Integration order
@@ -108,3 +109,9 @@ A4 first (A9 depends on it), then A6 (both touch `app.ts`), A1, A2, A3, A7, A8 i
   - **My checks on integration.** `npm run check`: 208 tests, 201 passed, 7 skipped, build OK. Chromium coach real phase 34/34 (port 5361). P3 11/11 (port 5362).
   - **Follow-up sent** (`ctx_c5a3bb457b5e`). Below 8 checked sentences the Lab fit line reads as if the check were active, so it should say the check starts at 8 sentences.
   - **Still open, not in C1b's scope.** Below about 400 px the active line breaks inside words (break-all predates C1b), so a reading pause lands inside a letter pair. This affects evidence from narrow windows. It's a candidate follow-up for Owen to decide.
+- 25 Nov: C1b follow-up done (`msg_89407b007426`, `9c216f4`; `ctx_c5a3bb457b5e`). Below 8 checked sentences the Lab adds "the check starts at 8 sentences"; tests cover 0, 7 and 8. Merged `8cfc98a`. On integration: 209 tests (202 passed, 7 skipped) and P3 11/11 (port 5362). P3's upgrade test opens a version-2 database with main-format assessment and General records, upgrades it to version 3, and asserts the Lab coach readout counts them ("of 2 pair checks across 1 sentence"). Old stores, history and exports survive. Released both C1b dispatches.
+- 25 Nov: phase D brief (`D-docs-verify-pr.md`) covers plan D2 and D3 in one docs-only task.
+  - **Docs.** Fix README line 3 (the "ten qualifying assessments" wording), add the coach model's result line, rewrite `docs/product.md`'s coach section, and add a model card section to `ml/README.md`.
+  - **Verification.** Full runs in Chromium, Firefox and WebKit, plus Python.
+  - **PR draft.** It goes in `artifacts/PR.md`; nothing is pushed.
+  - **Untouched.** `docs/pilot/**` waits for Owen's trial choice (phase D1); D only lists stale statements there.
