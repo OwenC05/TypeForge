@@ -20,7 +20,7 @@ Run `run_0e7c9914d0b7`. Integration branch `feature/daily-practice`, fast-forwar
 | B6 Fresh test | task_19f360de9685 | ctx_c5537bb4ee88 | tf-fresh-test | none | PASS; merged `9817d02`; released |
 | C1a Coach model in browser | task_8623714a5833 | ctx_43b8a35c56d3 | tf-coach-browser | none | merged `3e7cdcc` (report dropped `b407182`); released |
 | C1b Coach in the app | task_03ad76eb648c | ctx_910d5440cbd9 | tf-coach-app | 5346 | merged `aa86bb6` (`d099b52`) and follow-up `8cfc98a` (`9c216f4`); released |
-| D Docs, verification, PR draft | task_d59daa3f7000 | ctx_274dcaf802a6 | tf-final | 5347 | docs `7700d92` reviewed; follow-up `ctx_b82195e407fa` (reopened) running |
+| D Docs, verification, PR draft | task_d59daa3f7000 | ctx_274dcaf802a6 | tf-final | 5347 | merged `7c80458` (`7700d92`, `ecdcfd1`); released |
 | C1c Fit-check calibration | task_8ff87f1e628b | ctx_729ffefb22e7 | tf-fit-check | none | merged `0acb9d5`; released |
 
 ## Integration order
@@ -130,3 +130,9 @@ A4 first (A9 depends on it), then A6 (both touch `app.ts`), A1, A2, A3, A7, A8 i
   - **Stale Lab text found.** The Ridge limitations still say "historical baseline remains the coach" (`ml/export.py:29` → `benchmark.json:365`). `reportVersion` derives from `evaluation.json` and `artifactSha256` from `model.json`, so the text can be edited in both files without touching any hash.
   - **Follow-up sent** (reopened as `ctx_b82195e407fa`). Replace the text in both files with "these Ridge predictions do not choose practice pairs". Fix the stale comment at `app.ts:1128`. Drop the PR draft's obsolete risk sentence and restore the emoji its attribution line lost.
   - **Stale pilot docs** (`preregistration.md:9`, `power.md:54–55`) wait for Owen's trial decision.
+- 25 Nov: D follow-up done (`msg_8fff3e872cc0`, `ecdcfd1`): the Ridge limitation now reads "these Ridge predictions do not choose practice pairs" in `ml/export.py` and `benchmark.json`, the stale comment is fixed, and the PR draft's obsolete risk sentence is removed with its footer emoji restored (bytes F0 9F A4 96). The first Python run had two `dataset_v2` commit-resolution errors (WSL interop); the agreed rerun passed 71/71, with both logs kept. Merged `7c80458`; the code tree is identical to D's tested tree; final `npm run check` on integration gave 202 passed and 7 skipped. Released D.
+- **State, 25 Nov evening.** Phases B, C and D2/D3 are complete on `feature/daily-practice` (`7c80458`), and nothing is pushed. The PR draft is at `C:/Users/Owenc/orca/workspaces/TypeForge/tf-final/artifacts/PR.md` (uncommitted). Waiting on Owen:
+  1. **Ship.** Push, open the PR and merge; merging to `main` deploys production.
+  2. **Trial (phase D1).** Owen to pick a design; `docs/pilot/preregistration.md:9` and `power.md:54–55` are stale until then.
+  3. **Narrow screens.** Whether to fix the active line breaking inside words before or after shipping.
+  4. **`.omx` on `main`.** The branch tracks 83 `.omx/` process files; `main` has none and `origin/feature/daily-practice` has 62. By the D1 precedent (process receipts went to `archive/process-receipts-2026-11`), the recommendation is to untrack `.omx/` in a final commit before the push, keeping it on disk and in the archive branch. It stays tracked until then, because worker worktrees read briefs from it.
