@@ -9,7 +9,7 @@ import { TypingEngine, type SessionResult, type SentenceSummary, SUPPORTED_DURAT
 import { getResult, getSavedSource, listSavedSources, deleteResult, listResultsPage, getStorageDiagnostics,
   saveSource, subscribeStorageInvalidation, type Persistence } from './storage.ts';
 import { isFiniteSource, type SavedSource, type FinitePracticeResult } from './finite-practice-result.ts';
-import { readCoach, type CoachReadout } from './coach.ts';
+import { FIT_MIN_SENTENCES, readCoach, type CoachReadout } from './coach.ts';
 import { loadPreferences, savePreferences, withRemembered } from './preferences.ts';
 import { UnsavedResults, unsavedLine, newSaveRecord, applyOutcome, type SaveRecord } from './unsaved.ts';
 
@@ -1306,12 +1306,13 @@ async function renderCoachReadout() {
     const { speed, outside, fit, gaps } = await readCoach();
     const speedText = speed === null ? 'No saved letter-pair timings yet.' :
       `<strong>${speedWpm(speed)} WPM</strong> · ${outside ? 'outside the training range. ' + speedNote : 'inside the training range of about 32 to 150 WPM.'}`;
-    const fitText = fit.coverage === null ? 'No pair checks yet across 0 sentences.' :
-      `<strong>${Math.round(100 * fit.coverage)}%</strong> inside the model’s 80% ranges · ${fit.inside} of ${fit.checks} pair checks across ${fit.sentences} ${fit.sentences === 1 ? 'sentence' : 'sentences'}.`;
+    let fitText = fit.coverage === null ? 'No pair checks yet across 0 sentences' :
+      `<strong>${Math.round(100 * fit.coverage)}%</strong> inside the model’s 80% ranges · ${fit.inside} of ${fit.checks} pair checks across ${fit.sentences} ${fit.sentences === 1 ? 'sentence' : 'sentences'}`;
+    if (fit.sentences < FIT_MIN_SENTENCES) fitText += ` · the check starts at ${FIT_MIN_SENTENCES} sentences`;
     const gapsText = gaps.length ? gaps.map(g => `<strong>${g.pair}</strong> ${gapPercent(g.gap)}% slower`).join(' · ') + ' than expected at your speed.' :
       'No pair is slower than expected at your speed.';
     target.innerHTML = `<dl class="coach-readout"><div><dt>Letter-pair speed</dt><dd>${speedText}</dd></div>
-      <div><dt>Recent fit</dt><dd>${fitText}</dd></div><div><dt>Largest pair gaps</dt><dd>${gapsText}</dd></div></dl>`;
+      <div><dt>Recent fit</dt><dd>${fitText}.</dd></div><div><dt>Largest pair gaps</dt><dd>${gapsText}</dd></div></dl>`;
   } catch { target.textContent = 'Saved typings or the coach model could not be read.'; }
 }
 
