@@ -1,4 +1,40 @@
-# TypeForge coaching model validation
+# TypeForge coaching model evaluation
+
+## Fresh test
+
+**Pass.** L5 reduced mean absolute error (MAE) for later pair timing by **0.08346 log ms** against the typist’s own earlier average (L1). The paired 95% participant-bootstrap interval was **0.07916–0.08775 log ms**. Of 16,659 assigned typists, 4,240 could be scored. The registration required at least 800 and a lower bound above 0.020 log ms.
+
+| Source WPM | Scored / assigned | Qualifying cells | L1 MAE | L5 MAE | Ranked typists / cells | L5 precision at 3 | L5 Spearman | L5 80% range coverage |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| All | 4,240 / 16,659 | 13,906 | 0.2877 | 0.2042 | 1,403 / 9,071 | 0.656 | 0.351 | 82.5% |
+| <40 | 830 / 5,780 | 2,242 | 0.3041 | 0.2228 | 198 / 1,224 | 0.658 | 0.362 | 79.1% |
+| 40–<80 | 2,678 / 9,397 | 8,727 | 0.2907 | 0.2004 | 882 / 5,658 | 0.670 | 0.371 | 83.1% |
+| 80–<100 | 583 / 1,231 | 2,293 | 0.2618 | 0.1977 | 244 / 1,675 | 0.627 | 0.312 | 84.1% |
+| 100–<120 | 140 / 238 | 613 | 0.2438 | 0.1940 | 73 / 487 | 0.562 | 0.220 | 84.1% |
+| 120+ | 9 / 13 | 31 | 0.2403 | 0.1945 | 6 / 27 | 0.667 | 0.098 | 88.1% |
+
+MAE and coverage use pairs with at least two clean observations in each half. Ranking requires four qualifying pairs per typist. Across the same 4,240 scored typists, MAE was 0.3429 log ms for the population pair mean (L0), 0.2258 for the speed-adjusted pair mean (L2), 0.2219 for Ridge (L3) and 0.2410 for the typist’s own earlier mean for that pair.
+
+At the midpoint, 8,353/16,659 typists had a practice pair observed at least twice. Whenever L5 issued, the matched reference picked the pair with the largest raw timing gap from the typist’s other intervals. A hit required at least two later observations and a later pair time more than 10% above the speed-adjusted expectation.
+
+| Rule | Issued / assigned (yield) | Hits / checkable (rate, exact 95% interval) | Unknown / issued | Possible hit rate across all issued | Same pair / either half | Same pair / both halves |
+| --- | --- | --- | --- | --- | --- | --- |
+| L5 | 484/16,659 (2.91%) | 79/111 (71.2%, 61.8–79.4%) | 373/484 | 16.3–93.4% | 13/1,039 | 13/56 |
+| Matched reference | 484/16,659 (2.91%) | 60/92 (65.2%, 54.6–74.9%) | 392/484 | 12.4–93.4% | 6/1,039 | 6/56 |
+
+L5 recorded 19 more confirmed hits across 16,659 assignments, a paired difference of +0.1141 percentage points (95% bootstrap +0.0480 to +0.1861). L5 issued suggestions to 0/6,809 typists with no earlier clean sentence, 29/3,380 with one, 92/2,728 with two, 243/3,034 with three or four, and 120/708 with five or more.
+
+Of 9,850 typists with earlier clean intervals, 241 fell outside the training speed range. Withholding 100+ WPM typists from the speed fit increased MAE by 0.00097 log ms for L2 (95% bootstrap 0.00004 to 0.00180) and 0.00041 for L5 (−0.00011 to 0.00094), across 149/251 fresh typists at 100+ WPM and 644 qualifying cells. The fastest scored typist was at 130.1 WPM.
+
+Under D12, this prediction result allows L5 to choose pairs in TypeForge and in a practice trial. A prospective trial is needed to establish whether practising those pairs improves typing and whether L5’s choices outperform the current rule’s. The aggregate file gives all subgroup results, denominators and intervals, including exact binomial intervals for binary rates. [Fresh results](fresh.json)
+
+Derived clean `test.npz` SHA256 `f31d5a0999dfb99d6b048119e892db117341922a4f04e6cc39a0a86d9f807148`. The registered run used this command from the worktree root in WSL.
+
+```sh
+OPENBLAS_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 /mnt/c/Users/Owenc/Documents/GitHub/TypeForge/.venv/bin/python -m ml.coach.b6 fresh /home/owenc/typeforge-data/aalto-136m /mnt/c/Users/Owenc/Documents/GitHub/TypeForge/ml/data/raw/metadata_participants.txt /home/owenc/typeforge-data/aalto-136m/coach-fresh-results.json
+```
+
+## Validation
 
 **L5 predicted later pair timing more accurately than the typist’s own earlier average.** Across 4,195 of 16,659 validation typists and 14,065 qualifying typist-pair cells, the paired reduction in mean absolute error was **0.0841 log ms** (95% participant-bootstrap interval 0.0799–0.0883). The fresh decision requires at least 800 scored typists and a lower bound above 0.020. A pass licenses using L5 to choose pairs in TypeForge and in a prospective practice trial. Only such a trial can establish whether practice improves typing or whether L5 chooses better practice pairs than the current rule. [Frozen registration](PREREG.md)
 
