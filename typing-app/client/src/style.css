@@ -125,6 +125,10 @@ body[data-run=completed] .today { display: block; }
 /* Column snapping (prototype B): per-glyph mirror boxes and the textarea text run wrap at the same
    index when the width is whole columns plus half a column of slack. */
 .active-passage { position: relative; font: 400 var(--passage)/var(--passage-line) var(--mono); width: calc(round(down, 100% - .5ch, 1ch) + .5ch); }
+/* The two extended pair drills fit 51 DejaVu Sans Mono glyphs in the 960px column. */
+@media (min-width: 992px) {
+  .stage[data-long-pair=true] .active-passage { --passage: 30px; }
+}
 .typing-surface .prompt, .typing-surface .typing-input {
   font-family: var(--mono); font-weight: 400; letter-spacing: 0; white-space: pre-wrap; word-break: break-all; overflow-wrap: anywhere; tab-size: 1; font-kerning: none; font-variant-ligatures: none;
 }
@@ -181,14 +185,14 @@ body[data-run=completed] .today { display: block; }
 /* While held the slot may grow downward to show the whole choice; nothing above it moves. */
 .slot:has(.carried[data-leaving]:not([hidden])) { height: auto; min-height: var(--slot-height); }
 /* A ready hint with its key, or the unsaved recovery row (only before the first letter), may wrap at narrow widths: grow instead of clipping the key. */
-.stage[data-state=idle] .slot:has(.slot-action:not(:empty)), .stage[data-state=idle] .slot:has(.carried:not([hidden])) { height: auto; min-height: var(--slot-height); }
+.stage[data-state=idle] .slot:has(.carried:not([hidden])) { height: auto; min-height: var(--slot-height); }
 /* During a run the line is static: its actions cannot be used, so only the count shows (a held departure un-inerts it). */
 .carried[inert] .key-small { display: none; }
 .slot-text.is-notice { color: var(--ink); border-left: 3px solid var(--vermilion-deep); padding-left: 10px; }
 .stage[data-state=idle] .slot-text:empty::before { content: 'start typing — the clock starts with your first letter'; font: 14px var(--mono); color: var(--muted); }
 .stage .carried:not([hidden]) ~ .slot-text:empty::before { content: none; } /* the unsaved line replaces the idle hint */
 /* It also replaces a ready hint (text and key) until it resolves: the block label already names the test. Notices still show. */
-.stage[data-state=idle] .carried:not([hidden]) ~ .slot-text.is-hint, .stage[data-state=idle] .carried:not([hidden]) ~ .slot-text.is-hint ~ .slot-action { display: none; }
+.stage[data-state=idle] .carried:not([hidden]) ~ .slot-text.is-hint { display: none; }
 .foot-hints { margin: 4px 0 0; font: 13px var(--mono); color: var(--muted); }
 .foot-hints kbd { margin-inline: 2px; }
 
@@ -303,6 +307,8 @@ summary { cursor: pointer; padding-block: 8px; }
   .stage { margin-top: 16px; padding-top: 20px; }
   .run-line { border-bottom: 1px solid var(--rule); padding-bottom: 16px; }
   .typing-surface { margin-top: 8px; }
+  /* A preserved trailing space can hang one glyph beyond its snapped line. */
+  .stage[data-bank-version="2"] .typing-surface { font: 400 var(--passage) var(--mono); padding-inline-end: 1ch; }
   .block-label { font-size: 13px; letter-spacing: .12em; }
   .passage-context { color: var(--graphite); }
   .wide-only { display: none; }
@@ -328,6 +334,10 @@ summary { cursor: pointer; padding-block: 8px; }
   .block-label { font-size: 11px; letter-spacing: .04em; }
   .result-figures dd { letter-spacing: -.05em; }
 }
+/* Six columns need 322px plus the popup's 8px collision margin on either side. */
+@media (width < 338px) {
+  .pair-list { grid-template-columns: repeat(5, 48px); }
+}
 /* Forced colours strip the ink background that marks a checked key; use system colours instead. */
 @media (forced-colors: active) {
   ui-segmented-control-item[data-checked], ui-switch.key[data-checked] { forced-color-adjust: none; background: Highlight; color: HighlightText; border-color: Highlight; box-shadow: none; }
@@ -346,73 +356,12 @@ summary { cursor: pointer; padding-block: 8px; }
   .passage-context { color: GrayText; }
   .passage-context .missed { text-decoration-color: CanvasText; }
 }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }
-
-/* Baseline and personalised practice (accepted UX prototype baseline.css, without its fixture-only chrome).
-   No new colours, fonts or radii; tokens come from :root above. */
-/* Locked Suggested: still a focusable radio item (aria-disabled, change cancelled), dashed as before. */
-ui-segmented-control-item[data-locked] { color: var(--graphite); background: transparent; border-style: dashed; box-shadow: none; position: relative; }
-ui-segmented-control-item[data-locked]:hover { background: transparent; }
-ui-segmented-control-item[data-locked]:active { transform: none; }
-
-/* Semantic progress (ui-progress) for the readable "n of 10", used in why?, results and progress. */
-.baseline-progress { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 14px; }
-.baseline-progress ui-progress-label { font: 500 13px/1.5 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
-.baseline-progress ui-progress-value { font: 500 13px/1.5 var(--mono); letter-spacing: .06em; color: var(--ink); order: 3; }
-.baseline-progress ui-progress-track { position: relative; display: block; width: 198px; height: 6px; background: var(--rule);
-  -webkit-mask: repeating-linear-gradient(90deg, #000 0 18px, transparent 18px 20px); mask: repeating-linear-gradient(90deg, #000 0 18px, transparent 18px 20px); }
-.baseline-progress ui-progress-indicator { display: block; height: 100%; background: var(--ink); }
-.baseline-progress[data-pending] ui-progress-track::after { content: ''; position: absolute; top: 0; bottom: 0; left: calc(var(--counted) * 20px); width: 18px; background: var(--graphite); }
-
-/* Baseline block inside the in-place result and the why? panel. */
-.baseline-block { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--rule); max-width: 62ch; }
-.baseline-block p { margin: 8px 0 0; font-size: 17px; color: var(--ink); }
-.baseline-block p.note { font-size: 15px; color: var(--muted); }
-.baseline-block .lead-line { font-family: var(--display); font-weight: 700; font-size: 21px; letter-spacing: -.01em; }
-.why-panel .baseline-block { margin: 0 0 12px; padding: 0 0 12px; border-top: 0; border-bottom: 1px solid var(--rule); }
-.why-panel .baseline-block p { font-size: 15px; color: var(--ink); }
-.why-panel .baseline-block p.note { font-size: 14px; color: var(--muted); }
-.why-panel .key-small, .slot-text .key-small, .baseline-block .key-small { margin-top: 10px; }
-.slot-text .key-small { margin: 0 0 0 6px; min-height: 28px; padding: 0 8px; font-size: 13px; vertical-align: middle; }
-
-/* "Last 10 tests · median": one step below the result hero (reuses the Progress .metric figure size). */
-.summary { margin-top: 14px; }
-.summary .micro { margin: 0; }
-.summary-figures { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 36px; margin: 6px 0 4px; }
-.summary-figures > div { display: flex; flex-direction: row-reverse; justify-content: flex-end; align-items: baseline; gap: 10px; }
-.summary-figures dd { margin: 0; font: 750 32px/1.1 var(--display); letter-spacing: -.02em; font-variant-numeric: tabular-nums; color: var(--ink); }
-.summary-figures dt { font: 400 17px var(--sans); color: var(--ink); }
-.baseline-block .summary p.note { margin-top: 2px; }
-.baseline-block p.micro { font-size: 13px; color: var(--muted); }
-.baseline-section .summary p.note { margin: 0; font-size: 15px; color: var(--muted); }
-.summary-compact { margin: 6px 0 10px; }
-.baseline-section .summary-figures dd { font-size: 28px; }
-.unsaved-earlier { padding-left: 10px; border-left: 3px solid var(--vermilion-deep); }
-.unsaved-earlier .key-small { margin: 6px 0 0 0; }
-.baseline-block > .key-small { margin-top: 10px; }
-.baseline-section > .key-small { margin: 4px 0 6px; }
-
-/* Progress page baseline section and the inline reset confirmation. */
-.baseline-section .baseline-progress { margin: 12px 0 8px; }
-.reset-confirm { margin-top: 16px; padding-left: 10px; border-left: 3px solid var(--ink); }
-.reset-confirm p { margin: 0 0 10px; font-size: 15px; color: var(--ink); }
-@media (max-width: 760px) {
-  .baseline-block .lead-line { font-size: 19px; }
-  .summary-figures dd, .baseline-section .summary-figures dd { font-size: 26px; }
-  .summary-figures { gap: 2px 24px; }
-  .baseline-block p { font-size: 16px; }
-  .baseline-progress ui-progress-track { width: 158px; -webkit-mask: repeating-linear-gradient(90deg, #000 0 14px, transparent 14px 16px); mask: repeating-linear-gradient(90deg, #000 0 14px, transparent 14px 16px); }
-  .baseline-progress[data-pending] ui-progress-track::after { left: calc(var(--counted) * 16px); width: 14px; }
+.coach-readout { margin: 12px 0 0; }
+.coach-readout > div { display: grid; grid-template-columns: 145px minmax(0, 1fr); gap: 16px; border-top: 1px solid var(--rule); padding: 10px 0; font-size: 15px; line-height: 1.5; }
+.coach-readout dt { color: var(--muted); }
+.coach-readout dd { margin: 0; max-width: 66ch; }
+#coach-why p { color: var(--ink); }
+@media (max-width: 600px) {
+  .coach-readout > div { grid-template-columns: 1fr; gap: 2px; }
+  .block-label { letter-spacing: .08em; }
 }
-@media (forced-colors: active) {
-  .baseline-progress ui-progress-indicator { background: CanvasText; forced-color-adjust: none; }
-  /* Empty segments differ by shape (a thin centre line), not by colour alone. */
-  .baseline-progress ui-progress-track { background: linear-gradient(to bottom, transparent 2px, GrayText 2px 4px, transparent 4px); forced-color-adjust: none; }
-  /* Pending differs by shape, not colour: an outlined segment on Canvas. */
-  .baseline-progress[data-pending] ui-progress-track::after { background: Canvas; outline: 2px solid CanvasText; outline-offset: -2px; forced-color-adjust: none; }
-}
-/* Production-only: the ready slot's action key sits beside the hint text (#slot-action), never inside it. */
-.slot-action:empty { display: none; }
-.slot-action .key-small { margin: 4px 0 0; min-height: 28px; padding: 0 8px; font-size: 13px; }
-.carried[data-leaving]:not([hidden]) ~ .slot-action { display: none; }
-.figures-caption { margin: 0 0 4px; color: var(--muted); }

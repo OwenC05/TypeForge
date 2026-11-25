@@ -1,6 +1,15 @@
 import { MAX_ATTEMPTS, MAX_PROMPT_LENGTH, MAX_RESPONSE_LENGTH, MAX_SENTENCES, MAX_RESULT_BYTES } from './engine.ts';
-import type { CertifiedPlan, FinitePracticeResult } from './coach-types.ts';
-import { CONFIG_ID, validateCertifiedPlan } from './coach-plan.ts';
+import { practicePrompts } from './corpus.ts';
+import type { SessionResult } from './engine.ts';
+
+/** Read-only format from the retired fixed-length Suggested plans. */
+export interface FinitePracticeResult extends Pick<SessionResult, 'id' | 'completedAt' | 'metrics' | 'settings' | 'qualityFlags' | 'sentences' | 'chartSamples'> {
+  schemaId: 'typeforge-finite-practice-result-v1'; owner: 'guest'; mode: 'practice'; metricVersion: 1;
+  termination: 'plan-exhausted'; eligibleForProgress: false;
+  plan: { configId: string; catalogueId: string; planHash: string; pair: string; sentenceCount: number };
+}
+export type SavedSource = SessionResult | FinitePracticeResult;
+export const isFiniteSource = (source: SavedSource): source is FinitePracticeResult => 'schemaId' in source;
 
 const RUN_FLAGS = ['interrupted', 'invalid-input'];
 const SENTENCE_FLAGS = [...RUN_FLAGS, 'incorrect', 'edited', 'repeat', 'missing-timing', 'malformed-timing'];
@@ -46,9 +55,8 @@ function array(value: unknown, field: string, max: number): unknown[] {
   return value;
 }
 
-/** Separate early-source trust boundary; the strict timed validator remains unchanged. */
-export function validateFinitePracticeResult(value: unknown, suppliedPlan: CertifiedPlan): FinitePracticeResult {
-  const plan = validateCertifiedPlan(suppliedPlan);
+/** Validate the saved envelope, original v1 passage text, observations and actual elapsed time. */
+export function validateFinitePracticeResult(value: unknown): FinitePracticeResult {
   const root = record(value, 'record', ['schemaId', 'id', 'owner', 'completedAt', 'mode', 'metricVersion',
     'termination', 'eligibleForProgress', 'settings', 'metrics', 'qualityFlags', 'sentences', 'chartSamples', 'plan']);
   check(root.schemaId === 'typeforge-finite-practice-result-v1' && root.owner === 'guest' &&
@@ -58,8 +66,8 @@ export function validateFinitePracticeResult(value: unknown, suppliedPlan: Certi
   check(typeof root.completedAt === 'string' && /^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{3}Z$/.test(root.completedAt) &&
     Number.isFinite(Date.parse(root.completedAt)) && new Date(root.completedAt).toISOString() === root.completedAt, 'completedAt');
   const identity = record(root.plan, 'plan', ['configId', 'catalogueId', 'planHash', 'pair', 'sentenceCount']);
-  check(identity.configId === CONFIG_ID && identity.catalogueId === plan.catalogueId && identity.planHash === plan.planHash &&
-    identity.pair === plan.pair && identity.sentenceCount === plan.prompts.length, 'plan identity');
+  check([identity.configId, identity.catalogueId, identity.planHash].every(hash => typeof hash === 'string' && /^[a-f0-9]{64}$/.test(hash)) &&
+    typeof identity.pair === 'string' && /^[a-z]{2}$/.test(identity.pair) && count(identity.sentenceCount, 'sentenceCount', MAX_SENTENCES) > 0, 'plan identity');
   const settings = record(root.settings, 'settings', ['inputMode', 'durationMs', 'language', 'qwerty', 'corpusVersion']);
   check(settings.inputMode === 'flow-v1' && settings.durationMs === 30000 && settings.language === 'en' &&
     settings.qwerty === true && settings.corpusVersion === '1', 'settings');
@@ -68,7 +76,7 @@ export function validateFinitePracticeResult(value: unknown, suppliedPlan: Certi
     'correctAttempts', 'accuracy', 'deletedCharacters', 'wpm']);
   const elapsed = number(metrics.elapsedMs, 'elapsedMs', 30000);
   check(elapsed > 0 && elapsed < 30000, 'elapsedMs');
-  const retained = count(metrics.correctCharacters, 'correctCharacters', plan.characterCount);
+  const retained = count(metrics.correctCharacters, 'correctCharacters', MAX_SENTENCES * MAX_PROMPT_LENGTH);
   const attempted = count(metrics.attemptedCharacters, 'attemptedCharacters');
   const correct = count(metrics.correctAttempts, 'correctAttempts', attempted);
   const deleted = count(metrics.deletedCharacters, 'deletedCharacters');
@@ -77,7 +85,7 @@ export function validateFinitePracticeResult(value: unknown, suppliedPlan: Certi
   const expectedAccuracy = !runFlags.includes('invalid-input') && attempted > 0 ? correct / attempted * 100 : null;
   check(metrics.accuracy === expectedAccuracy, 'accuracy formula/diagnostics');
   const sentences = array(root.sentences, 'sentences', MAX_SENTENCES);
-  check(sentences.length === plan.prompts.length, 'sentence count');
+  check(sentences.length === identity.sentenceCount, 'sentence count');
   let responseCharacters = 0, correctCharacters = 0, keyAttempts = 0, keyCorrect = 0;
   const observedRunFlags = new Set<string>();
   for (const [index, value] of sentences.entries()) {
@@ -85,8 +93,8 @@ export function validateFinitePracticeResult(value: unknown, suppliedPlan: Certi
     const raw = record(value, path);
     const sentence = record(value, path, ['promptId', 'promptText', 'response', 'submitted', 'eligible',
       'diagnosticsAvailable', 'qualityFlags', 'keys', 'pairs', ...(Object.hasOwn(raw, 'prediction') ? ['prediction'] : [])]);
-    const prompt = plan.prompts[index]!;
-    check(sentence.promptId === prompt.id && sentence.promptText === prompt.text && prompt.text.length <= MAX_PROMPT_LENGTH, `${path}.prompt`);
+    const prompt = practicePrompts.find(p => p.id === sentence.promptId);
+    check(prompt && sentence.promptText === prompt.text, `${path}.prompt`);
     check(typeof sentence.response === 'string' && sentence.response.length > 0 && sentence.response.length <= MAX_RESPONSE_LENGTH &&
       !sentence.response.endsWith(' ') && sentence.response.split(' ').filter(Boolean).length >= prompt.text.split(' ').filter(Boolean).length,
     `${path}.response`);

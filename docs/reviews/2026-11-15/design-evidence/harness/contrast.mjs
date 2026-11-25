@@ -1,3 +1,0 @@
-const L=h=>{const c=h.match(/\w\w/g).map(x=>parseInt(x,16)/255).map(v=>v<=0.03928?v/12.92:((v+0.055)/1.055)**2.4);return .2126*c[0]+.7152*c[1]+.0722*c[2]};
-const r=(a,b)=>{const x=L(a),y=L(b);return ((Math.max(x,y)+.05)/(Math.min(x,y)+.05)).toFixed(2)};
-for(const [n,f,b] of [['context passage #677b91 on surface #0a131f','677b91','0a131f'],['untyped prompt #b1c0d1 on surface','b1c0d1','0a131f'],['typed correct teal on surface','6ee7d0','0a131f'],['wrong #ffaea4 on surface (excl. tint)','ffaea4','0a131f'],['muted #a0afc1 on panel #101b29','a0afc1','101b29'],['teal vs untyped (typed/untyped distinction)','6ee7d0','b1c0d1'],['disabled select text (opacity .6 approx) skipped','a0afc1','101b29']]) console.log(n, r(f,b));

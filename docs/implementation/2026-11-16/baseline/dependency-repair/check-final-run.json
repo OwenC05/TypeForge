@@ -1,4 +1,0 @@
-{
-    "exit":  0,
-    "command":  "npm run check after clean npm ci"
-}

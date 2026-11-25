@@ -1,0 +1,2816 @@
+{
+  "source": "https://downloads.tatoeba.org/exports/per_language/eng/eng_sentences_CC0.tsv.bz2",
+  "source_sha256": "c2e2edd063a31cbbc8e416a4858225e934bbb0afff485031821e59f230ccf1ca",
+  "population": "full filtered English CC0 pool before sampling",
+  "sentences": 1334,
+  "characters_including_spaces": 51889,
+  "within_word_pair_occurrences": 33003,
+  "candidate_pairs": [
+    "th",
+    "he",
+    "in",
+    "ou",
+    "re",
+    "er",
+    "an",
+    "to",
+    "at",
+    "on",
+    "ng",
+    "ar",
+    "or",
+    "ha",
+    "ed",
+    "yo",
+    "st",
+    "es",
+    "te",
+    "is",
+    "ve",
+    "en",
+    "ea",
+    "nd",
+    "ne",
+    "hi",
+    "le",
+    "it",
+    "nt",
+    "me",
+    "ti",
+    "al",
+    "se",
+    "as",
+    "ca",
+    "ro",
+    "ee",
+    "ll",
+    "co",
+    "of",
+    "be",
+    "wa",
+    "ho",
+    "ta",
+    "et",
+    "la",
+    "fo",
+    "ur",
+    "de",
+    "ke",
+    "om",
+    "li",
+    "ri",
+    "ow",
+    "ch",
+    "do",
+    "ce",
+    "sh",
+    "we",
+    "el",
+    "ac",
+    "un",
+    "ey",
+    "lo",
+    "pe",
+    "ma",
+    "ra",
+    "oo",
+    "ic",
+    "us",
+    "di",
+    "wh",
+    "wi",
+    "ld",
+    "ns",
+    "so",
+    "ut",
+    "ul",
+    "pl",
+    "ad",
+    "il",
+    "si",
+    "wo",
+    "ot",
+    "ec",
+    "pa",
+    "ay",
+    "gh",
+    "ai",
+    "rs",
+    "ge",
+    "ts",
+    "av",
+    "no",
+    "ig",
+    "rt",
+    "ie",
+    "io",
+    "fe",
+    "ly"
+  ],
+  "pairs": {
+    "aa": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ab": {
+      "count": 72,
+      "per_character": 0.0013875773285282045
+    },
+    "ac": {
+      "count": 165,
+      "per_character": 0.0031798647112104687
+    },
+    "ad": {
+      "count": 124,
+      "per_character": 0.002389716510243019
+    },
+    "ae": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "af": {
+      "count": 27,
+      "per_character": 0.0005203414981980767
+    },
+    "ag": {
+      "count": 52,
+      "per_character": 0.0010021391817148144
+    },
+    "ah": {
+      "count": 5,
+      "per_character": 9.635953670334753e-05
+    },
+    "ai": {
+      "count": 112,
+      "per_character": 0.0021584536221549845
+    },
+    "aj": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ak": {
+      "count": 82,
+      "per_character": 0.0015802964019348996
+    },
+    "al": {
+      "count": 249,
+      "per_character": 0.004798704927826707
+    },
+    "am": {
+      "count": 52,
+      "per_character": 0.0010021391817148144
+    },
+    "an": {
+      "count": 503,
+      "per_character": 0.009693769392356761
+    },
+    "ao": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ap": {
+      "count": 59,
+      "per_character": 0.001137042533099501
+    },
+    "aq": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ar": {
+      "count": 418,
+      "per_character": 0.008055657268399853
+    },
+    "as": {
+      "count": 245,
+      "per_character": 0.004721617298464029
+    },
+    "at": {
+      "count": 459,
+      "per_character": 0.008845805469367304
+    },
+    "au": {
+      "count": 31,
+      "per_character": 0.0005974291275607547
+    },
+    "av": {
+      "count": 107,
+      "per_character": 0.002062094085451637
+    },
+    "aw": {
+      "count": 25,
+      "per_character": 0.00048179768351673763
+    },
+    "ax": {
+      "count": 7,
+      "per_character": 0.00013490335138468653
+    },
+    "ay": {
+      "count": 115,
+      "per_character": 0.002216269344176993
+    },
+    "az": {
+      "count": 8,
+      "per_character": 0.00015417525872535605
+    },
+    "ba": {
+      "count": 60,
+      "per_character": 0.0011563144404401703
+    },
+    "bb": {
+      "count": 3,
+      "per_character": 5.781572202200852e-05
+    },
+    "bc": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "bd": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "be": {
+      "count": 214,
+      "per_character": 0.004124188170903274
+    },
+    "bf": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "bg": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "bh": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "bi": {
+      "count": 25,
+      "per_character": 0.00048179768351673763
+    },
+    "bj": {
+      "count": 2,
+      "per_character": 3.854381468133901e-05
+    },
+    "bk": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "bl": {
+      "count": 52,
+      "per_character": 0.0010021391817148144
+    },
+    "bm": {
+      "count": 2,
+      "per_character": 3.854381468133901e-05
+    },
+    "bn": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "bo": {
+      "count": 92,
+      "per_character": 0.0017730154753415946
+    },
+    "bp": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "bq": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "br": {
+      "count": 45,
+      "per_character": 0.0008672358303301277
+    },
+    "bs": {
+      "count": 9,
+      "per_character": 0.00017344716606602556
+    },
+    "bt": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "bu": {
+      "count": 27,
+      "per_character": 0.0005203414981980767
+    },
+    "bv": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "bw": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "bx": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "by": {
+      "count": 26,
+      "per_character": 0.0005010695908574072
+    },
+    "bz": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ca": {
+      "count": 232,
+      "per_character": 0.0044710825030353256
+    },
+    "cb": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "cc": {
+      "count": 7,
+      "per_character": 0.00013490335138468653
+    },
+    "cd": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ce": {
+      "count": 171,
+      "per_character": 0.0032954961552544857
+    },
+    "cf": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "cg": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ch": {
+      "count": 173,
+      "per_character": 0.0033340399699358244
+    },
+    "ci": {
+      "count": 38,
+      "per_character": 0.0007323324789454412
+    },
+    "cj": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ck": {
+      "count": 85,
+      "per_character": 0.001638112123956908
+    },
+    "cl": {
+      "count": 42,
+      "per_character": 0.0008094201083081192
+    },
+    "cm": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "cn": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "co": {
+      "count": 218,
+      "per_character": 0.0042012758002659524
+    },
+    "cp": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "cq": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "cr": {
+      "count": 51,
+      "per_character": 0.0009828672743741448
+    },
+    "cs": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "ct": {
+      "count": 79,
+      "per_character": 0.001522480679912891
+    },
+    "cu": {
+      "count": 33,
+      "per_character": 0.0006359729422420937
+    },
+    "cv": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "cw": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "cx": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "cy": {
+      "count": 3,
+      "per_character": 5.781572202200852e-05
+    },
+    "cz": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "da": {
+      "count": 58,
+      "per_character": 0.0011177706257588314
+    },
+    "db": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "dc": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "dd": {
+      "count": 21,
+      "per_character": 0.0004047100541540596
+    },
+    "de": {
+      "count": 190,
+      "per_character": 0.003661662394727206
+    },
+    "df": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "dg": {
+      "count": 6,
+      "per_character": 0.00011563144404401704
+    },
+    "dh": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "di": {
+      "count": 139,
+      "per_character": 0.002678795120353061
+    },
+    "dj": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "dk": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "dl": {
+      "count": 22,
+      "per_character": 0.00042398196149472914
+    },
+    "dm": {
+      "count": 4,
+      "per_character": 7.708762936267802e-05
+    },
+    "dn": {
+      "count": 3,
+      "per_character": 5.781572202200852e-05
+    },
+    "do": {
+      "count": 173,
+      "per_character": 0.0033340399699358244
+    },
+    "dp": {
+      "count": 2,
+      "per_character": 3.854381468133901e-05
+    },
+    "dq": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "dr": {
+      "count": 34,
+      "per_character": 0.0006552448495827632
+    },
+    "ds": {
+      "count": 53,
+      "per_character": 0.0010214110890554838
+    },
+    "dt": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "du": {
+      "count": 23,
+      "per_character": 0.00044325386883539865
+    },
+    "dv": {
+      "count": 4,
+      "per_character": 7.708762936267802e-05
+    },
+    "dw": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "dx": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "dy": {
+      "count": 17,
+      "per_character": 0.0003276224247913816
+    },
+    "dz": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ea": {
+      "count": 316,
+      "per_character": 0.006089922719651564
+    },
+    "eb": {
+      "count": 8,
+      "per_character": 0.00015417525872535605
+    },
+    "ec": {
+      "count": 117,
+      "per_character": 0.0022548131588583323
+    },
+    "ed": {
+      "count": 384,
+      "per_character": 0.007400412418817091
+    },
+    "ee": {
+      "count": 227,
+      "per_character": 0.004374722966331978
+    },
+    "ef": {
+      "count": 46,
+      "per_character": 0.0008865077376707973
+    },
+    "eg": {
+      "count": 24,
+      "per_character": 0.00046252577617606817
+    },
+    "eh": {
+      "count": 4,
+      "per_character": 7.708762936267802e-05
+    },
+    "ei": {
+      "count": 36,
+      "per_character": 0.0006937886642641023
+    },
+    "ej": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ek": {
+      "count": 16,
+      "per_character": 0.0003083505174507121
+    },
+    "el": {
+      "count": 167,
+      "per_character": 0.0032184085258918074
+    },
+    "em": {
+      "count": 74,
+      "per_character": 0.0014261211432095434
+    },
+    "en": {
+      "count": 329,
+      "per_character": 0.006340457515080267
+    },
+    "eo": {
+      "count": 36,
+      "per_character": 0.0006937886642641023
+    },
+    "ep": {
+      "count": 70,
+      "per_character": 0.0013490335138468654
+    },
+    "eq": {
+      "count": 6,
+      "per_character": 0.00011563144404401704
+    },
+    "er": {
+      "count": 657,
+      "per_character": 0.012661643122819866
+    },
+    "es": {
+      "count": 363,
+      "per_character": 0.006995702364663031
+    },
+    "et": {
+      "count": 196,
+      "per_character": 0.003777293838771223
+    },
+    "eu": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "ev": {
+      "count": 83,
+      "per_character": 0.001599568309275569
+    },
+    "ew": {
+      "count": 65,
+      "per_character": 0.001252673977143518
+    },
+    "ex": {
+      "count": 62,
+      "per_character": 0.0011948582551215095
+    },
+    "ey": {
+      "count": 158,
+      "per_character": 0.003044961359825782
+    },
+    "ez": {
+      "count": 8,
+      "per_character": 0.00015417525872535605
+    },
+    "fa": {
+      "count": 35,
+      "per_character": 0.0006745167569234327
+    },
+    "fb": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "fc": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "fd": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "fe": {
+      "count": 101,
+      "per_character": 0.00194646264140762
+    },
+    "ff": {
+      "count": 60,
+      "per_character": 0.0011563144404401703
+    },
+    "fg": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "fh": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "fi": {
+      "count": 76,
+      "per_character": 0.0014646649578908824
+    },
+    "fj": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "fk": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "fl": {
+      "count": 20,
+      "per_character": 0.0003854381468133901
+    },
+    "fm": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "fn": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "fo": {
+      "count": 194,
+      "per_character": 0.003738750024089884
+    },
+    "fp": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "fq": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "fr": {
+      "count": 77,
+      "per_character": 0.001483936865231552
+    },
+    "fs": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ft": {
+      "count": 37,
+      "per_character": 0.0007130605716047717
+    },
+    "fu": {
+      "count": 31,
+      "per_character": 0.0005974291275607547
+    },
+    "fv": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "fw": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "fx": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "fy": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "fz": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ga": {
+      "count": 42,
+      "per_character": 0.0008094201083081192
+    },
+    "gb": {
+      "count": 2,
+      "per_character": 3.854381468133901e-05
+    },
+    "gc": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "gd": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ge": {
+      "count": 109,
+      "per_character": 0.0021006379001329762
+    },
+    "gf": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "gg": {
+      "count": 11,
+      "per_character": 0.00021199098074736457
+    },
+    "gh": {
+      "count": 114,
+      "per_character": 0.0021969974368363236
+    },
+    "gi": {
+      "count": 27,
+      "per_character": 0.0005203414981980767
+    },
+    "gj": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "gk": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "gl": {
+      "count": 22,
+      "per_character": 0.00042398196149472914
+    },
+    "gm": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "gn": {
+      "count": 11,
+      "per_character": 0.00021199098074736457
+    },
+    "go": {
+      "count": 84,
+      "per_character": 0.0016188402166162385
+    },
+    "gp": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "gq": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "gr": {
+      "count": 59,
+      "per_character": 0.001137042533099501
+    },
+    "gs": {
+      "count": 53,
+      "per_character": 0.0010214110890554838
+    },
+    "gt": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "gu": {
+      "count": 29,
+      "per_character": 0.0005588853128794157
+    },
+    "gv": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "gw": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "gx": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "gy": {
+      "count": 4,
+      "per_character": 7.708762936267802e-05
+    },
+    "gz": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ha": {
+      "count": 393,
+      "per_character": 0.0075738595848831155
+    },
+    "hb": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "hc": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "hd": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "he": {
+      "count": 1354,
+      "per_character": 0.02609416253926651
+    },
+    "hf": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "hg": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "hh": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "hi": {
+      "count": 289,
+      "per_character": 0.005569581221453487
+    },
+    "hj": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "hk": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "hl": {
+      "count": 3,
+      "per_character": 5.781572202200852e-05
+    },
+    "hm": {
+      "count": 4,
+      "per_character": 7.708762936267802e-05
+    },
+    "hn": {
+      "count": 4,
+      "per_character": 7.708762936267802e-05
+    },
+    "ho": {
+      "count": 209,
+      "per_character": 0.004027828634199927
+    },
+    "hp": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "hq": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "hr": {
+      "count": 39,
+      "per_character": 0.0007516043862861107
+    },
+    "hs": {
+      "count": 6,
+      "per_character": 0.00011563144404401704
+    },
+    "ht": {
+      "count": 88,
+      "per_character": 0.0016959278459789165
+    },
+    "hu": {
+      "count": 17,
+      "per_character": 0.0003276224247913816
+    },
+    "hv": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "hw": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "hx": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "hy": {
+      "count": 21,
+      "per_character": 0.0004047100541540596
+    },
+    "hz": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ia": {
+      "count": 15,
+      "per_character": 0.0002890786101100426
+    },
+    "ib": {
+      "count": 9,
+      "per_character": 0.00017344716606602556
+    },
+    "ic": {
+      "count": 144,
+      "per_character": 0.002775154657056409
+    },
+    "id": {
+      "count": 98,
+      "per_character": 0.0018886469193856116
+    },
+    "ie": {
+      "count": 104,
+      "per_character": 0.002004278363429629
+    },
+    "if": {
+      "count": 68,
+      "per_character": 0.0013104896991655264
+    },
+    "ig": {
+      "count": 105,
+      "per_character": 0.002023550270770298
+    },
+    "ih": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ii": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ij": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ik": {
+      "count": 39,
+      "per_character": 0.0007516043862861107
+    },
+    "il": {
+      "count": 124,
+      "per_character": 0.002389716510243019
+    },
+    "im": {
+      "count": 91,
+      "per_character": 0.001753743568000925
+    },
+    "in": {
+      "count": 785,
+      "per_character": 0.015128447262425562
+    },
+    "io": {
+      "count": 104,
+      "per_character": 0.002004278363429629
+    },
+    "ip": {
+      "count": 24,
+      "per_character": 0.00046252577617606817
+    },
+    "iq": {
+      "count": 3,
+      "per_character": 5.781572202200852e-05
+    },
+    "ir": {
+      "count": 91,
+      "per_character": 0.001753743568000925
+    },
+    "is": {
+      "count": 354,
+      "per_character": 0.006822255198597005
+    },
+    "it": {
+      "count": 278,
+      "per_character": 0.005357590240706122
+    },
+    "iu": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "iv": {
+      "count": 60,
+      "per_character": 0.0011563144404401703
+    },
+    "iw": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "ix": {
+      "count": 8,
+      "per_character": 0.00015417525872535605
+    },
+    "iy": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "iz": {
+      "count": 10,
+      "per_character": 0.00019271907340669505
+    },
+    "ja": {
+      "count": 4,
+      "per_character": 7.708762936267802e-05
+    },
+    "jb": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "jc": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "jd": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "je": {
+      "count": 11,
+      "per_character": 0.00021199098074736457
+    },
+    "jf": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "jg": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "jh": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ji": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "jj": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "jk": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "jl": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "jm": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "jn": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "jo": {
+      "count": 21,
+      "per_character": 0.0004047100541540596
+    },
+    "jp": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "jq": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "jr": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "js": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "jt": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ju": {
+      "count": 34,
+      "per_character": 0.0006552448495827632
+    },
+    "jv": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "jw": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "jx": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "jy": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "jz": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ka": {
+      "count": 4,
+      "per_character": 7.708762936267802e-05
+    },
+    "kb": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "kc": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "kd": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ke": {
+      "count": 189,
+      "per_character": 0.0036423904873865366
+    },
+    "kf": {
+      "count": 2,
+      "per_character": 3.854381468133901e-05
+    },
+    "kg": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "kh": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ki": {
+      "count": 63,
+      "per_character": 0.0012141301624621788
+    },
+    "kj": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "kk": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "kl": {
+      "count": 7,
+      "per_character": 0.00013490335138468653
+    },
+    "km": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "kn": {
+      "count": 27,
+      "per_character": 0.0005203414981980767
+    },
+    "ko": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "kp": {
+      "count": 2,
+      "per_character": 3.854381468133901e-05
+    },
+    "kq": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "kr": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ks": {
+      "count": 27,
+      "per_character": 0.0005203414981980767
+    },
+    "kt": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ku": {
+      "count": 5,
+      "per_character": 9.635953670334753e-05
+    },
+    "kv": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "kw": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "kx": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ky": {
+      "count": 11,
+      "per_character": 0.00021199098074736457
+    },
+    "kz": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "la": {
+      "count": 195,
+      "per_character": 0.0037580219314305536
+    },
+    "lb": {
+      "count": 5,
+      "per_character": 9.635953670334753e-05
+    },
+    "lc": {
+      "count": 4,
+      "per_character": 7.708762936267802e-05
+    },
+    "ld": {
+      "count": 132,
+      "per_character": 0.0025438917689683746
+    },
+    "le": {
+      "count": 284,
+      "per_character": 0.00547322168475014
+    },
+    "lf": {
+      "count": 12,
+      "per_character": 0.00023126288808803408
+    },
+    "lg": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "lh": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "li": {
+      "count": 184,
+      "per_character": 0.0035460309506831892
+    },
+    "lj": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "lk": {
+      "count": 21,
+      "per_character": 0.0004047100541540596
+    },
+    "ll": {
+      "count": 226,
+      "per_character": 0.004355451058991308
+    },
+    "lm": {
+      "count": 10,
+      "per_character": 0.00019271907340669505
+    },
+    "ln": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "lo": {
+      "count": 158,
+      "per_character": 0.003044961359825782
+    },
+    "lp": {
+      "count": 19,
+      "per_character": 0.0003661662394727206
+    },
+    "lq": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "lr": {
+      "count": 7,
+      "per_character": 0.00013490335138468653
+    },
+    "ls": {
+      "count": 43,
+      "per_character": 0.0008286920156487888
+    },
+    "lt": {
+      "count": 18,
+      "per_character": 0.0003468943321320511
+    },
+    "lu": {
+      "count": 19,
+      "per_character": 0.0003661662394727206
+    },
+    "lv": {
+      "count": 11,
+      "per_character": 0.00021199098074736457
+    },
+    "lw": {
+      "count": 8,
+      "per_character": 0.00015417525872535605
+    },
+    "lx": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ly": {
+      "count": 101,
+      "per_character": 0.00194646264140762
+    },
+    "lz": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ma": {
+      "count": 152,
+      "per_character": 0.0029293299157817647
+    },
+    "mb": {
+      "count": 13,
+      "per_character": 0.0002505347954287036
+    },
+    "mc": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "md": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "me": {
+      "count": 253,
+      "per_character": 0.004875792557189385
+    },
+    "mf": {
+      "count": 2,
+      "per_character": 3.854381468133901e-05
+    },
+    "mg": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "mh": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "mi": {
+      "count": 73,
+      "per_character": 0.0014068492358688739
+    },
+    "mj": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "mk": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ml": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "mm": {
+      "count": 14,
+      "per_character": 0.00026980670276937306
+    },
+    "mn": {
+      "count": 3,
+      "per_character": 5.781572202200852e-05
+    },
+    "mo": {
+      "count": 101,
+      "per_character": 0.00194646264140762
+    },
+    "mp": {
+      "count": 53,
+      "per_character": 0.0010214110890554838
+    },
+    "mq": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "mr": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ms": {
+      "count": 18,
+      "per_character": 0.0003468943321320511
+    },
+    "mt": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "mu": {
+      "count": 55,
+      "per_character": 0.001059954903736823
+    },
+    "mv": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "mw": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "mx": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "my": {
+      "count": 66,
+      "per_character": 0.0012719458844841873
+    },
+    "mz": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "na": {
+      "count": 45,
+      "per_character": 0.0008672358303301277
+    },
+    "nb": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "nc": {
+      "count": 67,
+      "per_character": 0.0012912177918248569
+    },
+    "nd": {
+      "count": 309,
+      "per_character": 0.005955019368266878
+    },
+    "ne": {
+      "count": 294,
+      "per_character": 0.005665940758156835
+    },
+    "nf": {
+      "count": 9,
+      "per_character": 0.00017344716606602556
+    },
+    "ng": {
+      "count": 419,
+      "per_character": 0.008074929175740523
+    },
+    "nh": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ni": {
+      "count": 85,
+      "per_character": 0.001638112123956908
+    },
+    "nj": {
+      "count": 8,
+      "per_character": 0.00015417525872535605
+    },
+    "nk": {
+      "count": 49,
+      "per_character": 0.0009443234596928058
+    },
+    "nl": {
+      "count": 14,
+      "per_character": 0.00026980670276937306
+    },
+    "nm": {
+      "count": 2,
+      "per_character": 3.854381468133901e-05
+    },
+    "nn": {
+      "count": 28,
+      "per_character": 0.0005396134055387461
+    },
+    "no": {
+      "count": 107,
+      "per_character": 0.002062094085451637
+    },
+    "np": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "nq": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "nr": {
+      "count": 8,
+      "per_character": 0.00015417525872535605
+    },
+    "ns": {
+      "count": 130,
+      "per_character": 0.002505347954287036
+    },
+    "nt": {
+      "count": 257,
+      "per_character": 0.004952880186552063
+    },
+    "nu": {
+      "count": 19,
+      "per_character": 0.0003661662394727206
+    },
+    "nv": {
+      "count": 12,
+      "per_character": 0.00023126288808803408
+    },
+    "nw": {
+      "count": 2,
+      "per_character": 3.854381468133901e-05
+    },
+    "nx": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ny": {
+      "count": 50,
+      "per_character": 0.0009635953670334753
+    },
+    "nz": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "oa": {
+      "count": 32,
+      "per_character": 0.0006167010349014242
+    },
+    "ob": {
+      "count": 19,
+      "per_character": 0.0003661662394727206
+    },
+    "oc": {
+      "count": 42,
+      "per_character": 0.0008094201083081192
+    },
+    "od": {
+      "count": 61,
+      "per_character": 0.0011755863477808399
+    },
+    "oe": {
+      "count": 44,
+      "per_character": 0.0008479639229894583
+    },
+    "of": {
+      "count": 218,
+      "per_character": 0.0042012758002659524
+    },
+    "og": {
+      "count": 33,
+      "per_character": 0.0006359729422420937
+    },
+    "oh": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "oi": {
+      "count": 39,
+      "per_character": 0.0007516043862861107
+    },
+    "oj": {
+      "count": 5,
+      "per_character": 9.635953670334753e-05
+    },
+    "ok": {
+      "count": 58,
+      "per_character": 0.0011177706257588314
+    },
+    "ol": {
+      "count": 87,
+      "per_character": 0.001676655938638247
+    },
+    "om": {
+      "count": 185,
+      "per_character": 0.003565302858023859
+    },
+    "on": {
+      "count": 443,
+      "per_character": 0.00853745495191659
+    },
+    "oo": {
+      "count": 146,
+      "per_character": 0.0028136984717377477
+    },
+    "op": {
+      "count": 87,
+      "per_character": 0.001676655938638247
+    },
+    "oq": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "or": {
+      "count": 412,
+      "per_character": 0.007940025824355837
+    },
+    "os": {
+      "count": 74,
+      "per_character": 0.0014261211432095434
+    },
+    "ot": {
+      "count": 119,
+      "per_character": 0.002293356973539671
+    },
+    "ou": {
+      "count": 690,
+      "per_character": 0.01329761606506196
+    },
+    "ov": {
+      "count": 65,
+      "per_character": 0.001252673977143518
+    },
+    "ow": {
+      "count": 178,
+      "per_character": 0.0034303995066391722
+    },
+    "ox": {
+      "count": 3,
+      "per_character": 5.781572202200852e-05
+    },
+    "oy": {
+      "count": 12,
+      "per_character": 0.00023126288808803408
+    },
+    "oz": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "pa": {
+      "count": 116,
+      "per_character": 0.0022355412515176628
+    },
+    "pb": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "pc": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "pd": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "pe": {
+      "count": 153,
+      "per_character": 0.0029486018231224343
+    },
+    "pf": {
+      "count": 2,
+      "per_character": 3.854381468133901e-05
+    },
+    "pg": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ph": {
+      "count": 18,
+      "per_character": 0.0003468943321320511
+    },
+    "pi": {
+      "count": 66,
+      "per_character": 0.0012719458844841873
+    },
+    "pj": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "pk": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "pl": {
+      "count": 126,
+      "per_character": 0.0024282603249243576
+    },
+    "pm": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "pn": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "po": {
+      "count": 75,
+      "per_character": 0.001445393050550213
+    },
+    "pp": {
+      "count": 55,
+      "per_character": 0.001059954903736823
+    },
+    "pq": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "pr": {
+      "count": 80,
+      "per_character": 0.0015417525872535604
+    },
+    "ps": {
+      "count": 12,
+      "per_character": 0.00023126288808803408
+    },
+    "pt": {
+      "count": 22,
+      "per_character": 0.00042398196149472914
+    },
+    "pu": {
+      "count": 44,
+      "per_character": 0.0008479639229894583
+    },
+    "pv": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "pw": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "px": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "py": {
+      "count": 5,
+      "per_character": 9.635953670334753e-05
+    },
+    "pz": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "qa": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "qb": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "qc": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "qd": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "qe": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "qf": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "qg": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "qh": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "qi": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "qj": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "qk": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ql": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "qm": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "qn": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "qo": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "qp": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "qq": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "qr": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "qs": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "qt": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "qu": {
+      "count": 42,
+      "per_character": 0.0008094201083081192
+    },
+    "qv": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "qw": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "qx": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "qy": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "qz": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ra": {
+      "count": 150,
+      "per_character": 0.002890786101100426
+    },
+    "rb": {
+      "count": 9,
+      "per_character": 0.00017344716606602556
+    },
+    "rc": {
+      "count": 14,
+      "per_character": 0.00026980670276937306
+    },
+    "rd": {
+      "count": 65,
+      "per_character": 0.001252673977143518
+    },
+    "re": {
+      "count": 687,
+      "per_character": 0.01323980034303995
+    },
+    "rf": {
+      "count": 17,
+      "per_character": 0.0003276224247913816
+    },
+    "rg": {
+      "count": 14,
+      "per_character": 0.00026980670276937306
+    },
+    "rh": {
+      "count": 5,
+      "per_character": 9.635953670334753e-05
+    },
+    "ri": {
+      "count": 180,
+      "per_character": 0.003468943321320511
+    },
+    "rj": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "rk": {
+      "count": 65,
+      "per_character": 0.001252673977143518
+    },
+    "rl": {
+      "count": 26,
+      "per_character": 0.0005010695908574072
+    },
+    "rm": {
+      "count": 28,
+      "per_character": 0.0005396134055387461
+    },
+    "rn": {
+      "count": 48,
+      "per_character": 0.0009250515523521363
+    },
+    "ro": {
+      "count": 231,
+      "per_character": 0.0044518105956946556
+    },
+    "rp": {
+      "count": 3,
+      "per_character": 5.781572202200852e-05
+    },
+    "rq": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "rr": {
+      "count": 38,
+      "per_character": 0.0007323324789454412
+    },
+    "rs": {
+      "count": 111,
+      "per_character": 0.0021391817148143154
+    },
+    "rt": {
+      "count": 105,
+      "per_character": 0.002023550270770298
+    },
+    "ru": {
+      "count": 26,
+      "per_character": 0.0005010695908574072
+    },
+    "rv": {
+      "count": 13,
+      "per_character": 0.0002505347954287036
+    },
+    "rw": {
+      "count": 5,
+      "per_character": 9.635953670334753e-05
+    },
+    "rx": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ry": {
+      "count": 88,
+      "per_character": 0.0016959278459789165
+    },
+    "rz": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "sa": {
+      "count": 59,
+      "per_character": 0.001137042533099501
+    },
+    "sb": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "sc": {
+      "count": 45,
+      "per_character": 0.0008672358303301277
+    },
+    "sd": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "se": {
+      "count": 248,
+      "per_character": 0.004779433020486038
+    },
+    "sf": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "sg": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "sh": {
+      "count": 170,
+      "per_character": 0.003276224247913816
+    },
+    "si": {
+      "count": 124,
+      "per_character": 0.002389716510243019
+    },
+    "sj": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "sk": {
+      "count": 32,
+      "per_character": 0.0006167010349014242
+    },
+    "sl": {
+      "count": 27,
+      "per_character": 0.0005203414981980767
+    },
+    "sm": {
+      "count": 17,
+      "per_character": 0.0003276224247913816
+    },
+    "sn": {
+      "count": 8,
+      "per_character": 0.00015417525872535605
+    },
+    "so": {
+      "count": 130,
+      "per_character": 0.002505347954287036
+    },
+    "sp": {
+      "count": 69,
+      "per_character": 0.001329761606506196
+    },
+    "sq": {
+      "count": 3,
+      "per_character": 5.781572202200852e-05
+    },
+    "sr": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ss": {
+      "count": 74,
+      "per_character": 0.0014261211432095434
+    },
+    "st": {
+      "count": 364,
+      "per_character": 0.0070149742720037
+    },
+    "su": {
+      "count": 68,
+      "per_character": 0.0013104896991655264
+    },
+    "sv": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "sw": {
+      "count": 23,
+      "per_character": 0.00044325386883539865
+    },
+    "sx": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "sy": {
+      "count": 10,
+      "per_character": 0.00019271907340669505
+    },
+    "sz": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ta": {
+      "count": 201,
+      "per_character": 0.0038736533754745706
+    },
+    "tb": {
+      "count": 3,
+      "per_character": 5.781572202200852e-05
+    },
+    "tc": {
+      "count": 27,
+      "per_character": 0.0005203414981980767
+    },
+    "td": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "te": {
+      "count": 359,
+      "per_character": 0.006918614735300353
+    },
+    "tf": {
+      "count": 4,
+      "per_character": 7.708762936267802e-05
+    },
+    "tg": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "th": {
+      "count": 1479,
+      "per_character": 0.0285031509568502
+    },
+    "ti": {
+      "count": 252,
+      "per_character": 0.004856520649848715
+    },
+    "tj": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "tk": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "tl": {
+      "count": 38,
+      "per_character": 0.0007323324789454412
+    },
+    "tm": {
+      "count": 2,
+      "per_character": 3.854381468133901e-05
+    },
+    "tn": {
+      "count": 6,
+      "per_character": 0.00011563144404401704
+    },
+    "to": {
+      "count": 466,
+      "per_character": 0.00898070882075199
+    },
+    "tp": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "tq": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "tr": {
+      "count": 101,
+      "per_character": 0.00194646264140762
+    },
+    "ts": {
+      "count": 109,
+      "per_character": 0.0021006379001329762
+    },
+    "tt": {
+      "count": 79,
+      "per_character": 0.001522480679912891
+    },
+    "tu": {
+      "count": 64,
+      "per_character": 0.0012334020698028484
+    },
+    "tv": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "tw": {
+      "count": 20,
+      "per_character": 0.0003854381468133901
+    },
+    "tx": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ty": {
+      "count": 33,
+      "per_character": 0.0006359729422420937
+    },
+    "tz": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "ua": {
+      "count": 18,
+      "per_character": 0.0003468943321320511
+    },
+    "ub": {
+      "count": 16,
+      "per_character": 0.0003083505174507121
+    },
+    "uc": {
+      "count": 44,
+      "per_character": 0.0008479639229894583
+    },
+    "ud": {
+      "count": 23,
+      "per_character": 0.00044325386883539865
+    },
+    "ue": {
+      "count": 41,
+      "per_character": 0.0007901482009674498
+    },
+    "uf": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ug": {
+      "count": 47,
+      "per_character": 0.0009057796450114668
+    },
+    "uh": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ui": {
+      "count": 42,
+      "per_character": 0.0008094201083081192
+    },
+    "uj": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "uk": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ul": {
+      "count": 127,
+      "per_character": 0.002447532232265027
+    },
+    "um": {
+      "count": 31,
+      "per_character": 0.0005974291275607547
+    },
+    "un": {
+      "count": 163,
+      "per_character": 0.0031413208965291295
+    },
+    "uo": {
+      "count": 3,
+      "per_character": 5.781572202200852e-05
+    },
+    "up": {
+      "count": 51,
+      "per_character": 0.0009828672743741448
+    },
+    "uq": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ur": {
+      "count": 192,
+      "per_character": 0.0037002062094085453
+    },
+    "us": {
+      "count": 144,
+      "per_character": 0.002775154657056409
+    },
+    "ut": {
+      "count": 130,
+      "per_character": 0.002505347954287036
+    },
+    "uu": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "uv": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "uw": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ux": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "uy": {
+      "count": 6,
+      "per_character": 0.00011563144404401704
+    },
+    "uz": {
+      "count": 3,
+      "per_character": 5.781572202200852e-05
+    },
+    "va": {
+      "count": 18,
+      "per_character": 0.0003468943321320511
+    },
+    "vb": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "vc": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "vd": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ve": {
+      "count": 335,
+      "per_character": 0.006456088959124285
+    },
+    "vf": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "vg": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "vh": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "vi": {
+      "count": 50,
+      "per_character": 0.0009635953670334753
+    },
+    "vj": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "vk": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "vl": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "vm": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "vn": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "vo": {
+      "count": 10,
+      "per_character": 0.00019271907340669505
+    },
+    "vp": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "vq": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "vr": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "vs": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "vt": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "vu": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "vv": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "vw": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "vx": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "vy": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "vz": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "wa": {
+      "count": 211,
+      "per_character": 0.004066372448881266
+    },
+    "wb": {
+      "count": 3,
+      "per_character": 5.781572202200852e-05
+    },
+    "wc": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "wd": {
+      "count": 4,
+      "per_character": 7.708762936267802e-05
+    },
+    "we": {
+      "count": 168,
+      "per_character": 0.003237680433232477
+    },
+    "wf": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "wg": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "wh": {
+      "count": 137,
+      "per_character": 0.0026402513056717225
+    },
+    "wi": {
+      "count": 134,
+      "per_character": 0.0025824355836497137
+    },
+    "wj": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "wk": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "wl": {
+      "count": 2,
+      "per_character": 3.854381468133901e-05
+    },
+    "wm": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "wn": {
+      "count": 29,
+      "per_character": 0.0005588853128794157
+    },
+    "wo": {
+      "count": 120,
+      "per_character": 0.0023126288808803406
+    },
+    "wp": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "wq": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "wr": {
+      "count": 23,
+      "per_character": 0.00044325386883539865
+    },
+    "ws": {
+      "count": 17,
+      "per_character": 0.0003276224247913816
+    },
+    "wt": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "wu": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "wv": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ww": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "wx": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "wy": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "wz": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "xa": {
+      "count": 4,
+      "per_character": 7.708762936267802e-05
+    },
+    "xb": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "xc": {
+      "count": 2,
+      "per_character": 3.854381468133901e-05
+    },
+    "xd": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "xe": {
+      "count": 4,
+      "per_character": 7.708762936267802e-05
+    },
+    "xf": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "xg": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "xh": {
+      "count": 2,
+      "per_character": 3.854381468133901e-05
+    },
+    "xi": {
+      "count": 7,
+      "per_character": 0.00013490335138468653
+    },
+    "xj": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "xk": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "xl": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "xm": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "xn": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "xo": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "xp": {
+      "count": 34,
+      "per_character": 0.0006552448495827632
+    },
+    "xq": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "xr": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "xs": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "xt": {
+      "count": 19,
+      "per_character": 0.0003661662394727206
+    },
+    "xu": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "xv": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "xw": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "xx": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "xy": {
+      "count": 2,
+      "per_character": 3.854381468133901e-05
+    },
+    "xz": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ya": {
+      "count": 2,
+      "per_character": 3.854381468133901e-05
+    },
+    "yb": {
+      "count": 12,
+      "per_character": 0.00023126288808803408
+    },
+    "yc": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "yd": {
+      "count": 2,
+      "per_character": 3.854381468133901e-05
+    },
+    "ye": {
+      "count": 27,
+      "per_character": 0.0005203414981980767
+    },
+    "yf": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "yg": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "yh": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "yi": {
+      "count": 9,
+      "per_character": 0.00017344716606602556
+    },
+    "yj": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "yk": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "yl": {
+      "count": 4,
+      "per_character": 7.708762936267802e-05
+    },
+    "ym": {
+      "count": 4,
+      "per_character": 7.708762936267802e-05
+    },
+    "yn": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "yo": {
+      "count": 368,
+      "per_character": 0.0070920619013663784
+    },
+    "yp": {
+      "count": 3,
+      "per_character": 5.781572202200852e-05
+    },
+    "yq": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "yr": {
+      "count": 2,
+      "per_character": 3.854381468133901e-05
+    },
+    "ys": {
+      "count": 31,
+      "per_character": 0.0005974291275607547
+    },
+    "yt": {
+      "count": 19,
+      "per_character": 0.0003661662394727206
+    },
+    "yu": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "yv": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "yw": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "yx": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "yy": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "yz": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "za": {
+      "count": 2,
+      "per_character": 3.854381468133901e-05
+    },
+    "zb": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "zc": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "zd": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "ze": {
+      "count": 12,
+      "per_character": 0.00023126288808803408
+    },
+    "zf": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "zg": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "zh": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "zi": {
+      "count": 5,
+      "per_character": 9.635953670334753e-05
+    },
+    "zj": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "zk": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "zl": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "zm": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "zn": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "zo": {
+      "count": 6,
+      "per_character": 0.00011563144404401704
+    },
+    "zp": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "zq": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "zr": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "zs": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "zt": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "zu": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "zv": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "zw": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "zx": {
+      "count": 0,
+      "per_character": 0.0
+    },
+    "zy": {
+      "count": 1,
+      "per_character": 1.9271907340669506e-05
+    },
+    "zz": {
+      "count": 8,
+      "per_character": 0.00015417525872535605
+    }
+  }
+}

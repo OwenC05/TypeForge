@@ -1,0 +1,23 @@
+A2 Eligibility v2: post-error bias analysis, exact rule spec, shared conformance fixtures and Python reference
+
+Read `.omx/plans/model-coach-20261124/common.md` and `plan.md` first. You are worker A2. No port.
+
+## Why
+
+Today a timing interval counts only if its whole sentence was typed correctly with no edits (metric version 1: `ml/pipeline.py` audit rule; browser `typing-app/client/src/engine.ts`, `eligible = submitted && qualityFlags.size === 0`). `ml/probes/salvage_probe.py` showed that keeping clean intervals inside sentences that contain corrections gives 2.86x the intervals (100,978 to 289,087 on train+validation; median per typist 65 to 233; 3.8x under 40 WPM). The open question is bias: intervals near an error or a correction may be slower or faster than normal (post-error slowing, pre-error rushing, hesitation before Backspace). Eligibility v2 must keep the extra data only where it does not bias pair timing.
+
+## Deliverables
+
+1. Bias analysis, train and validation participants of the 2,000 subset only (data path in common.md; read-only). Script `ml/analysis/eligibility_v2_bias.py` (reproducible, seeded, reads raw TSVs, standard library plus numpy/scipy from the pinned interpreter). Measure log-interval residuals against each typist's clean-sentence pair means (use a fit/score split within typist so the comparison is not circular) as a function of: keystrokes since the last correction ended (1, 2, 3, 4, 5-9, 10+); keystrokes until the next error (the intervals just before a mistake); the interval that contains the erroneous key itself; and speed band (<40, 40-80, 80-120, 120+ WPM). Report effect sizes with bootstrap intervals over typists. Then choose the exclusion windows with a stated tolerance (for example, every retained bucket within 2% of clean-sentence timing, or within its own noise) and report the resulting yield the same way the probe did.
+2. Rule spec `ml/specs/eligibility-v2.md`: an exact, testable definition of an eligible interval for both sources: (a) Aalto logs (keydown events with key names, Shift, Backspace, the recorded final input); (b) the TypeForge browser engine (its edit model of beforeinput/input with first-attempt records at target positions; read `engine.ts` and `app.ts` to describe it, but do not edit them). Cover Backspace, word deletion, selection replacement, cursor movement, Shift and other modifiers, long pauses (keep the existing 0 < interval <= 5,000 ms), word, case and punctuation boundaries, apostrophes, repeated keys, sentence starts and ends, and any condition where reconstruction is impossible (then the sentence contributes nothing). State that this is metric version 2 and what must never be mixed with version 1.
+3. Shared conformance fixtures `ml/fixtures/eligibility-v2.json`: at least 30 synthetic cases in a neutral event format both Python and TypeScript can run, for example `{target, events: [{t, kind: "insert"|"deleteBackward"|"deleteWordBackward"|"replaceSelection"|"moveCursor", ...}], expected: {intervals: [{pair, fromIndex, toIndex, ms}], excluded: [{fromIndex, toIndex, reason}]}}`. Include every edge case from the spec and a few realistic long cases. Fixtures are synthetic only: no real keystrokes.
+4. Python reference `ml/eligibility_v2.py` (standard library only, pure functions, typed): runs the fixture format and also adapts Aalto trials. Tests in `ml/tests/test_eligibility_v2.py` that run every fixture and a few Aalto-shaped synthetic trials. Another worker (A1) is restructuring `ml/pipeline.py` in parallel: do not edit `ml/pipeline.py` or existing tests, and do not import its private helpers in your reference implementation (copy the few lines you need and say so). Phase B integrates your module.
+5. Report `ml/analysis/eligibility-v2-report.md` (at most 200 lines): question, method, results table, chosen windows and why, final yield (intervals, median per typist, typists with at least 200 intervals, by speed band), limitations (Aalto has no browser edit events; the browser mapping is a specification, not yet measured), and what B1/B2 must implement. Commit a small `ml/analysis/eligibility_v2_bias.json` with the summary numbers and input hashes.
+
+## Owned paths
+
+`ml/analysis/**`, `ml/specs/**`, `ml/eligibility_v2.py`, `ml/tests/test_eligibility_v2.py`, `ml/fixtures/eligibility-v2.json`. `ml/probes/salvage_probe.py` is your starting point; copy from it rather than editing it.
+
+## Done when
+
+All fixtures pass in Python, the analysis reproduces from a clean run (state the command and runtime), the report is committed, and `worker_done` follows common.md. If the data show that no window keeps the bias within tolerance, say so plainly and recommend the safest rule; that is a valid result.

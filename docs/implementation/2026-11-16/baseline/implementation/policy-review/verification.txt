@@ -1,6 +1,0 @@
-﻿node --check review.mjs: exit 0
-git diff --quiet frozen source/tests/packages/accepted policy/prior evidence: exit 0
-Independent named probe groups: 83/83, failed 0
-Separate existing-author replay: 31 passed, 0 failed (author-replay.txt)
-Input manifest files before/after: 74/74
-git diff --cached --check: exit 0; staged paths confined to leased policy-review directory

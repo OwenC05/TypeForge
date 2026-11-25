@@ -1,7 +1,6 @@
 // Playwright MCP browser_run_code_unsafe function; see README.md in this directory.
-async (page) => {
+async (page, base = 'http://127.0.0.1:5324') => {
   const browser = page.context().browser();
-  const base = 'http://127.0.0.1:5324'; // this task's strict loopback port
   // Storage isolation: before any app code, indexedDB.open('typeforge') is redirected to a UUID synthetic name;
   // other names and deleteDatabase are refused. Saved sources live in C's `currentResults` store.
   const synthetic = name => {
@@ -183,5 +182,5 @@ async (page) => {
     assertions: results.filter(r => !r.name.endsWith(': execution')).length,
     passed: results.filter(r => r.status === 'PASS').length, failed: results.filter(r => r.status === 'FAIL').length,
     results, errors, limits: ['Accelerated Playwright clock; not wall-clock duration evidence',
-      'Single available browser engine; no physical AT, OS IME, device or browser UI zoom certification']};
+      'One engine per run; physical AT, OS IME, devices and browser UI zoom remain unverified']};
 }

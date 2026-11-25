@@ -1,0 +1,46 @@
+# Match a whole word, or a word prefix when marked with *. Applied before editorial review.
+# Profanity, coarse language and insults
+arse* ass asshole* bastard* bitch* bloody bollock* bugger* crap* cunt* damn*
+dickhead* dumbass* fuck* idiot* moron* piss* prick* shit* slut* stupid* whore*
+# Violence, crime and harm
+abduct* abus* aggress* ambush* armed armies army arson* assault* assass* attack*
+battle* beatings beaten bleed* blood* bomb* brutal* bullet* burglar* burn*
+corpse* crash* criminal* danger* dead* death* destruct* die died dies dying
+drown* execut* explod* explos* fatal* fear* fight* firearm* fired fistfight*
+funeral* gang* gun guns gunfire gunfight* gunman gunmen gunpoint gunshot*
+harm harmed harming harmfu* hate* hatred* hostage* hunt* hurt* injur* invad*
+kidnap* kill* knife knives lethal* massacre* militar* missile* mugged murder*
+pistol* poison* police* prison* punch* rape* rapist* revolver* rifle* rob
+robbed robber* shoot* shot shots slaughter* soldier* stab* starv* steal*
+stolen strangl* suicid* terror* theft thief thieves threat* tortur* trauma*
+trigger* victim* violen* war wars warfare* warrior* weapon* wound*
+# Sexual and intimate content
+abort* adultery arous* breast* brothel* buttock* condom* contracept* crotch*
+erotic* fetish* flirt* genital* groin groomer* grope* horny incest* intimat*
+kiss* libido* lover lust* masturba* mistress* naked* nipple* nude* nudity*
+orgasm* penis* porn* pregnan* prostitut* pubic* seduc* semen sex* sperm*
+stripper* tampon* testicl* underwear vagina*
+# Politics, religion and civil conflict
+activis* allah* anglican* atheist* bapti* bible* biblical* bishop* buddh*
+caliph* campaign* capitalis* catholic* christian* church* clergy* colonial*
+communis* congress* conservativ* constitution* decoloni* democra* dictat*
+diplomat* elect* fascis* federal* genocid* god gods goddess* gospel* govern*
+hindu* holocaust* immigr* imperialis* islam* jew jewish* judais* legislat*
+libertarian* marx* mosque* nationalist* nazi* parliament* partisan* pilgrim*
+politic* pray* preach* presiden* priest* propagand* protest* quran* racism
+racist* referendum* religi* republic* revolution* sacred* scripture* senator*
+sermon* shrine* slave* socialis* spiritual* supremaci* swastika* synagogue*
+theolog* vote voter* votes voting worship* zionis*
+# Medical topics, substances and distress
+addict* ailment* alcohol* allerg* ambulanc* amput* antibiotic* anxi* asthma*
+bacteria* beer* bleed* cancer* cannabis* chemotherap* clinic* cocaine
+colonoscopy* cough* depress* diabet* diagnos* disease* disorder* dizzy*
+doctor* dosage* drunk* drug drugs epidemic* epilep* fever* flu fracture*
+gonad* headache* health* heroin hospital* hysterectom* ill illness* infect*
+inflam* influenza* inject* insomn* insulin* lithium malaria malnutrition
+medic* migraine* nause* nicotine* nurse* obesi* overdose* pain pains painful*
+pacemaker* pandemic* paraly* pelvic pharm* physician* pill pills placenta*
+pneumonia* prescript* psychiatr* psychosis psychotic* rash rashes scabies
+seizure* sick sickly sickness* smoke smoking sore sores sprain* steroid*
+suffer* surgeon* surger* symptom* syndrome* therap* throat* tobacco*
+toothache* tumour* tumor* treatment* unwell vaccin* virus* vodka* vomit*

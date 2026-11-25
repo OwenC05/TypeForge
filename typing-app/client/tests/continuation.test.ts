@@ -6,8 +6,7 @@ import { runInNewContext } from 'node:vm';
 import { TypingEngine } from '../src/engine.ts';
 import { parseModelArtifact, predictSentence } from '../src/model.ts';
 import { buildHistory, appendHistory } from '../src/profile.ts';
-import { UnsavedResults, newSaveRecord, applyOutcome, isFiniteSource, unsavedLine } from '../src/unsaved.ts';
-import * as coachUi from '../src/coach-ui.ts';
+import { UnsavedResults, newSaveRecord, applyOutcome, unsavedLine } from '../src/unsaved.ts';
 
 // Review ET-1/ET-2 regressions against the actual app source (adapted from the independent
 // reviewer's probe, e2417c3 early-technical-evidence/probe.mjs). Host fakes only; no browser.
@@ -20,13 +19,9 @@ const extract = (start: string, end: string) => {
 const tick = () => new Promise(resolve => setTimeout(resolve, 0));
 
 // ---------- ET-1: continuation never loses an unsaved completed result ----------
-// Migration (F, lease msg_2f1d0dd3484f): the host fakes C's fenced saveSource, which reports a discriminated
-// Persistence and never throws for storage faults; success is never recovered from an id lookup. Every save
-// (in place or carried) must receive the very same source object and the capture frozen at the first insertion.
-const CAPTURE = Object.freeze({ databaseId: 'db', contextId: 'ctx', epochId: 'epoch', capturedAt: '2026-11-18T00:00:00.000Z', purpose: 'practice' });
-const savedOutcome = (source: any) => ({ state: 'saved', pendingIds: [], sourceId: source.id, sourceHash: '0'.repeat(64), sourceSaved: true, membershipReady: true });
-const failedOutcome = (source: any, capture: unknown, retryable: boolean) => ({ state: 'failed', pendingIds: [source.id], sourceId: source.id, capture, sourceSaved: false, membershipReady: false, retryable });
-type SaveCall = { source: any; capture: unknown; succeed(): void; fail(): void; refuse(): void; throws(error: Error): void };
+const savedOutcome = (source: any) => ({ state: 'saved', sourceId: source.id });
+const failedOutcome = (source: any, retryable: boolean) => ({ state: 'failed', sourceId: source.id, retryable });
+type SaveCall = { source: any; succeed(): void; fail(): void; refuse(): void; throws(error: Error): void };
 function continuationHost() {
   const nodes = new Map<string, any>();
   const node = (key: string) => { if (!nodes.has(key)) nodes.set(key, { hidden: false, disabled: false, textContent: '', onclick: null, dataset: {}, innerHTML: '', contains: () => false, querySelector: () => null, focus: () => {} }); return nodes.get(key); };
@@ -35,9 +30,9 @@ function continuationHost() {
   const saves: SaveCall[] = [];
   const downloads: unknown[] = [];
   let restartDone: Promise<void> | undefined;
-  const saveSource = (source: any, capture: unknown) => new Promise<any>((resolve, reject) => {
-    saves.push({ source, capture, succeed: () => resolve(savedOutcome(source)), fail: () => resolve(failedOutcome(source, capture, true)),
-      refuse: () => resolve(failedOutcome(source, capture, false)), throws: reject });
+  const saveSource = (source: any) => new Promise<any>((resolve, reject) => {
+    saves.push({ source, succeed: () => resolve(savedOutcome(source)), fail: () => resolve(failedOutcome(source, true)),
+      refuse: () => resolve(failedOutcome(source, false)), throws: reject });
   });
   const context: any = {
     finished: false, timer: 1, before: null, key: null, input: { value: 't', disabled: false, readOnly: false, focus: () => {} },
@@ -45,21 +40,19 @@ function continuationHost() {
     engine: null, resultPanel: () => '<result>', mayFocusInput: () => false, esc: (text: string) => text,
     document: { getElementById: (id: string) => node(`#${id}`), querySelector: () => null }, $: node,
     download: (value: unknown) => { downloads.push(value); }, restartGeneration: 0, disposed: false, repeatRequested: false,
-    saveSource, newSaveRecord, applyOutcome, isFiniteSource, unsavedLine, coachUi, coach: coachUi.baselineView(null), readyCapture: CAPTURE,
-    prepGeneration: 0, prepCompleted: 0, frozen: null, freezeRun: () => (context.frozen = { label: 'General practice', baseline: false, test: null, capture: CAPTURE, pair: null }),
-    progressMarkup: () => '', summaryMarkup: () => '', formatProgress: () => {}, failedBaseline: () => [], declareQwerty: () => {},
+    saveSource, newSaveRecord, applyOutcome, unsavedLine,
+    frozen: null, freezeRun: () => (context.frozen = { label: 'General practice' }),
     todayActivity: () => new Promise(() => {}), PointerEvent: class {}, stage: {}, restarting: false,
     paint: () => ({ state: 'completed' }), composing: false, settings: () => ({}), qwerty: { checked: false }, durationMs: 30000,
     originId: undefined, history: [], historyKey: 'false|30000', mode: 'practice', params: new URLSearchParams(), manualPairs: [],
-    parsePracticeChoice: () => ({ kind: 'general', reason: '' }), practiceChoice: null, suggestedRequested: false, pilot: () => false,
-    prepAbort: null, shown: null, fellBack: false, admitted: null, lastAdmittedPair: null, changeNote: '',
-    prepareCoach: async () => null, finiteRuntime: async () => { throw new Error('a General restart never loads the finite runtime'); }, admittedBlock: () => null,
+    parsePracticeChoice: () => ({ kind: 'general', reason: '' }), practiceChoice: null, prepAbort: null,
+    refreshSuggestion: async () => {},
     practiceKind: null, manualPair: null, showPair: () => {}, choosePrompts: () => [], prompts: [], makeEngine: () => ({ state: 'idle' }), previousPromptText: '',
     previousResponse: '', undoUsed: false, lastPromptKey: '', lastState: '', clearSlot: () => {}, prepare: () => {}, startTimer: () => {},
     refreshCoachSurfaces: () => {}, loadEvidence: () => {}, settingsPending: false, changeSettings: () => {}, currentSave: null,
   };
   context.unsaved = new UnsavedResults({ save: saveSource, onChange: () => {} });
-  const code = extract('  function carryUnsaved()', '\n') + '\n' + extract('  // ---- Completed result:', "  input.addEventListener('keydown'")
+  const code = extract('  function carryUnsaved()', '\n') + '\n' + extract('  // Completed results keep', "  input.addEventListener('keydown'")
     + extract("  $('#restart').onclick = async () => {", '  // Saved timing history arrives');
   runInNewContext(`${stripTypeScriptTypes(code)}; globalThis.finishBlock = finish`, context);
   const restart = node('#restart').onclick;
@@ -87,11 +80,10 @@ test('ET-1: a failed save before Again stays listed with its immutable payload',
   assert.equal(host.context.restartGeneration, 1);
   assert.deepEqual(host.listed(), ['failed-first']);
   assert.equal(host.context.unsaved.listed[0].source, result, 'the very same completed payload, never re-derived');
-  assert.equal(host.context.unsaved.listed[0].capture, CAPTURE, 'the capture frozen before the first insertion travels with it');
   assert.deepEqual(host.context.unsaved.exportPayload(), [result]);
-  // A carried retry re-sends the original source and capture; an unexpected throw stays retryable, not lost.
+  // A carried retry re-sends the original source, and a storage exception stays retryable.
   const retried = host.context.unsaved.retry();
-  assert.equal(host.saves[1]!.source, result); assert.equal(host.saves[1]!.capture, CAPTURE);
+  assert.equal(host.saves[1]!.source, result);
   host.saves[1]!.throws(new Error('unexpected'));
   await retried;
   assert.deepEqual(host.listed(), ['failed-first']);
@@ -121,7 +113,7 @@ test('ET-1 (LR-2): a validation refusal that arrives after Again lists as reject
   const notified: [string, string][] = [];
   const announce = carried.onSettled;
   carried.onSettled = () => { notified.push([carried.state, carried.reason]); announce(); };
-  host.saves[0]!.refuse(); // C's fenced save reports a validation refusal as failed and not retryable
+  host.saves[0]!.refuse(); // storage reports a permanent validation failure
   await finishing;
   assert.equal(notified.length, 1);
   assert.equal(notified[0]![0], 'rejected', 'the one notification already carries the final state');
@@ -218,11 +210,11 @@ function preparationHost(prompts = [{ id: 'one', text: 'the short path' }, { id:
   engine.setSentencePredictions = (index, predictions) => { installs.push(index); install(index, predictions); };
   const nodes = new Map<string, any>();
   const node = (key: string) => { if (!nodes.has(key)) nodes.set(key, { textContent: '' }); return nodes.get(key); };
-  const context: any = { engine, evidencePending: true, restartGeneration: 0, disposed: false, restarting: false,
+  const context: any = { engine, restartGeneration: 0, disposed: false, restarting: false,
     performance: { now: () => 10 }, qwerty: { checked: true }, history: [], buildHistory, appendHistory, artifact, predictSentence, WeakMap,
     lineageMessage: '', practiceChoice: { kind: 'general', reason: '' }, mode: 'practice', sourceAssessmentId: undefined,
     durationMs: 30000, settings: () => ({}), stage: { dataset: {} }, prompts, frozen: null, blockIdentity: () => 'General practice',
-    isFiniteBlock: () => false, $: node, storageNotice: () => {}, calibration: loaded };
+    suggestedPair: null, $: node, storageNotice: () => {}, calibration: loaded };
   runInNewContext(`${stripTypeScriptTypes(extract('  // Predictions freeze once per sentence.', '  const input = $<HTMLTextAreaElement>'))}; globalThis.prepareStage = prepare`, context);
   context.prepare = context.prepareStage;
   runInNewContext(`${stripTypeScriptTypes(extract('  function loadEvidence() {', '\n  prepare();\n  startTimer();\n  paint();'))}; globalThis.loadStage = loadEvidence`, context);
@@ -245,7 +237,6 @@ test('ET-2: late calibration never re-freezes predictions (idle, no-op edit, acc
     host.late();
     await tick(); await tick();
     assert.deepEqual(host.installs, scenario === 'passage advance' ? [0, 1] : [0], `${scenario}: at most once per sentence`);
-    assert.equal(host.context.evidencePending, false);
     assert.ok(host.node('#prediction-state').textContent.length > 0, `${scenario}: informational refresh still runs`);
   }
 });
@@ -259,28 +250,34 @@ test('ET-2: calibration that settles after a restart or disposal touches nothing
     release({ sentences: [{ promptId: 'late' }], diagnostics: [] });
     await tick(); await tick();
     assert.deepEqual(host.installs, [0], `${leave}: no new predictions`);
-    assert.equal(host.context.evidencePending, true, `${leave}: the stale load is ignored`);
     if (leave === 'restart') assert.deepEqual(host.context.history, ['kept']);
   }
+});
+
+test('a late calibration error for General leaves the issued pair’s prediction readout intact', async () => {
+  let reject!: (error: Error) => void;
+  const host = preparationHost(undefined, () => new Promise((_, fail) => { reject = fail; }));
+  host.late();
+  host.context.engine = preparationHost().engine;
+  host.node('#prediction-state').textContent = 'Current pair predictions';
+  reject(new Error('old read failed'));
+  await tick(); await tick();
+  assert.equal(host.node('#prediction-state').textContent, 'Current pair predictions');
 });
 
 test('ET-2: a rejected optional calibration is handled quietly and leaves General practice untouched', async () => {
   const host = preparationHost(undefined, () => Promise.reject(new Error('history unreadable')));
   host.late();
   await tick(); await tick();
-  assert.equal(host.context.evidencePending, false);
   assert.match(host.node('#prediction-state').textContent, /practice is unaffected/);
   assert.equal(host.engine.state, 'idle');
   assert.deepEqual(host.installs, [0]);
 });
 
-test('ET-2: suggested blocks and an undeclared keyboard skip optional calibration entirely', () => {
-  for (const scenario of ['finite', 'qwerty off'] as const) {
-    let reads = 0;
-    const host = preparationHost(undefined, async () => { reads++; return { sentences: [], diagnostics: [] }; });
-    if (scenario === 'finite') host.context.isFiniteBlock = () => true; else host.context.qwerty.checked = false;
-    host.late();
-    assert.equal(reads, 0, scenario);
-    assert.equal(host.context.evidencePending, false, scenario);
-  }
+test('an undeclared keyboard skips optional calibration', () => {
+  let reads = 0;
+  const host = preparationHost(undefined, async () => { reads++; return {sentences: [], diagnostics: []}; });
+  host.context.qwerty.checked = false;
+  host.context.loadStage();
+  assert.equal(reads, 0);
 });

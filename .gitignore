@@ -11,6 +11,7 @@ dist/
 # Local ML source, derived participant records and environment
 .venv/
 ml/data/
+ml/corpus/.cache/
 __pycache__/
 *.py[cod]
 

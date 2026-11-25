@@ -1,8 +1,0 @@
-﻿{
-    "note":  "Immediate post-stop check raced process exit; follow-up confirms final state",
-    "reservedPorts":  "5301, 5317, 5318 untouched",
-    "fixturePid":  62980,
-    "browserContexts":  "All owned fresh contexts closed in finally, including comparison",
-    "port5319Listeners":  0,
-    "processStopped":  true
-}

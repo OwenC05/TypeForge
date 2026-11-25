@@ -1,9 +1,0 @@
-{
- "method": "chunk filenames normalised (fixtures-/gallery-/index- 8-char hashes -> X), then byte comparison",
- "composed": { "vite": "8.3.3", "styleBlob": "1b10cbea2453aad470ca5b4918b1f222309eda89", "indexJs": "index-BVoscodI.js", "styleChunk": "fixtures-BPASI-5n.css", "styleChunkBytes": 21409 },
- "authorReplay": { "vite": "8.3.1", "styleBlob": "41426a7629fc0c395c5e1875435f3fc00b8d645c", "indexJs": "index-BADpSMsf.js", "indexJsSha256": "5f84f6c8dd3da46826d7c9f6863fd6d1daca872dbbd7abac0eefa2c31933bfff", "matchesAuthorRecordedHash": true, "styleChunk": "fixtures-ChsJ1aui.css", "styleChunkBytes": 20418 },
- "identicalModuloNames": ["index.js", "gallery.js", "index.html"],
- "identicalBytes": ["index-BSuNlSNP.css (baseline.css)", "fixtures-*.js"],
- "styleChunk": "composed minus its single @media (forced-colors:active){...} block (991 bytes) == author chunk: true",
- "conclusion": "The only built difference is the accepted forced-colours block; screenshots were not used to infer this."
-}

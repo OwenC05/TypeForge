@@ -1,6 +1,0 @@
-Actual committed handler probes at a36a6e37efc2f7b28847c53db16c9e826b1bd096; host fakes, no browser or npm run.
-{"scenario":"LR-2 classification and first notification after Again","notifications":[{"state":"rejected","reason":"It failed validation and cannot be saved here; export it instead."}]}
-{"scenario":"LR-1 running hold operable and input focus cancels","held":true,"focusAccepted":true,"canceled":true,"inertAfterCancel":true}
-{"scenario":"F3 still present at a36a6e3","rejection":"Cannot read properties of null (reading 'hidden')"}
-{"scenario":"F4 still present at a36a6e3","lastNotifiedRetrying":true,"finalRetrying":false}
-Delta assertions passed: LR-1/LR-2 repaired; F3/F4 remain on this exact delta.
