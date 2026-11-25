@@ -38,8 +38,7 @@ after(async () => {
   }
 });
 
-// Ten engine-generated assessments in a pre-upgrade database. The production app migrates them and
-// decides whether to admit Suggested. Rotating the passages gives both halves distinct word contexts.
+// Saved assessments from an earlier database, with slow th timings across different passages.
 function assessment(index) {
   const offset = index * 4;
   const prompts = [...assessmentPrompts.slice(offset), ...assessmentPrompts.slice(0, offset)];
@@ -101,7 +100,7 @@ async function openPractice(t, sources, url) {
 const promptText = page => page.locator('#target-description').textContent().then(text => text.replace('Passage to copy: ', ''));
 const focused = page => page.locator('#typing-input').evaluate(input => document.activeElement === input);
 const state = page => page.locator('#stage').getAttribute('data-state');
-const baseline = () => Array.from({ length: 10 }, (_, index) => assessment(index));
+const assessed = () => [assessment(0), assessment(1), assessment(2)];
 
 async function savedRecord(page) {
   await page.locator('#full-result:not([hidden])').waitFor({ state: 'attached' });
@@ -120,20 +119,20 @@ async function savedRecord(page) {
 }
 
 test('a native key for the invalidated sentence never becomes a General first-attempt error', async t => {
-  const page = await openPractice(t, baseline(), suggested);
-  await page.getByText('Suggested practice · th · 30 s', { exact: true }).waitFor();
+  const page = await openPractice(t, assessed(), suggested);
+  await page.locator('#block-identity').filter({ hasText: /Suggested practice\s*·\s*th\s*·\s*30\s+s/ }).waitFor();
   await page.clock.pauseAt(await page.evaluate(() => new Date(Date.now() + 1000).toISOString()));
   const visible = await promptText(page);
   const oldIds = await page.locator('#stage').getAttribute('data-prompt-ids');
   assert.ok(await focused(page));
   await page.screenshot({ path: `${screenshots}/suggested-before-key.png` });
-  await page.evaluate(() => {
-    // Keep the General shuffle in bank order and invalidate between keydown and the matching input.
-    Math.random = () => 0.99999;
+  await page.evaluate(oldFirst => {
+    // Choose a General first letter different from the visible pair passage.
+    Math.random = () => oldFirst === 't' ? 0 : 0.99999;
     document.querySelector('#typing-input').addEventListener('beforeinput', () => {
       window.dispatchEvent(new Event('focus'));
     }, { capture: true, once: true });
-  });
+  }, visible[0]);
   await page.keyboard.press(visible[0]);
   const replacement = await promptText(page);
   assert.notEqual(visible[0], replacement[0], 'old and new first letters differ');
@@ -160,15 +159,47 @@ test('a native key for the invalidated sentence never becomes a General first-at
   assert.deepEqual(result.sentences[0].keys[replacement[0]], { attempts: 1, correct: 1, firstAttempts: 1, firstErrors: 0 });
 });
 
+test('Chromium sends no input for Backspace on empty or Delete at the end', {
+  skip: (process.env.BROWSER_ENGINE ?? 'chromium') !== 'chromium',
+}, async t => {
+  const page = await openPractice(t, [], '/index.html?practice=general&duration=30&qwerty=1');
+  const input = page.locator('#typing-input');
+  await input.evaluate(el => {
+    window.deletionEvents = [];
+    for (const type of ['beforeinput', 'input']) el.addEventListener(type, e => {
+      if (e.inputType.startsWith('delete')) window.deletionEvents.push([e.type, e.inputType]);
+    });
+  });
+  await input.press('Backspace');
+  const text = await promptText(page);
+  await input.press(text[0]);
+  await input.press('Delete');
+  for (const key of text.slice(1) + ' ') {
+    await page.clock.fastForward(60);
+    await input.press(key === ' ' ? 'Space' : key);
+  }
+  await input.press((await promptText(page))[0]);
+  await input.press('Backspace');
+  await input.press((await promptText(page))[0]);
+  assert.deepEqual(await page.evaluate(() => window.deletionEvents), [
+    ['beforeinput', 'deleteContentBackward'], ['beforeinput', 'deleteContentForward'],
+    ['beforeinput', 'deleteContentBackward'], ['input', 'deleteContentBackward'],
+  ]);
+  await page.clock.fastForward(30100);
+  const source = await savedRecord(page);
+  assert.equal(source.sentences[0].eligible, true);
+  assert.ok(source.sentences[1].qualityFlags.includes('edited'));
+});
+
 const timedCases = [
   { name: 'General', url: '/index.html?practice=general&duration=30', stage: 'General practice', tag: 'PRACTICE' },
-  { name: 'timer-ended Suggested', url: suggested, stage: 'Suggested practice · th', tag: 'PRACTICE' },
+  { name: 'timer-ended Suggested', url: suggested, stage: /Suggested practice\s*·\s*th/, tag: 'SUGGESTED PAIR th' },
   { name: 'manual', url: '/index.html?practice=manual&pair=th&duration=30', stage: 'Pair practice · th', tag: 'MANUAL PAIR th' },
   { name: 'assessment', url: '/practice.html?duration=30&qwerty=0', stage: 'Assessment', tag: 'ASSESSMENT' },
 ];
 for (const { name, url, stage, tag } of timedCases) {
   test(`${name} full result displays ${tag}`, async t => {
-    const page = await openPractice(t, url === suggested ? baseline() : [], url);
+    const page = await openPractice(t, url === suggested ? assessed() : [], url);
     await page.locator('#block-identity').filter({ hasText: stage }).waitFor();
     const target = await promptText(page);
     await page.locator('#typing-input').press(target[0]);
@@ -178,7 +209,7 @@ for (const { name, url, stage, tag } of timedCases) {
     assert.equal(result.mode, name === 'assessment' ? 'assessment' : 'practice');
     assert.equal(result.metrics.elapsedMs, 30000);
     assert.equal(result.sentences[0].promptText, target);
-    assert.equal(Object.hasOwn(result, 'practiceFocus'), false);
+    assert.deepEqual(result.practiceFocus, url === suggested ? { pair: 'th', source: 'model' } : undefined);
     assert.equal(Object.hasOwn(result, 'manualDrill'), name === 'manual');
     const href = await page.locator('#full-result').getAttribute('href');
     await page.goto(new URL(href, base).href);
@@ -230,19 +261,71 @@ test('a retest of all 40 v1 passages keeps its origin and the next retest exclud
   assert.deepEqual(new Set(await listed()), new Set(first.slice(2)));
 });
 
-test('Progress keeps the counted tests readable when its optional widget fails to load', async t => {
-  const page = await openPractice(t, [], '/fixture');
-  let requested = false;
-  await page.route(/\/assets\/progress-[^/]+\.js$/, route => {
-    requested = true;
-    return route.fulfill({ contentType: 'text/javascript', body: 'throw new Error("Progress widget unavailable")' });
-  });
+test('existing assessment, General and finite history stay readable and exportable after upgrade', async t => {
+  const assessment = JSON.parse(readFileSync(new URL('../fixtures/legacy-v1.json', import.meta.url), 'utf8'));
+  const general = { ...assessment, id: crypto.randomUUID(), mode: 'practice', completedAt: '2026-10-01T12:00:00.000Z' };
+  const finite = JSON.parse(readFileSync(new URL('../fixtures/legacy-finite.json', import.meta.url), 'utf8'));
+  const page = await openPractice(t, [assessment, general], '/lab.html');
+  await page.locator('.coach-readout').waitFor();
+  const first = await page.locator('.coach-readout').innerText();
+  assert.match(first, /of 2 pair checks across 1 sentence/);
+  // The old adapter wrote finite results to currentResults. Keep both old coach stores intact as well.
+  const schema = await page.evaluate(source => new Promise((resolve, reject) => {
+    const open = indexedDB.open('typeforge');
+    open.onerror = () => reject(open.error);
+    open.onsuccess = () => {
+      const db = open.result;
+      const tx = db.transaction(['currentResults', 'coachMetadata', 'coachMembership'], 'readwrite');
+      tx.objectStore('currentResults').add(source);
+      tx.objectStore('coachMetadata').put('existing', 'original');
+      tx.objectStore('coachMembership').put({ resultId: source.id });
+      tx.onabort = () => reject(tx.error);
+      tx.oncomplete = () => { resolve([db.version, [...db.objectStoreNames]]); db.close(); };
+    };
+  }), finite);
+  assert.deepEqual(schema, [3, ['coachMembership', 'coachMetadata', 'currentResults', 'results']]);
+  await page.reload();
+  await page.locator('.coach-readout').waitFor();
+  assert.equal(await page.locator('.coach-readout').innerText(), first);
+  await page.goto(base + suggested);
+  await page.locator('#exercise-warning').filter({ hasText: 'saved timings don’t show a clear pair yet' }).waitFor();
+  assert.match(await page.locator('#block-identity').textContent(), /^General practice/);
   await page.goto(base + '/progress.html');
-  const value = page.locator('ui-progress.baseline-progress ui-progress-value');
-  await value.waitFor({ state: 'attached' });
-  await page.waitForLoadState('networkidle');
-  assert.ok(requested, 'the optional widget request reached the fault');
-  assert.equal(await value.textContent(), '0 of 10 tests');
+  await page.locator('#history-rows tr').first().waitFor();
+  assert.equal(await page.locator('#history-rows tr').count(), 3);
+  const exported = async id => {
+    const [download] = await Promise.all([page.waitForEvent('download'), page.locator(id).click()]);
+    return JSON.parse(readFileSync(await download.path(), 'utf8'));
+  };
+  assert.deepEqual((await exported('#export-sources')).sources, [finite, general, assessment]);
+  assert.deepEqual((await exported('#export-history')).results, [general, assessment]);
+  await page.locator(`#history-rows a[href$="${finite.id}"]`).click();
+  assert.match(await page.locator('#finite-title').textContent(), /Suggested practice · th/);
+  assert.deepEqual(await exported('#export-result'), finite);
+  const retained = await page.evaluate(() => new Promise((resolve, reject) => {
+    const open = indexedDB.open('typeforge');
+    open.onerror = () => reject(open.error);
+    open.onsuccess = () => {
+      const db = open.result, tx = db.transaction(['coachMetadata', 'coachMembership']);
+      const marker = tx.objectStore('coachMetadata').get('original'), membership = tx.objectStore('coachMembership').count();
+      tx.oncomplete = () => { db.close(); resolve([marker.result, membership.result]); };
+    };
+  }));
+  assert.deepEqual(retained, ['existing', 1]);
+});
+
+test('the evidence read pages past drills and skips just the sentence with obsolete timings', async t => {
+  const assessment = JSON.parse(readFileSync(new URL('../fixtures/legacy-v1.json', import.meta.url), 'utf8'));
+  const original = assessment.sentences[0];
+  const obsolete = { ...original, pairs: { at: { count: 1, sum: 100 } } };
+  const mixed = { ...assessment, id: crypto.randomUUID(), mode: 'practice', sentences: [obsolete, original],
+    completedAt: '2026-10-01T12:00:00.000Z' };
+  const drills = Array.from({ length: 101 }, () => ({ ...assessment, id: crypto.randomUUID(), mode: 'practice',
+    manualDrill: { pair: 'th', source: 'manual' }, completedAt: '2026-11-01T12:00:00.000Z' }));
+  const page = await openPractice(t, [assessment, mixed, ...drills], '/lab.html');
+  const readout = page.locator('.coach-readout');
+  await readout.waitFor();
+  assert.match(await readout.innerText(), /of 2 pair checks across 1 sentence/);
 });
 
 test('a focus change as the coach read finishes leaves the first key usable', async t => {
@@ -251,7 +334,7 @@ test('a focus change as the coach read finishes leaves the first key usable', as
     const count = IDBObjectStore.prototype.count;
     IDBObjectStore.prototype.count = function (...args) {
       const tx = this.transaction;
-      if (this.name === 'results' && tx.mode === 'readonly' && tx.objectStoreNames.contains('coachMembership')) {
+      if (this.name === 'results' && tx.mode === 'readonly' && tx.objectStoreNames.contains('currentResults')) {
         IDBObjectStore.prototype.count = count;
         // A completed transaction can no longer be aborted. Deliver the focus
         // invalidation before the app's completion handler detaches its listener.
@@ -263,8 +346,9 @@ test('a focus change as the coach read finishes leaves the first key usable', as
       return count.apply(this, args);
     };
   });
-  await page.goto(base + '/practice.html');
+  await page.goto(base + suggested);
   await page.waitForFunction(() => window.focusDuringCoachRead);
+  await page.locator('#exercise-warning').filter({ hasText: 'No saved timings' }).waitFor();
   const letter = (await promptText(page))[0];
   await page.locator('#typing-input').press(letter);
   assert.equal(await state(page), 'running');

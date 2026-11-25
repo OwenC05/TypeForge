@@ -5,22 +5,11 @@ import { stripTypeScriptTypes } from 'node:module';
 import { runInNewContext } from 'node:vm';
 import { resolveRetest, selectHistory, compatible } from '../src/profile.ts';
 import type { SessionResult, SentenceSummary } from '../src/engine.ts';
-import { newSaveRecord, applyOutcome, isFiniteSource } from '../src/unsaved.ts';
-import * as coachUi from '../src/coach-ui.ts';
+import { newSaveRecord, applyOutcome } from '../src/unsaved.ts';
+import { isFiniteSource } from '../src/finite-practice-result.ts';
 import { TypingEngine } from '../src/engine.ts';
 import { CORPUS_VERSION, practicePrompts, selectPrompts } from '../src/corpus.ts';
-import { findSavedPrompt, manualPairs, selectAssessmentPrompts, selectPairPrompts } from '../src/corpus-v2.ts';
-import { selectDrillPrompts } from '../src/profile.ts';
-import { resolveCertifiedPlan } from '../src/coach-plan.ts';
-
-// Old-test-to-new-invariant map (F, lease msg_2f1d0dd3484f; full table in the UI implementation report):
-// - Restart waits for fresh calibration and focus -> a General restart never waits on optional evidence (and a
-//   new test: Suggested waits only for its own admission, otherwise honest General).
-// - Evidence-backed recommendation parsing -> 'recommended' is a request only; admission decides.
-// - Direct recommended practice selects the old selector's drill -> a request builds ordinary General until admission.
-// - Results page coach selector -> no focus is selected there; current record via the source union.
-// - Save fakes (saveResult/ResultValidationError) -> C's discriminated Persistence with the original capture.
-// Every other assertion is unchanged apart from extraction boundaries.
+import { manualPairs, selectAssessmentPrompts, selectPairPrompts } from '../src/corpus-v2.ts';
 
 // Exercise the actual app functions without bootstrapping CSS, DOM routes or IndexedDB.
 const source = readFileSync(new URL('../src/app.ts', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
@@ -92,16 +81,12 @@ test('unsupported calibration never reads history; supported sparse pages retain
 });
 
 // Restart host: every free name the actual handler reads, with neutral defaults a test overrides.
-const CAPTURE = Object.freeze({ databaseId: 'db', contextId: 'ctx', epochId: 'epoch', capturedAt: '2026-11-18T00:00:00.000Z', purpose: 'practice' });
 function restartContext(overrides: Record<string, unknown> = {}) {
  const context: any = {...practiceContext(),performance:{now:()=>10},paint:()=>({state:'running'}),engine:{abort:()=>{}},
   input:{disabled:false,readOnly:false,value:'old',focus:()=>{}},qwerty:{checked:true,disabled:false},duration:{disabled:false},durationMs:60000,
   settings,params:new URLSearchParams(),mode:'practice',origin:null,sourceAssessmentId:undefined,excluded:[],lineageMessage:'',history:[],historyKey:'true|60000',
-  coachUi,coach:coachUi.baselineView(null),pilot:()=>context.durationMs===30000&&context.qwerty.checked,locked:()=>true,
-  prepAbort:null,frozen:null,shown:null,fellBack:false,admitted:null,lastAdmittedPair:null,changeNote:'',suggestedRequested:false,
-  invalidations:0,admissionCurrent:(snapshot:unknown)=>snapshot!==null,coachFresh:true,
-  prepareCoach:async()=>null,finiteRuntime:async()=>({}),admittedBlock:()=>null,showPair:()=>{},
-  choosePrompts:()=>[],prompts:[],makeEngine:()=>({abort:()=>{}}),clearSlot:()=>{},prepare:()=>{},startTimer:()=>{},refreshCoachSurfaces:()=>{},loadEvidence:()=>{},
+  prepAbort:null, frozen:null, coach:null, coachFresh:true, suggestedPair:null, coachMessage:'', fallbackForBlock:false,
+  refreshSuggestion:async()=>{}, showPair:()=>{}, choosePrompts:()=>[],prompts:[],makeEngine:()=>({abort:()=>{}}),clearSlot:()=>{},prepare:()=>{},startTimer:()=>{},loadEvidence:()=>{},
   changeSettings:()=>{},queueMicrotask,clearInterval:()=>{},timer:1,restarting:false,disposed:false,restartGeneration:0,lastPromptKey:'old',lastState:'running',
   before:{},key:{},composing:true,finished:false,repeatRequested:false,previousPromptText:'',previousResponse:'',undoUsed:true,
   $:()=>({hidden:false,disabled:false,textContent:''}),
@@ -122,7 +107,7 @@ test('General restart never waits on optional evidence: input returns after prep
   calibration:()=>{log.push('calibration');return new Promise(()=>{});},
   makeEngine:()=>{log.push('new-engine');return {abort:()=>log.push('abort')};},
   prepare:()=>{assert.equal(input.disabled,true);log.push('prepare');},
-  prepareCoach:async(intent?:{admit?:boolean})=>{assert.equal(input.disabled,false);log.push(intent?.admit?'admit':'status');return null;},
+  refreshSuggestion:async()=>{assert.equal(input.disabled,false);log.push('status');},
   loadEvidence:()=>{assert.equal(input.disabled,false);log.push('evidence');},
   $:(selector:string)=>selector==='#restart'?restart:selector==='#completion'?completionPanel:{hidden:false,textContent:''},
  });
@@ -144,57 +129,6 @@ test('General restart never waits on optional evidence: input returns after prep
  const abandoned=run();context.disposed=true;context.restartGeneration++;
  releaseOrigin(undefined);await abandoned;
  assert.equal(input.disabled,true);assert.equal(log.filter(item=>item==='new-engine').length,engines);
-});
-
-// New accepted behaviour (no old equivalent): Suggested runs only C/D's admitted certified plan, admitted before the first
-// insertion; a refusal, an adapter refusal or a non-pilot setting gives an honest General block, never a clamp.
-test('a chosen Suggested restart waits only for its own admission, then runs the admitted plan or honest General',async()=>{
- const handler=restartHandler();
- const blockCode=source.slice(source.indexOf('function admittedBlock('),source.indexOf('/** What a run is'));
- const snapshot={plan:{pair:'th',planHash:'plan-hash',prompts:[{id:'p1',text:'the thin path'},{id:'p2',text:'with this'}]},focus:{pair:'th'}};
- for(const outcome of ['admitted','refused','adapter-refused','disposed','not-pilot'] as const){
-  const log:string[]=[];let release!:(value:unknown)=>void;
-  const input={disabled:false,readOnly:false,value:'',focus:()=>{}};
-  const context=restartContext({input,params:new URLSearchParams('practice=recommended'),durationMs:outcome==='not-pilot'?60000:30000,historyKey:'true|30000',
-   coach:{...coachUi.baselineView(null),state:'complete-insufficient'},locked:()=>outcome!=='admitted',
-   prepareCoach:(intent?:{admit?:boolean})=>{
-    log.push(intent?.admit?'admit':'status');context.coachFresh=true; // a completed read is fresh unless a storage change overtook it
-    if(intent?.admit){assert.equal(context.restarting,true,'C reads an idle run state while the restart holds input');assert.equal(input.disabled,true);}
-    if(outcome==='disposed'&&intent?.admit)return new Promise(resolve=>{release=resolve;});
-    return Promise.resolve(intent?.admit&&outcome!=='refused'?snapshot:null);
-   },
-   finiteRuntime:async()=>({createFiniteAdapter:(value:{id:string;snapshot:unknown})=>{
-    if(outcome==='adapter-refused')throw new RangeError('Finite practice requires an admitted supported snapshot.');
-    assert.equal(value.snapshot,snapshot);log.push('adapter');return {adapter:true};}}),
-   makeEngine:()=>{log.push('general');return {abort:()=>{}};},
-   crypto:{randomUUID:()=>'00000000-0000-4000-8000-000000000009'},
-   finiteBlock:(adapter:unknown,admitted:unknown)=>({finite:true,adapter,admitted,abort:()=>{}}),
-  });
-  context.admittedBlock=runInNewContext(`${stripTypeScriptTypes(blockCode)}; admittedBlock`,context);
-  const run=runInNewContext(stripTypeScriptTypes(`(${handler})`),context);
-  const done=run();
-  if(outcome==='disposed'){
-   // The runtime loads before admission (nothing is awaited between admission and installation): wait for it.
-   for(let i=0;i<20&&!release;i++)await Promise.resolve();
-   context.disposed=true;context.restartGeneration++;release(snapshot);await done;
-   assert.equal(input.disabled,true,'disposed: input never returns');assert.deepEqual(log,['admit']);assert.equal(context.admitted,null);continue;
-  }
-  await done;
-  assert.equal(input.disabled,false,outcome);
-  if(outcome==='admitted'){
-   assert.deepEqual(log,['admit','adapter'],'the admitted plan runs; no second status read, no General engine');
-   assert.equal(context.engine.finite,true);assert.equal(context.admitted,snapshot);assert.equal(context.lastAdmittedPair,'th');
-   assert.deepEqual(JSON.parse(JSON.stringify(context.prompts)),snapshot.plan.prompts);assert.notEqual(context.prompts,snapshot.plan.prompts,'the run copies the frozen plan');
-   assert.equal(context.fellBack,false);
-  }else if(outcome==='not-pilot'){
-   assert.deepEqual(log,['general','status'],'outside 30 s + qwerty Suggested is never admitted or clamped');
-   assert.equal(context.admitted,null);assert.equal(context.durationMs,60000);
-  }else{
-   assert.deepEqual(log,['admit','general'],`${outcome}: one admission attempt, then an ordinary General engine`);
-   assert.equal(context.admitted,null);assert.equal(context.engine.finite,undefined);
-   assert.equal(context.fellBack,true,`${outcome}: the General fallback says so in the ready slot`);
-  }
- }
 });
 
 test('comparison rendering never exposes overflow, underflow or grouped nonfinite milliseconds',()=>{
@@ -259,17 +193,17 @@ test('flow input installs next predictions only after accepted value and eligibl
  }
 });
 
-test('a run freezes its identity, capture and plan exactly once, at its first accepted insertion', () => {
+test('a run freezes its identity exactly once, at its first accepted insertion', () => {
  const begin = source.indexOf('  const acceptInput = ') + '  const acceptInput = '.length;
  const end = source.indexOf("\n  input.addEventListener('input', acceptInput);", begin);
  const handler = source.slice(begin, end).trim().replace(/;$/, '');
  for (const accepted of [true, false]) {
   let state = 'idle', freezes = 0;
   const input = { value: 't' };
-  const context: any = { restarting: false, disposed: false, input, performance: {now: () => 5}, ended, frozen: null, composing: false, mode: 'practice',
+  const context: any = { restarting: false, disposed: false, input, performance: {now: () => 5}, ended, frozen: null, suggestedPair: null, composing: false, mode: 'practice',
    before: {value:'',start:0,end:0,type:'insertText',data:'t'}, key: {key:'t',time:5,repeat:false}, reconstructEdit: () => ({start:0,end:0,text:'t',tracked:true}),
    engine: {get state() { return state; }, tick: () => ({state, sentenceIndex:0, value:''}), edit: () => { if (accepted) state = 'running'; }, snapshot: () => ({state, sentenceIndex:0, value: accepted ? 't' : ''}), submittedSummaries: []},
-   freezeRun: () => { freezes++; context.frozen = {label:'General practice'}; }, prepare: () => {}, paint: () => {}, isFiniteBlock: () => false };
+   freezeRun: () => { freezes++; context.frozen = {label:'General practice'}; }, prepare: () => {}, paint: () => {} };
   const run = runInNewContext(stripTypeScriptTypes(`(${handler})`), context);
   run({isComposing:false});
   assert.equal(freezes, accepted ? 1 : 0, accepted ? 'first accepted insertion' : 'a refused first edit freezes nothing');
@@ -281,7 +215,7 @@ test('late native input restores retained text without another engine edit or pr
  const begin = source.indexOf('  const acceptInput = ') + '  const acceptInput = '.length;
  const end = source.indexOf("\n  input.addEventListener('input', acceptInput);", begin);
  const handler = source.slice(begin, end).trim().replace(/;$/, '');
- for (const state of ['completed','plan-exhausted','stopped','aborted']) {
+ for (const state of ['completed','stopped','aborted']) {
   const input = {value:'late text'};let paints=0;
   const run = runInNewContext(stripTypeScriptTypes(`(${handler})`), {restarting:false,disposed:false,input,performance:{now:()=>60},ended,
    engine:{tick:()=>({state,value:'accepted'})},paint:()=>paints++});
@@ -310,7 +244,7 @@ test('stopped input permits Tab, selection and copying while terminal edit guard
 });
 
 test('flagged safety-stop warning remains truthful after repeated paint and keyboard interaction',()=>{
- const code=source.slice(source.indexOf('  function paint('),source.indexOf('  // ---- Coach preparation, invalidation and admission. ----'));
+ const code=source.slice(source.indexOf('  function paint('),source.indexOf('  function installPair('));
  const nodes=new Map<string,any>();const node=(selector:string)=>{if(!nodes.has(selector))nodes.set(selector,{hidden:true,textContent:''});return nodes.get(selector);};
  const value='accepted';const snapshot={state:'stopped',value,sentenceIndex:0,remainingMs:1000,elapsedMs:500,
   metrics:{wpm:0,accuracy:0},qualityFlags:['interrupted']};
@@ -373,25 +307,25 @@ test('calibration uses actual duration and mode while retaining earlier eligible
 // Save hosts. Migration: C's fenced saveSource reports a discriminated Persistence (saved, or failed with
 // retryable true/false) instead of throwing ResultValidationError; the in-place retry stays single-flight and
 // stale settlement still writes nothing. An unexpected throw is classified as a retryable failure.
-const savedOutcome=(id:string)=>({state:'saved',pendingIds:[],sourceId:id,sourceHash:'0'.repeat(64),sourceSaved:true,membershipReady:true});
-const failedOutcome=(id:string,retryable:boolean)=>({state:'failed',pendingIds:[id],sourceId:id,capture:CAPTURE,sourceSaved:false,membershipReady:false,retryable});
+const savedOutcome=(id:string)=>({state:'saved',sourceId:id});
+const failedOutcome=(id:string,retryable:boolean)=>({state:'failed',sourceId:id,retryable});
 const saveSlice=()=>{
  const begin=source.indexOf('    const generation = restartGeneration;',source.indexOf('async function finish()'));
  const end=source.indexOf("    $('#retry-save').onclick",begin);
  assert.ok(begin>0&&end>begin,'ordered nonempty save boundaries');
  return source.slice(begin,end);
 };
-const saveHost=(overrides:Record<string,unknown>)=>({restartGeneration:0,disposed:false,source:{id:'test',mode:'practice'},identity:{label:'General practice',baseline:false,test:null,capture:CAPTURE,pair:null},
- newSaveRecord,applyOutcome,isFiniteSource,prepGeneration:0,shown:null,currentSave:null,paintResultBaseline:()=>{},afterResultRendered:()=>{},refreshToday:()=>{},encodeURIComponent,...overrides});
+const saveHost=(overrides:Record<string,unknown>)=>({restartGeneration:0,disposed:false,source:{id:'test',mode:'practice'},
+ newSaveRecord,applyOutcome,isFiniteSource,currentSave:null,paintResultActions:()=>{},afterResultRendered:()=>{},refreshToday:()=>{},...overrides});
 
 test('save retries are single-flight and late save success/failure cannot navigate or mutate disposed pages',async()=>{
  for(const outcome of ['success','failure','throw','generation'] as const){
-  let settle!:(value:unknown)=>void;let fail!:(error:Error)=>void;let saves=0,navigations=0,domWrites=0,paints=0;const captures:unknown[]=[];
+  let settle!:(value:unknown)=>void;let fail!:(error:Error)=>void;let saves=0,navigations=0,domWrites=0,paints=0;
   const pending=new Promise((yes,no)=>{settle=yes;fail=no;});
-  const context:any=saveHost({saveSource:(_:unknown,capture:unknown)=>{saves++;captures.push(capture);return pending;},location:{assign:()=>navigations++},
+  const context:any=saveHost({saveSource:()=>{saves++;return pending;},location:{assign:()=>navigations++},
    paintResultBaseline:()=>{paints++;},$:()=>{domWrites++;return {disabled:false,hidden:true,textContent:''};}});
   const save=runInNewContext(`${stripTypeScriptTypes(saveSlice())}; attemptSave`,context);
-  const first=save();await save();assert.equal(saves,1);assert.deepEqual(captures,[CAPTURE]);const before=domWrites,paintsBefore=paints;
+  const first=save();await save();assert.equal(saves,1);const before=domWrites,paintsBefore=paints;
   if(outcome==='generation')context.restartGeneration++;else context.disposed=true;
   if(outcome==='failure')settle(failedOutcome('test',true));else if(outcome==='throw')fail(Error('unavailable'));else settle(savedOutcome('test'));await first;
   assert.equal(navigations,0);assert.equal(domWrites,before);assert.equal(paints,paintsBefore,'no stale repaint');await save();assert.equal(saves,1);
@@ -400,19 +334,16 @@ test('save retries are single-flight and late save success/failure cannot naviga
 });
 
 test('save failure distinguishes permanent validation rejection from retryable browser storage errors',async()=>{
- for(const kind of ['retryable','permanent','throw','baseline'] as const) {
+ for(const kind of ['retryable','permanent','throw'] as const) {
   const retry={disabled:false,hidden:true},status={textContent:'',className:''};let saves=0,navigations=0;
-  const context:any=saveHost({identity:{label:'Baseline test 3 of 10',baseline:kind==='baseline',test:kind==='baseline'?3:null,capture:CAPTURE,pair:null},
+  const context:any=saveHost({
    saveSource:async()=>{saves++;if(saves>1)return savedOutcome('test');if(kind==='throw')throw Error('storage unavailable');return failedOutcome('test',kind!=='permanent');},
    location:{assign:()=>navigations++},$:(selector:string)=>selector==='#retry-save'?retry:selector==='#save-state'?status:{hidden:true}});
   const save=runInNewContext(`${stripTypeScriptTypes(saveSlice())}; attemptSave`,context);
   await save();assert.equal(navigations,0);
   if(kind==='permanent'){assert.equal(retry.hidden,true);assert.match(status.textContent,/cannot be saved|validation/i);assert.equal(context.currentSave.state,'rejected');await save();assert.equal(saves,1);continue;}
-  // A counted baseline test offers its retry as the primary action instead of the save-row key.
-  assert.equal(retry.hidden,kind==='baseline',kind);assert.equal(retry.disabled,false);assert.match(status.textContent,/retry/i);
-  assert.equal(context.currentSave.baseline,kind==='baseline');assert.equal(context.currentSave.test,kind==='baseline'?3:null);
+  assert.equal(retry.hidden,false,kind);assert.equal(retry.disabled,false);assert.match(status.textContent,/retry/i);
   await save();assert.equal(saves,2);assert.equal(navigations,0);assert.match(status.textContent,/^Saved in this browser/);
-  if(kind==='baseline')assert.equal(context.currentSave.test,3,'a late save never rewrites the frozen test number');
  }
 });
 
@@ -423,7 +354,7 @@ test('permanently rejected completion keeps export enabled and never navigates',
  let saves=0,navigations=0,exported:unknown;let frozenBy='';
  const context:any=saveHost({finished:false,clearInterval:()=>{},timer:1,before:{},key:{},input:{value:'',disabled:false},
   performance:{now:()=>60},engine:{snapshot:()=>({value:'accepted'}),result:()=>result},$:node,resultPanel:(_:unknown,identity:{label:string})=>identity.label,history:[],
-  frozen:null,freezeRun:()=>{frozenBy='finish';return {label:'General practice',baseline:false,test:null,capture:null,pair:null};},
+  frozen:null,freezeRun:()=>{frozenBy='finish';return {label:'General practice'};},
   saveSource:async()=>{saves++;return failedOutcome('retained',false);},
   download:(data:unknown)=>{exported=data;},location:{assign:()=>navigations++}});
  const finish=runInNewContext(`${stripTypeScriptTypes(code)}; finish`,context);
@@ -434,7 +365,7 @@ test('permanently rejected completion keeps export enabled and never navigates',
 });
 
 // Old: 'recommended' parsed as an evidence-backed recommendation carrying the selector's reason. New invariant:
-// it is only a request with no reason or pair; C/D admission alone decides whether Suggested runs.
+// it carries no assumed pair before reading the saved evidence.
 test('practice query supports general, a Suggested request and catalogue-only manual pairs',()=>{
  const code=source.slice(source.indexOf('function parsePracticeChoice('),source.indexOf('async function calibration('));
  const parse=runInNewContext(`${stripTypeScriptTypes(code)}; parsePracticeChoice`,{});
@@ -448,11 +379,11 @@ test('practice query supports general, a Suggested request and catalogue-only ma
 });
 
 
-test('the initial engine uses its selected bank and a Suggested request starts on General before admission', () => {
+test('the initial engine uses its selected bank and a Suggested request starts on General before the model decision', () => {
   const start = source.indexOf('  let practiceChoice = parsePracticeChoice(');
   const end = source.indexOf('  shell(', start);
   const makeStart = source.indexOf('  const makeEngine = ');
-  const makeEnd = source.indexOf('  let engine: Block = ', makeStart);
+  const makeEnd = source.indexOf('  let engine = ', makeStart);
   const setup = stripTypeScriptTypes(source.slice(start, end) + source.slice(makeStart, makeEnd));
   for (const [mode, kind, expected] of [
     ['practice', 'general', practicePrompts],
@@ -477,7 +408,8 @@ test('the initial engine uses its selected bank and a Suggested request starts o
     assert.equal(configuration.manualDrill?.pair, kind === 'manual' ? 'at' : undefined);
     assert.equal(configuration.manualDrill?.source, kind === 'manual' ? 'manual' : undefined);
     assert.deepEqual(new Set(configuration.prompts.map(p => p.id)), new Set(expected.map(p => p.id)));
-    for (const prompt of configuration.prompts) assert.equal(findSavedPrompt(mode, prompt.id)?.text, prompt.text);
+    const texts = new Map(expected.map(prompt => [prompt.id, prompt.text]));
+    for (const prompt of configuration.prompts) assert.equal(texts.get(prompt.id), prompt.text);
   }
 });
 
@@ -527,7 +459,7 @@ test('optional corrupt or deleted origins retain current results, export/delete 
 
 test('assessment from URLs never acquire retest lineage on restart; explicit practice/retest origins retain their contracts',async()=>{
  const handler=restartHandler();
- const makeStart=source.indexOf('  const makeEngine = '),makeEnd=source.indexOf('  let engine: Block = ',makeStart);
+ const makeStart=source.indexOf('  const makeEngine = '),makeEnd=source.indexOf('  let engine = ',makeStart);
  const origin=fixture();origin.settings={...settings(true),durationMs:15000,inputMode:'flow-v1'};
  for(const scenario of ['assessment-from','practice-from','retest'] as const){
   let configuration:any;const mode=scenario==='practice-from'?'practice':'assessment';
@@ -552,49 +484,6 @@ test('assessment from URLs never acquire retest lineage on restart; explicit pra
  }
 });
 
-// New accepted behaviour (no old equivalent), found by the real browser flow (rapid Again while a save settles):
-// a run whose first key lands before the status for this block is prepared never freezes an earlier ordinal.
-test('a run started before its status is fresh is labelled without an ordinal and freezes no test number',()=>{
- const begin=source.indexOf('  const countsNow = () =>'),end=source.indexOf('  // ET-1: completed sources whose save is not confirmed');
- assert.ok(begin>0&&end>begin,'ordered nonempty identity boundaries');
- const coach={...coachUi.baselineView(null),state:'in-progress',counted:2,exact:true,ordinal:3};
- for(const coachFresh of [false,true]){
-  const context:any={coachUi,coach,coachFresh,mode:'assessment',readyCapture:{databaseId:'db'},qwerty:{checked:true},durationMs:30000,
-   sourceAssessmentId:undefined,practiceChoice:{kind:'general'},admitted:null,frozen:null,prepAbort:null,engine:{},isFiniteBlock:()=>false};
-  const {blockIdentity,freezeRun}=runInNewContext(`${stripTypeScriptTypes(source.slice(begin,end))}; ({blockIdentity,freezeRun})`,context);
-  assert.equal(blockIdentity(),coachFresh?'Baseline test 3 of 10':'Baseline test');
-  const frozen=freezeRun();
-  assert.equal(frozen.baseline,true,'it still counts: C decides from the capture, not from the label');
-  assert.equal(frozen.test,coachFresh?3:null);
- }
-});
-
-// New accepted behaviour (D2a oracle): at 60 s the view shows General only because Suggested cannot run there;
-// [use 30 s] carries the person's Suggested request into the settings change instead of rewriting it to General.
-test('use 30 s keeps a Suggested request; without one it changes only the duration',()=>{
- const begin=source.indexOf('  function usePilotDuration()'),end=source.indexOf('  function declareQwerty()');
- assert.ok(begin>0&&end>begin,'ordered nonempty use-30 boundaries');
- for(const suggestedRequested of [true,false]){
-  const clicks:string[]=[];const practiceKind={value:'general'};
-  const context:any={coachUi,practiceKind,suggestedRequested,document:{querySelector:(selector:string)=>({click:()=>clicks.push(`${selector}|${practiceKind.value}`)})}};
-  runInNewContext(`${stripTypeScriptTypes(source.slice(begin,end))}; usePilotDuration()`,context);
-  assert.deepEqual(clicks,[`#duration ui-segmented-control-item[value="30"]|${suggestedRequested?'recommended':'general'}`]);
- }
-});
-
-// New accepted behaviour: a requested Suggested that falls back while locked shows General in the view too.
-test('a locked Suggested fallback clears the request and the selected view together',()=>{
- const begin=source.indexOf('    if (suggestedRequested && !snapshot && coach.state !== \'checking\') {');
- const end=source.indexOf('    if (previous) {',begin);
- assert.ok(begin>0&&end>begin,'ordered nonempty fallback boundaries');
- const context:any={suggestedRequested:true,snapshot:null,coach:{state:'complete-insufficient'},practiceKind:{value:'recommended'},practiceChoice:{kind:'recommended'},
-  pilot:()=>true,locked:()=>true,fellBack:false};
- runInNewContext(stripTypeScriptTypes(source.slice(begin,end)),context);
- assert.equal(context.suggestedRequested,false);assert.equal(context.practiceChoice.kind,'general');
- assert.equal(context.practiceKind.value,'general');assert.equal(context.fellBack,true);
-});
-
-// F admission follow-up (task_338af3c3e8c3). Corrected invariants; root's probe observed the opposite on 026cb69.
 const sliceBetween=(start:string,end:string)=>{const b=source.indexOf(start),e=source.indexOf(end,b+start.length);assert.ok(b>=0&&e>b,`ordered nonempty boundaries: ${start}`);return source.slice(b,e);};
 
 test('timed result headings use only the mode and explicit stored practice metadata', () => {
@@ -605,6 +494,7 @@ test('timed result headings use only the mode and explicit stored practice metad
     [{ mode: 'assessment' }, 'ASSESSMENT'],
     [{ mode: 'practice', manualDrill: { pair: 'th', source: 'manual' } }, 'MANUAL PAIR th'],
     [{ mode: 'practice', practiceFocus: focus }, 'RECOMMENDED PRACTICE'],
+    [{ mode: 'practice', practiceFocus: { source: 'model', pair: 'th' } }, 'SUGGESTED PAIR th'],
     [{ mode: 'practice' }, 'PRACTICE'],
   ];
   for (const [metadata, expected] of cases) {
@@ -612,132 +502,4 @@ test('timed result headings use only the mode and explicit stored practice metad
     render({ ...fixture(), ...metadata }, () => '', (value: string) => { html = value; });
     assert.equal(html.match(/<span class="tag">([^<]+)<\/span>/)?.[1], expected);
   }
-});
-
-test('the first edit belongs to the visible prompt and cannot score against a replacement', () => {
-  const handler = sliceBetween('  const acceptInput = ', "\n  input.addEventListener('input', acceptInput);");
-  const reconstruct = sliceBetween('function reconstructEdit(', '\nconst esc = ');
-  for (const current of [true, false]) {
-    const plan = resolveCertifiedPlan('th')!;
-    const options = { id: 'first-key', mode: 'practice', durationMs: 30000, inputMode: 'flow-v1', qwerty: true } as const;
-    const finite = new TypingEngine({ ...options, prompts: plan.prompts, finite: true });
-    const general = new TypingEngine({ ...options, prompts: [practicePrompts[0]!] });
-    const oldKey = finite.prompt.text[0]!, newKey = general.prompt.text[0]!;
-    assert.notEqual(oldKey, newKey, 'the previously visible first letter would be an error on General');
-    let now = 0, starts = 0;
-    const host: any = { engine: finite, admitted: { plan }, restarting: false, disposed: false, frozen: null,
-      composing: false, input: { value: '' }, before: null, key: null, performance: { now: () => now }, ended,
-      isFiniteBlock: (block: unknown) => block === finite, admissionCurrent: () => current, mode: 'practice',
-      suggestedRequested: true, practiceKind: { value: 'recommended' }, changeNote: '', fellBack: false, coachUi,
-      installBlock: () => { host.engine = general; host.admitted = null; },
-      freezeRun: () => { starts++; host.frozen = {}; }, hint() {}, paint() {},
-    };
-    const accept = runInNewContext(stripTypeScriptTypes(`${reconstruct}\n${handler}\nacceptInput`), host);
-    const insert = (char: string) => {
-      now += 100;
-      const value = host.input.value, end = value.length;
-      host.before = { value, start: end, end, type: 'insertText', data: char };
-      host.key = { key: char, time: now, repeat: false };
-      host.input.value += char;
-      accept({ isComposing: false });
-    };
-    insert(oldKey);
-    if (!current) {
-      assert.equal(host.engine, general);
-      assert.equal(finite.state, 'idle');
-      assert.equal(general.snapshot(now).metrics.attemptedCharacters, 0, 'no attempt for the unseen sentence');
-      assert.equal(host.input.value, '');
-      assert.equal(starts, 0);
-      insert(newKey);
-    }
-    assert.equal(host.engine, current ? finite : general);
-    assert.equal(starts, 1);
-    assert.equal(host.input.value, current ? oldKey : newKey);
-    assert.equal(host.engine.snapshot(now).metrics.accuracy, 100);
-  }
-});
-
-test('an awaited runtime import respects newer preparation, invalidation and a first-key fallback to General',async()=>{
- const code=`${sliceBetween('  const unsubscribe = subscribeStorageInvalidation(','\n\n  // ---- Presentation')}\n${sliceBetween('  async function settleReadyBlock(','\n  function installBlock(')}`;
- for(const race of ['none','invalidation','generation','first-key-fallback'] as const){
-  const snapshot={plan:{pair:'th',planHash:'h'}};const epochs=new WeakMap([[snapshot,0]]);let release!:(v:unknown)=>void;const installed:unknown[]=[];
-  const context:any={disposed:false,restarting:false,coachFresh:true,prepAbort:null,prepGeneration:4,invalidationQueued:false,invalidations:0,engine:{state:'idle'},
-   subscribeStorageInvalidation:(cb:()=>void)=>{context.invalidate=cb;return ()=>{};},setTimeout:()=>{},prepareCoach:()=>{},
-   mode:'practice',untouched:()=>true,admitted:null,suggestedChosen:()=>true,pilot:()=>true,suggestedRequested:true,coach:{state:'complete-ready'},locked:()=>false,
-   admissionCurrent:(s:typeof snapshot)=>s!==null&&epochs.get(s)===context.invalidations,finiteRuntime:()=>new Promise(r=>{release=r;}),
-   admittedBlock:()=>({finite:true}),installBlock:(_b:unknown,s:unknown)=>installed.push(s),coachUi,lastAdmittedPair:null,changeNote:'',fellBack:false,practiceKind:null};
-  const settle=runInNewContext(`${stripTypeScriptTypes(code)}
-; settleReadyBlock`,context);
-  if(race==='first-key-fallback')context.admitted={plan:{pair:'in',planHash:'previous'}};
-  const pending=settle(snapshot);
-  if(race==='invalidation')context.invalidate();
-  if(race==='generation')context.prepGeneration++;
-  if(race==='first-key-fallback'){
-   context.admitted=null;context.suggestedChosen=()=>false; // General is visible and still waiting for its first edit.
-  }
-  release({});await pending;
-  assert.deepEqual(installed,race==='none'?[snapshot]:[],race);
- }
-});
-
-test('a Suggested restart loads the runtime first and admits again when a storage change overtakes its admission',async()=>{
- const handler=restartHandler();
- const blockCode=source.slice(source.indexOf('function admittedBlock('),source.indexOf('/** What a run is'));
- const stale={plan:{pair:'th',planHash:'old',prompts:[{id:'p1',text:'the'}]},focus:{pair:'th'}};
- const fresh={plan:{pair:'th',planHash:'new',prompts:[{id:'p2',text:'this'}]},focus:{pair:'th'}};
- const log:string[]=[];const input={disabled:false,readOnly:false,value:'',focus:()=>{}};
- const context=restartContext({input,params:new URLSearchParams('practice=recommended'),durationMs:30000,historyKey:'true|30000',
-  coach:{...coachUi.baselineView(null),state:'complete-ready'},locked:()=>false,
-  finiteRuntime:async()=>{log.push('runtime');return {createFiniteAdapter:(v:{snapshot:unknown})=>{log.push(`adapter:${(v.snapshot as typeof stale).plan.planHash}`);return {};}};},
-  prepareCoach:async(intent?:{admit?:boolean})=>{
-   const first=!log.some(item=>item.startsWith('admit'));log.push(intent?.admit?'admit':'status');context.coachFresh=true;
-   if(first){context.invalidations++;context.coachFresh=false;return stale;} // a save committed while C admitted
-   return fresh;},
-  crypto:{randomUUID:()=>'00000000-0000-4000-8000-000000000010'},finiteBlock:(adapter:unknown,admitted:unknown)=>({finite:true,adapter,admitted,abort:()=>{}}),
- });
- context.admissionCurrent=(s:unknown)=>s===fresh;
- context.admittedBlock=runInNewContext(`${stripTypeScriptTypes(blockCode)}; admittedBlock`,context);
- await runInNewContext(stripTypeScriptTypes(`(${handler})`),context)();
- assert.deepEqual(log,['runtime','admit','admit','adapter:new'],'runtime first; an overtaken admission is taken again; only the newer plan installs');
- assert.equal(context.admitted,fresh);assert.equal(input.disabled,false);
-});
-
-test('every storage invalidation advances the admission epoch and stales the status',()=>{
- const code=sliceBetween('  const unsubscribe = subscribeStorageInvalidation(','\n\n  // ---- Presentation');
- const context:any={disposed:false,restarting:true,coachFresh:true,prepAbort:null,invalidationQueued:false,invalidations:3,engine:{state:'idle'},
-  subscribeStorageInvalidation:(cb:()=>void)=>{context.invalidate=cb;return ()=>{};},setTimeout:()=>{}};
- runInNewContext(stripTypeScriptTypes(code),context);
- context.invalidate();
- assert.equal(context.invalidations,4,'even while restarting');assert.equal(context.coachFresh,false);
-});
-
-// F fallback-prompts follow-up (task_01ea3afaaab7): actual factory/install source, actual TypingEngine, actual
-// certified th plan and actual General selector. Root's diagnostic observed the opposite on c7f85d1.
-test('a General fallback engine runs exactly the General prompts the app selected and shows; Suggested installs unchanged',()=>{
- assert.equal(source.split('installBlock(null, null);').length-1,2,'both fallbacks (settle step-back, first key) build General inside installBlock');
- assert.ok(!source.includes('installBlock(makeEngine('),'no engine is built from the previous prompts before selection');
- const code=`${sliceBetween('  const makeEngine = ','\n  let engine: Block')}\n${sliceBetween('  function installBlock(','\n  function startTimer(')}`;
- const plan=resolveCertifiedPlan('th');assert.ok(plan);
- const planIds=plan.prompts.map(prompt=>prompt.id);
- let selections=0;
- const host:any={TypingEngine,crypto,CORPUS_VERSION,prompts:plan.prompts.map(prompt=>({...prompt})),mode:'practice',durationMs:30000,practiceChoice:{kind:'recommended'},
-  sourceAssessmentId:undefined,qwerty:{checked:true},engine:null,admitted:{plan},choosePrompts:()=>{selections++;return selectDrillPrompts(null,practicePrompts);},
-  previousPromptText:'',previousResponse:'',lastPromptKey:'',lastState:'',prepare:()=>{},paint:()=>{},startTimer:()=>{}};
- const installBlock=runInNewContext(`${stripTypeScriptTypes(code)}\n; installBlock`,host);
- installBlock(null,null);
- const shown=host.prompts.map((prompt:{id:string})=>prompt.id);
- assert.equal(selections,1,'one selection, no double randomization');assert.equal(host.admitted,null);
- assert.notDeepEqual(shown,planIds,'General is a fresh selection, not the th plan');
- // Type the first two General sentences through the actual engine: what it runs and records is what the app shows.
- const engine=host.engine;let now=0;
- for(const index of [0,1]){
-  const snapshot=engine.snapshot(now);assert.equal(snapshot.prompt.id,shown[index],`engine runs shown prompt ${index}`);
-  const text=`${snapshot.prompt.text} `;
-  for(let i=0;i<text.length;i++){now+=100;assert.equal(engine.edit({start:i,end:i,text:text[i],tracked:true,pressTime:now},now),true);if(index===0&&i===0)assert.equal(engine.snapshot(now).value,text[0],'first character accepted once');}
- }
- assert.deepEqual(engine.submittedSummaries.map((summary:{promptId:string})=>summary.promptId),shown.slice(0,2),'recorded sentence ids are the shown General ids');
- // A Suggested installation keeps its finite block and the plan's prompts.
- const finite={finite:true};const snapshot={plan};
- installBlock(finite,snapshot);
- assert.equal(host.engine,finite);assert.equal(host.admitted,snapshot);assert.deepEqual(host.prompts.map((prompt:{id:string})=>prompt.id),planIds);assert.equal(selections,1);
 });
