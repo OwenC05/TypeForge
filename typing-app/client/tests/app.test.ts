@@ -7,6 +7,7 @@ import { resolveRetest, selectHistory, compatible } from '../src/profile.ts';
 import type { SessionResult, SentenceSummary } from '../src/engine.ts';
 import { newSaveRecord, applyOutcome } from '../src/unsaved.ts';
 import { isFiniteSource } from '../src/finite-practice-result.ts';
+import { FIT_MIN_SENTENCES } from '../src/coach.ts';
 import { TypingEngine } from '../src/engine.ts';
 import { CORPUS_VERSION, practicePrompts, selectPrompts } from '../src/corpus.ts';
 import { manualPairs, selectAssessmentPrompts, selectPairPrompts } from '../src/corpus-v2.ts';
@@ -485,6 +486,25 @@ test('assessment from URLs never acquire retest lineage on restart; explicit pra
 });
 
 const sliceBetween=(start:string,end:string)=>{const b=source.indexOf(start),e=source.indexOf(end,b+start.length);assert.ok(b>=0&&e>b,`ordered nonempty boundaries: ${start}`);return source.slice(b,e);};
+
+test('the Lab explains when the fit check starts until eight sentences have been checked', async () => {
+  const readout = sliceBetween('async function renderCoachReadout()', '\nfunction lab()');
+  const coverage = '<strong>97%</strong> inside the model’s 80% ranges · 61 of 63 pair checks across ';
+  const note = ' · the check starts at 8 sentences.';
+  for (const [sentences, expected] of [
+    [0, 'No pair checks yet across 0 sentences' + note],
+    [7, coverage + '7 sentences' + note],
+    [8, coverage + '8 sentences.'],
+  ] as const) {
+    const target = { innerHTML: '' };
+    const fit = { sentences, coverage: sentences ? 61 / 63 : null, inside: sentences ? 61 : 0, checks: sentences ? 63 : 0 };
+    const render = runInNewContext(`(${readout})`, {
+      $: () => target, readCoach: async () => ({ fit, speed: null, gaps: [] }), FIT_MIN_SENTENCES,
+    });
+    await render();
+    assert.equal(target.innerHTML.match(/<dt>Recent fit<\/dt><dd>(.*?)<\/dd>/)?.[1], expected);
+  }
+});
 
 test('timed result headings use only the mode and explicit stored practice metadata', () => {
   const template = sliceBetween('  shell(`<div class="page-heading"><div><p class="eyebrow">${result.settings.durationMs', "\n  $('#result-date')");
