@@ -116,3 +116,30 @@ Private checks are in `artifacts/b5_independent.py`, `b5_trace.py` and `b5_edges
 NumPy 2.5.3, SciPy 1.18.1, `OPENBLAS_NUM_THREADS=1`. `python -m unittest discover -s ml/tests` passed
 55/55. An initial run failed to resolve the worktree HEAD in WSL. Both a run with explicit Git paths
 and a repeat of the plain command passed.
+
+## Re-check of the amendments
+
+**APPROVE (B6 may run).** On 25 November I checked integrated revision `d1b79e7`, driver and scorer
+`493aee5`, and registration Git LF SHA256 `8acabf31d6eefef24341550d1eef5ab2e95125d82d8f084b3925fedaa266f5ae`.
+
+1. **Execution.** The registered command fixes the roster, inputs and output. The driver verifies the
+   source and data pins, retains missing WPM, invokes B3 in manifest order, writes the derived digest
+   before scoring, and calls the clean scorer once (`b6.py:70–138`, `PREREG.md:47–64`). My validation
+   run rebuilt B3's 15 arrays byte for byte (NPZ SHA256 `1924228510dbf4a84c93f2d097bddd2e7503b3455c8a7762d350bea4f5dbed94`).
+   Every non-D2 metric and the training record matched. The fitted SHA256 was `c813005bd99f23fc88b9370490eb8dffa1792c57d5151d23b07047477fe85158`.
+   The complete output matched B4's SHA256 `96ffdd2cf07dcc690c4bad0292e1489353177fcab0bfd1782cb98c83f8e6fb5f`.
+   A synthetic roster confirmed ordering and handling of absent, malformed and nonfinite WPM.
+2. **Decision.** `PREREG.md:5–7` matches D12 (`.omx/plans/model-coach-20261124/plan.md:25,66`). A prediction pass authorizes L5 to
+   choose pairs in the app and the trial. C1 may replace the current rule after a pass. Claims about
+   practice benefit or superiority over the current rule require prospective evidence.
+3. **Comparator.** At L5 issuance in each half, it ranks bank pairs with at least two observations and
+   a nonempty complement by raw pair mean minus the mean of all other clean intervals, with alphabetical
+   ties (`replay.py:90–100,131–139`). It matched my independent **46/72 hits** and **6/61 same-pair**
+   choices when both halves issued (6/1,007 for either half). L5 had 76/100 and 13/61.
+4. **Information floor and intervals.** At 799 scored typists the result is `fail_insufficient_data`.
+   At 800, a lower bound of 0.020 fails and a larger bound passes (`replay.py:273–283`). Independent beta
+   quantiles or the empty-denominator rule matched all 102 clean binary-rate records, including
+   54.074–100% for 6/6 and an unavailable interval for 0/0 (`replay.py:203–207`).
+
+All 58 tests in the six ML test modules I ran passed. I exercised the driver in validation mode only.
+The fresh and legacy rosters and shards stayed closed. No B6 blocker remains.
