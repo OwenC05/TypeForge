@@ -102,12 +102,14 @@ test('retests keep a v1 or v2 origin, exclude its partial passage and use fresh 
 test('all 100 picker choices shuffle exactly the v2 passages at twice their assessment density', () => {
   assert.equal(new Set(manualPairs).size, 100);
   assert.deepEqual(manualPairs, manualPairs.toSorted());
+  const pairOnly: Readonly<Record<string, string>> = practiceV2.pairOnly;
   const characters = assessmentV2.sentences.reduce((sum, p) => sum + p.text.length, 0);
   for (const pair of manualPairs) {
     const pattern = new RegExp(`(?=${pair})`, 'g'); // count overlapping within-word pairs
     const hits = (text: string) => [...text.matchAll(pattern)].length;
     const assessed = assessmentV2.sentences.reduce((sum, p) => sum + hits(p.text), 0);
-    const expected = practiceV2.sentences.filter(p => hits(p.text) > 0 && hits(p.text) * characters >= 2 * assessed * p.text.length);
+    const expected = practiceV2.sentences.filter(p => (!pairOnly[p.id] || pairOnly[p.id] === pair)
+      && hits(p.text) > 0 && hits(p.text) * characters >= 2 * assessed * p.text.length);
     const selected = selectPairPrompts(pair, () => 0);
     assert.ok(expected.length >= 16, pair);
     assert.equal(selected.length, expected.length);

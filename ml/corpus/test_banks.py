@@ -2,6 +2,7 @@
 
 from collections import Counter
 from fractions import Fraction
+import hashlib
 import json
 from pathlib import Path
 import random
@@ -26,7 +27,9 @@ class CommittedBankTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.assessment = read(b.OUTPUT / "assessment-bank-v2.json")["sentences"]
-        cls.practice = read(b.OUTPUT / "practice-bank-v2.json")["sentences"]
+        practice_bank = read(b.OUTPUT / "practice-bank-v2.json")
+        cls.practice = practice_bank["sentences"]
+        cls.pair_only = practice_bank["pairOnly"]
         cls.frequencies = read(b.HERE / "pair_frequencies.json")
 
     def test_counts_lengths_and_disjoint_banks(self):
@@ -34,12 +37,16 @@ class CommittedBankTests(unittest.TestCase):
         self.assertEqual(len(old), 120)
         ids = {key for key, _ in old}
         used = {text for _, text in old}
-        self.assertEqual((len(self.assessment), len(self.practice)), (600, 292))
+        self.assertEqual((len(self.assessment), len(self.practice)), (600, 406))
+        self.assertEqual(self.pair_only, {"tatoeba-9935723": "ec", "tatoeba-12764794": "ie"})
+        self.assertEqual({p["id"]: len(p["text"]) for p in self.practice if len(p["text"]) > 49},
+                         {"tatoeba-9935723": 51, "tatoeba-12764794": 50})
+        self.assertLessEqual(max(len(p["text"]) for p in self.assessment), 49)
         for prompt in self.practice + self.assessment:
             key, text = prompt["id"], prompt["text"]
             self.assertRegex(key, r"^tatoeba-[1-9][0-9]*$")
             self.assertRegex(text, r"^[a-z]+(?: [a-z]+)+$")
-            self.assertTrue(30 <= len(text) <= 68, key)
+            self.assertTrue(30 <= len(text) <= (53 if key in self.pair_only else 49), key)
             self.assertNotIn(text, used)
             self.assertNotIn(key, ids)
             used.add(text)
@@ -50,16 +57,18 @@ class CommittedBankTests(unittest.TestCase):
                              ("2", b.SOURCE_URL, "CC0-1.0", b.SOURCE_SHA256))
 
     def test_all_100_picker_pairs_have_dense_passages(self):
+        lf = (b.HERE / "pair_frequencies.json").read_text(encoding="utf-8").encode("utf-8")
+        self.assertEqual(hashlib.sha256(lf).hexdigest(), b.FREQUENCIES_SHA256)
         ranked = sorted(self.frequencies["pairs"], key=lambda pair: (-self.frequencies["pairs"][pair]["count"], pair))
         candidates = self.frequencies["candidate_pairs"]
         self.assertEqual(candidates, ranked[:100])
         self.assertEqual(read(b.OUTPUT / "manual-pairs-v2.json"), candidates)
         chars = sum(len(prompt["text"]) for prompt in self.assessment)
         assessed = independent_counts(prompt["text"] for prompt in self.assessment)
-        practice = [(len(p["text"]), independent_counts([p["text"]])) for p in self.practice]
+        practice = [(len(p["text"]), independent_counts([p["text"]]), self.pair_only.get(p["id"])) for p in self.practice]
         for pair in candidates:
             dense = sum(hits[pair] > 0 and hits[pair] * chars >= 2 * assessed[pair] * length
-                        for length, hits in practice)
+                        for length, hits, only in practice if only is None or only == pair)
             self.assertGreaterEqual(dense, b.MIN_DENSE, pair)
 
 
@@ -87,8 +96,16 @@ class SourceBankTests(unittest.TestCase):
             self.assertTrue(all(w.islower() for w in source.split()[1:]))
 
     def test_uniform_assessment_precedes_pair_selection(self):
-        draw = random.Random(20261124).sample(sorted(self.pool), 600)
+        short = sorted(k for k, text in self.pool.items() if len(text) <= 49)
+        draw = random.Random(20261124).sample(short, 600)
         self.assertCountEqual([p["id"] for p in self.assessment], [f"tatoeba-{k}" for k in draw])
+
+    def test_each_exception_is_the_shortest_needed_for_its_pair(self):
+        assessment_ids = {int(p["id"].removeprefix("tatoeba-")) for p in self.assessment}
+        for key, pair in b.PRACTICE_EXCEPTIONS.items():
+            lengths = [len(text) for k, text in self.pool.items() if k not in assessment_ids and pair in text]
+            self.assertLess(sum(n for n in lengths if n <= 49), 3 * 480)
+            self.assertEqual(len(self.pool[key]), min(n for n in lengths if n > 49))
 
     def test_pins_reject_changed_source_and_recover_old_app_inputs(self):
         with TemporaryDirectory(dir=b.CACHE) as temp:
@@ -145,7 +162,8 @@ class WitnessTests(unittest.TestCase):
         rules = json.loads(b.pinned_input("coach-config.json"))["exposure"]
         plans = read(b.CACHE / "plan-witnesses.json")
         self.assertEqual(set(plans), set(read(b.HERE / "pair_frequencies.json")["candidate_pairs"]))
-        general = {p["id"]: p["text"] for p in read(b.OUTPUT / "practice-bank-v2.json")["sentences"]}
+        practice_bank = read(b.OUTPUT / "practice-bank-v2.json")
+        general = {p["id"]: p["text"] for p in practice_bank["sentences"]}
         g_chars = sum(map(len, general.values()))
         assessment = read(b.OUTPUT / "assessment-bank-v2.json")["sentences"]
         a_chars = sum(len(p["text"]) for p in assessment)
@@ -154,7 +172,7 @@ class WitnessTests(unittest.TestCase):
         counts = {k: independent_counts([text]) for k, text in general.items()}
         ratio = Fraction(str(rules["minimumRatio"]))
         for pair, sequences in plans.items():
-            dense = {k for k, text in general.items() if counts[k][pair] > 0 and
+            dense = {k for k, text in general.items() if practice_bank["pairOnly"].get(k, pair) == pair and counts[k][pair] > 0 and
                      counts[k][pair] * a_chars >= 2 * assessed[pair] * len(text)}
             self.assertGreaterEqual(len(dense), max(16, rules["minimumBankPassages"]), pair)
             self.assertEqual(len(sequences), 3, pair)

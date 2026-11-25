@@ -19,12 +19,14 @@ function occurrences(text: string, pair: string): number {
 }
 
 const assessmentCharacters = assessmentPrompts.reduce((sum, prompt) => sum + prompt.text.length, 0);
+const pairOnly: Readonly<Record<string, string>> = practiceBank.pairOnly;
 
 export function selectPairPrompts(pair: string, random = Math.random): Prompt[] {
   if (!manualPairs.includes(pair)) return [];
   const assessed = assessmentPrompts.reduce((sum, prompt) => sum + occurrences(prompt.text, pair), 0);
   // A3 defines dense as at least twice the assessment rate per typed character, including spaces.
-  const dense = practiceBank.sentences.filter(({ text }) => {
+  const dense = practiceBank.sentences.filter(({ id, text }) => {
+    if (pairOnly[id] && pairOnly[id] !== pair) return false;
     const hits = occurrences(text, pair);
     return hits > 0 && hits * assessmentCharacters >= 2 * assessed * text.length;
   });
