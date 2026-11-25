@@ -20,7 +20,7 @@ Run `run_0e7c9914d0b7`. Integration branch `feature/daily-practice`, fast-forwar
 | B6 Fresh test | task_19f360de9685 | ctx_c5537bb4ee88 | tf-fresh-test | none | PASS; merged `9817d02`; released |
 | C1a Coach model in browser | task_8623714a5833 | ctx_43b8a35c56d3 | tf-coach-browser | none | merged `3e7cdcc` (report dropped `b407182`); released |
 | C1b Coach in the app | task_03ad76eb648c | ctx_910d5440cbd9 | tf-coach-app | 5346 | merged `aa86bb6` (`d099b52`) and follow-up `8cfc98a` (`9c216f4`); released |
-| D Docs, verification, PR draft | task_d59daa3f7000 | ctx_274dcaf802a6 | tf-final | 5347 | running from `8e92a86` (blank start; backup `msg_51a106cd33c3`) |
+| D Docs, verification, PR draft | task_d59daa3f7000 | ctx_274dcaf802a6 | tf-final | 5347 | docs `7700d92` reviewed; follow-up `ctx_b82195e407fa` (reopened) running |
 | C1c Fit-check calibration | task_8ff87f1e628b | ctx_729ffefb22e7 | tf-fit-check | none | merged `0acb9d5`; released |
 
 ## Integration order
@@ -115,3 +115,18 @@ A4 first (A9 depends on it), then A6 (both touch `app.ts`), A1, A2, A3, A7, A8 i
   - **Verification.** Full runs in Chromium, Firefox and WebKit, plus Python.
   - **PR draft.** It goes in `artifacts/PR.md`; nothing is pushed.
   - **Untouched.** `docs/pilot/**` waits for Owen's trial choice (phase D1); D only lists stale statements there.
+- 25 Nov: D done (`msg_0b4bb2aa0bf0`, docs `7700d92`; artifacts not committed). Reviewed and approved.
+  - **Docs.**
+    - The README describes Suggested as it now works and adds an L5 result line, with the interval and the trial caveat.
+    - The `ml/README.md` model card covers data, filters, the registered result, fit-check calibration, use and limits.
+    - The `docs/product.md` coach section is rewritten.
+    - The Lab screenshot is retaken from the production build, with 12 natively typed General sentences.
+  - **Verification on `8e92a86`.**
+    - `npm ci` and `npm run check`: 202 passed, 7 skipped.
+    - Python 71/71.
+    - Coach real phase 34/34 in Chromium, Firefox and WebKit.
+    - typing-flow 46/46 (49/49 with harness checks) in Chromium.
+    - P3: 11/11 in Chromium; 10 passed and 1 skipped (a Chromium-only deletion-event case) in Firefox and WebKit.
+  - **Stale Lab text found.** The Ridge limitations still say "historical baseline remains the coach" (`ml/export.py:29` → `benchmark.json:365`). `reportVersion` derives from `evaluation.json` and `artifactSha256` from `model.json`, so the text can be edited in both files without touching any hash.
+  - **Follow-up sent** (reopened as `ctx_b82195e407fa`). Replace the text in both files with "these Ridge predictions do not choose practice pairs". Fix the stale comment at `app.ts:1128`. Drop the PR draft's obsolete risk sentence and restore the emoji its attribution line lost.
+  - **Stale pilot docs** (`preregistration.md:9`, `power.md:54–55`) wait for Owen's trial decision.
