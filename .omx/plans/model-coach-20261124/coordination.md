@@ -19,8 +19,8 @@ Run `run_0e7c9914d0b7`. Integration branch `feature/daily-practice`, fast-forwar
 | B7 Banks in app | task_be02b4a60a14 (+ cap task_42b924e407f4) | ctx_ab049b665909, ctx_6e791ca0a4b1 | tf-banks-v2 | 5345 | merged `fcac88f`, released |
 | B6 Fresh test | task_19f360de9685 | ctx_c5537bb4ee88 | tf-fresh-test | none | PASS; merged `9817d02`; released |
 | C1a Coach model in browser | task_8623714a5833 | ctx_43b8a35c56d3 | tf-coach-browser | none | merged `3e7cdcc` (report dropped `b407182`); released |
-| C1b Coach in the app | task_03ad76eb648c | ctx_910d5440cbd9 | tf-coach-app | 5346 | running from `3e978de` (blank start; backup `msg_63ef664da212`) |
-| C1c Fit-check calibration | task_8ff87f1e628b | ctx_729ffefb22e7 | tf-fit-check | none | blocked at Codex hooks review; waiting for Owen |
+| C1b Coach in the app | task_03ad76eb648c | ctx_910d5440cbd9 | tf-coach-app | 5346 | running from `3e978de`; survey under way (backup `msg_63ef664da212` delivered) |
+| C1c Fit-check calibration | task_8ff87f1e628b | ctx_729ffefb22e7 | tf-fit-check | none | running from `3e978de` |
 
 ## Integration order
 
@@ -71,3 +71,4 @@ A4 first (A9 depends on it), then A6 (both touch `app.ts`), A1, A2, A3, A7, A8 i
   - C1b started blank (0 in · 0 out, 6 warnings), so I sent the backup dispatch `msg_63ef664da212`.
   - C1c stopped at Codex's "Hooks need review" screen (`msg_rest_aaf44aa9e1cd6dec15915030`), with a start deadline of 13:04:42Z. The two changed hooks belong to the understand-anything Codex plugin, which auto-updated to 2.9.8 at 12:54 when the workers started. Owen already has both hooks at `enabled = false` in `~/.codex/config.toml`, and only their recorded content hash changed.
   - Any answer on that screen may write to Owen's global Codex config, so I asked Owen instead of answering it. My recommendation is "Continue without trusting", which keeps them off. If the start times out, restart C1c once that is settled.
+- 25 Nov 12:57Z: C1c's hooks screen was answered outside this session, and C1c then received its brief and started work. The understand-anything hooks are still `enabled = false` with unchanged hashes, so they stay off. C1b received the backup message and is surveying the code.
