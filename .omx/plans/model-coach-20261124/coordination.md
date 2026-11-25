@@ -20,7 +20,7 @@ Run `run_0e7c9914d0b7`. Integration branch `feature/daily-practice`, fast-forwar
 | B6 Fresh test | task_19f360de9685 | ctx_c5537bb4ee88 | tf-fresh-test | none | PASS; merged `9817d02`; released |
 | C1a Coach model in browser | task_8623714a5833 | ctx_43b8a35c56d3 | tf-coach-browser | none | merged `3e7cdcc` (report dropped `b407182`); released |
 | C1b Coach in the app | task_03ad76eb648c | ctx_910d5440cbd9 | tf-coach-app | 5346 | merged `aa86bb6` (`d099b52`) and follow-up `8cfc98a` (`9c216f4`); released |
-| D Docs, verification, PR draft | pending | pending | tf-final | 5347 | starting |
+| D Docs, verification, PR draft | task_d59daa3f7000 | ctx_274dcaf802a6 | tf-final | 5347 | running from `8e92a86` (blank start; backup `msg_51a106cd33c3`) |
 | C1c Fit-check calibration | task_8ff87f1e628b | ctx_729ffefb22e7 | tf-fit-check | none | merged `0acb9d5`; released |
 
 ## Integration order
